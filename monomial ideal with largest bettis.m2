@@ -93,9 +93,10 @@ totalBettiNumbers = (M) -> (
     )
 
 monomialIdealsGivenLengthBiggestBetti = (n) -> (
-    monomialIdeals = monomialIdealsOfLength(n);
-    monomialsAndBetti = apply(monomialIdeals,I->{totalBettiNumbers(I),I});
-    maxBetti = max apply(monomialsAndBetti,i->i#0);
+    planarParts = planarPartitions(n);
+    monomialIdeals = apply(planarParts,i->{i,constructIdeal(i)});
+    monomialsAndBetti = apply(monomialIdeals,I->{totalBettiNumbers(I#1),I#0});
+    maxBetti = max(apply(monomialsAndBetti,i->i#0));
     delete(,apply(monomialsAndBetti,i->if i#0 == maxBetti then i))
     )
 
