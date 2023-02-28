@@ -88,7 +88,7 @@ monomialIdealsOfLength = (n) -> (
 totalBettiNumbers = (M) -> (
     resM = res M;
     bettiM = betti res M;
-    apply(length resM,i->(
+    apply((length resM)+1,i->(
 	    sum delete(,apply(keys bettiM,k->(
 			if k#0 == i then bettiM#k
 			)))
