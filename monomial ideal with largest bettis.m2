@@ -82,6 +82,9 @@ monomialIdealsOfLength = (n) -> (
     )
 
 
+---------------------------------------------------------------------------------------------
+-- Input: A module
+-- Output: A list of the total betti numbers of the input module
 totalBettiNumbers = (M) -> (
     resM = res M;
     bettiM = betti res M;
@@ -92,7 +95,10 @@ totalBettiNumbers = (M) -> (
 	    ))
     )
 
-monomialIdealsGivenLengthBiggestBetti = (n) -> (
+---------------------------------------------------------------------------------------------
+-- Input: A integer n
+-- Output: A list of pairs of planar partitions of n with maximal betti numbers
+planarPartsBiggestBetti = (n) -> (
     planarParts = planarPartitions(n);
     monomialIdeals = apply(planarParts,i->{i,constructIdeal(i)});
     monomialsAndBetti = apply(monomialIdeals,I->{totalBettiNumbers(I#1),I#0});
