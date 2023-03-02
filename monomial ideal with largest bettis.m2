@@ -107,3 +107,12 @@ planarPartsBiggestBetti = (n) -> (
     )
 
 apply(monomialIdealsOfLength(6),i->(totalBettiNumbers(i)))
+
+needsPackage "LexIdeals"
+
+S = QQ[x,y,z,Degrees=>{1,1,2}]
+I = ideal(x*y,z*x)
+IL = lexIdeal(I)
+apply(10,i->hilbertFunction(i,I))
+apply(10,i->hilbertFunction(i,IL))
+
