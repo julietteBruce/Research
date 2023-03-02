@@ -109,10 +109,17 @@ planarPartsBiggestBetti = (n) -> (
 apply(monomialIdealsOfLength(6),i->(totalBettiNumbers(i)))
 
 needsPackage "LexIdeals"
+needsPackage "RandomIdeals"
 
-S = QQ[x,y,z,Degrees=>{1,1,2}]
-I = ideal(x*y,z*x)
+S = QQ[x,y,z,w,Degrees=>{1,1,1,2}]
+I = ideal(x*y,z^2*x)
 IL = lexIdeal(I)
 apply(10,i->hilbertFunction(i,I))
 apply(10,i->hilbertFunction(i,IL))
 
+I = randomMonomialIdeal({2,2,4},S)
+IL = lexIdeal(I)
+apply(10,i->hilbertFunction(i,I))
+apply(10,i->hilbertFunction(i,IL))
+                4
+o26 = ideal (y*z, w, z )
