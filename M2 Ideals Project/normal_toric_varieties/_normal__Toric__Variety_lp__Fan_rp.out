@@ -1,0 +1,42 @@
+-- -*- M2-comint -*- hash: -994568092
+
+i1 : F = faceFan convexHull (id_(ZZ^3) | -id_(ZZ^3))
+
+o1 = F
+
+o1 : Fan
+
+i2 : rays F
+
+o2 = | -1 1 0  0 0  0 |
+     | 0  0 -1 1 0  0 |
+     | 0  0 0  0 -1 1 |
+
+              3        6
+o2 : Matrix ZZ  <--- ZZ
+
+i3 : maxCones F
+
+o3 = {{0, 2, 4}, {1, 2, 4}, {0, 3, 4}, {1, 3, 4}, {0, 2, 5}, {1, 2, 5}, {0,
+     ------------------------------------------------------------------------
+     3, 5}, {1, 3, 5}}
+
+o3 : List
+
+i4 : X = normalToricVariety F;
+
+i5 : assert (transpose matrix rays X == rays F and max X == sort maxCones F)
+
+i6 : X1 = time normalToricVariety ({{-1,-1},{1,0},{0,1}}, {{0,1},{1,2},{0,2}})
+     -- used 0.000026713 seconds
+
+o6 = X1
+
+o6 : NormalToricVariety
+
+i7 : X2 = time normalToricVariety fan {posHull matrix {{-1,1},{-1,0}}, posHull matrix {{1,0},{0,1}}, posHull matrix{{-1,0},{-1,1}}};
+     -- used 0.0504141 seconds
+
+i8 : assert (sort rays X1 == sort rays X2 and max X1 == max X2)
+
+i9 : 
