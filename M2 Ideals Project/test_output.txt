@@ -1,0 +1,28 @@
+E0 =  N = {1,1,2}
+
+E1 =  pts = 6
+
+E2 =  (S, E) = productOfProjectiveSpaces N
+
+E3 =  irr = intersect for n to #N-1 list (
+
+         ideal select(gens S, i -> (degree i)#n == 1)
+
+         );
+
+E4 =  I = saturate intersect for i to pts - 1 list (
+
+         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+
+         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+
+         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
+
+         P + Q + R
+
+         );
+
+E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
+
+E6 =  isVirtual(irr, C)
+
