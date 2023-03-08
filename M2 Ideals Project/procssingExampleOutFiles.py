@@ -31,16 +31,16 @@ def is_combinded_lines(line: str) -> bool:
 
 def add_input_syntax(line: str) -> bool:
 	if is_input_line(line):
-		return line
+		return f"{line}\n"
 	else:
-		return f"i: {line}"
+		return f"i: {line.lstrip()}\n"
 
 def break_combinded_lines(lines: List[str]) -> List[str]:
 	new_lines = []
 	for line in lines:
 		if is_combinded_lines(line):
 			broken_line = line.split(';')
-			for part_of_line in broken_line:
+			for part_of_line in get_nonempty_lines_from_list(broken_line):
 				new_lines.append(add_input_syntax(part_of_line))
 		else:
 			new_lines.append(line)
@@ -58,7 +58,7 @@ def write_line_to_file(line: str, output_file_name: str) -> None:
 def write_list_of_example_ids_to_file(example_ids: List[str], output_file_name: str) -> None:
 	with open(output_file_name, 'a') as output_file:
 		seperator = ", "
-		list_as_string = f"example_ids = {{{seperator.join(example_ids)}}}\n"
+		list_as_string = f"exampleIDS = {{{seperator.join(example_ids)}}}\n"
 		output_file.write(list_as_string)
 
 def process_example_out_file(input_file_name: str, output_file_name: str, delimiter_pairs: List[str], file_number: int = 0) -> List[str]:
@@ -82,7 +82,7 @@ def process_example_out_file(input_file_name: str, output_file_name: str, delimi
  
 def process_package_example_out(package_directory: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	file_number = 0
-	write_line_to_file(f"LoadPackage \"{package_directory}\"\n", output_file_name)
+	write_line_to_file(f"loadPackage \"{package_directory}\"\n", output_file_name)
 	overview_dictionary = {}
 	package_example_ids = []
 	for file_name in os.scandir(package_directory):
@@ -94,13 +94,13 @@ def process_package_example_out(package_directory: str, output_file_name: str, d
 	write_list_of_example_ids_to_file(package_example_ids,output_file_name)
 	print(overview_dictionary)
 
-package_directory = 'VirtualResolutions'
-output_file_name = 'VirRes-test.txt'
+# package_directory = 'VirtualResolutions'
+# output_file_name = 'VirRes-test.txt'
 input_file_name = 'VirtualResolutions/_multigraded__Regularity.out'
 delimiter_pairs = ['()', '[]', "{}"]
 
-lines = ['i2 : S = ring X', ' B = ideal X', '\n']
-# print(get_nonempty_lines_from_list(lines))
+package_directory = 'NormalToricVarieties'
+output_file_name = 'NTV-test.txt'
 # process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
 process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 

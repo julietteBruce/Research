@@ -1,0 +1,3471 @@
+loadPackage "NormalToricVarieties"
+
+F0E0 =  A = affineSpace 2;
+
+F0E1 =  P = toricProjectiveSpace 2;
+
+F0E2 =  f = map(P, A, 1)
+
+F0E3 =  isDominant f
+
+F0E4 =  isSurjective f
+
+F0E5 =  assert (isWellDefined f and isDominant f and not isSurjective f)
+
+F0E6 =  X = toricProjectiveSpace 1;
+
+F0E7 =  g = map(P, X, matrix{{2}, {1}})
+
+F0E8 =  isDominant g
+
+F0E9 =  I = ideal g
+
+F0E10 =  assert (isWellDefined g and not isDominant g and codim I === 1)
+
+F1E0 =  PP2 = toricProjectiveSpace 2;
+
+F1E1 =  orbits (PP2,0)
+
+F1E2 =  orbits (PP2,1)
+
+F1E3 =  orbits (PP2,2)
+
+F1E4 =  PP3 = toricProjectiveSpace 3;
+
+F1E5 =  orbits (PP3,0)
+
+F1E6 =  orbits (PP3,1)
+
+F1E7 =  orbits (PP3,2)
+
+F1E8 =  orbits (PP3,3)
+
+F1E9 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F1E10 =  orbits (X,0)
+
+F1E11 =  assert (orbits (X,0) === max X)
+
+F1E12 =  orbits (X,1)
+
+F1E13 =  orbits (X,2)
+
+F1E14 =  assert (orbits (X,2) === apply (#rays X, i -> {i}))
+
+F1E15 =  orbits (X,3)
+
+F1E16 =  assert (orbits (X,3) === {{}})
+
+F1E17 =  U = normalToricVariety ({{4,-1,0},{0,1,0}},{{0,1}});
+
+F1E18 =  assert isDegenerate U
+
+F1E19 =  orbits (U,0)
+
+F1E20 =  orbits (U,1)
+
+F1E21 =  orbits (U,2)
+
+F1E22 =  orbits (U,3)
+
+F1E23 =  dim U
+
+F2E0 =  PP2 = toricProjectiveSpace 2;
+
+F2E1 =  cartierDivisorGroup PP2
+
+F2E2 =  assert (isSmooth PP2 and weilDivisorGroup PP2 === cartierDivisorGroup PP2)
+
+F2E3 =  assert (id_(cartierDivisorGroup PP2) == fromCDivToWDiv PP2)
+
+F2E4 =  FF7 = hirzebruchSurface 7;
+
+F2E5 =  cartierDivisorGroup FF7
+
+F2E6 =  assert (isSmooth FF7 and weilDivisorGroup FF7 === cartierDivisorGroup FF7)
+
+F2E7 =  assert (id_(cartierDivisorGroup FF7) == fromCDivToWDiv FF7)
+
+F2E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0,1}});
+
+F2E9 =  assert (isSimplicial U and not isSmooth U and not isComplete U)
+
+F2E10 =  cartierDivisorGroup U
+
+F2E11 =  weilDivisorGroup U
+
+F2E12 =  prune coker fromCDivToWDiv U
+
+F2E13 =  assert ( (coker fromCDivToWDiv U) ** QQ == 0)
+
+F2E14 =  X = weightedProjectiveSpace {1,2,2,3,4};
+
+F2E15 =  assert (isSimplicial X and not isSmooth X and isComplete X)
+
+F2E16 =  cartierDivisorGroup X
+
+F2E17 =  weilDivisorGroup X
+
+F2E18 =  prune coker fromCDivToWDiv X
+
+F2E19 =  assert (rank coker fromCDivToWDiv X === 0)
+
+F2E20 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F2E21 =  assert (not isSimplicial Q and not isComplete Q)
+
+F2E22 =  cartierDivisorGroup Q
+
+F2E23 =  weilDivisorGroup Q
+
+F2E24 =  prune coker fromCDivToWDiv Q
+
+F2E25 =  assert (rank coker fromCDivToWDiv Q === 1)
+
+F2E26 =  Y = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F2E27 =  assert (not isSimplicial Y and isComplete Y)
+
+F2E28 =  cartierDivisorGroup Y
+
+F2E29 =  weilDivisorGroup Y
+
+F2E30 =  prune cokernel fromCDivToWDiv Y
+
+F2E31 =  assert (rank coker fromCDivToWDiv Y === 4)
+
+F3E0 =  FF3 = hirzebruchSurface 3;
+
+F3E1 =  rays FF3
+
+F3E2 =  max FF3
+
+F3E3 =  dim FF3
+
+F3E4 =  ring FF3
+
+F3E5 =  degrees ring FF3
+
+F3E6 =  ideal FF3
+
+F3E7 =  assert (isWellDefined FF3 and isProjective FF3 and isSmooth FF3)
+
+F3E8 =  FF0 = hirzebruchSurface (0, CoefficientRing => ZZ/32003, Variable => y);
+
+F3E9 =  rays FF0
+
+F3E10 =  max FF0
+
+F3E11 =  ring FF0
+
+F3E12 =  degrees ring FF0
+
+F3E13 =  I = ideal FF0
+
+F3E14 =  decompose I
+
+F3E15 =  assert (isWellDefined FF0 and isProjective FF3 and isSmooth FF3)
+
+F3E16 =  nefGenerators FF3
+
+F3E17 =  nefGenerators FF0
+
+F4E0 =  P = toricProjectiveSpace 1;
+
+F4E1 =  X = P ** P;
+
+F4E2 =  f = X^[0]
+
+F4E3 =  pullback(f, P_0)
+
+F4E4 =  pullback(f, 2*P_0 - 6*P_1)
+
+F4E5 =  assert (isWellDefined f and f == map(P, X, matrix {{1,0}}))
+
+F4E6 =  A = affineSpace 2, max A
+
+F4E7 =  B = toricBlowup({0,1}, A);
+
+F4E8 =  g = B^[]
+
+F4E9 =  pullback(g, A_0)
+
+F4E10 =  pullback(g, -3*A_0 + 7*A_1)
+
+F5E0 =  PP2 = toricProjectiveSpace 2;
+
+F5E1 =  h0 = hilbertPolynomial PP2
+
+F5E2 =  factor h0
+
+F5E3 =  h1 = hilbertPolynomial (ring PP2, Projective => false)
+
+F5E4 =  assert (h0 === sub(h1, (ring h1)_0 => (ring h0)_0))
+
+F5E5 =  PP3 = toricProjectiveSpace 3;
+
+F5E6 =  h2 = hilbertPolynomial PP3
+
+F5E7 =  factor h2
+
+F5E8 =  h3 = hilbertPolynomial (ring PP3, Projective => false)
+
+F5E9 =  assert (h2 === sub(h3, (ring h3)_0 => (ring h2)_0))
+
+F5E10 =  X = toricProjectiveSpace (2) ** toricProjectiveSpace (3);
+
+F5E11 =  h3 = hilbertPolynomial X
+
+F5E12 =  factor h3
+
+F5E13 =  a = random (9)
+
+F5E14 =  FFa = hirzebruchSurface a;
+
+F5E15 =  h4 = hilbertPolynomial FFa
+
+F5E16 =  R = ring h4;
+
+F5E17 =  assert (h4 == R_0 * R_1 + (a/2)*R_1^2 + R_0 + ((a+2)/2)*R_1 + 1)
+
+F6E0 =  X0 = hirzebruchSurface 2;
+
+F6E1 =  degrees ring X0
+
+F6E2 =  chi OO X0_2
+
+F6E3 =  latticePoints X0_2
+
+F6E4 =  assert all ({{1,0},{0,1},{1,1},{2,1},{1,2}}, p -> (
+
+             D := p#0 * X0_2 + p#1 * X0_3;
+
+             isNef D and chi OO D == rank source latticePoints D
+
+             )
+
+         )
+
+F6E5 =  chi OO (2 * X0_1)
+
+F6E6 =  assert not isNef (2 * X0_1)
+
+F7E0 =  PP2 = toricProjectiveSpace 2;
+
+F7E1 =  HH^0 (PP2, OO_PP2(1))
+
+F7E2 =  matrix table (reverse toList (0..2), toList (-10..5),  (i,j) -> rank HH^i (PP2, OO_PP2(j-i)))
+
+F7E3 =  FF2 = hirzebruchSurface 2;
+
+F7E4 =  HH^0 (FF2, OO_FF2(1,1))
+
+F7E5 =  matrix table (reverse toList (-7..7), toList (-7..7),  (i,j) -> rank HH^0 (FF2, OO_FF2(j,i)))
+
+F7E6 =  matrix table (reverse toList (-7..7), toList (-7..7),  (i,j) -> rank HH^1 (FF2, OO_FF2(j,i)))
+
+F7E7 =  matrix table (reverse toList (-7..7), toList (-7..7),  (i,j) -> rank HH^2 (FF2, OO_FF2(j,i)))
+
+F8E0 =  nefGenerators toricProjectiveSpace 1
+
+F8E1 =  nefGenerators toricProjectiveSpace 3
+
+F8E2 =  nefGenerators normalToricVariety ( id_(ZZ^3) | - id_(ZZ^3))
+
+F8E3 =  nefGenerators hirzebruchSurface 7
+
+F8E4 =  nefGenerators kleinschmidt (3,{0,1})
+
+F8E5 =  nefGenerators smoothFanoToricVariety (2,3)
+
+F8E6 =  nefGenerators smoothFanoToricVariety (3,12)
+
+F8E7 =  nefGenerators smoothFanoToricVariety (4,90)
+
+F8E8 =  nefGenerators smoothFanoToricVariety (2,4)
+
+F8E9 =  nefGenerators smoothFanoToricVariety (3,16)
+
+F8E10 =  nefGenerators smoothFanoToricVariety (4,120)
+
+F8E11 =  X = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,2},{0,0,-1},{-1,1,-1},{-1,0,-1},{-1,-1,0}},{{0,1,2},{0,2,3},{0,3,4},{0,4,5},{0,1,5},{1,2,7},{2,3,7},{3,4,7},{4,5,6},{4,6,7},{5,6,7},{1,5,7}});
+
+F8E12 =  assert (isComplete X and not isProjective X and isSmooth X)
+
+F8E13 =  picardGroup X
+
+F8E14 =  assert (nefGenerators X == 0)
+
+F9E0 =  X1 = hirzebruchSurface 2;
+
+F9E1 =  assert (isNef X1_0 and not isAmple X1_0)
+
+F9E2 =  assert not isNef X1_1
+
+F9E3 =  assert (isNef X1_2 and not isAmple X1_2)
+
+F9E4 =  assert (isNef X1_3 and not isAmple X1_3)
+
+F9E5 =  X2 = weightedProjectiveSpace {2,3,5};
+
+F9E6 =  D = X2_1 - X2_0
+
+F9E7 =  assert (isNef D and HH^0(X2, OO D) == 0)
+
+F9E8 =  assert all (dim X2, i -> HH^i(X2, OO D) == 0)
+
+F9E9 =  assert not isCartier D
+
+F9E10 =  assert isCartier (30*D)
+
+F9E11 =  HH^0 (X2, OO (30*D))
+
+F9E12 =  assert all (dim X2 -1, i -> HH^(i+1)(X2, OO (30*D)) == 0)
+
+F9E13 =  X3 = normalToricVariety({{1,0,0},{0,1,0},{0,0,1},{0,-1,2},{0,0,-1},{-1,1,-1},{-1,0,-1},{-1,-1,0}},{{0,1,2},{0,2,3},{0,3,4},{0,4,5},{0,1,5},{1,2,7},{2,3,7},{3,4,7},{4,5,6},{4,6,7},{5,6,7},{1,5,7}});
+
+F9E14 =  assert (isComplete X3 and not isProjective X3)
+
+F9E15 =  assert not any (#rays X3, i -> isNef X3_i)
+
+F9E16 =  assert isNef (0*X3_1)
+
+F9E17 =  assert (nefGenerators X3 == 0)
+
+F9E18 =  X4 = kleinschmidt (9,{1,2,3});
+
+F9E19 =  assert (isNef X4_0 and not isAmple X4_0)
+
+F9E20 =  assert all (dim X4 - 1, i -> HH^(i+1)(X4, OO X4_0) == 0)
+
+F9E21 =  D = X4_0 + X4_4
+
+F9E22 =  assert (isNef D and isAmple D)
+
+F9E23 =  assert all (dim X4 - 1, i -> HH^(i+1)(X4, OO D) == 0)
+
+F10E0 =  Y0 = toricProjectiveSpace 1;
+
+F10E1 =  Y1 = hirzebruchSurface 3;
+
+F10E2 =  X = Y0 ** Y1;
+
+F10E3 =  X_[0]
+
+F10E4 =  assert (isWellDefined X_[0] and source X_[0] === Y0 and target X_[0] === X)
+
+F10E5 =  X_[1]
+
+F10E6 =  assert (isWellDefined X_[1] and source X_[1] === Y1 and target X_[1] === X)
+
+F10E7 =  assert (X^[0] * X_[0] == id_Y0 and X^[1] * X_[1] == id_Y1)
+
+F10E8 =  assert (X^[1] * X_[0] == map(Y1, Y0, 0) and X^[0] * X_[1] == map(Y0, Y1, 0))
+
+F10E9 =  X_[0,1]
+
+F10E10 =  assert (X_[0,1] == id_X)
+
+F10E11 =  Z = Y0 ^** 3;
+
+F10E12 =  Z_[0]
+
+F10E13 =  Z_[1]
+
+F10E14 =  Z_[2]
+
+F10E15 =  assert all (3, i -> isWellDefined Z_[i] and source Z_[i] === Y0 and target Z_[i] === Z)
+
+F10E16 =  Z_[0,1]
+
+F10E17 =  Z_[0,2]
+
+F10E18 =  Z_[1,2]
+
+F10E19 =  assert (isWellDefined Z_[1,2] and source Z_[1,2] === Y0 ** Y0)
+
+F10E20 =  Z_[0,1,2]
+
+F10E21 =  assert (Z_[0,1,2] == id_Z)
+
+F10E22 =  components Y1
+
+F10E23 =  Y1_[0]
+
+F10E24 =  assert (Y1_[0] == id_Y1)
+
+F11E0 =  PP3 = toricProjectiveSpace 3;
+
+F11E1 =  OmegaPP3 = cotangentSheaf PP3
+
+F11E2 =  assert (prune cotangentSheaf PP3 === cotangentSheaf (PP3, Minimize => true))
+
+F11E3 =  L = prune exteriorPower (3, OmegaPP3)
+
+F11E4 =  assert (L === OO toricDivisor PP3)
+
+F11E5 =  assert (L === prune cotangentSheaf (dim PP3, PP3))
+
+F11E6 =  X = hirzebruchSurface 2;
+
+F11E7 =  OmegaX = cotangentSheaf X
+
+F11E8 =  L = prune exteriorPower(dim X, OmegaX)
+
+F11E9 =  assert (L === OO toricDivisor X)
+
+F11E10 =  assert (L === prune cotangentSheaf(dim X, X))
+
+F11E11 =  Y = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}}, {{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}});
+
+F11E12 =  assert (not isSmooth Y and not isProjective Y)
+
+F11E13 =  OmegaY = cotangentSheaf Y
+
+F11E14 =  prune exteriorPower(dim Y, OmegaY)
+
+F11E15 =  assert (prune exteriorPower(dim Y, OmegaY) === OO toricDivisor Y)
+
+F12E0 =  d = 3;
+
+F12E1 =  PPd = toricProjectiveSpace d;
+
+F12E2 =  A0 = intersectionRing PPd;
+
+F12E3 =  TP = dual cotangentSheaf PPd
+
+F12E4 =  f0 = chern TP
+
+F12E5 =  assert (A0 === ring f0)
+
+F12E6 =  assert (f0 === (1+A0_0)^(d+1))
+
+F12E7 =  assert all(d, i -> leadCoefficient chern (i, TP) == binomial(d+1,i))
+
+F12E8 =  assert (chern TP === sum (d+1, i -> chern (i, TP)))
+
+F12E9 =  X = smoothFanoToricVariety (4, 50);
+
+F12E10 =  A = intersectionRing X;
+
+F12E11 =  Omega = cotangentSheaf X
+
+F12E12 =  f1 = chern Omega
+
+F12E13 =  assert (f1 ===  product (# rays X, i -> chern OO (-X_i)))
+
+F12E14 =  f3 = chern (2, Omega)
+
+F12E15 =  assert (f3 == sum (orbits (X, 2), s -> product (s, i -> A_i)))
+
+F13E0 =  Y0 = toricProjectiveSpace 1;
+
+F13E1 =  Y1 = hirzebruchSurface 3;
+
+F13E2 =  X = Y0 ** Y1;
+
+F13E3 =  X^[0]
+
+F13E4 =  assert isWellDefined X^[0]
+
+F13E5 =  assert (source X^[0] === X)
+
+F13E6 =  assert (target X^[0] === Y0)
+
+F13E7 =  X^[1]
+
+F13E8 =  assert isWellDefined X^[1]
+
+F13E9 =  assert (source X^[1] === X)
+
+F13E10 =  assert (target X^[1] === Y1)
+
+F13E11 =  X^[0,1]
+
+F13E12 =  assert (X^[0,1] == id_X)
+
+F13E13 =  Z = Y0 ^** 3;
+
+F13E14 =  Z^[0]
+
+F13E15 =  Z^[1]
+
+F13E16 =  Z^[2]
+
+F13E17 =  assert all (3, i -> isWellDefined Z^[i] and source Z^[i] === Z and target Z^[i] === Y0)
+
+F13E18 =  Z^[0,1]
+
+F13E19 =  Z^[0,2]
+
+F13E20 =  Z^[1,2]
+
+F13E21 =  assert (isWellDefined Z^[1,2] and target Z^[1,2] === Y0 ** Y0)
+
+F13E22 =  Z^[0,1,2]
+
+F13E23 =  assert (Z^[0,1,2] == id_Z)
+
+F13E24 =  components Y1
+
+F13E25 =  Y1^[0]
+
+F13E26 =  assert (Y1^[0] == id_Y1)
+
+F13E27 =  A = affineSpace 2;
+
+F13E28 =  B = toricBlowup({0,1}, A);
+
+F13E29 =  B^[]
+
+F13E30 =  assert (isWellDefined B^[] and source B^[] === B and target B^[] === A)
+
+F14E0 =  X0 = kleinschmidt(4, {1,3,5});
+
+F14E1 =  E0 = cotangentSheaf X0
+
+F14E2 =  A0 = intersectionRing X0;
+
+F14E3 =  todd E0
+
+F14E4 =  assert (part (0, todd E0) == 1)
+
+F14E5 =  assert (part (1, todd E0) === (1/2) * chern (1, E0))
+
+F14E6 =  assert (part (2, todd E0) === (1/12)*((chern (1, E0))^2 + chern (2, E0)))
+
+F14E7 =  X1 = smoothFanoToricVariety (3, 12);
+
+F14E8 =  E1 = dual cotangentSheaf X1
+
+F14E9 =  A1 = intersectionRing X1;
+
+F14E10 =  f1 = todd E1
+
+F14E11 =  assert (f1 === product(# rays X1, i -> todd OO (X1_i)))
+
+F15E0 =  PP2 = toricProjectiveSpace 2;
+
+F15E1 =  rays PP2
+
+F15E2 =  dim PP2
+
+F15E3 =  weilDivisorGroup PP2
+
+F15E4 =  PP2_0
+
+F15E5 =  PP3 = toricProjectiveSpace 3;
+
+F15E6 =  rays PP3
+
+F15E7 =  dim PP3
+
+F15E8 =  weilDivisorGroup PP3
+
+F15E9 =  FF7 = hirzebruchSurface 7;
+
+F15E10 =  rays FF7
+
+F15E11 =  dim FF7
+
+F15E12 =  weilDivisorGroup FF7
+
+F15E13 =  X = weightedProjectiveSpace {1,2,3};
+
+F15E14 =  rays X
+
+F15E15 =  weilDivisorGroup X
+
+F15E16 =  #rays X == numgens ring X
+
+F16E0 =  X = hirzebruchSurface 1;
+
+F16E1 =  delta = diagonalToricMap X
+
+F16E2 =  assert (isWellDefined delta and source delta === X and target delta === X ^** 2)
+
+F16E3 =  S = ring target delta;
+
+F16E4 =  I = ideal delta
+
+F16E5 =  assert (codim I === dim X)
+
+F16E6 =  X2 = target delta;
+
+F16E7 =  assert (X2^[0] * delta == id_X and X2^[1] * delta == id_X)
+
+F16E8 =  assert (delta == diagonalToricMap(X,2) and delta == diagonalToricMap(X,2,[0,1]))
+
+F16E9 =  X2 = target delta;
+
+F16E10 =  assert (X2_[0] == diagonalToricMap(X,2,[0]))
+
+F16E11 =  assert (X2_[1] == diagonalToricMap(X,2,[1]))
+
+F16E12 =  m = 3;
+
+F16E13 =  largeD = diagonalToricMap(X, m)
+
+F16E14 =  assert (isWellDefined largeD and source largeD === X and target largeD === X ^** m)
+
+F16E15 =  assert (codim ideal largeD === (m-1) * dim X)
+
+F16E16 =  assert (largeD == diagonalToricMap(X, m, [0,1,2]))
+
+F16E17 =  smallD = diagonalToricMap (X, 3, [0,2])
+
+F16E18 =  assert (isWellDefined smallD and source smallD === X and target smallD === X ^** m)
+
+F16E19 =  assert (codim ideal smallD === (m-1) * dim X)
+
+F16E20 =  X3 = target smallD;
+
+F16E21 =  assert (X3^[0] * smallD == id_X and X3^[1] * smallD == map(X,X,0) and
+
+          X3^[2] * smallD == id_X)
+
+F17E0 =  AA2 = affineSpace 2;
+
+F17E1 =  rays AA2
+
+F17E2 =  max AA2
+
+F17E3 =  Bl0 = toricBlowup ({0,1}, AA2);
+
+F17E4 =  rays Bl0
+
+F17E5 =  max Bl0
+
+F17E6 =  C = normalToricVariety ({{1,0,0},{1,1,0},{1,0,1},{1,1,1}}, {{0,1,2,3}});
+
+F17E7 =  assert not isSimplicial C
+
+F17E8 =  Bl1 = toricBlowup ({0,1,2,3}, C);
+
+F17E9 =  rays Bl1
+
+F17E10 =  max Bl1
+
+F17E11 =  assert isSimplicial Bl1
+
+F17E12 =  Bl2 = toricBlowup ({0,1}, C);
+
+F17E13 =  rays Bl2
+
+F17E14 =  max Bl2
+
+F17E15 =  assert isSimplicial Bl2
+
+F17E16 =  assert (rays Bl1 =!= rays Bl2 and max Bl1 =!= max Bl2)
+
+F17E17 =  Bl3 = toricBlowup ({0,1,2,3}, C, {5,3,4});
+
+F17E18 =  rays Bl3
+
+F17E19 =  max Bl3
+
+F17E20 =  assert isSimplicial Bl3
+
+F17E21 =  Bl4 = toricBlowup ({0}, C);
+
+F17E22 =  rays Bl4
+
+F17E23 =  max Bl4
+
+F17E24 =  assert isSimplicial Bl4
+
+F17E25 =  X = normalToricVariety (id_(ZZ^3) | (-id_(ZZ^3)));
+
+F17E26 =  rays X
+
+F17E27 =  max X
+
+F17E28 =  assert (not isSimplicial X and isProjective X)
+
+F17E29 =  orbits (X,1)
+
+F17E30 =  Bl5 = toricBlowup ({0,2}, X);
+
+F17E31 =  Bl6 = toricBlowup ({6,7}, Bl5);
+
+F17E32 =  Bl7 = toricBlowup ({1,5}, Bl6);
+
+F17E33 =  rays Bl7
+
+F17E34 =  max Bl7
+
+F17E35 =  assert (isSimplicial Bl7 and isProjective Bl7)
+
+F17E36 =  Bl8 = toricBlowup ({0}, X);
+
+F17E37 =  Bl9 = toricBlowup ({7}, Bl8);
+
+F17E38 =  assert (rays Bl9 === rays X)
+
+F17E39 =  assert (isSimplicial Bl9 and isProjective Bl9)
+
+F18E0 =  PP2 = toricProjectiveSpace 2;
+
+F18E1 =  FF2 = hirzebruchSurface 2;
+
+F18E2 =  X = FF2 ** PP2;
+
+F18E3 =  assert (# rays X == # rays FF2 + # rays PP2)
+
+F18E4 =  assert (matrix rays X == matrix rays FF2 ++ matrix rays PP2)
+
+F18E5 =  primaryDecomposition ideal X
+
+F18E6 =  flatten (primaryDecomposition \ {ideal FF2,ideal PP2})
+
+F18E7 =  assert (fromWDivToCl FF2 ++ fromWDivToCl PP2 == fromWDivToCl X)
+
+F18E8 =  factors = components X
+
+F18E9 =  assert (# factors === 2)
+
+F18E10 =  assert (factors#0 === FF2)
+
+F18E11 =  assert (factors#1 === PP2)
+
+F19E0 =  PP2 = toricProjectiveSpace 2;
+
+F19E1 =  # rays PP2
+
+F19E2 =  weilDivisorGroup PP2
+
+F19E3 =  FF7 = hirzebruchSurface 7;
+
+F19E4 =  # rays FF7
+
+F19E5 =  weilDivisorGroup FF7
+
+F19E6 =  U = normalToricVariety ({{4,-1},{0,1}},{{0,1}});
+
+F19E7 =  # rays U
+
+F19E8 =  weilDivisorGroup U
+
+F20E0 =  D1 = smallAmpleToricDivisor(2,0)
+
+F20E1 =  assert isVeryAmple D1
+
+F20E2 =  X1 = variety D1;
+
+F20E3 =  assert (isSmooth X1 and isProjective X1)
+
+F20E4 =  rays X1
+
+F20E5 =  D1
+
+F20E6 =  latticePoints D1
+
+F20E7 =  D2 = smallAmpleToricDivisor (2,1);
+
+F20E8 =  assert isVeryAmple D2
+
+F20E9 =  X2 = variety D2;
+
+F20E10 =  assert (isSmooth X2 and isProjective X2)
+
+F20E11 =  rays X2
+
+F20E12 =  D2
+
+F20E13 =  latticePoints D2
+
+F20E14 =  D3 = smallAmpleToricDivisor (2,15);
+
+F20E15 =  assert isVeryAmple D3
+
+F20E16 =  X3 = variety D3;
+
+F20E17 =  assert (isSmooth X3 and isProjective X3)
+
+F20E18 =  rays X3
+
+F20E19 =  D3
+
+F20E20 =  latticePoints D3
+
+F20E21 =  D4 = smallAmpleToricDivisor (2,30);
+
+F20E22 =  assert isVeryAmple D4
+
+F20E23 =  X4 = variety D4;
+
+F20E24 =  assert (isSmooth X4 and isProjective X4)
+
+F20E25 =  rays X4
+
+F20E26 =  D4
+
+F20E27 =  latticePoints D4
+
+F20E28 =  D5 = smallAmpleToricDivisor(3,75);
+
+F20E29 =  assert isVeryAmple D5
+
+F20E30 =  X5 = variety D5;
+
+F20E31 =  assert (isSmooth X5 and isProjective X5)
+
+F20E32 =  assert (# rays X5 === 8)
+
+F20E33 =  D5
+
+F20E34 =  latticePoints D5
+
+F20E35 =  D6 = smallAmpleToricDivisor (3,102);
+
+F20E36 =  assert(isVeryAmple D6)
+
+F20E37 =  X6 = variety D6;
+
+F20E38 =  assert (isSmooth X6 and isProjective X6)
+
+F20E39 =  assert (# rays X6 === 7)
+
+F20E40 =  D6
+
+F20E41 =  latticePoints D6
+
+F21E0 =  PP1 = toricProjectiveSpace 1;
+
+F21E1 =  assert (isSmooth PP1 and isProjective PP1)
+
+F21E2 =  FF7 = hirzebruchSurface 7;
+
+F21E3 =  assert (isSmooth FF7 and isProjective FF7)
+
+F21E4 =  AA3 = affineSpace 3;
+
+F21E5 =  assert (isSmooth AA3 and not isComplete AA3 and # max AA3 === 1)
+
+F21E6 =  X = smoothFanoToricVariety (4,120);
+
+F21E7 =  assert (isSmooth X and isProjective X and isFano X)
+
+F21E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0},{1}});
+
+F21E9 =  assert (isSmooth U and not isComplete U)
+
+F21E10 =  P12234 = weightedProjectiveSpace {1,2,2,3,4};
+
+F21E11 =  assert (not isSmooth P12234 and isSimplicial P12234 and isProjective P12234)
+
+F21E12 =  C = normalToricVariety ({{4,-1},{0,1}},{{0,1}});
+
+F21E13 =  assert (not isSmooth C and isSimplicial C and # max C === 1)
+
+F21E14 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F21E15 =  assert (not isSmooth Q and not isSimplicial Q and not isComplete Q)
+
+F21E16 =  Y = normalToricVariety ( id_(ZZ^3) | - id_(ZZ^3));
+
+F21E17 =  assert (not isSmooth Y and not isSimplicial Y and isProjective Y)
+
+F22E0 =  X = hirzebruchSurface 1;
+
+F22E1 =  Y = toricProjectiveSpace 1;
+
+F22E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F22E3 =  f' = weilDivisorGroup f
+
+F22E4 =  assert (isWellDefined f and source f' == weilDivisorGroup Y and
+
+         target f' == weilDivisorGroup X)
+
+F22E5 =  Z = toricProjectiveSpace 2;
+
+F22E6 =  g = map(Z, X, matrix {{1, 0}, {0, -1}})
+
+F22E7 =  g' = weilDivisorGroup g
+
+F22E8 =  assert (isWellDefined g and source g' == weilDivisorGroup Z and
+
+         target g' == weilDivisorGroup X)
+
+F22E9 =  g'' = classGroup g
+
+F22E10 =  assert(g'' * fromWDivToCl Z  == fromWDivToCl X  * g')
+
+F23E0 =  assert not isProjective affineSpace 1
+
+F23E1 =  assert not isProjective affineSpace 3
+
+F23E2 =  U = normalToricVariety ({{4,-1,0},{0,1,0}},{{0,1}});
+
+F23E3 =  assert (not isProjective U and isDegenerate U)
+
+F23E4 =  assert isProjective toricProjectiveSpace 1
+
+F23E5 =  assert isProjective toricProjectiveSpace 3
+
+F23E6 =  assert isProjective hirzebruchSurface 7
+
+F23E7 =  assert isProjective smoothFanoToricVariety (3,3)
+
+F23E8 =  assert isProjective normalToricVariety (id_(ZZ^3) | -id_(ZZ^3))
+
+F23E9 =  X1 = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}},{{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}});
+
+F23E10 =  assert (isComplete X1 and not isProjective X1 and not isSmooth X1)
+
+F23E11 =  X2 = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,2},{0,0,-1},{-1,1,-1},{-1,0,-1},{-1,-1,0}},{{0,1,2},{0,2,3},{0,3,4},{0,4,5},{0,1,5},{1,2,7},{2,3,7},{3,4,7},{4,5,6},{4,6,7},{5,6,7},{1,5,7}});
+
+F23E12 =  assert (isComplete X2 and not isProjective X2 and isSmooth X2)
+
+F24E0 =  X = hirzebruchSurface 1;
+
+F24E1 =  Y = toricProjectiveSpace 1;
+
+F24E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F24E3 =  f' = classGroup f
+
+F24E4 =  assert (isWellDefined f and source f' == classGroup Y and
+
+         target f' == classGroup X)
+
+F24E5 =  f'' = weilDivisorGroup f
+
+F24E6 =  assert(f' * fromWDivToCl Y  == fromWDivToCl X  * f'')
+
+F24E7 =  Z = toricBlowup({0, 1}, X, {1,2});
+
+F24E8 =  assert (isWellDefined Z and not isSmooth Z)
+
+F24E9 =  g = map(Y, Z, matrix{{1, 0}})
+
+F24E10 =  g' = classGroup g
+
+F24E11 =  g'' = weilDivisorGroup g
+
+F24E12 =  assert(g' * fromWDivToCl Y == fromWDivToCl Z  * g'')
+
+F24E13 =  assert (isWellDefined g and source g' == classGroup Y and
+
+          target g' == classGroup Z)
+
+F25E0 =  toricProjectiveSpace 3
+
+F25E1 =  expression toricProjectiveSpace 3
+
+F25E2 =  rays toricProjectiveSpace 3
+
+F25E3 =  max toricProjectiveSpace 3
+
+F25E4 =  hirzebruchSurface 7
+
+F25E5 =  expression hirzebruchSurface 7
+
+F25E6 =  rays hirzebruchSurface 7
+
+F25E7 =  max hirzebruchSurface 7
+
+F25E8 =  PP2 = toricProjectiveSpace 3
+
+F25E9 =  expression PP2
+
+F25E10 =  FF7 = hirzebruchSurface 7
+
+F25E11 =  expression FF7
+
+F26E0 =  X = hirzebruchSurface 2;
+
+F26E1 =  f = id_X
+
+F26E2 =  assert (isWellDefined f and source f === X and
+
+         target f === X and matrix f === id_(ZZ^(dim X)))
+
+F26E3 =  X2 = X ** X;
+
+F26E4 =  X2^[0,1]
+
+F26E5 =  X2_[0,1]
+
+F26E6 =  assert (X2^[0,1] == id_X2 and X2_[0,1] == id_X2)
+
+F27E0 =  PP2 = toricProjectiveSpace 2;
+
+F27E1 =  D1 = 2*PP2_0 - 7*PP2_1 + 3*PP2_2
+
+F27E2 =  support D1
+
+F27E3 =  D2 = PP2_0-5*PP2_2
+
+F27E4 =  support D2
+
+F27E5 =  support (6*PP2_1)
+
+F28E0 =  X = normalToricVariety (id_(ZZ^3) | - id_(ZZ^3));
+
+F28E1 =  assert not isSimplicial X
+
+F28E2 =  Y1 = makeSimplicial X;
+
+F28E3 =  assert isSimplicial Y1
+
+F28E4 =  assert (rays Y1 === rays X)
+
+F28E5 =  max Y1
+
+F28E6 =  max X
+
+F28E7 =  Y2 = makeSimplicial(X, Strategy => 1);
+
+F28E8 =  assert isSimplicial Y2
+
+F28E9 =  assert (rays Y2 === rays X)
+
+F28E10 =  max Y2
+
+F28E11 =  max Y1 == max Y2
+
+F28E12 =  PP3 = toricProjectiveSpace 3;
+
+F28E13 =  assert isSimplicial PP3
+
+F28E14 =  Z = makeSimplicial PP3;
+
+F28E15 =  assert (rays Z === rays PP3 and max Z === max PP3)
+
+F29E0 =  PP2 = toricProjectiveSpace 2;
+
+F29E1 =  D1 = 2*PP2_0 - 7*PP2_1 + 3*PP2_2
+
+F29E2 =  variety D1
+
+F29E3 =  normalToricVariety D1
+
+F29E4 =  assert(variety D1 === PP2 and normalToricVariety D1 === PP2)
+
+F29E5 =  X = normalToricVariety(id_(ZZ^3) | - id_(ZZ^3));
+
+F29E6 =  D2 = X_0 - 5 * X_3
+
+F29E7 =  variety D2
+
+F29E8 =  assert(X === variety D2 and X === normalToricVariety D2)
+
+F30E0 =  X = hirzebruchSurface 2;
+
+F30E1 =  Y = toricProjectiveSpace 1;
+
+F30E2 =  f = map(Y, X, matrix {{1,0}})
+
+F30E3 =  isProper f
+
+F30E4 =  assert (isWellDefined f and source f === X and
+
+         target f === Y and isProper f)
+
+F30E5 =  A = affineSpace 2;
+
+F30E6 =  B = toricBlowup({0,1}, A);
+
+F30E7 =  g = B^[]
+
+F30E8 =  isProper g
+
+F30E9 =  assert(isWellDefined g and g == map(A, B, 1) and isProper g)
+
+F30E10 =  A = affineSpace 2;
+
+F30E11 =  P = toricProjectiveSpace 2;
+
+F30E12 =  f = map(P, A, 1)
+
+F30E13 =  isProper f
+
+F30E14 =  isDominant f
+
+F30E15 =  assert (isWellDefined f and not isProper f and isDominant f)
+
+F31E0 =  F = faceFan convexHull (id_(ZZ^3) | -id_(ZZ^3))
+
+F31E1 =  rays F
+
+F31E2 =  maxCones F
+
+F31E3 =  X = normalToricVariety F;
+
+F31E4 =  assert (transpose matrix rays X == rays F and max X == sort maxCones F)
+
+F31E5 =  X1 = time normalToricVariety ({{-1,-1},{1,0},{0,1}}, {{0,1},{1,2},{0,2}})
+
+F31E6 =  X2 = time normalToricVariety fan {posHull matrix {{-1,1},{-1,0}}, posHull matrix {{1,0},{0,1}}, posHull matrix{{-1,0},{-1,1}}};
+
+F31E7 =  assert (sort rays X1 == sort rays X2 and max X1 == max X2)
+
+F32E0 =  assert not isDegenerate toricProjectiveSpace 3
+
+F32E1 =  assert not isDegenerate hirzebruchSurface 7
+
+F32E2 =  U = normalToricVariety ({{4,-1,0},{0,1,0}},{{0,1}});
+
+F32E3 =  isDegenerate U
+
+F33E0 =  X = hirzebruchSurface 2;
+
+F33E1 =  Y = toricProjectiveSpace 1;
+
+F33E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F33E3 =  source f
+
+F33E4 =  assert (isWellDefined f and source f === X)
+
+F33E5 =  delta = diagonalToricMap X;
+
+F33E6 =  source delta
+
+F33E7 =  assert (isWellDefined delta and source delta === X)
+
+F33E8 =  assert (numColumns matrix delta == dim X)
+
+F34E0 =  X = smoothFanoToricVariety(3,14);
+
+F34E1 =  Y = hirzebruchSurface 1;
+
+F34E2 =  f = map(Y, X, matrix{{1,0,0},{0,1,0}})
+
+F34E3 =  assert (isWellDefined f and source f === X and target f === Y)
+
+F34E4 =  Z = toricProjectiveSpace 1;
+
+F34E5 =  g = map(Z, Y, matrix{{1, 0}})
+
+F34E6 =  assert (isWellDefined g and source g === Y and target g === Z)
+
+F34E7 =  h = g * f
+
+F34E8 =  assert (isWellDefined h and source h === X and target h === Z)
+
+F34E9 =  X = hirzebruchSurface 1;
+
+F34E10 =  X2 = X ** X;
+
+F34E11 =  delta = diagonalToricMap X
+
+F34E12 =  assert (X2^[0] * delta == id_X and X2^[1] * delta == id_X)
+
+F35E0 =  X = hirzebruchSurface 2;
+
+F35E1 =  Y = toricProjectiveSpace 1;
+
+F35E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F35E3 =  g = matrix f
+
+F35E4 =  assert (isWellDefined f and ring g === ZZ)
+
+F35E5 =  X2 = X ** X;
+
+F35E6 =  iota0 = X2_[0]
+
+F35E7 =  assert (isWellDefined iota0 and source iota0 === X)
+
+F35E8 =  iota1 = X2_[1]
+
+F35E9 =  assert (isWellDefined iota1 and source iota1 === X)
+
+F35E10 =  assert (numColumns g == dim X)
+
+F35E11 =  assert (numRows g == dim Y)
+
+F35E12 =  code (net, ToricMap)
+
+F36E0 =  X = hirzebruchSurface 1;
+
+F36E1 =  Y = toricProjectiveSpace 1;
+
+F36E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F36E3 =  f' = picardGroup f
+
+F36E4 =  assert (isWellDefined f and source f' == picardGroup Y and
+
+         target f' == picardGroup X)
+
+F36E5 =  f'' = cartierDivisorGroup f
+
+F36E6 =  assert(f' * fromCDivToPic Y  == fromCDivToPic X  * f'')
+
+F36E7 =  W = weightedProjectiveSpace {1, 1, 2};
+
+F36E8 =  Z = toricBlowup({0, 1, 4}, (W ** toricProjectiveSpace 1), {0, -2, 1});
+
+F36E9 =  assert (not isSmooth W and not isSmooth Z)
+
+F36E10 =  g = map(W, Z, matrix{{1,0,0},{0,1,0}})
+
+F36E11 =  g' = picardGroup g
+
+F36E12 =  assert (isWellDefined g and source g' == picardGroup W and
+
+          target g' == picardGroup Z)
+
+F36E13 =  g'' = cartierDivisorGroup g
+
+F36E14 =  assert(g' * fromCDivToPic W  == fromCDivToPic Z  * g'')
+
+F37E0 =  rayList = {{1,0},{0,1},{-1,1},{-1,0},{0,-1}}
+
+F37E1 =  coneList = {{0,1},{1,2},{2,3},{3,4},{0,4}}
+
+F37E2 =  X = normalToricVariety (rayList, coneList)
+
+F37E3 =  rays X
+
+F37E4 =  max X
+
+F37E5 =  dim X
+
+F37E6 =  assert (isWellDefined X and isProjective X and isSmooth X)
+
+F37E7 =  PP4 = toricProjectiveSpace 4;
+
+F37E8 =  rays PP4
+
+F37E9 =  max PP4
+
+F37E10 =  dim PP4
+
+F37E11 =  ring PP4
+
+F37E12 =  PP4' = normalToricVariety (rays PP4, max PP4, CoefficientRing => ZZ/32003, Variable => y)
+
+F37E13 =  ring PP4'
+
+F37E14 =  assert (isWellDefined PP4 and isProjective PP4 and isSmooth PP4)
+
+F37E15 =  PP2 = toricProjectiveSpace 2;
+
+F37E16 =  A = fromWDivToCl PP2
+
+F37E17 =  source A == weilDivisorGroup PP2
+
+F37E18 =  target A == classGroup PP2
+
+F37E19 =  degrees ring PP2
+
+F37E20 =  deg = matrix {toList (3:-1)}
+
+F37E21 =  X = normalToricVariety (rays PP2, max PP2, WeilToClass => deg);
+
+F37E22 =  A' = fromWDivToCl X
+
+F37E23 =  source A' == weilDivisorGroup X
+
+F37E24 =  target A' == classGroup X
+
+F37E25 =  degrees ring X
+
+F37E26 =  (matrix A') * (matrix rays X)
+
+F37E27 =  assert (isWellDefined X and isProjective X and isSmooth X)
+
+F37E28 =  rayList = {{1,0},{0,1},{-1,1},{-1,0},{0,-1}};
+
+F37E29 =  coneList = {{0,1},{1,2},{2,3},{3,4},{0,4}};
+
+F37E30 =  Y = normalToricVariety (rayList, coneList);
+
+F37E31 =  fromWDivToCl Y
+
+F37E32 =  nefGenerators Y
+
+F37E33 =  deg = matrix{{1,-1,1,0,0},{0,1,-1,1,0},{0,0,1,-1,1}}
+
+F37E34 =  Y' = normalToricVariety (rays Y, max Y, WeilToClass => deg);
+
+F37E35 =  fromWDivToCl Y'
+
+F37E36 =  nefGenerators Y'
+
+F37E37 =  assert (isWellDefined Y and isWellDefined Y')
+
+F38E0 =  PP2 = toricProjectiveSpace 2;
+
+F38E1 =  D1 = 5*PP2_0
+
+F38E2 =  M1 = elapsedTime monomials D1
+
+F38E3 =  elapsedTime assert (set M1 === set first entries basis(degree D1, ring variety D1))
+
+F38E4 =  FF2 = hirzebruchSurface 2;
+
+F38E5 =  D2 = 2*FF2_0 + 3 * FF2_1
+
+F38E6 =  M2 = elapsedTime monomials D2
+
+F38E7 =  elapsedTime assert (set M2 === set first entries basis (degree D2, ring variety D2))
+
+F38E8 =  X = kleinschmidt (5, {1,2,3});
+
+F38E9 =  D3 = 3*X_0 + 5*X_1
+
+F38E10 =  m3 = elapsedTime # monomials D3
+
+F38E11 =  elapsedTime assert (m3 === #first entries basis (degree D3, ring variety D3))
+
+F39E0 =  X = hirzebruchSurface 1;
+
+F39E1 =  Y = toricProjectiveSpace 1;
+
+F39E2 =  f = map(Y, X, matrix{{1 ,0}})
+
+F39E3 =  isFibration f
+
+F39E4 =  assert (isWellDefined f and isFibration f)
+
+F39E5 =  Z = weightedProjectiveSpace {1, 1, 2};
+
+F39E6 =  g = map(Z, X, matrix{{1, 0}, {0, -2}})
+
+F39E7 =  isFibration g
+
+F39E8 =  assert (isWellDefined g and isProper g and not isFibration g)
+
+F40E0 =  PP2 = toricProjectiveSpace 2;
+
+F40E1 =  assert (isSmooth PP2 and isProjective PP2)
+
+F40E2 =  fromCDivToPic PP2
+
+F40E3 =  assert (fromCDivToPic PP2 === fromWDivToCl PP2)
+
+F40E4 =  X = smoothFanoToricVariety (4,20);
+
+F40E5 =  assert (isSmooth X and isProjective X and isFano X)
+
+F40E6 =  fromCDivToPic X
+
+F40E7 =  assert (fromCDivToPic X === fromWDivToCl X)
+
+F40E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0},{1}});
+
+F40E9 =  assert (isSmooth U and not isComplete U)
+
+F40E10 =  fromCDivToPic U
+
+F40E11 =  assert (fromCDivToPic U === fromWDivToCl U)
+
+F40E12 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F40E13 =  assert (not isSimplicial Q and not isComplete Q)
+
+F40E14 =  fromCDivToPic Q
+
+F40E15 =  assert (fromWDivToCl Q * fromCDivToWDiv Q == fromPicToCl Q * fromCDivToPic Q)
+
+F40E16 =  Y = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F40E17 =  assert (not isSimplicial Y and isProjective Y)
+
+F40E18 =  fromCDivToPic Y
+
+F40E19 =  fromPicToCl Y
+
+F40E20 =  fromPicToCl Y * fromCDivToPic Y
+
+F40E21 =  fromCDivToWDiv Y
+
+F40E22 =  fromWDivToCl Y
+
+F40E23 =  assert (fromWDivToCl Y * fromCDivToWDiv Y == fromPicToCl Y * fromCDivToPic Y)
+
+F41E0 =  AA1 = affineSpace 1
+
+F41E1 =  assert (not isComplete AA1 and isSmooth AA1 and # max AA1 === 1)
+
+F41E2 =  AA3 = affineSpace 3
+
+F41E3 =  assert (not isComplete AA3 and isSmooth AA3 and # max AA3 === 1)
+
+F41E4 =  U = normalToricVariety ({{4,-1,0},{0,1,0}},{{0,1}});
+
+F41E5 =  assert (not isComplete U and isDegenerate U and # max U === 1)
+
+F41E6 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}})
+
+F41E7 =  assert (not isComplete Q and not isSmooth Q and # max Q === 1)
+
+F41E8 =  PP1 = toricProjectiveSpace 1;
+
+F41E9 =  assert (isComplete PP1 and isProjective PP1 and isSmooth PP1)
+
+F41E10 =  FF7 = hirzebruchSurface 7;
+
+F41E11 =  assert (isComplete FF7 and isProjective FF7 and isSmooth FF7 and not isFano FF7)
+
+F41E12 =  X = smoothFanoToricVariety (4,120);
+
+F41E13 =  assert (isComplete X and isProjective X and isSmooth X and isFano X)
+
+F41E14 =  P12234 = weightedProjectiveSpace {1,2,2,3,4};
+
+F41E15 =  assert (isComplete P12234 and isProjective P12234 and not isSmooth P12234 and isSimplicial P12234)
+
+F41E16 =  Y = normalToricVariety ( id_(ZZ^3) | - id_(ZZ^3));
+
+F41E17 =  assert (isComplete Y and isProjective Y and not isSmooth Y and not isSimplicial Y)
+
+F41E18 =  X1 = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}},{{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}});
+
+F41E19 =  assert (isComplete X1 and not isProjective X1 and not isSmooth X1 and isWellDefined X1)
+
+F41E20 =  X2 = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,2},{0,0,-1},{-1,1,-1},{-1,0,-1},{-1,-1,0}},{{0,1,2},{0,2,3},{0,3,4},{0,4,5},{0,1,5},{1,2,7},{2,3,7},{3,4,7},{4,5,6},{4,6,7},{5,6,7},{1,5,7}});
+
+F41E21 =  assert (isComplete X2 and not isProjective X2 and isSmooth X2 and isWellDefined X2)
+
+F41E22 =  X3 = normalToricVariety ({{-1,2,0},{0,-1,0},{1,-1,0},{-1,0,-1},{0,0,-1},{0,1,0},{0,0,1},{1,0,-2}},{{0,1,3},{1,2,3},{2,3,4},{3,4,5},{0,3,5},{0,5,6},{0,1,6},{1,2,6},{2,4,7},{4,5,7},{2,6,7},{5,6,7}});
+
+F41E23 =  assert (isComplete X3 and not isProjective X3 and isSmooth X3 and isWellDefined X3)
+
+F42E0 =  X = hirzebruchSurface 2;
+
+F42E1 =  Y = toricProjectiveSpace 1;
+
+F42E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F42E3 =  target f
+
+F42E4 =  assert (isWellDefined f and target f === Y)
+
+F42E5 =  X2 = X ** X
+
+F42E6 =  pi0 = X2^[0]
+
+F42E7 =  target pi0
+
+F42E8 =  assert (isWellDefined pi0 and target pi0 === X)
+
+F42E9 =  pi1 = X2^[1]
+
+F42E10 =  target pi1
+
+F42E11 =  assert (isWellDefined pi1 and target pi1 === X)
+
+F42E12 =  assert (numRows matrix f == dim Y)
+
+F43E0 =  PP3 = toricProjectiveSpace 3;
+
+F43E1 =  F = OO_PP3 (2) ++ OO_PP3 (5);
+
+F43E2 =  aF = abstractSheaf (PP3, F);
+
+F43E3 =  chern aF
+
+F43E4 =  assert (chern aF === chern (OO_PP3 (2)) * chern (OO_PP3 (5)))
+
+F43E5 =  assert (chern aF == chern F)
+
+F43E6 =  Omega = cotangentSheaf PP3;
+
+F43E7 =  aOmega = abstractSheaf (PP3, Omega);
+
+F43E8 =  chern aOmega
+
+F43E9 =  assert (aOmega === cotangentBundle abstractVariety PP3)
+
+F43E10 =  X = smoothFanoToricVariety (5, 100);
+
+F43E11 =  rank picardGroup X
+
+F43E12 =  nefGenerators X
+
+F43E13 =  G = OO_X (1,1,-1,1,1,2) ++ OO_X (1,1,-1,0,0,1);
+
+F43E14 =  aG = abstractSheaf (X, G);
+
+F43E15 =  A = intersectionRing variety aG;
+
+F43E16 =  chern aG
+
+F43E17 =  assert (chern aG === chern (OO_X (1,1,-1,1,1,2)) * chern (OO_X (1,1,-1,0,0,1)))
+
+F43E18 =  assert (chern aG == chern G)
+
+F43E19 =  Omega = cotangentSheaf X;
+
+F43E20 =  aOmega = abstractSheaf (X, Omega);
+
+F43E21 =  chern aOmega
+
+F43E22 =  assert (aOmega === cotangentBundle abstractVariety X)
+
+F44E0 =  PP3 = toricProjectiveSpace 3;
+
+F44E1 =  S = ring PP3;
+
+F44E2 =  assert (isPolynomialRing S and isCommutative S)
+
+F44E3 =  gens S
+
+F44E4 =  degrees S
+
+F44E5 =  assert (numgens S == #rays PP3)
+
+F44E6 =  coefficientRing S
+
+F44E7 =  X = toricProjectiveSpace(2) ** toricProjectiveSpace(3);
+
+F44E8 =  gens ring X
+
+F44E9 =  degrees ring X
+
+F44E10 =  FF3 = hirzebruchSurface 3;
+
+F44E11 =  gens ring FF3
+
+F44E12 =  degrees ring FF3
+
+F45E0 =  A = affineSpace 4;
+
+F45E1 =  P = toricProjectiveSpace 4;
+
+F45E2 =  iota = map(P, A, 1)
+
+F45E3 =  ideal iota
+
+F45E4 =  assert (isWellDefined iota and ideal iota == 0)
+
+F45E5 =  X = toricProjectiveSpace 1;
+
+F45E6 =  Y = toricProjectiveSpace 3;
+
+F45E7 =  f = map(Y, X, matrix{{1}, {2}, {3}})
+
+F45E8 =  S = ring Y;
+
+F45E9 =  I = ideal f
+
+F45E10 =  assert (isWellDefined f and isHomogeneous I and
+
+          I == saturate(I, ideal Y) and I == ker inducedMap f and
+
+          I == minors(2, matrix{{S_0, S_1, S_2}, {S_1, S_2, S_3}}))
+
+F45E11 =  (Y2 = Y ** Y, R = ring Y2);
+
+F45E12 =  g = diagonalToricMap(Y, 2);
+
+F45E13 =  J = ideal g
+
+F45E14 =  assert (isWellDefined g and isHomogeneous J and
+
+          J == saturate(J, ideal Y2) and
+
+          J == minors(2, matrix{{R_0,R_1,R_2,R_3},{R_4,R_5,R_6,R_7}}))
+
+F46E0 =  PP4 = weightedProjectiveSpace {1,1,1,1};
+
+F46E1 =  rays PP4
+
+F46E2 =  max PP4
+
+F46E3 =  dim PP4
+
+F46E4 =  assert (isWellDefined PP4 and isProjective PP4 and isSmooth PP4)
+
+F46E5 =  X = weightedProjectiveSpace {1,2,3};
+
+F46E6 =  rays X
+
+F46E7 =  max X
+
+F46E8 =  dim X
+
+F46E9 =  ring X
+
+F46E10 =  assert (isWellDefined X and isProjective X and isSimplicial X and not isSmooth X)
+
+F46E11 =  Y = weightedProjectiveSpace ({1,2,2,3,4}, CoefficientRing => ZZ/32003, Variable => y);
+
+F46E12 =  rays Y
+
+F46E13 =  max Y
+
+F46E14 =  dim Y
+
+F46E15 =  ring Y
+
+F46E16 =  assert (isWellDefined Y and isProjective Y and isSimplicial Y and not isSmooth Y)
+
+F46E17 =  classGroup PP4
+
+F46E18 =  degrees ring PP4
+
+F46E19 =  classGroup X
+
+F46E20 =  degrees ring X
+
+F46E21 =  classGroup Y
+
+F46E22 =  degrees ring Y
+
+F47E0 =  PP2 = toricProjectiveSpace 2;
+
+F47E1 =  assert (null === vertices (-PP2_0))
+
+F47E2 =  vertices (0*PP2_0)
+
+F47E3 =  assert isAmple PP2_0
+
+F47E4 =  V1 = vertices (PP2_0)
+
+F47E5 =  X1 = normalToricVariety V1;
+
+F47E6 =  assert (set rays X1 === set rays PP2 and max X1 === max PP2)
+
+F47E7 =  assert isAmple (2*PP2_0)
+
+F47E8 =  V2 = vertices (2*PP2_0)
+
+F47E9 =  X2 = normalToricVariety V2;
+
+F47E10 =  assert (rays X2 === rays X1 and max X2 === max X1)
+
+F47E11 =  FF2 = hirzebruchSurface 2;
+
+F47E12 =  assert not isAmple FF2_2
+
+F47E13 =  V3 = vertices FF2_2
+
+F47E14 =  normalToricVariety V3  -- a degenerated version of the projective line
+
+F47E15 =  assert isDegenerate normalToricVariety V3
+
+F47E16 =  assert not isAmple FF2_3
+
+F47E17 =  V4 = vertices FF2_3
+
+F47E18 =  normalToricVariety V4 -- a weighted projective space
+
+F47E19 =  vertices FF2_1
+
+F47E20 =  assert isAmple (FF2_2 + FF2_3)
+
+F47E21 =  V5 = vertices (FF2_2 + FF2_3)
+
+F47E22 =  X3 = normalToricVariety V5 -- isomorphic Hirzebruch surface
+
+F47E23 =  assert (set rays X3 === set rays FF2)
+
+F48E0 =  tPP2 = toricProjectiveSpace 2;
+
+F48E1 =  aPP2 = abstractVariety tPP2
+
+F48E2 =  assert (dim tPP2 === dim aPP2)
+
+F48E3 =  intersectionRing aPP2
+
+F48E4 =  intersectionRing tPP2
+
+F48E5 =  intersectionRing abstractVariety (tPP2, base())
+
+F48E6 =  intersectionRing abstractVariety (tPP2, base(a))
+
+F48E7 =  PP2 = toricProjectiveSpace 2
+
+F48E8 =  intersectionRing PP2
+
+F48E9 =  minimalPresentation intersectionRing PP2
+
+F48E10 =  minimalPresentation intersectionRing tPP2
+
+F49E0 =  PP2 = toricProjectiveSpace 2;
+
+F49E1 =  D1 = toricDivisor ({2,-7,3}, PP2)
+
+F49E2 =  D2 = 2*PP2_0 + 4*PP2_2
+
+F49E3 =  D1+D2
+
+F49E4 =  D1-D2
+
+F49E5 =  K = toricDivisor PP2
+
+F49E6 =  D1#0
+
+F49E7 =  D1#1
+
+F49E8 =  D1#2
+
+F49E9 =  entries D1
+
+F49E10 =  entries K
+
+F50E0 =  X = kleinschmidt (2,{3});
+
+F50E1 =  rays X
+
+F50E2 =  max X
+
+F50E3 =  FF3 = hirzebruchSurface 3;
+
+F50E4 =  rays FF3
+
+F50E5 =  max FF3
+
+F50E6 =  permutingRays = matrix {{0,0,0,1},{0,1,0,0},{1,0,0,0},{0,0,1,0}}
+
+F50E7 =  latticeAutomorphism = matrix {{0,1},{1,0}}
+
+F50E8 =  assert (latticeAutomorphism * (matrix transpose rays X) * permutingRays == matrix transpose rays FF3)
+
+F50E9 =  X1 = kleinschmidt (3, {0,1});
+
+F50E10 =  isFano X1
+
+F50E11 =  X2 = kleinschmidt (4, {0,0});
+
+F50E12 =  isFano X2
+
+F50E13 =  ring X2
+
+F50E14 =  X3 = kleinschmidt (9, {1,2,3}, CoefficientRing => ZZ/32003, Variable => y);
+
+F50E15 =  isFano X3
+
+F50E16 =  ring X3
+
+F50E17 =  nefGenerators X
+
+F50E18 =  nefGenerators X1
+
+F50E19 =  nefGenerators X2
+
+F50E20 =  nefGenerators X3
+
+F51E0 =  assert all (5, d -> isWellDefined toricProjectiveSpace (d+1))
+
+F51E1 =  setRandomSeed (currentTime ());
+
+F51E2 =  a = sort apply (3, i -> random (7))
+
+F51E3 =  assert isWellDefined kleinschmidt (4,a)
+
+F51E4 =  q = sort apply (5, j -> random (1,9));
+
+F51E5 =  while not all (subsets (q,#q-1), s -> gcd s === 1) do q = sort apply (5, j -> random (1,9));
+
+F51E6 =  q
+
+F51E7 =  assert isWellDefined weightedProjectiveSpace q
+
+F51E8 =  X = new MutableHashTable;
+
+F51E9 =  coneList = max toricProjectiveSpace 2;
+
+F51E10 =  X#1 = normalToricVariety ({{-1,-1},{1,0},{0,1},{-1,0}}, coneList);
+
+F51E11 =  isWellDefined X#1
+
+F51E12 =  debugLevel = 1;
+
+F51E13 =  isWellDefined X#1
+
+F51E14 =  X#2 = normalToricVariety ({},{});
+
+F51E15 =  isWellDefined X#2
+
+F51E16 =  X#3 = normalToricVariety ({{}},{});
+
+F51E17 =  isWellDefined X#3
+
+F51E18 =  X#4 = normalToricVariety ({{}},{{}});
+
+F51E19 =  isWellDefined X#4
+
+F51E20 =  coneList' = {{0,1},{0,3},{1,2},{2,3},{3}};
+
+F51E21 =  X#5 = normalToricVariety ({{-1,0},{0,-1},{1,-1},{0,1}}, coneList');
+
+F51E22 =  isWellDefined X#5
+
+F51E23 =  X#6 = normalToricVariety ({{-1,-1},{1,0},{0,1,1}},coneList);
+
+F51E24 =  isWellDefined X#6
+
+F51E25 =  X#7 = normalToricVariety ({{-1,-1/1},{1,0},{0,1}},coneList);
+
+F51E26 =  isWellDefined X#7
+
+F51E27 =  X#8 = normalToricVariety ({{1,0},{0,1},{-1,0}},{{0,1,2}});
+
+F51E28 =  isWellDefined X#8
+
+F51E29 =  X#9 = normalToricVariety ({{1,0,0},{0,1,0},{0,0,2}},{{0,1,2}});
+
+F51E30 =  isWellDefined X#9
+
+F51E31 =  X#10 = normalToricVariety ({{1,0},{0,1},{1,1}},{{0,1},{1,2}});
+
+F51E32 =  isWellDefined X#10
+
+F51E33 =  debugLevel = 0;
+
+F51E34 =  assert all (keys X, k -> not isWellDefined X#k)
+
+F52E0 =  PP2 = toricProjectiveSpace 2;
+
+F52E1 =  assert (isSmooth PP2 and isProjective PP2)
+
+F52E2 =  fromCDivToWDiv PP2
+
+F52E3 =  assert (fromCDivToWDiv PP2 === id_(weilDivisorGroup PP2))
+
+F52E4 =  X = smoothFanoToricVariety (4,20);
+
+F52E5 =  assert (isSmooth X and isProjective X and isFano X)
+
+F52E6 =  fromCDivToWDiv X
+
+F52E7 =  assert (fromCDivToWDiv X === id_(weilDivisorGroup X))
+
+F52E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0},{1}});
+
+F52E9 =  assert (isSmooth U and not isComplete U)
+
+F52E10 =  fromCDivToWDiv U
+
+F52E11 =  assert (fromCDivToWDiv U === id_(weilDivisorGroup U))
+
+F52E12 =  C = normalToricVariety ({{4,-1},{0,1}},{{0,1}});
+
+F52E13 =  fromCDivToWDiv C
+
+F52E14 =  prune cokernel fromCDivToWDiv C
+
+F52E15 =  assert (rank cokernel fromCDivToWDiv C === 0)
+
+F52E16 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F52E17 =  assert (not isSimplicial Q and not isComplete Q)
+
+F52E18 =  fromCDivToWDiv Q
+
+F52E19 =  prune coker fromCDivToWDiv Q
+
+F52E20 =  assert (rank coker fromCDivToWDiv Q === 1)
+
+F52E21 =  Y = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F52E22 =  assert (not isSimplicial Y and isComplete Y)
+
+F52E23 =  fromCDivToWDiv Y
+
+F52E24 =  prune cokernel fromCDivToWDiv Y
+
+F52E25 =  assert (rank coker fromCDivToWDiv Y === 4)
+
+F53E0 =  U = normalToricVariety ({{4,-1},{0,1}}, {{0,1}});
+
+F53E1 =  assert not isSmooth U
+
+F53E2 =  V = makeSmooth U;
+
+F53E3 =  assert isSmooth V
+
+F53E4 =  rays V, max V
+
+F53E5 =  toList (set rays V - set rays U)
+
+F53E6 =  W = weightedProjectiveSpace {1,2,3,4,5};
+
+F53E7 =  assert (dim W === 4)
+
+F53E8 =  assert (isSimplicial W and not isSmooth W)
+
+F53E9 =  W' = makeSmooth W;
+
+F53E10 =  assert isSmooth W'
+
+F53E11 =  # (set rays W' - set rays W)
+
+F53E12 =  AA1 = affineSpace 1;
+
+F53E13 =  assert (AA1 === makeSmooth AA1)
+
+F53E14 =  PP2 = toricProjectiveSpace 2;
+
+F53E15 =  assert (PP2 === makeSmooth PP2)
+
+F53E16 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F53E17 =  assert (not isSimplicial X and not isSmooth X)
+
+F53E18 =  X' = makeSmooth X;
+
+F53E19 =  assert isSmooth X'
+
+F53E20 =  # (set rays X' - set rays X)
+
+F53E21 =  Z = normalToricVariety ({{-1,-1,1},{3,-1,1},{0,0,1},{1,0,1},{0,1,1},{-1,3,1},{0,0,-1}}, {{0,1,3},{0,1,6},{0,2,3},{0,2,5},{0,5,6},{1,3,4},{1,4,5},{1,5,6},{2,3,4},{2,4,5}});
+
+F53E22 =  assert (isSimplicial Z and not isSmooth Z)
+
+F53E23 =  assert (isComplete Z and not isProjective Z)
+
+F53E24 =  Z' = makeSmooth Z;
+
+F53E25 =  assert isSmooth Z'
+
+F53E26 =  # (set rays Z' - set rays Z)
+
+F53E27 =  Y = normalToricVariety ({{1,0,0,0},{0,1,0,0},{0,0,1,0},{1,-1,1,0},{1,0,-2,0}}, {{0,1,2,3},{0,4}});
+
+F53E28 =  assert (isDegenerate Y and not isSimplicial Y and not isComplete Y)
+
+F53E29 =  Y' = makeSmooth Y;
+
+F53E30 =  assert isSmooth Y'
+
+F53E31 =  # (set rays Y' - set rays Y)
+
+F54E0 =  PP3 = toricProjectiveSpace 3;
+
+F54E1 =  F = sheaf (PP3, ring PP3)
+
+F54E2 =  G = sheaf PP3
+
+F54E3 =  assert (F === G)
+
+F54E4 =  H = OO_PP3
+
+F54E5 =  assert (F === H)
+
+F55E0 =  PP3 = toricProjectiveSpace 3;
+
+F55E1 =  assert (isSmooth PP3 and isProjective PP3)
+
+F55E2 =  picardGroup PP3
+
+F55E3 =  assert (picardGroup PP3 === classGroup PP3 and isFreeModule picardGroup PP3)
+
+F55E4 =  X = smoothFanoToricVariety (4,90);
+
+F55E5 =  assert (isSmooth X and isProjective X and isFano X)
+
+F55E6 =  picardGroup X
+
+F55E7 =  assert (fromCDivToPic X === fromWDivToCl X and isFreeModule picardGroup X)
+
+F55E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0},{1}});
+
+F55E9 =  assert (isSmooth U and not isComplete U and # max U =!= 1)
+
+F55E10 =  picardGroup U
+
+F55E11 =  assert (classGroup U	=== picardGroup U and not isFreeModule picardGroup U)
+
+F55E12 =  AA3 = affineSpace 3
+
+F55E13 =  assert (isSimplicial AA3 and isSmooth AA3 and # max AA3 === 1)
+
+F55E14 =  picardGroup AA3
+
+F55E15 =  assert (picardGroup AA3 == 0 and isFreeModule picardGroup AA3)
+
+F55E16 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F55E17 =  assert (not isSimplicial Q and not isComplete Q and # max Q === 1)
+
+F55E18 =  picardGroup Q
+
+F55E19 =  assert (picardGroup Q == 0 and isFreeModule picardGroup Q)
+
+F55E20 =  Y = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F55E21 =  assert (not isSimplicial Y and isProjective Y)
+
+F55E22 =  picardGroup Y
+
+F55E23 =  assert (rank picardGroup Y === 1 and isFreeModule picardGroup Y)
+
+F56E0 =  PP3 = toricProjectiveSpace 3;
+
+F56E1 =  A0 = intersectionRing PP3
+
+F56E2 =  assert (# rays PP3 === numgens A0)
+
+F56E3 =  ideal A0
+
+F56E4 =  dual monomialIdeal PP3 + ideal ((vars ring PP3) * matrix rays PP3)
+
+F56E5 =  minimalPresentation A0
+
+F56E6 =  for i to dim PP3 list hilbertFunction (i, A0)
+
+F56E7 =  X = toricProjectiveSpace (2) ** toricProjectiveSpace (3);
+
+F56E8 =  A1 = intersectionRing X
+
+F56E9 =  assert (# rays X === numgens A1)
+
+F56E10 =  ideal A1
+
+F56E11 =  minimalPresentation A1
+
+F56E12 =  for i to dim X list hilbertFunction (i, A1)
+
+F56E13 =  Y = time smoothFanoToricVariety(5,100);
+
+F56E14 =  A2 = intersectionRing Y;
+
+F56E15 =  assert (# rays Y === numgens A2)
+
+F56E16 =  ideal A2
+
+F56E17 =  minimalPresentation A2
+
+F56E18 =  for i to dim Y list time hilbertFunction (i, A2)
+
+F57E0 =  AA1 = affineSpace 1;
+
+F57E1 =  rays AA1
+
+F57E2 =  max AA1
+
+F57E3 =  dim AA1
+
+F57E4 =  assert (isWellDefined AA1 and not isComplete AA1 and isSmooth AA1)
+
+F57E5 =  AA3 = affineSpace (3, CoefficientRing => ZZ/32003, Variable => y);
+
+F57E6 =  rays AA3
+
+F57E7 =  max AA3
+
+F57E8 =  dim AA3
+
+F57E9 =  ring AA3
+
+F57E10 =  assert (isWellDefined AA3 and not isComplete AA3 and isSmooth AA3)
+
+F58E0 =  PP3 = toricProjectiveSpace 3;
+
+F58E1 =  assert(isSmooth PP3 and isProjective PP3)
+
+F58E2 =  K = toricDivisor PP3
+
+F58E3 =  assert(all(entries K, i -> i === -1) and isWellDefined K)
+
+F58E4 =  omega = OO K
+
+F58E5 =  assert(HH^3(PP3, OO_PP3(-7) ** omega) === HH^0(PP3, OO_PP3(7)))
+
+F58E6 =  X = normalToricVariety({{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}},{{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}});
+
+F58E7 =  assert(isComplete X and not isProjective X and not isSmooth X)
+
+F58E8 =  KX = toricDivisor X
+
+F58E9 =  assert(all(entries KX, i -> i === -1) and isWellDefined KX)
+
+F58E10 =  isCartier KX
+
+F58E11 =  omegaX = OO KX
+
+F58E12 =  assert( HH^0(X, OO_X(1,2,5)) === HH^3(X, OO_X(-1,-2,-5) ** omegaX) )
+
+F59E0 =  PP2 = toricProjectiveSpace 2;
+
+F59E1 =  OmegaPP2 = cotangentSheaf PP2
+
+F59E2 =  h0 = hilbertPolynomial (PP2, OmegaPP2)
+
+F59E3 =  for i to 10 list hilbertFunction(i, module OmegaPP2)
+
+F59E4 =  R = ring h0;
+
+F59E5 =  for i to 10 list sub(h0, R_0 => i)
+
+F59E6 =  FF3 = hirzebruchSurface 3;
+
+F59E7 =  OmegaFF3 = cotangentSheaf FF3
+
+F59E8 =  h1 = hilbertPolynomial (FF3, OmegaFF3)
+
+F59E9 =  matrix table(5,5, (i,j) -> hilbertFunction({j,4-i}, module OmegaFF3))
+
+F59E10 =  R = ring h1;
+
+F59E11 =  matrix table(5,5, (i,j) -> sub(h1, {R_0 => j, R_1 => 4-i}))
+
+F59E12 =  X = toricProjectiveSpace (1) ** toricProjectiveSpace (1);
+
+F59E13 =  S = ring X;
+
+F59E14 =  I = intersect (ideal (S_1-S_0, S_3-S_2), ideal (S_1-S_0, S_3-2*S_2), ideal (S_1-2*S_0, S_3-S_2), ideal (S_1-2*S_0, S_3-2*S_2), ideal (S_1-3*S_0, S_3-3*S_2), ideal (S_1-4*S_0, S_3-4*S_2))
+
+F59E15 =  assert (I == saturate (I, ideal X))
+
+F59E16 =  hilbertPolynomial (X, I)
+
+F59E17 =  matrix table(5,5, (i,j) -> hilbertFunction({j,4-i}, I))
+
+F60E0 =  PP1 = toricProjectiveSpace 1;
+
+F60E1 =  assert (isSimplicial PP1 and isProjective PP1)
+
+F60E2 =  FF7 = hirzebruchSurface 7;
+
+F60E3 =  assert (isSimplicial FF7 and isProjective FF7)
+
+F60E4 =  AA3 = affineSpace 3;
+
+F60E5 =  assert (isSimplicial AA3 and not isComplete AA3 and # max AA3 === 1)
+
+F60E6 =  P12234 = weightedProjectiveSpace {1,2,2,3,4};
+
+F60E7 =  assert (isSimplicial P12234 and isProjective P12234)
+
+F60E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0,1}});
+
+F60E9 =  assert (isSimplicial U and not isSmooth U)
+
+F60E10 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F60E11 =  assert (not isSmooth Q and not isSimplicial Q and not isComplete Q)
+
+F60E12 =  Y = normalToricVariety ( id_(ZZ^3) | - id_(ZZ^3));
+
+F60E13 =  assert (not isSimplicial Y and isProjective Y)
+
+F61E0 =  PP2 = toricProjectiveSpace 2;
+
+F61E1 =  A1 = fromWDivToCl PP2
+
+F61E2 =  assert ( (target A1, source A1) === (classGroup PP2, weilDivisorGroup PP2) )
+
+F61E3 =  assert ( A1 * matrix rays PP2 == 0)
+
+F61E4 =  X = weightedProjectiveSpace {1,2,2,3,4};
+
+F61E5 =  A2 = fromWDivToCl X
+
+F61E6 =  assert ( (target A2, source A2) === (classGroup X, weilDivisorGroup X) )
+
+F61E7 =  assert ( A2 * matrix rays X == 0)
+
+F61E8 =  Y = normalToricVariety ( id_(ZZ^3) | - id_(ZZ^3));
+
+F61E9 =  A3 = fromWDivToCl Y
+
+F61E10 =  classGroup Y
+
+F61E11 =  assert ( (target A3, source A3) === (classGroup Y, weilDivisorGroup Y) )
+
+F61E12 =  assert ( A3 * matrix rays Y == 0)
+
+F61E13 =  U = normalToricVariety ({{4,-1},{0,1}},{{0,1}});
+
+F61E14 =  A4 = fromWDivToCl U
+
+F61E15 =  classGroup U
+
+F61E16 =  assert ( (target A4, source A4) === (classGroup U, weilDivisorGroup U) )
+
+F61E17 =  assert ( A4 * matrix rays U == 0)
+
+F61E18 =  assert ( transpose matrix degrees ring PP2 === fromWDivToCl PP2)
+
+F61E19 =  assert ( transpose matrix degrees ring X === fromWDivToCl X)
+
+F62E0 =  PP3 = toricProjectiveSpace 3;
+
+F62E1 =  K = toricDivisor PP3
+
+F62E2 =  isEffective K
+
+F62E3 =  isEffective (-K)
+
+F63E0 =  PP3 = toricProjectiveSpace 3;
+
+F63E1 =  F = sheaf (PP3, (ring PP3)^{{1},{2},{3}})
+
+F63E2 =  FF7 = hirzebruchSurface 7;
+
+F63E3 =  G = sheaf (FF7, (ring FF7)^{{1,0},{0,1}})
+
+F64E0 =  PP3 = toricProjectiveSpace 3;
+
+F64E1 =  S = ring PP3
+
+F64E2 =  gens S
+
+F64E3 =  degrees S
+
+F64E4 =  normalToricVariety S
+
+F64E5 =  assert (PP3 === normalToricVariety S)
+
+F64E6 =  variety S
+
+F64E7 =  assert (PP3 === variety S)
+
+F64E8 =  S = QQ[x_0..x_2];
+
+F64E9 =  gens S
+
+F64E10 =  degrees S
+
+F64E11 =  assert (try (normalToricVariety S; false) else true)
+
+F64E12 =  assert (try (variety S; false) else true)
+
+F65E0 =  toricDivisor({2,-7,3}, toricProjectiveSpace 2)
+
+F65E1 =  toricDivisor convexHull (id_(ZZ^3) | - id_(ZZ^3))
+
+F65E2 =  PP2 = toricProjectiveSpace 2;
+
+F65E3 =  D1 = toricDivisor({2,-7,3}, PP2)
+
+F65E4 =  D2 = 2 * PP2_0 - 7 * PP2_1 + 3 * PP2_2
+
+F65E5 =  assert(D1 == D1)
+
+F66E0 =  A = affineSpace 2;
+
+F66E1 =  P = toricProjectiveSpace 2;
+
+F66E2 =  f = map(P, A, 1)
+
+F66E3 =  (R = ring A, S = ring P);
+
+F66E4 =  f' = inducedMap f
+
+F66E5 =  f' vars S
+
+F66E6 =  ideal f == 0
+
+F66E7 =  degrees source f'
+
+F66E8 =  degrees target f'
+
+F66E9 =  assert (isWellDefined f and isHomogeneous f')
+
+F66E10 =  X = hirzebruchSurface 3;
+
+F66E11 =  Y = toricProjectiveSpace 1;
+
+F66E12 =  g = map(Y, X, matrix {{1, 0}})
+
+F66E13 =  (R = ring Y, S = ring X);
+
+F66E14 =  g' = inducedMap g
+
+F66E15 =  degrees source g'
+
+F66E16 =  degrees target g'
+
+F66E17 =  assert (isWellDefined g and isHomogeneous g')
+
+F66E18 =  Z = toricProjectiveSpace 3;
+
+F66E19 =  h = map(Z, Y, matrix {{1}, {2}, {3}})
+
+F66E20 =  (R = ring Y, S = ring X);
+
+F66E21 =  h' = inducedMap h
+
+F66E22 =  degrees source g'
+
+F66E23 =  degrees target g'
+
+F66E24 =  ideal h
+
+F66E25 =  assert (isWellDefined h and isHomogeneous h' and ideal h == ker h')
+
+F66E26 =  code (inducedMap, ToricMap)
+
+F67E0 =  PP2 = toricProjectiveSpace 2;
+
+F67E1 =  P0 = polytope (-PP2_0)
+
+F67E2 =  assert (dim P0 === -1)
+
+F67E3 =  P1 = polytope (0*PP2_0)
+
+F67E4 =  assert (dim P1 == 0)
+
+F67E5 =  assert (vertices P1 == 0)
+
+F67E6 =  P2 = polytope (PP2_0)
+
+F67E7 =  vertices P2
+
+F67E8 =  halfspaces P2
+
+F67E9 =  Y = normalToricVariety matrix {{0,1,0,0,1},{0,0,1,0,1},{0,0,0,1,1},{0,0,0,0,3}};
+
+F67E10 =  assert not isCartier Y_0
+
+F67E11 =  assert isQQCartier Y_0
+
+F67E12 =  P3 = polytope Y_0;
+
+F67E13 =  vertices P3
+
+F67E14 =  vertices polytope Y_0
+
+F67E15 =  halfspaces P3
+
+F67E16 =  Z = normalToricVariety ({{1,0},{1,1},{0,1}}, {{0,1},{1,2}});
+
+F67E17 =  assert not isComplete Z
+
+F67E18 =  D = - toricDivisor Z
+
+F67E19 =  P4 = polytope D;
+
+F67E20 =  rays P4
+
+F67E21 =  vertices P4
+
+F67E22 =  halfspaces P4
+
+F68E0 =  X = normalToricVariety(id_(ZZ^3) | -id_(ZZ^3));
+
+F68E1 =  # rays X
+
+F68E2 =  D = toricDivisor({2,-7,3,0,7,5,8,-8}, X)
+
+F68E3 =  K = toricDivisor X
+
+F68E4 =  D + K
+
+F68E5 =  assert(D + K == K + D)
+
+F68E6 =  D - K
+
+F68E7 =  assert(D - K == -(K-D))
+
+F68E8 =  - K
+
+F68E9 =  assert(-K == (-1)*K)
+
+F68E10 =  7*D
+
+F68E11 =  assert(7*D == (3+4)*D)
+
+F68E12 =  assert(7*D == 3*D + 4*D)
+
+F68E13 =  -3*D + 7*K
+
+F68E14 =  assert(-3*D+7*K == (-2*D+8*K) + (-D-K))
+
+F69E0 =  PP3 = toricProjectiveSpace 3;
+
+F69E1 =  assert isFano PP3
+
+F69E2 =  K = toricDivisor PP3
+
+F69E3 =  isAmple (-K)
+
+F69E4 =  assert all (5, d -> isFano toricProjectiveSpace (d+1))
+
+F69E5 =  assert all (18, i -> (X := smoothFanoToricVariety (3,i); isSmooth X and isFano X))
+
+F69E6 =  X = normalToricVariety matrix {{1,0,-1},{0,1,-1}};
+
+F69E7 =  assert (not isSmooth X and isFano X)
+
+F69E8 =  Y = normalToricVariety matrix {{1,1,-1,-1},{0,1,1,-1}};
+
+F69E9 =  assert (not isSmooth Y and isFano Y)
+
+F69E10 =  Z = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F69E11 =  assert (not isSmooth Z and isFano Z)
+
+F70E0 =  PP4 = toricProjectiveSpace 4;
+
+F70E1 =  B = ideal PP4
+
+F70E2 =  assert (isMonomialIdeal B and B == radical B)
+
+F70E3 =  monomialIdeal PP4
+
+F70E4 =  assert (B == monomialIdeal PP4)
+
+F70E5 =  C = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}}, {{0,1,2,3}});
+
+F70E6 =  ideal C
+
+F70E7 =  assert (monomialIdeal C == 1)
+
+F70E8 =  monomialIdeal affineSpace 3
+
+F70E9 =  assert (ideal affineSpace 3 == 1)
+
+F70E10 =  X = toricProjectiveSpace (2) ** toricProjectiveSpace (3);
+
+F70E11 =  S = ring X;
+
+F70E12 =  B = ideal X
+
+F70E13 =  primaryDecomposition B
+
+F70E14 =  dual monomialIdeal B
+
+F70E15 =  Y = smoothFanoToricVariety (2,3);
+
+F70E16 =  dual monomialIdeal Y
+
+F70E17 =  sort apply (max Y, s -> select (# rays Y, i -> not member (i,s)))
+
+F70E18 =  primaryDecomposition dual monomialIdeal Y
+
+F70E19 =  code (monomialIdeal, NormalToricVariety)
+
+F71E0 =  PP2 = toricProjectiveSpace 3;
+
+F71E1 =  D1 = abstractSheaf (PP2, PP2_0);
+
+F71E2 =  assert (rank D1 === 1 and variety D1 === abstractVariety PP2)
+
+F71E3 =  chern D1
+
+F71E4 =  ch D1
+
+F71E5 =  D2 = abstractSheaf (PP2, PP2_1);
+
+F71E6 =  assert (D2 === D1)
+
+F71E7 =  FF2 = hirzebruchSurface 2
+
+F71E8 =  D3 = abstractSheaf (FF2, 2*FF2_2 + FF2_3)
+
+F71E9 =  assert (rank D3 === 1 and variety D3 === abstractVariety FF2)
+
+F71E10 =  chern D3
+
+F71E11 =  D4 = abstractSheaf (FF2, 4*FF2_0 + FF2_1)
+
+F71E12 =  assert (D4 === D3)
+
+F72E0 =  PP2 = toricProjectiveSpace 2;
+
+F72E1 =  D1 = 2*PP2_0 - 7*PP2_1 + 3*PP2_2
+
+F72E2 =  entries D1
+
+F72E3 =  assert( D1 == toricDivisor(entries D1, variety D1) )
+
+F72E4 =  assert all(entries toricDivisor PP2, i -> i === -1)
+
+F72E5 =  D2 = toricDivisor convexHull (id_(ZZ^3) | - id_(ZZ^3))
+
+F72E6 =  entries D2
+
+F72E7 =  assert all(entries D2, i -> i === 1)
+
+F73E0 =  PP1 = smoothFanoToricVariety (1,0);
+
+F73E1 =  assert (rays PP1 === rays toricProjectiveSpace 1)
+
+F73E2 =  assert (max PP1 === max toricProjectiveSpace 1)
+
+F73E3 =  PP4 = smoothFanoToricVariety (4,0, CoefficientRing => ZZ/32003, Variable => y);
+
+F73E4 =  assert (rays PP4 === rays toricProjectiveSpace 4)
+
+F73E5 =  assert (max PP4 === max toricProjectiveSpace 4)
+
+F73E6 =  W = smoothFanoToricVariety (4,123);
+
+F73E7 =  rays W
+
+F73E8 =  max W
+
+F74E0 =  X = toricProjectiveSpace 1;
+
+F74E1 =  Y = toricProjectiveSpace 2;
+
+F74E2 =  Z = toricProjectiveSpace 3;
+
+F74E3 =  Seq = (X, Y, Z);
+
+F74E4 =  P = cartesianProduct Seq;
+
+F74E5 =  dim P
+
+F74E6 =  assert (dim P == 1+2+3)
+
+F74E7 =  factors = components P
+
+F74E8 =  # factors
+
+F74E9 =  assert (factors#0 === X and factors#1 === Y and factors#2 === Z)
+
+F75E0 =  classGroup toricProjectiveSpace 1
+
+F75E1 =  classGroup hirzebruchSurface 7
+
+F75E2 =  classGroup affineSpace 3
+
+F75E3 =  classGroup normalToricVariety ({{4,-1},{0,1}},{{0,1}})
+
+F75E4 =  classGroup normalToricVariety ( id_(ZZ^3) | - id_(ZZ^3))
+
+F75E5 =  degrees ring toricProjectiveSpace 1
+
+F75E6 =  degrees ring hirzebruchSurface 7
+
+F75E7 =  degrees ring affineSpace 3
+
+F76E0 =  PP3 = toricProjectiveSpace 3;
+
+F76E1 =  assert all (# rays PP3, i -> isAmple PP3_i)
+
+F76E2 =  X1 = hirzebruchSurface 2;
+
+F76E3 =  assert not any (# rays X1, i -> isAmple X1_i)
+
+F76E4 =  D = X1_2 + X1_3
+
+F76E5 =  assert isAmple D
+
+F76E6 =  assert isProjective X1
+
+F76E7 =  X2 = smoothFanoToricVariety (3,5);
+
+F76E8 =  K = toricDivisor X2
+
+F76E9 =  assert isAmple (- K)
+
+F76E10 =  X3 = kleinschmidt (9,{1,2,3});
+
+F76E11 =  K = toricDivisor X3
+
+F76E12 =  assert isAmple (-K)
+
+F77E0 =  PP1 = toricProjectiveSpace 1;
+
+F77E1 =  # rays PP1
+
+F77E2 =  max PP1
+
+F77E3 =  PP3 = toricProjectiveSpace 3;
+
+F77E4 =  # rays PP3
+
+F77E5 =  max PP3
+
+F77E6 =  FF7 = hirzebruchSurface 7;
+
+F77E7 =  # rays FF7
+
+F77E8 =  max FF7
+
+F77E9 =  X = weightedProjectiveSpace {1,2,3};
+
+F77E10 =  # rays X
+
+F77E11 =  max X
+
+F78E0 =  PP2 = toricProjectiveSpace 2;
+
+F78E1 =  D1 = PP2_0
+
+F78E2 =  degree D1
+
+F78E3 =  OO D1
+
+F78E4 =  D2 = 3*PP2_1
+
+F78E5 =  degree D2
+
+F78E6 =  OO D2
+
+F78E7 =  FF2 = hirzebruchSurface 2;
+
+F78E8 =  D3 = -1*FF2_2 + 3*FF2_3
+
+F78E9 =  degree D3
+
+F78E10 =  OO D3
+
+F79E0 =  dim toricProjectiveSpace 1
+
+F79E1 =  dim affineSpace 2
+
+F79E2 =  dim toricProjectiveSpace 5
+
+F79E3 =  dim hirzebruchSurface 7
+
+F79E4 =  dim weightedProjectiveSpace {1,2,2,3,4}
+
+F79E5 =  X = normalToricVariety ({{4,-1,0},{0,1,0}},{{0,1}})
+
+F79E6 =  dim X
+
+F79E7 =  isDegenerate X
+
+F80E0 =  X0 = kleinschmidt(4, {1,2,3});
+
+F80E1 =  E0 = cotangentSheaf X0
+
+F80E2 =  A0 = intersectionRing X0;
+
+F80E3 =  ch E0
+
+F80E4 =  assert (ch (0, E0) == rank E0 )
+
+F80E5 =  assert (ch (1, E0) === chern (1, E0))
+
+F80E6 =  assert (ch (2, E0) === (1/2)*((chern (1, E0))^2 - 2 * chern (2, E0)))
+
+F80E7 =  X1 = smoothFanoToricVariety (4, 100);
+
+F80E8 =  E1 = dual cotangentSheaf X1
+
+F80E9 =  A1 = intersectionRing X1;
+
+F80E10 =  f1 = ch E1
+
+F80E11 =  n = # rays X1
+
+F80E12 =  assert (f1 === (sum(n, i -> ch OO (X1_i)) - (n - dim X1)))
+
+F81E0 =  PP3 = toricProjectiveSpace 3;
+
+F81E1 =  assert (isSmooth PP3 and isProjective PP3)
+
+F81E2 =  fromPicToCl PP3
+
+F81E3 =  assert (fromPicToCl PP3 === id_(classGroup PP3))
+
+F81E4 =  X = smoothFanoToricVariety (4,90);
+
+F81E5 =  assert (isSmooth X and isProjective X and isFano X)
+
+F81E6 =  fromPicToCl X
+
+F81E7 =  assert (fromPicToCl X === id_(classGroup X))
+
+F81E8 =  U = normalToricVariety ({{4,-1},{0,1}},{{0},{1}});
+
+F81E9 =  assert (isSmooth U and not isComplete U and # max U =!= 1)
+
+F81E10 =  fromPicToCl U
+
+F81E11 =  assert (fromPicToCl U === id_(classGroup U))
+
+F81E12 =  P123 = weightedProjectiveSpace {1,2,3};
+
+F81E13 =  assert (isSimplicial P123 and isProjective P123)
+
+F81E14 =  fromPicToCl P123
+
+F81E15 =  assert (fromPicToCl P123 === lcm (1,2,3) * id_(classGroup P123))
+
+F81E16 =  P12234 = weightedProjectiveSpace {1,2,2,3,4};
+
+F81E17 =  assert (isSimplicial P12234 and isProjective P12234)
+
+F81E18 =  fromPicToCl P12234
+
+F81E19 =  assert (fromPicToCl P12234 === lcm (1,2,2,3,4) * id_(classGroup P12234))
+
+F81E20 =  Q = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{1,1,-1}},{{0,1,2,3}});
+
+F81E21 =  assert (not isSimplicial Q and not isComplete Q and # max Q === 1)
+
+F81E22 =  fromPicToCl Q
+
+F81E23 =  assert (fromPicToCl Q == 0)
+
+F81E24 =  Y = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F81E25 =  assert (not isSimplicial Y and isProjective Y)
+
+F81E26 =  fromPicToCl Y
+
+F82E0 =  X0 = toricProjectiveSpace 5;
+
+F82E1 =  A0 = intersectionRing X0;
+
+F82E2 =  ctop dual cotangentSheaf X0
+
+F82E3 =  assert all (5, d -> (leadCoefficient ctop dual cotangentSheaf toricProjectiveSpace (d+1)) == d+2)
+
+F82E4 =  assert all (5, d -> (
+
+             F := dual cotangentSheaf toricProjectiveSpace (d+1);
+
+             chern (d+1, F) === ctop F
+
+             )
+
+         )
+
+F82E5 =  X1 = smoothFanoToricVariety (4, 50);
+
+F82E6 =  A1 = intersectionRing X1;
+
+F82E7 =  E1 = cotangentSheaf X1
+
+F82E8 =  f1 = ctop E1
+
+F82E9 =  assert (f1 === sum(max X1, s -> product(s, i -> -A1_i)))
+
+F82E10 =  assert (f1 === chern (dim X1, E1))
+
+F83E0 =  PP3 = toricProjectiveSpace 3;
+
+F83E1 =  assert isAmple PP3_0
+
+F83E2 =  assert isVeryAmple PP3_0
+
+F83E3 =  FF2 = hirzebruchSurface 2;
+
+F83E4 =  assert isAmple (FF2_2 + FF2_3)
+
+F83E5 =  assert isVeryAmple (FF2_2 + FF2_3)
+
+F83E6 =  X = normalToricVariety matrix {{0,1,0,0,1},{0,0,1,0,1},{0,0,0,1,1},{0,0,0,0,3}};
+
+F83E7 =  assert (dim X === 4)
+
+F83E8 =  D = 3*X_0
+
+F83E9 =  assert isAmple D
+
+F83E10 =  assert not isVeryAmple D
+
+F83E11 =  assert not isVeryAmple (2*D)
+
+F83E12 =  assert isVeryAmple (3*D)
+
+F84E0 =  PP2 = toricProjectiveSpace 2;
+
+F84E1 =  D = toricDivisor({2,-7,3},PP2)
+
+F84E2 =  assert(D == 2* PP2_0 - 7*PP2_1 + 3*PP2_2)
+
+F84E3 =  assert(D == toricDivisor(entries D, variety D))
+
+F85E0 =  PP2 = toricProjectiveSpace 2;
+
+F85E1 =  D1 = 2*PP2_0 - 7*PP2_1 + 3*PP2_2
+
+F85E2 =  vector D1
+
+F85E3 =  assert(entries vector D1 === entries D1)
+
+F85E4 =  D2 = toricDivisor convexHull (id_(ZZ^3) | - id_(ZZ^3))
+
+F85E5 =  vector D2
+
+F85E6 =  assert(entries vector D2 === entries D2)
+
+F86E0 =  PP3 = toricProjectiveSpace 3;
+
+F86E1 =  F1 = fan PP3
+
+F86E2 =  rays F1
+
+F86E3 =  maxCones F1
+
+F86E4 =  assert (set rays PP3 === set rays normalToricVariety F1 and max PP3 === max normalToricVariety F1)
+
+F86E5 =  F2 = fan hirzebruchSurface 3;
+
+F86E6 =  rays F2
+
+F86E7 =  maxCones F2
+
+F87E0 =  O2 = orbits toricProjectiveSpace 2
+
+F87E1 =  (#O2#0, #O2#1, #O2#2)
+
+F87E2 =  O3 = orbits toricProjectiveSpace 3
+
+F87E3 =  apply (4, k -> #O3#k)
+
+F87E4 =  apply (5, k -> # (orbits toricProjectiveSpace 4)#k)
+
+F87E5 =  apply (6, k -> # (orbits toricProjectiveSpace 5)#k)
+
+F87E6 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F87E7 =  assert not isSimplicial X
+
+F87E8 =  OX = orbits X
+
+F87E9 =  apply (1+dim X, k -> #OX#k)
+
+F87E10 =  U = normalToricVariety ({{4,-1,0},{0,1,0}},{{0,1}});
+
+F87E11 =  assert isDegenerate U
+
+F87E12 =  OU = orbits U
+
+F87E13 =  apply (4, k -> #OU#k)
+
+F87E14 =  assert (#OU#0 == 0)
+
+F88E0 =  P1 = convexHull matrix{{0,1,0},{0,0,1}};
+
+F88E1 =  D1 = toricDivisor P1
+
+F88E2 =  X = variety D1;
+
+F88E3 =  D1
+
+F88E4 =  P2 = convexHull matrix{{-1,0,-1},{0,0,1}};
+
+F88E5 =  D2 = toricDivisor P2
+
+F88E6 =  P3 = convexHull matrix{{0,1,0},{-1,-1,0}};
+
+F88E7 =  D3 = toricDivisor P3
+
+F88E8 =  P4 = convexHull matrix{{-1,2,-1},{-1,-1,2}};
+
+F88E9 =  D4 = toricDivisor(P4, CoefficientRing => ZZ/2)
+
+F88E10 =  ring variety D4
+
+F89E0 =  PP2 = toricProjectiveSpace 2
+
+F89E1 =  D1 = toricDivisor ({2,-7,3}, PP2)
+
+F89E2 =  assert isWellDefined D1
+
+F89E3 =  debugLevel = 1;
+
+F89E4 =  D2 = new ToricDivisor from hashTable { 0 => 2, symbol variety => PP2, symbol cache => new CacheTable};
+
+F89E5 =  assert not isWellDefined D2
+
+F89E6 =  D3 = new ToricDivisor from hashTable { 0 => 2, 1 => x, 2 => 3, symbol variety => PP2, symbol cache => new CacheTable};
+
+F89E7 =  assert not isWellDefined D3
+
+F89E8 =  D4 = new ToricDivisor from hashTable { 0 => 2, 1 => -7, 2 => 3, symbol variety => 7, symbol cache => new CacheTable};
+
+F89E9 =  assert not isWellDefined D4
+
+F90E0 =  X = toricProjectiveSpace 2;
+
+F90E1 =  Y = hirzebruchSurface 2;
+
+F90E2 =  XY = X ** Y;
+
+F90E3 =  pi0 = XY^[0]
+
+F90E4 =  isSurjective pi0
+
+F90E5 =  assert (isWellDefined pi0 and isSurjective pi0)
+
+F90E6 =  pi1 = XY^[1]
+
+F90E7 =  isSurjective pi1
+
+F90E8 =  assert (isWellDefined pi1 and isSurjective pi1)
+
+F90E9 =  A = affineSpace 2;
+
+F90E10 =  f = map(X, A, 1)
+
+F90E11 =  isDominant f
+
+F90E12 =  isSurjective f
+
+F90E13 =  assert (isWellDefined f and isDominant f and not isSurjective f)
+
+F90E14 =  Y = (toricProjectiveSpace 1) ** (toricProjectiveSpace 1);
+
+F90E15 =  X = normalToricVariety(
+
+          {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}},
+
+          {{0},{1},{2},{3},{4},{5},{6},{7}});
+
+F90E16 =  g = map(Y,X,1)
+
+F90E17 =  isSurjective g
+
+F90E18 =  isComplete X
+
+F90E19 =  assert (isWellDefined g and isSurjective g and not isComplete X)
+
+F91E0 =  X = toricProjectiveSpace 1;
+
+F91E1 =  Y = toricProjectiveSpace 2;
+
+F91E2 =  Z = toricProjectiveSpace 3;
+
+F91E3 =  Seq = (X, Y, Z);
+
+F91E4 =  P = cartesianProduct Seq;
+
+F91E5 =  dim P
+
+F91E6 =  assert (dim P == 1+2+3)
+
+F91E7 =  factors = components P
+
+F91E8 =  # factors
+
+F91E9 =  assert (factors#0 === X and factors#1 === Y and factors#2 === Z)
+
+F92E0 =  X0 = Proj (QQ[x_0..x_3])
+
+F92E1 =  assert (3 === dim X0)
+
+F92E2 =  ring X0
+
+F92E3 =  hilbertPolynomial(X0, Projective => false)
+
+F92E4 =  for d to 10 list rank HH^0 (OO_X0(d))
+
+F92E5 =  X1 = toricProjectiveSpace 3
+
+F92E6 =  assert (3 === dim X1)
+
+F92E7 =  rays X1
+
+F92E8 =  max X1
+
+F92E9 =  ring X1
+
+F92E10 =  intersectionRing X1
+
+F92E11 =  hilbertPolynomial (X1)
+
+F92E12 =  for d to 10 list rank HH^0 (X1, OO_X1(d))
+
+F92E13 =  assert (X0 =!= X1)
+
+F92E14 =  X2 = abstractProjectiveSpace (3, base(symbol i))
+
+F92E15 =  assert (3 === dim X2)
+
+F92E16 =  intersectionRing X2
+
+F92E17 =  chi (OO_X2(i))
+
+F92E18 =  assert (X2 =!= X0)
+
+F92E19 =  assert (X2 =!= X1)
+
+F92E20 =  projectiveSpace = n -> Proj (QQ[x_0..x_n]);
+
+F92E21 =  projectiveSpace 2
+
+F92E22 =  PP = toricProjectiveSpace;
+
+F92E23 =  PP 2
+
+F93E0 =  X = normalToricVariety(id_(ZZ^3) | -id_(ZZ^3));
+
+F93E1 =  D1 = toricDivisor({2,-7,3,0,7,5,8,-8}, X)
+
+F93E2 =  D2 = 2 * X_0 - 7 * X_1 + 3 * X_2 + 7 * X_4 + 5 * X_5 + 8 * X_6 - 8 * X_7
+
+F93E3 =  D1 == D2
+
+F93E4 =  D1 == - D2
+
+F93E5 =  assert (D1 == D2 and D2 == D1 and D1 =!= - D2)
+
+F93E6 =  D1 == 0
+
+F93E7 =  0*D1 == 0
+
+F93E8 =  assert (D1 =!= 0 and 0*D1 == 0 and 0 == 0*D2)
+
+F94E0 =  X = hirzebruchSurface 2;
+
+F94E1 =  Y = toricProjectiveSpace 1;
+
+F94E2 =  f = map (Y, X, matrix {{1, 0}})
+
+F94E3 =  assert (isWellDefined f and source f === X and
+
+         target f === Y and matrix f === matrix {{1, 0}})
+
+F94E4 =  A = affineSpace 2;
+
+F94E5 =  max A
+
+F94E6 =  B = toricBlowup({0, 1}, A);
+
+F94E7 =  g = B^[]
+
+F94E8 =  isProper g
+
+F94E9 =  assert (isWellDefined g and g == map(A,B,1) and
+
+          matrix g === id_(ZZ^2) and isProper g)
+
+F95E0 =  PP3 = toricProjectiveSpace 3;
+
+F95E1 =  K = toricDivisor PP3
+
+F95E2 =  omega = OO K
+
+F95E3 =  omegaVee = prune sheafHom (omega, OO_PP3)
+
+F95E4 =  omega === prune sheafHom (omegaVee, OO_PP3)
+
+F95E5 =  X = hirzebruchSurface 2;
+
+F95E6 =  D = X_0 + X_1
+
+F95E7 =  L = OO D
+
+F95E8 =  LVee = prune sheafHom (L, OO_X)
+
+F95E9 =  L === prune sheafHom (LVee, OO_X)
+
+F95E10 =  rayList = {{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}};
+
+F95E11 =  coneList = {{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}};
+
+F95E12 =  Y = normalToricVariety(rayList,coneList);
+
+F95E13 =  isSmooth Y
+
+F95E14 =  isProjective Y
+
+F95E15 =  E = Y_0 + Y_2 + Y_4
+
+F95E16 =  isCartier E
+
+F95E17 =  F = OO E
+
+F95E18 =  FVee = prune sheafHom(F, OO_Y)
+
+F95E19 =  F === prune sheafHom(FVee, OO_Y)
+
+F95E20 =  PP3 = toricProjectiveSpace 3;
+
+F95E21 =  D1 = PP3_0
+
+F95E22 =  E1 = PP3_1
+
+F95E23 =  OO D1 === OO E1
+
+F95E24 =  X = hirzebruchSurface 2;
+
+F95E25 =  D2 = X_2 + X_3
+
+F95E26 =  E2 = 3*X_0 + X_1
+
+F95E27 =  OO D2 === OO E2
+
+F96E0 =  W = weightedProjectiveSpace {2,5,7};
+
+F96E1 =  assert isSimplicial W
+
+F96E2 =  assert not isCartier W_0
+
+F96E3 =  assert isQQCartier W_0
+
+F96E4 =  assert isCartier (35*W_0)
+
+F96E5 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F96E6 =  assert not isCartier X_0
+
+F96E7 =  assert not isQQCartier X_0
+
+F96E8 =  K = toricDivisor X;
+
+F96E9 =  assert isCartier K
+
+F97E0 =  Y = toricProjectiveSpace 2;
+
+F97E1 =  X = toricBlowup({0, 2}, Y);
+
+F97E2 =  f = X^[]
+
+F97E3 =  assert (isWellDefined f and f == map(Y, X, 1))
+
+F97E4 =  g = id_X
+
+F97E5 =  assert (g == map(X, X, 1))
+
+F97E6 =  assert (f != g)
+
+F97E7 =  assert (isWellDefined g and source g === X and target g === X)
+
+F97E8 =  assert (matrix f == matrix g and source f === source g and
+
+         target f =!= target g)
+
+F97E9 =  Z = toricProjectiveSpace 1;
+
+F97E10 =  pi1 = map(Z, X, matrix{{0, 1}})
+
+F97E11 =  assert (isWellDefined pi1 and source pi1 === X and target pi1 === Z)
+
+F97E12 =  pi2 = map(Z, X, matrix{{0, 2}})
+
+F97E13 =  assert (isWellDefined pi2 and source pi2 === X and target pi2 === Z)
+
+F97E14 =  assert (pi1 != pi2)
+
+F98E0 =  X = hirzebruchSurface 2;
+
+F98E1 =  Y = toricProjectiveSpace 1;
+
+F98E2 =  f = map (Y, X, matrix {{1, 0}})
+
+F98E3 =  source f
+
+F98E4 =  target f
+
+F98E5 =  matrix f
+
+F98E6 =  assert (isWellDefined f and source f === X and
+
+         target f === Y and matrix f === matrix {{1, 0}})
+
+F98E7 =  debugLevel = 1;
+
+F98E8 =  Z = toricProjectiveSpace 2;
+
+F98E9 =  W = weightedProjectiveSpace {1, 1, 2};
+
+F98E10 =  g = map (W, Z, 1)
+
+F98E11 =  assert not isWellDefined g
+
+F98E12 =  h = map (W, Z, matrix {{1, 0}, {0, 2}})
+
+F98E13 =  assert isWellDefined h
+
+F99E0 =  PP2 = toricProjectiveSpace 2;
+
+F99E1 =  X = PP2 ^** 4;
+
+F99E2 =  fromWDivToCl X
+
+F99E3 =  factors = components X
+
+F99E4 =  assert (# factors === 4)
+
+F99E5 =  assert all (4, i -> factors#i === PP2)
+
+F99E6 =  FF2 = hirzebruchSurface (2);
+
+F99E7 =  Y = FF2 ^** 3;
+
+F99E8 =  fromWDivToCl Y
+
+F99E9 =  X' = PP2 ** PP2;
+
+F99E10 =  X'' = PP2 ^** 2;
+
+F99E11 =  assert (rays X' == rays X'' and  max X' == max X'')
+
+F100E0 =  PP2 = normalToricVariety matrix {{0,1,0},{0,0,1}};
+
+F100E1 =  rays PP2
+
+F100E2 =  max PP2
+
+F100E3 =  PP2' = toricProjectiveSpace 2;
+
+F100E4 =  set rays PP2 === set rays PP2'
+
+F100E5 =  max PP2 === max PP2'
+
+F100E6 =  assert (isWellDefined PP2 and isWellDefined PP2')
+
+F100E7 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F100E8 =  transpose matrix rays X
+
+F100E9 =  max X
+
+F100E10 =  assert (isWellDefined X and not isSimplicial X)
+
+F100E11 =  FF1 = normalToricVariety matrix {{0,1,0,2},{0,0,1,1}};
+
+F100E12 =  assert isWellDefined FF1
+
+F100E13 =  rays FF1
+
+F100E14 =  max FF1
+
+F100E15 =  FF1' = hirzebruchSurface 1;
+
+F100E16 =  assert (rays FF1 === rays FF1' and max FF1 === max FF1')
+
+F100E17 =  VertMat = matrix {{0,0,1,1,2},{0,1,0,1,1}}
+
+F100E18 =  notFF1 = normalToricVariety VertMat;
+
+F100E19 =  max notFF1
+
+F100E20 =  isWellDefined notFF1
+
+F100E21 =  FF1'' = normalToricVariety (VertMat, MinimalGenerators => true);
+
+F100E22 =  assert (rays FF1'' == rays FF1 and max FF1'' == max FF1)
+
+F100E23 =  assert isWellDefined FF1''
+
+F101E0 =  X = hirzebruchSurface 2;
+
+F101E1 =  Y = toricProjectiveSpace 1;
+
+F101E2 =  f = map(Y, X, 0)
+
+F101E3 =  assert (isWellDefined f and source f === X and
+
+         target f === Y and matrix f === map(ZZ^(dim Y), ZZ^(dim X), 0))
+
+F101E4 =  Z = normalToricVariety ({{1,0},{-1,2},{0,-1}}, {{0,1},{0,2},{1,2}});
+
+F101E5 =  assert (isWellDefined Z and not isSmooth Z)
+
+F101E6 =  g = map(Z, X, 2)
+
+F101E7 =  assert (isWellDefined g and source g === X and
+
+         target g === Z and matrix g === 2*id_(ZZ^(dim X)))
+
+F101E8 =  A = affineSpace 2;
+
+F101E9 =  B = toricBlowup ({0, 1}, A);
+
+F101E10 =  h = map(A, B, 1)
+
+F101E11 =  assert (isWellDefined h and h == B^[])
+
+F101E12 =  i = map(A, A, 1)
+
+F101E13 =  i == id_A
+
+F101E14 =  assert (isWellDefined i and source i === A and
+
+          target i === A and matrix i === id_(ZZ^2))
+
+F102E0 =  X = hirzebruchSurface 1;
+
+F102E1 =  Y = toricProjectiveSpace 1;
+
+F102E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F102E3 =  f' = cartierDivisorGroup f
+
+F102E4 =  assert (isWellDefined f and source f' == cartierDivisorGroup Y and
+
+         target f' == cartierDivisorGroup X)
+
+F102E5 =  f'' = picardGroup f
+
+F102E6 =  assert(f'' * fromCDivToPic Y == fromCDivToPic X  * f')
+
+F102E7 =  W = weightedProjectiveSpace {1, 1, 2};
+
+F102E8 =  Z = toricBlowup({0, 1, 4}, (W ** toricProjectiveSpace 1), {0, -2, 1});
+
+F102E9 =  assert (not isSmooth W and not isSmooth Z)
+
+F102E10 =  g = map(W, Z, matrix{{1,0,0},{0,1,0}})
+
+F102E11 =  g' = picardGroup g
+
+F102E12 =  assert (isWellDefined g and source g' == picardGroup W and
+
+          target g' == picardGroup Z)
+
+F102E13 =  g'' = cartierDivisorGroup g
+
+F102E14 =  assert(g' * fromCDivToPic W  == fromCDivToPic Z  * g'')
+
+F103E0 =  PP2 = toricProjectiveSpace 2;
+
+F103E1 =  PP2_0
+
+F103E2 =  PP2_1
+
+F103E3 =  PP2_2
+
+F103E4 =  assert (- PP2_0 - PP2_1 - PP2_2 === toricDivisor PP2)
+
+F103E5 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F103E6 =  X_0
+
+F103E7 =  support X_0
+
+F103E8 =  assert( # support X_0 === 1)
+
+F103E9 =  K = toricDivisor X
+
+F103E10 =  support K
+
+F104E0 =  PP3 = toricProjectiveSpace 3;
+
+F104E1 =  assert all (3, i -> isCartier PP3_i)
+
+F104E2 =  W = weightedProjectiveSpace {2,5,7};
+
+F104E3 =  assert isSimplicial W
+
+F104E4 =  assert not isCartier W_0
+
+F104E5 =  assert isQQCartier W_0
+
+F104E6 =  assert isCartier (35*W_0)
+
+F104E7 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F104E8 =  assert not isCartier X_0
+
+F104E9 =  assert not isQQCartier X_0
+
+F104E10 =  K = toricDivisor X;
+
+F104E11 =  assert isCartier K
+
+F105E0 =  PP2 = toricProjectiveSpace 2;
+
+F105E1 =  assert (null === vertices (-PP2_0))
+
+F105E2 =  latticePoints (0*PP2_0)
+
+F105E3 =  assert isAmple PP2_0
+
+F105E4 =  V1 = latticePoints (PP2_0)
+
+F105E5 =  X1 = normalToricVariety V1;
+
+F105E6 =  assert (set rays X1 === set rays PP2 and  max X1 === max PP2)
+
+F105E7 =  assert isAmple (2*PP2_0)
+
+F105E8 =  V2 = latticePoints (2*PP2_0)
+
+F105E9 =  X2 = normalToricVariety(V2, MinimalGenerators => true);
+
+F105E10 =  assert (rays X2 === rays X1 and max X2 === max X1)
+
+F105E11 =  Y = normalToricVariety matrix {{0,1,0,0,1},{0,0,1,0,1},{0,0,0,1,1},{0,0,0,0,3}};
+
+F105E12 =  D = 3*Y_0;
+
+F105E13 =  latticePoints D
+
+F105E14 =  latticePoints (2*D)
+
+F106E0 =  P = convexHull (id_(ZZ^3) | -id_(ZZ^3));
+
+F106E1 =  fVector P
+
+F106E2 =  vertices P
+
+F106E3 =  X = normalToricVariety P;
+
+F106E4 =  rays X
+
+F106E5 =  max X
+
+F106E6 =  picardGroup X
+
+F106E7 =  P = convexHull transpose matrix unique permutations {1,1,0,0};
+
+F106E8 =  assert not isFullDimensional P
+
+F106E9 =  fVector P
+
+F106E10 =  X = normalToricVariety P;
+
+F106E11 =  assert (dim P === dim X)
+
+F106E12 =  rays X
+
+F106E13 =  max X
+
+F106E14 =  assert (8 === #rays X)
+
+F106E15 =  assert (6 === #max X)
+
+F106E16 =  picardGroup X
+
+F106E17 =  vertMatrix = matrix {{0,1,0},{0,0,1}}
+
+F106E18 =  X1 = time normalToricVariety convexHull (vertMatrix);
+
+F106E19 =  X2 = time normalToricVariety vertMatrix;
+
+F106E20 =  assert (set rays X2 === set rays X1 and max X1 === max X2)
+
+F107E0 =  PP1 = toricProjectiveSpace 1;
+
+F107E1 =  rays PP1
+
+F107E2 =  max PP1
+
+F107E3 =  dim PP1
+
+F107E4 =  ring PP1
+
+F107E5 =  ideal PP1
+
+F107E6 =  assert (isWellDefined PP1 and isSmooth PP1 and isComplete PP1)
+
+F107E7 =  PP3 = toricProjectiveSpace (3, CoefficientRing => ZZ/32003, Variable => y);
+
+F107E8 =  rays PP3
+
+F107E9 =  max PP3
+
+F107E10 =  dim PP3
+
+F107E11 =  ring PP3
+
+F107E12 =  ideal PP3
+
+F107E13 =  assert (isWellDefined PP3 and isSmooth PP3 and isComplete PP3)
+
+F108E0 =  X = hirzebruchSurface 1;
+
+F108E1 =  Y = toricProjectiveSpace 2;
+
+F108E2 =  f = map(Y, X, matrix{{1,0},{0,-1}})
+
+F108E3 =  Omega = cotangentSheaf Y
+
+F108E4 =  F = pullback(f, Omega)
+
+F108E5 =  (R = ring X, S = ring Y);
+
+F108E6 =  inducedMap f
+
+F108E7 =  presentation module Omega
+
+F108E8 =  presentation module F
+
+F108E9 =  assert (isWellDefined f and isHomogeneous module F)
+
+F108E10 =  D = Y_0 + 2*Y_1 + 3*Y_2
+
+F108E11 =  L = pullback(f, OO D)
+
+F108E12 =  D' = pullback(f, D)
+
+F108E13 =  OO D'
+
+F108E14 =  assert (isWellDefined f and L === OO pullback(f, D))
+
+exampleIDS = {F0E0, F0E1, F0E2, F0E3, F0E4, F0E5, F0E6, F0E7, F0E8, F0E9, F0E10, F1E0, F1E1, F1E2, F1E3, F1E4, F1E5, F1E6, F1E7, F1E8, F1E9, F1E10, F1E11, F1E12, F1E13, F1E14, F1E15, F1E16, F1E17, F1E18, F1E19, F1E20, F1E21, F1E22, F1E23, F2E0, F2E1, F2E2, F2E3, F2E4, F2E5, F2E6, F2E7, F2E8, F2E9, F2E10, F2E11, F2E12, F2E13, F2E14, F2E15, F2E16, F2E17, F2E18, F2E19, F2E20, F2E21, F2E22, F2E23, F2E24, F2E25, F2E26, F2E27, F2E28, F2E29, F2E30, F2E31, F3E0, F3E1, F3E2, F3E3, F3E4, F3E5, F3E6, F3E7, F3E8, F3E9, F3E10, F3E11, F3E12, F3E13, F3E14, F3E15, F3E16, F3E17, F4E0, F4E1, F4E2, F4E3, F4E4, F4E5, F4E6, F4E7, F4E8, F4E9, F4E10, F5E0, F5E1, F5E2, F5E3, F5E4, F5E5, F5E6, F5E7, F5E8, F5E9, F5E10, F5E11, F5E12, F5E13, F5E14, F5E15, F5E16, F5E17, F6E0, F6E1, F6E2, F6E3, F6E4, F6E5, F6E6, F7E0, F7E1, F7E2, F7E3, F7E4, F7E5, F7E6, F7E7, F8E0, F8E1, F8E2, F8E3, F8E4, F8E5, F8E6, F8E7, F8E8, F8E9, F8E10, F8E11, F8E12, F8E13, F8E14, F9E0, F9E1, F9E2, F9E3, F9E4, F9E5, F9E6, F9E7, F9E8, F9E9, F9E10, F9E11, F9E12, F9E13, F9E14, F9E15, F9E16, F9E17, F9E18, F9E19, F9E20, F9E21, F9E22, F9E23, F10E0, F10E1, F10E2, F10E3, F10E4, F10E5, F10E6, F10E7, F10E8, F10E9, F10E10, F10E11, F10E12, F10E13, F10E14, F10E15, F10E16, F10E17, F10E18, F10E19, F10E20, F10E21, F10E22, F10E23, F10E24, F11E0, F11E1, F11E2, F11E3, F11E4, F11E5, F11E6, F11E7, F11E8, F11E9, F11E10, F11E11, F11E12, F11E13, F11E14, F11E15, F12E0, F12E1, F12E2, F12E3, F12E4, F12E5, F12E6, F12E7, F12E8, F12E9, F12E10, F12E11, F12E12, F12E13, F12E14, F12E15, F13E0, F13E1, F13E2, F13E3, F13E4, F13E5, F13E6, F13E7, F13E8, F13E9, F13E10, F13E11, F13E12, F13E13, F13E14, F13E15, F13E16, F13E17, F13E18, F13E19, F13E20, F13E21, F13E22, F13E23, F13E24, F13E25, F13E26, F13E27, F13E28, F13E29, F13E30, F14E0, F14E1, F14E2, F14E3, F14E4, F14E5, F14E6, F14E7, F14E8, F14E9, F14E10, F14E11, F15E0, F15E1, F15E2, F15E3, F15E4, F15E5, F15E6, F15E7, F15E8, F15E9, F15E10, F15E11, F15E12, F15E13, F15E14, F15E15, F15E16, F16E0, F16E1, F16E2, F16E3, F16E4, F16E5, F16E6, F16E7, F16E8, F16E9, F16E10, F16E11, F16E12, F16E13, F16E14, F16E15, F16E16, F16E17, F16E18, F16E19, F16E20, F16E21, F17E0, F17E1, F17E2, F17E3, F17E4, F17E5, F17E6, F17E7, F17E8, F17E9, F17E10, F17E11, F17E12, F17E13, F17E14, F17E15, F17E16, F17E17, F17E18, F17E19, F17E20, F17E21, F17E22, F17E23, F17E24, F17E25, F17E26, F17E27, F17E28, F17E29, F17E30, F17E31, F17E32, F17E33, F17E34, F17E35, F17E36, F17E37, F17E38, F17E39, F18E0, F18E1, F18E2, F18E3, F18E4, F18E5, F18E6, F18E7, F18E8, F18E9, F18E10, F18E11, F19E0, F19E1, F19E2, F19E3, F19E4, F19E5, F19E6, F19E7, F19E8, F20E0, F20E1, F20E2, F20E3, F20E4, F20E5, F20E6, F20E7, F20E8, F20E9, F20E10, F20E11, F20E12, F20E13, F20E14, F20E15, F20E16, F20E17, F20E18, F20E19, F20E20, F20E21, F20E22, F20E23, F20E24, F20E25, F20E26, F20E27, F20E28, F20E29, F20E30, F20E31, F20E32, F20E33, F20E34, F20E35, F20E36, F20E37, F20E38, F20E39, F20E40, F20E41, F21E0, F21E1, F21E2, F21E3, F21E4, F21E5, F21E6, F21E7, F21E8, F21E9, F21E10, F21E11, F21E12, F21E13, F21E14, F21E15, F21E16, F21E17, F22E0, F22E1, F22E2, F22E3, F22E4, F22E5, F22E6, F22E7, F22E8, F22E9, F22E10, F23E0, F23E1, F23E2, F23E3, F23E4, F23E5, F23E6, F23E7, F23E8, F23E9, F23E10, F23E11, F23E12, F24E0, F24E1, F24E2, F24E3, F24E4, F24E5, F24E6, F24E7, F24E8, F24E9, F24E10, F24E11, F24E12, F24E13, F25E0, F25E1, F25E2, F25E3, F25E4, F25E5, F25E6, F25E7, F25E8, F25E9, F25E10, F25E11, F26E0, F26E1, F26E2, F26E3, F26E4, F26E5, F26E6, F27E0, F27E1, F27E2, F27E3, F27E4, F27E5, F28E0, F28E1, F28E2, F28E3, F28E4, F28E5, F28E6, F28E7, F28E8, F28E9, F28E10, F28E11, F28E12, F28E13, F28E14, F28E15, F29E0, F29E1, F29E2, F29E3, F29E4, F29E5, F29E6, F29E7, F29E8, F30E0, F30E1, F30E2, F30E3, F30E4, F30E5, F30E6, F30E7, F30E8, F30E9, F30E10, F30E11, F30E12, F30E13, F30E14, F30E15, F31E0, F31E1, F31E2, F31E3, F31E4, F31E5, F31E6, F31E7, F32E0, F32E1, F32E2, F32E3, F33E0, F33E1, F33E2, F33E3, F33E4, F33E5, F33E6, F33E7, F33E8, F34E0, F34E1, F34E2, F34E3, F34E4, F34E5, F34E6, F34E7, F34E8, F34E9, F34E10, F34E11, F34E12, F35E0, F35E1, F35E2, F35E3, F35E4, F35E5, F35E6, F35E7, F35E8, F35E9, F35E10, F35E11, F35E12, F36E0, F36E1, F36E2, F36E3, F36E4, F36E5, F36E6, F36E7, F36E8, F36E9, F36E10, F36E11, F36E12, F36E13, F36E14, F37E0, F37E1, F37E2, F37E3, F37E4, F37E5, F37E6, F37E7, F37E8, F37E9, F37E10, F37E11, F37E12, F37E13, F37E14, F37E15, F37E16, F37E17, F37E18, F37E19, F37E20, F37E21, F37E22, F37E23, F37E24, F37E25, F37E26, F37E27, F37E28, F37E29, F37E30, F37E31, F37E32, F37E33, F37E34, F37E35, F37E36, F37E37, F38E0, F38E1, F38E2, F38E3, F38E4, F38E5, F38E6, F38E7, F38E8, F38E9, F38E10, F38E11, F39E0, F39E1, F39E2, F39E3, F39E4, F39E5, F39E6, F39E7, F39E8, F40E0, F40E1, F40E2, F40E3, F40E4, F40E5, F40E6, F40E7, F40E8, F40E9, F40E10, F40E11, F40E12, F40E13, F40E14, F40E15, F40E16, F40E17, F40E18, F40E19, F40E20, F40E21, F40E22, F40E23, F41E0, F41E1, F41E2, F41E3, F41E4, F41E5, F41E6, F41E7, F41E8, F41E9, F41E10, F41E11, F41E12, F41E13, F41E14, F41E15, F41E16, F41E17, F41E18, F41E19, F41E20, F41E21, F41E22, F41E23, F42E0, F42E1, F42E2, F42E3, F42E4, F42E5, F42E6, F42E7, F42E8, F42E9, F42E10, F42E11, F42E12, F43E0, F43E1, F43E2, F43E3, F43E4, F43E5, F43E6, F43E7, F43E8, F43E9, F43E10, F43E11, F43E12, F43E13, F43E14, F43E15, F43E16, F43E17, F43E18, F43E19, F43E20, F43E21, F43E22, F44E0, F44E1, F44E2, F44E3, F44E4, F44E5, F44E6, F44E7, F44E8, F44E9, F44E10, F44E11, F44E12, F45E0, F45E1, F45E2, F45E3, F45E4, F45E5, F45E6, F45E7, F45E8, F45E9, F45E10, F45E11, F45E12, F45E13, F45E14, F46E0, F46E1, F46E2, F46E3, F46E4, F46E5, F46E6, F46E7, F46E8, F46E9, F46E10, F46E11, F46E12, F46E13, F46E14, F46E15, F46E16, F46E17, F46E18, F46E19, F46E20, F46E21, F46E22, F47E0, F47E1, F47E2, F47E3, F47E4, F47E5, F47E6, F47E7, F47E8, F47E9, F47E10, F47E11, F47E12, F47E13, F47E14, F47E15, F47E16, F47E17, F47E18, F47E19, F47E20, F47E21, F47E22, F47E23, F48E0, F48E1, F48E2, F48E3, F48E4, F48E5, F48E6, F48E7, F48E8, F48E9, F48E10, F49E0, F49E1, F49E2, F49E3, F49E4, F49E5, F49E6, F49E7, F49E8, F49E9, F49E10, F50E0, F50E1, F50E2, F50E3, F50E4, F50E5, F50E6, F50E7, F50E8, F50E9, F50E10, F50E11, F50E12, F50E13, F50E14, F50E15, F50E16, F50E17, F50E18, F50E19, F50E20, F51E0, F51E1, F51E2, F51E3, F51E4, F51E5, F51E6, F51E7, F51E8, F51E9, F51E10, F51E11, F51E12, F51E13, F51E14, F51E15, F51E16, F51E17, F51E18, F51E19, F51E20, F51E21, F51E22, F51E23, F51E24, F51E25, F51E26, F51E27, F51E28, F51E29, F51E30, F51E31, F51E32, F51E33, F51E34, F52E0, F52E1, F52E2, F52E3, F52E4, F52E5, F52E6, F52E7, F52E8, F52E9, F52E10, F52E11, F52E12, F52E13, F52E14, F52E15, F52E16, F52E17, F52E18, F52E19, F52E20, F52E21, F52E22, F52E23, F52E24, F52E25, F53E0, F53E1, F53E2, F53E3, F53E4, F53E5, F53E6, F53E7, F53E8, F53E9, F53E10, F53E11, F53E12, F53E13, F53E14, F53E15, F53E16, F53E17, F53E18, F53E19, F53E20, F53E21, F53E22, F53E23, F53E24, F53E25, F53E26, F53E27, F53E28, F53E29, F53E30, F53E31, F54E0, F54E1, F54E2, F54E3, F54E4, F54E5, F55E0, F55E1, F55E2, F55E3, F55E4, F55E5, F55E6, F55E7, F55E8, F55E9, F55E10, F55E11, F55E12, F55E13, F55E14, F55E15, F55E16, F55E17, F55E18, F55E19, F55E20, F55E21, F55E22, F55E23, F56E0, F56E1, F56E2, F56E3, F56E4, F56E5, F56E6, F56E7, F56E8, F56E9, F56E10, F56E11, F56E12, F56E13, F56E14, F56E15, F56E16, F56E17, F56E18, F57E0, F57E1, F57E2, F57E3, F57E4, F57E5, F57E6, F57E7, F57E8, F57E9, F57E10, F58E0, F58E1, F58E2, F58E3, F58E4, F58E5, F58E6, F58E7, F58E8, F58E9, F58E10, F58E11, F58E12, F59E0, F59E1, F59E2, F59E3, F59E4, F59E5, F59E6, F59E7, F59E8, F59E9, F59E10, F59E11, F59E12, F59E13, F59E14, F59E15, F59E16, F59E17, F60E0, F60E1, F60E2, F60E3, F60E4, F60E5, F60E6, F60E7, F60E8, F60E9, F60E10, F60E11, F60E12, F60E13, F61E0, F61E1, F61E2, F61E3, F61E4, F61E5, F61E6, F61E7, F61E8, F61E9, F61E10, F61E11, F61E12, F61E13, F61E14, F61E15, F61E16, F61E17, F61E18, F61E19, F62E0, F62E1, F62E2, F62E3, F63E0, F63E1, F63E2, F63E3, F64E0, F64E1, F64E2, F64E3, F64E4, F64E5, F64E6, F64E7, F64E8, F64E9, F64E10, F64E11, F64E12, F65E0, F65E1, F65E2, F65E3, F65E4, F65E5, F66E0, F66E1, F66E2, F66E3, F66E4, F66E5, F66E6, F66E7, F66E8, F66E9, F66E10, F66E11, F66E12, F66E13, F66E14, F66E15, F66E16, F66E17, F66E18, F66E19, F66E20, F66E21, F66E22, F66E23, F66E24, F66E25, F66E26, F67E0, F67E1, F67E2, F67E3, F67E4, F67E5, F67E6, F67E7, F67E8, F67E9, F67E10, F67E11, F67E12, F67E13, F67E14, F67E15, F67E16, F67E17, F67E18, F67E19, F67E20, F67E21, F67E22, F68E0, F68E1, F68E2, F68E3, F68E4, F68E5, F68E6, F68E7, F68E8, F68E9, F68E10, F68E11, F68E12, F68E13, F68E14, F69E0, F69E1, F69E2, F69E3, F69E4, F69E5, F69E6, F69E7, F69E8, F69E9, F69E10, F69E11, F70E0, F70E1, F70E2, F70E3, F70E4, F70E5, F70E6, F70E7, F70E8, F70E9, F70E10, F70E11, F70E12, F70E13, F70E14, F70E15, F70E16, F70E17, F70E18, F70E19, F71E0, F71E1, F71E2, F71E3, F71E4, F71E5, F71E6, F71E7, F71E8, F71E9, F71E10, F71E11, F71E12, F72E0, F72E1, F72E2, F72E3, F72E4, F72E5, F72E6, F72E7, F73E0, F73E1, F73E2, F73E3, F73E4, F73E5, F73E6, F73E7, F73E8, F74E0, F74E1, F74E2, F74E3, F74E4, F74E5, F74E6, F74E7, F74E8, F74E9, F75E0, F75E1, F75E2, F75E3, F75E4, F75E5, F75E6, F75E7, F76E0, F76E1, F76E2, F76E3, F76E4, F76E5, F76E6, F76E7, F76E8, F76E9, F76E10, F76E11, F76E12, F77E0, F77E1, F77E2, F77E3, F77E4, F77E5, F77E6, F77E7, F77E8, F77E9, F77E10, F77E11, F78E0, F78E1, F78E2, F78E3, F78E4, F78E5, F78E6, F78E7, F78E8, F78E9, F78E10, F79E0, F79E1, F79E2, F79E3, F79E4, F79E5, F79E6, F79E7, F80E0, F80E1, F80E2, F80E3, F80E4, F80E5, F80E6, F80E7, F80E8, F80E9, F80E10, F80E11, F80E12, F81E0, F81E1, F81E2, F81E3, F81E4, F81E5, F81E6, F81E7, F81E8, F81E9, F81E10, F81E11, F81E12, F81E13, F81E14, F81E15, F81E16, F81E17, F81E18, F81E19, F81E20, F81E21, F81E22, F81E23, F81E24, F81E25, F81E26, F82E0, F82E1, F82E2, F82E3, F82E4, F82E5, F82E6, F82E7, F82E8, F82E9, F82E10, F83E0, F83E1, F83E2, F83E3, F83E4, F83E5, F83E6, F83E7, F83E8, F83E9, F83E10, F83E11, F83E12, F84E0, F84E1, F84E2, F84E3, F85E0, F85E1, F85E2, F85E3, F85E4, F85E5, F85E6, F86E0, F86E1, F86E2, F86E3, F86E4, F86E5, F86E6, F86E7, F87E0, F87E1, F87E2, F87E3, F87E4, F87E5, F87E6, F87E7, F87E8, F87E9, F87E10, F87E11, F87E12, F87E13, F87E14, F88E0, F88E1, F88E2, F88E3, F88E4, F88E5, F88E6, F88E7, F88E8, F88E9, F88E10, F89E0, F89E1, F89E2, F89E3, F89E4, F89E5, F89E6, F89E7, F89E8, F89E9, F90E0, F90E1, F90E2, F90E3, F90E4, F90E5, F90E6, F90E7, F90E8, F90E9, F90E10, F90E11, F90E12, F90E13, F90E14, F90E15, F90E16, F90E17, F90E18, F90E19, F91E0, F91E1, F91E2, F91E3, F91E4, F91E5, F91E6, F91E7, F91E8, F91E9, F92E0, F92E1, F92E2, F92E3, F92E4, F92E5, F92E6, F92E7, F92E8, F92E9, F92E10, F92E11, F92E12, F92E13, F92E14, F92E15, F92E16, F92E17, F92E18, F92E19, F92E20, F92E21, F92E22, F92E23, F93E0, F93E1, F93E2, F93E3, F93E4, F93E5, F93E6, F93E7, F93E8, F94E0, F94E1, F94E2, F94E3, F94E4, F94E5, F94E6, F94E7, F94E8, F94E9, F95E0, F95E1, F95E2, F95E3, F95E4, F95E5, F95E6, F95E7, F95E8, F95E9, F95E10, F95E11, F95E12, F95E13, F95E14, F95E15, F95E16, F95E17, F95E18, F95E19, F95E20, F95E21, F95E22, F95E23, F95E24, F95E25, F95E26, F95E27, F96E0, F96E1, F96E2, F96E3, F96E4, F96E5, F96E6, F96E7, F96E8, F96E9, F97E0, F97E1, F97E2, F97E3, F97E4, F97E5, F97E6, F97E7, F97E8, F97E9, F97E10, F97E11, F97E12, F97E13, F97E14, F98E0, F98E1, F98E2, F98E3, F98E4, F98E5, F98E6, F98E7, F98E8, F98E9, F98E10, F98E11, F98E12, F98E13, F99E0, F99E1, F99E2, F99E3, F99E4, F99E5, F99E6, F99E7, F99E8, F99E9, F99E10, F99E11, F100E0, F100E1, F100E2, F100E3, F100E4, F100E5, F100E6, F100E7, F100E8, F100E9, F100E10, F100E11, F100E12, F100E13, F100E14, F100E15, F100E16, F100E17, F100E18, F100E19, F100E20, F100E21, F100E22, F100E23, F101E0, F101E1, F101E2, F101E3, F101E4, F101E5, F101E6, F101E7, F101E8, F101E9, F101E10, F101E11, F101E12, F101E13, F101E14, F102E0, F102E1, F102E2, F102E3, F102E4, F102E5, F102E6, F102E7, F102E8, F102E9, F102E10, F102E11, F102E12, F102E13, F102E14, F103E0, F103E1, F103E2, F103E3, F103E4, F103E5, F103E6, F103E7, F103E8, F103E9, F103E10, F104E0, F104E1, F104E2, F104E3, F104E4, F104E5, F104E6, F104E7, F104E8, F104E9, F104E10, F104E11, F105E0, F105E1, F105E2, F105E3, F105E4, F105E5, F105E6, F105E7, F105E8, F105E9, F105E10, F105E11, F105E12, F105E13, F105E14, F106E0, F106E1, F106E2, F106E3, F106E4, F106E5, F106E6, F106E7, F106E8, F106E9, F106E10, F106E11, F106E12, F106E13, F106E14, F106E15, F106E16, F106E17, F106E18, F106E19, F106E20, F107E0, F107E1, F107E2, F107E3, F107E4, F107E5, F107E6, F107E7, F107E8, F107E9, F107E10, F107E11, F107E12, F107E13, F108E0, F108E1, F108E2, F108E3, F108E4, F108E5, F108E6, F108E7, F108E8, F108E9, F108E10, F108E11, F108E12, F108E13, F108E14}
