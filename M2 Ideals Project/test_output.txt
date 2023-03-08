@@ -1,28 +1,19 @@
-E0 =  N = {1,1,2}
+E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
 
-E1 =  pts = 6
+E1 =  S = ring X; B = ideal X;
 
-E2 =  (S, E) = productOfProjectiveSpaces N
+E2 =  J = saturate(intersect(
 
-E3 =  irr = intersect for n to #N-1 list (
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
 
-         ideal select(gens S, i -> (degree i)#n == 1)
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
 
-         );
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
 
-E4 =  I = saturate intersect for i to pts - 1 list (
+           B)
 
-         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+E3 =  minres = res J
 
-         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+E4 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
 
-         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
-
-         P + Q + R
-
-         );
-
-E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
-
-E6 =  isVirtual(irr, C)
-
+E5 =  isVirtual(B, vres)
