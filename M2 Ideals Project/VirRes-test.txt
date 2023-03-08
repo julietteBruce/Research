@@ -130,3 +130,694 @@ F9E1 =  J = ideal(z_0*z_2-z_1^2, z_1*z_3-z_2^2, z_0*z_3-z_1*z_2);
 
 F9E2 =  curveFromP3toP1P2(J)
 
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+F1E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
+
+F1E1 =  S = ring X
+F1E2 =   B = ideal X
+F1E3 =  J = saturate(intersect(
+
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
+
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
+
+           B)
+
+F1E4 =  minres = res J
+
+F1E5 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
+
+F1E6 =  isVirtual(B, vres)
+
+F2E0 =  R = ZZ/101[x_0,x_1,x_2,x_3,x_4,Degrees=>{2:{1,0},3:{0,1}}];
+
+F2E1 =  B = intersect(ideal(x_0,x_1),ideal(x_2,x_3,x_4));
+
+F2E2 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3));
+
+F2E3 =  idealSheafGens(2,I,B)
+
+F3E0 =  N = {1,1,2}
+
+F3E1 =  pts = 6
+
+F3E2 =  (S, E) = productOfProjectiveSpaces N
+
+F3E3 =  irr = intersect for n to #N-1 list (
+
+         ideal select(gens S, i -> (degree i)#n == 1)
+
+         );
+
+F3E4 =  I = saturate intersect for i to pts - 1 list (
+
+         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+
+         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+
+         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
+
+         P + Q + R
+
+         );
+
+F3E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
+
+F3E6 =  isVirtual(irr, C)
+
+F4E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(2)
+
+F4E1 =  S = ring X
+F4E2 =   B = ideal X
+F4E3 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3))
+
+F4E4 =  J = saturate(I,B);
+
+F4E5 =  L = multigradedRegularity(X, J)
+
+F5E0 =  R = ZZ/101[s,t];
+
+F5E1 =  isVirtual(ideal(s,t),res ideal(t))
+
+F5E2 =  Y = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F5E3 =  S = ring Y;
+
+F5E4 =  B = ideal Y;
+
+F5E5 =  J = saturate(intersect(
+
+        ideal(x_1 - x_0, x_3 - 4*x_2),
+
+        ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+        ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F5E6 =  minres = res J;
+
+F5E7 =  vres = virtualOfPair(J,{{3,1}});
+
+F5E8 =  isVirtual(B,vres)
+
+F5E9 =  isVirtual(B,vres,Strategy=>Determinantal)
+
+F6E0 =  randomCurveP1P2(3,0);
+
+F6E1 =  randomCurveP1P2(3,0,QQ);
+
+F7E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F7E1 =  S = ring X;
+
+F7E2 =  B = ideal X;
+
+F7E3 =  J = saturate(intersect(
+
+         ideal(x_1 - x_0, x_3 - 4*x_2),
+
+         ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+         ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F7E4 =  minres = res J;
+
+F7E5 =  multigraded betti minres
+
+F7E6 =  multigradedRegularity(X, J)
+
+F7E7 =  vres = virtualOfPair(J, {{3,1}})
+
+F7E8 =  multigraded betti vres
+
+F8E0 =  randomMonomialCurve(2,3,QQ);
+
+F9E0 =  R = ZZ/101[z_0,z_1,z_2,z_3];
+
+F9E1 =  J = ideal(z_0*z_2-z_1^2, z_1*z_3-z_2^2, z_0*z_3-z_1*z_2);
+
+F9E2 =  curveFromP3toP1P2(J)
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+F1E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
+
+F1E1 =  S = ring X
+F1E2 =   B = ideal X
+F1E3 =  J = saturate(intersect(
+
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
+
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
+
+           B)
+
+F1E4 =  minres = res J
+
+F1E5 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
+
+F1E6 =  isVirtual(B, vres)
+
+F2E0 =  R = ZZ/101[x_0,x_1,x_2,x_3,x_4,Degrees=>{2:{1,0},3:{0,1}}];
+
+F2E1 =  B = intersect(ideal(x_0,x_1),ideal(x_2,x_3,x_4));
+
+F2E2 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3));
+
+F2E3 =  idealSheafGens(2,I,B)
+
+F3E0 =  N = {1,1,2}
+
+F3E1 =  pts = 6
+
+F3E2 =  (S, E) = productOfProjectiveSpaces N
+
+F3E3 =  irr = intersect for n to #N-1 list (
+
+         ideal select(gens S, i -> (degree i)#n == 1)
+
+         );
+
+F3E4 =  I = saturate intersect for i to pts - 1 list (
+
+         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+
+         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+
+         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
+
+         P + Q + R
+
+         );
+
+F3E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
+
+F3E6 =  isVirtual(irr, C)
+
+F4E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(2)
+
+F4E1 =  S = ring X
+F4E2 =   B = ideal X
+F4E3 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3))
+
+F4E4 =  J = saturate(I,B);
+
+F4E5 =  L = multigradedRegularity(X, J)
+
+F5E0 =  R = ZZ/101[s,t];
+
+F5E1 =  isVirtual(ideal(s,t),res ideal(t))
+
+F5E2 =  Y = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F5E3 =  S = ring Y;
+
+F5E4 =  B = ideal Y;
+
+F5E5 =  J = saturate(intersect(
+
+        ideal(x_1 - x_0, x_3 - 4*x_2),
+
+        ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+        ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F5E6 =  minres = res J;
+
+F5E7 =  vres = virtualOfPair(J,{{3,1}});
+
+F5E8 =  isVirtual(B,vres)
+
+F5E9 =  isVirtual(B,vres,Strategy=>Determinantal)
+
+F6E0 =  randomCurveP1P2(3,0);
+
+F6E1 =  randomCurveP1P2(3,0,QQ);
+
+F7E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F7E1 =  S = ring X;
+
+F7E2 =  B = ideal X;
+
+F7E3 =  J = saturate(intersect(
+
+         ideal(x_1 - x_0, x_3 - 4*x_2),
+
+         ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+         ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F7E4 =  minres = res J;
+
+F7E5 =  multigraded betti minres
+
+F7E6 =  multigradedRegularity(X, J)
+
+F7E7 =  vres = virtualOfPair(J, {{3,1}})
+
+F7E8 =  multigraded betti vres
+
+F8E0 =  randomMonomialCurve(2,3,QQ);
+
+F9E0 =  R = ZZ/101[z_0,z_1,z_2,z_3];
+
+F9E1 =  J = ideal(z_0*z_2-z_1^2, z_1*z_3-z_2^2, z_0*z_3-z_1*z_2);
+
+F9E2 =  curveFromP3toP1P2(J)
+
+LoadPackage "VirtualResolutions"
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+F1E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
+
+F1E1 =  S = ring X
+F1E2 =   B = ideal X
+F1E3 =  J = saturate(intersect(
+
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
+
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
+
+           B)
+
+F1E4 =  minres = res J
+
+F1E5 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
+
+F1E6 =  isVirtual(B, vres)
+
+F2E0 =  R = ZZ/101[x_0,x_1,x_2,x_3,x_4,Degrees=>{2:{1,0},3:{0,1}}];
+
+F2E1 =  B = intersect(ideal(x_0,x_1),ideal(x_2,x_3,x_4));
+
+F2E2 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3));
+
+F2E3 =  idealSheafGens(2,I,B)
+
+F3E0 =  N = {1,1,2}
+
+F3E1 =  pts = 6
+
+F3E2 =  (S, E) = productOfProjectiveSpaces N
+
+F3E3 =  irr = intersect for n to #N-1 list (
+
+         ideal select(gens S, i -> (degree i)#n == 1)
+
+         );
+
+F3E4 =  I = saturate intersect for i to pts - 1 list (
+
+         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+
+         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+
+         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
+
+         P + Q + R
+
+         );
+
+F3E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
+
+F3E6 =  isVirtual(irr, C)
+
+F4E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(2)
+
+F4E1 =  S = ring X
+F4E2 =   B = ideal X
+F4E3 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3))
+
+F4E4 =  J = saturate(I,B);
+
+F4E5 =  L = multigradedRegularity(X, J)
+
+F5E0 =  R = ZZ/101[s,t];
+
+F5E1 =  isVirtual(ideal(s,t),res ideal(t))
+
+F5E2 =  Y = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F5E3 =  S = ring Y;
+
+F5E4 =  B = ideal Y;
+
+F5E5 =  J = saturate(intersect(
+
+        ideal(x_1 - x_0, x_3 - 4*x_2),
+
+        ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+        ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F5E6 =  minres = res J;
+
+F5E7 =  vres = virtualOfPair(J,{{3,1}});
+
+F5E8 =  isVirtual(B,vres)
+
+F5E9 =  isVirtual(B,vres,Strategy=>Determinantal)
+
+F6E0 =  randomCurveP1P2(3,0);
+
+F6E1 =  randomCurveP1P2(3,0,QQ);
+
+F7E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F7E1 =  S = ring X;
+
+F7E2 =  B = ideal X;
+
+F7E3 =  J = saturate(intersect(
+
+         ideal(x_1 - x_0, x_3 - 4*x_2),
+
+         ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+         ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F7E4 =  minres = res J;
+
+F7E5 =  multigraded betti minres
+
+F7E6 =  multigradedRegularity(X, J)
+
+F7E7 =  vres = virtualOfPair(J, {{3,1}})
+
+F7E8 =  multigraded betti vres
+
+F8E0 =  randomMonomialCurve(2,3,QQ);
+
+F9E0 =  R = ZZ/101[z_0,z_1,z_2,z_3];
+
+F9E1 =  J = ideal(z_0*z_2-z_1^2, z_1*z_3-z_2^2, z_0*z_3-z_1*z_2);
+
+F9E2 =  curveFromP3toP1P2(J)
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+F1E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
+
+F1E1 =  S = ring X
+F1E2 =   B = ideal X
+F1E3 =  J = saturate(intersect(
+
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
+
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
+
+           B)
+
+F1E4 =  minres = res J
+
+F1E5 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
+
+F1E6 =  isVirtual(B, vres)
+
+F2E0 =  R = ZZ/101[x_0,x_1,x_2,x_3,x_4,Degrees=>{2:{1,0},3:{0,1}}];
+
+F2E1 =  B = intersect(ideal(x_0,x_1),ideal(x_2,x_3,x_4));
+
+F2E2 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3));
+
+F2E3 =  idealSheafGens(2,I,B)
+
+F3E0 =  N = {1,1,2}
+
+F3E1 =  pts = 6
+
+F3E2 =  (S, E) = productOfProjectiveSpaces N
+
+F3E3 =  irr = intersect for n to #N-1 list (
+
+         ideal select(gens S, i -> (degree i)#n == 1)
+
+         );
+
+F3E4 =  I = saturate intersect for i to pts - 1 list (
+
+         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+
+         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+
+         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
+
+         P + Q + R
+
+         );
+
+F3E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
+
+F3E6 =  isVirtual(irr, C)
+
+F4E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(2)
+
+F4E1 =  S = ring X
+F4E2 =   B = ideal X
+F4E3 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3))
+
+F4E4 =  J = saturate(I,B);
+
+F4E5 =  L = multigradedRegularity(X, J)
+
+F5E0 =  R = ZZ/101[s,t];
+
+F5E1 =  isVirtual(ideal(s,t),res ideal(t))
+
+F5E2 =  Y = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F5E3 =  S = ring Y;
+
+F5E4 =  B = ideal Y;
+
+F5E5 =  J = saturate(intersect(
+
+        ideal(x_1 - x_0, x_3 - 4*x_2),
+
+        ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+        ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F5E6 =  minres = res J;
+
+F5E7 =  vres = virtualOfPair(J,{{3,1}});
+
+F5E8 =  isVirtual(B,vres)
+
+F5E9 =  isVirtual(B,vres,Strategy=>Determinantal)
+
+F6E0 =  randomCurveP1P2(3,0);
+
+F6E1 =  randomCurveP1P2(3,0,QQ);
+
+F7E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F7E1 =  S = ring X;
+
+F7E2 =  B = ideal X;
+
+F7E3 =  J = saturate(intersect(
+
+         ideal(x_1 - x_0, x_3 - 4*x_2),
+
+         ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+         ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F7E4 =  minres = res J;
+
+F7E5 =  multigraded betti minres
+
+F7E6 =  multigradedRegularity(X, J)
+
+F7E7 =  vres = virtualOfPair(J, {{3,1}})
+
+F7E8 =  multigraded betti vres
+
+F8E0 =  randomMonomialCurve(2,3,QQ);
+
+F9E0 =  R = ZZ/101[z_0,z_1,z_2,z_3];
+
+F9E1 =  J = ideal(z_0*z_2-z_1^2, z_1*z_3-z_2^2, z_0*z_3-z_1*z_2);
+
+F9E2 =  curveFromP3toP1P2(J)
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+LoadPackage "VirtualResolutions"
+
+F0E0 =  randomRationalCurve(2,3,QQ);
+
+F0E1 =  randomRationalCurve(2,3);
+
+example_ids = {F0E0, F0E1}F1E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
+
+F1E1 =  S = ring X
+F1E2 =   B = ideal X
+F1E3 =  J = saturate(intersect(
+
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
+
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
+
+           B)
+
+F1E4 =  minres = res J
+
+F1E5 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
+
+F1E6 =  isVirtual(B, vres)
+
+example_ids = {F1E0, F1E1, F1E2, F1E3, F1E4, F1E5, F1E6}F2E0 =  R = ZZ/101[x_0,x_1,x_2,x_3,x_4,Degrees=>{2:{1,0},3:{0,1}}];
+
+F2E1 =  B = intersect(ideal(x_0,x_1),ideal(x_2,x_3,x_4));
+
+F2E2 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3));
+
+F2E3 =  idealSheafGens(2,I,B)
+
+example_ids = {F2E0, F2E1, F2E2, F2E3}F3E0 =  N = {1,1,2}
+
+F3E1 =  pts = 6
+
+F3E2 =  (S, E) = productOfProjectiveSpaces N
+
+F3E3 =  irr = intersect for n to #N-1 list (
+
+         ideal select(gens S, i -> (degree i)#n == 1)
+
+         );
+
+F3E4 =  I = saturate intersect for i to pts - 1 list (
+
+         P := sum for n to N#0 - 1 list ideal random({1,0,0}, S);
+
+         Q := sum for n to N#1 - 1 list ideal random({0,1,0}, S);
+
+         R := sum for n to N#2 - 1 list ideal random({0,0,1}, S);
+
+         P + Q + R
+
+         );
+
+F3E5 =  C = resolveViaFatPoint (I, irr, {2,1,0})
+
+F3E6 =  isVirtual(irr, C)
+
+example_ids = {F3E0, F3E1, F3E2, F3E3, F3E4, F3E5, F3E6}F4E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(2)
+
+F4E1 =  S = ring X
+F4E2 =   B = ideal X
+F4E3 =  I = ideal(x_0^2*x_2^2+x_1^2*x_3^2+x_0*x_1*x_4^2, x_0^3*x_4+x_1^3*(x_2+x_3))
+
+F4E4 =  J = saturate(I,B);
+
+F4E5 =  L = multigradedRegularity(X, J)
+
+example_ids = {F4E0, F4E1, F4E2, F4E3, F4E4, F4E5}F5E0 =  R = ZZ/101[s,t];
+
+F5E1 =  isVirtual(ideal(s,t),res ideal(t))
+
+F5E2 =  Y = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F5E3 =  S = ring Y;
+
+F5E4 =  B = ideal Y;
+
+F5E5 =  J = saturate(intersect(
+
+        ideal(x_1 - x_0, x_3 - 4*x_2),
+
+        ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+        ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F5E6 =  minres = res J;
+
+F5E7 =  vres = virtualOfPair(J,{{3,1}});
+
+F5E8 =  isVirtual(B,vres)
+
+F5E9 =  isVirtual(B,vres,Strategy=>Determinantal)
+
+example_ids = {F5E0, F5E1, F5E2, F5E3, F5E4, F5E5, F5E6, F5E7, F5E8, F5E9}F6E0 =  randomCurveP1P2(3,0);
+
+F6E1 =  randomCurveP1P2(3,0,QQ);
+
+example_ids = {F6E0, F6E1}F7E0 =  X = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F7E1 =  S = ring X;
+
+F7E2 =  B = ideal X;
+
+F7E3 =  J = saturate(intersect(
+
+         ideal(x_1 - x_0, x_3 - 4*x_2),
+
+         ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+         ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F7E4 =  minres = res J;
+
+F7E5 =  multigraded betti minres
+
+F7E6 =  multigradedRegularity(X, J)
+
+F7E7 =  vres = virtualOfPair(J, {{3,1}})
+
+F7E8 =  multigraded betti vres
+
+example_ids = {F7E0, F7E1, F7E2, F7E3, F7E4, F7E5, F7E6, F7E7, F7E8}F8E0 =  randomMonomialCurve(2,3,QQ);
+
+example_ids = {F8E0}F9E0 =  R = ZZ/101[z_0,z_1,z_2,z_3];
+
+F9E1 =  J = ideal(z_0*z_2-z_1^2, z_1*z_3-z_2^2, z_0*z_3-z_1*z_2);
+
+F9E2 =  curveFromP3toP1P2(J)
+
+example_ids = {F9E0, F9E1, F9E2}
