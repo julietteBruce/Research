@@ -58,7 +58,7 @@ def write_line_to_file(line: str, output_file_name: str) -> None:
 def write_list_of_example_ids_to_file(example_ids: List[str], output_file_name: str) -> None:
 	with open(output_file_name, 'a') as output_file:
 		seperator = ", "
-		list_as_string = f"example_ids = {{{seperator.join(example_ids)}}}"
+		list_as_string = f"example_ids = {{{seperator.join(example_ids)}}}\n"
 		output_file.write(list_as_string)
 
 def process_example_out_file(input_file_name: str, output_file_name: str, delimiter_pairs: List[str], file_number: int = 0) -> List[str]:
@@ -78,19 +78,20 @@ def process_example_out_file(input_file_name: str, output_file_name: str, delimi
 		elif previous_line == "i" and running_delimeter_count != [0]*len(delimiter_pairs):
 			write_line_to_file(line, output_file_name)
 			running_delimeter_count = update_running_delimeter_count(line, delimiter_pairs, running_delimeter_count)
-	example_ids = [f"F{file_number}E{number}" for number in range(example_number)]
-	write_list_of_example_ids_to_file(example_ids,output_file_name)
-	return example_ids
+	return [f"F{file_number}E{number}" for number in range(example_number)]
  
 def process_package_example_out(package_directory: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	file_number = 0
 	write_line_to_file(f"LoadPackage \"{package_directory}\"\n", output_file_name)
 	overview_dictionary = {}
+	package_example_ids = []
 	for file_name in os.scandir(package_directory):
 		if file_name.is_file():
-			example_ids = process_example_out_file(file_name.path, output_file_name, delimiter_pairs, file_number)
-			overview_dictionary[file_name.name] = {'file_number': file_number, 'example_ids': example_ids}
+			file_example_ids = process_example_out_file(file_name.path, output_file_name, delimiter_pairs, file_number)
+			overview_dictionary[file_name.name] = {'file_number': file_number, 'example_ids': file_example_ids}
 			file_number += 1
+			package_example_ids.extend(file_example_ids)
+	write_list_of_example_ids_to_file(package_example_ids,output_file_name)
 	print(overview_dictionary)
 
 package_directory = 'VirtualResolutions'
