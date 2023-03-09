@@ -94,13 +94,13 @@ def process_package_example_out(package_directory: str, output_file_name: str, d
 	write_list_of_example_ids_to_file(package_example_ids,output_file_name)
 	print(overview_dictionary)
 
-# package_directory = 'VirtualResolutions'
-# output_file_name = 'VirRes-test.txt'
+package_directory = 'VirtualResolutions'
+output_file_name = 'VirRes-test.txt'
 input_file_name = 'VirtualResolutions/_multigraded__Regularity.out'
 delimiter_pairs = ['()', '[]', "{}"]
 
-package_directory = 'NormalToricVarieties'
-output_file_name = 'NTV-test.txt'
-# process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
-process_package_example_out(package_directory, output_file_name, delimiter_pairs)
+# package_directory = 'NormalToricVarieties'
+# output_file_name = 'NTV-test.txt'
+process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
+# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 
