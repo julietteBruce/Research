@@ -8,7 +8,7 @@ load "NTV-test.txt"
 R = QQ[a..d];
 
 typesToGet = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
-typesToGet
+typesToGet = {Ideal, MonomialIdeal}
 
 ExampleDatabase = new MutableHashTable
 userSymbols Ideal
