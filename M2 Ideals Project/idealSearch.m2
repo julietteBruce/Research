@@ -56,7 +56,12 @@ buildExampleFromEntry(HashTable) := (H) -> (
     S = value H#"objectRing";
     value H#"object"
     )
- 
+
+buildPackageDatabase = method();
+buildPackageDatabase(filePath,packageNumber,packageName) -> (
+    load filePath
+    )
+
 desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
 ringTypes = {Ring,EngineRing,PolynomialRing,QuotientRing}
 
