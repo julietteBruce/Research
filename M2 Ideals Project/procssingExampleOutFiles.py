@@ -57,8 +57,9 @@ def write_line_to_file(line: str, output_file_name: str) -> None:
 
 def write_list_of_example_ids_to_file(example_ids: List[str], output_file_name: str) -> None:
 	with open(output_file_name, 'a') as output_file:
+		example_ids_quotes = ['\"' + ex_id + '\"' for ex_id in example_ids]
 		seperator = ", "
-		list_as_string = f"exampleIDS = {{{seperator.join(example_ids)}}}\n"
+		list_as_string = f"exampleIDS = {{{seperator.join(example_ids_quotes)}}}\n"
 		output_file.write(list_as_string)
 
 def process_example_out_file(input_file_name: str, output_file_name: str, delimiter_pairs: List[str], file_number: int = 0) -> List[str]:
@@ -101,6 +102,6 @@ delimiter_pairs = ['()', '[]', "{}"]
 
 # package_directory = 'NormalToricVarieties'
 # output_file_name = 'NTV-test.txt'
-process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
-# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
+# process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
+process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 

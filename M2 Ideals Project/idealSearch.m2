@@ -7,7 +7,7 @@ load "NTV-test.txt"
 
 R = QQ[a..d];
 
-typesToGet = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
+desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
 typesToGet = {Ideal, MonomialIdeal}
 
 ExampleDatabase = new MutableHashTable
@@ -16,6 +16,34 @@ examplesNumbers = {E0,E1,E2,E3,E4,E5}
 apply(exampleNumbers, i->(
 	ExampleDa
 	))
+
+isOfDesiredType = method();
+isOfDesiredType(Thing,List) := (t,L) -> (
+    member((class t),L)
+    )
+
+desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
+ringTypes = {Ring,EngineRing,PolynomialRing,QuotientRing}
+S = QQ[x]
+I = ideal(x^2)
+isOfDesiredType(I,desiredTypes)
+
+buildDatabaseEntryForExample = method();
+buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
+    if isOfDesiredType(t,ringTypes) == true then (
+	H = hashTable {
+	    "type" => (class t)
+	    "object" => toExternalString t
+	    };
+	)
+    else (
+	H = hashTable {
+	    "type" => (class t)
+	    "ring" => toExternalString (ring I)
+	    "object" => toExternalString t
+	    };
+	)
+    )
 
 makeBettiTally = method();
 makeBettiTally HashTable := H ->(
