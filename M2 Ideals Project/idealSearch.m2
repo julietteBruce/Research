@@ -24,7 +24,7 @@ parentRing(Thing) := (t) -> (
 
 isAmbientOK = method();
 isAmbientOK(Thing) := (t) -> (
-    toInclude = {PolynomialRing,QuotientRing};
+    toInclude := {PolynomialRing,QuotientRing};
     compareTypeToList(parentRing(t),toInclude)
     )
 
@@ -49,9 +49,20 @@ uniformizeRing(Thing) := (t) -> (
 	S = newRing(ring t);
 	sub(t,S)
 	)
-   -- S = value toExternalString ring t;
     )
 
+buildDatabaseEntryForExample = method();
+buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
+    hashTable {
+	    "objectType" => (class t),
+	    "objectRing" => toExternalString parentRing(t),
+	    "object" => toExternalString uniformizeRing(t),
+	    "objectSource" => packageName
+	    }
+    )
+
+
+-*
 buildDatabaseEntryForExample = method();
 buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
     if compareTypeToList(t,ringTypes) == true then (
@@ -72,14 +83,14 @@ buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
 	);
     H
     )
-
+*-
 	
 buildPackageDatabase = method();
 buildPackageDatabase(String,String,String,List) := (filePath,packageNumber,packageName,desiredTypes) -> (
     load filePath;
     L1 := apply(exampleIDS, exID->(
 	    t = (value exID);
-	    if compareTypeToList(t,desiredTypes) == true then (
+	    if isOfDesiredType(t,desiredTypes) then (
 		print exID;
 		entry = toExternalString buildDatabaseEntryForExample(t,packageName);
 		packageNumber|exID => entry
@@ -95,9 +106,9 @@ buildExampleFromEntry(HashTable) := (H) -> (
     )
 desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing}
 ringTypes = {PolynomialRing,QuotientRing}
---filePath = "VirRes-test.txt"
---packageName = "VirtualResolutions"
---packageNumber = "P2"
+filePath = "VirRes-test.txt"
+packageName = "VirtualResolutions"
+packageNumber = "P2"
 filePath = "NTV-test.txt"
 packageName = "NormalToricVarieties"
 packageNumber = "P18"

@@ -83,7 +83,7 @@ def process_example_out_file(input_file_name: str, output_file_name: str, delimi
  
 def process_package_example_out(package_directory: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	file_number = 0
-	write_line_to_file(f"loadPackage \"{package_directory}\"\n", output_file_name)
+	write_line_to_file(f"needsPackage \"{package_directory}\"\n", output_file_name)
 	overview_dictionary = {}
 	package_example_ids = []
 	for file_name in os.scandir(package_directory):
