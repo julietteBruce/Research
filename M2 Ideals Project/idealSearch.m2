@@ -6,9 +6,31 @@ restart
 load "NTV-test.txt"
 
 
+
+compareTypeToList = method();
+compareTypeToList(Thing,List) := (t,L) -> (
+    member((class t),L)
+    )
+
+parentRing = method();
+parentRing(Thing) := (t) -> (
+    if compareTypeToList(t,{PolynomialRing,QuotientRing}) then (
+	ambient t
+	)
+    else (
+	ring t
+	)
+    )
+
+isAmbientOK = method();
+isAmbientOK(Thing) := (t) -> (
+    toInclude = {PolynomialRing,QuotientRing};
+    compareTypeToList(parentRing(t),toInclude)
+    )
+
 isOfDesiredType = method();
 isOfDesiredType(Thing,List) := (t,L) -> (
-    member((class t),L)
+    compareTypeToList(t,L) and isAmbientOK(t)
     )
 
 uniformizeRing = method();
@@ -20,7 +42,7 @@ uniformizeRing(Thing) := (t) -> (
 	    S/K
 	    )
 	else (
-	    S
+	    t
 	    )
 	)
     else (
@@ -32,7 +54,7 @@ uniformizeRing(Thing) := (t) -> (
 
 buildDatabaseEntryForExample = method();
 buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
-    if isOfDesiredType(t,ringTypes) == true then (
+    if compareTypeToList(t,ringTypes) == true then (
 	H = hashTable {
 	    "objectType" => (class t),
 	    "objectRing" => toExternalString (ambient t),
@@ -51,18 +73,14 @@ buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
     H
     )
 
-buildExampleFromEntry = method();
-buildExampleFromEntry(HashTable) := (H) -> (
-    S = value H#"objectRing";
-    value H#"object"
-    )
 	
 buildPackageDatabase = method();
 buildPackageDatabase(String,String,String,List) := (filePath,packageNumber,packageName,desiredTypes) -> (
     load filePath;
     L1 := apply(exampleIDS, exID->(
 	    t = (value exID);
-	    if isOfDesiredType(t,desiredTypes) == true then (
+	    if compareTypeToList(t,desiredTypes) == true then (
+		print exID;
 		entry = toExternalString buildDatabaseEntryForExample(t,packageName);
 		packageNumber|exID => entry
 		)
@@ -70,12 +88,19 @@ buildPackageDatabase(String,String,String,List) := (filePath,packageNumber,packa
     hashTable delete(,L1)
     )
 
-desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
-ringTypes = {Ring,EngineRing,PolynomialRing,QuotientRing}
-filePath = "VirRes-test.txt"
-packageName = "VirtualResolutions"
-packageNumber = "P2"
-
+buildExampleFromEntry = method();
+buildExampleFromEntry(HashTable) := (H) -> (
+    S = value H#"objectRing";
+    value H#"object"
+    )
+desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing}
+ringTypes = {PolynomialRing,QuotientRing}
+--filePath = "VirRes-test.txt"
+--packageName = "VirtualResolutions"
+--packageNumber = "P2"
+filePath = "NTV-test.txt"
+packageName = "NormalToricVarieties"
+packageNumber = "P18"
 buildPackageDatabase(filePath,packageNumber,packageName,desiredTypes)
 
 R = QQ[x]
@@ -104,3 +129,6 @@ S = value H#"objectRing"
 value H#"object"
 buildExampleFromEntry(H)
 
+
+R = ZZ
+H = buildDatabaseEntryForExample(R,"Test")
