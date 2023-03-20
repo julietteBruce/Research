@@ -60,39 +60,15 @@ buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
 	    "objectSource" => packageName
 	    }
     )
-
-
--*
-buildDatabaseEntryForExample = method();
-buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
-    if compareTypeToList(t,ringTypes) == true then (
-	H = hashTable {
-	    "objectType" => (class t),
-	    "objectRing" => toExternalString (ambient t),
-	    "object" => toExternalString uniformizeRing(t),
-	    "objectSource" => packageName
-	    };
-	)
-    else (
-	H = hashTable {
-	    "objectType" => (class t),
-	    "objectRing" => toExternalString (ring t),
-	    "object" => toExternalString uniformizeRing(t),
-	    "objectSource" => packageName
-	    };
-	);
-    H
-    )
-*-
 	
 buildPackageDatabase = method();
 buildPackageDatabase(String,String,String,List) := (filePath,packageNumber,packageName,desiredTypes) -> (
     load filePath;
     L1 := apply(exampleIDS, exID->(
-	    t = (value exID);
+	    t := (value exID);
 	    if isOfDesiredType(t,desiredTypes) then (
 		print exID;
-		entry = toExternalString buildDatabaseEntryForExample(t,packageName);
+		entry := toExternalString buildDatabaseEntryForExample(t,packageName);
 		packageNumber|exID => entry
 		)
 	    ));
@@ -104,11 +80,16 @@ buildExampleFromEntry(HashTable) := (H) -> (
     S = value H#"objectRing";
     value H#"object"
     )
+
 desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing}
 ringTypes = {PolynomialRing,QuotientRing}
 filePath = "VirRes-test.txt"
 packageName = "VirtualResolutions"
 packageNumber = "P2"
+buildPackageDatabase(filePath,packageNumber,packageName,desiredTypes)
+
+
+
 filePath = "NTV-test.txt"
 packageName = "NormalToricVarieties"
 packageNumber = "P18"
