@@ -56,15 +56,27 @@ buildExampleFromEntry(HashTable) := (H) -> (
     S = value H#"objectRing";
     value H#"object"
     )
-
+	
 buildPackageDatabase = method();
-buildPackageDatabase(filePath,packageNumber,packageName) -> (
-    load filePath
+buildPackageDatabase(String,String,String,List) := (filePath,packageNumber,packageName,desiredTypes) -> (
+    load filePath;
+    L1 := apply(exampleIDS, exID->(
+	    t = (value exID);
+	    if isOfDesiredType(t,desiredTypes) == true then (
+		entry = toExternalString buildDatabaseEntryForExample(t,packageName);
+		packageNumber|exID => entry
+		)
+	    ));
+    hashTable delete(,L1)
     )
 
 desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,Ring,EngineRing,PolynomialRing,QuotientRing}
 ringTypes = {Ring,EngineRing,PolynomialRing,QuotientRing}
+filePath = "VirRes-test.txt"
+packageName = "VirtualResolutions"
+packageNumber = "P2"
 
+buildPackageDatabase(filePath,packageNumber,packageName,desiredTypes)
 
 R = QQ[x]
 I = ideal(x^2)
