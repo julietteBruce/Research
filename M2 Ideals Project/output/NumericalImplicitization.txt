@@ -1,0 +1,179 @@
+needsPackage "NumericalImplicitization"
+
+F0E0 =  numericalNullity(matrix{{2, 1}, {0, 1e-5}}, Precondition => false)
+
+F0E1 =  numericalNullity(map(CC^2,CC^2,0))
+
+F1E0 =  R = CC[x_(1,1)..x_(2,4)]
+
+F1E1 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F1E2 =  W = pseudoWitnessSet(F, I, Repeats => 2, Verbose => false);
+
+F1E3 =  q = first numericalImageSample(F, I)
+
+F1E4 =  isOnImage(W, q)
+
+F1E5 =  isOnImage(W, point random(CC^1, CC^#F))
+
+F1E6 =  isOnImage(W, point{{1_CC,0,0,0,0,0}})
+
+F2E0 =  R = CC[s,t]
+
+F2E1 =  F = basis(3, R)
+
+F2E2 =  extractImageEquations(F, ideal 0_R, 2, AttemptZZ => true)
+
+F2E3 =  gens ker map(QQ[s,t], QQ[y_0..y_3], {s^3,s^2*t,s*t^2,t^3})
+
+F2E4 =  R = CC[x_(1,1)..x_(3,5)]
+
+F2E5 =  F = (minors(3, genericMatrix(R, 3, 5)))_*;
+
+F2E6 =  T = numericalHilbertFunction(F, I, 2, Verbose => false);
+
+F2E7 =  extractImageEquations(T, AttemptZZ => true)
+
+F3E0 =  R = CC[x_(1,1)..x_(2,4)]
+
+F3E1 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F3E2 =  numericalImageDegree(F, I, Repeats => 2, Verbose => false)
+
+F4E0 =  R = CC[s,t]
+
+F4E1 =  F = basis(3, R)
+
+F4E2 =  numericalHilbertFunction(F, ideal 0_R, 4)
+
+F4E3 =  R = CC[x_(1,1)..x_(2,4)];
+
+F4E4 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F4E5 =  S = numericalImageSample(F, ideal 0_R, 60);
+
+F4E6 =  numericalHilbertFunction(F, ideal 0_R, S, 2, UseSLP => true)
+
+F5E0 =  R = CC[t]
+
+F5E1 =  F = {t, t^4, t^6}
+
+F5E2 =  I = ideal 0_R
+
+F5E3 =  (numericalHilbertFunction(F, I, 3, Verbose => false)).hilbertFunctionValue == 0
+
+F5E4 =  T = numericalHilbertFunction(F, I, 3, ConvertToCone => true)
+
+F5E5 =  extractImageEquations(T, AttemptZZ => true)
+
+F6E0 =  R = CC[x,y,z];
+
+F6E1 =  samp = numericalSourceSample(ideal 0_R)
+
+F6E2 =  samp#0
+
+F6E3 =  I = ideal(x^2 + y^2 + z^2 - 1);
+
+F6E4 =  numericalSourceSample(I, 3)
+
+F6E5 =  n = 5
+
+F6E6 =  R = RR[a_(1,1)..a_(n,n)]
+
+F6E7 =  A = genericMatrix(R,n,n);
+
+F6E8 =  I = ideal(A*transpose A - id_(R^n));
+
+F6E9 =  q = first numericalSourceSample(I, Software => I -> realPoint(I, Iterations => 100))
+
+F6E10 =  matrix pack(n, q#Coordinates)
+
+F6E11 =  norm evaluate(gens I, q)
+
+F7E0 =  R = CC[x_(1,1)..x_(2,4)];
+
+F7E1 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F7E2 =  T = numericalHilbertFunction(F, ideal 0_R, 2, Verbose => false)
+
+F7E3 =  (T.hilbertFunctionArgument, T.hilbertFunctionValue)
+
+F8E0 =  R = CC[x_(1,1)..x_(2,4)];
+
+F8E1 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F8E2 =  W = pseudoWitnessSet(F, ideal 0_R)
+
+F8E3 =  W.isCompletePseudoWitnessSet
+
+F8E4 =  W.degree
+
+F8E5 =  setRandomSeed 10
+
+F8E6 =  R = CC[s,t]
+
+F8E7 =  F = basis(3, R)
+
+F8E8 =  pseudoWitnessSet(F, ideal 0_R)
+
+F8E9 =  degree ker map(QQ[s,t], QQ[y_0..y_3], {s^3,s^2*t,s*t^2,t^3})
+
+F9E0 =  R = CC[s,t];
+
+F9E1 =  F = {s^3,s^2*t,s*t^2,t^3};
+
+F9E2 =  p = first numericalImageSample(F, ideal 0_R)
+
+F9E3 =  A = matrix{p#Coordinates_{0,1,2}, p#Coordinates_{1,2,3}};
+
+F9E4 =  numericalNullity A == 2
+
+F9E5 =  R = CC[x_(1,1)..x_(2,4)];
+
+F9E6 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F9E7 =  numericalImageSample(F, ideal 0_R)
+
+F10E0 =  R = CC[s,t];
+
+F10E1 =  W = pseudoWitnessSet(basis(3,R), ideal 0_R, Verbose => false);
+
+F10E2 =  peek W
+
+F11E0 =  (n,r) = (4,5)
+
+F11E1 =  R = RR[x_(1,1)..x_(n,r)]
+
+F11E2 =  A = transpose genericMatrix(R,r,n)
+
+F11E3 =  I1 = ideal(A*transpose A - (r/n)*id_(R^n));
+
+F11E4 =  I2 = ideal apply(entries transpose A, row -> sum(row, v -> v^2) - 1);
+
+F11E5 =  I = I1 + I2;
+
+F11E6 =  elapsedTime p = realPoint(I, Iterations => 100)
+
+F11E7 =  matrix pack(5, p#Coordinates)
+
+F11E8 =  norm evaluate(gens I, p)
+
+F12E0 =  R = CC[x_(1,1)..x_(2,4)];
+
+F12E1 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F12E2 =  numericalImageDim(F, ideal 0_R)
+
+F12E3 =  R = QQ[x_(1,1)..x_(2,4)];
+
+F12E4 =  F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+F12E5 =  dim ker map(R,QQ[y_0..y_(#F-1)],F)
+
+F12E6 =  R = CC[a_(1,1)..a_(14,5)];
+
+F12E7 =  F = sum(1..14, i -> basis(4, R, Variables=>toList(a_(i,1)..a_(i,5))));
+
+F12E8 =  time numericalImageDim(F, ideal 0_R)
+
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F7E0", "F7E1", "F7E2", "F7E3", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F10E0", "F10E1", "F10E2", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8"}

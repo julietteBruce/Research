@@ -1,0 +1,301 @@
+needsPackage "Jets"
+
+F0E0 =  R = QQ[x,y,z]
+
+F0E1 =  S = QQ[t]
+
+F0E2 =  f = map(S,R,{t,t^2,t^3})
+
+F0E3 =  Jf = jets(2,f);
+
+F0E4 =  matrix Jf
+
+F0E5 =  I = ideal(y-x^2,z-x^3)
+
+F0E6 =  Q = R/I
+
+F0E7 =  g = map(S,Q,{t,t^2,t^3})
+
+F0E8 =  isWellDefined g
+
+F0E9 =  Jg = jets(2,g);
+
+F0E10 =  isWellDefined Jg
+
+F1E0 =  R = QQ[x,y]
+
+F1E1 =  I = ideal (x^3 + y^3 - 3*x*y)
+
+F1E2 =  J = jets(3,I);
+
+F1E3 =  netList J_*
+
+F1E4 =  R = QQ[x,y,z]
+
+F1E5 =  I = ideal (y-x^2, z-x^3)
+
+F1E6 =  JI = jets(2,I)
+
+F1E7 =  isHomogeneous JI
+
+F1E8 =  JIproj = jets(2,I,Projective=>true)
+
+F1E9 =  isHomogeneous JIproj
+
+F2E0 =  R = QQ[x,y]
+
+F2E1 =  f = jetsProjection(5,2,R)
+
+F2E2 =  use jets(2,R)
+
+F2E3 =  p = (x2 + 2*x1*y1 + x0*y2^2)
+
+F2E4 =  f p
+
+F3E0 =  R = QQ[x,y]
+
+F3E1 =  I = ideal(y^2-x^2*(x+1))
+
+F3E2 =  A = Spec(R/I)
+
+F3E3 =  jets(2,A)
+
+F3E4 =  jets(2,A,Projective=>true)
+
+F4E0 =  R = QQ[x,y,z,Degrees=>{2,1,3}]
+
+F4E1 =  JR = jets(2,R)
+
+F4E2 =  describe JR
+
+F4E3 =  degrees (flattenRing JR)_0
+
+F4E4 =  R = QQ[x,y,z,Degrees=>{2,1,3}]
+
+F4E5 =  JR = jets(2,R,Projective=>true)
+
+F4E6 =  degrees (flattenRing JR)_0
+
+F4E7 =  A = QQ[a_1..a_3]
+
+F4E8 =  JA = jets(1,A)
+
+F4E9 =  describe JA
+
+F4E10 =  Zi = ZZ[i]/ideal(i^2+1)
+
+F4E11 =  B = Zi[b_1..b_3]
+
+F4E12 =  JB = jets(1,B)
+
+F4E13 =  describe JB
+
+F5E0 =  R = QQ[x,y]
+
+F5E1 =  I = ideal(y^2-x^3)
+
+F5E2 =  JJ_2 R
+
+F5E3 =  JJ_2 I
+
+F6E0 =  R = QQ[x,y,z]
+
+F6E1 =  G = graph(R,{{x,y},{y,z}})
+
+F6E2 =  JG = jets(2,G)
+
+F6E3 =  vertexCovers JG
+
+F6E4 =  R = QQ[u,v,w,x,y,z]
+
+F6E5 =  H = hyperGraph(R,{{u},{v,w},{x,y,z}})
+
+F6E6 =  jets(1,H)
+
+F7E0 =  R = QQ[x,y]
+
+F7E1 =  I = ideal(x*y*(x+y-1))
+
+F7E2 =  PC = principalComponent(2,I)
+
+F7E3 =  P = primaryDecomposition jets(2,I)
+
+F7E4 =  any(P,c -> c == PC)
+
+F7E5 =  PC == intersect(select(P,c -> degree c == 1))
+
+F8E0 =  R = QQ[x,y];
+
+F8E1 =  I = ideal(y^2-x^3);
+
+F8E2 =  Q = R/I;
+
+F8E3 =  JQ = jets(2,Q);
+
+F8E4 =  describe JQ
+
+F9E0 =  R = QQ[x,y]
+
+F9E1 =  R.?jet
+
+F9E2 =  jets(3,R)
+
+F9E3 =  R.?jet
+
+F9E4 =  peek R.jet
+
+F9E5 =  I = ideal (x^2 - y)
+
+F9E6 =  I.cache.?jet
+
+F9E7 =  elapsedTime jets(3,I)
+
+F9E8 =  I.cache.?jet
+
+F9E9 =  peek I.cache.jet
+
+F9E10 =  elapsedTime jets(3,I)
+
+F9E11 =  elapsedTime jets(2,I)
+
+F9E12 =  Q = R/I
+
+F9E13 =  Q.?jet
+
+F9E14 =  jets(3,Q)
+
+F9E15 =  Q.?jet
+
+F9E16 =  peek Q.jet.jetsRing
+
+F9E17 =  jets(2,Q)
+
+F9E18 =  peek Q.jet.jetsRing
+
+F9E19 =  S = QQ[t]
+
+F9E20 =  f = map(S,Q,{t,t^2})
+
+F9E21 =  isWellDefined f
+
+F9E22 =  f.cache.?jet
+
+F9E23 =  elapsedTime jets(3,f)
+
+F9E24 =  f.cache.?jet
+
+F9E25 =  peek f.cache.jet
+
+F9E26 =  elapsedTime jets(2,f)
+
+F9E27 =  jets(2,I,Projective=>true)
+
+F9E28 =  peek I.cache.projet
+
+F9E29 =  peek R.projet
+
+F10E0 =  R = QQ[x,y,z]
+
+F10E1 =  I = ideal (x*z, y*z)
+
+F10E2 =  J = jets(1,I);
+
+F10E3 =  MP = radical J;
+
+F10E4 =  GS = jetsRadical(1,I);
+
+F10E5 =  netList sort MP_* | netList sort GS_*
+
+F10E6 =  R = QQ[x,y,z]
+
+F10E7 =  I = ideal(x*y^2, z*x, x^3)
+
+F10E8 =  J = jets(1,I);
+
+F10E9 =  MP = radical J;
+
+F10E10 =  GS = jetsRadical(1,I);
+
+F10E11 =  netList sort MP_* | netList sort GS_*
+
+F10E12 =  MP == GS
+
+F11E0 =  R = QQ[x,y,z]
+
+F11E1 =  I = ideal(x*y*z)
+
+F11E2 =  J2I = jets(2,I)
+
+F11E3 =  elapsedTime jetsRadical(2,I)
+
+F11E4 =  elapsedTime radical J2I
+
+F11E5 =  P = minimalPrimes J2I
+
+F11E6 =  (A,f) = flattenRing ring J2I
+
+F11E7 =  needsPackage "LocalRings"
+
+F11E8 =  M = cokernel gens f J2I
+
+F11E9 =  mult = for p in P list (
+
+          Rp := localRing(A,f p);
+
+          length(M ** Rp)
+
+          );
+
+F11E10 =  netList(pack(4,mingle{P,mult}),HorizontalSpace=>1)
+
+F12E0 =  R = QQ[a..e]
+
+F12E1 =  G = graph({{a,c},{a,d},{a,e},{b,c},{b,d},{b,e},{c,e}})
+
+F12E2 =  J1G = jets(1,G); netList pack(7,edges J1G)
+
+F12E3 =  J2G = jets(2,G); netList pack(7,edges J2G)
+
+F12E4 =  apply({G,J1G,J2G},chromaticNumber)
+
+F12E5 =  apply({G,J1G,J2G},x -> isChordal complementGraph x)
+
+F12E6 =  vertexCovers G
+
+F12E7 =  netList pack(2,vertexCovers J2G)
+
+F13E0 =  R = QQ[x_(1,1)..x_(3,3)]
+
+F13E1 =  G = genericMatrix(R,3,3)
+
+F13E2 =  I1 = minors(1,G)
+
+F13E3 =  JI1 = jets(1,I1)
+
+F13E4 =  dim JI1, isPrime JI1
+
+F13E5 =  I3 = minors(3,G)
+
+F13E6 =  JI3 = jets(1,I3)
+
+F13E7 =  isPrime JI3
+
+F13E8 =  I2 = minors(2,G)
+
+F13E9 =  JI2 = jets(1,I2)
+
+F13E10 =  P = primaryDecomposition JI2; #P
+
+F13E11 =  P_1
+
+F13E12 =  radical JI2 == JI2
+
+F13E13 =  P_0 == principalComponent(1,I2,Saturate=>false)
+
+F13E14 =  P_0
+
+F13E15 =  apply({P_0,I2}, X -> hilbertSeries(X,Reduce=>true))
+
+F13E16 =  numerator (first oo) == (numerator last oo)^2
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F4E13", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F9E21", "F9E22", "F9E23", "F9E24", "F9E25", "F9E26", "F9E27", "F9E28", "F9E29", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F13E10", "F13E11", "F13E12", "F13E13", "F13E14", "F13E15", "F13E16"}

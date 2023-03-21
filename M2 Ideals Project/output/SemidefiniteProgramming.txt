@@ -1,0 +1,79 @@
+needsPackage "SemidefiniteProgramming"
+
+F0E0 =  needsPackage ("SemidefiniteProgramming", Configuration=>{"CSDPexec"=>"/some/path/csdp"});
+
+F0E1 =  needsPackage ("SemidefiniteProgramming", Configuration=>{"SDPAexec"=>"/some/path/sdpa"});
+
+F0E2 =  needsPackage ("SemidefiniteProgramming", Configuration=>{"MOSEKexec"=>"/some/path/mosek"});
+
+F0E3 =  needsPackage ("SemidefiniteProgramming", Configuration=>{"DefaultSolver"=>"CSDP"});
+
+F0E4 =  applicationDirectory()
+
+F1E0 =  A = matrix(QQ, {{5,3,5},{3,2,4},{5,4,10}})
+
+F1E1 =  (L,D,P) = PSDdecomposition(A)
+
+F1E2 =  L*D*transpose(L) == transpose(P)*A*P
+
+F2E0 =  P = sdp(matrix{{1,0},{0,2}}, matrix{{0,1},{1,0}}, matrix{{-1}})
+
+F2E1 =  (X,y,Z,stat) = optimize P;
+
+F2E2 =  (X,y)
+
+F2E3 =  (I,X,y,Z) = criticalIdeal P;
+
+F2E4 =  radical I
+
+F3E0 =  P = sdp(matrix{{1,0},{0,2}}, matrix{{0,1},{1,0}}, matrix{{-1}})
+
+F3E1 =  R = QQ[u,v,w];
+
+F3E2 =  M = matrix {{1,u,3-v},{u,5,w},{3-v,w,9+u}}
+
+F3E3 =  objFun = u+v+w;
+
+F3E4 =  P = sdp({u,v,w}, M, objFun);
+
+F4E0 =  A = matrix(QQ, {{1,2,3,4},{2,5,6,7},{3,6,8,9},{4,7,9,10}})
+
+F4E1 =  v = smat2vec A
+
+F4E2 =  vec2smat v
+
+F4E3 =  smat2vec(A,Scaling=>2)
+
+F5E0 =  changeSolver ("CSDP", "/path/to/csdp")
+
+F6E0 =  A = (-matrix{{0,1,0},{1,0,0},{0,0,1}}, matrix{{0,0,1},{0,0,0},{1,0,0}}, -matrix{{0,0,0},{0,0,1},{0,1,0}});
+
+F6E1 =  (C, b) = (matrix{{1/1,0,3},{0,5,0},{3,0,9}}, matrix{{-1},{-1},{-1}});
+
+F6E2 =  P = sdp(C,A,b);
+
+F6E3 =  (I,X,y,Z) = criticalIdeal P;
+
+F6E4 =  degree I
+
+F6E5 =  rk = 1;
+
+F6E6 =  (J,X,y,Z) = criticalIdeal(P, rk);
+
+F6E7 =  degree J
+
+F7E0 =  P = sdp(matrix{{1,0},{0,2}}, matrix{{0,1},{1,0}}, matrix{{-1}});
+
+F7E1 =  (X,y,Z,stat) = optimize P;
+
+F7E2 =  y
+
+F8E0 =  P = sdp(matrix{{1,0},{0,2}}, matrix{{0,1},{1,0}}, matrix{{-1}});
+
+F8E1 =  (X0,y0) = (matrix{{.71, -.5}, {-.5, .35}}, matrix{{-1.41}})
+
+F8E2 =  (X1,y1) = refine(P,(X0,y0))
+
+F9E0 =  checkOptimize ("CSDP")
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F4E0", "F4E1", "F4E2", "F4E3", "F5E0", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F8E2", "F9E0"}

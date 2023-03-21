@@ -1,0 +1,41 @@
+needsPackage "ModuleDeformations"
+
+F0E0 =  R = QQ[x,y, Degrees => {3,4}]/(x^4-y^3);
+
+F0E1 =  deformMCMModule R^1
+
+F0E2 =  M0 = truncate(1,R^1)
+
+F0E3 =  (S,M) = deformMCMModule M0
+
+F0E4 =  prune S
+
+F0E5 =  use R;  
+
+F0E6 =  N0 = module ideal (x^2,y^2)
+
+F0E7 =  (S,N) = time deformMCMModule N0 
+
+F0E8 =  prune S
+
+F0E9 =  N0' = coker matrix entries presentation N0
+
+F0E10 =  (S',N') = time deformMCMModule N0'
+
+F0E11 =  prune S'
+
+F1E0 =  OSigma = QQ[x, Degrees=>{2}];
+
+F1E1 =  OY = QQ[y,z,x, Degrees=>{2,3,2}]/(z^2-(y-x)*y^2);
+
+F1E2 =  phi = map(OY,OSigma, {x})
+
+F1E3 =  use OSigma
+
+F1E4 =  OX = trim (OY/phi(ideal x))
+
+F1E5 =  (OS,M) = deformMCMModule(module ideal (y,z),phi)
+
+F1E6 =  prune OS
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6"}

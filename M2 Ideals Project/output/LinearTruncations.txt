@@ -1,0 +1,151 @@
+needsPackage "LinearTruncations"
+
+F0E0 =  (S,E) = productOfProjectiveSpaces {1,2}
+
+F0E1 =  I = ideal(x_(0,0)*x_(1,0),x_(1,1)^3)
+
+F0E2 =  M = S^1/I
+
+F0E3 =  regularityBound M
+
+F0E4 =  needsPackage "VirtualResolutions"
+
+F0E5 =  multigradedRegularity(S,M)
+
+F1E0 =  S = ZZ/101[x,y,Degrees=>{{1,0},{0,1}}]
+
+F1E1 =  I = ideal(x*y^2,x^3*y)
+
+F1E2 =  M = S^1/I
+
+F1E3 =  f = (d,M) -> truncate(d,M)==0
+
+F1E4 =  findRegion({{0,0},{4,4}},M,f)
+
+F1E5 =  elapsedTime findRegion({{0,0},{4,4}},M,f)
+
+F1E6 =  elapsedTime findRegion({{0,0},{4,4}},M,f,Inner=>{{1,2},{3,1}},Outer=>{{1,1}})
+
+F2E0 =  R = multigradedPolynomialRing {1,2}
+
+F2E1 =  irrelevantIdeal R
+
+F2E2 =  R = multigradedPolynomialRing 3
+
+F2E3 =  irrelevantIdeal R
+
+F3E0 =  L = {{3,4,1},{5,8,1},{10,2,7}}
+
+F3E1 =  compMin L
+
+F3E2 =  compMax L
+
+F4E0 =  S = ZZ/101[x_0,x_1,y_0,y_1,z_0,z_1,Degrees=>{{1,0,0},{1,0,0},{0,1,0},{0,1,0},{0,0,1},{0,0,1}}]
+
+F4E1 =  I = ideal(x_0*x_1*y_0*z_0^2, x_1^2*y_0^2*y_1^2*z_0^2, x_0^3*y_0*z_1, x_0^2*x_1*y_1*z_0*z_1, x_0*x_1^2*y_1^2*z_0^3, x_1^3*y_0^2*y_1*z_1^2)
+
+F4E2 =  M = S^1/I
+
+F4E3 =  d = {4,3,2}
+
+F4E4 =  isLinearComplex res prune truncate({4,3,2},M)
+
+F4E5 =  isQuasiLinear(d,M)
+
+F5E0 =  L = {{1,2},{3,1},{3,2},{1,4}}
+
+F5E1 =  findMins L
+
+F6E0 =  S = multigradedPolynomialRing {1,2}
+
+F6E1 =  B = irrelevantIdeal S
+
+F6E2 =  M = S^1/B
+
+F6E3 =  F = res prune M
+
+F6E4 =  multigraded betti F
+
+F6E5 =  supportOfTor M
+
+F6E6 =  netList supportOfTor M
+
+F6E7 =  netList supportOfTor F
+
+F7E0 =  S = ZZ/101[x_0,x_1,y_0,y_1,z_0,z_1,Degrees=>{{1,0,0},{1,0,0},{0,1,0},{0,1,0},{0,0,1},{0,0,1}}]
+
+F7E1 =  I = ideal(x_0*x_1*y_0*z_0^2, x_1^2*y_0^2*y_1^2*z_0^2, x_0^3*y_0*z_1, x_0^2*x_1*y_1*z_0*z_1, x_0*x_1^2*y_1^2*z_0^3, x_1^3*y_0^2*y_1*z_1^2)
+
+F7E2 =  M = S^1/I
+
+F7E3 =  L = linearTruncationsBound M
+
+F7E4 =  apply(L, d -> isLinearComplex res prune truncate(d,M))
+
+F7E5 =  elapsedTime linearTruncations({{2,2,2},{4,4,4}}, M)
+
+F7E6 =  elapsedTime linearTruncationsBound M
+
+F8E0 =  S = ZZ/101[x_0,x_1,y_0,y_1,z_0,z_1,Degrees=>{{1,0,0},{1,0,0},{0,1,0},{0,1,0},{0,0,1},{0,0,1}}]
+
+F8E1 =  I = ideal(x_0*x_1*y_0*z_0^2, x_1^2*y_0^2*y_1^2*z_0^2, x_0^3*y_0*z_1, x_0^2*x_1*y_1*z_0*z_1, x_0*x_1^2*y_1^2*z_0^3, x_1^3*y_0^2*y_1*z_1^2)
+
+F8E2 =  M = S^1/I
+
+F8E3 =  netList supportOfTor M
+
+F8E4 =  partialRegularities M
+
+F9E0 =  t = 2
+
+F9E1 =  d = 5
+
+F9E2 =  diagonalMultidegrees(d,t)
+
+F9E3 =  diagonalMultidegrees(d, {0,1,2})
+
+F10E0 =  S = ZZ/101[x_1..x_4]
+
+F10E1 =  I = ideal(x_1*x_2, x_1*x_3,x_1*x_4, x_2*x_3, x_3*x_4)
+
+F10E2 =  M = S^1/I
+
+F10E3 =  F = res M
+
+F10E4 =  betti F
+
+F10E5 =  isLinearComplex F
+
+F10E6 =  F' = res truncate(2,M)
+
+F10E7 =  betti F'
+
+F10E8 =  isLinearComplex F'
+
+F11E0 =  S = multigradedPolynomialRing({1,3,4})
+
+F11E1 =  gens S
+
+F11E2 =  degrees S
+
+F11E3 =  gens multigradedPolynomialRing 4
+
+F11E4 =  multigradedPolynomialRing({1,2},CoefficientField => ZZ/5,Variables=>"y")
+
+F11E5 =  multigradedPolynomialRing(3,Standard=>false)
+
+F12E0 =  S = ZZ/101[x_1..x_4,Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
+
+F12E1 =  I = ideal(x_1^3*x_3, x_2*x_3*x_4, x_3^4*x_4, x_4*x_2^2, x_1^3*x_2^3, x_3^3)
+
+F12E2 =  M = S^1/I
+
+F12E3 =  regularity M
+
+F12E4 =  r = coarseMultigradedRegularity M
+
+F12E5 =  L = linearTruncations({{0,0}, r}, M)
+
+F12E6 =  apply(L, i -> isLinearComplex res truncate(i,M))
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F9E0", "F9E1", "F9E2", "F9E3", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6"}

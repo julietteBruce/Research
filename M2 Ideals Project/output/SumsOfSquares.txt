@@ -1,0 +1,295 @@
+needsPackage "SumsOfSquares"
+
+F0E0 =  R = QQ[x,y];
+
+F0E1 =  f = 2*x^4+5*y^4-2*x^2*y^2+2*x^3*y;
+
+F0E2 =  sol = solveSOS f;
+
+F0E3 =  sosPoly sol
+
+F0E4 =  R = QQ[x,y];
+
+F0E5 =  s = sosPoly(R, {x+1,y}, {2,3} )
+
+F0E6 =  peek s
+
+F0E7 =  gens s
+
+F0E8 =  ring s
+
+F0E9 =  coefficients s
+
+F0E10 =  length s
+
+F0E11 =  2 * s
+
+F0E12 =  s + s
+
+F0E13 =  s * s
+
+F0E14 =  s == s
+
+F0E15 =  value s
+
+F0E16 =  expression s
+
+F0E17 =  S = QQ[x,y,z];
+
+F0E18 =  sub (s, S)
+
+F1E0 =  R = QQ[x,y]/ideal(x^2 + y^2 - 1);
+
+F1E1 =  f = 10-x^2-y;
+
+F1E2 =  mon = matrix {{1}, {x}, {y}};
+
+F1E3 =  solveSOS (f, mon)
+
+F1E4 =  solveSOS (f, 2)
+
+F1E5 =  S = R[t];
+
+F1E6 =  solveSOS(f-t,-t,mon,RoundTol=>12)
+
+F1E7 =  R = QQ[x,y]/ideal(x^2 + y^2 - 1);
+
+F1E8 =  f = 10-x^2-y;
+
+F1E9 =  mon = matrix {{1}, {x}, {y}};
+
+F1E10 =  s = solveSOS (f, mon, RoundTol=>infinity);
+
+F1E11 =  ring sosPoly s
+
+F1E12 =  R' = ring sosPoly s;
+
+F1E13 =  S = R'/(sub (ideal (x^2 + y^2 - 1), R'))
+
+F1E14 =  sub (f, S) == sub (sosPoly s, S)
+
+F2E0 =  R = QQ[x,y,z];
+
+F2E1 =  library("Motzkin", R)
+
+F2E2 =  library("Robinson", R)
+
+F2E3 =  library("Schmuedgen", R)
+
+F2E4 =  R = QQ[x,y,z,w];
+
+F2E5 =  library("Lax-Lax", R)
+
+F2E6 =  library("Choi-Lam", R)
+
+F2E7 =  R = QQ[x,y,z];
+
+F2E8 =  library("Scheiderer", R)
+
+F2E9 =  library("Harris", R)
+
+F3E0 =  R=QQ[x];
+
+F3E1 =  f = (x-1)^2 + (x+3)^2;
+
+F3E2 =  (bound,sol) = lowerBound(f);
+
+F3E3 =  (bound, recoverSolution sol)
+
+F3E4 =  f - bound == sosPoly sol
+
+F3E5 =  R = QQ[x,y]/ideal(x^2 - x, y^2 - y);
+
+F3E6 =  f = x - y;
+
+F3E7 =  (bound,sol) = lowerBound(f,2);
+
+F3E8 =  bound
+
+F3E9 =  f - bound == sosPoly sol
+
+F3E10 =  R = QQ[x,y];
+
+F3E11 =  f = x - y;
+
+F3E12 =  h = matrix{{x^2 - x, y^2 - y}};
+
+F3E13 =  (bound,sol,mult) = lowerBound (f, h, 2);
+
+F3E14 =  bound
+
+F3E15 =  f - bound + h*mult == sosPoly sol
+
+F3E16 =  R = QQ[x];
+
+F3E17 =  f = (x^2-x)/(x^2+1);
+
+F3E18 =  (bound,sol) = lowerBound (f);
+
+F3E19 =  (bound, recoverSolution sol)
+
+F4E0 =  R = RR[x,y,z];
+
+F4E1 =  f = library ("Motzkin", {x,y,z});
+
+F4E2 =  (p,q) = sosdecTernary (f);
+
+F4E3 =  (#p, #q)
+
+F4E4 =  clean(1e-4, f * value q#0 - value p#0)
+
+F5E0 =  R = QQ[x,y]/ideal(x^2 + y^2 - 1);
+
+F5E1 =  f = 10-x^2-y;
+
+F5E2 =  sosPoly solveSOS (f, 2)
+
+F5E3 =  sosPoly solveSOS (f, 2, TraceObj=>true)
+
+F6E0 =  R = QQ[x,y,z];
+
+F6E1 =  h = matrix {{x^2-4*x+2*y^2, 2*z^2-y^2+2}};
+
+F6E2 =  (sol,mult) = sosInIdeal (h, 2);
+
+F6E3 =  sosPoly sol
+
+F6E4 =  h * mult == sosPoly sol
+
+F6E5 =  S = R/ideal h;
+
+F6E6 =  sol = sosInIdeal (S, 2);
+
+F6E7 =  sosPoly sol
+
+F6E8 =  sosPoly sol
+
+F7E0 =  R = RR[x,y];
+
+F7E1 =  mon = matrix {{1},{x},{y}};
+
+F7E2 =  X = matrix(RR, {{1,0,1},{0,0,0},{1,0,1}} );
+
+F7E3 =  sol = recoverSolution(mon,X)
+
+F8E0 =  f = library("Scheiderer", QQ[x,y,z])
+
+F8E1 =  sol = solveSOS (f);
+
+F8E2 =  sosPoly sol
+
+F8E3 =  clean (0.001, sosPoly sol)
+
+F9E0 =  R = QQ[x,y];
+
+F9E1 =  f = 2*x^4+5*y^4-2*x^2*y^2+2*x^3*y;
+
+F9E2 =  sol = solveSOS f;
+
+F9E3 =  Q = sol#GramMatrix
+
+F9E4 =  mon = sol#Monomials
+
+F9E5 =  transpose(mon)*Q*mon - f
+
+F9E6 =  R = QQ[x][t];
+
+F9E7 =  f = (t-1)*x^4+1/2*t*x+1;
+
+F9E8 =  sol = solveSOS f;
+
+F9E9 =  sosPoly sol
+
+F9E10 =  sol#Parameters
+
+F9E11 =  R = QQ[x,y,z][s,t]
+
+F9E12 =  g = library("Robinson", {x,y,z}) + s*x^6 + t*y^6
+
+F9E13 =  sol = solveSOS g;
+
+F9E14 =  sol#Parameters
+
+F9E15 =  R = QQ[x][t];
+
+F9E16 =  f = x^2 - 3*x - t;
+
+F9E17 =  sol = solveSOS (f, -t, RoundTol=>12);
+
+F9E18 =  sol#Parameters
+
+F10E0 =  R = QQ[x,y];
+
+F10E1 =  f = 2*x^4 + 2*x^3*y - 2*x^2*y^2 + 5*y^4;
+
+F10E2 =  sol = solveSOS f;
+
+F10E3 =  s = sosPoly sol
+
+F10E4 =  value(s)
+
+F10E5 =  R = QQ[x,y];
+
+F10E6 =  S = R/ideal(x^2 + y^2 - 1);
+
+F10E7 =  f = 10-x^2-y;
+
+F10E8 =  sol = solveSOS (f, 2);
+
+F10E9 =  sosPoly sol
+
+F11E0 =  R = QQ[x,y];
+
+F11E1 =  s = sosPoly(R, {x+1,y}, {2,3} )
+
+F11E2 =  value( s )
+
+F12E0 =  R = QQ[x][t];
+
+F12E1 =  f = x^2 - 3*x - t;
+
+F12E2 =  sol = solveSOS (f, -t, RoundTol=>12)
+
+F12E3 =  peek sol
+
+F12E4 =  sol#GramMatrix
+
+F12E5 =  sosPoly sol
+
+F13E0 =  R = QQ[x,z];
+
+F13E1 =  f = x^4+x^2+z^6-3*x^2*z^2;
+
+F13E2 =  (bound,sol) = lowerBound (f,RoundTol=>4);
+
+F13E3 =  bound
+
+F13E4 =  (bound,sol) = lowerBound (f,RoundTol=>12);
+
+F13E5 =  bound
+
+F13E6 =  (bound,sol) = lowerBound (f,RoundTol=>infinity);
+
+F13E7 =  bound
+
+F14E0 =  R = RR[x,y];
+
+F14E1 =  s = sosPoly(R, {x^2+.0001*x+1, y}, {2, .0001})
+
+F14E2 =  clean( .001, s )
+
+F15E0 =  R = QQ[x,y];
+
+F15E1 =  f = 2*x^4+5*y^4-2*x^2*y^2+2*x^3*y;
+
+F15E2 =  sosPoly solveSOS f
+
+F15E3 =  Q = matrix(QQ,{{1,1,1},{1,1,1},{1,1,1}});
+
+F15E4 =  mon = matrix{{1},{x},{y}};
+
+F15E5 =  sosPoly(mon,Q)
+
+F15E6 =  s = sosPoly(R, {x+1,y}, {2,3} )
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F7E0", "F7E1", "F7E2", "F7E3", "F8E0", "F8E1", "F8E2", "F8E3", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F11E0", "F11E1", "F11E2", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F14E0", "F14E1", "F14E2", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6"}

@@ -1,0 +1,579 @@
+needsPackage "ReesAlgebra"
+
+F0E0 =  kk = ZZ/101;
+
+F0E1 =  S = kk[a..c];
+
+F0E2 =  m = ideal vars S;
+
+F0E3 =  i = (ideal"a,b")*m+ideal"c3"
+
+F0E4 =  analyticSpread i
+
+F0E5 =  minimalReduction i
+
+F0E6 =  f = gens i
+
+F0E7 =  for a from 0 to 3 do(jhom:=ideal (f*random(source f, S^{3-a:-2,a:-3})); print(i^6 == (i^5)*jhom))
+
+F1E0 =  S = ZZ/5[x,y]
+
+F1E1 =  I = ideal(x^3,x*y,y^4)
+
+F1E2 =  J = ideal(x*y, x^3+y^4)
+
+F1E3 =  isReduction(I,J)
+
+F1E4 =  isReduction(J,I)
+
+F1E5 =  isReduction(I,I)
+
+F1E6 =  g = I_0
+
+F1E7 =  isReduction(I,J,g)
+
+F1E8 =  isReduction(J,I,g)
+
+F1E9 =  isReduction(I,I,g)
+
+F2E0 =  R = QQ[a..e]
+
+F2E1 =  J = monomialCurveIdeal(R, {1,2,3})
+
+F2E2 =  symmetricKernel (gens J)
+
+F2E3 =  S = ring oo;
+
+F2E4 =  (monoid S).Options.Degrees
+
+F2E5 =  R = QQ[x,y,z]/ideal(x*y^2-z^9)
+
+F2E6 =  J = ideal(x,y,z)
+
+F2E7 =  symmetricKernel(gens J)
+
+F3E0 =  R=QQ[a..h]
+
+F3E1 =  M=matrix{{a,b,c,d},{e,f,g,h}}
+
+F3E2 =  analyticSpread minors(2,M)
+
+F3E3 =  specialFiberIdeal minors(2,M)
+
+F3E4 =  n = 2
+
+F3E5 =  x = symbol x
+
+F3E6 =  S = ZZ/32003[x_1..x_n]
+
+F3E7 =  M = matrix{{x_1,x_2,0},{0,x_1,x_2}}
+
+F3E8 =  I = minors(n,M)
+
+F3E9 =  specialFiber(I,I_0)
+
+F4E0 =  R=QQ[a..h]
+
+F4E1 =  M=matrix{{a,b,c,d},{e,f,g,h}}
+
+F4E2 =  analyticSpread minors(2,M)
+
+F4E3 =  specialFiberIdeal minors(2,M)
+
+F4E4 =  R=QQ[a,b,c,d]
+
+F4E5 =  M=matrix{{a,b,c,d},{b,c,d,a}}
+
+F4E6 =  analyticSpread minors(2,M)
+
+F4E7 =  specialFiberIdeal minors(2,M)
+
+F5E0 =  setRandomSeed()
+
+F5E1 =  kk = ZZ/32003;
+
+F5E2 =  S = kk[a..c];
+
+F5E3 =  m = ideal vars S;
+
+F5E4 =  i = (ideal"a,b")*m+ideal"c3"
+
+F5E5 =  analyticSpread i
+
+F5E6 =  j=minimalReduction i
+
+F5E7 =  reductionNumber (i,j)
+
+F6E0 =  kk = ZZ/101;
+
+F6E1 =  S=kk[x_0..x_4];
+
+F6E2 =  i= trim monomialCurveIdeal(S,{2,3,5,6})
+
+F6E3 =  time V1 = reesIdeal i;
+
+F6E4 =  time V2 = reesIdeal(i,i_0);
+
+F6E5 =  S=kk[a,b,c]
+
+F6E6 =  m=matrix{{a,0},{b,a},{0,b}}
+
+F6E7 =  i=minors(2,m)
+
+F6E8 =  time I1 = reesIdeal i;
+
+F6E9 =  time I2 = reesIdeal(i,i_0);
+
+F6E10 =  transpose gens I1
+
+F6E11 =  transpose gens I2
+
+F6E12 =  R = ZZ/32003[x,y]
+
+F6E13 =  I = ideal(x,y)
+
+F6E14 =  cusp = ideal(x^2-y^3)
+
+F6E15 =  RI = reesIdeal(I)
+
+F6E16 =  S = ring RI
+
+F6E17 =  totalTransform = substitute(cusp, S) + RI
+
+F6E18 =  D = decompose totalTransform -- the components are the strict transform of the cuspidal curve and the exceptional curve
+
+F6E19 =  totalTransform = first flattenRing totalTransform
+
+F6E20 =  L = primaryDecomposition totalTransform
+
+F6E21 =  apply(L, i -> (degree i)/(degree radical i))
+
+F6E22 =  use ring L_0
+
+F6E23 =  singular = ideal(singularLocus(L_0));
+
+F6E24 =  SL = saturate(singular, ideal(x,y));
+
+F6E25 =  saturate(SL, ideal(w_0,w_1))
+
+F7E0 =  S = ZZ/101[x,y,z];
+
+F7E1 =  FF=res ((ideal vars S)^3);
+
+F7E2 =  M=coker (FF.dd_2)
+
+F7E3 =  versalEmbedding M
+
+F7E4 =  x = symbol x;
+
+F7E5 =  R=QQ[x_1..x_8];
+
+F7E6 =  m1=genericMatrix(R,x_1,2,2)
+
+F7E7 =  m=m1*m2
+
+F7E8 =  d1=minors(2,m1)
+
+F7E9 =  M=matrix{{0,d1_0,m_(0,0),m_(0,1)},	   {0,0,m_(1,0),m_(1,1)},	   {0,0,0,d2_0},	   {0,0,0,0}}
+
+F7E10 =  M=M-(transpose M);
+
+F7E11 =  N= coker(res coker transpose M).dd_2
+
+F7E12 =  versalEmbedding(N)
+
+F7E13 =  p = 3;
+
+F7E14 =  S = ZZ/p[x,y,z];
+
+F7E15 =  R = S/((ideal(x^p,y^p))+(ideal(x,y,z))^(p+1))
+
+F7E16 =  I = module ideal(z)
+
+F7E17 =  betti Hom(I,R^1)
+
+F7E18 =  ui = versalEmbedding I
+
+F7E19 =  kernel ui
+
+F7E20 =  inci = map(R^1,I,matrix{{z}})
+
+F7E21 =  kernel inci
+
+F7E22 =  gi = map(R^2, I, matrix{{x},{y}})
+
+F7E23 =  kernel gi
+
+F7E24 =  u= map(R^3,R^{-1},ui)
+
+F7E25 =  inc=map(R^1, R^{-1}, matrix{{z}})
+
+F7E26 =  g=map(R^2, R^{-1}, matrix{{x},{y}})
+
+F7E27 =  A=symmetricKernel u
+
+F7E28 =  B1=symmetricKernel inc
+
+F7E29 =  B=(map(ring A, ring B1)) B1
+
+F7E30 =  C1 = symmetricKernel g
+
+F7E31 =  C=(map(ring A, ring C1)) C1
+
+F7E32 =  A==B
+
+F7E33 =  A==C
+
+F8E0 =  R = QQ[x,y,z]/ideal(x*y^2-z^9)
+
+F8E1 =  J = ideal(x,y,z)
+
+F8E2 =  I = reesIdeal(J, Variable => p)
+
+F8E3 =  describe ring I
+
+F8E4 =  I1 = first flattenRing I
+
+F8E5 =  describe ring oo
+
+F8E6 =  S = newRing(ring I1, Degrees=>{numgens ring I1:1})
+
+F8E7 =  describe S
+
+F8E8 =  I2 = sub(I1,vars S)
+
+F8E9 =  res I2
+
+F9E0 =  setRandomSeed 0
+
+F9E1 =  n = 5
+
+F9E2 =  S = ZZ/101[x_0..x_(n-2)];
+
+F9E3 =  M1 = random(S^(n-1),S^{n-1:-2});
+
+F9E4 =  M = M1||vars S
+
+F9E5 =  I = minors(n-1, M);
+
+F9E6 =  time rI = expectedReesIdeal I; -- n= 5 case takes < 1 sec.
+
+F9E7 =  kk = ZZ/101;
+
+F9E8 =  S = kk[x,y,z];
+
+F9E9 =  m = random(S^3, S^{4:-2});
+
+F9E10 =  I = minors(3,m);
+
+F9E11 =  time reesIdeal (I, I_0);
+
+F9E12 =  time reesIdeal (I, I_0, Jacobian =>false);
+
+F10E0 =  R=QQ[a..h]
+
+F10E1 =  M=matrix{{a,b,c,d},{e,f,g,h}}
+
+F10E2 =  analyticSpread minors(2,M)
+
+F10E3 =  specialFiber minors(2,M)
+
+F11E0 =  setRandomSeed 0
+
+F11E1 =  n=3;
+
+F11E2 =  kk = ZZ/101;
+
+F11E3 =  S = kk[a_0..a_(n-2)];
+
+F11E4 =  phi' = map(S^(n),S^(n-1), (i,j) -> if i == 0 then a_j else random(2,S));
+
+F11E5 =  I = minors(n-1,phi');
+
+F11E6 =  betti (F = res I)
+
+F11E7 =  phi = F.dd_2;
+
+F11E8 =  jphi = jacobianDual phi
+
+F11E9 =  ell = analyticSpread I
+
+F11E10 =  r = reductionNumber(I, minimalReduction I)
+
+F11E11 =  whichGm I >= ell
+
+F11E12 =  apply(toList(1..ell-1), p-> {p+1, codim minors(n-p, phi)})
+
+F11E13 =  reesI = reesIdeal I;
+
+F11E14 =  codim reesI
+
+F11E15 =  betti res reesI
+
+F11E16 =  psi = jacobianDual phi
+
+F11E17 =  ST = ring psi
+
+F11E18 =  T = vars ST
+
+F11E19 =  J = ideal(T*promote(phi, ST))
+
+F11E20 =  betti res J
+
+F11E21 =  J1 = minors(ell, psi)
+
+F11E22 =  betti (G = res trim (J+J1))
+
+F11E23 =  betti res reesIdeal I
+
+F12E0 =  setRandomSeed(314159268)
+
+F12E1 =  kk=ZZ/2
+
+F12E2 =  S = kk[a,b,c,d];
+
+F12E3 =  I = monomialCurveIdeal(S, {1,3,4});
+
+F12E4 =  minimalReduction(I, Tries=>30);
+
+F13E0 =  R = ZZ/101[a,b]
+
+F13E1 =  I = ideal(a^2, a*b)
+
+F13E2 =  ass I
+
+F13E3 =  distinguished I
+
+F13E4 =  intersectInP(I,I)
+
+F14E0 =  R = ZZ/32003[x,y]
+
+F14E1 =  cusp = ideal(x^2-y^3)
+
+F14E2 =  mm = radical ideal singularLocus cusp
+
+F14E3 =  B = first flattenRing reesAlgebra(mm)
+
+F14E4 =  vars B
+
+F14E5 =  proj = map(B,R,{x,y})
+
+F14E6 =  totalTransform = proj cusp
+
+F14E7 =  D = decompose totalTransform
+
+F14E8 =  D/codim
+
+F14E9 =  irrelB = ideal(B_0,B_1)
+
+F14E10 =  doublePoint = saturate(D_0+D_1, irrelB)
+
+F14E11 =  codim doublePoint
+
+F14E12 =  degree doublePoint
+
+F14E13 =  divisors = primaryDecomposition totalTransform
+
+F14E14 =  strictTransform = divisors_0
+
+F14E15 =  exceptional = divisors_1
+
+F14E16 =  divisors/(i-> degree i/degree radical i)
+
+F14E17 =  T = ring ideal B
+
+F14E18 =  irrelT  = ideal(w_0,w_1)
+
+F14E19 =  sing = saturate(ideal singularLocus strictTransform, irrelT)
+
+F14E20 =  jacobianMatrix = diff(vars B, transpose gens strictTransform)
+
+F14E21 =  codim strictTransform
+
+F14E22 =  jacobianIdeal  = strictTransform+ minors(1,jacobianMatrix)
+
+F14E23 =  sing1 = saturate(jacobianIdeal, irrelB)
+
+F14E24 =  R = ZZ/32003[x,y]
+
+F14E25 =  tacnode = ideal(x^2-y^4)
+
+F14E26 =  sing = ideal singularLocus tacnode
+
+F14E27 =  mm = radical sing
+
+F14E28 =  B1 = first flattenRing reesAlgebra mm
+
+F14E29 =  proj1 = map(B1,R,{x,y})
+
+F14E30 =  irrelB1 = ideal(w_0,w_1)
+
+F14E31 =  totalTransform1 = proj1 tacnode
+
+F14E32 =  netList (D1 = decompose totalTransform1)
+
+F14E33 =  strictTransform1 = saturate(totalTransform1,proj1 mm )
+
+F14E34 =  strictTransform1 == intersect(D1_1,D1_2)
+
+F14E35 =  degree (D1_1+D1_2)
+
+F14E36 =  mm1 = sub(radical ideal singularLocus strictTransform1, B1)
+
+F14E37 =  B2 = first flattenRing reesAlgebra(mm1, Variable => p)
+
+F14E38 =  vars B2
+
+F14E39 =  proj2 = map(B2,B1,{w_0,w_1,x,y})
+
+F14E40 =  irrelB2 = ideal(p_0,p_1,p_2)
+
+F14E41 =  irrelTot = (proj2 irrelB1) *irrelB2
+
+F14E42 =  totalTransform2 = saturate(proj2 proj1 tacnode, irrelTot)
+
+F14E43 =  exceptional2 = saturate(proj2 proj1 mm, irrelTot)
+
+F14E44 =  netList(D2 = decompose totalTransform2)
+
+F14E45 =  netList(E2 = decompose exceptional2)
+
+F14E46 =  strictTransform2 = saturate(totalTransform2, exceptional2)
+
+F14E47 =  time sing2 = ideal singularLocus strictTransform2;
+
+F14E48 =  saturate(sing2, sub(irrelTot, ring sing2))
+
+F14E49 =  R = ZZ/32003[x,y];
+
+F14E50 =  tacnode = ideal(x^2-y^4);
+
+F14E51 =  mm = ideal(x,y^2);
+
+F14E52 =  B = first flattenRing reesAlgebra mm;
+
+F14E53 =  irrelB = ideal(w_0,w_1);
+
+F14E54 =  proj = map(B,R,{x,y});
+
+F14E55 =  totalTransform = proj tacnode
+
+F14E56 =  netList (D = decompose totalTransform)
+
+F14E57 =  exceptional = proj mm
+
+F14E58 =  strictTransform = saturate(totalTransform, exceptional);
+
+F14E59 =  netList decompose strictTransform
+
+F14E60 =  sing0 = sub(ideal singularLocus strictTransform, B);
+
+F14E61 =  sing = saturate(sing0,irrelB)
+
+F15E0 =  kk = ZZ/101
+
+F15E1 =  P = kk[x,y]
+
+F15E2 =  I = ideal"x2-y";J=ideal y
+
+F15E3 =  intersectInP(I,J)
+
+F15E4 =  I = ideal"x4+y3+1"
+
+F15E5 =  intersectInP(I,J)
+
+F15E6 =  I = ideal"x2y";J=ideal"xy2"
+
+F15E7 =  intersectInP(I,J)
+
+F15E8 =  intersectInP(I,I)
+
+F15E9 =  I = ideal"y-x2"
+
+F15E10 =  intersectInP(I,I)
+
+F16E0 =  p = 5;
+
+F16E1 =  R = ZZ/p[x,y,z]/(ideal(x^p,y^p)+(ideal(x,y,z))^(p+1));
+
+F16E2 =  M = module ideal(z);
+
+F16E3 =  iota = map(R^1,M,matrix{{z}});
+
+F16E4 =  psi = map(R^2,M,matrix{{x},{y}});
+
+F16E5 =  phi = versalEmbedding(M);
+
+F16E6 =  Iiota = symmetricKernel iota;
+
+F16E7 =  Ipsi = symmetricKernel psi;
+
+F16E8 =  Iphi = symmetricKernel phi;
+
+F16E9 =  Iiota == Iphi
+
+F16E10 =  Ipsi == Iphi
+
+F16E11 =  numcols basis(p,Iphi)
+
+F16E12 =  numcols basis(p,Ipsi)
+
+F17E0 =  S = QQ[x_0..x_4]
+
+F17E1 =  i = monomialCurveIdeal(S,{2,3,5,6})
+
+F17E2 =  isLinearType i
+
+F17E3 =  isLinearType(i, i_0)
+
+F17E4 =  I = reesIdeal i
+
+F17E5 =  select(I_*, f -> first degree f > 1)
+
+F17E6 =  S = ZZ/101[x,y,z]
+
+F17E7 =  for p from 1 to 5 do print isLinearType (ideal vars S)^p
+
+F18E0 =  R=ZZ/101[x,y]
+
+F18E1 =  I = ideal(x^3, x^2*y, y^3)
+
+F18E2 =  multiplicity I
+
+F18E3 =  degree I
+
+F19E0 =  S = QQ[x_0..x_3]
+
+F19E1 =  i = monomialCurveIdeal(S,{3,7,8})
+
+F19E2 =  I = reesIdeal i;
+
+F19E3 =  reesIdeal(i, Variable=>v)
+
+F19E4 =  I=reesIdeal(i,i_0);
+
+F19E5 =  (J=symmetricKernel gens i);
+
+F19E6 =  isLinearType(i,i_0)
+
+F19E7 =  isLinearType i
+
+F19E8 =  reesAlgebra (i,i_0)
+
+F19E9 =  trim ideal normalCone (i, i_0)
+
+F19E10 =  trim ideal associatedGradedRing (i,i_0)
+
+F19E11 =  trim specialFiberIdeal (i,i_0)
+
+F20E0 =  kk=ZZ/101;
+
+F20E1 =  S=kk[a..c];
+
+F20E2 =  m=ideal vars S
+
+F20E3 =  i=(ideal"a,b")*m+ideal"c3"
+
+F20E4 =  whichGm i
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16", "F6E17", "F6E18", "F6E19", "F6E20", "F6E21", "F6E22", "F6E23", "F6E24", "F6E25", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F7E17", "F7E18", "F7E19", "F7E20", "F7E21", "F7E22", "F7E23", "F7E24", "F7E25", "F7E26", "F7E27", "F7E28", "F7E29", "F7E30", "F7E31", "F7E32", "F7E33", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F11E23", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F14E27", "F14E28", "F14E29", "F14E30", "F14E31", "F14E32", "F14E33", "F14E34", "F14E35", "F14E36", "F14E37", "F14E38", "F14E39", "F14E40", "F14E41", "F14E42", "F14E43", "F14E44", "F14E45", "F14E46", "F14E47", "F14E48", "F14E49", "F14E50", "F14E51", "F14E52", "F14E53", "F14E54", "F14E55", "F14E56", "F14E57", "F14E58", "F14E59", "F14E60", "F14E61", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4"}

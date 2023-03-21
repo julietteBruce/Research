@@ -21,7 +21,7 @@ def get_nonempty_lines_from_file(input_file_name: str) -> List[str]:
 	return [line for line in file.readlines() if line.strip()]
 
 def is_input_line(line: str) -> bool:
-	return line[0] == 'i'
+	return (line[0] == 'i' and line[1].isdigit())
 
 def is_main_ouput_line(line: str) -> bool:
 	return line[0] == 'o'
@@ -84,31 +84,19 @@ def process_example_out_file(input_file_name: str, output_file_name: str, delimi
 def is_out_file(file_name_string) -> bool:
 	return file_name_string.endswith('.out')
 
-def process_package_example_out(package_directory: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
+def process_package_example_out(package_name: str, package_directory: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	file_number = 0
-	write_line_to_file(f"needsPackage \"{package_directory}\"\n", output_file_name)
+	write_line_to_file(f"needsPackage \"{package_name}\"\n", output_file_name)
 	overview_dictionary = {}
 	package_example_ids = []
 	for file_name in os.scandir(package_directory):
+		print(file_name.name)
 		if file_name.is_file() and is_out_file(file_name.name):
-			print(file_name.name)
 			file_example_ids = process_example_out_file(file_name.path, output_file_name, delimiter_pairs, file_number)
 			overview_dictionary[file_name.name] = {'file_number': file_number, 'example_ids': file_example_ids}
 			file_number += 1
 			package_example_ids.extend(file_example_ids)
 	write_list_of_example_ids_to_file(package_example_ids,output_file_name)
-
-# package_directory = 'VirtualResolutions'
-# output_file_name = 'VirRes-test.txt'
-# input_file_name = 'VirtualResolutions/_multigraded__Regularity.out'
-delimiter_pairs = ['()', '[]', "{}"]
-
-# package_directory = 'NormalToricVarieties'
-# output_file_name = 'NTV-test.txt'
-# # process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
-# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
-
-# print([file.name for file in os.scandir("package_directory" )])
 
 def process_all_packages(package_directory: str, output_folder: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	package_number = 0
@@ -120,29 +108,43 @@ def process_all_packages(package_directory: str, output_folder: str, output_file
 		print(f"{package_folder.name}: {package_number}\n")
 		if os.path.exists(package_example_folder):
 			package_output_file_name = os.path.join(output_folder, package_folder.name + '.' + 'txt')
-			process_package_example_out(package_example_folder, package_output_file_name, delimiter_pairs)
+			process_package_example_out(package_folder.name, package_example_folder, package_output_file_name, delimiter_pairs)
 			overview_dictionary[package_folder.name] = package_number
 			package_number += 1
 	output_overview_name = os.path.join(output_folder, output_file_name + '.' + 'txt')
 	write_line_to_file(overview_dictionary,output_overview_name)
 
+
+delimiter_pairs = ['()', '[]', "{}"]
+
+# package_directory = 'VirtualResolutions'
+# output_file_name = 'VirRes-test.txt'
+
+# package_directory = 'NormalToricVarieties'
+# output_file_name = 'NTV-test.txt'
+# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
+
 package_directory = 'package_directory'
 output_folder = 'output'
 output_file_name = '00overview'
-# process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
+process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
 
 # output_file_name = 'testtest.txt'
 # input_file_name = 'package_directory/SimpleDoc/example-output/_wikipedia.out'
 # process_example_out_file(input_file_name,output_file_name,delimiter_pairs)
 
-package_directory = 'package_directory/GKMVarieties/example-output'
-output_file_name = 'test-test.txt'
-process_package_example_out(package_directory, output_file_name, delimiter_pairs)
+# package_directory = 'package_directory/GKMVarieties/example-output'
+# output_file_name = 'test-test.txt'
+# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 
 
 # input_file_name = package_directory = 'package_directory/GKMVarieties/example-output/___Moment__Graph_sp_st_st_sp__Moment__Graph.out'
 # output_file_name = 'test-test.txt'
 # process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
+
+# package_directory = 'package_directory/GeometricDecomposability/example-output'
+# output_file_name = 'test-test.txt'
+# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 
 
 # Issues: 
@@ -151,4 +153,14 @@ process_package_example_out(package_directory, output_file_name, delimiter_pairs
 # 2. GKMVarieties: _is__Well__Defined_lp__K__Class_rp.out The issue here is the input on line i4 "isWellDefined badC --no longer well-defined"
 # for some reason despite the documentation this function returns something before the output line. 
 # see http://www2.macaulay2.com/Macaulay2/doc/Macaulay2-1.17/share/doc/Macaulay2/GKMVarieties/html/_is__Well__Defined_lp__K__Class_rp.html 
-
+#
+# 3. GKMVarieties: Folder conatins a .DS_store file. Fixed. 
+#
+# 4. GeometricDecomposability: The same issue with the Verbose=>true option effects the following files
+# ___Verbose.out
+# _is__G__V__D.out 
+# _is__Lex__Compatibly__G__V__D
+# The issue here is the function isGVD(...,Verbose=>) returns something before the output
+# line. see https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/GeometricDecomposability/html/_is__G__V__D.html
+#
+# 5. IntegralClosure: _integral__Closure_lp..._cm__Verbosity_eq_gt..._rp _integral__Closure_lp..._cm__Strategy_eq_gt..._rp Verbosity issue again

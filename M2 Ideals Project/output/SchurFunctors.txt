@@ -1,0 +1,53 @@
+needsPackage "SchurFunctors"
+
+F0E0 =  M=QQ^3;
+
+F0E1 =  scan(4, i-> << i+1 << "-th symmetric power of M = " << schurModule({i+1},M) << endl)
+
+F0E2 =  S = schurModule({3,2,1}, M);
+
+F0E3 =  v = sum(numgens S, i-> (i+1)*S_i) -- an element of S represented by a vector
+
+F0E4 =  printSchurModuleElement(v, S);
+
+F1E0 =  R=QQ[x_1,x_2,x_3]
+
+F1E1 =  F=map(R^1,R^3,vars R)
+
+F1E2 =  L=schur({2},F) -- 2nd veronese embedding
+
+F1E3 =  F=matrix{{1_QQ,2,4},{3,9,27},{4,16,64}}
+
+F1E4 =  schur({1,1},F)
+
+F1E5 =  minors(2,F)
+
+F1E6 =  schur({1,1,1},F) == det F
+
+F2E0 =  bla
+
+F3E0 =  c=character({{1,1,1},{2}},4)
+
+F3E1 =  splitCharacter(c)
+
+F4E0 =  n = 4;      --j-th differential of the Koszul Complex on the variables of R
+
+F4E1 =  j = 2;
+
+F4E2 =  mu1=apply(j,j->1)
+
+F4E3 =  mu2=apply(j+1,j->1)
+
+F4E4 =  R = QQ[x_1..x_n];
+
+F4E5 =  M=schurModule(mu1,R^n);
+
+F4E6 =  N=schurModule(mu2,R^n);
+
+F4E7 =  F = T -> apply(numgens R, j -> (R_j, augmentFilling(T,0,j)))
+
+F4E8 =  schurModulesMap(N,M,F)
+
+F5E0 =  character({{1,1,1},{2}},4)--The GL(4) action on the Grassmannian of 3-dimensional subspaces of quadrics in four variables
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F3E0", "F3E1", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F5E0"}

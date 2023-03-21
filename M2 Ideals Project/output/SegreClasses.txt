@@ -1,0 +1,163 @@
+needsPackage "SegreClasses"
+
+F0E0 =  R = makeProductRing({3,3})
+
+F0E1 =  x = gens(R)
+
+F0E2 =  D = minors(2,matrix{{x_0..x_3},{x_4..x_7}})
+
+F0E3 =  X = ideal(x_0*x_1,x_1*x_2,x_0*x_2)
+
+F0E4 =  A = makeChowRing(R)
+
+F0E5 =  pd = projectiveDegrees(X,D,A)
+
+F0E6 =  h=A_0^2*A_1^2
+
+F0E7 =  pdh=projectiveDegree(X,D,h)
+
+F0E8 =  (sum pd)_h==pdh
+
+F1E0 =  R = makeProductRing({2,2,2})
+
+F1E1 =  x=(gens R)_{0..2}
+
+F1E2 =  y=(gens R)_{3..5}
+
+F1E3 =  z=(gens R)_{6..8}
+
+F1E4 =  m1=matrix{{x_0,x_1,5*x_2},y_{0..2},{2*z_0,7*z_1,25*z_2}}
+
+F1E5 =  m2=matrix{{9*z_0,4*z_1,3*z_2},y_{0..2},x_{0..2}}
+
+F1E6 =  W=minors(3,m1)+minors(3,m2);
+
+F1E7 =  f=random({1,1,1},R);
+
+F1E8 =  Y=ideal (z_0*W_0-z_1*W_1)+ideal(f);
+
+F1E9 =  X=((W)*ideal(y)+ideal(f));
+
+F1E10 =  time isComponentContained(X,Y)
+
+F1E11 =  print "we could confirm this with the computation:"
+
+F1E12 =  B=ideal(x)*ideal(y)*ideal(z)
+
+F1E13 =  time isSubset(saturate(Y,B),saturate(X,B))
+
+F2E0 =  R=makeProductRing({6})
+
+F2E1 =  x=gens(R)
+
+F2E2 =  J=ideal(x_0*x_2-x_4*x_5)
+
+F2E3 =  clX=chowClass(J,Strategy=>"prob")
+
+F2E4 =  clX2=chowClass(J,ring(clX))
+
+F2E5 =  clX==clX2
+
+F3E0 =  R = makeProductRing({3,4})
+
+F3E1 =  R = makeChowRing(R)
+
+F3E2 =  describe R
+
+F4E0 =  R = makeProductRing({2,2})
+
+F4E1 =  x = gens(R)
+
+F4E2 =  Y = ideal(random({2,2},R));
+
+F4E3 =  X = Y+ideal(x_0*x_3+x_1*x_4);
+
+F4E4 =  A = makeChowRing(R)
+
+F4E5 =  time s = segreDimX(X,Y,A)
+
+F4E6 =  time segre(X,Y,A)
+
+F5E0 =  R = makeProductRing({3})
+
+F5E1 =  (x,y,z,w) = toSequence gens R
+
+F5E2 =  Q = ideal(x*y-z*w)
+
+F5E3 =  L1 = ideal(x,w)
+
+F5E4 =  L2 = ideal(y,w)
+
+F5E5 =  intersectionProduct(L1,L2,Q,Verbose=>true)
+
+F5E6 =  intersectionProduct(L1,L1,Q)
+
+F6E0 =  R = makeProductRing({1,2})
+
+F6E1 =  x=gens R
+
+F6E2 =  degrees R
+
+F6E3 =  isMultiHom ideal(x_0^2*x_2+x_1*x_2^2)
+
+F6E4 =  isMultiHom ideal(x_0^2*x_2+x_1^2*x_3)
+
+F7E0 =  R = makeProductRing(QQ,{3,4})
+
+F7E1 =  R = makeProductRing({3,4})
+
+F7E2 =  degrees R
+
+F7E3 =  gens R
+
+F8E0 =  R = makeProductRing({3,3})
+
+F8E1 =  x = gens(R)
+
+F8E2 =  D = minors(2,matrix{{x_0..x_3},{x_4..x_7}})
+
+F8E3 =  X = ideal(x_0*x_1,x_1*x_2,x_0*x_2)
+
+F8E4 =  projectiveDegrees(X,D)
+
+F8E5 =  A = makeChowRing(R)
+
+F8E6 =  pd = projectiveDegrees(X,D,A)
+
+F9E0 =  R = makeProductRing({3,3})
+
+F9E1 =  x = gens(R)
+
+F9E2 =  D = minors(2,matrix{{x_0..x_3},{x_4..x_7}})
+
+F9E3 =  X = ideal(x_0*x_1,x_1*x_2,x_0*x_2)
+
+F9E4 =  segre(X,D)
+
+F9E5 =  A = makeChowRing(R)
+
+F9E6 =  s = segre(X,D,A)
+
+F10E0 =  R = ZZ/32749[x,y,z,w]
+
+F10E1 =  X = ideal(-z^2+y*w,-y*z+x*w,-y^2+x*z)
+
+F10E2 =  Y = ideal(-z^3+2*y*z*w-x*w^2,-y^2+x*z)
+
+F10E3 =  multiplicity(X,Y)
+
+F11E0 =  n=6
+
+F11E1 =  R = makeProductRing({n})
+
+F11E2 =  x=gens(R)
+
+F11E3 =  m=matrix{for i from 0 to n-3 list x_i,for i from 0 to n-3 list (i+3)*x_(i+3),for i from 0 to n-3 list x_(i+2),for i from 0 to n-3 list x_(i)+(5+i)*x_(i+1)}
+
+F11E4 =  C=ideal mingens(minors(3,m));
+
+F11E5 =  P=ideal(x_0,x_4,x_3,x_2,x_1)
+
+F11E6 =  containedInSingularLocus(P,C)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F7E0", "F7E1", "F7E2", "F7E3", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6"}

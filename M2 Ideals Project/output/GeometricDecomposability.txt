@@ -1,0 +1,161 @@
+needsPackage "GeometricDecomposability"
+
+F0E0 =  R = QQ[x,y,z,w,r,s];
+
+F0E1 =  I = ideal(y*(z*s - x^2), y*w*r, w*r*(x^2 + s^2 + z^2 + w*r));
+
+F0E2 =  isWeaklyGVD I
+
+F0E3 =  isGVD I
+
+F1E0 =  R = QQ[x,y,z,w,r,s]
+
+F1E1 =  I = ideal(y*(z*s - x^2), y*w*r, w*r*(z^2 + z*x + w*r + s^2))
+
+F1E2 =  yInit(I, y)
+
+F2E0 =  R = QQ[x,y]
+
+F2E1 =  isGeneratedByIndeterminates ideal 0
+
+F2E2 =  isGeneratedByIndeterminates ideal 1
+
+F2E3 =  isGeneratedByIndeterminates ideal(x,y)
+
+F2E4 =  isGeneratedByIndeterminates ideal(x*y)
+
+F3E0 =  R = QQ[x_1..x_5]
+
+F3E1 =  I = ideal(x_1*x_3, x_1*x_4, x_1*x_5, x_2*x_3, x_2*x_4, x_2*x_5)
+
+F3E2 =  isUnmixed I
+
+F3E3 =  isGVD(I, CheckCM=>"never", CheckUnmixed=>false)
+
+F4E0 =  R = QQ[a,b,c,d];
+
+F4E1 =  I = ideal(a*b, a*c, a*d, b*c, b*d, c*d); -- edge ideal of the complete graph K_4, a chordal graph
+
+F4E2 =  CyI(I, b)
+
+F4E3 =  L = oneStepGVD(I, b);
+
+F4E4 =  L_1 == CyI(I, b) -- CyI is the second element in the list given by oneStepGVD
+
+F5E0 =  R = QQ[x,y,z]
+
+F5E1 =  I = ideal(x-y, x-z)
+
+F5E2 =  isGVD I
+
+F5E3 =  isGVD(I, Verbose=>true)
+
+F6E0 =  R = QQ[x,y,z,w,r,s]
+
+F6E1 =  I = ideal(y*(z*s - x^2), y*w*r, w*r*(z^2+z*x+w*r+s^2))
+
+F6E2 =  getGVDIdeal(I, {{"C", y}, {"N", s}})
+
+F7E0 =  R = QQ[x,y,z]
+
+F7E1 =  I = ideal(x-y, x-z)
+
+F7E2 =  findOneStepGVD I
+
+F7E3 =  R = QQ[a..f]
+
+F7E4 =  I = ideal(b*(c*f - a^2), b*d*e, d*e*(c^2+a*c+d*e+f^2))
+
+F7E5 =  findOneStepGVD I
+
+F8E0 =  R = QQ[a,b,c,d]
+
+F8E1 =  f = 3*a*b + 4*b*c+ 16*a*c + 18*d
+
+F8E2 =  i = ideal f
+
+F8E3 =  isGVD i
+
+F8E4 =  R = QQ[a,b,c,d]
+
+F8E5 =  i = ideal(a*b, a*c, a*d, b*c, b*d, c*d) -- edge ideal of a complete graph K_4, a chordal graph
+
+F8E6 =  isGVD(i, Verbose=>true)
+
+F8E7 =  R = QQ[e_1..e_7]
+
+F8E8 =  i = ideal(e_2*e_7-e_5*e_6, e_1*e_4-e_2*e_3) -- the toric ideal of a graph
+
+F8E9 =  isGVD i
+
+F8E10 =  R = QQ[e_1..e_10]
+
+F8E11 =  i = ideal(e_1*e_4-e_2*e_3, e_2^2*e_7*e_8*e_9-e_4^2*e_5*e_6*e_10, e_1*e_2*e_7*e_8*e_9-e_3*e_4*e_5*e_6*e_10, e_1^2*e_7*e_8*e_9-e_3^2*e_5*e_6*e_10)
+
+F8E12 =  isGVD i
+
+F9E0 =  R = QQ[a,b,c,d];
+
+F9E1 =  I = ideal(a*b, a*c, a*d, b*c, b*d, c*d); -- edge ideal of a complete graph K_4, a chordal graph
+
+F9E2 =  NyI(I, b)
+
+F9E3 =  L = oneStepGVD(I, b);
+
+F9E4 =  L_2 == NyI(I, b) -- NyI is the second element in the list given by oneStepGVD
+
+F10E0 =  R = QQ[x_1..x_5];
+
+F10E1 =  I = ideal(x_1*x_3, x_1*x_4, x_1*x_5, x_2*x_3, x_2*x_4, x_2*x_5);
+
+F10E2 =  isUnmixed I
+
+F11E0 =  R = QQ[x,y,z]
+
+F11E1 =  I = ideal(x-y, x-z)
+
+F11E2 =  oneStepGVD(I, x, CheckDegenerate=>true)
+
+F12E0 =  R = QQ[x,y,z,w,r,s];
+
+F12E1 =  I = ideal(y*(z*s - x^2), y*w*r, w*r*(z^2 + z*x + w*r + s^2));
+
+F12E2 =  isLexCompatiblyGVD(I, {x,y,z,w,r,s})
+
+F12E3 =  isLexCompatiblyGVD(I, {s,x,w,y,r,z}, Verbose=>true)
+
+F13E0 =  R = QQ[x,y,z];
+
+F13E1 =  I = ideal(x-y, x-z);
+
+F13E2 =  findLexCompatiblyGVDOrders I
+
+F13E3 =  R = QQ[x,y];
+
+F13E4 =  I = ideal(x^2-y^2);
+
+F13E5 =  findLexCompatiblyGVDOrders I
+
+F14E0 =  R = QQ[a,b,c,d]
+
+F14E1 =  f = 3*a*b + 4*b*c+ 16*a*c+18*d
+
+F14E2 =  i = ideal f
+
+F14E3 =  oneStepGVD(i, a)
+
+F14E4 =  R = QQ[a,b,c,d];
+
+F14E5 =  i = ideal(a*b, a*c, a*d, b*c, b*d, c*d); -- edge ideal of complete graph K_4, a chordal graph
+
+F14E6 =  oneStepGVD(i, c, CheckDegenerate=>true)
+
+F14E7 =  R = QQ[e_1..e_10];
+
+F14E8 =  i = ideal(e_1*e_4-e_2*e_3, e_2^2*e_7*e_8*e_9-e_4^2*e_5*e_6*e_10, e_1*e_2*e_7*e_8*e_9-e_3*e_4*e_5*e_6*e_10, e_1^2*e_7*e_8*e_9-e_3^2*e_5*e_6*e_10);
+
+F14E9 =  mingens gb i
+
+F14E10 =  oneStepGVD(i, e_1)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F8E12", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F10E0", "F10E1", "F10E2", "F11E0", "F11E1", "F11E2", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10"}

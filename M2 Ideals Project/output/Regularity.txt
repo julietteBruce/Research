@@ -1,0 +1,27 @@
+needsPackage "Regularity"
+
+F0E0 =  R=QQ[a,b,c,d,x_0..x_9,MonomialOrder =>  Eliminate 4]
+
+F0E1 =  i=ideal( x_0-a*b,x_1-a*c,x_2-a*d,x_3-b*c,x_4-b*d,x_5-c*d,x_6-a^2,x_7-b^2,x_8-c^2,x_9-d^2)
+
+F0E2 =  j=selectInSubring(1, gens gb i)
+
+F0E3 =  I=ideal flatten entries j -- this is the ideal of the Veronesean,
+
+F0E4 =  mRegularity I 
+
+F0E5 =  R = QQ[x_0..x_5]
+
+F0E6 =  I1 = ideal (x_0^2*x_1+x_0*x_1*x_2-x_0*x_4^2,-x_0*x_2^2+x_0^2*x_5,x_0^2*x_2-x_0*x_1*x_4,x_0^3-x_2^3+x_0*x_1*x_3,x_0^3+x_0^2*x_1-x_1*x_2^2-x_0*x_2*x_5,x_0^3+x_2^3-x_0*x_5^2)
+
+F0E7 =  benchmark "mRegularity I1"
+
+F0E8 =  R = QQ[x_0..x_5]
+
+F0E9 =  I2 = ideal ( x_0^2+x_5^2, x_0^2+x_0*x_3+x_4^2, x_0^2+x_0*x_5+x_2*x_5, x_0^2-x_0*x_3-x_3*x_5, x_0^2-x_3*x_4, x_0*x_3);
+
+F0E10 =  benchmark " mRegularity I2"
+
+F0E11 =  time regularity I2  
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11"}

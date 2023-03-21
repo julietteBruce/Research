@@ -1,0 +1,439 @@
+needsPackage "RandomMonomialIdeals"
+
+F0E0 =  writeSample(sample(ER(2,3,0.1),5), "testDirectory")
+
+F0E1 =  mySample = sample("testDirectory")
+
+F0E2 =  peek mySample
+
+F1E0 =  n=3
+
+F1E1 =  myModel = ER(n,D,M)
+
+F2E0 =  n=2
+
+F2E1 =  ideals = randomMonomialIdeals(n,D,p,N)
+
+F2E2 =  ideals_0
+
+F2E3 =  randomMonomialIdeals(n,D,p,N,IncludeZeroIdeals=>false)
+
+F2E4 =  R=ZZ/101[a..c]
+
+F2E5 =  L={monomialIdeal (a^2*b,b*c), monomialIdeal(a*b,b*c^3),monomialIdeal 0_R};
+
+F2E6 =  apply(L,i->betti res i)
+
+F2E7 =  bettiStats(L,IncludeZeroIdeals=>false)
+
+F2E8 =  bettiStats(L,IncludeZeroIdeals=>false,Verbose=>true)
+
+F3E0 =  s = sample(ER(3,4,0.1),5)
+
+F3E1 =  getData s
+
+F4E0 =  R=ZZ/101[a,b,c];
+
+F4E1 =  ideals = {monomialIdeal"a3,b,c2", monomialIdeal"a3,b,ac"}
+
+F4E2 =  dimStats(ideals)
+
+F4E3 =  ideals = idealsFromGeneratingSets(randomMonomialSets(4,3,1.0,3))
+
+F4E4 =  dimStats(ideals)
+
+F4E5 =  ideals = randomMonomialIdeals(4,3,1.0,3)
+
+F4E6 =  dimStats(ideals)
+
+F4E7 =  ideals = idealsFromGeneratingSets(randomMonomialSets(3,7,0.01,10))
+
+F4E8 =  dimStats(ideals)
+
+F4E9 =  ideals = randomMonomialIdeals(5,7,0.05,8)
+
+F4E10 =  dimStats(ideals)
+
+F4E11 =  ideals = idealsFromGeneratingSets(randomMonomialSets(5,7,1,10))
+
+F4E12 =  dimStats(ideals)
+
+F5E0 =  n=4
+
+F5E1 =  B=randomMonomialIdeals(n,D,p,N);
+
+F5E2 =  mingenStats(B)
+
+F5E3 =  B=randomMonomialIdeals(3,3,0.0,1);
+
+F5E4 =  mingenStats(B)
+
+F6E0 =  n=4
+
+F6E1 =  myModel = ER(n,D,p)
+
+F7E0 =  R=ZZ/101[a,b,c];
+
+F7E1 =  ideals = {monomialIdeal"a3,b,c2", monomialIdeal"a3,b,ac"}
+
+F7E2 =  CMStats(ideals)
+
+F8E0 =  n1=3
+
+F8E1 =  n2=3
+
+F8E2 =  myModel1 = ER(n1,D1,L1)
+
+F8E3 =  myModel2 = ER(n2,D2,L2)
+
+F9E0 =  s=sample(ER(6,3,0.2),100);
+
+F9E1 =  myStats = statistics(s, degree@@ideal);
+
+F9E2 =  myStats.Mean
+
+F10E0 =  ZZ/101[a..c];
+
+F10E1 =  L={monomialIdeal"ab,bc", monomialIdeal"ab,bc3"}
+
+F10E2 =  (meanShape,meanBetti,stdevBetti,pure) = bettiStats (L,CountPure=>true);
+
+F10E3 =  pure
+
+F11E0 =  myModel = ER(2,2,0.5)
+
+F12E0 =  writeSample(sample(ER(2,3,0.1),5), "testDirectory")
+
+F12E1 =  mySample = sample("testDirectory")
+
+F12E2 =  peek mySample
+
+F13E0 =  D1=4
+
+F13E1 =  D2=4
+
+F13E2 =  myModel1 = ER(ZZ/101[a..d],D1,L1)
+
+F13E3 =  myModel2 = ER(ZZ/101[a..d],D2,L2)
+
+F14E0 =  n=3
+
+F14E1 =  L = randomMonomialSets(n,D,p,N)
+
+F14E2 =  n=3
+
+F14E3 =  L = randomMonomialSets(n,D,M,N)
+
+F14E4 =  n=3
+
+F14E5 =  randomMonomialSets(n,D,{0.0,1.0},N)
+
+F14E6 =  n=3
+
+F14E7 =  randomMonomialSets(n,D,{1,0,3},N)
+
+F14E8 =  n=3
+
+F14E9 =  randomMonomialSets(n,D,{1,0,3},N, Strategy=>"Minimal")
+
+F14E10 =  randomMonomialSets(n,D,{0.0,0.3,0.5},N, Strategy=>"Minimal")
+
+F14E11 =  randomMonomialSets(n,D,0.1,N, Strategy=>"Minimal")
+
+F14E12 =  ideals=idealsFromGeneratingSets(L)
+
+F14E13 =  dimStats(ideals,ShowTally=>true)
+
+F14E14 =  mingenStats ideals
+
+F14E15 =  bettiStats ideals
+
+F14E16 =  sample1 = sample(ER(QQ[y,w],4,0.5),10)
+
+F14E17 =  sample2 = sample(ER(ZZ/101[z_1..z_8],2,{0.25,0.75}),15)
+
+F14E18 =  keys sample1
+
+F14E19 =  sample2.Parameters
+
+F14E20 =  myData = getData(sample1);
+
+F14E21 =  myData_0
+
+F14E22 =  statistics(sample(ER(CC[z_1..z_8],5,0.1),100), degree@@ideal)
+
+F14E23 =  R=ZZ/101[a..e];
+
+F14E24 =  randomMonomialSets(R,D,p,N)
+
+F14E25 =  randomMonomialSets(n,D,p,N,VariableName=>"t")
+
+F14E26 =  randomMonomialSets(3,4,1.0,1)
+
+F14E27 =  monomialIdeal flatten oo
+
+F14E28 =  randomMonomialIdeals(3,4,1.0,1)
+
+F15E0 =  R=ZZ/101[a,b,c];
+
+F15E1 =  ideals = {monomialIdeal"a3,b,c2", monomialIdeal"a3,b,ac"}
+
+F15E2 =  degStats(ideals)
+
+F15E3 =  ideals = idealsFromGeneratingSets(randomMonomialSets(4,3,1.0,3))
+
+F15E4 =  degStats(ideals)
+
+F15E5 =  ideals = randomMonomialIdeals(4,3,1.0,3)
+
+F15E6 =  degStats(ideals)
+
+F16E0 =  R=ZZ/101[a,b,c];
+
+F16E1 =  ideals = {monomialIdeal"a3", monomialIdeal"a3,b,ac"}
+
+F16E2 =  borelFixedStats(ideals)
+
+F17E0 =  R = ZZ/101[a..e];
+
+F17E1 =  L={monomialIdeal"a2b,bc", monomialIdeal"ab,bc3",monomialIdeal"ab,ac,bd,be,ae,cd,ce,a3,b3,c3,d3,e3"}
+
+F17E2 =  (meanBettiShape,meanBetti,stdDevBetti) = bettiStats L;
+
+F17E3 =  meanBettiShape
+
+F17E4 =  meanBetti
+
+F17E5 =  stdDevBetti
+
+F17E6 =  apply(L,i->betti res i)
+
+F17E7 =  meanBettiShape
+
+F17E8 =  apply(L,i->betti res i)
+
+F17E9 =  meanBetti
+
+F18E0 =  n=2
+
+F18E1 =  randomMonomialSet(n,D,p)
+
+F18E2 =  randomMonomialSet(3,2,0.6)
+
+F18E3 =  randomMonomialSet(3,2,1.0)
+
+F18E4 =  n=10
+
+F18E5 =  randomMonomialSet(n,D,M)
+
+F18E6 =  randomMonomialSet(2,2,10)
+
+F18E7 =  randomMonomialSet(2,3,{0.0, 1.0, 1.0})
+
+F18E8 =  randomMonomialSet(2,3,{2,1,1})
+
+F18E9 =  randomMonomialSet(3,3,{1,1,1}, Strategy=>"Minimal")
+
+F18E10 =  D=3
+
+F18E11 =  randomMonomialSet(R,D,p)
+
+F18E12 =  ring oo_0
+
+F19E0 =  D=4
+
+F19E1 =  myModel = ER(ZZ/101[a..d],4,5)
+
+F20E0 =  n=2
+
+F20E1 =  randomMonomialSet(n,D,p)
+
+F20E2 =  ring ideal oo
+
+F20E3 =  randomMonomialSet(n,D,p,Coefficients=>ZZ/101)
+
+F20E4 =  ring ideal oo
+
+F21E0 =  ZZ/101[a..e];
+
+F21E1 =  L={monomialIdeal"a2b,bc", monomialIdeal"ab,bc3",monomialIdeal"ab,ac,bd,be,ae,cd,ce,a3,b3,c3,d3,e3"}
+
+F21E2 =  bettiStats (L,SaveBettis=>"myBettiDiagrams")
+
+F22E0 =  peek sample(ER(3,2,0.2),4)
+
+F23E0 =  n=3
+
+F23E1 =  myModel = ER(n,D,p)
+
+F24E0 =  n=2
+
+F24E1 =  randomMonomialIdeals(n,D,p,N)
+
+F24E2 =  randomMonomialIdeals(5,3,0.4,4)
+
+F24E3 =  randomMonomialIdeals(3,2,1.0,1)
+
+F24E4 =  n=8
+
+F24E5 =  randomMonomialIdeals(n,D,M,N)
+
+F24E6 =  randomMonomialIdeals(2,3,{0.0, 1.0, 1.0},1)
+
+F24E7 =  randomMonomialIdeals(3,3,{1,1,1},1)
+
+F24E8 =  randomMonomialIdeals(3,3,{1,1,1},1, Strategy=>"Minimal")
+
+F25E0 =  (sample(ER(2,2,0.5),2)).ModelName
+
+F26E0 =  n=2
+
+F26E1 =  randomMonomialSet(n,D,p)
+
+F26E2 =  randomMonomialSet(n,D,p,VariableName => y)
+
+F27E0 =  R=ZZ/101[a,b,c];
+
+F27E1 =  ideals = {monomialIdeal(a^3,b,c^2), monomialIdeal(a^3,b,a*c)}
+
+F27E2 =  pdimStats(ideals)
+
+F27E3 =  R=ZZ/101[a,b,c];
+
+F27E4 =  ideals = {monomialIdeal(a,c),monomialIdeal(b),monomialIdeal(a^2*b,b^2)}
+
+F27E5 =  pdimStats(ideals, ShowTally=>true)
+
+F27E6 =  ideals = randomMonomialIdeals(4,3,1.0,3)
+
+F27E7 =  pdimStats(ideals)
+
+F27E8 =  ideals = randomMonomialIdeals(4,6,0.01,10)
+
+F27E9 =  pdimStats(ideals)
+
+F28E0 =  f=(D,n,M)->(R=QQ[x_1..x_n];apply(M,i->random(D,R)))
+
+F28E1 =  myModel = model({2,3,4},f,"rand(D,n,M): M random polynomials in n variables of degree D")
+
+F28E2 =  N=2;
+
+F28E3 =  mySample = sample(myModel,N);
+
+F28E4 =  peek mySample
+
+F29E0 =  s=sample(ER(6,3,0.2),15);
+
+F29E1 =  statistics(s, degree@@ideal)
+
+F29E2 =  s=sample(ER(2,2,0.8),10)
+
+F29E3 =  statistics(s,betti@@gens@@ideal)
+
+F29E4 =  statistics(s,mingens@@ideal)
+
+F30E0 =  R=ZZ/101[a,b,c];
+
+F30E1 =        ideals = {monomialIdeal"a3,b,c2", monomialIdeal"a3,b,ac"}
+
+F30E2 =        dimStats(ideals)
+
+F30E3 =  mingenStats(ideals)
+
+F30E4 =  degStats(ideals)
+
+F30E5 =  pdimStats(ideals)
+
+F30E6 =  dimStats(ideals,ShowTally=>true)
+
+F30E7 =  mingenStats(ideals,ShowTally=>true)
+
+F30E8 =  degStats(ideals,ShowTally=>true)
+
+F30E9 =  regStats(ideals,ShowTally=>true)
+
+F30E10 =  pdimStats(ideals,ShowTally=>true)
+
+F31E0 =  s=sample(ER(3,2,0.2),4)
+
+F31E1 =  getData s
+
+F31E2 =  peek s
+
+F31E3 =  statistics(s,degree@@ideal)
+
+F32E0 =  n=3
+
+F32E1 =  ideals = randomMonomialIdeals(n,D,p,N)
+
+F32E2 =  regStats(ideals)
+
+F32E3 =  CMStats(ideals)
+
+F32E4 =  regStats(ideals, Verbose => true)
+
+F32E5 =  CMStats(ideals, Verbose => true)
+
+F32E6 =  n=3
+
+F32E7 =  ideals = randomMonomialIdeals(n,D,p,N)
+
+F32E8 =  regStats(ideals, Verbose => true)
+
+F32E9 =  CMStats(ideals, Verbose => true)
+
+F32E10 =  degStats(ideals, Verbose => true)
+
+F32E11 =  dimStats(ideals, Verbose=>true)
+
+F32E12 =  borelFixedStats(ideals, Verbose => true)
+
+F32E13 =  mingenStats(ideals, Verbose=>true)
+
+F32E14 =  bettiStats(ideals, Verbose => true)
+
+F32E15 =  M = randomMonomialSets(n,D,p,N);
+
+F32E16 =  idealsFromGeneratingSets(M, Verbose => true)
+
+F33E0 =  R=ZZ/101[a,b,c];
+
+F33E1 =  ideals = {monomialIdeal(a^3,b,c^2), monomialIdeal(a^3,b,a*c)}
+
+F33E2 =  regStats(ideals)
+
+F33E3 =  B=randomMonomialIdeals(3,3,0.0,1)
+
+F33E4 =  regStats(B)
+
+F34E0 =  s=sample(ER(6,3,0.2),100);
+
+F34E1 =  myStats = statistics(s, degree@@ideal);
+
+F34E2 =  myStats.StdDev
+
+F35E0 =  D=4
+
+F35E1 =  myModel = ER(ZZ/101[a..d],D,p)
+
+F36E0 =  s=sample(ER(6,3,0.2),100);
+
+F36E1 =  myStats = statistics(s, dim@@ideal);
+
+F36E2 =  myStats.Histogram
+
+F37E0 =  s = sample(ER(1,1,0.0),10)
+
+F37E1 =  s.SampleSize
+
+F38E0 =  ER(3,2,0.2)
+
+F39E0 =  n=4
+
+F39E1 =  B=randomMonomialSets(n,D,p,N); B/print
+
+F39E2 =  idealsFromGeneratingSets(B)
+
+F40E0 =  (sample(ER(2,2,0.5),2)).Parameters
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F1E0", "F1E1", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F3E0", "F3E1", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F8E2", "F8E3", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F12E0", "F12E1", "F12E2", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F14E27", "F14E28", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F19E0", "F19E1", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F21E0", "F21E1", "F21E2", "F22E0", "F23E0", "F23E1", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F24E7", "F24E8", "F25E0", "F26E0", "F26E1", "F26E2", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F27E6", "F27E7", "F27E8", "F27E9", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F31E0", "F31E1", "F31E2", "F31E3", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12", "F32E13", "F32E14", "F32E15", "F32E16", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F34E0", "F34E1", "F34E2", "F35E0", "F35E1", "F36E0", "F36E1", "F36E2", "F37E0", "F37E1", "F38E0", "F39E0", "F39E1", "F39E2", "F40E0"}

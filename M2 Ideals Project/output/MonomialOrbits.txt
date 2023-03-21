@@ -1,0 +1,69 @@
+needsPackage "MonomialOrbits"
+
+F0E0 =  R = ZZ/101[w,x,y,z]
+
+F0E1 =  monlist = flatten entries basis(4,R)
+
+F0E2 =  idlist = subsets(monlist, 3)/monomialIdeal;
+
+F0E3 =  #oo
+
+F0E4 =  G0 = permutations numgens R
+
+F0E5 =  G = apply(G0, g -> map(R,R,(vars R)_g))
+
+F0E6 =  normalForms(idlist,G); --there are 244
+
+F0E7 =  #oo
+
+F1E0 =  S = ZZ/101[a..d];
+
+F1E1 =  L = orbitRepresentatives(S,(2,2,2))
+
+F1E2 =  #L
+
+F1E3 =  tally apply(L, m->betti res m)
+
+F1E4 =  L' = orbitRepresentatives(S,(2,2,2), MonomialType => "SquareFree")
+
+F1E5 =  #L'
+
+F1E6 =  tally apply(L', m->betti res m)
+
+F1E7 =  I = monomialIdeal"a2,b2,c2,d2"
+
+F1E8 =  L'' = orbitRepresentatives(S,I,{2,2,2})
+
+F1E9 =  tally apply(L'', m->betti res m)
+
+F1E10 =  S = ZZ/101[x_0..x_3, Degrees=>{{1,2},{2,1},{1,1},{1,0}}];
+
+F1E11 =  orbitRepresentatives(S,{{2,2},{2,1}})
+
+F1E12 =  S = ZZ/101[a,b];
+
+F1E13 =  L = orbitRepresentatives(S,(2,2,2,2))
+
+F1E14 =  L = orbitRepresentatives(S,monomialIdeal a^3, (ideal(a,b))^3, 2)
+
+F1E15 =  L = orbitRepresentatives(S,monomialIdeal a^3, (ideal(a,b))^3, -2)
+
+F2E0 =  S = ZZ/101[a..d];
+
+F2E1 =  netList(L = hilbertRepresentatives(S,{4,7,10}))
+
+F2E2 =  #L
+
+F2E3 =  tally apply(L, m-> hilbertPolynomial(m,Projective => false))
+
+F2E4 =  tally apply(L, m->betti res m)
+
+F2E5 =  tally apply(L, m->primaryDecomposition m)
+
+F2E6 =  netList hilbertRepresentatives(S,{4,7,10,13}, MonomialType => "SquareFree")
+
+F2E7 =  S = ZZ/101[a,b];
+
+F2E8 =  hilbertRepresentatives(S,{1,4}) == {}
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8"}

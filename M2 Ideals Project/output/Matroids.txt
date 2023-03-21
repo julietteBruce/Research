@@ -1,0 +1,1101 @@
+needsPackage "Matroids"
+
+F0E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F0E1 =  rank M
+
+F1E0 =  factor chromaticPolynomial cycleGraph 7
+
+F1E1 =  factor characteristicPolynomial matroid cycleGraph 7
+
+F1E2 =  factor chromaticPolynomial completeGraph 5
+
+F2E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F2E1 =  M = matroid A
+
+F2E2 =  K = modularCut(M, drop(hyperplanes M, 1))
+
+F2E3 =  extension(M, K, CheckWellDefined => true)
+
+F3E0 =  (M4, M5, M6) = (4,5,6)/completeGraph/matroid
+
+F3E1 =  hasMinor(M4, uniformMatroid(2,4))
+
+F3E2 =  time hasMinor(M6, M5)
+
+F4E0 =  getCycles completeGraph 4
+
+F5E0 =  M = matroid({{0,1},{2,3},{4,5}}, EntryMode => "circuits")
+
+F5E1 =  isPositivelyOrientable M
+
+F6E0 =  PG22 = projectiveGeometry(2, 2)
+
+F6E1 =  PG22 == specificMatroid "fano"
+
+F6E2 =  A = transpose sub(matrix toList(((3:0)..(3:2-1))/toList), ZZ/2) -- all vectors in (ZZ/2)^3
+
+F6E3 =  areIsomorphic(PG22, simpleMatroid matroid A)
+
+F6E4 =  PG32 = projectiveGeometry(3, 2)
+
+F6E5 =  getRepresentation PG32
+
+F6E6 =  H = first hyperplanes PG32
+
+F6E7 =  areIsomorphic(affineGeometry(3, 2), PG32 \ H)
+
+F7E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F7E1 =  circuits M
+
+F7E2 =  ideal M
+
+F7E3 =  J = dual ideal M
+
+F7E4 =  J_*/indices
+
+F7E5 =  bases M
+
+F7E6 =  betti res ideal matroid completeGraph 4
+
+F8E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F8E1 =  independentSets(M, 2)
+
+F8E2 =  independentSets(M, set{1,2,3})
+
+F8E3 =  netList independentSets M
+
+F8E4 =  V = specificMatroid "vamos"
+
+F8E5 =  I3 = independentSets(V, 3)
+
+F8E6 =  #I3
+
+F9E0 =  M = matroid completeGraph 5
+
+F9E1 =  T2M = truncate(2, M)
+
+F9E2 =  partition(F -> rank(T2M, F), flats T2M)
+
+F10E0 =  S = uniformMatroid(2,3) ++ uniformMatroid(1,3)
+
+F10E1 =  peek S
+
+F10E2 =  S_*
+
+F10E3 =  (S ++ uniformMatroid(1, 3))_*
+
+F11E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F11E1 =  M = matroid A
+
+F11E2 =  K = {{2}, {2, 4}, {2, 3}, {1, 2}, {0, 2}, {0, 1, 2, 3, 4}};
+
+F11E3 =  linearSubclass(M, K, CheckWellDefined => true)
+
+F12E0 =  M = matroid({{0,1},{2,3},{4,5}}, EntryMode => "circuits")
+
+F12E1 =  isPositivelyOriented M
+
+F13E0 =  M = uniformMatroid(4, 6)
+
+F13E1 =  A = random(QQ^4,QQ^6)
+
+F13E2 =  setRepresentation(M, A)
+
+F13E3 =  getRepresentation M
+
+F13E4 =  keys M.cache
+
+F13E5 =  elapsedTime fVector M
+
+F14E0 =  U35 = uniformMatroid(3,5)
+
+F14E1 =  peek U35
+
+F15E0 =  M = matroid({a,b,c},{{a,b},{a,c}})
+
+F15E1 =  isomorphism(M, uniformMatroid(2,3)) -- not isomorphic
+
+F15E2 =  (M5, M6) = (5,6)/completeGraph/matroid
+
+F15E3 =  minorM6 = minor(M6, set{8}, set{4,5,6,7})
+
+F15E4 =  time isomorphism(M5, minorM6)
+
+F15E5 =  isomorphism(M5, M5)
+
+F15E6 =  N = relabel M6
+
+F15E7 =  time phi = isomorphism(N,M6)
+
+F16E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F16E1 =  isDependent(M, {a,b})
+
+F16E2 =  isDependent(M, {d})
+
+F17E0 =  G = graph({{0,1},{1,2},{2,3},{3,4},{4,5},{5,6},{6,0},{0,2},{0,3},{0,4},{1,3},{3,5},{3,6}})
+
+F17E1 =  M = matroid G
+
+F17E2 =  getSeparation(M, 2)
+
+F18E0 =  M = uniformMatroid(4, 6);
+
+F18E1 =  H = {set{0,1,2}, set{2,3,4}, set{0,3,5}};
+
+F18E2 =  isLinearSubclass(M, H)
+
+F18E3 =  H' = {{0,1,2}, {2,3,4}, {0,3,5}, {0,1,4}};
+
+F18E4 =  isLinearSubclass(M, H')
+
+F19E0 =  M = affineGeometry(3, 2)
+
+F19E1 =  M === specificMatroid "AG32"
+
+F19E2 =  circuits M
+
+F19E3 =  getRepresentation M
+
+F20E0 =  M = thetaMatroid 3
+
+F20E1 =  areIsomorphic(M, matroid completeGraph 4)
+
+F21E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F21E1 =  M = matroid A
+
+F21E2 =  H = drop(hyperplanes M, 1)
+
+F21E3 =  elementaryQuotient(M, H, EntryMode => "hyperplanes")
+
+F22E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F22E1 =  M = matroid A
+
+F22E2 =  H = drop(hyperplanes M, 1)
+
+F22E3 =  extension(M, H, EntryMode => "hyperplanes")
+
+F23E0 =  M = uniformMatroid(4, 6)
+
+F23E1 =  netList flats M
+
+F23E2 =  flats(M, 1)
+
+F23E3 =  flats(M, 2, "corank")
+
+F24E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F24E1 =  D = dual M
+
+F24E2 =  peek D
+
+F24E3 =  M == dual D
+
+F24E4 =  loops D == coloops M
+
+F24E5 =  hyperplanes M === apply(circuits D, C -> D.groundSet - C)
+
+F24E6 =  V8plus = specificMatroid "V8+"
+
+F24E7 =  V8plus == dual V8plus
+
+F24E8 =  V = relaxation(V8plus, set{4,5,6,7})
+
+F24E9 =  V == dual V
+
+F24E10 =  areIsomorphic(V, dual V)
+
+F24E11 =  F7 = specificMatroid fano
+
+F24E12 =  getRepresentation F7
+
+F24E13 =  M = dual F7
+
+F24E14 =  getRepresentation M
+
+F25E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F25E1 =  for s in subsets M_* do print(toString s | " has closure " | toString closure_M s)
+
+F25E2 =  F = flats M
+
+F25E3 =  all(F, f -> closure_M f === f)
+
+F26E0 =  U24 = uniformMatroid(2, 4)
+
+F26E1 =  U24 == dual U24
+
+F26E2 =  ideal U24
+
+F26E3 =  peek U24
+
+F26E4 =  tuttePolynomial U24
+
+F26E5 =  N = U24 / {0}
+
+F26E6 =  areIsomorphic(N, uniformMatroid(1, 3))
+
+F26E7 =  R10 = specificMatroid "R10"
+
+F26E8 =  keys R10.cache
+
+F26E9 =  time isWellDefined R10
+
+F26E10 =  time fVector R10
+
+F26E11 =  keys R10.cache
+
+F26E12 =  time fVector R10
+
+F27E0 =  isNonCrossing({0,1,7},{2,4,5})
+
+F27E1 =  isNonCrossing({2,3,6},{1,4})
+
+F28E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F28E1 =  circuits M
+
+F28E2 =  fundamentalCircuit(M, {a,c}, b)
+
+F28E3 =  fundamentalCircuit(M, set{0,2}, 1)
+
+F28E4 =  fundamentalCircuit(M, set{0,2}, 3)
+
+F28E5 =  M = matroid matrix{{1,0,1,1},{0,1,1,1}}
+
+F28E6 =  circuits M
+
+F28E7 =  M_2
+
+F28E8 =  M_2 == M_3
+
+F28E9 =  (try fundamentalCircuit (M, M_{1,2}, M_3)) === null
+
+F28E10 =  fundamentalCircuit (M, set{1,2}, 3)
+
+F29E0 =  N = matroid completeGraph 4;
+
+F29E1 =  F = set {0, 1, 3};
+
+F29E2 =  TFN = truncate(F, N);
+
+F29E3 =  isElementaryQuotient(TFN, N)
+
+F29E4 =  modularCut(TFN, N)
+
+F29E5 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F29E6 =  M = matroid A
+
+F29E7 =  H = drop(hyperplanes M, 1)
+
+F29E8 =  isLinearSubclass(M, H)
+
+F29E9 =  modularCut(M, H)
+
+F30E0 =  isWellDefined matroid({a,b,c,d},{{a,b},{c,d}})
+
+F30E1 =  isWellDefined matroid({a,b,c,d},{{a,b},{a,c}})
+
+F30E2 =  isWellDefined matroid({{1,2,3},{1,4,5},{2,3,4,5},{2,3,6,7},{4,5,6,7}}, EntryMode =>"circuits") -- the Escher "matroid"
+
+F30E3 =  isWellDefined matroid({{1,2,3},{1,4,5},{1,6,7},{2,3,4,5},{2,3,6,7},{4,5,6,7}}, EntryMode =>"circuits")
+
+F30E4 =  isWellDefined matroid random(ZZ^3, ZZ^5)
+
+F30E5 =  isWellDefined matroid completeGraph 4
+
+F30E6 =  isWellDefined uniformMatroid(4, 5)
+
+F30E7 =  R = QQ[x_0..x_3]
+
+F30E8 =  I = monomialIdeal(x_0*x_1, x_0*x_2, x_3)
+
+F30E9 =  isWellDefined matroid I
+
+F30E10 =  symbolicCube = intersect apply(irreducibleDecomposition I, P -> P^3)
+
+F30E11 =  (codim symbolicCube, pdim betti res symbolicCube)
+
+F31E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F31E1 =  N = M / {c}
+
+F31E2 =  peek N
+
+F31E3 =  N == M / set{2}
+
+F32E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F32E1 =  circuits M
+
+F32E2 =  C = set coloops M
+
+F32E3 =  C === M.groundSet - fold(circuits M, (a, b) -> a + b)
+
+F32E4 =  C === fold(bases M, (a, b) -> a*b)
+
+F32E5 =  M_C
+
+F32E6 =  D = dual M; peek D
+
+F32E7 =  coloops matroid completeGraph 4 == {}
+
+F33E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F33E1 =  N = M | {a,b,d}
+
+F33E2 =  peek N
+
+F33E3 =  N == M | set{0,1,3}
+
+F34E0 =  M = uniformMatroid(2, 4)
+
+F34E1 =  tutteEvaluate(M, 1, 1)
+
+F34E2 =  M = matroid completeGraph 5
+
+F34E3 =  tutteEvaluate(M, 2, 1)
+
+F34E4 =  tutteEvaluate(M, 2, 0)
+
+F35E0 =  M = uniformMatroid(0, 2) ++ uniformMatroid(1, 2) ++ uniformMatroid(2, 4)
+
+F35E1 =  isSimple M
+
+F35E2 =  S = simpleMatroid M
+
+F35E3 =  latticeOfFlats M == latticeOfFlats S
+
+F35E4 =  select(flats S, f -> rank(S, f) <= 1)
+
+F35E5 =  AG32 = affineGeometry(3, 2)
+
+F36E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F36E1 =  M = matroid A
+
+F36E2 =  K = {{2}, {2, 4}, {2, 3}, {1, 2}, {0, 2}, {0, 1, 2, 3, 4}};
+
+F36E3 =  isModularCut(M, K)
+
+F36E4 =  Q1 = elementaryQuotient(M, K)
+
+F36E5 =  H = linearSubclass(M, K)
+
+F36E6 =  Q2 = elementaryQuotient(M, H, EntryMode => "hyperplanes")
+
+F36E7 =  Q1 == Q2
+
+F37E0 =  F7 = specificMatroid "fano"
+
+F37E1 =  all(F7_*, x -> areIsomorphic(matroid completeGraph 4, F7 \ {x}))
+
+F37E2 =  AG32 = specificMatroid "AG32"
+
+F37E3 =  getRepresentation AG32
+
+F37E4 =  AG32 == dual AG32
+
+F37E5 =  R10 = specificMatroid "R10"
+
+F37E6 =  getRepresentation R10
+
+F37E7 =  areIsomorphic(R10 \ set{0}, matroid completeMultipartiteGraph {3,3})
+
+F38E0 =  M = matroid completeGraph 4
+
+F38E1 =  bases M
+
+F38E2 =  w1 = apply(M_*, e -> (toList e)#1)
+
+F38E3 =  maxWeightBasis(M, w1)
+
+F38E4 =  w2 = rsort w1
+
+F38E5 =  maxWeightBasis(M, w2)
+
+F39E0 =  M = matroid graph({{0,1},{0,2},{1,2},{3,4},{4,5}})
+
+F39E1 =  C = components M
+
+F39E2 =  areIsomorphic(M, fold(C, (a, b) -> a ++ b))
+
+F39E3 =  G = graph({{0,1},{0,2},{0,3},{0,4},{1,2},{3,4}})
+
+F39E4 =  isConnected G
+
+F39E5 =  components matroid G
+
+F40E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F40E1 =  peek M
+
+F40E2 =  M.groundSet
+
+F40E3 =  M_*
+
+F40E4 =  bases M
+
+F40E5 =  (bases M)#0
+
+F40E6 =  circuits M
+
+F40E7 =  flats M
+
+F40E8 =  loops M
+
+F40E9 =  coloops M
+
+F40E10 =  N1 = M | {a,c,d}
+
+F40E11 =  N2 = M | set{0,2,3}
+
+F40E12 =  N1 == N2
+
+F40E13 =  debugLevel = 1
+
+F40E14 =  N3 = M | {0,2,3} -- gives a warning, but attempts to treat 0 as an index
+
+F40E15 =  N3 == N2
+
+F41E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F41E1 =  bases M
+
+F41E2 =  M_((bases M)#0)
+
+F42E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F42E1 =  M = matroid A
+
+F42E2 =  K = modularCut(M, drop(hyperplanes M, 1))
+
+F42E3 =  elementaryQuotient(M, K, CheckWellDefined => true)
+
+F43E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F43E1 =  M = matroid A
+
+F43E2 =  H = drop(hyperplanes M, 1)
+
+F43E3 =  modularCut(M, H, CheckWellDefined => true)
+
+F44E0 =  M = uniformMatroid(2,4) + uniformMatroid(1,4)
+
+F44E1 =  peek M
+
+F44E2 =  M == uniformMatroid(3, 4)
+
+F44E3 =  M0 = uniformMatroid(2, 4) + matroid completeGraph 4
+
+F44E4 =  M0 == uniformMatroid(2, 4) ++ matroid completeGraph 4
+
+F44E5 =  M1 = matroid completeGraph 4 ++ uniformMatroid(2, 4)
+
+F44E6 =  M0 == M1
+
+F44E7 =  areIsomorphic(M0, M1)
+
+F44E8 =  M0 = matroid({a,b,c,d}, {{a},{b},{c}})
+
+F44E9 =  M1 = matroid({a,b,c,d}, {{b},{c},{d}})
+
+F44E10 =  M0 + M1 == uniformMatroid(2,4)
+
+F44E11 =  F7 = specificMatroid "fano"
+
+F44E12 =  NF = specificMatroid "nonfano"
+
+F44E13 =  all({F7 + NF, F7 + F7, NF + NF}, M -> M == uniformMatroid(6, 7))
+
+F44E14 =  A = matrix{{0,1,1,1},{0,0,1,1}}
+
+F44E15 =  M = matroid A
+
+F44E16 =  M_*
+
+F44E17 =  unique M_*
+
+F44E18 =  M0 = matroid(M_{0,1,2} | {d}, bases M)
+
+F44E19 =  M == M0
+
+F44E20 =  B = matrix{{0,1,2},{0,1,2}}
+
+F44E21 =  N = matroid B
+
+F44E22 =  U = M0 + N
+
+F44E23 =  peek U
+
+F44E24 =  U_*
+
+F45E0 =  M = uniformMatroid(4, 5);
+
+F45E1 =  K = {set{0,1,2}, set{2,3,4}, set{0,1,2,3,4}};
+
+F45E2 =  isModularCut(M, K)
+
+F45E3 =  K' = {{0,1,2}, {0,1,3}, {0,1,2,3,4}};
+
+F45E4 =  isModularCut(M, K')
+
+F46E0 =  M = matroid({a,b,c,d}, {{a,b},{a,c}})
+
+F46E1 =  peek M
+
+F46E2 =  M = matroid({a,b,c,d},{}, EntryMode => "nonbases") -- defaults to uniform matroid of full rank
+
+F46E3 =  peek M
+
+F46E4 =  N = matroid({a,b,c,d}, {{b,c}}, EntryMode => "circuits")
+
+F46E5 =  peek N
+
+F46E6 =  M = matroid {{a,b},{a,c}}
+
+F46E7 =  peek M
+
+F46E8 =  M = matroid random(ZZ^3, ZZ^5)
+
+F46E9 =  peek M
+
+F46E10 =  M = matroid completeGraph 3
+
+F46E11 =  peek M
+
+F46E12 =  M = matroid(completeGraph 3, ParallelEdges => {set{0,1},set{0,1},set{1,2}}, Loops => {0,2})
+
+F46E13 =  peek M
+
+F46E14 =  circuits M
+
+F46E15 =  R = QQ[x_0..x_4]
+
+F46E16 =  I = monomialIdeal (x_0*x_1*x_3,x_1*x_2*x_4,x_0*x_2*x_3*x_4)
+
+F46E17 =  M = matroid I
+
+F46E18 =  peek M
+
+F47E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F47E1 =  M_2
+
+F47E2 =  M_{0,2,3}
+
+F47E3 =  B = (bases M)#0
+
+F47E4 =  M_B
+
+F47E5 =  F7 = specificMatroid "fano"
+
+F47E6 =  M4 = matroid completeGraph 4
+
+F47E7 =  all(F7_*, x -> areIsomorphic(F7 \ {x}, M4))
+
+F48E0 =  isSimple matroid completeGraph 3
+
+F48E1 =  M = matroid(completeGraph 3, ParallelEdges => {set{0,1},set{0,1},set{1,2}}, Loops => {0,2})
+
+F48E2 =  isSimple M
+
+F48E3 =  S = simpleMatroid M
+
+F48E4 =  isSimple S
+
+F48E5 =  latticeOfFlats M == latticeOfFlats S
+
+F48E6 =  U = uniformMatroid(2, 2)
+
+F48E7 =  isSimple U
+
+F48E8 =  isSimple dual U
+
+F49E0 =  M5 = matroid completeGraph 5
+
+F49E1 =  isBinary M5
+
+F49E2 =  U48 = uniformMatroid(4, 8)
+
+F49E3 =  isBinary U48
+
+F50E0 =  M0 = matroid(toList(a..z)/toString,{{"m","a","t","r","o","i","d"}})
+
+F50E1 =  M1 = matroid(toList(0..25), {{random(ZZ),23,15,12,19,20,11}})
+
+F50E2 =  quickIsomorphismTest(M0, M1)
+
+F50E3 =  quickIsomorphismTest(matroid random(ZZ^5,ZZ^8), uniformMatroid(5, 8))
+
+F50E4 =  quickIsomorphismTest(uniformMatroid(5, 9), uniformMatroid(4, 9))
+
+F50E5 =  M0 = matroid graph({{a,b},{b,c},{c,d},{d,e},{e,f},{f,g},{f,h},{c,h},{c,f},{a,g},{d,g}})
+
+F50E6 =  M1 = matroid graph({{a,b},{b,c},{c,d},{d,e},{e,f},{f,g},{f,h},{c,h},{c,f},{a,g},{a,h}})
+
+F50E7 =  R = ZZ[x,y]; tuttePolynomial(M0, R) == tuttePolynomial(M1, R)
+
+F50E8 =  time quickIsomorphismTest(M0, M1)
+
+F50E9 =  value oo === false
+
+F51E0 =  U24 = uniformMatroid(2, 4)
+
+F51E1 =  A = basisIndicatorMatrix U24
+
+F51E2 =  needsPackage "Polyhedra"
+
+F51E3 =  P = convexHull A
+
+F51E4 =  vertices P
+
+F52E0 =  G = graph({{0,1},{1,2},{2,3},{3,4},{4,5},{5,6},{6,0},{0,2},{0,3},{0,4},{1,3},{3,5},{3,6}})
+
+F52E1 =  M = matroid G
+
+F52E2 =  seriesConnection(M, uniformMatroid(1,2))
+
+F53E0 =  searchRepresentation(uniformMatroid(2, 4), GF 2)
+
+F53E1 =  searchRepresentation(matroid completeGraph 5, GF 3, Attempts => 2000)
+
+F54E0 =  M = matroid({{0,1},{0,2},{0,3},{1,2},{2,3}})
+
+F54E1 =  independenceComplex M
+
+F55E0 =  M = matroid({a, matrix{{-1.2},{3.78}}, x, set{4,6}, -9}, {{a, x}, {x, -9}})
+
+F55E1 =  peek M
+
+F55E2 =  M_{0,1,4}
+
+F55E3 =  peek restriction(M, set{1,2,3})
+
+F55E4 =  circuits M
+
+F55E5 =  netList flats M
+
+F55E6 =  tuttePolynomial M
+
+F56E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F56E1 =  for s in subsets M_* do print(toString s | " has rank " | rank_M s)
+
+F57E0 =  M = matroid({{0,1},{2,3},{4,5}}, EntryMode => "circuits")
+
+F57E1 =  isPositivelyOriented M
+
+F57E2 =  p = positiveOrientation M
+
+F57E3 =  N = relabel(M, p)
+
+F57E4 =  isPositivelyOriented N
+
+F58E0 =  A = matrix {{1, 0, 0, 1, 1}, {0, 1, 0, 1, -1}, {0, 0, 1, 0, 0}}
+
+F58E1 =  M = matroid A
+
+F58E2 =  K = {{2}, {2, 4}, {2, 3}, {1, 2}, {0, 2}, {0, 1, 2, 3, 4}};
+
+F58E3 =  isModularCut(M, K)
+
+F58E4 =  linearSubclass(M, K)
+
+F58E5 =  N = matroid completeGraph 5
+
+F58E6 =  F = set {0, 1, 4};
+
+F58E7 =  TFN = truncate(F, N);
+
+F58E8 =  isElementaryQuotient(TFN, N)
+
+F58E9 =  linearSubclass(TFN, N)
+
+F59E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F59E1 =  fVector M
+
+F59E2 =  fVector matroid completeGraph 4
+
+F60E0 =  M = matroid graph({{0,1},{0,2},{1,2},{3,4},{4,5}})
+
+F60E1 =  isConnected M
+
+F60E2 =  C = components M
+
+F60E3 =  all(C, isConnected)
+
+F61E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F61E1 =  nonbases M
+
+F62E0 =  P = specificMatroid "pappus"
+
+F62E1 =  NP = specificMatroid "nonpappus"
+
+F62E2 =  NP == relaxation(P, set{6,7,8})
+
+F63E0 =  V = specificMatroid "vamos"
+
+F63E1 =  U25 = uniformMatroid(2,5)
+
+F63E2 =  elapsedTime L = allMinors(V, U25);
+
+F63E3 =  #L
+
+F63E4 =  netList L_{0..4}
+
+F63E5 =  all(L, pair -> areIsomorphic(U25, minor(V, pair#0, pair#1)))
+
+F64E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F64E1 =  loops M
+
+F64E2 =  all(loops M, l -> member(set{l}, circuits M))
+
+F64E3 =  loops(M/(set loops M)) == {}
+
+F65E0 =  V = specificMatroid "vamos"
+
+F65E1 =  s = toSageMatroid V
+
+F65E2 =  class s
+
+F65E3 =  fromSageMatroid s === V
+
+F66E0 =  M = matroid({{0,1,2}, {3,4,5}}, EntryMode => "circuits") -- bowtie graph / 2 disjoint K3's
+
+F66E1 =  bases M
+
+F66E2 =  F7 = matroid({{0,1,6},{0,2,4},{0,3,5},{1,2,5},{1,3,4},{2,3,6},{4,5,6}}, EntryMode => "nonbases")
+
+F66E3 =  F7 == specificMatroid "fano"
+
+F67E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F67E1 =  hyperplanes M
+
+F68E0 =  M = matroid completeGraph 4
+
+F68E1 =  T = tuttePolynomial M
+
+F68E2 =  factor characteristicPolynomial M
+
+F69E0 =  Q6 = specificMatroid "Q6"
+
+F69E1 =  M = relabel_Q6 {3 => 0, 0 => 3}
+
+F69E2 =  (nonbases Q6, nonbases M)
+
+F69E3 =  (M == Q6, areIsomorphic(M, Q6))
+
+F69E4 =  nonbases relabel Q6
+
+F70E0 =  M = sum2(specificMatroid "fano", uniformMatroid(2,4))
+
+F70E1 =  isConnected M
+
+F70E2 =  is3Connected M
+
+F71E0 =  M = uniformMatroid(4, 5);
+
+F71E1 =  TM = truncate M
+
+F71E2 =  quickIsomorphismTest(TM, uniformMatroid(3, 5))
+
+F71E3 =  M = matroid completeGraph 5;
+
+F71E4 =  TM = truncate M
+
+F71E5 =  set flats TM === (set flats M) - hyperplanes M
+
+F71E6 =  T2M = truncate(2, M)
+
+F71E7 =  partition(F -> rank(T2M, F), flats T2M)
+
+F71E8 =  F = set {0, 1, 4};
+
+F71E9 =  TFM = truncate(F, M)
+
+F71E10 =  partition(G -> rank(TFM, G), flats TFM)
+
+F72E0 =  M = matroid completeGraph 3
+
+F72E1 =  peek M
+
+F72E2 =  N = uniformMatroid(2, 3)
+
+F72E3 =  peek N
+
+F72E4 =  M == N
+
+F72E5 =  M === N
+
+F72E6 =  AG32 = specificMatroid "AG32" -- identically self-dual
+
+F72E7 =  AG32 == dual AG32
+
+F72E8 =  AG32 === dual AG32
+
+F72E9 =  V = specificMatroid "vamos" -- self-dual, but not identically so
+
+F72E10 =  V == dual V
+
+F72E11 =  areIsomorphic(V, dual V)
+
+F73E0 =  areIsomorphic(swirl 3, uniformMatroid_3 6)
+
+F73E1 =  M = swirl 4
+
+F73E2 =  betti ideal M
+
+F73E3 =  M == dual M
+
+F73E4 =  getSeparation(M, 3)
+
+F74E0 =  indicesOf(toList(a..z) | toList(0..9), {{m,a,c,a,u,l,a,y,2},{i,s},{f,u,n}})
+
+F74E1 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F74E2 =  B = {a, c}
+
+F74E3 =  S = indicesOf(M, B)
+
+F74E4 =  M_S == B
+
+F75E0 =  tuttePolynomial matroid completeGraph 4
+
+F75E1 =  tuttePolynomial specificMatroid "nonpappus"
+
+F76E0 =  M = matroid completeGraph 4
+
+F76E1 =  I = idealChowRing M
+
+F76E2 =  basis comodule I
+
+F76E3 =  (0..<rank M)/(i -> hilbertFunction(i, I))
+
+F76E4 =  betti res minimalPresentation I
+
+F76E5 =  apply(gens ring I, v -> last baseName v)
+
+F77E0 =  M = uniformMatroid(3, 4);
+
+F77E1 =  N = coextension M
+
+F77E2 =  quickIsomorphismTest(N, uniformMatroid(4, 5))
+
+F77E3 =  M = matroid completeGraph 3;
+
+F77E4 =  partition(I -> #I, independentSets M)
+
+F77E5 =  partition(F -> rank(M, F), flats M)
+
+F77E6 =  N = coextension M
+
+F77E7 =  partition(F -> rank(N, F), flats N)
+
+F78E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F78E1 =  circuits M
+
+F79E0 =  M = matroid random(ZZ^3,ZZ^6)
+
+F79E1 =  M_*
+
+F79E2 =  M.groundSet
+
+F79E3 =  (X, Y) = (set{3}, set{0,1})
+
+F79E4 =  (X1, Y1) = (M_X, M_Y)/toList
+
+F79E5 =  N = minor(M, X, Y)
+
+F79E6 =  peek N
+
+F79E7 =  N == minor(M, X1, Y1)
+
+F79E8 =  M5 = matroid completeGraph 5
+
+F79E9 =  M5.groundSet
+
+F79E10 =  N = minor(M5, set{8}, set{3,4,9})
+
+F79E11 =  areIsomorphic(N, matroid completeGraph 4)
+
+F79E12 =  N == (M5 \ set{3,4,9}) / set{6} -- after deleting 3,4 (and 9), index 8 -> 6
+
+F79E13 =  N == M5 / set{8} \ set{3,4,8} -- after contracting 8, index 9 -> 8
+
+F79E14 =  (try minor(M5, set{8}, set{3,4,8,9})) === null
+
+F79E15 =  minor(M5, set{8}, set{3,4,8,9} - set{8})
+
+F80E0 =  N = matroid completeGraph 5
+
+F80E1 =  F = set {0,1,4};
+
+F80E2 =  TFN = truncate(F, N)
+
+F80E3 =  isElementaryQuotient(TFN, N)
+
+F80E4 =  T2N = truncate(2, N)
+
+F80E5 =  isElementaryQuotient(T2N, N)
+
+F81E0 =  M = binarySpike 5
+
+F81E1 =  getRepresentation M
+
+F81E2 =  N = M \ set{0}
+
+F81E3 =  areIsomorphic(N, dual N)
+
+F81E4 =  N1 = (spike 5) \ set{0}
+
+F81E5 =  N1 == dual N1
+
+F82E0 =  A = random(QQ^3,QQ^5)
+
+F82E1 =  M = matroid A
+
+F82E2 =  A == getRepresentation M
+
+F82E3 =  K4 = completeGraph 4
+
+F82E4 =  M4 = matroid K4
+
+F82E5 =  getRepresentation M4 === K4
+
+F82E6 =  N = M / set{0}
+
+F82E7 =  getRepresentation N
+
+F83E0 =  U1 = uniformMatroid(1, 4)
+
+F83E1 =  isConnected U1
+
+F83E2 =  is3Connected U1
+
+F83E3 =  is3Connected matroid completeMultipartiteGraph {3,3}
+
+F84E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F84E1 =  latticeOfFlats M
+
+F85E0 =  M = matroid completeGraph 4
+
+F85E1 =  I = idealChowRing M;
+
+F85E2 =  R = ring I
+
+F85E3 =  S = R/I
+
+F85E4 =  R_0
+
+F85E5 =  S_1
+
+F85E6 =  S_5*S_6
+
+F85E7 =  R_7
+
+F85E8 =  last baseName R_7
+
+F85E9 =  chowVars = hashTable apply(#gens R, i -> last baseName R_i => S_i)
+
+F85E10 =  chowVars#{5} * chowVars#{0,5}
+
+F86E0 =  N = matroid completeGraph 6;
+
+F86E1 =  T2N = truncate(2, N)
+
+F86E2 =  partition(F -> rank(T2N, F), flats T2N)
+
+F86E3 =  isQuotient(T2N, N)
+
+F87E0 =  M = matroid({a,b,c},{{a,b},{a,c},{b,c}})
+
+F87E1 =  areIsomorphic(M, uniformMatroid(2,3))
+
+F87E2 =  M0 = matroid({a,b,c},{{a,b},{a,c}})
+
+F87E3 =  areIsomorphic(M, M0)
+
+F88E0 =  M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+F88E1 =  N = M \ {a}
+
+F88E2 =  peek N
+
+F88E3 =  N == M \ set{0}
+
+F89E0 =  G = graph({{0,1},{1,2},{2,3},{3,4},{4,5},{5,6},{6,0},{0,2},{0,3},{0,4},{1,3},{3,5},{3,6}})
+
+F89E1 =  M = matroid G
+
+F89E2 =  parallelConnection(M, uniformMatroid(1,2))
+
+F90E0 =  M = uniformMatroid(4, 5);
+
+F90E1 =  K = modularCut(M, {{0,1,2}, {2,3,4}})
+
+F90E2 =  isModularCut(M, K)
+
+F90E3 =  N = extension(M, K)
+
+F90E4 =  F = set{0, 1, 3}
+
+F90E5 =  N = extension(M, F)
+
+F90E6 =  bases N
+
+F90E7 =  N = extension M
+
+F90E8 =  quickIsomorphismTest(N, uniformMatroid(4, 6))
+
+F91E0 =  M = matroid completeGraph 4
+
+F91E1 =  I = idealChowRing M;
+
+F91E2 =  betti I
+
+F91E3 =  F = cogeneratorChowRing M
+
+F91E4 =  T = ring F
+
+F91E5 =  diff(gens((map(T, ring I, gens T)) I), F)
+
+F92E0 =  M = matroid({a,b,c},{{a,b},{a,c}})
+
+F92E1 =  U23 = uniformMatroid(2,3)
+
+F92E2 =  getIsos(M, U23) -- not isomorphic
+
+F92E3 =  getIsos(M, M)
+
+F92E4 =  getIsos(U23, U23) -- the full symmetric group S3
+
+F92E5 =  F7 = specificMatroid "fano"
+
+F92E6 =  time autF7 = getIsos(F7, F7);
+
+F92E7 =  #autF7
+
+F93E0 =  M = wheel 3
+
+F93E1 =  M == matroid wheelGraph 4
+
+F93E2 =  N = whirl 3
+
+F93E3 =  areIsomorphic(N, relaxation M)
+
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F3E2", "F4E0", "F5E0", "F5E1", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F11E2", "F11E3", "F12E0", "F12E1", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F14E0", "F14E1", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F19E0", "F19E1", "F19E2", "F19E3", "F20E0", "F20E1", "F21E0", "F21E1", "F21E2", "F21E3", "F22E0", "F22E1", "F22E2", "F22E3", "F23E0", "F23E1", "F23E2", "F23E3", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F24E7", "F24E8", "F24E9", "F24E10", "F24E11", "F24E12", "F24E13", "F24E14", "F25E0", "F25E1", "F25E2", "F25E3", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F26E11", "F26E12", "F27E0", "F27E1", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F28E8", "F28E9", "F28E10", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F29E7", "F29E8", "F29E9", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F31E0", "F31E1", "F31E2", "F31E3", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F33E0", "F33E1", "F33E2", "F33E3", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F36E7", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F40E10", "F40E11", "F40E12", "F40E13", "F40E14", "F40E15", "F41E0", "F41E1", "F41E2", "F42E0", "F42E1", "F42E2", "F42E3", "F43E0", "F43E1", "F43E2", "F43E3", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F44E6", "F44E7", "F44E8", "F44E9", "F44E10", "F44E11", "F44E12", "F44E13", "F44E14", "F44E15", "F44E16", "F44E17", "F44E18", "F44E19", "F44E20", "F44E21", "F44E22", "F44E23", "F44E24", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F46E5", "F46E6", "F46E7", "F46E8", "F46E9", "F46E10", "F46E11", "F46E12", "F46E13", "F46E14", "F46E15", "F46E16", "F46E17", "F46E18", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F47E7", "F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F48E6", "F48E7", "F48E8", "F49E0", "F49E1", "F49E2", "F49E3", "F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F50E5", "F50E6", "F50E7", "F50E8", "F50E9", "F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F52E0", "F52E1", "F52E2", "F53E0", "F53E1", "F54E0", "F54E1", "F55E0", "F55E1", "F55E2", "F55E3", "F55E4", "F55E5", "F55E6", "F56E0", "F56E1", "F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F58E6", "F58E7", "F58E8", "F58E9", "F59E0", "F59E1", "F59E2", "F60E0", "F60E1", "F60E2", "F60E3", "F61E0", "F61E1", "F62E0", "F62E1", "F62E2", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F64E0", "F64E1", "F64E2", "F64E3", "F65E0", "F65E1", "F65E2", "F65E3", "F66E0", "F66E1", "F66E2", "F66E3", "F67E0", "F67E1", "F68E0", "F68E1", "F68E2", "F69E0", "F69E1", "F69E2", "F69E3", "F69E4", "F70E0", "F70E1", "F70E2", "F71E0", "F71E1", "F71E2", "F71E3", "F71E4", "F71E5", "F71E6", "F71E7", "F71E8", "F71E9", "F71E10", "F72E0", "F72E1", "F72E2", "F72E3", "F72E4", "F72E5", "F72E6", "F72E7", "F72E8", "F72E9", "F72E10", "F72E11", "F73E0", "F73E1", "F73E2", "F73E3", "F73E4", "F74E0", "F74E1", "F74E2", "F74E3", "F74E4", "F75E0", "F75E1", "F76E0", "F76E1", "F76E2", "F76E3", "F76E4", "F76E5", "F77E0", "F77E1", "F77E2", "F77E3", "F77E4", "F77E5", "F77E6", "F77E7", "F78E0", "F78E1", "F79E0", "F79E1", "F79E2", "F79E3", "F79E4", "F79E5", "F79E6", "F79E7", "F79E8", "F79E9", "F79E10", "F79E11", "F79E12", "F79E13", "F79E14", "F79E15", "F80E0", "F80E1", "F80E2", "F80E3", "F80E4", "F80E5", "F81E0", "F81E1", "F81E2", "F81E3", "F81E4", "F81E5", "F82E0", "F82E1", "F82E2", "F82E3", "F82E4", "F82E5", "F82E6", "F82E7", "F83E0", "F83E1", "F83E2", "F83E3", "F84E0", "F84E1", "F85E0", "F85E1", "F85E2", "F85E3", "F85E4", "F85E5", "F85E6", "F85E7", "F85E8", "F85E9", "F85E10", "F86E0", "F86E1", "F86E2", "F86E3", "F87E0", "F87E1", "F87E2", "F87E3", "F88E0", "F88E1", "F88E2", "F88E3", "F89E0", "F89E1", "F89E2", "F90E0", "F90E1", "F90E2", "F90E3", "F90E4", "F90E5", "F90E6", "F90E7", "F90E8", "F91E0", "F91E1", "F91E2", "F91E3", "F91E4", "F91E5", "F92E0", "F92E1", "F92E2", "F92E3", "F92E4", "F92E5", "F92E6", "F92E7", "F93E0", "F93E1", "F93E2", "F93E3"}

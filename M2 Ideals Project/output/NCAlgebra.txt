@@ -1,0 +1,1735 @@
+needsPackage "NCAlgebra"
+
+F0E0 =  A = QQ{x,y,z}
+
+F0E1 =  numgens A
+
+F1E0 =  A = QQ{x,y,z}
+
+F1E1 =  f = y*z + z*y - x^2
+
+F1E2 =  g = x*z + z*x - y^2
+
+F1E3 =  h = z^2 - x*y - y*x
+
+F1E4 =  I = ncIdeal {f,g,h}
+
+F1E5 =  Igb = ncGroebnerBasis I
+
+F1E6 =  M = ncMatrix {{x, y, z}}
+
+F1E7 =  sigma = ncMap(A,A,{y,z,x})
+
+F1E8 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F1E9 =  Nred = N^3 % Igb
+
+F1E10 =  B = A/I
+
+F1E11 =  phi = ncMap(B,A,gens B)
+
+F1E12 =  NB = phi N
+
+F1E13 =  N3B = NB^3
+
+F1E14 =  (phi Nred) == N3B
+
+F2E0 =  A = QQ{x,y,z}
+
+F2E1 =  f = y*z + z*y - x^2
+
+F2E2 =  g = x*z + z*x - y^2
+
+F2E3 =  h = z^2 - x*y - y*x
+
+F2E4 =  I=ncIdeal{f,g,h}
+
+F2E5 =  B = A/I
+
+F2E6 =  z^2
+
+F2E7 =  R = toField(QQ[a]/ideal(a^4+a^3+a^2+a+1))
+
+F2E8 =  C = skewPolynomialRing(R,a,{x,y,z})
+
+F2E9 =  y*x
+
+F3E0 =  A = QQ{a,b,c,d}
+
+F3E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F3E2 =  N = M || 2*M || -3*M
+
+F3E3 =  N_{0,2}
+
+F4E0 =  A = QQ{x,y,z,w}
+
+F4E1 =  f = x^2+y^2+z^3
+
+F4E2 =  sup = support f
+
+F4E3 =  first sup
+
+F5E0 =  R = frac(QQ[a])
+
+F5E1 =  B = skewPolynomialRing(R,a,{x,y,z})
+
+F5E2 =  M = ncMatrix {{x, y, z}}
+
+F5E3 =  sigma = ncMap(B,B,{y,z,x})
+
+F5E4 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F5E5 =  N*a
+
+F6E0 =  A = QQ{x,y,z}
+
+F6E1 =  B = skewPolynomialRing(QQ,(-1)_QQ, {a,b,c})
+
+F6E2 =  phi = ncMap(B,A,{a,b,c})
+
+F6E3 =  kernelComponent(2,phi)
+
+F7E0 =  R = QQ[a,b,c,d]
+
+F7E1 =  I = ideal(a*d-b*c)
+
+F7E2 =  S = R/I
+
+F7E3 =  S' = toNCRing(S)
+
+F7E4 =  ideal S'
+
+F8E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F8E1 =  M = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+F8E2 =  isHomogeneous M
+
+F8E3 =  assignDegrees(M,{1,0,0,0},{2,2,2,1})
+
+F8E4 =  isHomogeneous M
+
+F8E5 =  N = ncMatrix {gens B}
+
+F8E6 =  isHomogeneous N
+
+F9E0 =  A = QQ{x,y,z}
+
+F9E1 =  isCommutative A
+
+F9E2 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z})
+
+F9E3 =  isCommutative B
+
+F9E4 =  C = skewPolynomialRing(QQ,1_QQ,{x,y,z})
+
+F9E5 =  isCommutative C
+
+F9E6 =  D = toNCRing(QQ[x,y,SkewCommutative=>true])
+
+F9E7 =  isExterior D
+
+F10E0 =  A = QQ{x,y,z}
+
+F10E1 =  p = y*z + z*y - x^2
+
+F10E2 =  q = x*z + z*x - y^2
+
+F10E3 =  r = z^2 - x*y - y*x
+
+F10E4 =  I = ncLeftIdeal{p,q}
+
+F10E5 =  J = ncLeftIdeal r
+
+F10E6 =  I + J
+
+F11E0 =  A = QQ{x,y}
+
+F11E1 =  f = ncMap(A,A,{x^2,y^2})
+
+F11E2 =  g = ncMap(A,A,{x+y,y})
+
+F11E3 =  gens A/f/g
+
+F11E4 =  gens A/g/f
+
+F12E0 =  A = QQ{x,y,z,w}
+
+F12E1 =  f = x^2+y^2+z^3
+
+F12E2 =  mon = leadMonomial f
+
+F13E0 =  A = QQ{x,y,z}
+
+F13E1 =  coefficientRing A
+
+F13E2 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z})
+
+F13E3 =  x
+
+F13E4 =  use A
+
+F13E5 =  x
+
+F14E0 =  A = QQ{x,y,z}
+
+F14E1 =  M = ncMatrix {{x, y, z}}
+
+F14E2 =  sigma = ncMap(A,A,{y,z,x})
+
+F14E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F14E4 =  N^3
+
+F14E5 =  B = A/ncIdeal{y*z + z*y - x^2, x*z + z*x - y^2, z^2 - x*y - y*x}
+
+F14E6 =  NB = promote(N,B)
+
+F14E7 =  NB^3
+
+F15E0 =  A=QQ{x,y,z}
+
+F15E1 =  w=x^3-y^2
+
+F15E2 =  isHomogeneous w
+
+F15E3 =  setWeights(A, {2,3,1})
+
+F15E4 =  isHomogeneous w
+
+F15E5 =  I = ncIdeal{w,x+z^2}
+
+F15E6 =  isHomogeneous I
+
+F15E7 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F15E8 =  M = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+F15E9 =  isHomogeneous M
+
+F15E10 =  assignDegrees(M,{1,0,0,0},{2,2,2,1})
+
+F15E11 =  isHomogeneous M
+
+F15E12 =  N = ncMatrix {gens B}
+
+F15E13 =  isHomogeneous N
+
+F16E0 =  C = fourDimSklyanin(QQ,{a,b,c,d})
+
+F16E1 =  ncGroebnerBasis ideal C
+
+F16E2 =  centralElements(C,2)
+
+F16E3 =  hilbertBergman(C, DegreeLimit => 6)
+
+F17E0 =  R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+F17E1 =  A = skewPolynomialRing(R,promote(2,R),{x,y,z,w})
+
+F17E2 =  x*y == 2*y*x
+
+F17E3 =  B = skewPolynomialRing(R,q,{x,y,z,w})
+
+F17E4 =  x*y == q*y*x
+
+F17E5 =  Bop = oppositeRing B
+
+F17E6 =  y*x == q*x*y
+
+F17E7 =  C = skewPolynomialRing(QQ,2_QQ, {x,y,z,w})
+
+F17E8 =  x*y == 2*y*x
+
+F17E9 =  D = skewPolynomialRing(QQ,1_QQ, {x,y,z,w})
+
+F17E10 =  isCommutative C
+
+F17E11 =  isCommutative D
+
+F17E12 =  Cop = oppositeRing C
+
+F17E13 =  y*x == 2*x*y
+
+F18E0 =  A = QQ{x,y,z}
+
+F18E1 =  I = ncIdeal{x*z-z*x, y*z, x*y^2-y^2*x, x^3*y-y*x^3}
+
+F18E2 =  J = quadraticClosure I
+
+F19E0 =  A = QQ{x,y,z}
+
+F19E1 =  p = y*z + z*y - x^2
+
+F19E2 =  q = x*z + z*x - y^2
+
+F19E3 =  r = z^2 - x*y - y*x
+
+F19E4 =  I = ncRightIdeal{p,q,r}
+
+F19E5 =  ring I
+
+F20E0 =  A = QQ{x,y,z,w}
+
+F20E1 =  f = x^2+y^2+z^3
+
+F20E2 =  ring f
+
+F21E0 =  R = QQ[a,b,c,d]/ideal{a*b+c*d}
+
+F21E1 =  A = R {x,y,z}
+
+F21E2 =  I = ncIdeal {a*x*y,b*z^2}
+
+F21E3 =  Igb = ncGroebnerBasis(I, InstallGB=>true)
+
+F21E4 =  c*z^2 % Igb
+
+F21E5 =  b*z^2 % Igb
+
+F21E6 =  A = QQ{x,y,z}
+
+F21E7 =  p = y*z + z*y - x^2
+
+F21E8 =  q = x*z + z*x - y^2
+
+F21E9 =  r = z^2 - x*y - y*x
+
+F21E10 =  I = ncIdeal {p,q,r}
+
+F21E11 =  Igb = ncGroebnerBasis I
+
+F21E12 =  normalFormBergman(z^17,Igb)
+
+F22E0 =  A = QQ{a,b,c,d}
+
+F22E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F22E2 =  N = M || 2*M || -3*M
+
+F22E3 =  transpose N
+
+F23E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F23E1 =  M = ncMatrix {{x, y, z}}
+
+F23E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F23E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F23E4 =  (1/2)*N
+
+F24E0 =  A=QQ{a, b, c, d, e, f, g, h}
+
+F24E1 =  F = a^2+b^2+c^2+d^2+e^2+f^2+g^2+h^2;
+
+F24E2 =  sparseCoeffs(F)
+
+F24E3 =  bas = flatten entries basis(2,A);
+
+F24E4 =  #bas
+
+F24E5 =  sparseCoeffs(F,Monomials=>bas)
+
+F24E6 =  sparseCoeffs(toList (10:F),Monomials=>bas)
+
+F25E0 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+
+F25E1 =  sigma = ncMap(B,B,{y,z,w,x})
+
+F25E2 =  C = oreExtension(B,sigma,a)
+
+F25E3 =  sigmaC = ncMap(C,C,{y,z,w,x,a})
+
+F25E4 =  normalElements(sigmaC,1)
+
+F25E5 =  normalElements(sigmaC,2)
+
+F25E6 =  normalElements(sigmaC @@ sigmaC,2)
+
+F26E0 =  A = QQ{x,y,z}
+
+F26E1 =  p = y*z + z*y - x^2
+
+F26E2 =  q = x*z + z*x - y^2
+
+F26E3 =  r = z^2 - x*y - y*x
+
+F26E4 =  I = ncRightIdeal{p,q}
+
+F26E5 =  J = ncRightIdeal r
+
+F26E6 =  I + J
+
+F27E0 =  A = QQ{x,y,z}
+
+F27E1 =  hilbertSeries(A,Order=>10)
+
+F27E2 =  setWeights(A,{1,2,3})
+
+F27E3 =  hilbertSeries(A,Order=>10)
+
+F27E4 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F27E5 =  hilbertSeries(B,Order=>10)
+
+F28E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F28E1 =  setWeights(A,{1,1,2,2})
+
+F28E2 =  f = ncMap(A,A,{x,w,z,y})
+
+F28E3 =  basis(1,A)
+
+F28E4 =  f_1
+
+F28E5 =  basis(2,A)
+
+F28E6 =  f_2
+
+F29E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F29E1 =  M = ncMatrix {{x, y, z}}
+
+F29E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F29E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F29E4 =  N*3
+
+F30E0 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z})
+
+F30E1 =  A = ambient B
+
+F31E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F31E1 =  M = ncMatrix {{x, y, z}}
+
+F31E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F31E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F31E4 =  L = map(QQ^3,QQ^3,{{2,0,0},{1,2,0},{1,2,3}})
+
+F31E5 =  N*L
+
+F32E0 =  A = QQ{x,y,z}
+
+F32E1 =  p = y*z + z*y - x^2
+
+F32E2 =  q = x*z + z*x - y^2
+
+F32E3 =  r = z^2 - x*y - y*x
+
+F32E4 =  I = ncIdeal{p,q,r}
+
+F32E5 =  gens I
+
+F33E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F33E1 =  B = QQ{w,x,y,z}/ncIdeal{w*x+x*w,w*y+y*w,x*y+y*x}
+
+F33E2 =  f = ncMap(B,A,gens B)
+
+F33E3 =  isHomogeneous f
+
+F33E4 =  C = QQ{a,b,c}
+
+F33E5 =  g = ncMap(C,A,{a^3,b^2,a+b,a-b})
+
+F33E6 =  isHomogeneous g
+
+F33E7 =  setWeights(A,{3,2,1,1})
+
+F33E8 =  isHomogeneous g
+
+F34E0 =  A = QQ{x,y,z}
+
+F34E1 =  M = ncMatrix {{x, y, z}}
+
+F34E2 =  sigma = ncMap(A,A,{y,z,x})
+
+F34E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F34E4 =  N' = ncMatrix {{sigma sigma M}, {sigma M}, {M}}
+
+F34E5 =  N - N'
+
+F35E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F35E1 =  B = QQ{w,x,y,z}/ncIdeal{w*x+x*w,w*y+y*w,x*y+y*x}
+
+F35E2 =  f = ncMap(B,A,gens B)
+
+F35E3 =  isWellDefined f
+
+F35E4 =  g = ambient f
+
+F35E5 =  (gens ideal A)/g
+
+F36E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F36E1 =  sigma = ncMap(B,B,{y,z,x})
+
+F36E2 =  C = oreExtension(B,sigma,w)
+
+F36E3 =  D = (ambient C)/(ideal C + ncIdeal{promote(w^2,ambient C)})
+
+F36E4 =  M1 = ncMatrix {{x,y,z,w}}
+
+F36E5 =  M2 = rightKernel(M1,1)
+
+F36E6 =  M3 = rightKernel(M2,1)
+
+F36E7 =  rightKernelBergman(M2)
+
+F36E8 =  M4 = rightKernel(M3,1)
+
+F36E9 =  rightKernelBergman(M3)
+
+F37E0 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+
+F37E1 =  sigma = ncMap(B,B,{y,z,w,x})
+
+F37E2 =  C = oreExtension(B,sigma,a)
+
+F38E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F38E1 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F38E2 =  h = x^2 + y^2 + z^2
+
+F38E3 =  isCentral h
+
+F38E4 =  isCentral g
+
+F39E0 =  A = QQ{x,y,z}
+
+F39E1 =  p = y*z + z*y - x^2
+
+F39E2 =  q = x*z + z*x - y^2
+
+F39E3 =  r = z^2 - x*y - y*x
+
+F39E4 =  I = ncIdeal{p,q,r}
+
+F39E5 =  bas = basis(3,I)
+
+F40E0 =  A = QQ{x,y,z,w}
+
+F40E1 =  B = A/ncIdeal{y*z + z*y - x^2, x*z + z*x - y^2, z^2 - x*y - y*x}
+
+F40E2 =  M = ncMatrix {{x,y,z,w},{y,z,w,x}}
+
+F40E3 =  N = M || 2*M || -3*M
+
+F40E4 =  ring N
+
+F40E5 =  ring lift N
+
+F41E0 =  A = QQ{x,y}
+
+F41E1 =  f = x^2+y^2
+
+F41E2 =  bas = flatten entries basis(3,A)
+
+F41E3 =  bas*f
+
+F42E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F42E1 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F42E2 =  isLeftRegular(g,6)
+
+F42E3 =  C = QQ{x,y}
+
+F42E4 =  D = C/ncIdeal{x^2+x*y,y^2}
+
+F42E5 =  isLeftRegular(x,1)
+
+F42E6 =  isRightRegular(x,1)
+
+F43E0 =  A = QQ{x,y,z,w}
+
+F43E1 =  f = x^2+y^2+z^3
+
+F43E2 =  mons = monomials f
+
+F44E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F44E1 =  ncGroebnerBasis ideal B
+
+F44E2 =  C = threeDimSklyanin(QQ,{a,b,c})
+
+F44E3 =  ncGroebnerBasis ideal C
+
+F44E4 =  centralElements(B,3)
+
+F44E5 =  centralElements(C,3)
+
+F44E6 =  hilbertBergman B
+
+F44E7 =  hilbertBergman(C,DegreeLimit=>5)
+
+F45E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F45E1 =  M = ncMatrix {{x, y, z}}
+
+F45E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F45E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F45E4 =  N*(1/2)
+
+F46E0 =  A = QQ{x,y,z}
+
+F46E1 =  f = y*z + z*y - x^2
+
+F46E2 =  g = x*z + z*x - y^2
+
+F46E3 =  h = z^2 - x*y - y*x
+
+F46E4 =  I=ncIdeal{f,g,h}
+
+F46E5 =  B=A/I
+
+F46E6 =  generators B
+
+F46E7 =  numgens B
+
+F46E8 =  isCommutative B
+
+F46E9 =  coefficientRing B
+
+F46E10 =  x
+
+F46E11 =  C = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+
+F46E12 =  x
+
+F46E13 =  use B
+
+F46E14 =  x
+
+F46E15 =  use C
+
+F46E16 =  sigma = ncMap(C,C,{y,z,w,x})
+
+F46E17 =  D = oreExtension(C,sigma,a)
+
+F46E18 =  generators D
+
+F46E19 =  numgens D
+
+F47E0 =  A = QQ{x,y,z,w}
+
+F47E1 =  f = x^2+y^2+2*z^3
+
+F47E2 =  coeff = leadTerm f
+
+F48E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F48E1 =  M = ncMatrix {{x, y, z}}
+
+F48E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F48E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F48E4 =  L = map(QQ^3,QQ^3,{{2,0,0},{1,2,0},{1,2,3}})
+
+F48E5 =  L*N
+
+F49E0 =  A = QQ{x,y,z}
+
+F49E1 =  p = y*z + z*y - x^2
+
+F49E2 =  q = x*z + z*x - y^2
+
+F49E3 =  r = z^2 - x*y - y*x
+
+F49E4 =  I = ncIdeal {p,q,r}
+
+F49E5 =  Igb = ncGroebnerBasis I
+
+F49E6 =  gens Igb
+
+F50E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F50E1 =  B = QQ{a,b,c}
+
+F50E2 =  f = ncMap(B,A,{a^3,b^2,a+b,a-b})
+
+F50E3 =  target f
+
+F50E4 =  source f
+
+F50E5 =  matrix f
+
+F50E6 =  f(w*x+2*y)
+
+F50E7 =  isWellDefined f
+
+F50E8 =  isHomogeneous f
+
+F50E9 =  g = ncMap(B,B,{a*b,b^2,c*a*c},Derivation=>true)
+
+F50E10 =  g(a*b)==g(a)*b+a*g(b)
+
+F50E11 =  g(promote(1,B))
+
+F50E12 =  g(c*a+2*b)
+
+F51E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F51E1 =  B = QQ{w,x,y,z}/ncIdeal{w*x+x*w,w*y+y*w,x*y+y*x}
+
+F51E2 =  f = ncMap(B,A,gens B)
+
+F51E3 =  isWellDefined f
+
+F51E4 =  C = QQ{a,b,c}
+
+F51E5 =  g = ncMap(C,A,{a^3,b^2,a+b,a-b})
+
+F51E6 =  isWellDefined g
+
+F52E0 =  A = QQ{x,y,z}
+
+F52E1 =  p = y*z + z*y - x^2
+
+F52E2 =  q = x*z + z*x - y^2
+
+F52E3 =  r = z^2 - x*y - y*x
+
+F52E4 =  I = ncIdeal{p,q,r}
+
+F53E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F53E1 =  B = QQ[a,b,c,SkewCommutative=>true]
+
+F53E2 =  f = ncMap(B,A,{a^3,b^2,a+b,a-b})
+
+F53E3 =  matrix f
+
+F53E4 =  g = ncMap(A,A,{x,y,z,w})
+
+F53E5 =  matrix g
+
+F54E0 =  A = QQ{a,b,c}
+
+F54E1 =  I = ncIdeal {a*b+b*a,a*c+c*a,b*c+c*b}
+
+F54E2 =  B = A/I
+
+F54E3 =  sigma = ncMap(B,B,{b,c,a})
+
+F54E4 =  isWellDefined sigma
+
+F54E5 =  C = oreExtension(B,sigma,w)
+
+F54E6 =  isNormal w^2
+
+F54E7 =  phi = normalAutomorphism w^2
+
+F54E8 =  matrix phi
+
+F54E9 =  (matrix sigma @@ sigma)
+
+F55E0 =  A = QQ{a,b,c,d}
+
+F55E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F55E2 =  N = M || 2*M || -3*M
+
+F55E3 =  entries N
+
+F56E0 =  A = QQ{a,b,c,d}
+
+F56E1 =  M = ncMatrix {{a,b,c,d}}
+
+F56E2 =  N = ncMatrix {{M,2*M,3*M},{4*M,5*M,6*M}}
+
+F56E3 =  B = QQ{x,y,z}
+
+F56E4 =  f = y*z + z*y - x^2
+
+F56E5 =  g = x*z + z*x - y^2
+
+F56E6 =  h = z^2 - x*y - y*x
+
+F56E7 =  I = ncIdeal {f,g,h}
+
+F56E8 =  Igb = ncGroebnerBasis I
+
+F56E9 =  M = ncMatrix {{x, y, z}}
+
+F56E10 =  sigma = ncMap(B,B,{y,z,x})
+
+F56E11 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F56E12 =  Nred = N^3 % Igb
+
+F56E13 =  C = B/I
+
+F56E14 =  phi = ncMap(C,B,gens C)
+
+F56E15 =  NC = phi N
+
+F56E16 =  N3C = NC^3
+
+F56E17 =  X = NC + 3*NC
+
+F56E18 =  Y = NC | 2*NC
+
+F56E19 =  Z = X || NC
+
+F57E0 =  A = QQ{x,y,z}
+
+F57E1 =  p = y*z + z*y - x^2
+
+F57E2 =  q = x*z + z*x - y^2
+
+F57E3 =  r = z^2 - x*y - y*x
+
+F57E4 =  I = ncLeftIdeal{p,q,r}
+
+F58E0 =  A = QQ{x,y,z}
+
+F58E1 =  f = y*z + z*y - x^2
+
+F58E2 =  g = x*z + z*x - y^2
+
+F58E3 =  h = z^2 - x*y - y*x
+
+F58E4 =  I = ncIdeal {f,g,h}
+
+F58E5 =  Igb = ncGroebnerBasis I
+
+F58E6 =  normalFormBergman(z^17,Igb)
+
+F59E0 =  A = QQ{x,y}
+
+F60E0 =  A = QQ{x,y,z}
+
+F60E1 =  coefficientRing A
+
+F60E2 =  R = ZZ/101[a,b,c,d]/(ideal(a^2-b^2))
+
+F60E3 =  B = R{x,y,z}
+
+F60E4 =  coefficientRing B
+
+F61E0 =  A = QQ{a,b,c,d}
+
+F61E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F61E2 =  ring M
+
+F62E0 =  R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+F62E1 =  A = skewPolynomialRing(R,q,{x,y,z,w})
+
+F62E2 =  x*y == q*y*x
+
+F62E3 =  Aop = oppositeRing A
+
+F62E4 =  y*x == q*x*y
+
+F63E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F63E1 =  hilbertBergman(B,DegreeLimit=>12)
+
+F64E0 =  A = QQ{x,y,z}
+
+F64E1 =  p = y*z + z*y - x^2
+
+F64E2 =  q = x*z + z*x - y^2
+
+F64E3 =  r = z^2 - x*y - y*x
+
+F64E4 =  I = ncRightIdeal{p,q,r}
+
+F64E5 =  gens I
+
+F65E0 =  A = QQ{x,y,z,w}
+
+F65E1 =  f = x^2+y^2+z^3
+
+F65E2 =  size f
+
+F66E0 =  A = QQ{x,y,z}
+
+F66E1 =  p = y*z + z*y - x^2
+
+F66E2 =  q = x*z + z*x - y^2
+
+F66E3 =  r = z^2 - x*y - y*x
+
+F66E4 =  I = ncIdeal{p,q}
+
+F66E5 =  J = ncIdeal r
+
+F66E6 =  I + J
+
+F67E0 =  A=QQ{x56,x46,x36,x26,x16,x45,x35,x25,x15,x34,x24,x14,x23,x13,x12}
+
+F68E0 =  A = QQ{x,y,z}
+
+F68E1 =  p = y*z + z*y - x^2
+
+F68E2 =  q = x*z + z*x - y^2
+
+F68E3 =  r = z^2 - x*y - y*x
+
+F68E4 =  I = ncLeftIdeal{p,q,r}
+
+F68E5 =  ring I
+
+F69E0 =  A = QQ{a,b,c,d}
+
+F69E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F69E2 =  N = M || 2*M || -3*M
+
+F69E3 =  N^{0,3,4}
+
+F70E0 =  A = QQ{x,y}
+
+F70E1 =  g = ncMap(A,A,{y,x})
+
+F70E2 =  I = ncIdeal {x^2*y+y*x^2}
+
+F70E3 =  g I
+
+F71E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F71E1 =  leftMultiplicationMap(x,2)
+
+F71E2 =  kernel oo
+
+F71E3 =  isRightRegular(x,2)
+
+F71E4 =  C = QQ{x,y}
+
+F71E5 =  D = C/ncIdeal{x^2+x*y,y^2}
+
+F71E6 =  isRightRegular(x,1)
+
+F71E7 =  leftMultiplicationMap(x,1)
+
+F71E8 =  M=matrix gens kernel oo
+
+F71E9 =  basis(1,D)*M
+
+F72E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F72E1 =  M = ncMatrix {{x, y, z}}
+
+F72E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F72E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F72E4 =  N' = ncMatrix {{sigma sigma M}, {sigma M}, {M}}
+
+F72E5 =  N*N'
+
+F72E6 =  N'*N
+
+F73E0 =  A = QQ{x,y,z,w}
+
+F73E1 =  f = x^2+y^2+z^3
+
+F73E2 =  toString f
+
+F74E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z})
+
+F74E1 =  M = ncMatrix {{x,y,z}}
+
+F74E2 =  Mres = res M
+
+F74E3 =  Mres#0
+
+F74E4 =  Mres#1
+
+F74E5 =  Mres#2
+
+F74E6 =  betti Mres
+
+F75E0 =  A = QQ{x,y,z}
+
+F75E1 =  p = y*z + z*y - x^2
+
+F75E2 =  q = x*z + z*x - y^2
+
+F75E3 =  r = z^2 - x*y - y*x
+
+F75E4 =  I = ncIdeal {p,q,r}
+
+F75E5 =  Igb = twoSidedNCGroebnerBasisBergman I
+
+F75E6 =  Igb2 = ncGroebnerBasis(I,InstallGB=>true)
+
+F75E7 =  z^17 % Igb
+
+F75E8 =  normalFormBergman(z^17,Igb)
+
+F75E9 =  B = A/I
+
+F75E10 =  z^17
+
+F75E11 =  hilbertBergman B
+
+F75E12 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F75E13 =  A = ambient B
+
+F75E14 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F75E15 =  C = A/(ideal B + ncIdeal g)
+
+F75E16 =  M = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+F75E17 =  assignDegrees(M,{1,0,0,0},{2,2,2,1})
+
+F75E18 =  ker1M = rightKernelBergman(M)
+
+F75E19 =  M*ker1M == 0
+
+F75E20 =  ker2M = rightKernelBergman(ker1M)
+
+F75E21 =  ker3M = rightKernelBergman(ker2M)
+
+F76E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F76E1 =  M = ncMatrix {{x, y, z}}
+
+F76E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F76E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F76E4 =  N*x^2
+
+F77E0 =  R = frac(QQ[a])
+
+F77E1 =  B = skewPolynomialRing(R,a,{x,y,z})
+
+F77E2 =  M = ncMatrix {{x, y, z}}
+
+F77E3 =  sigma = ncMap(B,B,{y,z,x})
+
+F77E4 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F77E5 =  a*N
+
+F78E0 =  A = QQ{x,y,z}
+
+F78E1 =  p = y*z + z*y - x^2
+
+F78E2 =  q = x*z + z*x - y^2
+
+F78E3 =  r = z^2 - x*y - y*x
+
+F78E4 =  I = ncIdeal{p,q,r}
+
+F78E5 =  B = A/I
+
+F78E6 =  bas = basis(4,B)
+
+F79E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F79E1 =  B = QQ{a,b,c}
+
+F79E2 =  f = ncMap(B,A,{a^3,b^2,a+b,a-b})
+
+F79E3 =  f(w*x+2*y)
+
+F79E4 =  f basis(2,A)
+
+F80E0 =  A = QQ{x,y,z}
+
+F80E1 =  generators A
+
+F80E2 =  gens A
+
+F81E0 =  A = QQ{x,y,z}
+
+F81E1 =  p = y*z + z*y - x^2
+
+F81E2 =  q = x*z + z*x - y^2
+
+F81E3 =  r = z^2 - x*y - y*x
+
+F81E4 =  I = ncIdeal {p,q,r}
+
+F81E5 =  Igb = twoSidedNCGroebnerBasisBergman I
+
+F82E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F82E1 =  M = ncMatrix {{x, y, z}}
+
+F82E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F82E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F82E4 =  x^2*N
+
+F83E0 =  A = QQ{x,y,z}
+
+F83E1 =  M = ncMatrix {{x, y, z}}
+
+F83E2 =  sigma = ncMap(A,A,{y,z,x})
+
+F83E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F83E4 =  -N
+
+F84E0 =  B = skewPolynomialRing(QQ,(-1)_QQ, {a,b,c})
+
+F84E1 =  envelopingAlgebra(B,v)
+
+F85E0 =  A=QQ{x,y,z}
+
+F85E1 =  w=x^3-y^2
+
+F85E2 =  isHomogeneous w
+
+F85E3 =  setWeights(A, {2,3,1})
+
+F85E4 =  isHomogeneous w
+
+F85E5 =  C = QQ{a,b,c}
+
+F85E6 =  g = ncMap(C,A,{a^3,b^2,a+b,a-b})
+
+F85E7 =  isHomogeneous g
+
+F85E8 =  setWeights(A,{3,2,1,1})
+
+F85E9 =  isHomogeneous g
+
+F86E0 =  A = QQ{x,y,z,w}
+
+F86E1 =  f = x^2+y^2+z^3
+
+F86E2 =  degree f
+
+F86E3 =  isHomogeneous f
+
+F86E4 =  setWeights(A,{3,3,2,1})
+
+F86E5 =  degree f
+
+F86E6 =  isHomogeneous f
+
+F87E0 =  A = QQ{x,y,z}
+
+F87E1 =  p = y*z + z*y - x^2
+
+F87E2 =  q = x*z + z*x - y^2
+
+F87E3 =  r = z^2 - x*y - y*x
+
+F87E4 =  I = ncRightIdeal{p,q,r}
+
+F87E5 =  bas = basis(3,I)
+
+F88E0 =  A = QQ{x,y}
+
+F88E1 =  f = ncMap(A,A,{x^2,y^2})
+
+F88E2 =  g = ncMap(A,A,{x+y,y})
+
+F88E3 =  gens A/f @@ g
+
+F88E4 =  gens A/g @@ f
+
+F89E0 =  A = QQ{x,y,z}
+
+F89E1 =  p = y*z + z*y - x^2
+
+F89E2 =  q = x*z + z*x - y^2
+
+F89E3 =  r = z^2 - x*y - y*x
+
+F89E4 =  I = ncRightIdeal{p,q,r}
+
+F90E0 =  R = QQ[w]/ideal(w^2+w+1)
+
+F90E1 =  A = skewPolynomialRing(R,promote(-1,R),{x,y,z})
+
+F90E2 =  g = ncMap(A,A,{y,z,x})
+
+F90E3 =  gList = {g, g^2, g^3}
+
+F90E4 =  a = sum apply(3,i-> (gList#i)(x^3))
+
+F90E5 =  b = sum apply(3,i-> (gList#i)(x^2*y))
+
+F90E6 =  c = sum apply(3,i-> (gList#i)(x*y^2))
+
+F90E7 =  d = sum apply(3,i-> (gList#i)(x*y*z))
+
+F90E8 =  p = w^2*z^2*y+x^2*z+(1-w)*y^3
+
+F90E9 =  g(p)==p
+
+F90E10 =  p' = sum apply(3,i-> (gList#i)(p))
+
+F90E11 =  g(p')==p'
+
+F90E12 =  coordinates(p',Basis=>{a,b,c,d})
+
+F91E0 =  A = QQ{x,y,z}
+
+F91E1 =  f = y*z + z*y - x^2
+
+F91E2 =  g = x*z + z*x - y^2
+
+F91E3 =  h = z^2 - x*y - y*x
+
+F91E4 =  B = A/ncIdeal{f,g,h}
+
+F91E5 =  centralElements(B,3)
+
+F91E6 =  j = y^3+x*y*z-y*x*z-x^3
+
+F91E7 =  isCentral j
+
+F91E8 =  apply(5,i->isLeftRegular(j,i+1))
+
+F91E9 =  normalElements(B,3,n,o)
+
+F91E10 =  basis(3,B)
+
+F91E11 =  use A
+
+F91E12 =  I = B.ideal
+
+F91E13 =  J = ncIdeal promote(j,A)
+
+F91E14 =  B' = A/(I+J)
+
+F91E15 =  k = ncMatrix {gens B'}
+
+F91E16 =  M = rightKernelBergman rightKernelBergman k
+
+F91E17 =  N = rightKernelBergman M
+
+F91E18 =  BprimeToB = ncMap(B,B',gens B)
+
+F91E19 =  liftM = BprimeToB M
+
+F91E20 =  liftN = BprimeToB N
+
+F91E21 =  liftM*liftN
+
+F91E22 =  jId = promote(j,B)*(ncMatrix applyTable(entries id_(ZZ^4), i -> promote(i,B)))
+
+F91E23 =  assignDegrees(jId,{2,2,2,3},{5,5,5,6});
+
+F91E24 =  M' = jId // liftM
+
+F91E25 =  N
+
+F91E26 =  liftM*M'
+
+F91E27 =  M'*liftM
+
+F91E28 =  C = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+
+F91E29 =  R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+F91E30 =  B = skewPolynomialRing(R,q,{x,y,z,w})
+
+F91E31 =  x*y == q*y*x
+
+F91E32 =  use C
+
+F91E33 =  sigma = ncMap(C,C,{y,z,w,x})
+
+F91E34 =  isWellDefined sigma
+
+F91E35 =  D = oreExtension(C,sigma,a)
+
+F91E36 =  isNormal a
+
+F91E37 =  apply(5,i-> isLeftRegular(a,i+1))
+
+F91E38 =  sigmaD = normalAutomorphism a
+
+F91E39 =  normalElements(sigmaD,1)
+
+F91E40 =  normalElements(sigmaD,2)
+
+F91E41 =  normalElements(D,2,P,Q)
+
+F91E42 =  basis(2,D)
+
+F91E43 =  isNormal (x^2+z^2-y^2-w^2)
+
+F91E44 =  E' = QQ[x,y,z,w,SkewCommutative=>true]
+
+F91E45 =  E = toNCRing E'
+
+F91E46 =  f = ncMap(E,C,gens E)
+
+F91E47 =  f x^2
+
+F91E48 =  use C
+
+F91E49 =  x^2 == 0
+
+F91E50 =  C' = toM2Ring C
+
+F91E51 =  x*y
+
+F91E52 =  x*x
+
+F91E53 =  C'' = toM2Ring(C,SkewCommutative=>true)
+
+F91E54 =  y*x
+
+F91E55 =  y*y
+
+F91E56 =  Dop = oppositeRing D
+
+F91E57 =  a*x == w*a
+
+F91E58 =  use D
+
+F91E59 =  a*w == x*a
+
+F91E60 =  Q = QQ[a,b,c]
+
+F91E61 =  R = Q/ideal{a*b-c^2}
+
+F91E62 =  kRes = res(coker vars R, LengthLimit=>7);
+
+F91E63 =  M = coker kRes.dd_5
+
+F91E64 =  B = endomorphismRing(M,X);
+
+F91E65 =  gensI = gens ideal B
+
+F91E66 =  gensIMin = minimizeRelations(gensI, Verbosity=>1)
+
+F91E67 =  maps = B.cache.endomorphismRingGens
+
+F91E68 =  maps#3 == maps#0*maps#2
+
+F92E0 =  A = QQ{x,y,z,w}
+
+F92E1 =  f = x^2+y^2+z^3
+
+F92E2 =  coeff = leadCoefficient f
+
+F93E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F93E1 =  A = ambient B
+
+F93E2 =  g = 2*(-y^3-x*y*z+y*x*z+x^3)
+
+F93E3 =  J = (ideal B) + ncIdeal {g}
+
+F93E4 =  B' = A/J -- Factor of sklyanin
+
+F93E5 =  k = ncMatrix {{x,y,z}}
+
+F93E6 =  BprimeToB = ncMap(B,B',gens B) -- way to lift back from B' to B
+
+F93E7 =  M = BprimeToB rightKernelBergman rightKernelBergman k  -- second syzygy of k over B
+
+F93E8 =  gId = g*(ncMatrix applyTable(entries id_(ZZ^4), i -> promote(i,B)))
+
+F93E9 =  assignDegrees(gId,{2,2,2,3},{5,5,5,6});
+
+F93E10 =  M' = gId // M
+
+F93E11 =  M*M' == gId
+
+F94E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F94E1 =  x*y-y*x
+
+F94E2 =  w^2
+
+F94E3 =  B = toM2Ring(A)
+
+F94E4 =  x*y-y*x
+
+F94E5 =  w^2
+
+F94E6 =  C = toM2Ring(A,SkewCommutative=>true)
+
+F94E7 =  x*y-y*x
+
+F94E8 =  w^2
+
+F95E0 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z})
+
+F95E1 =  A = ambient B
+
+F95E2 =  I = ideal B
+
+F95E3 =  ring I === A
+
+F96E0 =  A = QQ{x,y}
+
+F96E1 =  f = x^2+y^2
+
+F96E2 =  bas = flatten entries basis(3,A)
+
+F96E3 =  f*bas
+
+F97E0 =  A = QQ{x,y,z}
+
+F97E1 =  I = ncIdeal{x*z-z*x, y*z, x*y^2-y^2*x, x^3*y-y*x^3}
+
+F97E2 =  J = quadraticClosure I
+
+F97E3 =  J' = homogDual J
+
+F98E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F98E1 =  M = ncMatrix {{x, y, z}}
+
+F98E2 =  sigma = ncMap(B,B,{y,z,x})
+
+F98E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F98E4 =  3*N
+
+F99E0 =  A = QQ{x,y,z}
+
+F99E1 =  B = skewPolynomialRing(QQ,(-1)_QQ, {a,b,c})
+
+F99E2 =  C = freeProduct(A,B)
+
+F100E0 =  B = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+
+F100E1 =  sigma = ncMap(B,B,{y,z,w,x})
+
+F100E2 =  C = oreIdeal(B,sigma,a)
+
+F101E0 =  A = QQ{a,b,c}
+
+F101E1 =  I = ncIdeal {a*b+b*a,a*c+c*a,b*c+c*b}
+
+F101E2 =  B = A/I
+
+F101E3 =  sigma = ncMap(B,B,{b,c,a})
+
+F101E4 =  isWellDefined sigma
+
+F101E5 =  C = oreExtension(B,sigma,w)
+
+F101E6 =  isCentral w
+
+F101E7 =  isNormal w
+
+F102E0 =  A = QQ{a,b,c,d}
+
+F102E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F102E2 =  N = M | 2*M | -3*M
+
+F103E0 =  Q = QQ[a,b,c]
+
+F103E1 =  R = Q/ideal{a*b-c^2}
+
+F103E2 =  kRes = res(coker vars R, LengthLimit=>7)
+
+F103E3 =  M = coker kRes.dd_5
+
+F103E4 =  B = endomorphismRing(M,X)
+
+F103E5 =  gensI = gens ideal B
+
+F103E6 =  gensIMin = minimizeRelations(gensI)
+
+F103E7 =  maps = B.cache.endomorphismRingGens
+
+F103E8 =  maps_3 == maps_0*maps_2
+
+F104E0 =  Q = QQ[a,b,c,d]
+
+F104E1 =  R = Q/ideal{a*b+c*d}
+
+F104E2 =  kRes = res(coker vars R, LengthLimit=>7)
+
+F104E3 =  M = coker kRes.dd_5
+
+F104E4 =  B = endomorphismRing(M,Y)
+
+F104E5 =  gensI = gens ideal B
+
+F104E6 =  gensIMin = minimizeRelations(gensI)
+
+F105E0 =  R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+F105E1 =  M = matrix{{1,q,q},{q^4,1,1},{q^4,1,1}}
+
+F105E2 =  B = skewPolynomialRing(R,M,{x,y,z})
+
+F105E3 =  x*y == q^4*y*x
+
+F105E4 =  N = matrix{{1,1,1,1},{1,1,1,1},{1,1,1,1},{1,1,1,1}}
+
+F105E5 =  C = skewPolynomialRing(QQ,promote(N,QQ), {a,b,c,d})
+
+F105E6 =  isCommutative C
+
+F105E7 =  isCommutative B
+
+F105E8 =  Bop = oppositeRing B
+
+F105E9 =  y*x == q^4*x*y
+
+F106E0 =  R = QQ[a,b,c,d]/ideal{a*b+c*d}
+
+F106E1 =  A = R {x,y,z}
+
+F106E2 =  I = ncIdeal {a*x*y,b*z^2}
+
+F106E3 =  Igb = ncGroebnerBasis(I, InstallGB=>true)
+
+F106E4 =  c*z^2 % Igb
+
+F106E5 =  b*z^2 % Igb
+
+F106E6 =  A = QQ{x,y,z}
+
+F106E7 =  p = y*z + z*y - x^2
+
+F106E8 =  q = x*z + z*x - y^2
+
+F106E9 =  r = z^2 - x*y - y*x
+
+F106E10 =  I = ncIdeal {p,q,r}
+
+F106E11 =  Igb = ncGroebnerBasis I
+
+F106E12 =  normalFormBergman(z^17,Igb)
+
+F106E13 =  z^17 % Igb
+
+F107E0 =  A = QQ{x,y,z}
+
+F107E1 =  f = y*z + z*y - x^2
+
+F107E2 =  g = x*z + z*x - y^2
+
+F107E3 =  h = z^2 - x*y - y*x
+
+F107E4 =  I = ncIdeal {f,g,h}
+
+F107E5 =  Igb = ncGroebnerBasis I
+
+F107E6 =  M = ncMatrix {{x, y, z}}
+
+F107E7 =  sigma = ncMap(A,A,{y,z,x})
+
+F107E8 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F107E9 =  N3 = N^3
+
+F107E10 =  N3red = N3 % Igb
+
+F108E0 =  A = QQ{x,y,z,w}
+
+F108E1 =  f = x^2+y^2+2*z^3
+
+F108E2 =  isConstant f
+
+F108E3 =  g = promote(1,A)
+
+F108E4 =  isConstant g
+
+F109E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F109E1 =  centralElements(B,2)
+
+F109E2 =  centralElements(B,3)
+
+F110E0 =  A = skewPolynomialRing(QQ,(-1)_QQ,{w,x,y,z})
+
+F110E1 =  B = QQ{a,b,c}
+
+F110E2 =  f = ncMap(B,A,{a^3,b^2,a+b,a-b})
+
+F110E3 =  f(w*x+2*y)
+
+F110E4 =  g = ncMap(B,B,{a*b,b^2,c*a*c},Derivation=>true)
+
+F110E5 =  g(a*b)==g(a)*b+a*g(b)
+
+F110E6 =  g(promote(1,B))
+
+F110E7 =  g(c*a+2*b)
+
+F111E0 =  A = QQ{x,y}
+
+F111E1 =  ideal A
+
+F112E0 =  A = QQ{x,y,z}
+
+F112E1 =  p = y*z + z*y - x^2
+
+F112E2 =  q = x*z + z*x - y^2
+
+F112E3 =  r = z^2 - x*y - y*x
+
+F112E4 =  I = ncIdeal{p,q,r}
+
+F112E5 =  ring I
+
+F113E0 =  A = QQ{a,b,c,d}
+
+F113E1 =  M = ncMatrix {{a,b,c,d},{b,c,d,a}}
+
+F113E2 =  N = M || 2*M || -3*M
+
+F114E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F114E1 =  basis(2,B)
+
+F114E2 =  normalElements(B,2,r,s)
+
+F114E3 =  normalElements(B,3,t,u)
+
+F114E4 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F114E5 =  isCentral g
+
+F115E0 =  A = QQ{x,y,z}
+
+F115E1 =  p = y*z + z*y - x^2
+
+F115E2 =  q = x*z + z*x - y^2
+
+F115E3 =  r = z^2 - x*y - y*x
+
+F115E4 =  I = ncIdeal {p,q,r}
+
+F115E5 =  Igb = ncGroebnerBasis I
+
+F115E6 =  z^6 % Igb
+
+F116E0 =  A = QQ{a,b,c,d}
+
+F116E1 =  M = ncMatrix {{a,b,c,d}}
+
+F116E2 =  N = ncMatrix {{M,2*M,3*M},{4*M,5*M,6*M}}
+
+F117E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F117E1 =  A = ambient B
+
+F117E2 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F117E3 =  C = A/(ideal B + ncIdeal g)
+
+F117E4 =  M3 = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+F117E5 =  assignDegrees(M3,{1,0,0,0},{2,2,2,1})
+
+F117E6 =  ker1M3 = rightKernelBergman(M3)
+
+F117E7 =  M3*ker1M3 == 0
+
+F117E8 =  ker2M3 = rightKernelBergman(ker1M3)
+
+F117E9 =  ker1M3*ker2M3 == 0
+
+F117E10 =  ker3M3 = rightKernelBergman(ker2M3)
+
+F117E11 =  ker2M3*ker3M3 == 0
+
+F118E0 =  A = QQ{x,y,z}
+
+F118E1 =  p = y*z + z*y - x^2
+
+F118E2 =  q = x*z + z*x - y^2
+
+F118E3 =  r = z^2 - x*y - y*x
+
+F118E4 =  I = ncLeftIdeal{p,q,r}
+
+F118E5 =  gens I
+
+F119E0 =  A = QQ{x,y,z}
+
+F119E1 =  B = skewPolynomialRing(QQ,(-1)_QQ, {a,b,c})
+
+F119E2 =  phi = ncMap(B,A,{a,b,c})
+
+F119E3 =  gddKernel(4,phi)
+
+F120E0 =  A = QQ{x,y,z,w}
+
+F120E1 =  f = 2*x^2+y^2+z^3
+
+F120E2 =  t = terms f
+
+F120E3 =  first t
+
+F121E0 =  A = QQ{x,y}
+
+F121E1 =  f = ncMap(A,A,{x,y})
+
+F121E2 =  g = ncMap(A,A,{y,x})
+
+F121E3 =  h = 3*f + 4*g
+
+F121E4 =  matrix h
+
+F121E5 =  k = h^3
+
+F121E6 =  matrix k
+
+F122E0 =  A = QQ{x,y}
+
+F122E1 =  B = skewPolynomialRing(QQ,(-1)_QQ, {a,b})
+
+F122E2 =  C = qTensorProduct(A,B,-1_QQ)
+
+F122E3 =  ideal C
+
+F122E4 =  D = A ** B
+
+F122E5 =  ideal D
+
+F123E0 =  A = QQ{x,y,z}
+
+F123E1 =  p = y*z + z*y - x^2
+
+F123E2 =  q = x*z + z*x - y^2
+
+F123E3 =  r = z^2 - x*y - y*x
+
+F123E4 =  I = ncLeftIdeal{p,q,r}
+
+F123E5 =  bas = basis(3,I)
+
+F124E0 =  A = QQ{x,y,z,w}
+
+F124E1 =  baseName x
+
+F124E2 =  B = QQ{p_1..p_6}
+
+F124E3 =  baseName p_1
+
+F125E0 =  A = QQ{x,y,z}
+
+F125E1 =  M = ncMatrix {{x, y, z}}
+
+F125E2 =  sigma = ncMap(A,A,{y,z,x})
+
+F125E3 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F125E4 =  N' = ncMatrix {{sigma sigma M}, {sigma M}, {M}}
+
+F125E5 =  N + N'
+
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F4E2", "F4E3", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F12E0", "F12E1", "F12E2", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F16E0", "F16E1", "F16E2", "F16E3", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13", "F18E0", "F18E1", "F18E2", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F20E0", "F20E1", "F20E2", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F22E0", "F22E1", "F22E2", "F22E3", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F30E0", "F30E1", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F36E7", "F36E8", "F36E9", "F37E0", "F37E1", "F37E2", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F41E0", "F41E1", "F41E2", "F41E3", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F42E6", "F43E0", "F43E1", "F43E2", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F44E6", "F44E7", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F46E5", "F46E6", "F46E7", "F46E8", "F46E9", "F46E10", "F46E11", "F46E12", "F46E13", "F46E14", "F46E15", "F46E16", "F46E17", "F46E18", "F46E19", "F47E0", "F47E1", "F47E2", "F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F49E0", "F49E1", "F49E2", "F49E3", "F49E4", "F49E5", "F49E6", "F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F50E5", "F50E6", "F50E7", "F50E8", "F50E9", "F50E10", "F50E11", "F50E12", "F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F52E0", "F52E1", "F52E2", "F52E3", "F52E4", "F53E0", "F53E1", "F53E2", "F53E3", "F53E4", "F53E5", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F55E0", "F55E1", "F55E2", "F55E3", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F56E9", "F56E10", "F56E11", "F56E12", "F56E13", "F56E14", "F56E15", "F56E16", "F56E17", "F56E18", "F56E19", "F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F58E6", "F59E0", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F61E0", "F61E1", "F61E2", "F62E0", "F62E1", "F62E2", "F62E3", "F62E4", "F63E0", "F63E1", "F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F64E5", "F65E0", "F65E1", "F65E2", "F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F67E0", "F68E0", "F68E1", "F68E2", "F68E3", "F68E4", "F68E5", "F69E0", "F69E1", "F69E2", "F69E3", "F70E0", "F70E1", "F70E2", "F70E3", "F71E0", "F71E1", "F71E2", "F71E3", "F71E4", "F71E5", "F71E6", "F71E7", "F71E8", "F71E9", "F72E0", "F72E1", "F72E2", "F72E3", "F72E4", "F72E5", "F72E6", "F73E0", "F73E1", "F73E2", "F74E0", "F74E1", "F74E2", "F74E3", "F74E4", "F74E5", "F74E6", "F75E0", "F75E1", "F75E2", "F75E3", "F75E4", "F75E5", "F75E6", "F75E7", "F75E8", "F75E9", "F75E10", "F75E11", "F75E12", "F75E13", "F75E14", "F75E15", "F75E16", "F75E17", "F75E18", "F75E19", "F75E20", "F75E21", "F76E0", "F76E1", "F76E2", "F76E3", "F76E4", "F77E0", "F77E1", "F77E2", "F77E3", "F77E4", "F77E5", "F78E0", "F78E1", "F78E2", "F78E3", "F78E4", "F78E5", "F78E6", "F79E0", "F79E1", "F79E2", "F79E3", "F79E4", "F80E0", "F80E1", "F80E2", "F81E0", "F81E1", "F81E2", "F81E3", "F81E4", "F81E5", "F82E0", "F82E1", "F82E2", "F82E3", "F82E4", "F83E0", "F83E1", "F83E2", "F83E3", "F83E4", "F84E0", "F84E1", "F85E0", "F85E1", "F85E2", "F85E3", "F85E4", "F85E5", "F85E6", "F85E7", "F85E8", "F85E9", "F86E0", "F86E1", "F86E2", "F86E3", "F86E4", "F86E5", "F86E6", "F87E0", "F87E1", "F87E2", "F87E3", "F87E4", "F87E5", "F88E0", "F88E1", "F88E2", "F88E3", "F88E4", "F89E0", "F89E1", "F89E2", "F89E3", "F89E4", "F90E0", "F90E1", "F90E2", "F90E3", "F90E4", "F90E5", "F90E6", "F90E7", "F90E8", "F90E9", "F90E10", "F90E11", "F90E12", "F91E0", "F91E1", "F91E2", "F91E3", "F91E4", "F91E5", "F91E6", "F91E7", "F91E8", "F91E9", "F91E10", "F91E11", "F91E12", "F91E13", "F91E14", "F91E15", "F91E16", "F91E17", "F91E18", "F91E19", "F91E20", "F91E21", "F91E22", "F91E23", "F91E24", "F91E25", "F91E26", "F91E27", "F91E28", "F91E29", "F91E30", "F91E31", "F91E32", "F91E33", "F91E34", "F91E35", "F91E36", "F91E37", "F91E38", "F91E39", "F91E40", "F91E41", "F91E42", "F91E43", "F91E44", "F91E45", "F91E46", "F91E47", "F91E48", "F91E49", "F91E50", "F91E51", "F91E52", "F91E53", "F91E54", "F91E55", "F91E56", "F91E57", "F91E58", "F91E59", "F91E60", "F91E61", "F91E62", "F91E63", "F91E64", "F91E65", "F91E66", "F91E67", "F91E68", "F92E0", "F92E1", "F92E2", "F93E0", "F93E1", "F93E2", "F93E3", "F93E4", "F93E5", "F93E6", "F93E7", "F93E8", "F93E9", "F93E10", "F93E11", "F94E0", "F94E1", "F94E2", "F94E3", "F94E4", "F94E5", "F94E6", "F94E7", "F94E8", "F95E0", "F95E1", "F95E2", "F95E3", "F96E0", "F96E1", "F96E2", "F96E3", "F97E0", "F97E1", "F97E2", "F97E3", "F98E0", "F98E1", "F98E2", "F98E3", "F98E4", "F99E0", "F99E1", "F99E2", "F100E0", "F100E1", "F100E2", "F101E0", "F101E1", "F101E2", "F101E3", "F101E4", "F101E5", "F101E6", "F101E7", "F102E0", "F102E1", "F102E2", "F103E0", "F103E1", "F103E2", "F103E3", "F103E4", "F103E5", "F103E6", "F103E7", "F103E8", "F104E0", "F104E1", "F104E2", "F104E3", "F104E4", "F104E5", "F104E6", "F105E0", "F105E1", "F105E2", "F105E3", "F105E4", "F105E5", "F105E6", "F105E7", "F105E8", "F105E9", "F106E0", "F106E1", "F106E2", "F106E3", "F106E4", "F106E5", "F106E6", "F106E7", "F106E8", "F106E9", "F106E10", "F106E11", "F106E12", "F106E13", "F107E0", "F107E1", "F107E2", "F107E3", "F107E4", "F107E5", "F107E6", "F107E7", "F107E8", "F107E9", "F107E10", "F108E0", "F108E1", "F108E2", "F108E3", "F108E4", "F109E0", "F109E1", "F109E2", "F110E0", "F110E1", "F110E2", "F110E3", "F110E4", "F110E5", "F110E6", "F110E7", "F111E0", "F111E1", "F112E0", "F112E1", "F112E2", "F112E3", "F112E4", "F112E5", "F113E0", "F113E1", "F113E2", "F114E0", "F114E1", "F114E2", "F114E3", "F114E4", "F114E5", "F115E0", "F115E1", "F115E2", "F115E3", "F115E4", "F115E5", "F115E6", "F116E0", "F116E1", "F116E2", "F117E0", "F117E1", "F117E2", "F117E3", "F117E4", "F117E5", "F117E6", "F117E7", "F117E8", "F117E9", "F117E10", "F117E11", "F118E0", "F118E1", "F118E2", "F118E3", "F118E4", "F118E5", "F119E0", "F119E1", "F119E2", "F119E3", "F120E0", "F120E1", "F120E2", "F120E3", "F121E0", "F121E1", "F121E2", "F121E3", "F121E4", "F121E5", "F121E6", "F122E0", "F122E1", "F122E2", "F122E3", "F122E4", "F122E5", "F123E0", "F123E1", "F123E2", "F123E3", "F123E4", "F123E5", "F124E0", "F124E1", "F124E2", "F124E3", "F125E0", "F125E1", "F125E2", "F125E3", "F125E4", "F125E5"}

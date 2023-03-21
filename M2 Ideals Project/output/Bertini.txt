@@ -1,4 +1,4 @@
-needsPackage "package_directory/Bertini/example-output"
+needsPackage "Bertini"
 
 F0E0 =  R = CC[x,y];
 
@@ -158,15 +158,13 @@ F9E7 =  makeB'InputFile(theDir,
 
 F10E0 =  CC[x,y]
 
-F10E1 =  F = {x^2-1,y^2-1}
+F10E1 =  bertiniZeroDimSolve(F,BertiniInputConfiguration=>{RandomSeed=>0,TrackTolBeforeEG=>1e-6,FinalTol=>1e-100})
 
-F10E2 =  bertiniZeroDimSolve(F,BertiniInputConfiguration=>{RandomSeed=>0,TrackTolBeforeEG=>1e-6,FinalTol=>1e-100})
+F10E2 =  opts = new OptionTable from {BertiniInputConfiguration=>{RandomSeed=>0,TrackTolBeforeEG=>1e-6,FinalTol=>1e-100}}
 
-F10E3 =  opts = new OptionTable from {BertiniInputConfiguration=>{RandomSeed=>0,TrackTolBeforeEG=>1e-6,FinalTol=>1e-100}}
+F10E3 =  G = {x^2+y^2-1};
 
-F10E4 =  G = {x^2+y^2-1};
-
-F10E5 =  bertiniPosDimSolve(G,opts)
+F10E4 =  bertiniPosDimSolve(G,opts)
 
 F11E0 =  R = CC[x,a,t]; -- include the path variable in the ring
 
@@ -534,4 +532,4 @@ F26E3 =  witnessPointsDim1= importMainDataFile(storeBM2Files,SpecifyDim=>1)--We 
 
 F26E4 =  sortMainDataComponents(thePoints)
 
-exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F14E0", "F14E1", "F14E2", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13", "F17E14", "F17E15", "F17E16", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F20E0", "F20E1", "F20E2", "F20E3", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F22E14", "F22E15", "F22E16", "F22E17", "F22E18", "F22E19", "F22E20", "F22E21", "F22E22", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F24E0", "F24E1", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F25E13", "F25E14", "F25E15", "F25E16", "F25E17", "F25E18", "F25E19", "F25E20", "F25E21", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4"}
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F14E0", "F14E1", "F14E2", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13", "F17E14", "F17E15", "F17E16", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F20E0", "F20E1", "F20E2", "F20E3", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F22E14", "F22E15", "F22E16", "F22E17", "F22E18", "F22E19", "F22E20", "F22E21", "F22E22", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F24E0", "F24E1", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F25E13", "F25E14", "F25E15", "F25E16", "F25E17", "F25E18", "F25E19", "F25E20", "F25E21", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4"}

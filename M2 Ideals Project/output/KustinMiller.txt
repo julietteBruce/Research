@@ -1,0 +1,493 @@
+needsPackage "KustinMiller"
+
+F0E0 =  K=QQ;
+
+F0E1 =  R=K[x_0..x_4];
+
+F0E2 =  F=face {x_0,x_1,x_2}
+
+F0E3 =  S=R**K[y]
+
+F0E4 =  substitute(F,S)
+
+F1E0 =  K = QQ;
+
+F1E1 =  R = K[x_0..x_4];
+
+F1E2 =  I = monomialIdeal(x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_0);
+
+F1E3 =  D = simplicialComplex I
+
+F1E4 =  fc = faces(D)
+
+F2E0 =  K=QQ;
+
+F2E1 =  R=K[x_0..x_4];
+
+F2E2 =  G=face {x_0,x_1,x_2}
+
+F2E3 =  F1=face {x_0,x_2}
+
+F2E4 =  F2=face {x_0,x_3}
+
+F2E5 =  isSubface(F1,G)
+
+F2E6 =  isSubface(F2,G)
+
+F3E0 =  K=QQ;
+
+F3E1 =  R=K[x_0..x_4];
+
+F3E2 =  F=face {x_0,x_1}
+
+F3E3 =  G1=face {x_1,x_0}
+
+F3E4 =  G2=face {x_1,x_2}
+
+F3E5 =  F==G1
+
+F3E6 =  F==G2
+
+F4E0 =  K=QQ;
+
+F4E1 =  R=K[x_0..x_6];
+
+F4E2 =  C=delta(4,R)
+
+F4E3 =  fVector C
+
+F4E4 =  I=ideal C
+
+F4E5 =  betti res I
+
+F5E0 =  K=QQ;
+
+F5E1 =  R=K[x_0..x_4];
+
+F5E2 =  F=face {x_0,x_1}
+
+F6E0 =  R = QQ[x_1..x_4,z_1..z_4]
+
+F6E1 =  I =  ideal(z_2*z_3-z_1*z_4,x_4*z_3-x_3*z_4,x_2*z_2-x_1*z_4,x_4*z_1-x_3*z_2,x_2*z_1-x_1*z_3)
+
+F6E2 =  cc= res I
+
+F6E3 =  isExactRes cc
+
+F6E4 =  isExactRes(cc[1])
+
+F6E5 =  isExactRes(cc[-1])
+
+F7E0 =  R = QQ [x_1..x_3, z_1..z_4]
+
+F7E1 =  I = ideal(-z_2*z_3+z_1*x_1,-z_2*z_4+z_1*x_2,-z_3*z_4+z_1*x_3,-z_3*x_2+z_2*x_3,z_4*x_1-z_3*x_2)
+
+F7E2 =  cI=res I
+
+F7E3 =  betti cI
+
+F7E4 =  J = ideal (z_1..z_4)
+
+F7E5 =  cJ=res J
+
+F7E6 =  betti cJ
+
+F7E7 =  cc=kustinMillerComplex(cI,cJ,QQ[T]);
+
+F7E8 =  S=ring cc
+
+F7E9 =  cc
+
+F7E10 =  betti cc
+
+F7E11 =  isExactRes cc
+
+F7E12 =  print cc.dd_1
+
+F7E13 =  print cc.dd_2
+
+F7E14 =  print cc.dd_3
+
+F7E15 =  print cc.dd_4
+
+F8E0 =  K=QQ;
+
+F8E1 =  R=K[x_0..x_4];
+
+F8E2 =  F=face {x_0,x_1,x_2}
+
+F8E3 =  ring F
+
+F9E0 =  K=QQ;
+
+F9E1 =  R=K[x_1..x_3,z_1];
+
+F9E2 =  I=ideal(x_1*x_2*x_3)
+
+F9E3 =  Ilink=I:ideal(x_1*x_2)
+
+F9E4 =  J=Ilink+ideal(z_1)
+
+F9E5 =  cI=res I
+
+F9E6 =  betti cI
+
+F9E7 =  cJ=res J
+
+F9E8 =  betti cJ
+
+F9E9 =  cc=kustinMillerComplex(cI,cJ,K[x_4]);
+
+F9E10 =  S=ring cc
+
+F9E11 =  cc
+
+F9E12 =  betti cc
+
+F9E13 =  isExactRes cc
+
+F9E14 =  cc.dd_1
+
+F9E15 =  cc.dd_2
+
+F9E16 =  R=K[x_1..x_6,z_1..z_3];
+
+F9E17 =  I=ideal(x_1*x_2*x_3,x_4*x_5*x_6)
+
+F9E18 =  Ilink=I:ideal(x_1*x_2*x_4*x_6)
+
+F9E19 =  J=Ilink+ideal(z_1*z_2*z_3)
+
+F9E20 =  cI=res I
+
+F9E21 =  betti cI
+
+F9E22 =  cJ=res J
+
+F9E23 =  betti cJ
+
+F9E24 =  cc=kustinMillerComplex(cI,cJ,K[x_7]);
+
+F9E25 =  S=ring cc
+
+F9E26 =  cc
+
+F9E27 =  betti cc
+
+F9E28 =  isExactRes cc
+
+F9E29 =  cc.dd_1
+
+F9E30 =  cc.dd_2
+
+F9E31 =  cc.dd_3
+
+F9E32 =  R=K[x_1..x_6];
+
+F9E33 =  C=simplicialComplex monomialIdeal(x_1*x_2*x_3,x_4*x_5*x_6)
+
+F9E34 =  fVector C
+
+F9E35 =  F=face {x_1,x_2,x_4,x_6}
+
+F9E36 =  R'=K[x_1..x_7];
+
+F9E37 =  C'=substitute(stellarSubdivision(C,F,K[x_7]),R')
+
+F9E38 =  fVector C'
+
+F9E39 =  I'=monomialIdeal(sub(cc.dd_1,R'))
+
+F9E40 =  C'===simplicialComplex I'
+
+F9E41 =  R=K[x_1..x_5,z_1];
+
+F9E42 =  I=monomialIdeal(x_1*x_2*x_3,x_4*x_5)
+
+F9E43 =  C=simplicialComplex I
+
+F9E44 =  fVector C
+
+F9E45 =  F=face {x_1,x_2}
+
+F9E46 =  Ilink=I:ideal(product vertices F)
+
+F9E47 =  J=Ilink+ideal(z_1)
+
+F9E48 =  cI=res I
+
+F9E49 =  betti cI
+
+F9E50 =  cJ=res J
+
+F9E51 =  betti cJ
+
+F9E52 =  cc=kustinMillerComplex(cI,cJ,K[x_6]);
+
+F9E53 =  S=ring cc
+
+F9E54 =  cc
+
+F9E55 =  betti cc
+
+F9E56 =  isExactRes cc
+
+F9E57 =  cc.dd_1
+
+F9E58 =  cc.dd_2
+
+F9E59 =  cc.dd_3
+
+F9E60 =  R=K[x_1..x_5,z_1];
+
+F9E61 =  I=ideal(x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_1)
+
+F9E62 =  Ilink=I:ideal(x_1*x_3)
+
+F9E63 =  J=Ilink+ideal(z_1)
+
+F9E64 =  cI=res I
+
+F9E65 =  betti cI
+
+F9E66 =  cJ=res J
+
+F9E67 =  betti cJ
+
+F9E68 =  cc=kustinMillerComplex(cI,cJ,K[x_10]);
+
+F9E69 =  betti cc
+
+F9E70 =  R=K[x_1..x_9,z_1];
+
+F9E71 =  I=monomialIdeal(x_1*x_2,x_3*x_4,x_5*x_6,x_7*x_8*x_9)
+
+F9E72 =  Ilink=I:ideal(x_1*x_3)
+
+F9E73 =  J=Ilink+ideal(z_1)
+
+F9E74 =  cI=res I
+
+F9E75 =  betti cI
+
+F9E76 =  cJ=res J
+
+F9E77 =  betti cJ
+
+F9E78 =  cc=kustinMillerComplex(cI,cJ,K[x_10]);
+
+F9E79 =  S=ring cc;
+
+F9E80 =  cc
+
+F9E81 =  betti cc
+
+F9E82 =  R=K[x_1..x_9];
+
+F9E83 =  C=simplicialComplex monomialIdeal(sub(I,R))
+
+F9E84 =  fVector C
+
+F9E85 =  F=face {x_1,x_3}
+
+F9E86 =  R'=K[x_1..x_10];
+
+F9E87 =  C'=substitute(stellarSubdivision(C,F,K[x_10]),R')
+
+F9E88 =  fVector C'
+
+F9E89 =  I'=monomialIdeal(sub(cc.dd_1,R'))
+
+F9E90 =  C'===simplicialComplex I'
+
+F10E0 =  R = QQ[x_0..x_4];
+
+F10E1 =  I = monomialIdeal(x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_0);
+
+F10E2 =  D = simplicialComplex I
+
+F10E3 =  fc = facets(D)
+
+F10E4 =  (faces D)#(1)
+
+F11E0 =  R = QQ[x_1..x_4,z_1..z_4]
+
+F11E1 =  b2 = matrix {{0,x_1,x_2,x_3,x_4},{-x_1,0,0,z_1,z_2},{-x_2,0,0,z_3,z_4},{-x_3,-z_1,-z_3,0,0},{-x_4,-z_2,-z_4,0,0}}
+
+F11E2 =  betti(cI=resBE b2)
+
+F11E3 =  b1 = cI.dd_1
+
+F11E4 =  J = ideal (z_1..z_4);
+
+F11E5 =  betti(cJ=res J)
+
+F11E6 =  betti(cU=kustinMillerComplex(cI,cJ,QQ[T]))
+
+F11E7 =  S=ring cU
+
+F11E8 =  isExactRes cU
+
+F11E9 =  print cU.dd_1
+
+F11E10 =  print cU.dd_2
+
+F11E11 =  print cU.dd_3
+
+F11E12 =  print cU.dd_4
+
+F12E0 =  R=QQ[x_1..x_4,z_1];
+
+F12E1 =  cc=res ideal(x_4*x_3, -x_1*x_2+x_4*z_1);
+
+F12E2 =  cs=substitute(cc,QQ[x_1..x_4])
+
+F12E3 =  cs.dd_1
+
+F13E0 =  R = QQ[x_1..x_5];
+
+F13E1 =  C = simplicialComplex monomialIdeal (x_1*x_2,x_3*x_4*x_5)
+
+F13E2 =  F1 = face {x_1,x_2}
+
+F13E3 =  F2 = face {x_1,x_3}
+
+F14E0 =  R=QQ[x_0..x_4];
+
+F14E1 =  I=monomialIdeal(x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_0);
+
+F14E2 =  betti res I
+
+F14E3 =  D=simplicialComplex I
+
+F14E4 =  fc=facets(D) / face
+
+F14E5 =  S=QQ[x_5]
+
+F14E6 =  D5=stellarSubdivision(D,fc#0,S)
+
+F14E7 =  I5=ideal D5
+
+F14E8 =  betti res I5
+
+F14E9 =  R=QQ[x_1..x_6]
+
+F14E10 =  I=monomialIdeal product gens R
+
+F14E11 =  D=simplicialComplex I
+
+F14E12 =  S=QQ[x_7]
+
+F14E13 =  Dsigma=stellarSubdivision(D,face {x_1,x_2,x_3},S)
+
+F14E14 =  betti res ideal Dsigma
+
+F15E0 =  R=QQ[x_1..x_4,z_1..z_4];
+
+F15E1 =  A=matrix {{0,x_1,x_2,x_3,x_4},{-x_1,0,0,z_1,z_2},{-x_2,0,0,z_3,z_4},{-x_3,-z_1,-z_3,0,0},{-x_4,-z_2,-z_4,0,0}}
+
+F15E2 =  resBE A
+
+F16E0 =  R=QQ[x_0..x_4];
+
+F16E1 =  F=face {x_0,x_2}
+
+F16E2 =  vertices F
+
+F16E3 =  I = monomialIdeal(x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_0);
+
+F16E4 =  D = simplicialComplex I
+
+F16E5 =  fc = faces(1, D)
+
+F17E0 =  R = QQ[x_1..x_4,z_1..z_4, T]
+
+F17E1 =  I = ideal(z_2*z_3-z_1*z_4,x_4*z_3-x_3*z_4,x_2*z_2-x_1*z_4,x_4*z_1-x_3*z_2,x_2*z_1-x_1*z_3)
+
+F17E2 =  J = ideal (z_1..z_4)
+
+F17E3 =  phi = unprojectionHomomorphism(I,J)
+
+F17E4 =  S = ring target phi;
+
+F17E5 =  I == ideal S
+
+F17E6 =  source phi
+
+F17E7 =  target phi
+
+F18E0 =  K=QQ;
+
+F18E1 =  R=K[x_0..x_4];
+
+F18E2 =  face {x_0,x_1}
+
+F19E0 =  K=QQ;
+
+F19E1 =  C26=delta(2,K[z,x_2..x_6])
+
+F19E2 =  R=K[z,x_1..x_7]
+
+F19E3 =  J=sub(ideal C26,R)
+
+F19E4 =  c26=res J;
+
+F19E5 =  betti c26
+
+F19E6 =  C47=delta(4,K[x_1..x_7])
+
+F19E7 =  I=sub(ideal C47,R)
+
+F19E8 =  c47=res I;
+
+F19E9 =  betti c47
+
+F19E10 =  cc=kustinMillerComplex(c47,c26,K[x_8]);
+
+F19E11 =  betti cc
+
+F19E12 =  R'=K[x_1..x_8];
+
+F19E13 =  C48=delta(4,R')
+
+F19E14 =  I48=ideal C48
+
+F19E15 =  betti res I48
+
+F19E16 =  I48==sub(ideal cc.dd_1,R')
+
+F19E17 =  print cc.dd_1
+
+F19E18 =  print cc.dd_2
+
+F19E19 =  print cc.dd_3
+
+F20E0 =  R = QQ[x_1..x_4,z_1..z_4]
+
+F20E1 =  I =  ideal(z_2*z_3-z_1*z_4,x_4*z_3-x_3*z_4,x_2*z_2-x_1*z_4,x_4*z_1-x_3*z_2,x_2*z_1-x_1*z_3)
+
+F20E2 =  betti res I
+
+F20E3 =  J = ideal (z_1..z_4)
+
+F20E4 =  betti res J
+
+F20E5 =  cc=kustinMillerComplex(I,J,QQ[T]);
+
+F20E6 =  S=ring cc
+
+F20E7 =  cc
+
+F20E8 =  betti cc
+
+F20E9 =  isExactRes cc
+
+F20E10 =  print cc.dd_1
+
+F20E11 =  print cc.dd_2
+
+F20E12 =  print cc.dd_3
+
+F20E13 =  print cc.dd_4
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F8E0", "F8E1", "F8E2", "F8E3", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F9E21", "F9E22", "F9E23", "F9E24", "F9E25", "F9E26", "F9E27", "F9E28", "F9E29", "F9E30", "F9E31", "F9E32", "F9E33", "F9E34", "F9E35", "F9E36", "F9E37", "F9E38", "F9E39", "F9E40", "F9E41", "F9E42", "F9E43", "F9E44", "F9E45", "F9E46", "F9E47", "F9E48", "F9E49", "F9E50", "F9E51", "F9E52", "F9E53", "F9E54", "F9E55", "F9E56", "F9E57", "F9E58", "F9E59", "F9E60", "F9E61", "F9E62", "F9E63", "F9E64", "F9E65", "F9E66", "F9E67", "F9E68", "F9E69", "F9E70", "F9E71", "F9E72", "F9E73", "F9E74", "F9E75", "F9E76", "F9E77", "F9E78", "F9E79", "F9E80", "F9E81", "F9E82", "F9E83", "F9E84", "F9E85", "F9E86", "F9E87", "F9E88", "F9E89", "F9E90", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F15E0", "F15E1", "F15E2", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15", "F19E16", "F19E17", "F19E18", "F19E19", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13"}

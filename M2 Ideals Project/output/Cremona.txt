@@ -1,4 +1,4 @@
-needsPackage "package_directory/Cremona/example-output"
+needsPackage "Cremona"
 
 F0E0 =  QQ[t_0,t_1];
 
@@ -188,13 +188,11 @@ F11E1 =  graph phi
 
 F12E0 =  P6 = QQ[t_0..t_6]
 
-F12E1 =  X = minors(3,matrix{{t_0..t_4},{t_1..t_5},{t_2..t_6}})
+F12E1 =  Phi = rationalMap(X,Dominant=>2);
 
-F12E2 =  Phi = rationalMap(X,Dominant=>2);
+F12E2 =  time forceImage(Phi,ideal 0_(target Phi))
 
-F12E3 =  time forceImage(Phi,ideal 0_(target Phi))
-
-F12E4 =  Phi;
+F12E3 =  Phi;
 
 F13E0 =  QQ[x_0..x_5]
 
@@ -314,33 +312,27 @@ F20E17 =  time describe phi^(-1)
 
 F20E18 =  time (f,g) = graph phi^-1
 
-F20E19 =  f
+F20E19 =  time degrees f
 
-F20E20 =  time degrees f
+F20E20 =  time degree f
 
-F20E21 =  time degree f
-
-F20E22 =  time describe f
+F20E21 =  time describe f
 
 F21E0 =  QQ[x_0..x_5]
 
-F21E1 =  phi = rationalMap {x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3}
+F21E1 =  describe phi
 
-F21E2 =  describe phi
+F21E2 =  time phi! ;
 
-F21E3 =  time phi! ;
+F21E3 =  describe phi
 
-F21E4 =  describe phi
+F21E4 =  QQ[x_0..x_4]
 
-F21E5 =  QQ[x_0..x_4]
+F21E5 =  describe phi
 
-F21E6 =  phi = rationalMap {-x_1^2+x_0*x_2,-x_1*x_2+x_0*x_3,-x_2^2+x_1*x_3,-x_1*x_3+x_0*x_4,-x_2*x_3+x_1*x_4,-x_3^2+x_2*x_4}
+F21E6 =  time phi! ;
 
 F21E7 =  describe phi
-
-F21E8 =  time phi! ;
-
-F21E9 =  describe phi
 
 F22E0 =  f = inverseMap specialQuadraticTransformation(9,ZZ/33331);
 
@@ -446,13 +438,11 @@ F33E5 =  time describe inverse phi'
 
 F34E0 =  P5 = QQ[t_0..t_5]
 
-F34E1 =  phi = rationalMap(P5/(35*t_1+45*t_2+21*t_3+525*t_4+1365*t_5,1575*t_0*t_2-3250*t_2^2+735*t_0*t_3-1890*t_2*t_3-1666*t_3^2+17150*t_0*t_4-47250*t_2*t_4-22050*t_3*t_4-276850*t_4^2+46550*t_0*t_5-122850*t_2*t_5-57330*t_3*t_5-1433250*t_4*t_5-1864450*t_5^2),P5/(315*t_0+280*t_1+45*t_2+21*t_3+210*t_4+1050*t_5),{-45*t_2-21*t_3-490*t_4-1330*t_5, 45*t_2+21*t_3+525*t_4+1365*t_5, 35*t_2, 35*t_3, 35*t_4, 35*t_5})
+F34E1 =  describe phi
 
-F34E2 =  describe phi
+F34E2 =  psi = flatten phi;
 
-F34E3 =  psi = flatten phi;
-
-F34E4 =  describe psi
+F34E3 =  describe psi
 
 F35E0 =  time specialQuadraticTransformation 4
 
@@ -474,23 +464,19 @@ F36E6 =  time isDominant(phi,Certify=>true)
 
 F37E0 =  K = QQ
 
-F37E1 =  ringP9 = K[x_0..x_9]
+F37E1 =  M = random(K^10,K^10)
 
-F37E2 =  M = random(K^10,K^10)
+F37E2 =  phi = rationalMap ((vars ringP9) * (transpose M));
 
-F37E3 =  phi = rationalMap ((vars ringP9) * (transpose M));
+F37E3 =  M' = coefficients phi
 
-F37E4 =  M' = coefficients phi
-
-F37E5 =  M == M'
+F37E4 =  M == M'
 
 F38E0 =  ZZ/33331[x_0..x_6]
 
-F38E1 =  V = ideal(x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3,x_6)
+F38E1 =  time phi = rationalMap(V,3,2)
 
-F38E2 =  time phi = rationalMap(V,3,2)
-
-F38E3 =  describe phi!
+F38E2 =  describe phi!
 
 F39E0 =  P7 = ZZ/100003[x_0..x_7]
 
@@ -540,17 +526,13 @@ F41E2 =  map Phi
 
 F42E0 =  R = QQ[x_0..x_3]
 
-F42E1 =  S = QQ[y_0..y_4]
+F42E1 =  phi = rationalMap(R,S,{x_0*x_2,x_0*x_3,x_1*x_2,x_1*x_3,x_2*x_3})
 
-F42E2 =  T = QQ[z_0..z_4]
+F42E2 =  psi = rationalMap(S,T,{y_0*y_3,-y_2*y_3,y_1*y_2,y_2*y_4,-y_3*y_4})
 
-F42E3 =  phi = rationalMap(R,S,{x_0*x_2,x_0*x_3,x_1*x_2,x_1*x_3,x_2*x_3})
+F42E3 =  phi * psi
 
-F42E4 =  psi = rationalMap(S,T,{y_0*y_3,-y_2*y_3,y_1*y_2,y_2*y_4,-y_3*y_4})
-
-F42E5 =  phi * psi
-
-F42E6 =  (map phi) * (map psi)
+F42E4 =  (map phi) * (map psi)
 
 F43E0 =  P5 = ZZ/190181[x_0..x_5]
 
@@ -566,11 +548,9 @@ F43E5 =  describe Phi'
 
 F44E0 =  P1 := QQ[a,b]
 
-F44E1 =  P4 := QQ[x,y,z,w]
+F44E1 =  phi = rationalMap({a^4,a^3*b,a^2*b^2,a*b^3,b^4},Dominant=>true)
 
-F44E2 =  phi = rationalMap({a^4,a^3*b,a^2*b^2,a*b^3,b^4},Dominant=>true)
-
-F44E3 =  isIsomorphism phi
+F44E2 =  isIsomorphism phi
 
 F45E0 =  P5 = ZZ/65521[x_0..x_5];
 
@@ -606,4 +586,4 @@ F47E3 =  -- Compose phi:P^8--->P^14 with a linear projection P^14--->P^8 from a 
 
 F47E4 =  time degreeMap phi'
 
-exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F15E0", "F15E1", "F15E2", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13", "F20E14", "F20E15", "F20E16", "F20E17", "F20E18", "F20E19", "F20E20", "F20E21", "F20E22", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F22E0", "F22E1", "F22E2", "F23E0", "F23E1", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F25E0", "F25E1", "F25E2", "F25E3", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F27E0", "F27E1", "F28E0", "F28E1", "F28E2", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F31E0", "F31E1", "F32E0", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F35E0", "F35E1", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F38E0", "F38E1", "F38E2", "F38E3", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F39E6", "F39E7", "F39E8", "F39E9", "F39E10", "F39E11", "F39E12", "F39E13", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F41E0", "F41E1", "F41E2", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F42E6", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F43E5", "F44E0", "F44E1", "F44E2", "F44E3", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4"}
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F15E0", "F15E1", "F15E2", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13", "F20E14", "F20E15", "F20E16", "F20E17", "F20E18", "F20E19", "F20E20", "F20E21", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F22E0", "F22E1", "F22E2", "F23E0", "F23E1", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F25E0", "F25E1", "F25E2", "F25E3", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F27E0", "F27E1", "F28E0", "F28E1", "F28E2", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F31E0", "F31E1", "F32E0", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F34E0", "F34E1", "F34E2", "F34E3", "F35E0", "F35E1", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F38E0", "F38E1", "F38E2", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F39E6", "F39E7", "F39E8", "F39E9", "F39E10", "F39E11", "F39E12", "F39E13", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F41E0", "F41E1", "F41E2", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F43E5", "F44E0", "F44E1", "F44E2", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4"}

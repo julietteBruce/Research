@@ -1,0 +1,255 @@
+needsPackage "Resultants"
+
+F0E0 =  X = kernel veronese(1,3)
+
+F0E1 =  conormalVariety X
+
+F1E0 =  P4 = Grass(0,4,ZZ/33331,Variable=>x)
+
+F1E1 =  L = trim ideal apply(3,i->random(1,P4))  -- a line in P^4
+
+F1E2 =  time p = plucker L
+
+F1E3 =  time L' = plucker p
+
+F1E4 =  assert(L' == L)
+
+F1E5 =  Y = ideal apply(5,i->random(1,G'1'4)); -- an elliptic curve
+
+F1E6 =  time W = plucker Y; -- surface swept out by the lines of Y
+
+F1E7 =  (codim W,degree W)
+
+F1E8 =  time Y' = plucker(W,1); -- variety of lines contained in W
+
+F1E9 =  assert(Y' == Y)
+
+F2E0 =  ZZ[a,b,c][x,y]; F = a*x^2+b*x*y+c*y^2
+
+F2E1 =  time discriminant F
+
+F2E2 =  ZZ[a,b,c,d][x,y]; F = a*x^3+b*x^2*y+c*x*y^2+d*y^3
+
+F2E3 =  time discriminant F
+
+F2E4 =  x=symbol x; R=ZZ/331[x_0..x_3]
+
+F2E5 =  F=x_0^4+x_1^4+x_2^4+x_3^4
+
+F2E6 =  G=x_0^4-x_0*x_1^3-x_2^4+x_2*x_3^3
+
+F2E7 =  R'=ZZ/331[t_0,t_1][x_0..x_3];
+
+F2E8 =  pencil=t_0*sub(F,R')+t_1*sub(G,R')
+
+F2E9 =  time D=discriminant pencil
+
+F2E10 =  factor D
+
+F3E0 =  R = Grass(2,4,ZZ/11)
+
+F3E1 =  R === Grass(2,4,ZZ/11)
+
+F3E2 =  L = trim ideal(random(1,Grass(0,3,ZZ/11,Variable=>x)),random(1,Grass(0,3,ZZ/11,Variable=>x)))
+
+F3E3 =  w = chowForm L
+
+F3E4 =  ring w === Grass(1,3,ZZ/11,Variable=>x)
+
+F3E5 =  L' = chowEquations w
+
+F3E6 =  ring L' === Grass(0,3,ZZ/11,Variable=>x)
+
+F3E7 =  L''= chowEquations(w,Variable=>y)
+
+F3E8 =  ring L'' === Grass(0,3,ZZ/11,Variable=>y)
+
+F4E0 =  ZZ[a,b,c][x]; f = a*x^2+b*x+c
+
+F4E1 =  affineDiscriminant f
+
+F4E2 =  ZZ[a,b,c,d][x]; f = a*x^3+b*x^2+c*x+d
+
+F4E3 =  affineDiscriminant f
+
+F5E0 =  C = kernel veronese(1,3)
+
+F5E1 =  time fromPluckerToStiefel dualize chowForm C
+
+F5E2 =  time fromPluckerToStiefel(dualize chowForm C,AffineChartGrass=>{0,1})
+
+F5E3 =  fromPluckerToStiefel(dualize chowForm C,AffineChartGrass=>{2,3},Variable=>a)
+
+F5E4 =  w = chowForm C;
+
+F5E5 =  time U = apply(subsets(4,2),s->ideal fromPluckerToStiefel(w,AffineChartGrass=>s))
+
+F5E6 =  time apply(U,u->dim singularLocus u)
+
+F6E0 =  QQ[x_0..x_3]; P1xP1 = ideal(x_0*x_1-x_2*x_3)
+
+F6E1 =  time (P1xP1xP2,P1xP1xP2') = cayleyTrick(P1xP1,2);
+
+F6E2 =  time (P1xP1xP1,P1xP1xP1') = cayleyTrick(P1xP1,1)
+
+F6E3 =  time cayleyTrick(P1xP1,1,Duality=>true);
+
+F6E4 =  assert(oo == (P1xP1xP1,P1xP1xP1'))
+
+F6E5 =  time cayleyTrick(P1xP1,2,Duality=>true);
+
+F6E6 =  assert(oo == (P1xP1xP2,P1xP1xP2'))
+
+F7E0 =  -- first tangential Chow form of a random quadric in P^3
+
+F7E1 =  time isCoisotropic w
+
+F7E2 =  -- random quadric in G(1,3)
+
+F7E3 =  time isCoisotropic w'
+
+F8E0 =  Q = ideal random(2,Grass(0,4))
+
+F8E1 =  time hurwitzForm Q
+
+F9E0 =  ZZ[t,u][y,z]
+
+F9E1 =  f = {3*t*y*z-u*z^2+1, -y+t+3*u-1, u*z^4-t*y^3+t*y*z}
+
+F9E2 =  affineResultant f
+
+F10E0 =  ZZ[t,u][x,y,z]
+
+F10E1 =  F = {x^2+3*t*y*z-u*z^2,(t+3*u-1)*x-y,-t*x*y^3+t*x^2*y*z+u*z^4}
+
+F10E2 =  time resultant F
+
+F10E3 =  F = genericPolynomials({1,2,3},ZZ)
+
+F10E4 =  time resultant F
+
+F10E5 =  F = genericPolynomials({2,2,2},ZZ)
+
+F10E6 =  time # terms resultant F
+
+F11E0 =  veronese(1,4)
+
+F11E1 =  veronese(1,4,Variable=>y)
+
+F11E2 =  veronese(1,4,Variable=>(u,z))
+
+F11E3 =  veronese(2,2,ZZ/101)
+
+F12E0 =  use Grass(0,5,ZZ/33331,Variable=>x)
+
+F12E1 =  I = minors(2,matrix {{x_0,x_1,x_3,x_4},{x_1,x_2,x_4,x_5}}) -- rational normal scroll surface
+
+F12E2 =  L = ideal(x_1-12385*x_2-16397*x_3-7761*x_4+827*x_5,x_0+2162*x_2-8686*x_3+2380*x_4+9482*x_5) -- linear 3-dimensional subspace
+
+F12E3 =  time isInCoisotropic(L,I) -- whether L belongs to Z_1(V(I))
+
+F13E0 =  F = genericPolynomials {2,2,3}
+
+F13E1 =  time (D,D') = macaulayFormula F
+
+F13E2 =  F = {random(2,Grass(0,2)),random(2,Grass(0,2)),random(3,Grass(0,2))}
+
+F13E3 =  time (D,D') = macaulayFormula F
+
+F13E4 =  assert(det D == (resultant F) * (det D'))
+
+F14E0 =  V = kernel veronese(2,2)
+
+F14E1 =  time V' = dualVariety V
+
+F14E2 =  time V == dualVariety V'
+
+F14E3 =  F = first genericPolynomials({3,-1,-1},ZZ/3331)
+
+F14E4 =  time discF = ideal discriminant F;
+
+F14E5 =  time Z = dualVariety(veronese(2,3,ZZ/3331),AssumeOrdinary=>true);
+
+F14E6 =  discF == sub(Z,vars ring discF) and Z == sub(discF,vars ring Z)
+
+F15E0 =  P9 = ambient Grass(2,4,ZZ/13,Variable=>x);
+
+F15E1 =  vars P9
+
+F15E2 =  dualize vars P9
+
+F15E3 =  F  = random(2,P9)
+
+F15E4 =  dualize F
+
+F15E5 =  F == dualize dualize F
+
+F16E0 =  genericPolynomials {1,2,3}
+
+F16E1 =  first genericPolynomials({4,2,3},ZZ/101)
+
+F16E2 =  first genericPolynomials({4,-1,-1},ZZ/101)
+
+F17E0 =  -- cubic rational normal scroll surface in P^4=G(0,4)
+
+F17E1 =  -- 0-th associated hypersurface of S in G(1,4) (Chow form)
+
+F17E2 =  -- 1-th associated hypersurface of S in G(2,4)
+
+F17E3 =  -- 2-th associated hypersurface of S in G(3,4) (parameterizing tangent hyperplanes to S)
+
+F17E4 =  -- we get the dual hypersurface of S in G(0,4) by dualizing
+
+F17E5 =  -- we then can recover S
+
+F18E0 =  R = QQ[a,b][x,y,z,w]
+
+F18E1 =  F = {(7/3)*x+(7/2)*y+z+2*w, ((10/7)*a+b)*x^2+(a+(5/4)*b)*x*y+(2*a+(1/2)*b)*y^2+((7/8)*a+(7/5)*b)*x*z+((3/4)*a+b)*y*z+((7/8)*a+(1/7)*b)*z^2+((5/7)*a+(4/3)*b)*x*w+(9*a+10*b)*y*w+((7/5)*a+(3/4)*b)*z*w+((4/3)*a+5*b)*w^2, ((1/2)*a+(7/5)*b)*x^3+((1/2)*a+10*b)*x^2*y+((8/9)*a+(3/5)*b)*x*y^2+(a+(7/6)*b)*y^3+((3/7)*a+(3/4)*b)*x^2*z+((1/3)*a+(9/10)*b)*x*y*z+((9/4)*a+b)*y^2*z+((1/6)*a+(1/5)*b)*x*z^2+(3*a+(5/2)*b)*y*z^2+((5/3)*a+(3/7)*b)*z^3+(a+b)*x^2*w+((4/5)*a+(5/4)*b)*x*y*w+((5/3)*a+(5/8)*b)*y^2*w+((3/2)*a+(1/6)*b)*x*z*w+((1/3)*a+(4/5)*b)*y*z*w+(9*a+(1/3)*b)*z^2*w+((7/3)*a+(5/4)*b)*x*w^2+(a+(3/4)*b)*y*w^2+((9/8)*a+(7/8)*b)*z*w^2+((9/7)*a+2*b)*w^3, 2*x+(1/4)*y+(8/3)*z+(4/5)*w}
+
+F18E2 =  time resultant(F,Algorithm=>"Poisson2")
+
+F18E3 =  time resultant(F,Algorithm=>"Macaulay2")
+
+F18E4 =  time resultant(F,Algorithm=>"Poisson")
+
+F18E5 =  time resultant(F,Algorithm=>"Macaulay")
+
+F18E6 =  assert(o3 == o4 and o4 == o5 and o5 == o6)
+
+F19E0 =  P3 = Grass(0,3,ZZ/11,Variable=>x);
+
+F19E1 =  -- an elliptic quartic curve
+
+F19E2 =  -- Chow equations of C
+
+F19E3 =  C == saturate eqsC
+
+F19E4 =  -- a singular irreducible curve 
+
+F19E5 =  -- Chow equations of D
+
+F19E6 =  D == saturate eqsD
+
+F19E7 =  D == radical eqsD
+
+F19E8 =  Q = ideal(x_0*x_1+x_2*x_3)
+
+F19E9 =  -- tangential Chow forms of Q
+
+F19E10 =  time (Q,Q,Q) == (chowEquations(W0,0),chowEquations(W1,1),chowEquations(W2,2))
+
+F20E0 =  -- Veronese surface in P^5
+
+F20E1 =  -- Chow form of V in Grass(2,5) (performing internal computations on an affine chart of the Grassmannian)
+
+F20E2 =  -- equivalently (but faster)...
+
+F20E3 =  -- X-resultant of V
+
+F20E4 =  -- three generic ternary quadrics
+
+F20E5 =  -- resultant of the three forms
+
+F20E6 =  assert(resF === sub(Xres,vars ring resF) and Xres === sub(resF,vars ring Xres))
+
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F4E0", "F4E1", "F4E2", "F4E3", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F7E0", "F7E1", "F7E2", "F7E3", "F8E0", "F8E1", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F11E0", "F11E1", "F11E2", "F11E3", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6"}

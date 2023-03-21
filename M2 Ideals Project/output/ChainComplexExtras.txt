@@ -1,4 +1,4 @@
-needsPackage "package_directory/ChainComplexExtras/example-output"
+needsPackage "ChainComplexExtras"
 
 F0E0 =  R = ZZ/101[a,b]
 
@@ -272,17 +272,15 @@ F19E3 =  T.dd
 
 F20E0 =  E=ZZ/101[e_0,e_1,SkewCommutative=>true]
 
-F20E1 =  F=res ideal vars E
+F20E1 =  C=dual res (coker transpose F.dd_3,LengthLimit=>8)[-3]
 
-F20E2 =  C=dual res (coker transpose F.dd_3,LengthLimit=>8)[-3]
+F20E2 =  C1=trivialHomologicalTruncation(C,-2,2)
 
-F20E3 =  C1=trivialHomologicalTruncation(C,-2,2)
+F20E3 =  C2=trivialHomologicalTruncation(C1,-3,3)
 
-F20E4 =  C2=trivialHomologicalTruncation(C1,-3,3)
+F20E4 =  C3=removeZeroTrailingTerms C2
 
-F20E5 =  C3=removeZeroTrailingTerms C2
-
-F20E6 =  C4=trivialHomologicalTruncation(C3,2,2)
+F20E5 =  C4=trivialHomologicalTruncation(C3,2,2)
 
 F21E0 =  S=ZZ/101[x,y]
 
@@ -292,24 +290,22 @@ F21E2 =  isChainComplex C, isChainComplex C'
 
 F21E3 =  kk=ZZ/101
 
-F21E4 =  n=4
+F21E4 =  E=kk[e_0..e_n,SkewCommutative =>true]
 
-F21E5 =  E=kk[e_0..e_n,SkewCommutative =>true]
+F21E5 =  m=map(E^{0,1},,matrix{{ e_0,e_1*e_2},{e_3*e_4,e_0*e_1*e_4}})
 
-F21E6 =  m=map(E^{0,1},,matrix{{ e_0,e_1*e_2},{e_3*e_4,e_0*e_1*e_4}})
+F21E6 =  fm=res coker m
 
-F21E7 =  fm=res coker m
+F21E7 =  isChainComplex fm
 
-F21E8 =  isChainComplex fm
+F21E8 =  dualfm = dual fm
 
-F21E9 =  dualfm = dual fm
+F21E9 =  isChainComplex dualfm
 
-F21E10 =  isChainComplex dualfm
+F21E10 =  f2=res( coker dualfm.dd_(-5),LengthLimit=> 6)[6]
 
-F21E11 =  f2=res( coker dualfm.dd_(-5),LengthLimit=> 6)[6]
+F21E11 =  betti f2
 
-F21E12 =  betti f2
+F21E12 =  betti dual fm
 
-F21E13 =  betti dual fm
-
-exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F4E0", "F4E1", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F10E2", "F11E0", "F11E1", "F11E2", "F11E3", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F17E0", "F17E1", "F17E2", "F17E3", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F19E0", "F19E1", "F19E2", "F19E3", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13"}
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F4E0", "F4E1", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F10E2", "F11E0", "F11E1", "F11E2", "F11E3", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F17E0", "F17E1", "F17E2", "F17E3", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F19E0", "F19E1", "F19E2", "F19E3", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12"}

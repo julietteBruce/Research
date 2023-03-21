@@ -1,4 +1,4 @@
-needsPackage "package_directory/CodingTheory/example-output"
+needsPackage "CodingTheory"
 
 F0E0 =  C = linearCode(GF(8,Variable => b), {{1,0,b,0,0},{0,b,b+1,1,0},{1,1,1,b,0}})
 
@@ -172,15 +172,13 @@ F19E0 =  F = GF(3,4)
 
 F19E1 =  codeLen = 7
 
-F19E2 =  codeDim = 3
+F19E2 =  L = apply(toList(1..codeDim),j-> apply(toList(1..codeLen),i-> random(F)))
 
-F19E3 =  L = apply(toList(1..codeDim),j-> apply(toList(1..codeLen),i-> random(F)))
+F19E3 =  C1 = linearCode(F,L)
 
-F19E4 =  C1 = linearCode(F,L)
+F19E4 =  C2 = linearCode(matrix L)
 
-F19E5 =  C2 = linearCode(matrix L)
-
-F19E6 =  C1 == C2
+F19E5 =  C1 == C2
 
 F20E0 =  C=zeroCode(GF(4),7)
 
@@ -514,117 +512,85 @@ F56E11 =  C.ParityCheckMatrix
 
 F56E12 =  F = GF 2
 
-F56E13 =  G = transpose matrix {apply({1,1,1,1},entry -> sub(entry,F))}
+F56E13 =  M = image G;
 
-F56E14 =  M = image G;
+F56E14 =  C = linearCode(M)
 
-F56E15 =  C = linearCode(M)
+F56E15 =  C.AmbientModule
 
-F56E16 =  C.AmbientModule
+F56E16 =  C.BaseField
 
-F56E17 =  C.BaseField
+F56E17 =  C.GeneratorMatrix
 
-F56E18 =  C.GeneratorMatrix
+F56E18 =  C.ParityCheckMatrix
 
-F56E19 =  C.ParityCheckMatrix
+F56E19 =  F = GF(4,Variable => a)
 
-F56E20 =  F = GF(4,Variable => a)
+F56E20 =  C = linearCode(M,L)
 
-F56E21 =  M = F^5
+F56E21 =  C.AmbientModule
 
-F56E22 =  L = {{1,0,a,0,0},{0,a,a+1,1,0},{1,1,1,a,0}}
+F56E22 =  C.BaseField
 
-F56E23 =  C = linearCode(M,L)
+F56E23 =  C.Generators
 
-F56E24 =  C.AmbientModule
+F56E24 =  C.GeneratorMatrix
 
-F56E25 =  C.BaseField
+F56E25 =  C.ParityCheckMatrix
 
-F56E26 =  C.Generators
+F56E26 =  C.Code
 
-F56E27 =  C.GeneratorMatrix
+F56E27 =  F = GF(8,Variable =>a)
 
-F56E28 =  C.ParityCheckMatrix
+F56E28 =  C = linearCode(M,L,ParityCheck => true)
 
-F56E29 =  C.Code
+F56E29 =  G = C.GeneratorMatrix
 
-F56E30 =  F = GF(8,Variable =>a)
+F56E30 =  H = C.ParityCheckMatrix
 
-F56E31 =  M = F^4
+F56E31 =  F = GF 4
 
-F56E32 =  L = {{a+1,a+1,a+1,a+1}}
+F56E32 =  C = linearCode(F,L)
 
-F56E33 =  C = linearCode(M,L,ParityCheck => true)
+F56E33 =  C.GeneratorMatrix
 
-F56E34 =  G = C.GeneratorMatrix
+F56E34 =  C.ParityCheckMatrix
 
-F56E35 =  H = C.ParityCheckMatrix
+F56E35 =  F = GF(9,Variable => a)
 
-F56E36 =  F = GF 4
+F56E36 =  C = linearCode(F,L,ParityCheck => true)
 
-F56E37 =  L = {{1,0,1,0},{1,0,1,0}}
+F56E37 =  C.GeneratorMatrix
 
-F56E38 =  C = linearCode(F,L)
+F56E38 =  C.ParityCheckMatrix
 
-F56E39 =  C.GeneratorMatrix
+F56E39 =  F = GF 4
 
-F56E40 =  C.ParityCheckMatrix
+F56E40 =  C = linearCode(F,n,L)
 
-F56E41 =  F = GF(9,Variable => a)
+F56E41 =  C.GeneratorMatrix
 
-F56E42 =  L = {{1,0,a,0,0},{0,a,a+1,1,0},{1,1,1,a,0}}
+F56E42 =  C.ParityCheckMatrix
 
-F56E43 =  C = linearCode(F,L,ParityCheck => true)
+F56E43 =  F = GF(9,Variable => a)
 
-F56E44 =  C.GeneratorMatrix
+F56E44 =  C = linearCode(F,n,L,ParityCheck => true)
 
-F56E45 =  C.ParityCheckMatrix
+F56E45 =  C.GeneratorMatrix
 
-F56E46 =  F = GF 4
+F56E46 =  C.ParityCheckMatrix
 
-F56E47 =  n = 4
+F56E47 =  p = 2
 
-F56E48 =  L = {{1,0,1,0},{1,0,1,0}}
+F56E48 =  C=linearCode(p,r,n,L)
 
-F56E49 =  C = linearCode(F,n,L)
+F56E49 =  p = 3
 
-F56E50 =  C.GeneratorMatrix
+F56E50 =  ambient GF(p,r)
 
-F56E51 =  C.ParityCheckMatrix
+F56E51 =  L = {{1,0,a,0,0},{0,a,a+1,1,0},{1,1,1,a+1,0}};
 
-F56E52 =  F = GF(9,Variable => a)
-
-F56E53 =  n = 5
-
-F56E54 =  L = {{1,0,a,0,0},{0,a,a+1,1,0},{1,1,1,a,0}}
-
-F56E55 =  C = linearCode(F,n,L,ParityCheck => true)
-
-F56E56 =  C.GeneratorMatrix
-
-F56E57 =  C.ParityCheckMatrix
-
-F56E58 =  p = 2
-
-F56E59 =  r = 2
-
-F56E60 =  n=4
-
-F56E61 =  L = {{1,0,1,0},{0,1,1,1}}
-
-F56E62 =  C=linearCode(p,r,n,L)
-
-F56E63 =  p = 3
-
-F56E64 =  r = 2
-
-F56E65 =  n = 5
-
-F56E66 =  ambient GF(p,r)
-
-F56E67 =  L = {{1,0,a,0,0},{0,a,a+1,1,0},{1,1,1,a+1,0}};
-
-F56E68 =  C=linearCode(p,r,n,L)
+F56E52 =  C=linearCode(p,r,n,L)
 
 F57E0 =  F=GF(5);
 
@@ -754,4 +720,4 @@ F67E4 =  RM=reedMullerCode(2,2,1);
 
 F67E5 =  messages(RM.LinearCode)
 
-exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F2E0", "F2E1", "F2E2", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F4E0", "F4E1", "F4E2", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F6E0", "F6E1", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F14E0", "F14E1", "F14E2", "F14E3", "F15E0", "F15E1", "F16E0", "F16E1", "F16E2", "F16E3", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F20E0", "F20E1", "F21E0", "F21E1", "F22E0", "F22E1", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F24E0", "F24E1", "F24E2", "F24E3", "F25E0", "F25E1", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F27E0", "F27E1", "F27E2", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F29E0", "F29E1", "F30E0", "F30E1", "F30E2", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F32E0", "F32E1", "F32E2", "F32E3", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12", "F33E13", "F33E14", "F34E0", "F34E1", "F35E0", "F35E1", "F35E2", "F36E0", "F36E1", "F36E2", "F37E0", "F38E0", "F38E1", "F38E2", "F38E3", "F39E0", "F39E1", "F39E2", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F41E0", "F41E1", "F41E2", "F41E3", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F43E0", "F43E1", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F45E7", "F46E0", "F46E1", "F46E2", "F46E3", "F47E0", "F47E1", "F47E2", "F47E3", "F48E0", "F48E1", "F48E2", "F48E3", "F49E0", "F49E1", "F49E2", "F49E3", "F50E0", "F50E1", "F51E0", "F51E1", "F51E2", "F52E0", "F52E1", "F53E0", "F53E1", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F55E0", "F55E1", "F55E2", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F56E9", "F56E10", "F56E11", "F56E12", "F56E13", "F56E14", "F56E15", "F56E16", "F56E17", "F56E18", "F56E19", "F56E20", "F56E21", "F56E22", "F56E23", "F56E24", "F56E25", "F56E26", "F56E27", "F56E28", "F56E29", "F56E30", "F56E31", "F56E32", "F56E33", "F56E34", "F56E35", "F56E36", "F56E37", "F56E38", "F56E39", "F56E40", "F56E41", "F56E42", "F56E43", "F56E44", "F56E45", "F56E46", "F56E47", "F56E48", "F56E49", "F56E50", "F56E51", "F56E52", "F56E53", "F56E54", "F56E55", "F56E56", "F56E57", "F56E58", "F56E59", "F56E60", "F56E61", "F56E62", "F56E63", "F56E64", "F56E65", "F56E66", "F56E67", "F56E68", "F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F57E5", "F57E6", "F57E7", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F58E6", "F59E0", "F59E1", "F59E2", "F59E3", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F60E6", "F60E7", "F60E8", "F60E9", "F60E10", "F60E11", "F60E12", "F61E0", "F61E1", "F61E2", "F61E3", "F61E4", "F61E5", "F62E0", "F62E1", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F63E7", "F63E8", "F63E9", "F64E0", "F64E1", "F64E2", "F65E0", "F65E1", "F66E0", "F66E1", "F66E2", "F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F67E5"}
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F2E0", "F2E1", "F2E2", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F4E0", "F4E1", "F4E2", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F6E0", "F6E1", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F14E0", "F14E1", "F14E2", "F14E3", "F15E0", "F15E1", "F16E0", "F16E1", "F16E2", "F16E3", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F20E0", "F20E1", "F21E0", "F21E1", "F22E0", "F22E1", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F24E0", "F24E1", "F24E2", "F24E3", "F25E0", "F25E1", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F27E0", "F27E1", "F27E2", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F29E0", "F29E1", "F30E0", "F30E1", "F30E2", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F32E0", "F32E1", "F32E2", "F32E3", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12", "F33E13", "F33E14", "F34E0", "F34E1", "F35E0", "F35E1", "F35E2", "F36E0", "F36E1", "F36E2", "F37E0", "F38E0", "F38E1", "F38E2", "F38E3", "F39E0", "F39E1", "F39E2", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F41E0", "F41E1", "F41E2", "F41E3", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F43E0", "F43E1", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F45E7", "F46E0", "F46E1", "F46E2", "F46E3", "F47E0", "F47E1", "F47E2", "F47E3", "F48E0", "F48E1", "F48E2", "F48E3", "F49E0", "F49E1", "F49E2", "F49E3", "F50E0", "F50E1", "F51E0", "F51E1", "F51E2", "F52E0", "F52E1", "F53E0", "F53E1", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F55E0", "F55E1", "F55E2", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F56E9", "F56E10", "F56E11", "F56E12", "F56E13", "F56E14", "F56E15", "F56E16", "F56E17", "F56E18", "F56E19", "F56E20", "F56E21", "F56E22", "F56E23", "F56E24", "F56E25", "F56E26", "F56E27", "F56E28", "F56E29", "F56E30", "F56E31", "F56E32", "F56E33", "F56E34", "F56E35", "F56E36", "F56E37", "F56E38", "F56E39", "F56E40", "F56E41", "F56E42", "F56E43", "F56E44", "F56E45", "F56E46", "F56E47", "F56E48", "F56E49", "F56E50", "F56E51", "F56E52", "F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F57E5", "F57E6", "F57E7", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F58E6", "F59E0", "F59E1", "F59E2", "F59E3", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F60E6", "F60E7", "F60E8", "F60E9", "F60E10", "F60E11", "F60E12", "F61E0", "F61E1", "F61E2", "F61E3", "F61E4", "F61E5", "F62E0", "F62E1", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F63E7", "F63E8", "F63E9", "F64E0", "F64E1", "F64E2", "F65E0", "F65E1", "F66E0", "F66E1", "F66E2", "F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F67E5"}

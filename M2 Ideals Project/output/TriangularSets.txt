@@ -1,0 +1,191 @@
+needsPackage "TriangularSets"
+
+F0E0 =  R = QQ[x_0..x_3, MonomialOrder=>Lex];
+
+F0E1 =  f = x_1^2*(x_2*x_3+2*x_3) + x_1*(x_2^2-1) + (x_2-x_3)
+
+F0E2 =  initial f
+
+F1E0 =  R = QQ[x,y,z,MonomialOrder=>Lex];
+
+F1E1 =  F = {x*y^2 - y*z, y^3 + z^2};
+
+F1E2 =  T = triaSystem(R,F,{y});
+
+F1E3 =  isPrimeSimple(T)
+
+F1E4 =  I = saturate T
+
+F1E5 =  isPrime I
+
+F2E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F2E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F2E2 =  T = triaSystem(R,F)
+
+F2E3 =  dim T
+
+F3E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F3E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F3E2 =  T = triaSystem(R,F)
+
+F3E3 =  ineqs T
+
+F4E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F4E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F4E2 =  H = {d, f, h};
+
+F4E3 =  T = triaSystem(R,F,H)
+
+F4E4 =  freeVariables T
+
+F5E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F5E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F5E2 =  T = triaSystem(R,F)
+
+F5E3 =  S = QQ[x_0..x_7, MonomialOrder=>Lex];
+
+F5E4 =  f = map(S,R,gens S)
+
+F5E5 =  f T
+
+F6E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F6E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F6E2 =  H = {d, f, h};
+
+F6E3 =  T = triaSystem(R,F,H)
+
+F6E4 =  (a*h - b*g) % T
+
+F6E5 =  saturate T
+
+F7E0 =  L = 2..20
+
+F7E1 =  cmp = (i,j) -> if i%j==0 then 1 else if j%i==0 then -1 else 0;
+
+F7E2 =  prime = minimalObjects(L, cmp);
+
+F7E3 =  select(L, i -> prime#i)
+
+F8E0 =  R = QQ[x,y,t,s,MonomialOrder=>Lex];
+
+F8E1 =  F = {x + y^2 - t, t^2 -s};
+
+F8E2 =  T = triaSystem(R,F,{});
+
+F8E3 =  f = x*y*t;
+
+F8E4 =  resultant(f,T)
+
+F9E0 =  R = QQ[x,y,z,MonomialOrder=>Lex];
+
+F9E1 =  F = {x*y - y*z, y^2 - z^2};
+
+F9E2 =  T = triaSystem(R,F,{y});
+
+F9E3 =  isRegularChain(T)
+
+F10E0 =  R = QQ[a..d];
+
+F10E1 =  I = ideal(a^3-b^2*c, b*c^2-c*d^2, c^3)
+
+F10E2 =  gbList I
+
+F11E0 =  R = QQ[a..h, MonomialOrder=>Lex];
+
+F11E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F11E2 =  TT = triangularize(R,F,{})
+
+F11E3 =  first TT
+
+F11E4 =  H = {b,d};
+
+F11E5 =  triangularize(R,F,H)
+
+F12E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F12E1 =  F = {a^2*d - b, c*f*h - d*e, e^3*h - f*g};
+
+F12E2 =  T = triaSystem(R,F)
+
+F12E3 =  degree T
+
+F12E4 =  for f in F list degree(mvar f, f)
+
+F13E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F13E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F13E2 =  T = triaSystem(R,F)
+
+F13E3 =  gens T
+
+F14E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F14E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F14E2 =  H = {d, f, h};
+
+F14E3 =  T = triaSystem(R,F,H)
+
+F14E4 =  saturate T
+
+F15E0 =  R = QQ[x,y,t,s,MonomialOrder=>Lex];
+
+F15E1 =  F = {x + y^2 - t, t^2 -s};
+
+F15E2 =  T = triaSystem(R,F,{});
+
+F15E3 =  isStronglyNormalized(T)
+
+F15E4 =  R = QQ[x,y,z,MonomialOrder=>Lex];
+
+F15E5 =  F = {x*y - y*z, y^2 - z^2};
+
+F15E6 =  T = triaSystem(R,F,{y});
+
+F15E7 =  isStronglyNormalized(T)
+
+F16E0 =  R = QQ[x_0..x_3, MonomialOrder=>Lex];
+
+F16E1 =  f = x_1^2*(x_2*x_3+2*x_3) + x_1*(x_2^2-1) + (x_2-x_3)
+
+F16E2 =  mvar f
+
+F17E0 =  R = QQ[x,y];
+
+F17E1 =  f = x^4
+
+F17E2 =  g = x^2*y + 13*x^2*y^4 +x*y^2-3*x - 1
+
+F17E3 =  pseudoRemainder(x,f,g)
+
+F17E4 =  pseudoRemainder(y,f,g)
+
+F18E0 =  R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];
+
+F18E1 =  F = {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F18E2 =  H = {d, f, h};
+
+F18E3 =  triaSystem(R,F,H)
+
+F18E4 =  triaSystem(R,F)
+
+F19E0 =  R = QQ[a..h, MonomialOrder=>Lex];
+
+F19E1 =  I = ideal {a*d - b*c, c*f - d*e, e*h - f*g};
+
+F19E2 =  triangularize I
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F9E0", "F9E1", "F9E2", "F9E3", "F10E0", "F10E1", "F10E2", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F19E0", "F19E1", "F19E2"}

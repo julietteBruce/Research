@@ -1,0 +1,257 @@
+needsPackage "LocalRings"
+
+F0E0 =  R = ZZ/32003[x,y,z,w,SkewCommutative=>true]
+
+F0E1 =  m = matrix{{x,y*z},{z*w,x}}
+
+F0E2 =  setMaxIdeal(ideal(x,y,z,w))
+
+F0E3 =  localsyz m
+
+F0E4 =  m * localsyz m
+
+F1E0 =  R = QQ[x,y,z]
+
+F1E1 =  setMaxIdeal ideal vars R
+
+F1E2 =  m = matrix {{x-1, y}}
+
+F1E3 =  n = matrix {{y,z}}
+
+F1E4 =  modulo (m,n)
+
+F1E5 =  localModulo (m,n)
+
+F2E0 =  S = ZZ/32003[x,y,z,w]
+
+F2E1 =  P = ideal(x,y,z,w)
+
+F2E2 =  setMaxIdeal P -- version 1.0
+
+F2E3 =  R = localRing(S, P) -- version 2.0 and above
+
+F2E4 =  use S
+
+F2E5 =  m = matrix{{x,y*z},{z*w,x}}
+
+F2E6 =  m * localsyz m
+
+F2E7 =  use R
+
+F2E8 =  m = matrix{{x,y*z},{z*w,x}}
+
+F2E9 =  m * syz m
+
+F2E10 =  use S
+
+F2E11 =  localMingens matrix{{x-1,x,y},{x-1,x,y}}
+
+F2E12 =  use R
+
+F2E13 =  mingens image matrix{{x-1,x,y},{x-1,x,y}}
+
+F2E14 =  use S
+
+F2E15 =  localModulo(matrix {{x-1,y}}, matrix {{y,z}})
+
+F2E16 =  use R
+
+F2E17 =  modulo(matrix {{x-1,y}}, matrix {{y,z}})
+
+F2E18 =  use S
+
+F2E19 =  localPrune image matrix{{x-1,x,y},{x-1,x,y}}
+
+F2E20 =  use R
+
+F2E21 =  prune image matrix{{x-1,x,y},{x-1,x,y}}
+
+F2E22 =  use S
+
+F2E23 =  localResolution coker matrix{{x,y*z},{z*w,x}}
+
+F2E24 =  oo.dd
+
+F2E25 =  use R
+
+F2E26 =  res coker matrix{{x,y*z},{z*w,x}}
+
+F2E27 =  oo.dd
+
+F3E0 =  R = QQ[x,y,z];
+
+F3E1 =  RP = localRing(R, ideal gens R);
+
+F3E2 =  I = ideal"x5+y3+z3,x3+y5+z3,x3+y3+z5"
+
+F3E3 =  M = RP^1/I
+
+F3E4 =  elapsedTime hilbertSamuelFunction(M, 0, 6)
+
+F3E5 =  oo//sum
+
+F3E6 =  R = ZZ/32003[x,y];
+
+F3E7 =  RP = localRing(R, ideal gens R);
+
+F3E8 =  N = RP^1
+
+F3E9 =  q = ideal"x2,y3"
+
+F3E10 =  elapsedTime hilbertSamuelFunction(N, 0, 5) -- n+1 -- 0.02 seconds
+
+F3E11 =  elapsedTime hilbertSamuelFunction(q, N, 0, 5) -- 6(n+1) -- 0.32 seconds
+
+F4E0 =  S = QQ[x,y,z,w];
+
+F4E1 =  I = ideal"xz-y2,yw-z2,xw-yz"; -- The twisted cubic curve
+
+F4E2 =  R = S_I
+
+F4E3 =  K = frac(S/I)
+
+F4E4 =  max R
+
+F4E5 =  R.maxIdeal
+
+F4E6 =  R.residueMap
+
+F4E7 =  I ** R
+
+F5E0 =  R = ZZ/32003[x,y]
+
+F5E1 =  m = matrix{{x,y-1},{0,x}}
+
+F5E2 =  setMaxIdeal(ideal(x,y))
+
+F5E3 =  localComplement m
+
+F6E0 =  R = ZZ/32003[vars(0..5)];
+
+F6E1 =  I = ideal"abc-def,ab2-cd2-c,-b3+acd";
+
+F6E2 =  C = res I;
+
+F6E3 =  M = ideal gens R;
+
+F6E4 =  RM = localRing(R, M);
+
+F6E5 =  F = C.dd_2;
+
+F6E6 =  FM = F ** RM
+
+F6E7 =  f = liftUp FM;
+
+F6E8 =  g = syz f;
+
+F6E9 =  h = syz g;
+
+F6E10 =  C = {g ** RM, h ** RM};
+
+F6E11 =  C = first pruneComplex(C, 1, Direction => "right");
+
+F6E12 =  g' = C#0;
+
+F6E13 =  N = transpose entries FM;
+
+F6E14 =  for i from 0 to numcols FM - 1 do
+
+F6E15 =  GM = map(source FM, , matrix g')
+
+F6E16 =  kernel FM == image GM
+
+F7E0 =  R=QQ[a,b]
+
+F7E1 =  setMaxIdeal ideal gens R
+
+F7E2 =  m = matrix{{a-1,a,b},{a-1,a,b}}
+
+F7E3 =  prune m
+
+F7E4 =  localPrune image m
+
+F8E0 =  R=QQ[a,b]
+
+F8E1 =  setMaxIdeal ideal gens R
+
+F8E2 =  mingens image matrix{{a-1,a,b},{a-1,a,b}}
+
+F8E3 =  localMingens matrix {{a-1,a,b},{a-1,a,b}}
+
+F9E0 =  R = ZZ/32003[x,y,z,w,SkewCommutative=>true]
+
+F9E1 =  setMaxIdeal(ideal(x,y,z,w))
+
+F10E0 =  R = ZZ/32003[x,y,z,w,SkewCommutative=>true]
+
+F10E1 =  m = matrix{{x,y*z},{z*w,x}}
+
+F10E2 =  setMaxIdeal(ideal(x,y,z,w))
+
+F10E3 =  C = localResolution(coker m, LengthLimit=>10)
+
+F10E4 =  C = localResolution(coker m)
+
+F10E5 =  C^2
+
+F10E6 =  C.dd_4
+
+F10E7 =  R = QQ[x,y,z]
+
+F10E8 =  setMaxIdeal ideal vars R
+
+F10E9 =  m = matrix {{x-1, y, z-1}}
+
+F10E10 =  C = resolution coker m
+
+F10E11 =  C.dd
+
+F10E12 =  LC = localResolution coker m
+
+F10E13 =  LC.dd
+
+F11E0 =  R = QQ[x,y,z,w];
+
+F11E1 =  P = ideal"xz-y2,yw-z2,xw-yz"; -- The twisted cubic curve
+
+F11E2 =  I = ideal"xz-y2,z(yw-z2)-w(xw-yz)";
+
+F11E3 =  RP = R_P
+
+F11E4 =  M = RP^1/promote(I, RP)
+
+F11E5 =  length M
+
+F12E0 =  R = ZZ/32003[a..d];
+
+F12E1 =  I = monomialCurveIdeal(R,{1,3,4})
+
+F12E2 =  M = ideal"a,b,c,d"; -- maximal ideal at the origin
+
+F12E3 =  P = ideal"a,b,c"; -- prime ideal
+
+F12E4 =  RM = R_M
+
+F12E5 =  RP = localRing(R, P)
+
+F12E6 =  C = res I
+
+F12E7 =  D = C ** RM;
+
+F12E8 =  E = pruneComplex D
+
+F12E9 =  D' = C ** RP;
+
+F12E10 =  E' = pruneComplex D'
+
+F13E0 =  R = QQ[x,y,z,w]
+
+F13E1 =  P = ideal"xz-y2,yw-z2,xw-yz"; -- The twisted cubic curve
+
+F13E2 =  isWellDefined R_P
+
+F13E3 =  Q = ideal"xz-y2,z(yw-z2)-w(xw-yz)";
+
+F13E4 =  isWellDefined R_Q
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F2E15", "F2E16", "F2E17", "F2E18", "F2E19", "F2E20", "F2E21", "F2E22", "F2E23", "F2E24", "F2E25", "F2E26", "F2E27", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F8E0", "F8E1", "F8E2", "F8E3", "F9E0", "F9E1", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F10E13", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4"}

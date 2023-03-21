@@ -1,0 +1,57 @@
+needsPackage "RandomPlaneCurves"
+
+F0E0 =  setRandomSeed("alpha");
+
+F0E1 =  R=ZZ/32003[x_0..x_2];
+
+F0E2 =  Ipts=(random distinctPlanePoints)(10,R);
+
+F0E3 =  betti res Ipts
+
+F1E0 =  setRandomSeed("alpha");
+
+F1E1 =  p=nextPrime 10000
+
+F1E2 =  kk=ZZ/p
+
+F1E3 =  R=kk[t_0,t_1]
+
+F1E4 =  I=ideal 0_R
+
+F1E5 =  L=matrix{{t_0^4,t_0^3*t_1,t_0*t_1^3,t_1^4}}
+
+F1E6 =  J=imageUnderRationalMap(I,L)
+
+F1E7 =  betti J
+
+F2E0 =  setRandomSeed("alpha");
+
+F2E1 =  R=ZZ/32003[x_0..x_2];
+
+F2E2 =  J=(random nodalPlaneCurve)(6,3,R);
+
+F2E3 =  D={J+ideal random(R^1,R^{1:-3}),J+ideal 1_R};
+
+F2E4 =  l=completeLinearSystemOnNodalPlaneCurve(J,D)
+
+F2E5 =  C=imageUnderRationalMap(J,l_0);
+
+F2E6 =  (dim C, degree C, genus C)
+
+F3E0 =  setRandomSeed("alpha");
+
+F3E1 =  R=ZZ/32003[x_0..x_2];
+
+F3E2 =  F=(random nodalPlaneCurve)(8,5,R);
+
+F3E3 =  (dim F, degree F)
+
+F3E4 =  singF = F + ideal jacobian F;
+
+F3E5 =  (dim singF,degree singF)
+
+F3E6 =  R=ZZ/3[x_0..x_2];
+
+F3E7 =  tally apply(3^4,i-> null===((random nodalPlaneCurve)(8,5,R,Certify=>true, Attempts=>1)))
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7"}

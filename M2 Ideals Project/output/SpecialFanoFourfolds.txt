@@ -1,0 +1,365 @@
+needsPackage "SpecialFanoFourfolds"
+
+F0E0 =  X = specialCubicFourfold "quartic scroll";
+
+F0E1 =  describe X
+
+F0E2 =  time U' = associatedK3surface X;
+
+F0E3 =  (mu,U,C,f) = building U';
+
+F0E4 =  ? mu
+
+F0E5 =  ? U
+
+F0E6 =  last C
+
+F0E7 =  assert(image f == U')
+
+F1E0 =  K = ZZ/65521
+
+F1E1 =  ? X
+
+F1E2 =  time parametrizeFanoFourfold X
+
+F2E0 =  select(140,isAdmissibleGM)
+
+F3E0 =  K = ZZ/10000019
+
+F3E1 =  X = specialCubicFourfold S;
+
+F3E2 =  time f = unirationalParametrization X;
+
+F3E3 =  degreeSequence f
+
+F3E4 =  degree(f,Strategy=>"random point")
+
+F4E0 =  select(150,isAdmissible)
+
+F5E0 =  X = PP_(ZZ/65521)^(2,2);
+
+F5E1 =  Y = random(2,X);
+
+F5E2 =  N = normalSheaf X;
+
+F5E3 =  N' = normalSheaf(X,Y);
+
+F5E4 =  rank HH^0 N
+
+F5E5 =  rank HH^0 N'
+
+F6E0 =  X = specialGushelMukaiFourfold "quintic del Pezzo surface";
+
+F6E1 =  singularLocus ambientFivefold X
+
+F6E2 =  X' = < X;
+
+F6E3 =  support singularLocus ambientFivefold X'
+
+F7E0 =  X = specialGushelMukaiFourfold "tau-quadric";
+
+F7E1 =  time discriminant X
+
+F8E0 =  describe (X = specialFourfold "tau-quadric")
+
+F8E1 =  str = toExternalString X;
+
+F8E2 =  describe (value str)
+
+F9E0 =  X = specialFourfold "quartic scroll"
+
+F9E1 =  X' = clean X
+
+F9E2 =  X === X'
+
+F10E0 =  x = gens ring PP_(ZZ/33331)^8;
+
+F10E1 =  X = projectiveVariety ideal(x_4*x_6-x_3*x_7+x_1*x_8, x_4*x_5-x_2*x_7+x_0*x_8, x_3*x_5-x_2*x_6+x_0*x_8+x_1*x_8-x_5*x_8, x_1*x_5-x_0*x_6+x_0*x_7+x_1*x_7-x_5*x_7, x_1*x_2-x_0*x_3+x_0*x_4+x_1*x_4-x_2*x_7+x_0*x_8);
+
+F10E2 =  time toGrass X
+
+F10E3 =  show oo
+
+F11E0 =  S = PP_(ZZ/65521)[2,2];
+
+F11E1 =  Y = ambient S;
+
+F11E2 =  X = specialCubicFourfold S;
+
+F11E3 =  f = detectCongruence(X,1);
+
+F11E4 =  F = map f;
+
+F11E5 =  Q = target F
+
+F11E6 =  f;
+
+F11E7 =  p = point Y;
+
+F11E8 =  assert(f p == F^* F p)
+
+F12E0 =  X = specialGushelMukaiFourfold "tau-quadric";
+
+F12E1 =  describe X
+
+F12E2 =  time U' = associatedK3surface X;
+
+F12E3 =  (mu,U,C,f) = building U';
+
+F12E4 =  ? mu
+
+F12E5 =  ? U
+
+F12E6 =  first C -- two disjoint lines
+
+F12E7 =  assert(image f == U')
+
+F13E0 =  X = specialCubicFourfold("3-nodal septic scroll",ZZ/65521);
+
+F13E1 =  describe X
+
+F14E0 =  S = surface {3,4};
+
+F14E1 =  X = specialFourfold S -- a random cubic fourfold through S
+
+F14E2 =  describe X
+
+F14E3 =  Y = specialFourfold "tau-quadric" -- a random GM fourfold through a tau-quadric
+
+F14E4 =  describe Y
+
+F14E5 =  T = surface {3,2};
+
+F14E6 =  Z = specialFourfold T -- a random c. i. of 3 quadrics through T
+
+F14E7 =  describe Z
+
+F15E0 =  X = specialFourfold "quintic del Pezzo surface";
+
+F15E1 =  V = ambientFivefold X;
+
+F15E2 =  S = surface X;
+
+F15E3 =  assert isSubset(S,X)
+
+F16E0 =  K = ZZ/33331
+
+F16E1 =  X = specialCubicFourfold V;
+
+F16E2 =  time parameterCount(X,Verbose=>true)
+
+F16E3 =  discriminant X
+
+F17E0 =  K = ZZ/33331
+
+F17E1 =  S = projectiveVariety ideal(x_0*x_2*x_3-2*x_1*x_2*x_3-x_1*x_3^2-x_2*x_3^2-x_0*x_1*x_4+2*x_1^2*x_4-x_1*x_2*x_4+x_2^2*x_4+2*x_0*x_3*x_4-x_1*x_3*x_4-x_1*x_4^2+x_1*x_3*x_5, x_1^2*x_3-4*x_1*x_2*x_3-x_0*x_3^2-3*x_1*x_3^2-2*x_2*x_3^2+2*x_0^2*x_4-9*x_0*x_1*x_4+11*x_1^2*x_4-x_0*x_2*x_4-2*x_1*x_2*x_4+2*x_2^2*x_4+12*x_0*x_3*x_4-7*x_1*x_3*x_4-4*x_3^2*x_4+x_0*x_4^2-6*x_1*x_4^2+4*x_2*x_4^2-2*x_3*x_4^2-2*x_4^3-x_0*x_1*x_5+x_1^2*x_5+2*x_1*x_2*x_5+3*x_0*x_3*x_5+2*x_1*x_3*x_5-x_3^2*x_5-x_0*x_4*x_5-4*x_1*x_4*x_5+3*x_2*x_4*x_5+2*x_3*x_4*x_5-x_1*x_5^2, x_0*x_1*x_3-7*x_1*x_2*x_3-3*x_0*x_3^2-4*x_1*x_3^2-3*x_2*x_3^2+x_3^3+3*x_0^2*x_4-14*x_0*x_1*x_4+17*x_1^2*x_4-x_0*x_2*x_4-3*x_1*x_2*x_4+3*x_2^2*x_4+19*x_0*x_3*x_4-9*x_1*x_3*x_4-x_2*x_3*x_4-6*x_3^2*x_4+x_0*x_4^2-9*x_1*x_4^2+6*x_2*x_4^2-3*x_3*x_4^2-3*x_4^3-2*x_0*x_1*x_5+2*x_1^2*x_5+4*x_1*x_2*x_5+5*x_0*x_3*x_5+4*x_1*x_3*x_5-2*x_3^2*x_5-2*x_0*x_4*x_5-7*x_1*x_4*x_5+5*x_2*x_4*x_5+3*x_3*x_4*x_5-2*x_1*x_5^2, x_0^2*x_3-12*x_1*x_2*x_3-6*x_0*x_3^2-6*x_1*x_3^2-5*x_2*x_3^2+2*x_3^3+5*x_0^2*x_4-24*x_0*x_1*x_4+29*x_1^2*x_4-x_0*x_2*x_4-5*x_1*x_2*x_4+5*x_2^2*x_4+32*x_0*x_3*x_4-14*x_1*x_3*x_4-2*x_2*x_3*x_4-10*x_3^2*x_4+x_0*x_4^2-15*x_1*x_4^2+10*x_2*x_4^2-5*x_3*x_4^2-5*x_4^3-3*x_0*x_1*x_5+3*x_1^2*x_5+6*x_1*x_2*x_5+8*x_0*x_3*x_5+7*x_1*x_3*x_5-3*x_3^2*x_5-3*x_0*x_4*x_5-11*x_1*x_4*x_5+8*x_2*x_4*x_5+5*x_3*x_4*x_5-3*x_1*x_5^2, x_1*x_2^2+6*x_1*x_2*x_3+2*x_0*x_3^2+3*x_1*x_3^2+2*x_2*x_3^2-x_3^3-3*x_0^2*x_4+12*x_0*x_1*x_4-14*x_1^2*x_4-2*x_2^2*x_4-15*x_0*x_3*x_4+6*x_1*x_3*x_4+x_2*x_3*x_4+5*x_3^2*x_4+x_0*x_4^2+8*x_1*x_4^2-5*x_2*x_4^2+2*x_3*x_4^2+2*x_4^3+x_0*x_1*x_5-2*x_1^2*x_5-4*x_1*x_2*x_5-4*x_0*x_3*x_5-3*x_1*x_3*x_5+2*x_3^2*x_5+2*x_0*x_4*x_5+7*x_1*x_4*x_5-4*x_2*x_4*x_5-2*x_3*x_4*x_5+2*x_1*x_5^2, x_0*x_2^2+10*x_1*x_2*x_3+3*x_0*x_3^2+5*x_1*x_3^2+4*x_2*x_3^2-x_3^3-5*x_0^2*x_4+19*x_0*x_1*x_4-22*x_1^2*x_4-x_0*x_2*x_4+3*x_1*x_2*x_4-4*x_2^2*x_4-24*x_0*x_3*x_4+9*x_1*x_3*x_4+x_2*x_3*x_4+8*x_3^2*x_4+2*x_0*x_4^2+11*x_1*x_4^2-7*x_2*x_4^2+4*x_3*x_4^2+3*x_4^3+2*x_0*x_1*x_5-4*x_1^2*x_5-7*x_1*x_2*x_5-7*x_0*x_3*x_5-5*x_1*x_3*x_5-x_2*x_3*x_5+3*x_3^2*x_5+4*x_0*x_4*x_5+12*x_1*x_4*x_5-7*x_2*x_4*x_5-3*x_3*x_4*x_5+4*x_1*x_5^2, x_1^2*x_2+17*x_1*x_2*x_3+6*x_0*x_3^2+9*x_1*x_3^2+7*x_2*x_3^2-2*x_3^3-9*x_0^2*x_4+36*x_0*x_1*x_4-44*x_1^2*x_4+3*x_0*x_2*x_4+5*x_1*x_2*x_4-7*x_2^2*x_4-47*x_0*x_3*x_4+21*x_1*x_3*x_4+2*x_2*x_3*x_4+16*x_3^2*x_4+24*x_1*x_4^2-16*x_2*x_4^2+7*x_3*x_4^2+7*x_4^3+3*x_0*x_1*x_5-6*x_1^2*x_5-9*x_1*x_2*x_5-12*x_0*x_3*x_5-8*x_1*x_3*x_5+5*x_3^2*x_5+5*x_0*x_4*x_5+19*x_1*x_4*x_5-12*x_2*x_4*x_5-7*x_3*x_4*x_5+5*x_1*x_5^2, x_0*x_1*x_2+29*x_1*x_2*x_3+11*x_0*x_3^2+15*x_1*x_3^2+12*x_2*x_3^2-4*x_3^3-16*x_0^2*x_4+62*x_0*x_1*x_4-74*x_1^2*x_4+5*x_0*x_2*x_4+9*x_1*x_2*x_4-12*x_2^2*x_4-80*x_0*x_3*x_4+35*x_1*x_3*x_4+4*x_2*x_3*x_4+27*x_3^2*x_4+40*x_1*x_4^2-27*x_2*x_4^2+12*x_3*x_4^2+12*x_4^3+5*x_0*x_1*x_5-10*x_1^2*x_5-16*x_1*x_2*x_5-21*x_0*x_3*x_5-14*x_1*x_3*x_5+9*x_3^2*x_5+9*x_0*x_4*x_5+33*x_1*x_4*x_5-21*x_2*x_4*x_5-12*x_3*x_4*x_5+9*x_1*x_5^2, x_0^2*x_2+49*x_1*x_2*x_3+19*x_0*x_3^2+25*x_1*x_3^2+20*x_2*x_3^2-7*x_3^3-28*x_0^2*x_4+106*x_0*x_1*x_4-124*x_1^2*x_4+8*x_0*x_2*x_4+16*x_1*x_2*x_4-20*x_2^2*x_4-134*x_0*x_3*x_4+58*x_1*x_3*x_4+7*x_2*x_3*x_4+45*x_3^2*x_4+66*x_1*x_4^2-45*x_2*x_4^2+20*x_3*x_4^2+20*x_4^3+9*x_0*x_1*x_5-18*x_1^2*x_5-28*x_1*x_2*x_5-37*x_0*x_3*x_5-23*x_1*x_3*x_5+16*x_3^2*x_5+16*x_0*x_4*x_5+57*x_1*x_4*x_5-36*x_2*x_4*x_5-20*x_3*x_4*x_5+16*x_1*x_5^2, x_1^3+47*x_1*x_2*x_3+18*x_0*x_3^2+23*x_1*x_3^2+19*x_2*x_3^2-7*x_3^3-24*x_0^2*x_4+97*x_0*x_1*x_4-117*x_1^2*x_4+8*x_0*x_2*x_4+16*x_1*x_2*x_4-19*x_2^2*x_4-127*x_0*x_3*x_4+54*x_1*x_3*x_4+7*x_2*x_3*x_4+42*x_3^2*x_4-x_0*x_4^2+62*x_1*x_4^2-42*x_2*x_4^2+19*x_3*x_4^2+19*x_4^3+9*x_0*x_1*x_5-16*x_1^2*x_5-25*x_1*x_2*x_5-33*x_0*x_3*x_5-23*x_1*x_3*x_5+14*x_3^2*x_5+14*x_0*x_4*x_5+51*x_1*x_4*x_5-33*x_2*x_4*x_5-19*x_3*x_4*x_5+14*x_1*x_5^2, x_0*x_1^2+79*x_1*x_2*x_3+29*x_0*x_3^2+40*x_1*x_3^2+32*x_2*x_3^2-11*x_3^3-41*x_0^2*x_4+164*x_0*x_1*x_4-196*x_1^2*x_4+14*x_0*x_2*x_4+26*x_1*x_2*x_4-32*x_2^2*x_4-214*x_0*x_3*x_4+92*x_1*x_3*x_4+11*x_2*x_3*x_4+71*x_3^2*x_4-2*x_0*x_4^2+105*x_1*x_4^2-71*x_2*x_4^2+32*x_3*x_4^2+32*x_4^3+14*x_0*x_1*x_5-26*x_1^2*x_5-41*x_1*x_2*x_5-55*x_0*x_3*x_5-38*x_1*x_3*x_5+23*x_3^2*x_5+23*x_0*x_4*x_5+85*x_1*x_4*x_5-55*x_2*x_4*x_5-32*x_3*x_4*x_5+23*x_1*x_5^2, x_0^2*x_1+133*x_1*x_2*x_3+48*x_0*x_3^2+68*x_1*x_3^2+54*x_2*x_3^2-18*x_3^3-70*x_0^2*x_4+278*x_0*x_1*x_4-330*x_1^2*x_4+24*x_0*x_2*x_4+44*x_1*x_2*x_4-54*x_2^2*x_4-361*x_0*x_3*x_4+156*x_1*x_3*x_4+18*x_2*x_3*x_4+120*x_3^2*x_4-4*x_0*x_4^2+177*x_1*x_4^2-120*x_2*x_4^2+54*x_3*x_4^2+54*x_4^3+23*x_0*x_1*x_5-44*x_1^2*x_5-69*x_1*x_2*x_5-93*x_0*x_3*x_5-63*x_1*x_3*x_5+39*x_3^2*x_5+39*x_0*x_4*x_5+144*x_1*x_4*x_5-93*x_2*x_4*x_5-54*x_3*x_4*x_5+39*x_1*x_5^2, x_0^3+224*x_1*x_2*x_3+80*x_0*x_3^2+115*x_1*x_3^2+91*x_2*x_3^2-30*x_3^3-119*x_0^2*x_4+470*x_0*x_1*x_4-555*x_1^2*x_4+41*x_0*x_2*x_4+75*x_1*x_2*x_4-91*x_2^2*x_4-608*x_0*x_3*x_4+263*x_1*x_3*x_4+30*x_2*x_3*x_4+202*x_3^2*x_4-8*x_0*x_4^2+297*x_1*x_4^2-202*x_2*x_4^2+91*x_3*x_4^2+91*x_4^3+39*x_0*x_1*x_5-76*x_1^2*x_5-118*x_1*x_2*x_5-158*x_0*x_3*x_5-105*x_1*x_3*x_5+67*x_3^2*x_5+68*x_0*x_4*x_5+245*x_1*x_4*x_5-158*x_2*x_4*x_5-91*x_3*x_4*x_5+67*x_1*x_5^2);
+
+F17E2 =  X = projectiveVariety ideal(x_1^2*x_3+x_0*x_2*x_3-6*x_1*x_2*x_3-x_0*x_3^2-4*x_1*x_3^2-3*x_2*x_3^2+2*x_0^2*x_4-10*x_0*x_1*x_4+13*x_1^2*x_4-x_0*x_2*x_4-3*x_1*x_2*x_4+3*x_2^2*x_4+14*x_0*x_3*x_4-8*x_1*x_3*x_4-4*x_3^2*x_4+x_0*x_4^2-7*x_1*x_4^2+4*x_2*x_4^2-2*x_3*x_4^2-2*x_4^3-x_0*x_1*x_5+x_1^2*x_5+2*x_1*x_2*x_5+3*x_0*x_3*x_5+3*x_1*x_3*x_5-x_3^2*x_5-x_0*x_4*x_5-4*x_1*x_4*x_5+3*x_2*x_4*x_5+2*x_3*x_4*x_5-x_1*x_5^2);
+
+F17E3 =  time F = specialCubicFourfold(S,X,NumNodes=>3);
+
+F17E4 =  time describe F
+
+F17E5 =  assert(F == X)
+
+F18E0 =  X = specialFourfold surface {3,4};
+
+F18E1 =  phi = parametrize X;
+
+F18E2 =  describe phi
+
+F18E3 =  Y = specialFourfold "tau-quadric";
+
+F18E4 =  psi = parametrize Y;
+
+F18E5 =  describe psi
+
+F18E6 =  Z = specialFourfold "plane in PP^7";
+
+F18E7 =  eta = parametrize Z;
+
+F18E8 =  describe eta
+
+F19E0 =  (B,V,C) := GMtables(1,ZZ/33331)
+
+F19E1 =  B * V == C
+
+F19E2 =  psi = rationalMap(ideal B,Dominant=>2);
+
+F19E3 =  X = specialGushelMukaiFourfold psi ideal V;
+
+F19E4 =  specialGushelMukaiFourfold("1",ZZ/33331);
+
+F20E0 =  -- A general cubic fourfold of discriminant 26
+
+F20E1 =  describe X
+
+F20E2 =  time f = detectCongruence(X,Verbose=>true);
+
+F20E3 =  p := point ambient X -- random point on P^5
+
+F20E4 =  time C = f p; -- 5-secant conic to the surface
+
+F20E5 =  assert(dim C == 1 and degree C == 2 and dim(C * surface X) == 0 and degree(C * surface X) == 5 and isSubset(p, C))
+
+F21E0 =  -- quintic del Pezzo surface
+
+F21E1 =  X = specialCubicFourfold S;
+
+F21E2 =  discriminant X
+
+F22E0 =  K = ZZ/33331
+
+F22E1 =  S = projectiveVariety ideal(x_6-x_7, x_5, x_3-x_4, x_1, x_0-x_4, x_2*x_7-x_4*x_8);
+
+F22E2 =  X = projectiveVariety ideal(x_4*x_6-x_3*x_7+x_1*x_8, x_4*x_5-x_2*x_7+x_0*x_8, x_3*x_5-x_2*x_6+x_0*x_8+x_1*x_8-x_5*x_8, x_1*x_5-x_0*x_6+x_0*x_7+x_1*x_7-x_5*x_7, x_1*x_2-x_0*x_3+x_0*x_4+x_1*x_4-x_2*x_7+x_0*x_8, x_0^2+x_0*x_1+x_1^2+x_0*x_2+2*x_0*x_3+x_1*x_3+x_2*x_3+x_3^2-x_0*x_4-x_1*x_4-2*x_2*x_4-x_3*x_4-2*x_4^2+x_0*x_5+x_2*x_5+x_5^2+2*x_0*x_6+x_1*x_6+2*x_2*x_6+x_3*x_6+x_5*x_6+x_6^2-3*x_4*x_7+2*x_5*x_7-x_7^2+x_1*x_8+x_3*x_8-3*x_4*x_8+2*x_5*x_8+x_6*x_8-x_7*x_8);
+
+F22E3 =  time F = specialGushelMukaiFourfold(S,X);
+
+F22E4 =  time describe F
+
+F22E5 =  assert(F == X)
+
+F23E0 =  X = specialFourfold(PP_(ZZ/65521)[2,2]);
+
+F23E1 =  W = mirrorFourfold X;
+
+F23E2 =  U = surface W;
+
+F23E3 =  mirrorFourfold W
+
+F23E4 =  (building associatedK3surface X)_1
+
+F23E5 =  assert(oo === U)
+
+F23E6 =  X' = specialFourfold "tau-quadric";
+
+F23E7 =  W' = mirrorFourfold X';
+
+F23E8 =  U' = surface W';
+
+F23E9 =  mirrorFourfold W'
+
+F23E10 =  (building associatedK3surface X')_1
+
+F23E11 =  assert(oo === U')
+
+F24E0 =  Y = GG(ZZ/33331,1,4);
+
+F24E1 =  -- cubic scroll in G(1,4)
+
+F24E2 =  X = specialGushelMukaiFourfold S;
+
+F24E3 =  discriminant X
+
+F25E0 =  X = specialGushelMukaiFourfold([4, 3, 2],[2, 0, 2]);
+
+F25E1 =  describe X
+
+F25E2 =  (B,C) = X.cache#"Construction";
+
+F25E3 =  S = ambientVariety C;
+
+F25E4 =  C;
+
+F25E5 =  B;
+
+F25E6 =  assert(C == S * B)
+
+F26E0 =  S = surface {7,3,9};
+
+F26E1 =  coefficientRing S
+
+F26E2 =  T = surface({7,3,9},ZZ/33331);
+
+F26E3 =  X = specialCubicFourfold T;
+
+F26E4 =  coefficientRing X
+
+F26E5 =  describe X
+
+F27E0 =  X = specialCubicFourfold "quintic del Pezzo surface";
+
+F27E1 =  time discriminant X
+
+F28E0 =  S = surface {4,5,1};
+
+F28E1 =  V = random(3,S);
+
+F28E2 =  X = V * random(2,S);
+
+F28E3 =  F = specialFourfold(S,X,V);
+
+F28E4 =  ambientFivefold F
+
+F28E5 =  X = specialFourfold("21",ZZ/33331);
+
+F28E6 =  describe X
+
+F28E7 =  Y = ambientFivefold X;
+
+F28E8 =  isSubset(X,Y)
+
+F28E9 =  Y!
+
+F29E0 =  G = GG(ZZ/33331,1,4);
+
+F29E1 =  S = (schubertCycle({2,0},G) * random({{1},{1}},0_G))%G
+
+F29E2 =  X = specialGushelMukaiFourfold S;
+
+F29E3 =  time parameterCount(X,Verbose=>true)
+
+F29E4 =  discriminant X
+
+F30E0 =  K = ZZ/33331
+
+F30E1 =  X = random({{2},{2},{2}},S);
+
+F30E2 =  time parameterCount(S,X,Verbose=>true)
+
+F31E0 =  X = fanoFourfold(4,1);
+
+F31E1 =  describe X
+
+F31E2 =  parametrize X
+
+F32E0 =  X = specialGushelMukaiFourfold("cubic scroll",ZZ/65521);
+
+F32E1 =  describe X
+
+F33E0 =  x = gens ring PP_(ZZ/33331)^8;
+
+F33E1 =  X = specialGushelMukaiFourfold(ideal(x_6-x_7, x_5, x_3-x_4, x_1, x_0-x_4, x_2*x_7-x_4*x_8), ideal(x_4*x_6-x_3*x_7+x_1*x_8, x_4*x_5-x_2*x_7+x_0*x_8, x_3*x_5-x_2*x_6+x_0*x_8+x_1*x_8-x_5*x_8, x_1*x_5-x_0*x_6+x_0*x_7+x_1*x_7-x_5*x_7, x_1*x_2-x_0*x_3+x_0*x_4+x_1*x_4-x_2*x_7+x_0*x_8, x_0^2+x_0*x_1+x_1^2+x_0*x_2+2*x_0*x_3+x_1*x_3+x_2*x_3+x_3^2-x_0*x_4-x_1*x_4-2*x_2*x_4-x_3*x_4-2*x_4^2+x_0*x_5+x_2*x_5+x_5^2+2*x_0*x_6+x_1*x_6+2*x_2*x_6+x_3*x_6+x_5*x_6+x_6^2-3*x_4*x_7+2*x_5*x_7-x_7^2+x_1*x_8+x_3*x_8-3*x_4*x_8+2*x_5*x_8+x_6*x_8-x_7*x_8));
+
+F33E2 =  time toGrass X
+
+F33E3 =  show oo
+
+F34E0 =  -- A GM fourfold of discriminant 20
+
+F34E1 =  describe X
+
+F34E2 =  time f = detectCongruence(X,Verbose=>true);
+
+F34E3 =  Y = ambientFivefold X; -- del Pezzo fivefold containing X
+
+F34E4 =  p := point Y -- random point on Y
+
+F34E5 =  time C = f p; -- 3-secant conic to the surface
+
+F34E6 =  S = surface X;
+
+F34E7 =  assert(dim C == 1 and degree C == 2 and dim(C*S) == 0 and degree(C*S) == 3 and isSubset(p,C) and isSubset(C,Y))
+
+F35E0 =  X = specialCubicFourfold surface {3,4};
+
+F35E1 =  f = detectCongruence(X,1);
+
+F35E2 =  C = f point ambient X;
+
+F35E3 =  member(C,f)
+
+F35E4 =  assert oo
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F1E0", "F1E1", "F1E2", "F2E0", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F4E0", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F13E0", "F13E1", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F15E0", "F15E1", "F15E2", "F15E3", "F16E0", "F16E1", "F16E2", "F16E3", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F21E0", "F21E1", "F21E2", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7", "F23E8", "F23E9", "F23E10", "F23E11", "F24E0", "F24E1", "F24E2", "F24E3", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F27E0", "F27E1", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F28E8", "F28E9", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F30E0", "F30E1", "F30E2", "F31E0", "F31E1", "F31E2", "F32E0", "F32E1", "F33E0", "F33E1", "F33E2", "F33E3", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4"}

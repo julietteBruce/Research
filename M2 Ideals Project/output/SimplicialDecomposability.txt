@@ -1,0 +1,131 @@
+needsPackage "SimplicialDecomposability"
+
+F0E0 =  R = ZZ[a..e];
+
+F0E1 =  smplex = simplicialComplex{a*b*c*d*e}
+
+F0E2 =  hVector smplex
+
+F0E3 =  R = ZZ[x_1..x_5];
+
+F0E4 =  delta = simplicialComplex{x_1*x_2*x_3,x_2*x_4,x_3*x_5}
+
+F0E5 =  hVector delta
+
+F0E6 =  grading = {{1,0,0},{1,0,0},{1,0,0},{0,1,0},{0,0,1}};
+
+F0E7 =  R = ZZ[x_1,x_2,x_3,y,z, Degrees => grading];
+
+F0E8 =  gamma = simplicialComplex{x_1*y*z,x_2*y,x_3*z}
+
+F0E9 =  hVector(gamma, Flag => true)
+
+F1E0 =  R = QQ[a..d];
+
+F1E1 =  isSimplex simplicialComplex {a*b*c*d}
+
+F1E2 =  isSimplex simplicialComplex {a*b}
+
+F1E3 =  isSimplex simplicialComplex {a*b, c*d}
+
+F2E0 =  R = QQ[a..f];
+
+F2E1 =  S = simplicialComplex {a*b*c, c*d, d*e, e*f, d*f};
+
+F2E2 =  isSheddingVertex(a, S)
+
+F2E3 =  isSheddingVertex(f, S)
+
+F3E0 =  R = QQ[a..f];
+
+F3E1 =  isVertexDecomposable simplicialComplex {a*b*c*d*e}
+
+F3E2 =  isVertexDecomposable skeleton(3, simplicialComplex {a*b*c*d*e})
+
+F3E3 =  isVertexDecomposable simplicialComplex {a*b*c, c*d*e}
+
+F3E4 =  isVertexDecomposable simplicialComplex {a*b*c, c*d, d*e, e*f, d*f}
+
+F4E0 =  R = QQ[a..f];
+
+F4E1 =  isShellable simplicialComplex {a*b*c*d*e}
+
+F4E2 =  isShellable simplicialComplex {a*b*c, c*d*e}
+
+F4E3 =  isShellable simplicialComplex {a*b*c, b*c*d, c*d*e}
+
+F4E4 =  isShellable simplicialComplex {a*b*c, c*d, d*e, e*f, d*f}
+
+F4E5 =  isShellable simplicialComplex {a*b*c, c*d, d*e*f}
+
+F5E0 =  R = QQ[a..e];
+
+F5E1 =  S = simplicialComplex {a*b*c*d*e};
+
+F5E2 =  allFaces S
+
+F5E3 =  allFaces(2, S)
+
+F6E0 =  R = QQ[a..e];
+
+F6E1 =  T = simplicialComplex {a*b*c, b*c*d, c*d*e};
+
+F6E2 =  isSheddingFace(b*d, T)
+
+F6E3 =  isSheddingFace(b*c*d, T)
+
+F7E0 =  R = QQ[a..f];
+
+F7E1 =  shellingOrder simplicialComplex {a*b*c*d*e}
+
+F7E2 =  shellingOrder simplicialComplex {a*b*c, b*c*d, c*d*e}
+
+F7E3 =  shellingOrder simplicialComplex {a*b*c, c*d*e}
+
+F7E4 =  shellingOrder simplicialComplex {a*b*c, c*d, d*e, e*f, d*f}
+
+F7E5 =  shellingOrder simplicialComplex {a*b*c, c*d, d*e*f}
+
+F7E6 =  S = simplicialComplex {a*b*c, b*c*d, c*d*e, d*e*f};
+
+F7E7 =  shellingOrder S
+
+F7E8 =  shellingOrder(S, Random => true)
+
+F7E9 =  shellingOrder(S, Permutation => {3,2,1,0})
+
+F8E0 =  R = QQ[a..e];
+
+F8E1 =  hTriangle simplicialComplex {a*b*c, c*d*e, a*d, a*e, b*d, b*e}
+
+F8E2 =  hTriangle simplicialComplex {a*b*c*d*e}
+
+F9E0 =  R = QQ[a..e];
+
+F9E1 =  isShelling {a*b*c, b*c*d, c*d*e}
+
+F9E2 =  isShelling {a*b*c, c*d*e, b*c*d}
+
+F10E0 =  R = QQ[a..e];
+
+F10E1 =  S = simplicialComplex {a*b*c*d*e};
+
+F10E2 =  faceDelete(a, S)
+
+F10E3 =  faceDelete(a*b*c, S)
+
+F10E4 =  faceDelete(a*b*c*d*e, S) === skeleton(3, S)
+
+F11E0 =  R = QQ[a..f];
+
+F11E1 =  isDecomposable(0, simplicialComplex {a*b*c*d*e*f})
+
+F11E2 =  isDecomposable(2, simplicialComplex {a*b*c, b*c*d, c*d*e})
+
+F12E0 =  R = QQ[a..e];
+
+F12E1 =  fTriangle simplicialComplex {a*b*c, c*d*e, a*d, a*e, b*d, b*e}
+
+F12E2 =  fTriangle simplicialComplex {a*b*c*d*e}
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F11E0", "F11E1", "F11E2", "F12E0", "F12E1", "F12E2"}

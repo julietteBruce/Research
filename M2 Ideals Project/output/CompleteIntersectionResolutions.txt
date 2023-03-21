@@ -1,4 +1,4 @@
-needsPackage "package_directory/CompleteIntersectionResolutions/example-output"
+needsPackage "CompleteIntersectionResolutions"
 
 F0E0 =  c = 3;d=2
 
@@ -318,15 +318,13 @@ F12E2 =  R = S/ideal ff;
 
 F12E3 =  M = coker matrix"x,y,z
 
-F12E4 =  y,z,x"
+F12E4 =  betti (F = res M)
 
-F12E5 =  betti (F = res M)
+F12E5 =  T = makeT(ff,F,3);
 
-F12E6 =  T = makeT(ff,F,3);
+F12E6 =  netList T
 
-F12E7 =  netList T
-
-F12E8 =  isHomogeneous T_2
+F12E7 =  isHomogeneous T_2
 
 F13E0 =  setRandomSeed 100
 
@@ -350,69 +348,67 @@ F13E9 =  netList BRanks matrixFactorization(ff, highSyzygy M0)
 
 F14E0 =  n = 3
 
-F14E1 =  c=2
+F14E1 =  R = ZZ/101[x_0..x_(n-1)]
 
-F14E2 =  R = ZZ/101[x_0..x_(n-1)]
+F14E2 =  Rbar = R/(ideal apply(c, i-> R_i^3))
 
-F14E3 =  Rbar = R/(ideal apply(c, i-> R_i^3))
+F14E3 =  Mbar = Nbar = coker vars Rbar
 
-F14E4 =  Mbar = Nbar = coker vars Rbar
+F14E4 =  E = newExt(Mbar,Nbar)
 
-F14E5 =  E = newExt(Mbar,Nbar)
+F14E5 =  tally degrees E
 
-F14E6 =  tally degrees E
+F14E6 =  annihilator E
 
-F14E7 =  annihilator E
+F14E7 =  setRandomSeed 0
 
-F14E8 =  setRandomSeed 0
+F14E8 =  n = 3
 
-F14E9 =  n = 3
+F14E9 =  c = 3
 
-F14E10 =  c = 3
+F14E10 =  kk = ZZ/101
 
-F14E11 =  kk = ZZ/101
+F14E11 =  R = kk[x_0..x_(n-1)]
 
-F14E12 =  R = kk[x_0..x_(n-1)]
+F14E12 =  I = ideal apply(c, i->R_i^2)
 
-F14E13 =  I = ideal apply(c, i->R_i^2)
+F14E13 =  ff = gens I
 
-F14E14 =  ff = gens I
+F14E14 =  Rbar = R/I
 
-F14E15 =  Rbar = R/I
+F14E15 =  bar = map(Rbar, R)
 
-F14E16 =  bar = map(Rbar, R)
+F14E16 =  K = coker vars Rbar
 
-F14E17 =  K = coker vars Rbar
+F14E17 =  Mbar = prune coker random(Rbar^2, Rbar^{-2,-2})
 
-F14E18 =  Mbar = prune coker random(Rbar^2, Rbar^{-2,-2})
+F14E18 =  ES = newExt(Mbar,K,Lift => true)
 
-F14E19 =  ES = newExt(Mbar,K,Lift => true)
+F14E19 =  S = ring ES
 
-F14E20 =  S = ring ES
+F14E20 =  EE = Ext(Mbar,K);
 
-F14E21 =  EE = Ext(Mbar,K);
+F14E21 =  S' = ring EE -- note that S' is the polynomial ring
 
-F14E22 =  S' = ring EE -- note that S' is the polynomial ring
+F14E22 =  A = res ES
 
-F14E23 =  A = res ES
+F14E23 =  B = res EE
 
-F14E24 =  B = res EE
+F14E24 =  all(length A+1, i-> sort degrees A_i == sort degrees B_i)
 
-F14E25 =  all(length A+1, i-> sort degrees A_i == sort degrees B_i)
+F14E25 =  ann EE
 
-F14E26 =  ann EE
+F14E26 =  ann ES
 
-F14E27 =  ann ES
+F14E27 =  EEtoES = map(ring ES,ring EE, gens ring ES)
 
-F14E28 =  EEtoES = map(ring ES,ring EE, gens ring ES)
+F14E28 =  EE' = coker EEtoES presentation EE
 
-F14E29 =  EE' = coker EEtoES presentation EE
+F14E29 =  H = Hom(EE',ES);
 
-F14E30 =  H = Hom(EE',ES);
+F14E30 =  Q = positions(degrees target presentation H, i-> i == {0,0})
 
-F14E31 =  Q = positions(degrees target presentation H, i-> i == {0,0})
-
-F14E32 =  f = sum(Q, p-> random (S^1, S^1)**homomorphism H_{p})
+F14E31 =  f = sum(Q, p-> random (S^1, S^1)**homomorphism H_{p})
 
 F15E0 =  setRandomSeed 0
 
@@ -976,4 +972,4 @@ F38E11 =  ring GG
 
 F38E12 =  apply(length GG, i->prune HH_i FF)
 
-exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F3E23", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F4E13", "F4E14", "F4E15", "F4E16", "F4E17", "F4E18", "F4E19", "F4E20", "F4E21", "F4E22", "F4E23", "F4E24", "F4E25", "F4E26", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F14E27", "F14E28", "F14E29", "F14E30", "F14E31", "F14E32", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23", "F22E0", "F22E1", "F23E0", "F23E1", "F23E2", "F23E3", "F24E0", "F24E1", "F24E2", "F24E3", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F28E8", "F29E0", "F29E1", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17", "F30E18", "F30E19", "F30E20", "F30E21", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F31E7", "F31E8", "F31E9", "F31E10", "F31E11", "F31E12", "F31E13", "F31E14", "F31E15", "F31E16", "F31E17", "F31E18", "F31E19", "F31E20", "F31E21", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12", "F33E13", "F33E14", "F33E15", "F33E16", "F33E17", "F33E18", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15", "F34E16", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F35E6", "F35E7", "F35E8", "F35E9", "F35E10", "F35E11", "F35E12", "F36E0", "F36E1", "F36E2", "F36E3", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F37E11", "F37E12", "F37E13", "F37E14", "F37E15", "F37E16", "F37E17", "F37E18", "F37E19", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F38E11", "F38E12"}
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F3E23", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F4E13", "F4E14", "F4E15", "F4E16", "F4E17", "F4E18", "F4E19", "F4E20", "F4E21", "F4E22", "F4E23", "F4E24", "F4E25", "F4E26", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F14E27", "F14E28", "F14E29", "F14E30", "F14E31", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23", "F22E0", "F22E1", "F23E0", "F23E1", "F23E2", "F23E3", "F24E0", "F24E1", "F24E2", "F24E3", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F28E8", "F29E0", "F29E1", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17", "F30E18", "F30E19", "F30E20", "F30E21", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F31E7", "F31E8", "F31E9", "F31E10", "F31E11", "F31E12", "F31E13", "F31E14", "F31E15", "F31E16", "F31E17", "F31E18", "F31E19", "F31E20", "F31E21", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12", "F33E13", "F33E14", "F33E15", "F33E16", "F33E17", "F33E18", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15", "F34E16", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F35E6", "F35E7", "F35E8", "F35E9", "F35E10", "F35E11", "F35E12", "F36E0", "F36E1", "F36E2", "F36E3", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F37E11", "F37E12", "F37E13", "F37E14", "F37E15", "F37E16", "F37E17", "F37E18", "F37E19", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F38E11", "F38E12"}

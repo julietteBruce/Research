@@ -1,0 +1,457 @@
+needsPackage "IntegralClosure"
+
+F0E0 =  R=ZZ/3[u,v,x,y]/ideal(u*x^2-v*y^2);
+
+F0E1 =  icFracP(R, Verbosity => 1)
+
+F0E2 =  icPIdeal(x, x^2, 3)
+
+F1E0 =  R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4-z^3);
+
+F1E1 =  R' = integralClosure(R, Variable => symbol t)
+
+F1E2 =  trim ideal R'
+
+F2E0 =  R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4-z^3);
+
+F2E1 =  R' = integralClosure R
+
+F2E2 =  gens R'
+
+F2E3 =  icFractions R
+
+F2E4 =  icMap R
+
+F2E5 =  I = trim ideal R'
+
+F2E6 =  S = ZZ/101[a..d]/ideal(a*(b-c),c*(b-d),b*(c-d));
+
+F2E7 =  C = decompose ideal S
+
+F2E8 =  Rs = apply(C, I -> (ring I)/I);
+
+F2E9 =  Rs/integralClosure
+
+F2E10 =  oo/prune
+
+F3E0 =  R=ZZ/3[u,v,x,y]/ideal(u*x^2-v*y^2);
+
+F3E1 =  icFracP(R, Verbosity => 1)
+
+F3E2 =  S = ZZ/3[x,y,u,v];
+
+F3E3 =  R = S/kernel map(S,S,{x-y,x+y^2,x*y,x^2});
+
+F3E4 =  icFracP(R, Verbosity => 1)
+
+F4E0 =  R = ZZ/5[x,y,z]/ideal(x^6-z^6-y^2*z^4);
+
+F4E1 =  icFracP R
+
+F4E2 =  R = ZZ/5[x,y,u,v]/ideal(x^2*u-y^2*v);
+
+F4E3 =  icFracP(R)
+
+F4E4 =  icFracP(R, ConductorElement => x)
+
+F4E5 =  R=ZZ/2[u,v,w,x,y,z]/ideal(u^2*x^3+u*v*y^3+v^2*z^3);
+
+F4E6 =  icFracP(R)
+
+F4E7 =  icFracP(R, ConductorElement => x^2)
+
+F4E8 =  R=ZZ/2[u,v,w,x,y,z]/ideal(u^2*x^3+u*v*y^3+v^2*z^3);
+
+F4E9 =  icFracP(R, Limit => 1)
+
+F4E10 =  icFracP(R, Limit => 2)
+
+F4E11 =  icFracP(R)
+
+F4E12 =  R=ZZ/3[u,v,w,x,y,z]/ideal(u^2*x^4+u*v*y^4+v^2*z^4);
+
+F4E13 =  icFracP(R, Verbosity => 1)
+
+F5E0 =  R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4-z^3);
+
+F5E1 =  R' = integralClosure(R, Variable => symbol t, Limit => 2)
+
+F5E2 =  trim ideal R'
+
+F5E3 =  icFractions R
+
+F6E0 =  R = QQ[x,y,z]/ideal(x^8-z^6-y^2*z^4-z^3);
+
+F6E1 =  time R' = integralClosure(R, Verbosity => 2)
+
+F6E2 =  trim ideal R'
+
+F6E3 =  icFractions R
+
+F7E0 =  R = QQ[x,y,z]/(x^3-x^2*z^5-z^2*y^5)
+
+F7E1 =  S = integralClosure R
+
+F7E2 =  describe S
+
+F7E3 =  icFractions R
+
+F7E4 =  gens S
+
+F7E5 =  trim ideal S
+
+F7E6 =  use R
+
+F7E7 =  I = ideal(y,z)
+
+F7E8 =  integralClosure I
+
+F7E9 =  integralClosure(I^2)
+
+F7E10 =  integralClosure(I, 2)
+
+F7E11 =  integralClosure(I, 3) == integralClosure(I^3)
+
+F8E0 =  R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4);
+
+F8E1 =  isNormal R
+
+F8E2 =  isNormal(integralClosure R)
+
+F9E0 =  R = QQ[x,y,z]
+
+F9E1 =  f = random(3,R)+random(4,R)+random(5,R)
+
+F9E2 =  testHunekeQuestion f
+
+F9E3 =  R = QQ[x,y]
+
+F9E4 =  f = (y^4-2*x^3*y^2-4*x^5*y+x^6-x^7)
+
+F9E5 =  testHunekeQuestion f
+
+F10E0 =  R = QQ[x,y]/(y^2-x^3)
+
+F10E1 =  f = icMap R
+
+F10E2 =  isWellDefined f
+
+F10E3 =  source f === R
+
+F10E4 =  describe target f
+
+F10E5 =  S = QQ[a,b,c]/ideal(a^6-c^6-b^2*c^4);
+
+F10E6 =  F = icMap S;
+
+F10E7 =  conductor F
+
+F11E0 =  S = ZZ/32003[a,b,c];
+
+F11E1 =  F = a^2*b^2*c+a^3+b^3+c^3
+
+F11E2 =  J = ideal jacobian ideal F
+
+F11E3 =  time integralClosure J
+
+F11E4 =  time integralClosure(J, Strategy=>{RadicalCodim1})
+
+F11E5 =  J2' = integralClosure(J,2)
+
+F11E6 =  assert(integralClosure(J, J_2, 2) == J2')
+
+F12E0 =  S = QQ[x,y,z]
+
+F12E1 =  f = ideal (x^8-z^6-y^2*z^4-z^3)
+
+F12E2 =  R = S/f
+
+F12E3 =  time R' = integralClosure R
+
+F12E4 =  netList (ideal R')_*
+
+F12E5 =  icFractions R
+
+F12E6 =  S = QQ[x,y,z]
+
+F12E7 =  f = ideal (x^8-z^6-y^2*z^4-z^3)
+
+F12E8 =  R = S/f
+
+F12E9 =  time R' = integralClosure(R, Strategy => Radical)
+
+F12E10 =  netList (ideal R')_*
+
+F12E11 =  icFractions R
+
+F12E12 =  S = QQ[x,y,z]
+
+F12E13 =  f = ideal (x^8-z^6-y^2*z^4-z^3)
+
+F12E14 =  R = S/f
+
+F12E15 =  time R' = integralClosure(R, Strategy => AllCodimensions)
+
+F12E16 =  netList (ideal R')_*
+
+F12E17 =  S = QQ[x,y,z]
+
+F12E18 =  f = ideal (x^8-z^6-y^2*z^4-z^3)
+
+F12E19 =  R = S/f
+
+F12E20 =  time R' = integralClosure(R, Strategy => SimplifyFractions)
+
+F12E21 =  netList (ideal R')_*
+
+F12E22 =  S = QQ[x,y,z]
+
+F12E23 =  f = ideal (x^8-z^6-y^2*z^4-z^3)
+
+F12E24 =  R = S/f
+
+F12E25 =  time R' = integralClosure (R, Strategy => RadicalCodim1)
+
+F12E26 =  netList (ideal R')_*
+
+F12E27 =  S = QQ[x,y,z]
+
+F12E28 =  f = ideal (x^8-z^6-y^2*z^4-z^3)
+
+F12E29 =  R = S/f
+
+F12E30 =  time R' = integralClosure (R, Strategy => Vasconcelos)
+
+F12E31 =  netList (ideal R')_*
+
+F12E32 =  S = QQ[a,b,c,d]
+
+F12E33 =  f = monomialCurveIdeal(S,{1,3,4})
+
+F12E34 =  R = S/f
+
+F12E35 =  time R' = integralClosure R
+
+F12E36 =  netList (ideal R')_*
+
+F12E37 =  S = QQ[a,b,c,d]
+
+F12E38 =  I = monomialCurveIdeal(S,{1,3,4})
+
+F12E39 =  R = S/I
+
+F12E40 =  time R' = integralClosure(R, Strategy => Radical)
+
+F12E41 =  icFractions R
+
+F12E42 =  S = QQ[a,b,c,d]
+
+F12E43 =  I = monomialCurveIdeal(S,{1,3,4})
+
+F12E44 =  R = S/I
+
+F12E45 =  time R' = integralClosure(R, Strategy => AllCodimensions)
+
+F12E46 =  icFractions R
+
+F12E47 =  S = QQ[a,b,c,d]
+
+F12E48 =  I = monomialCurveIdeal(S,{1,3,4})
+
+F12E49 =  R = S/I
+
+F12E50 =  time R' = integralClosure (R, Strategy => RadicalCodim1)
+
+F12E51 =  icFractions R
+
+F12E52 =  S = QQ[a,b,c,d]
+
+F12E53 =  I = monomialCurveIdeal(S,{1,3,4})
+
+F12E54 =  R = S/I
+
+F12E55 =  time R' = integralClosure (R, Strategy => Vasconcelos)
+
+F12E56 =  icFractions R
+
+F12E57 =  S' = QQ[symbol a .. symbol f]
+
+F12E58 =  M' = genericSymmetricMatrix(S',a,3)
+
+F12E59 =  I' = minors(2,M')
+
+F12E60 =  center = ideal(b,c,e,a-d,d-f)
+
+F12E61 =  S = QQ[a,b,c,d,e]
+
+F12E62 =  p = map(S'/I',S,gens center)
+
+F12E63 =  I = kernel p
+
+F12E64 =  betti res I
+
+F12E65 =  R = S/I
+
+F12E66 =  time R' = integralClosure(R, Strategy => Radical)
+
+F12E67 =  icFractions R
+
+F12E68 =  S' = QQ[a..f]
+
+F12E69 =  M' = genericSymmetricMatrix(S',a,3)
+
+F12E70 =  I' = minors(2,M')
+
+F12E71 =  center = ideal(b,e,a-d,d-f)
+
+F12E72 =  S = QQ[a,b,d,e]
+
+F12E73 =  p = map(S'/I',S,gens center)
+
+F12E74 =  I = kernel p
+
+F12E75 =  betti res I
+
+F12E76 =  R = S/I
+
+F12E77 =  time R' = integralClosure(R, Strategy => Radical)
+
+F12E78 =  icFractions R
+
+F12E79 =  S = QQ[a,b,d,e]
+
+F12E80 =  R = S/sub(I,S)
+
+F12E81 =  time R' = integralClosure(R, Strategy => AllCodimensions)
+
+F12E82 =  icFractions R
+
+F12E83 =  S = QQ[a,b,d,e]
+
+F12E84 =  R = S/sub(I,S)
+
+F12E85 =  time R' = integralClosure (R, Strategy => RadicalCodim1, Verbosity => 1)
+
+F12E86 =  icFractions R
+
+F12E87 =  S = QQ[a,b,d,e]
+
+F12E88 =  R = S/sub(I,S)
+
+F12E89 =  time R' = integralClosure (R, Strategy => Vasconcelos, Verbosity => 1)
+
+F12E90 =  icFractions R
+
+F12E91 =  S = QQ[a,b,d,e]
+
+F12E92 =  R = S/sub(I,S)
+
+F12E93 =  time R' = integralClosure (R, Strategy => {Vasconcelos, StartWithOneMinor}, Verbosity => 1)
+
+F12E94 =  icFractions R
+
+F12E95 =  ideal R'
+
+F13E0 =  R = QQ[x,y,z]/ideal(x^7-z^7-y^2*z^5);
+
+F13E1 =  icFractions R
+
+F13E2 =  F = icMap R
+
+F13E3 =  conductor F
+
+F13E4 =  conductor R
+
+F14E0 =  R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4);
+
+F14E1 =  icFractions R
+
+F14E2 =  R' = integralClosure R
+
+F14E3 =  gens R'
+
+F14E4 =  netList (ideal R')_*
+
+F15E0 =  A = QQ[x,y]/(x^3-y^2)
+
+F15E1 =  R = reesAlgebra(ideal(x*y,y^2), Variable => z)
+
+F15E2 =  coefficientRing R
+
+F15E3 =  describe R
+
+F15E4 =  R' = integralClosure(R, R)
+
+F15E5 =  describe R'
+
+F15E6 =  icMap R
+
+F15E7 =  fracs1 = icFractions R
+
+F15E8 =  R'' = integralClosure(R, A)
+
+F15E9 =  describe R''
+
+F15E10 =  icMap R
+
+F15E11 =  fracs2 = icFractions R
+
+F15E12 =  assert(fracs1 == fracs2)
+
+F15E13 =  R''' = integralClosure(R, QQ)
+
+F15E14 =  describe R'''
+
+F15E15 =  icMap R
+
+F15E16 =  fracs3 = icFractions R
+
+F15E17 =  assert(fracs1 == fracs3)
+
+F16E0 =  R = QQ[x,y]/ideal(x^3-y^2);
+
+F16E1 =  R' = integralClosure(R, Variable => symbol t)
+
+F16E2 =  trim ideal R'
+
+F16E3 =  R = QQ[x,y]/ideal(x^3-y^2);
+
+F16E4 =  R' = integralClosure(R, Variable => symbol t, Keep => {x})
+
+F16E5 =  trim ideal R'
+
+F16E6 =  R = QQ[x,y]/ideal(x^3-y^2);
+
+F16E7 =  integralClosure(R, Variable => symbol t, Keep => {})
+
+F17E0 =  A = ZZ/101[a..d];
+
+F17E1 =  I = monomialCurveIdeal(A,{1,3,4})
+
+F17E2 =  R = A/I;
+
+F17E3 =  (F,G) = makeS2 R
+
+F18E0 =  R = QQ[x,y]/(y^2-x^3)
+
+F18E1 =  H = (y * ideal(x,y)) : ideal(x,y)
+
+F18E2 =  (F,G) = ringFromFractions(((gens H)_{1}), H_0);
+
+F18E3 =  S = target F
+
+F18E4 =  F
+
+F18E5 =  G
+
+F19E0 =  R = QQ[x,y]/(y^3-x^7)
+
+F19E1 =  I = ideal(x^2,y^2)
+
+F19E2 =  (F,G) = idealizer(I,x^2);
+
+F19E3 =  target F
+
+F19E4 =  first entries G.matrix
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F4E13", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F12E12", "F12E13", "F12E14", "F12E15", "F12E16", "F12E17", "F12E18", "F12E19", "F12E20", "F12E21", "F12E22", "F12E23", "F12E24", "F12E25", "F12E26", "F12E27", "F12E28", "F12E29", "F12E30", "F12E31", "F12E32", "F12E33", "F12E34", "F12E35", "F12E36", "F12E37", "F12E38", "F12E39", "F12E40", "F12E41", "F12E42", "F12E43", "F12E44", "F12E45", "F12E46", "F12E47", "F12E48", "F12E49", "F12E50", "F12E51", "F12E52", "F12E53", "F12E54", "F12E55", "F12E56", "F12E57", "F12E58", "F12E59", "F12E60", "F12E61", "F12E62", "F12E63", "F12E64", "F12E65", "F12E66", "F12E67", "F12E68", "F12E69", "F12E70", "F12E71", "F12E72", "F12E73", "F12E74", "F12E75", "F12E76", "F12E77", "F12E78", "F12E79", "F12E80", "F12E81", "F12E82", "F12E83", "F12E84", "F12E85", "F12E86", "F12E87", "F12E88", "F12E89", "F12E90", "F12E91", "F12E92", "F12E93", "F12E94", "F12E95", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16", "F15E17", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F17E0", "F17E1", "F17E2", "F17E3", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4"}

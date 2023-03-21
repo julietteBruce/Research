@@ -1,0 +1,103 @@
+needsPackage "MinimalPrimes"
+
+F0E0 =  R = QQ[a..d];
+
+F0E1 =  I = monomialCurveIdeal(R, {1, 5, 8})
+
+F0E2 =  isPrime I
+
+F1E0 =  R = ZZ/32003[a..e]
+
+F1E1 =  I = ideal"a2b-c3,abd-c2e,ade-ce2"
+
+F1E2 =  C = minprimes I;
+
+F1E3 =  netList C
+
+F1E4 =  C2 = minprimes(I, Strategy=>"NoBirational", Verbosity=>2)
+
+F1E5 =  C1 = minprimes(I, Strategy=>"Birational", Verbosity=>2)
+
+F1E6 =  R = QQ[w,x,y,z];
+
+F1E7 =  I=ideal(x^2-y*w, x^3-z*w^2)
+
+F1E8 =  minimalPrimes I
+
+F1E9 =  I = ideal(x^2 + y^2)
+
+F1E10 =  minimalPrimes I
+
+F1E11 =  I = monomialIdeal ideal"wxy,xz,yz"
+
+F1E12 =  minimalPrimes I
+
+F1E13 =  P = intersect(monomialIdeal(w,x,y), monomialIdeal(x,z), monomialIdeal(y,z))
+
+F1E14 =  minI = apply(P_*, monomialIdeal @@ support)
+
+F1E15 =  dual radical I
+
+F1E16 =  P == oo
+
+F2E0 =  S = ZZ/101[x,y,z]
+
+F2E1 =  I = ideal(x^3-y^2,y^2*z^2)
+
+F2E2 =  radical I
+
+F2E3 =  intersect minimalPrimes I
+
+F3E0 =  debug MinimalPrimes
+
+F3E1 =  R = ZZ/101[w..z];
+
+F3E2 =  I = ideal(w*x^2-42*y*z, x^6+12*w*y+x^3*z, w^2-47*x^4*z-47*x*z^2);
+
+F3E3 =  elapsedTime minimalPrimes(ideal I_*, Strategy => Hybrid{Linear,Birational,Factorization,DecomposeMonomials}, Verbosity => 2);
+
+F4E0 =  d = (4,5,6,7)
+
+F4E1 =  n = #d
+
+F4E2 =  R = QQ[x_0..x_n]
+
+F4E3 =  I = ideal homogenize(matrix{{x_1^(d#0)} | apply(toList(1..n-2), i -> x_i - x_(i+1)^(d#i)) | {x_(n-1) - x_0^(d#-1)}}, x_n)
+
+F4E4 =  D = product(I_*/degree/sum)
+
+F4E5 =  x_0^(D-1) % I != 0 and x_0^D % I == 0
+
+F4E6 =  elapsedTime radicalContainment(x_0, I)
+
+F4E7 =  elapsedTime radicalContainment(x_0, I, Strategy => "Kollar")
+
+F4E8 =  elapsedTime radicalContainment(x_n, I, Strategy => "Kollar")
+
+F5E0 =  R = QQ[w,x,y,z];
+
+F5E1 =  I = ideal(w*x^2-42*y*z, x^6+12*w*y+x^3*z, w^2-47*x^4*z-47*x*z^2)
+
+F5E2 =  minimalPrimes I
+
+F5E3 =  R = ZZ/101[w..z];
+
+F5E4 =  I = ideal(w*x^2-42*y*z, x^6+12*w*y+x^3*z, w^2-47*x^4*z-47*x*z^2);
+
+F5E5 =  minimalPrimes I
+
+F6E0 =  R = QQ[x, y]
+
+F6E1 =  I = ideal((x^2+1)^2*y, y+1)
+
+F6E2 =  radical I
+
+F6E3 =  R = ZZ/101[a..d]
+
+F6E4 =  I = intersect(ideal(a^2,b^2,c), ideal(a,b^3,c^2))
+
+F6E5 =  elapsedTime radical(ideal I_*, Strategy => Monomial)
+
+F6E6 =  elapsedTime radical(ideal I_*, Unmixed => true)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F1E16", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6"}

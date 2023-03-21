@@ -1,0 +1,343 @@
+needsPackage "RationalMaps"
+
+F0E0 =  R = QQ[x,y,z]
+
+F0E1 =  P2 = Proj(R)
+
+F0E2 =  phi = rationalMapping (P2, P2, {y*z,x*z,x*y})
+
+F0E3 =  ident = rationalMapping (P2, P2, {x,y,z})
+
+F0E4 =  phi*phi == ident
+
+F0E5 =  P5ring = ZZ/103[a..f];
+
+F0E6 =  R = ZZ/103[x,y,z];
+
+F0E7 =  P2 = Proj R;
+
+F0E8 =  identP2 = rationalMapping(P2, P2, {x,y,z});
+
+F0E9 =  M = matrix{{a,b,c},{d,e,f}};
+
+F0E10 =  blowUp = Proj(P5ring/(minors(2, M)+ideal(b - d)));
+
+F0E11 =  identBlowUp = rationalMapping(blowUp, blowUp, {a,b,c,d,e,f});
+
+F0E12 =  tau = rationalMapping(P2, blowUp,{a, b, c});
+
+F0E13 =  tauInverse = tau^-1;
+
+F0E14 =  tau*tauInverse == identP2 --a map composed with its inverse is the identity
+
+F0E15 =  tauInverse*tau == identBlowUp
+
+F0E16 =  phi^3 == phi^-1
+
+F0E17 =  phi^-2 == ident
+
+F0E18 =  phi^1 == ident
+
+F1E0 =  R=QQ[x,y,z];
+
+F1E1 =  S=QQ[a,b,c];
+
+F1E2 =  f1=map(R, S, {y*z,x*z,x*y});
+
+F1E3 =  f2=map(R, S, {x*y*z,x^2*z,x^2*y});
+
+F1E4 =  isSameMap(f1,f2)
+
+F1E5 =  R = ZZ/7[x,y,z]
+
+F1E6 =  phi = rationalMapping(R, R, {y*z,x*z,x*y})
+
+F1E7 =  ident = rationalMapping(R, R, {x,y,z})
+
+F1E8 =  phi == ident
+
+F1E9 =  phi^2 == ident
+
+F2E0 =  R = ZZ/7[x,y,z];
+
+F2E1 =  S = ZZ/7[a,b,c];
+
+F2E2 =  h = map(R, S, {y*z, x*z, x*y});
+
+F2E3 =  sourceInversionFactor h
+
+F2E4 =  S=QQ[a,b,c,d];
+
+F2E5 =  g=(b^2-a*c)*c*d;
+
+F2E6 =  phi=map(S,S,transpose jacobian ideal g);
+
+F2E7 =  sourceInversionFactor(phi, Verbosity=>0)
+
+F3E0 =  R = ZZ/7[x,y];
+
+F3E1 =  S = ZZ/7[a,b,c];
+
+F3E2 =  h = map(R, S, {x^2, x*y, y^2});
+
+F3E3 =  isEmbedding(h, Verbosity=>1)
+
+F3E4 =  R=QQ[x,y,z];
+
+F3E5 =  S=QQ[a,b];
+
+F3E6 =  h=rationalMapping(R, S, {y,z});
+
+F3E7 =  isEmbedding(h, Verbosity=>0)
+
+F3E8 =  R=QQ[x,y,z]/(x^2+y^2-z^2);
+
+F3E9 =  S=QQ[a,b];
+
+F3E10 =  h=map(R,S, {y,z});
+
+F3E11 =  isRegularMap(h)
+
+F3E12 =  isEmbedding(h, Verbosity=>0)
+
+F3E13 =  R = ZZ/103[x,y,z];
+
+F3E14 =  T = ZZ/103[u,v];
+
+F3E15 =  P2 = Proj R;
+
+F3E16 =  P1 = Proj T;
+
+F3E17 =  phi = rationalMapping(P2, P1, {u^3, u^2*v, v^3});
+
+F3E18 =  isEmbedding(phi, Verbosity=>0)
+
+F3E19 =  P5ring = ZZ/103[a..f];
+
+F3E20 =  M = matrix{{a,b,c},{d,e,f}};
+
+F3E21 =  blowUpSubvar = Proj(P5ring/(minors(2, M)+ideal(b - d)));
+
+F3E22 =  tau = rationalMapping(P2, blowUpSubvar,{a, b, c}); --the blowup
+
+F3E23 =  tauInverse = tau^-1; --the inverse blowup
+
+F3E24 =  isEmbedding(tauInverse*phi, Verbosity => 0)
+
+F4E0 =  R = QQ[x,y,z]
+
+F4E1 =  P2 = Proj(R)
+
+F4E2 =  phi1 = rationalMapping(P2, P2, {y*z,x*z,x*y})
+
+F4E3 =  phi2 = rationalMapping(R, R, matrix{{y*z,x*z,x*y}})
+
+F4E4 =  phi3 = rationalMapping(map(R, R, {y*z,x*z,x*y}))
+
+F4E5 =  S = QQ[x,y,z];
+
+F4E6 =  P2 = Proj S;
+
+F4E7 =  R = QQ[a,b];
+
+F4E8 =  P1 = Proj R;
+
+F4E9 =  phi = rationalMapping(P2, P1, {b*a*(a-b), a^2*(a-b), b^3})
+
+F4E10 =  h = map(R, S, {b*a*(a-b), a^2*(a-b), b^3})
+
+F4E11 =  psi = rationalMapping h
+
+F4E12 =  phi == psi
+
+F5E0 =  R = ZZ/7[x,y,z];
+
+F5E1 =  S = ZZ/7[a,b,c];
+
+F5E2 =  h = map(R, S, {y*z, x*z, x*y});
+
+F5E3 =  inverseOfMap (h, Verbosity=>0)
+
+F5E4 =  P5 = QQ[a..f];
+
+F5E5 =  M = matrix{{a,b,c},{d,e,f}};
+
+F5E6 =  blowUpSubvar = P5/(minors(2, M)+ideal(b - d));
+
+F5E7 =  h = map(blowUpSubvar, QQ[x,y,z],{a, b, c});
+
+F5E8 =  g = inverseOfMap(h, Verbosity=>0)
+
+F5E9 =  baseLocusOfMap(g)
+
+F5E10 =  baseLocusOfMap(h)
+
+F5E11 =  Q=QQ[x,y,z,t,u];
+
+F5E12 =  phi=map(Q,Q,matrix{{x^5,y*x^4,z*x^4+y^5,t*x^4+z^5,u*x^4+t^5}});
+
+F5E13 =  time inverseOfMap(phi,CheckBirational=>false, Verbosity=>0)
+
+F5E14 =  R=QQ[x,y,z,t]/(z-2*t);
+
+F5E15 =  F = {y*z*(x-z)*(x-2*y), x*z*(y-z)*(x-2*y),y*x*(y-z)*(x-z)};
+
+F5E16 =  S = QQ[u,v,w];
+
+F5E17 =  ident = rationalMapping map(S, S)
+
+F5E18 =  h = rationalMapping(R, S, F);
+
+F5E19 =  g = inverseOfMap(h, Verbosity=>0)
+
+F5E20 =  h*g == ident
+
+F6E0 =  R=QQ[x,y];
+
+F6E1 =  S=QQ[a,b,c,d];
+
+F6E2 =  Pi = map(R, S, {x^3, x^2*y, x*y^2, y^3});
+
+F6E3 =  jacobianDualMatrix(Pi, Strategy=>SaturationStrategy)
+
+F7E0 =  R = QQ[x,y];
+
+F7E1 =  S = QQ[a,b,c];
+
+F7E2 =  f = map(R, S, {x^2, x*y, y^2});
+
+F7E3 =  mapOntoImage(f)
+
+F7E4 =  phi = rationalMapping f
+
+F7E5 =  mapOntoImage(phi)
+
+F8E0 =  R=QQ[x,y];
+
+F8E1 =  S=QQ[a,b,c,d];
+
+F8E2 =  Pi = map(R, S, {x^3, x^2*y, x*y^2, y^3});
+
+F8E3 =  isBirationalOntoImage(Pi, Verbosity=>0)
+
+F8E4 =  isBirationalMap(Pi,  Verbosity=>0)
+
+F8E5 =  A = QQ[z_0..z_6];
+
+F8E6 =  H=map(A^4,4,(i,j)->A_(i+j));
+
+F8E7 =  SH=sub(H,{z_5=>0,z_6=>0})
+
+F8E8 =  sh=map(A, A, transpose jacobian ideal det SH );
+
+F8E9 =  isBirationalOntoImage(sh, Verbosity=>0)
+
+F8E10 =  B=QQ[t_0..t_4];
+
+F8E11 =  li=map(B,A,matrix{{t_0..t_4,0,0}});
+
+F8E12 =  phi=li*sh;
+
+F8E13 =  isBirationalOntoImage(phi, HybridLimit=>2)
+
+F9E0 =  P5 = QQ[a..f];
+
+F9E1 =  P2 = QQ[x,y,z];
+
+F9E2 =  M = matrix{{a,b,c},{d,e,f}};
+
+F9E3 =  blowUpSubvar = P5/(minors(2, M) + ideal(b - d));
+
+F9E4 =  f = map(blowUpSubvar, P2, {a, b, c});
+
+F9E5 =  isRegularMap(f)
+
+F10E0 =  R = QQ[x,y,z];
+
+F10E1 =  S = QQ[a,b];
+
+F10E2 =  f = map(R, S, {x,y});
+
+F10E3 =  baseLocusOfMap(f)
+
+F10E4 =  R=QQ[x,y,z]/(y^2*z-x*(x-z)*(x+z));
+
+F10E5 =  S=QQ[a,b];
+
+F10E6 =  f=rationalMapping(R,S,{x,y});
+
+F10E7 =  baseLocusOfMap(f)
+
+F10E8 =  R=QQ[x,y,z];
+
+F10E9 =  S=QQ[a,b,c];
+
+F10E10 =  f=map(R,S,{y*z,x*z,x*y});
+
+F10E11 =  J=baseLocusOfMap(f)
+
+F10E12 =  minimalPrimes J
+
+F11E0 =  R = QQ[a,b];
+
+F11E1 =  S = QQ[x,y,z];
+
+F11E2 =  P2 = Proj R;
+
+F11E3 =  P3 = Proj S;
+
+F11E4 =  f = map(R, S, {a,b,0});
+
+F11E5 =  phi = rationalMapping f;
+
+F11E6 =  source phi
+
+F11E7 =  target phi
+
+F11E8 =  source f
+
+F11E9 =  target f
+
+F12E0 =  R=QQ[x,y,z];
+
+F12E1 =  S=QQ[a,b,c];
+
+F12E2 =  Pi = map(R, S, {x*y, x*z, y*z});
+
+F12E3 =  isBirationalMap(Pi, Verbosity=>0, Strategy=>SimisStrategy )
+
+F12E4 =  R=QQ[x,y,z]/(x^3+y^3-z^3);
+
+F12E5 =  S=QQ[s,t];
+
+F12E6 =  Pi = map(R, S, {x, y-z});
+
+F12E7 =  isBirationalMap(Pi, Verbosity=>0)
+
+F12E8 =  R = ZZ/5[x,y,z]/(x^3+y^3-z^3);
+
+F12E9 =  S = ZZ/5[a,b,c]/(a^3+b^3-b^3);
+
+F12E10 =  h = map(R, S, {x^5, y^5, z^5});
+
+F12E11 =  isBirationalMap(h, Strategy=>SaturationStrategy)
+
+F13E0 =  S = QQ[x,y,z,w];
+
+F13E1 =  b = ideal(x*y-z*w);
+
+F13E2 =  R = QQ[u,v];
+
+F13E3 =  a = ideal(sub(0,R));
+
+F13E4 =  f = matrix {{u,0,v,0}};
+
+F13E5 =  phi = rationalMapping(R/a, S/b, f)
+
+F13E6 =  idealOfImageOfMap(phi)
+
+F13E7 =  psi = rationalMapping(Proj(S/b), Proj(R/a), f)
+
+F13E8 =  idealOfImageOfMap(psi)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F3E23", "F3E24", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16", "F5E17", "F5E18", "F5E19", "F5E20", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F8E12", "F8E13", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8"}

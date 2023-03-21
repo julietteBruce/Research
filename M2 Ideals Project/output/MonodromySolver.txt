@@ -1,0 +1,167 @@
+needsPackage "MonodromySolver"
+
+F0E0 =  setRandomSeed 0;
+
+F0E1 =  S = CC[a,b,c];
+
+F0E2 =  R = S[x,w];
+
+F0E3 =  (h, f) = (a*x+b*w+c, 3*x^2 - w + 1);
+
+F0E4 =  x0 = point {{ii_CC,-2}}; -- clearly a zero of f
+
+F0E5 =  l = apply(2,i->random CC);
+
+F0E6 =  p0 = point({append(l,- sum apply(l, x0.Coordinates,(i,x)->i*x))});
+
+F0E7 =  (N, npaths) = monodromySolve(polySystem {h,f},p0,{x0},NumberOfNodes=>3);
+
+F1E0 =  R = CC[a,b,c,d][x,y];
+
+F1E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F1E2 =  monodromySolve(polys,GraphInitFunction => flowerGraphInit, AugmentGraphFunction=>flowerGraphAugment,AugmentNodeCount=>1, AugmentNumberOfRepeats=>3)
+
+F2E0 =  R = CC[a,b,c,d,e,f,g,h][x,y,z];
+
+F2E1 =  polys = polySystem {a*x+b*y+c*z,d*x*y+e*x*z+f*y*z,g*x*y*z+h};
+
+F2E2 =  (p0,x0) := createSeedPair polys
+
+F2E3 =  mixedVolume = computeMixedVolume specializeSystem(p0,polys)
+
+F2E4 =  monodromySolve(polys,p0,{x0},SelectEdgeAndDirection=>selectBestEdgeAndDirection, Potential=>potentialE, TargetSolutionCount=>mixedVolume)
+
+F3E0 =  R = CC[a,b,c,d][x,y];
+
+F3E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F3E2 =  monodromySolve(polys,GraphInitFunction => flowerGraphInit, AugmentGraphFunction=>completeGraphAugment,AugmentNodeCount=>1, AugmentNumberOfRepeats=>3)
+
+F4E0 =  R = CC[a,b,c,d][x,y];
+
+F4E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F4E2 =  (V,npaths) = monodromySolve(polys,SelectEdgeAndDirection=>selectBestEdgeAndDirection, Potential=>potentialLowerBound)
+
+F5E0 =  R = CC[a,b,c,d][x,y];
+
+F5E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F5E2 =  (V, npaths) = monodromySolve(polys,SelectEdgeAndDirection=>selectBestEdgeAndDirection, Potential=>potentialLowerBound)
+
+F5E3 =  G = V.Graph;
+
+F5E4 =  apply(toList G.Edges,e->e.Potential12)--potentials for all edges of a given direction
+
+F6E0 =  setRandomSeed 100;
+
+F6E1 =  declareVariable \ {t_1,t_2,u_0,u_1,u_2,u_3};
+
+F6E2 =  paramMatrix = gateMatrix{{u_0,u_1,u_2,u_3}};
+
+F6E3 =  varMatrix = gateMatrix{{t_1,t_2}};
+
+F6E4 =  phi = transpose gateMatrix{{t_1^3, t_1^2*t_2, t_1*t_2^2, t_2^3}};
+
+F6E5 =  loss = sum for i from 0 to 3 list (u_i - phi_(i,0))^2;
+
+F6E6 =  dLoss = diff(varMatrix, gateMatrix{{loss}});
+
+F6E7 =  G = gateSystem(paramMatrix,varMatrix,transpose dLoss);
+
+F6E8 =  monodromyGroup(G,"msOptions" => {NumberOfEdges=>10})
+
+F7E0 =  R = CC[a,b,c,d][x,y];
+
+F7E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F7E2 =  monodromySolve(polys,GraphInitFunction => flowerGraphInit)
+
+F8E0 =  R = CC[a,b,c,d][x,y];
+
+F8E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F8E2 =  monodromySolve(polys,GraphInitFunction => completeGraphInit)
+
+F9E0 =  setRandomSeed 0;
+
+F9E1 =  declareVariable \ {A,B,C,D,X,Y};
+
+F9E2 =  F = gateSystem(matrix{{A,B,C,D}},matrix{{X,Y}},matrix{{A*(X-1)^2-B}, {C*(Y+2)^2+D}});
+
+F9E3 =  p0 = point{{1,1,1,1}};
+
+F9E4 =  sols = solveFamily(p0, F, NumberOfNodes=>3);
+
+F9E5 =  for i from 0 to 3 list norm(evaluate(F, p0, sols#i))
+
+F10E0 =  setRandomSeed 2021;
+
+F10E1 =  R=CC[x,y,z];
+
+F10E2 =  F=random(3,R);
+
+F10E3 =  P=sum apply(gens R,g->diff(g,F)*random CC);
+
+F10E4 =  PS = polySystem {F,P,random(1,R)-1};
+
+F10E5 =  sols = sparseMonodromySolve(PS, Verbose=>true)
+
+F10E6 =  length points sols
+
+F10E7 =  for i from 0 to 5 list norm evaluate(PS, sols#i)
+
+F11E0 =  options monodromySolve
+
+F12E0 =  R = CC[a,b,c,d][x,y];
+
+F12E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F12E2 =  (p0, x0) = createSeedPair polys;
+
+F12E3 =  (L, npaths) = dynamicFlowerSolve(polys.PolyMap,p0,{x0})
+
+F13E0 =  setRandomSeed 0
+
+F13E1 =  R = CC[a,b,c,d,e,f][x,y];
+
+F13E2 =  q  = a*x^2+b*y+c;
+
+F13E3 =  l = d*x+e*y+f;
+
+F13E4 =  (sys, sols) = solveFamily(polySystem{q,l}, NumberOfNodes=>3)
+
+F14E0 =  setRandomSeed 0
+
+F14E1 =  R = CC[a,b,c,d][x,y];
+
+F14E2 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F14E3 =  (p0,x0) := createSeedPair polys;
+
+F14E4 =  polys0=specializeSystem(p0,polys);
+
+F14E5 =  apply(polys0,p->sub(p,{x=>first x0.Coordinates,y=>last x0.Coordinates}))
+
+F15E0 =  R = CC[a,b,c,d][A,B]
+
+F15E1 =  polys = polySystem {A^2*a+B^2*b,A*B*c+d}
+
+F15E2 =      setRandomSeed 0;
+
+F15E3 =              (V,npaths) = monodromySolve(polys, NumberOfNodes => 3);
+
+F15E4 =  peek V
+
+F16E0 =  setRandomSeed 0;
+
+F16E1 =   R = CC[x,y];
+
+F16E2 =   polys = {x+y^2,x*y+1};
+
+F16E3 =   mixedVol = computeMixedVolume polys;
+
+F16E4 =   sparseMonodromySolve(polySystem polys,TargetSolutionCount=>mixedVol,NumberOfNodes=>3)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F11E0", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4"}

@@ -1,0 +1,199 @@
+needsPackage "LatticePolytopes"
+
+F0E0 =  codegree(hypercube(4))
+
+F1E0 =  P=convexHull(matrix{{0,1}});
+
+F1E1 =  Q=convexHull(matrix{{0,2}});
+
+F1E2 =  C=cayley(P,Q)
+
+F1E3 =  vertices C
+
+F1E4 =  C=cayley(P,Q,3)
+
+F1E5 =  vertices C
+
+F1E6 =  C=cayley({P,Q,Q,P,P},2)
+
+F1E7 =  vertices C
+
+F2E0 =  P=convexHull(matrix{{0,1}});
+
+F2E1 =  Q=convexHull(matrix{{0}});
+
+F2E2 =  A=latticePoints(cayley({P,Q}));
+
+F2E3 =  B=latticePoints(cayley({P,P}));
+
+F2E4 =  gaussImage(A)
+
+F2E5 =  gaussImage(B)
+
+F3E0 =  L=listSmooth3D();
+
+F3E1 =  #L
+
+F3E2 =  tally apply(L,isCayley)
+
+F4E0 =  P=convexHull(matrix{{0,2}});
+
+F4E1 =  Q=convexHull(matrix{{0,4}});
+
+F4E2 =  R=cayley({P,Q},2);
+
+F4E3 =  S=convexHull(matrix{{0,1,-1},{1,0,-1}});
+
+F4E4 =  epsilonBounds(R,10)
+
+F4E5 =  epsilonBounds(S,10)
+
+F5E0 =  P=convexHull(matrix{{0,2}});
+
+F5E1 =  Q=convexHull(matrix{{0,4}});
+
+F5E2 =  A=latticePoints(cayley({P,Q},2));
+
+F5E3 =  pt=matrix{{1},{1}};
+
+F5E4 =  degreeOfJetSeparation(A,pt)
+
+F6E0 =  A=latticePoints(convexHull(matrix{{0,0,2},{0,2,0}}))
+
+F6E1 =  pt=matrix{{1},{1}}
+
+F6E2 =  jetMatrix(A,2,pt)
+
+F6E3 =  A=latticePoints(convexHull(matrix{{0,0,2},{0,2,0}}))
+
+F6E4 =  jetMatrix(A,2)
+
+F7E0 =  P=convexHull(matrix{{0,2}});
+
+F7E1 =  Q1=convexHull(matrix{{0,4}});
+
+F7E2 =  Q2=convexHull(matrix{{0,3}});
+
+F7E3 =  R1=cayley({P,Q1},2);
+
+F7E4 =  R2=cayley({P,Q2},2);
+
+F7E5 =  (P0,P1,k)=iskCayleykEdges(R1)
+
+F7E6 =  vertices(P0)
+
+F7E7 =  vertices(P1)
+
+F7E8 =  iskCayleykEdges(R2)
+
+F8E0 =  P=convexHull(matrix{{0,1}});
+
+F8E1 =  Q=convexHull(matrix{{0}});
+
+F8E2 =  A=latticePoints(cayley({P,Q}));
+
+F8E3 =  B=latticePoints(cayley({P,P}));
+
+F8E4 =  gaussFiber(A)
+
+F8E5 =  gaussFiber(B)
+
+F9E0 =  V = matrix {{0,2,-2,0},{0,1,1,1},{1,2,3,4}}
+
+F9E1 =  P = convexHull V
+
+F9E2 =  isCayley P
+
+F9E3 =  P2 = convexHull matrix{{0,1,2,3},{0,5,5,5},{1,2,3,2}}
+
+F9E4 =  cayley(P,P2,2)
+
+F9E5 =  vertices oo
+
+F10E0 =  L=listSmooth2D();
+
+F10E1 =  tally apply(L,isCayley)
+
+F11E0 =  P=hypercube(2,1);
+
+F11E1 =  Q=convexHull(matrix{{0}});
+
+F11E2 =  A=latticePoints(P);
+
+F11E3 =  B=latticePoints(cayley({Q,Q,Q},2));
+
+F11E4 =  gausskImage(A,2)
+
+F11E5 =  gausskImage(B,2)
+
+F12E0 =  P=hypercube 3;
+
+F12E1 =  isCayley(P)
+
+F12E2 =  isCayley matrix{{0,2,0},{0,0,2}}
+
+F13E0 =  adjointPolytope(hypercube(2),1)
+
+F14E0 =  P=cayley(matrix{{0,2,0}},matrix{{0,0,2}})
+
+F14E1 =  vertices oo
+
+F14E2 =  Q=convexHull(matrix{(vertices P)_0})
+
+F14E3 =  toricBlowUp(P,Q,1)
+
+F14E4 =  vertices oo
+
+F15E0 =  P=convexHull(matrix{{0,1}});
+
+F15E1 =  Q=convexHull(matrix{{0,2}});
+
+F15E2 =  areIsomorphic(P,Q)
+
+F15E3 =  M = transpose matrix{{0,0,0},{1,0,0},{0,1,0},{0,0,1},{1,1,0},{1,0,1},{0,1,1},{1,1,1}}
+
+F15E4 =  P = convexHull(M);
+
+F15E5 =  time areIsomorphic(P,P);
+
+F15E6 =  time areIsomorphic(P,P,smoothTest=>false);
+
+F16E0 =  torusEmbedding(matrix{{0,1,2},{0,3,4}})
+
+F17E0 =  P=randQPoly(5,3)
+
+F17E1 =  vertices P
+
+F18E0 =  P=hypercube(2,1);
+
+F18E1 =  Q=convexHull(matrix{{0}});
+
+F18E2 =  A=latticePoints(P);
+
+F18E3 =  B=latticePoints(cayley({Q,Q,Q},2));
+
+F18E4 =  gausskFiber(A,2)
+
+F18E5 =  gausskFiber(B,2)
+
+F19E0 =  toricDiv(hypercube(2))
+
+F20E0 =  halfspaces(convexHull matrix{{0,1},{0,0}})
+
+F20E1 =  ambientHalfspaces(convexHull matrix{{0,1},{0,0}})
+
+F21E0 =  A=latticePoints(convexHull(matrix{{0,0,2},{0,2,0}}))
+
+F21E1 =  pt=matrix{{1},{1}}
+
+F21E2 =  isJetSpanned(A,2,pt)
+
+F22E0 =  P=randZPoly(5,3)
+
+F22E1 =  vertices P
+
+F22E2 =  P=randZPoly(5,3,5)
+
+F22E3 =  vertices P
+
+exampleIDS = {"F0E0", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F12E0", "F12E1", "F12E2", "F13E0", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F16E0", "F17E0", "F17E1", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F19E0", "F20E0", "F20E1", "F21E0", "F21E1", "F21E2", "F22E0", "F22E1", "F22E2", "F22E3"}

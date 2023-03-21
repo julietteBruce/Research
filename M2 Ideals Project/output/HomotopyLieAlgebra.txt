@@ -1,0 +1,125 @@
+needsPackage "HomotopyLieAlgebra"
+
+F0E0 =  kk = ZZ/101
+
+F0E1 =  S = kk[x,y,z]
+
+F0E2 =  R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+F0E3 =  lastCyclesDegree = 4
+
+F0E4 =  KR = koszulComplexDGA(ideal R)
+
+F0E5 =  A = acyclicClosure(KR, EndDegree => lastCyclesDegree);
+
+F0E6 =  p2 = allgens(A,1) -- dual generators of Pi^2
+
+F0E7 =  p3 = allgens(A,2) -- dual generators of Pi^3
+
+F0E8 =  a5 = allgens(A,4) -- generators of A of homological degree 5
+
+F0E9 =  bracket(A, {sum p2, sum p3})
+
+F0E10 =  bracket(A,{sum p2, sum p3}, sum a5)
+
+F0E11 =  H = bracket(A,2,3);
+
+F0E12 =  #keys H
+
+F0E13 =  H' = select(keys H, k->H#k != 0);
+
+F0E14 =  H'
+
+F0E15 =  H#(H'_0)
+
+F0E16 =  bracketMatrix(A,1,2)
+
+F0E17 =  bracketMatrix(A,2,1)
+
+F0E18 =  bracketMatrix(A,1,1)
+
+F1E0 =  kk = ZZ/101
+
+F1E1 =  S = kk[x,y,z]
+
+F1E2 =  R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+F1E3 =  lastCyclesDegree = 4
+
+F1E4 =  KR = koszulComplexDGA(ideal R)
+
+F1E5 =  A = acyclicClosure(KR, EndDegree => lastCyclesDegree);
+
+F1E6 =  p1 = allgens(A,0) -- dual generators of Pi^1
+
+F1E7 =  p2 = allgens(A,1) -- dual generators of Pi^3
+
+F1E8 =  p3 = allgens(A,2) -- dual generators of Pi^4
+
+F1E9 =  bracketMatrix(A,2,1)
+
+F2E0 =  kk = ZZ/101
+
+F2E1 =  S = kk[x,y,z]
+
+F2E2 =  R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+F2E3 =  lastCyclesDegree = 4
+
+F2E4 =  KR = koszulComplexDGA(ideal R)
+
+F2E5 =  A = acyclicClosure(KR, EndDegree => lastCyclesDegree);
+
+F2E6 =  d = 1
+
+F2E7 =  e = 1
+
+F2E8 =  U = sum (Gd = allgens(A,d-1))
+
+F2E9 =  ad(A,U,1)
+
+F2E10 =  matrix{{1,1,1}}*bracketMatrix(A,d,e)
+
+F3E0 =  kk = ZZ/101
+
+F3E1 =  S = kk[x,y,z]
+
+F3E2 =  R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+F3E3 =  lastCyclesDegree = 1
+
+F3E4 =  KR = koszulComplexDGA(ideal R)
+
+F3E5 =  A = acyclicClosure(KR, EndDegree => lastCyclesDegree);
+
+F3E6 =  g = gens(A.natural)
+
+F3E7 =  g/degree
+
+F3E8 =  allgens A
+
+F3E9 =  G3 = allgens(A,2)
+
+F3E10 =  G3/degree
+
+F4E0 =  S = ZZ/101[x,y]
+
+F4E1 =  R = S/ideal(x^2,y^2,x*y)
+
+F4E2 =  KR = koszulComplexDGA(ideal R)
+
+F4E3 =  lastCyclesDegree = 4
+
+F4E4 =  A = acyclicClosure(KR, EndDegree => lastCyclesDegree)
+
+F4E5 =  bracketMatrix(A,1,1)
+
+F4E6 =  bracketMatrix(A,2,1)
+
+F4E7 =  bracketMatrix(A,2,2)
+
+F4E8 =  bracketMatrix(A,1,1) - transpose bracketMatrix(A,1,1)
+
+F4E9 =  bracketMatrix(A,2,1) + transpose bracketMatrix(A,1,2)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9"}

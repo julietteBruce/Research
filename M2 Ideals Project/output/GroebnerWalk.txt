@@ -1,0 +1,65 @@
+needsPackage "GroebnerWalk"
+
+F0E0 =  R1 = ZZ/32003[x,y,z, MonomialOrder=>Weights=>{1,10,100}];
+
+F0E1 =  I1 = ideal(y-x^2, z-x^3);
+
+F0E2 =  R2 = ZZ/32003[x,y,z, MonomialOrder=>Lex];
+
+F0E3 =  groebnerWalk(gb I1, R2)
+
+F0E4 =  setWalkTrace 2;
+
+F0E5 =  groebnerWalk(gb I1, R2)
+
+F1E0 =  getWalkTrace()
+
+F1E1 =  setWalkTrace 2;
+
+F1E2 =  getWalkTrace()
+
+F2E0 =  KK = ZZ/32003;
+
+F2E1 =  R1 = KK[x,y,z,u,v, MonomialOrder=>Eliminate 3];
+
+F2E2 =  I1 = ideal(3 - 2*u + 2*u^2 - 2*u^3 - v + u*v + 2*u^2*v^3 - x,
+
+                6*u + 5*u^2 - u^3 + v + u*v + v^2 - y,
+
+                -2 + 3*u - u*v + 2*u*v^2 - z);
+
+F2E3 =  R2 = KK[x,y,z,u,v, MonomialOrder=>Weights=>{0,0,0,1,1}];
+
+F2E4 =  groebnerWalk(I1, R2)
+
+F3E0 =  R1 = QQ[x,y,z,u,v, MonomialOrder=>Weights=>{1,1,1,0,0}];
+
+F3E1 =  I1 = ideal(u + u^2 - 2*v - 2*u^2*v + 2*u*v^2 - x,
+
+                -6*u + 2*v + v^2 - 5*v^3 + 2*u*v^2 - 4*u^2*v^2 - y,
+
+                -2 + 2*u^2 + 6*v - 3*u^2*v^2 - z);
+
+F3E2 =  R2 = QQ[x,y,z,u,v, MonomialOrder=>Weights=>{0,0,0,1,1}];
+
+F3E3 =  I2 = sub(I1, R2);
+
+F3E4 =  elapsedTime gb I2
+
+F3E5 =  elapsedTime groebnerWalk(gb I1, R2)
+
+F4E0 =  KK = ZZ/32003;
+
+F4E1 =  R1 = KK[x,y,z,u,v, MonomialOrder=>Eliminate 3];
+
+F4E2 =  I1 = ideal(3 - 2*u + 2*u^2 - 2*u^3 - v + u*v + 2*u^2*v^3 - x,
+
+                6*u + 5*u^2 - u^3 + v + u*v + v^2 - y,
+
+                -2 + 3*u - u*v + 2*u*v^2 - z);
+
+F4E3 =  R2 = KK[x,y,z,u,v, MonomialOrder=>Weights=>{0,0,0,1,1}];
+
+F4E4 =  groebnerWalk(I1, R2, Strategy=>Generic)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4"}

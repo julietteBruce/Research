@@ -1,0 +1,87 @@
+needsPackage "RandomSpaceCurves"
+
+F0E0 =  T=QQ[t];
+
+F0E1 =  hilbertNumerator({0,0,4,6,3,0,0,0,0},3,t)
+
+F1E0 =  setRandomSeed("alpha");
+
+F1E1 =  R = ZZ/101[x_0..x_3];
+
+F1E2 =  betti res (random hartshorneRaoModule)(0,{1},R)
+
+F1E3 =  betti res (random hartshorneRaoModule)(0,{1,4},R)
+
+F1E4 =  betti res (random hartshorneRaoModule)(0,{1,4,1},R)
+
+F1E5 =  betti res (random hartshorneRaoModule)(0,{1,4,2},R)
+
+F1E6 =  setRandomSeed("alpha");
+
+F1E7 =  betti res (random hartshorneRaoModule)(0,{1,3,2},R)
+
+F1E8 =  expectedBetti({1,3,2,0,0,0,0},3)
+
+F1E9 =  null =!= (random hartshorneRaoModule)(0,{1,3,2},R)
+
+F1E10 =  null =!= (random hartshorneRaoModule)(0,{1,3,2},R,Certify=>true,Attempts=>1)
+
+F2E0 =  betti expectedBetti({0,0,4,6,3,0,0,0,0},3)
+
+F3E0 =  matrix apply(toList(2..18),d-> apply(toList(0..26),g->
+
+          if knownUnirationalComponentOfSpaceCurves(d,g) then 1 else 0))
+
+F4E0 =  T=ZZ[t]
+
+F4E1 =  q=1-3*t^2+2*t^3
+
+F4E2 =  expectedBetti q
+
+F4E3 =  q=1-5*t^2+5*t^3-t^5
+
+F4E4 =  expectedBetti q
+
+F5E0 =  setRandomSeed("alpha");
+
+F5E1 =  R=ZZ/20011[x_0..x_3];
+
+F5E2 =  d=10
+
+F5E3 =  betti res (J=(random spaceCurve)(d,g,R))
+
+F5E4 =  degree J==d and genus J == g
+
+F5E5 =  setRandomSeed("alpha");
+
+F5E6 =  kk=ZZ/20011;
+
+F5E7 =  R=kk[x_0..x_3];
+
+F5E8 =  L=flatten apply(toList(0..40),g->apply(toList(3..30),d->(d,g)));
+
+F5E9 =  halpenBound = d ->(d/2-1)^2;
+
+F5E10 =  L = select(L,(d,g) ->
+
+           g <= halpenBound d
+
+           and
+
+           knownUnirationalComponentOfSpaceCurves(d,g));
+
+F5E11 =  #L
+
+F5E12 =  hashTable apply(L,(d,g) -> (
+
+                J = (random spaceCurve)(d,g,R);
+
+                assert (degree J == d and genus J == g);
+
+                (d,g) => g-4*(g+3-d) => betti res J))
+
+F6E0 =  betti expectedBetti(0,4,4)
+
+F6E1 =  betti expectedBetti(16,3,15)
+
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F2E0", "F3E0", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F6E0", "F6E1"}

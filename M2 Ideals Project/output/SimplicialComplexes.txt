@@ -1,0 +1,2035 @@
+needsPackage "SimplicialComplexes"
+
+F0E0 =  R = ZZ/229[a,b,c,d];
+
+F0E1 =  D = simplicialComplex{a*b*c, b*c*d}
+
+F0E2 =  E = simplicialComplex{a*b, b*c}
+
+F0E3 =  f = map(E,D,{a,b,b,c})
+
+F0E4 =  isWellDefined f
+
+F0E5 =  g = map(E,D,{b*c,c,c+a,1})
+
+F0E6 =  isWellDefined g
+
+F0E7 =  debugLevel = 1;
+
+F0E8 =  isWellDefined g
+
+F0E9 =  h = map(E,D,{a,b,c,c})
+
+F0E10 =  isWellDefined h
+
+F1E0 =  S = ZZ[x_0..x_5];
+
+F1E1 =  Δ = simplicialComplex monomialIdeal(x_0*x_5, x_1*x_4, x_2*x_3)
+
+F1E2 =  id_Δ
+
+F1E3 =  matrix id_Δ
+
+F1E4 =  assert(matrix id_Δ === vars S)
+
+F1E5 =  R = ZZ[y_0..y_3];
+
+F1E6 =  Γ = simplicialComplex monomialIdeal(y_1*y_2)
+
+F1E7 =  f = map(Γ, Δ, {y_0,y_0,y_1,y_2,y_3,y_3})
+
+F1E8 =  matrix f
+
+F1E9 =  code(matrix, SimplicialMap)
+
+F2E0 =  S = ZZ/101[a..h];
+
+F2E1 =  Δ = dunceHatComplex S
+
+F2E2 =  dim Δ
+
+F2E3 =  fVector Δ
+
+F2E4 =  assert(dim Δ === 2 and isPure Δ)
+
+F2E5 =  assert(fVector Δ === {1,8,24,17})
+
+F3E0 =  S = ZZ[a..h];
+
+F3E1 =  Δ = bartnetteSphereComplex S;
+
+F3E2 =  matrix {facets Δ}
+
+F3E3 =  dim Δ
+
+F3E4 =  fVector Δ
+
+F3E5 =  assert(dim Δ === 3 and isPure Δ)
+
+F3E6 =  assert(ideal Δ === ideal(b*c*d, a*c*e, c*d*e, a*b*f, b*d*f, a*e*f,
+
+             c*d*g, a*e*g, b*f*g, b*d*h, c*e*h, a*f*h, g*h))
+
+F3E7 =  assert(fVector Δ === {1,8,27,38,19})
+
+F3E8 =  R = QQ[x_0..x_10];
+
+F3E9 =  Γ = bartnetteSphereComplex R;
+
+F3E10 =  monomialIdeal Γ
+
+F3E11 =  assert(dim Γ === 3 and isPure Γ)
+
+F4E0 =  S = ZZ[a..e];
+
+F4E1 =  Δ = simplicialComplex monomialIdeal (a*b*c*d*e)
+
+F4E2 =  monomialIdeal Δ
+
+F4E3 =  facets Δ
+
+F4E4 =  dim Δ
+
+F4E5 =  assert (dim Δ === 3 and numgens ideal Δ === 1 and isPure Δ)
+
+F4E6 =  R = QQ[a..f];
+
+F4E7 =  Γ = simplicialComplex monomialIdeal (a*b*c*d*e, f)
+
+F4E8 =  monomialIdeal Γ
+
+F4E9 =  facets Γ
+
+F4E10 =  assert((for F in facets Γ list sub(F,S)) === facets Δ)
+
+F4E11 =  S' = ZZ/101[a..e];
+
+F4E12 =  Δ' = simplicialComplex monomialIdeal (a*d, b*c*d, a*e, b*e, c*e, d*e)
+
+F4E13 =  monomialIdeal Δ'
+
+F4E14 =  facets Δ'
+
+F4E15 =  dim Δ'
+
+F4E16 =  assert (dim Δ' === 2 and not isPure Δ')
+
+F4E17 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F4E18 =  monomialIdeal irrelevant
+
+F4E19 =  facets irrelevant
+
+F4E20 =  void = simplicialComplex monomialIdeal 1_R
+
+F4E21 =  monomialIdeal void
+
+F4E22 =  facets void
+
+F4E23 =  assert (facets irrelevant === {1_S} and facets void === {})
+
+F4E24 =  chainComplex Δ
+
+F4E25 =  chainComplex Γ
+
+F4E26 =  chainComplex Δ'
+
+F4E27 =  Bowtie = simplicialComplex ideal {a*d, b*d, a*e, b*e}
+
+F5E0 =  S = ZZ[x_0..x_5];
+
+F5E1 =  Δ = simplicialComplex monomialIdeal(x_0*x_5, x_1*x_4, x_2*x_3)
+
+F5E2 =  Γ = simplicialComplex monomialIdeal(x_1*x_2)
+
+F5E3 =  f = map(Γ, Δ, {x_0,x_0,x_1,x_2,x_3,x_3})
+
+F5E4 =  F = chainComplex f
+
+F5E5 =  S' = ZZ[y_0..y_5];
+
+F5E6 =  fish = simplicialComplex {y_0*y_1*y_2, y_1*y_2*y_3, y_3*y_4*y_5}
+
+F5E7 =  S'' = ZZ[z_0,z_1,z_2];
+
+F5E8 =  fishface = simplicialComplex {z_0*z_1*z_2}
+
+F5E9 =  f = map(fish,fishface,{y_0,y_1,y_2});
+
+F5E10 =  F = chainComplex f
+
+F5E11 =  kernel F == 0
+
+F6E0 =  R = ZZ/101[x_0..x_4];
+
+F6E1 =  S = ZZ/101[a,b,c,d,e];
+
+F6E2 =  I = monomialIdeal(x_1^2, x_2^2, x_3^2, x_1*x_3, x_2*x_4);
+
+F6E3 =  B1 = buchbergerSimplicialComplex(I,S)
+
+F6E4 =  BRes = chainComplex(B1, Labels => first entries mingens I)
+
+F6E5 =  HH_0(BRes)
+
+F6E6 =  all(1..dim B1+1, i -> prune HH_i(BRes) == 0)
+
+F6E7 =  BRes == buchbergerResolution(I)
+
+F6E8 =  L = {x_1*x_2, x_1*x_3*x_4, x_0*x_2*x_4};
+
+F6E9 =  B2 = buchbergerSimplicialComplex(L,S)
+
+F7E0 =  S = ZZ[x_0..x_10]
+
+F7E1 =  Δ = realProjectiveSpaceComplex(3, S)
+
+F8E0 =  R = ZZ/103[x_0..x_3];
+
+F8E1 =  Δ = simplicialComplex{R_0*R_1*R_2,R_0*R_2*R_3,R_0*R_1*R_3}
+
+F8E2 =  C1 = elementaryCollapse(Δ,R_1*R_2)
+
+F8E3 =  C2 = elementaryCollapse(C1,R_2*R_3)
+
+F8E4 =  C3 = elementaryCollapse(C2,R_1*R_3)
+
+F8E5 =  C4 = elementaryCollapse(C3,R_1)
+
+F8E6 =  C5 = elementaryCollapse(C4,R_2)
+
+F8E7 =  C6 = elementaryCollapse(C5,R_3)
+
+F9E0 =  S = ZZ[a..e];
+
+F9E1 =  irrelevant = simplexComplex (-1, S)
+
+F9E2 =  monomialIdeal irrelevant
+
+F9E3 =  dim irrelevant
+
+F9E4 =  fVector irrelevant
+
+F9E5 =  assert(facets irrelevant === {1_S})
+
+F9E6 =  assert(dim irrelevant === -1 and fVector irrelevant === {1})
+
+F9E7 =  Δ0 = simplexComplex (0, S)
+
+F9E8 =  monomialIdeal Δ0
+
+F9E9 =  dim Δ0
+
+F9E10 =  fVector Δ0
+
+F9E11 =  assert(facets Δ0 === {a} and dim Δ0 === 0)
+
+F9E12 =  assert(fVector Δ0 == {1,1})
+
+F9E13 =  Δ1 = simplexComplex (1, S)
+
+F9E14 =  monomialIdeal Δ1
+
+F9E15 =  dim Δ1
+
+F9E16 =  fVector Δ1
+
+F9E17 =  assert(facets Δ1 === {a*b} and dim Δ1 === 1)
+
+F9E18 =  assert(fVector Δ1 === {1,2,1})
+
+F9E19 =  Δ2 = simplexComplex (2, S)
+
+F9E20 =  monomialIdeal Δ2
+
+F9E21 =  dim Δ2
+
+F9E22 =  fVector Δ2
+
+F9E23 =  assert(facets Δ2 === {a*b*c} and dim Δ2 === 2)
+
+F9E24 =  assert(fVector Δ2 === {1,3,3,1})
+
+F9E25 =  Δ3 = simplexComplex (3, S)
+
+F9E26 =  monomialIdeal Δ3
+
+F9E27 =  dim Δ3
+
+F9E28 =  fVector Δ3
+
+F9E29 =  assert(facets Δ3 === {a*b*c*d} and dim Δ3 === 3)
+
+F9E30 =  assert(fVector Δ3 === toList apply(-1..3, i -> binomial(3+1,i+1)))
+
+F9E31 =  Δ4 = simplexComplex (4, S)
+
+F9E32 =  monomialIdeal Δ4
+
+F9E33 =  dim Δ4
+
+F9E34 =  fVector Δ4
+
+F9E35 =  assert(facets Δ4 === {a*b*c*d*e} and dim Δ4 === 4)
+
+F9E36 =  assert(fVector Δ4 === toList apply(-1..4, i -> binomial(4+1,i+1)))
+
+F10E0 =  S = ZZ[x_0..x_6];
+
+F10E1 =  R = ZZ[y_0..y_2];
+
+F10E2 =  Torus = smallManifold(2,7,6,S);
+
+F10E3 =  Circle = simplicialComplex{R_0*R_1, R_0*R_2, R_1*R_2};
+
+F10E4 =  f1 = map(Torus,Circle,matrix{{S_3,S_6,S_5}});
+
+F10E5 =  f2 = map(Torus,Circle,matrix{{S_0,S_2,S_3}});
+
+F10E6 =  prune homology f1
+
+F10E7 =  prune homology f2
+
+F11E0 =  S = ZZ[a..d];
+
+F11E1 =  Δ = simplicialComplex {a*b, b*c, c*d, a*d}
+
+F11E2 =  dual Δ
+
+F11E3 =  assert (dual Δ === simplicialComplex {a*c, b*d})
+
+F11E4 =  assert (dual dual Δ === Δ)
+
+F11E5 =  S' = ZZ[a..e];
+
+F11E6 =  Δ' = simplicialComplex {a*b, b*c, c*d, a*d}
+
+F11E7 =  dual Δ'
+
+F11E8 =  assert (dual Δ' === simplicialComplex {b*d*e, a*c*e, a*b*c*d})
+
+F11E9 =  assert (dual dual Δ' === Δ')
+
+F11E10 =  R = QQ[a..h];
+
+F11E11 =  Γ =  bartnetteSphereComplex R
+
+F11E12 =  dual Γ
+
+F11E13 =  pdim comodule ideal Γ
+
+F11E14 =  regularity ideal dual Γ
+
+F11E15 =  assert (pdim comodule ideal Γ === regularity ideal dual Γ)
+
+F11E16 =  R' = QQ[x_0 .. x_6];
+
+F11E17 =  Γ' = simplicialComplex {x_0*x_1*x_3, x_1*x_3*x_4, x_1*x_2*x_4,
+
+          x_2*x_4*x_5, x_2*x_3*x_5, x_3*x_5*x_6, x_3*x_4*x_6,
+
+          x_0*x_4*x_6, x_0*x_4*x_5, x_0*x_1*x_5, x_1*x_5*x_6,
+
+          x_1*x_2*x_6, x_0*x_2*x_6, x_0*x_2*x_3}
+
+F11E18 =  I = ideal Γ'
+
+F11E19 =  J = ideal dual Γ'
+
+F11E20 =  betti res I
+
+F11E21 =  betti res J
+
+F12E0 =  R = ZZ[a,b,c,d];
+
+F12E1 =  S = ZZ/17[x_0..x_3];
+
+F12E2 =  M  = monomialIdeal(x_0*x_1,x_1*x_2,x_2*x_3)
+
+F12E3 =  D = scarfSimplicialComplex(M,R)
+
+F12E4 =  prune homology D
+
+F12E5 =  M' = monomialIdeal(x_0*x_1,x_0*x_3,x_1*x_2,x_2*x_3)
+
+F12E6 =  D' = scarfSimplicialComplex(M',R)
+
+F12E7 =  prune homology D'
+
+F13E0 =  S = QQ[a, b, c, DegreeRank => 3];
+
+F13E1 =  Δ = simplexComplex(2, S)
+
+F13E2 =  isProper Δ
+
+F13E3 =  assert isProper Δ
+
+F13E4 =  Δ1 = sub(Δ, newRing(ring Δ, Degrees => {{1,0,0},{1,0,0},{0,0,1}}));
+
+F13E5 =  isProper Δ1
+
+F13E6 =  assert not isProper Δ1
+
+F13E7 =  flagfVector({1,0,0}, Δ1)
+
+F13E8 =  Δ2 = sub(Δ, newRing(ring Δ, Degrees => {{1,0,0},{0,1,0},{0,2,1}}));
+
+F13E9 =  isProper Δ2
+
+F13E10 =  assert isProper Δ2
+
+F13E11 =  Δ3 = sub(Δ, newRing(ring Δ, Degrees => {{1,0,0},{0,1,0},{1,1,0}}));
+
+F13E12 =  isProper Δ3
+
+F13E13 =  assert not isProper Δ3
+
+F14E0 =  S = ZZ[a..e];
+
+F14E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F14E2 =  ring Δ
+
+F14E3 =  monomialIdeal Δ
+
+F14E4 =  coefficientRing Δ
+
+F14E5 =  assert (ring Δ === S and coefficientRing Δ === ZZ and
+
+         numgens ideal Δ === 1 )
+
+F14E6 =  R = QQ[a..e];
+
+F14E7 =  Γ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F14E8 =  ring Γ
+
+F14E9 =  monomialIdeal Γ
+
+F14E10 =  coefficientRing Γ
+
+F14E11 =  assert (ring Γ === R and coefficientRing Γ === QQ and
+
+          numgens ideal Γ === 1)
+
+F14E12 =  S' = ZZ/101[a..f];
+
+F14E13 =  Δ' = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F14E14 =  ring Δ'
+
+F14E15 =  monomialIdeal Δ'
+
+F14E16 =  coefficientRing Δ'
+
+F14E17 =  assert (ring Δ' === S' and coefficientRing Δ' === ZZ/101 and
+
+          numgens ideal Δ' === 2)
+
+F14E18 =  C = chainComplex Δ
+
+F14E19 =  D = chainComplex Γ
+
+F14E20 =  C' = chainComplex Δ'
+
+F14E21 =  assert (D == C ** QQ and C' == C ** (ZZ/101))
+
+F15E0 =  S = QQ[x_0..x_3];
+
+F15E1 =  Δ = simplexComplex(3, S)
+
+F15E2 =  faces Δ
+
+F15E3 =  dim Δ
+
+F15E4 =  subsets vertices Δ
+
+F15E5 =  assert(faces Δ === hashTable for i from -1 to 3 list
+
+         i => first entries sub(matrix{rsort subsets(vertices Δ, i+1)/product}, S))
+
+F15E6 =  R = ZZ[a..h];
+
+F15E7 =  Γ = bartnetteSphereComplex R;
+
+F15E8 =  matrix {facets Γ}
+
+F15E9 =  faces Γ
+
+F15E10 =  monomialIdeal Γ
+
+F15E11 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F15E12 =  faces irrelevant
+
+F15E13 =  assert(faces irrelevant === hashTable{-1 => {1_S}})
+
+F15E14 =  void = simplicialComplex monomialIdeal 1_S
+
+F15E15 =  faces void
+
+F15E16 =  assert(faces void === hashTable{})
+
+F16E0 =  S = ZZ[x_0..x_6];
+
+F16E1 =  R = ZZ[y_0..y_2];
+
+F16E2 =  Torus = smallManifold(2,7,6,S);
+
+F16E3 =  Circle = simplicialComplex{R_0*R_1, R_0*R_2, R_1*R_2};
+
+F16E4 =  f1 = map(Torus,Circle,matrix{{S_3,S_6,S_5}});
+
+F16E5 =  f2 = map(Torus,Circle,matrix{{S_0,S_2,S_3}});
+
+F16E6 =  prune cohomology(1, f1)
+
+F16E7 =  prune cohomology(1, f2)
+
+F17E0 =  S = QQ[a,b,c, DegreeRank => 3];
+
+F17E1 =  degrees S
+
+F17E2 =  Δ = simplexComplex(2, S)
+
+F17E3 =  flagfVector Δ
+
+F17E4 =  R = ZZ[a..e, Degrees => {{1,0,0},{0,1,0},{0,0,1},{1,0,0},{0,1,0}}];
+
+F17E5 =  Γ = simplicialComplex {a*b*c, c*d*e}
+
+F17E6 =  assert isProper Γ
+
+F17E7 =  flagfVector Γ
+
+F17E8 =  fVector Γ
+
+F17E9 =  apply(toList(-1..dim Γ), i -> (
+
+          F := flagfVector Γ;
+
+          sum for L in keys F list if sum L == i+1 then F#L else 0))
+
+F17E10 =  assert(oo === fVector Γ)
+
+F18E0 =  R = QQ[x_1..x_6];
+
+F18E1 =  I = monomialIdeal(x_2*x_3*x_4*x_5, x_1*x_6);
+
+F18E2 =  stacked = simplicialComplex I
+
+F18E3 =  shifted = algebraicShifting stacked
+
+F18E4 =  fVector stacked
+
+F18E5 =  fVector shifted
+
+F18E6 =  R' = QQ[a,b,c];
+
+F18E7 =  triangle = simplicialComplex {a*b, b*c, a*c}
+
+F18E8 =  algebraicShifting triangle === triangle
+
+F18E9 =  grading = {{1,0,0}, {1,0,0}, {1,0,0}, {0,1,0}, {0,0,1}};
+
+F18E10 =  R = QQ[x_{1,1}, x_{1,2}, x_{1,3}, x_{2,1}, x_{3,1}, Degrees => grading];
+
+F18E11 =  delta = simplicialComplex({x_{1,3}*x_{2,1}*x_{3,1}, x_{1,1}*x_{2,1}, x_{1,2}*x_{3,1}})
+
+F18E12 =  shifted = algebraicShifting(delta, Multigrading => true)
+
+F18E13 =  prune (homology(delta))_1
+
+F18E14 =  prune (homology(shifted))_1
+
+F19E0 =  S = ZZ[x_0..x_4];
+
+F19E1 =  Δ = skeleton(2, simplexComplex(3,S));
+
+F19E2 =  prune cohomology(1, Δ)
+
+F19E3 =  prune cohomology(2, Δ)
+
+F19E4 =  figureEight = simplicialComplex {x_0*x_1, x_0*x_2, x_1*x_2, x_2*x_3, x_2*x_4, x_3*x_4}
+
+F19E5 =  prune cohomology(1, figureEight)
+
+F20E0 =  S = ZZ/23[x,y,z,w];
+
+F20E1 =  Δ = simplexComplex(3,S)
+
+F20E2 =  R = ZZ/101[a,b,c,d,e];
+
+F20E3 =  Γ = substitute(Δ, R)
+
+F20E4 =  code(substitute, SimplicialComplex, PolynomialRing)
+
+F21E0 =  R = ZZ/229[a,b,c];
+
+F21E1 =  D = simplicialComplex{a*b*c}
+
+F21E2 =  E = simplicialComplex{a*b,b*c}
+
+F21E3 =  f = map(E,D,{a,b,a})
+
+F21E4 =  isWellDefined f
+
+F21E5 =  image f
+
+F22E0 =  R = ZZ[x_0..x_5];
+
+F22E1 =  Hexagon = simplicialComplex {x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_0}
+
+F22E2 =  Edge = simplicialComplex {x_0*x_1}
+
+F22E3 =  prune cohomology(1, Hexagon)
+
+F22E4 =  prune cohomology(1, Hexagon, Edge) == prune cohomology(1,Hexagon)
+
+F22E5 =  S = ZZ[y_0..y_4];
+
+F22E6 =  Sphere = simplicialComplex {y_0*y_1*y_3, y_0*y_2*y_3, y_1*y_2*y_3,
+
+                                 y_0*y_1*y_4, y_0*y_2*y_4, y_1*y_2*y_4}
+
+F22E7 =  prune cohomology(1, Sphere)
+
+F22E8 =  Poles = simplicialComplex {y_3, y_4}
+
+F22E9 =  prune cohomology(1, Sphere, Poles)
+
+F22E10 =  T = ZZ[z_0..z_5];
+
+F22E11 =  Fish = simplicialComplex {z_0*z_1, z_1*z_2, z_2*z_3, z_3*z_0,
+
+                                z_0*z_4, z_0*z_5, z_4*z_5}
+
+F22E12 =  prune cohomology(1, Fish, Hexagon)
+
+F22E13 =  inclusion = map(Hexagon, Fish, gens ring Hexagon);
+
+F22E14 =  isWellDefined inclusion
+
+F23E0 =  S = ZZ[a..e];
+
+F23E1 =  Δ = simplicialComplex {a*b*c, c*d*e}
+
+F23E2 =  star (Δ, c)
+
+F23E3 =  assert (star (Δ, c) === Δ)
+
+F23E4 =  star (Δ, a*b)
+
+F23E5 =  assert (star (Δ, a*b) === simplicialComplex {a*b*c})
+
+F23E6 =  star (Δ, a*d)
+
+F23E7 =  assert (star (Δ, a*d) === simplicialComplex monomialIdeal 1_S)
+
+F24E0 =  S = ZZ/101[a..f];
+
+F24E1 =  Δ = bjornerComplex S
+
+F24E2 =  dim Δ
+
+F24E3 =  fVector Δ
+
+F24E4 =  assert(dim Δ === 2 and isPure Δ)
+
+F24E5 =  assert(fVector Δ === {1,6,15,11})
+
+F24E6 =  prune HH chainComplex Δ
+
+F25E0 =  S = ZZ[x_0..x_5];
+
+F25E1 =  Δ = simplicialComplex monomialIdeal(x_0*x_5, x_1*x_4, x_2*x_3)
+
+F25E2 =  id_Δ
+
+F25E3 =  net id_Δ
+
+F25E4 =  matrix id_Δ
+
+F25E5 =  S' = ZZ[y_0..y_3];
+
+F25E6 =  Γ = simplicialComplex monomialIdeal(y_1*y_2)
+
+F25E7 =  f = map(Γ, Δ, {y_0,y_0,y_1,y_2,y_3,y_3})
+
+F25E8 =  assert isWellDefined f
+
+F25E9 =  net f
+
+F25E10 =  matrix f
+
+F26E0 =  S = ZZ/101[a..s];
+
+F26E1 =  Δ = rudinBallComplex S;
+
+F26E2 =  matrix {facets Δ}
+
+F26E3 =  dim Δ
+
+F26E4 =  fVector Δ
+
+F26E5 =  assert(dim Δ === 3 and isPure Δ)
+
+F26E6 =  assert(fVector Δ === {1,14,66,94,41})
+
+F27E0 =  S = ZZ/101[a..s];
+
+F27E1 =  Δ = nonPiecewiseLinearSphereComplex S;
+
+F27E2 =  matrix {facets Δ}
+
+F27E3 =  dim Δ
+
+F27E4 =  fVector Δ
+
+F27E5 =  assert(dim Δ === 5 and isPure Δ)
+
+F27E6 =  assert(fVector Δ === {1,18,141,515,930,807,269})
+
+F28E0 =  R = ZZ[a..f];
+
+F28E1 =  fish = simplicialComplex {a*b*c, b*c*d, d*e*f}
+
+F28E2 =  R' = ZZ[x_0,x_1,x_2];
+
+F28E3 =  fishface = simplicialComplex {x_0*x_1*x_2}
+
+F28E4 =  f = map(fish,fishface,{a,b,c})
+
+F28E5 =  isInjective f
+
+F28E6 =  isInjective id_fish
+
+F28E7 =  assert isInjective id_fish
+
+F28E8 =  f' = map(fish, fishface, {b,c,c})
+
+F28E9 =  isInjective f'
+
+F28E10 =  assert not isInjective f'
+
+F29E0 =  S = ZZ[a..e];
+
+F29E1 =  Δ = simplicialComplex monomialIdeal (a*b*c*d*e)
+
+F29E2 =  skeleton (-2, Δ)
+
+F29E3 =  assert (skeleton (-2, Δ) === simplicialComplex monomialIdeal 1_S)
+
+F29E4 =  skeleton (-1, Δ)
+
+F29E5 =  assert (skeleton (-1, Δ) === simplicialComplex {1_S})
+
+F29E6 =  skeleton (0, Δ)
+
+F29E7 =  assert (skeleton (0, Δ) === simplicialComplex gens S)
+
+F29E8 =  skeleton (1, Δ)
+
+F29E9 =  assert (skeleton (1, Δ) === simplicialComplex apply (subsets (gens S, 2), product))
+
+F29E10 =  skeleton (2, Δ)
+
+F29E11 =  assert (skeleton (2, Δ) === simplicialComplex apply (subsets (gens S, 3), product))
+
+F29E12 =  skeleton (3, Δ)
+
+F29E13 =  assert (skeleton (3, Δ) === Δ)
+
+F29E14 =  fVector Δ
+
+F29E15 =  R = ZZ/101[a..f];
+
+F29E16 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F29E17 =  skeleton (-7, Γ)
+
+F29E18 =  assert (skeleton (-7, Γ) === simplicialComplex monomialIdeal 1_R)
+
+F29E19 =  skeleton (-1, Γ)
+
+F29E20 =  assert (skeleton (-1, Γ) === simplicialComplex {1_R})
+
+F29E21 =  skeleton (0, Γ)
+
+F29E22 =  assert (skeleton (0, Γ) === simplicialComplex {a, b, c, d, e})
+
+F29E23 =  skeleton (1, Γ)
+
+F29E24 =  assert (skeleton (1, Γ) === simplicialComplex {e, c*d, b*d, b*c, a*c, a*b})
+
+F29E25 =  skeleton (2, Γ)
+
+F29E26 =  assert (skeleton (2, Γ) === Γ)
+
+F30E0 =  S = QQ[x_0..x_3];
+
+F30E1 =  Δ = simplexComplex(3, S)
+
+F30E2 =  netList for i from -1 to dim Δ list {i,faces(i, Δ)}
+
+F30E3 =  assert all(-1..dim Δ, i ->  faces(i, Δ) === first entries sub(matrix{rsort subsets(vertices Δ, i+1)/product}, S))
+
+F30E4 =  R = ZZ[a..h];
+
+F30E5 =  Γ = dunceHatComplex R;
+
+F30E6 =  matrix {facets Γ}
+
+F30E7 =  netList for i from -1 to dim Γ list {i,faces(i, Γ)}
+
+F30E8 =  monomialIdeal Γ
+
+F30E9 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F30E10 =  dim irrelevant
+
+F30E11 =  faces (-1, irrelevant)
+
+F30E12 =  assert(faces(-1, irrelevant) === {1_S})
+
+F30E13 =  void = simplicialComplex monomialIdeal 1_S
+
+F30E14 =  faces(-1, void)
+
+F30E15 =  assert all(-2..7, i -> faces(i, void) == {})
+
+F30E16 =  peek Δ.cache
+
+F30E17 =  peek Δ.cache.faces
+
+F31E0 =  S = ZZ/101[a..s];
+
+F31E1 =  Δ = grunbaumBallComplex S;
+
+F31E2 =  matrix {facets Δ}
+
+F31E3 =  dim Δ
+
+F31E4 =  fVector Δ
+
+F31E5 =  assert(dim Δ === 3 and isPure Δ)
+
+F31E6 =  assert(fVector Δ === {1,14,54,70,29})
+
+F32E0 =  S = QQ[a..e];
+
+F32E1 =  Δ = simplicialComplex monomialIdeal (d*e, a*b*e, a*c*e, a*b*c*d)
+
+F32E2 =  link (Δ, a)
+
+F32E3 =  link (Δ, c)
+
+F32E4 =  link (Δ, e)
+
+F32E5 =  link (Δ, b*c)
+
+F32E6 =  link (Δ, a*e)
+
+F32E7 =  assert (facets link (Δ, a) ===  {e, c*d, b*d, b*c})
+
+F32E8 =  assert (facets link (Δ, c) ===  {b*e, b*d, a*d, a*b})
+
+F32E9 =  assert (facets link (Δ, e) === {a, b*c})
+
+F32E10 =  assert (facets link (Δ, b*c) === {e,d,a})
+
+F32E11 =  assert (facets link (Δ, a*e) === {1_S})
+
+F32E12 =  assert (isPure link (Δ, c) and dim link (Δ, a*e) === -1)
+
+F32E13 =  link(Δ, 1_S)
+
+F32E14 =  void = simplicialComplex monomialIdeal 1_S
+
+F32E15 =  link (void, 1_S)
+
+F32E16 =  assert (link (Δ, 1_S) === Δ and link(void, 1_S) === void)
+
+F32E17 =  S = ZZ/101[a..g];
+
+F32E18 =  Δ = simplicialComplex {a*b*c, a*c*d, a*d*e, a*e*f, a*f*g, a*b*g}
+
+F32E19 =  link (Δ, a*b)
+
+F32E20 =  link (Δ, g)
+
+F32E21 =  link (Δ, c)
+
+F32E22 =  betti res ideal Δ
+
+F32E23 =  R = QQ[a..e, DegreeRank => 5];
+
+F32E24 =  Γ = simplicialComplex monomialIdeal (d*e, a*b*e, a*c*e, a*b*c*d)
+
+F32E25 =  prune Tor_0(R^1/gens R,ideal Γ)
+
+F32E26 =  assert (hilbertFunction({1,1,1,1,0}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, e)))
+
+F32E27 =  assert (hilbertFunction({1,1,0,0,1}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, c*d)))
+
+F32E28 =  assert (hilbertFunction({1,0,1,0,1}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, b*d)))
+
+F32E29 =  assert (hilbertFunction({0,0,0,1,1}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, a*b*c)))
+
+F32E30 =  prune Tor_1(R^1/gens R, ideal Γ)
+
+F32E31 =  assert (hilbertFunction({1,1,1,0,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, d)))
+
+F32E32 =  assert (hilbertFunction({1,1,0,1,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, c)))
+
+F32E33 =  assert (hilbertFunction({1,0,1,1,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, b)))
+
+F32E34 =  assert (hilbertFunction({1,1,1,1,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, 1_R)))
+
+F32E35 =  prune Tor_2(R^1/gens R, ideal Γ)
+
+F32E36 =  assert (hilbertFunction({1,1,1,1,1}, Tor_2(R^1/gens R, ideal Γ)) === rank HH_1 (link (dual Γ, 1_R)))
+
+F32E37 =  R' = QQ[a..h];
+
+F32E38 =  B = bartnetteSphereComplex R'
+
+F32E39 =  pdim comodule ideal B === codim ideal B  -- B is Cohen-Macaulay
+
+F32E40 =  assert all (flatten apply(-1..2, i -> (faces B)#i), f -> (
+
+               L := link (B, f);
+
+               all (-1..dim L - 1, j -> HH_j(L) == 0)))
+
+F33E0 =  S = QQ[a,b,c,d];
+
+F33E1 =  Δ = simplexComplex(3,S);
+
+F33E2 =  f = map(Δ,Δ, id_S)
+
+F33E3 =  matrix f
+
+F33E4 =  map f
+
+F33E5 =  R = QQ[s,t,u,v,w];
+
+F33E6 =  Γ = simplicialComplex{s*t*u,u*v*w};
+
+F33E7 =  g = map(Δ,Γ, {a,b,c,d,d})
+
+F33E8 =  source g
+
+F33E9 =  target g
+
+F33E10 =  image g
+
+F34E0 =  S = ZZ[a..e];
+
+F34E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F34E2 =  monomialIdeal Δ
+
+F34E3 =  dim Δ
+
+F34E4 =  assert (dim Δ === 3 and numgens ideal Δ === 1 and isPure Δ)
+
+F34E5 =  R = ZZ/101[a..f];
+
+F34E6 =  Γ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F34E7 =  monomialIdeal Γ
+
+F34E8 =  dim Γ
+
+F34E9 =  assert (dim Γ === 3 and numgens ideal Γ === 2 and isPure Γ)
+
+F34E10 =  S' = QQ[a..e];
+
+F34E11 =  Δ' = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F34E12 =  monomialIdeal Δ'
+
+F34E13 =  dim Δ'
+
+F34E14 =  assert (dim Δ' === 2 and not isPure Δ')
+
+F34E15 =  irrelevant = simplicialComplex {1_S'};
+
+F34E16 =  dim irrelevant
+
+F34E17 =  void = simplicialComplex monomialIdeal 1_S
+
+F34E18 =  dim void
+
+F34E19 =  assert (dim irrelevant === -1 and dim void === -infinity)
+
+F34E20 =  peek Δ.cache
+
+F35E0 =  S = ZZ[a..j];
+
+F35E1 =  Γ = smallManifold(3, 8, 21, S);
+
+F35E2 =  matrix {facets Γ}
+
+F35E3 =  prune HH Γ
+
+F35E4 =  assert(isWellDefined Γ and dim Γ === 3 and # vertices Γ === 8)
+
+F35E5 =  assert (simplicialComplex faces(3, simplexComplex(4, S)) === smallManifold(3,5,0,S))
+
+F35E6 =  RP2 = smallManifold(2, 6, 1, S)
+
+F35E7 =  KleinBottle = smallManifold(2, 8, 12, S)
+
+F35E8 =  RP2H = prune HH RP2
+
+F35E9 =  KBH = prune HH KleinBottle
+
+F36E0 =  S = ZZ[a..e];
+
+F36E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F36E2 =  ring Δ
+
+F36E3 =  coefficientRing Δ
+
+F36E4 =  dim Δ
+
+F36E5 =  assert (ring Δ === S and coefficientRing Δ === ZZ)
+
+F36E6 =  R = ZZ/101[a..e];
+
+F36E7 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F36E8 =  ring Γ
+
+F36E9 =  ideal Γ
+
+F36E10 =  assert (ring Γ === R and coefficientRing Γ === ZZ/101)
+
+F36E11 =  irrelevant = simplicialComplex {1_R};
+
+F36E12 =  ring irrelevant
+
+F36E13 =  void = simplicialComplex monomialIdeal 1_S
+
+F36E14 =  ring void
+
+F36E15 =  assert (ring irrelevant === R and ring void === S)
+
+F36E16 =  peek Δ
+
+F37E0 =  S = ZZ[a..e];
+
+F37E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F37E2 =  I = monomialIdeal Δ
+
+F37E3 =  dim Δ
+
+F37E4 =  assert (I == monomialIdeal a*b*c*d*e and numgens I === 1 and
+
+         instance(I, MonomialIdeal) and dim Δ === 3)
+
+F37E5 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F37E6 =  J = monomialIdeal Γ
+
+F37E7 =  assert (J == monomialIdeal (a*d, b*c*d, a*e, b*e, c*e, d*e) and
+
+         dim Γ === 2 and instance(J, MonomialIdeal))
+
+F37E8 =  irrelevant = simplicialComplex {1_S};
+
+F37E9 =  M = monomialIdeal irrelevant
+
+F37E10 =  void = simplicialComplex monomialIdeal 1_S
+
+F37E11 =  assert (M == monomialIdeal gens S and instance(M, MonomialIdeal))
+
+F37E12 =  U = monomialIdeal void
+
+F37E13 =  assert (U == monomialIdeal 1_S and instance (U, MonomialIdeal))
+
+F37E14 =  printWidth = 250;
+
+F37E15 =  code (ideal, SimplicialComplex)
+
+F37E16 =  code (monomialIdeal, SimplicialComplex)
+
+F37E17 =  peek Δ
+
+F38E0 =  R = ZZ[a,b,c];
+
+F38E1 =  triangle = simplicialComplex {a*b*c}
+
+F38E2 =  R' = ZZ[x_0,x_1];
+
+F38E3 =  edge = simplicialComplex {x_0*x_1}
+
+F38E4 =  f = map(edge,triangle,{x_0,x_0,x_1})
+
+F38E5 =  isSurjective f
+
+F38E6 =  isSurjective id_triangle
+
+F38E7 =  assert isSurjective id_triangle
+
+F38E8 =  f' = map(triangle,edge,{a,b});
+
+F38E9 =  isSurjective f'
+
+F38E10 =  assert not isSurjective f'
+
+F39E0 =  S = ZZ[a..e];
+
+F39E1 =  Δ = simplicialComplex monomialIdeal (a*b*c*d*e)
+
+F39E2 =  assert isWellDefined Δ
+
+F40E0 =  S = QQ[a..e];
+
+F40E1 =  Δ4 = simplexComplex(4, S)
+
+F40E2 =  monomialIdeal Δ4
+
+F40E3 =  prune Δ4
+
+F40E4 =  assert(Δ4 === prune Δ4)
+
+F40E5 =  Γ = simplicialComplex monomialIdeal(a, a*b, b*c, c*d)
+
+F40E6 =  monomialIdeal Γ
+
+F40E7 =  prune Γ
+
+F40E8 =  monomialIdeal prune Γ
+
+F40E9 =  R = ring prune Γ;
+
+F40E10 =  (gens R, vertices  Γ)
+
+F40E11 =  assert(ring Γ =!= ring prune Γ)
+
+F40E12 =  assert(gens R  === apply(vertices Γ, x -> sub(x, R)))
+
+F40E13 =  Δ2 = simplexComplex(2, S)
+
+F40E14 =  prune Δ2
+
+F40E15 =  R = ring prune Δ2;
+
+F40E16 =  (gens R, vertices  Δ2)
+
+F40E17 =  assert(ring Δ2 =!= ring prune Δ2)
+
+F40E18 =  assert(gens R  === apply(vertices Δ2, x -> sub(x, R)))
+
+F40E19 =  void = simplicialComplex monomialIdeal(1_S)
+
+F40E20 =  facets void
+
+F40E21 =  monomialIdeal prune void
+
+F40E22 =  assert(gens ring prune void === {})
+
+F40E23 =  assert(monomialIdeal prune void == 1)
+
+F40E24 =  irrelevant = simplicialComplex{1_S}
+
+F40E25 =  facets irrelevant
+
+F40E26 =  prune irrelevant
+
+F40E27 =  monomialIdeal prune irrelevant
+
+F40E28 =  assert(gens ring prune irrelevant === {})
+
+F40E29 =  assert(monomialIdeal prune irrelevant == 0)
+
+F41E0 =  S = ZZ[x_0..x_5];
+
+F41E1 =  Δ = simplicialComplex monomialIdeal(x_0*x_5, x_1*x_4, x_2*x_3)
+
+F41E2 =  id_Δ
+
+F41E3 =  source id_Δ
+
+F41E4 =  assert(target id_Δ === Δ)
+
+F41E5 =  assert(target id_Δ === source id_Δ)
+
+F41E6 =  R = ZZ[y_0..y_3];
+
+F41E7 =  Γ = simplicialComplex monomialIdeal(y_1*y_2)
+
+F41E8 =  f = map(Γ, Δ, {y_0,y_0,y_1,y_2,y_3,y_3})
+
+F41E9 =  assert isWellDefined f
+
+F41E10 =  target f
+
+F41E11 =  assert(target f === Γ)
+
+F41E12 =  peek f
+
+F42E0 =  S = ZZ[x_0..x_7];
+
+F42E1 =  KleinBottle = kleinBottleComplex S
+
+F42E2 =  prune HH KleinBottle
+
+F43E0 =  S = ZZ[x_0..x_6];
+
+F43E1 =  R = ZZ[y_0..y_2];
+
+F43E2 =  Torus = smallManifold(2,7,6,S);
+
+F43E3 =  Circle = simplicialComplex{R_0*R_1, R_0*R_2, R_1*R_2};
+
+F43E4 =  f1 = map(Torus,Circle,matrix{{S_3,S_6,S_5}});
+
+F43E5 =  f2 = map(Torus,Circle,matrix{{S_0,S_2,S_3}});
+
+F43E6 =  prune homology(1, f1)
+
+F43E7 =  prune homology(1, f2)
+
+F44E0 =  S = QQ[a..g];
+
+F44E1 =  torus = smallManifold(2, 7, 6, S)
+
+F44E2 =  C = chainComplex torus
+
+F44E3 =  fVector torus
+
+F44E4 =  prune HH C
+
+F44E5 =  assert(prune HH_1 C == QQ^2)
+
+F44E6 =  assert(prune HH_2 C == QQ^1)
+
+F44E7 =  prune HH torus
+
+F44E8 =  R = ZZ[a..h];
+
+F44E9 =  Δ = kleinBottleComplex R
+
+F44E10 =  C' = chainComplex Δ
+
+F44E11 =  C'.dd
+
+F44E12 =  fVector Δ
+
+F44E13 =  prune HH C'
+
+F44E14 =  prune HH Δ
+
+F44E15 =  assert(prune HH_1 C' == ZZ^1/ideal(2) ++ ZZ^1)
+
+F44E16 =  S = QQ[a..d];
+
+F44E17 =  Γ = simplicialComplex{a*b*c, b*c*d};
+
+F44E18 =  C = chainComplex Γ
+
+F44E19 =  C.dd
+
+F44E20 =  R = QQ[x_0..x_3];
+
+F44E21 =  hC = chainComplex(Γ, Labels => {x_0*x_1, x_3, x_1*x_2, x_0*x_2})
+
+F44E22 =  hC.dd
+
+F44E23 =  prune homology hC
+
+F44E24 =  hC' = chainComplex(Γ, Labels => {x_3, x_0*x_1, x_1*x_2, x_0*x_2})
+
+F44E25 =  hC'.dd
+
+F44E26 =  prune HH hC'
+
+F45E0 =  S = ZZ[x_0..x_5];
+
+F45E1 =  Δ = simplicialComplex {x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_0}
+
+F45E2 =  Γ = simplicialComplex {x_0*x_1}
+
+F45E3 =  prune homology Δ
+
+F45E4 =  prune homology(Δ, Γ)
+
+F45E5 =  assert(prune homology(Δ, Γ) == prune homology Δ)
+
+F45E6 =  S = ZZ[y_0..y_4];
+
+F45E7 =  Δ = simplicialComplex {y_0*y_1*y_3, y_0*y_2*y_3, y_1*y_2*y_3,
+
+                            y_0*y_1*y_4, y_0*y_2*y_4, y_1*y_2*y_4}
+
+F45E8 =  prune homology Δ
+
+F45E9 =  Γ = simplicialComplex {y_3, y_4}
+
+F45E10 =  prune homology(Δ, Γ)
+
+F46E0 =  S = QQ[a,b,c, DegreeRank => 3];
+
+F46E1 =  degrees S
+
+F46E2 =  Δ = simplexComplex(2, S)
+
+F46E3 =  flagfVector({0,0,0}, Δ)
+
+F46E4 =  flagfVector({1,0,0}, Δ)
+
+F46E5 =  flagfVector({0,1,0}, Δ)
+
+F46E6 =  flagfVector({0,0,1}, Δ)
+
+F46E7 =  flagfVector({0,1,1}, Δ)
+
+F46E8 =  flagfVector({1,0,1}, Δ)
+
+F46E9 =  flagfVector({1,1,0}, Δ)
+
+F46E10 =  flagfVector({1,1,1}, Δ)
+
+F46E11 =  R = ZZ[a..e, Degrees => {{1,0,0},{0,1,0},{0,0,1},{1,0,0},{0,1,0}}];
+
+F46E12 =  Γ = simplicialComplex {a*b*c, c*d*e}
+
+F46E13 =  assert isProper Γ
+
+F46E14 =  flagfVector({0,0,0}, Γ)
+
+F46E15 =  flagfVector({1,0,0}, Γ)
+
+F46E16 =  flagfVector({0,1,0}, Γ)
+
+F46E17 =  flagfVector({0,0,1}, Γ)
+
+F46E18 =  flagfVector({0,1,1}, Γ)
+
+F46E19 =  flagfVector({1,0,1}, Γ)
+
+F46E20 =  flagfVector({1,1,0}, Γ)
+
+F46E21 =  flagfVector({1,1,1}, Γ)
+
+F47E0 =  S = ZZ[a..f];
+
+F47E1 =  Δ = simplicialComplex monomialIdeal(a*f, b*d, c*e)
+
+F47E2 =  net Δ
+
+F47E3 =  assert instance(net Δ, Net)
+
+F47E4 =  void = simplicialComplex monomialIdeal 1_S
+
+F47E5 =  net void
+
+F47E6 =  irrelevant = simplicialComplex {1_S};
+
+F47E7 =  net irrelevant
+
+F48E0 =  S = ZZ[a..e];
+
+F48E1 =  Δ = simplexComplex(4, S)
+
+F48E2 =  f = id_Δ
+
+F48E3 =  assert (isWellDefined f and source f === Δ and
+
+         target f === Δ and matrix f === vars S)
+
+F48E4 =  R = ZZ[x_0..x_5];
+
+F48E5 =  Γ = simplicialComplex monomialIdeal(x_0*x_5, x_1*x_4, x_2*x_3)
+
+F48E6 =  g = id_Γ
+
+F48E7 =  assert (isWellDefined g and source g === Γ and
+
+         target g === Γ and matrix g === vars R)
+
+F49E0 =  T = ZZ/2[x_0,x_1,x_2];
+
+F49E1 =  Δ = simplicialComplex{T_1*T_2}
+
+F49E2 =  Γ = simplicialComplex{T_0*T_1}
+
+F49E3 =  f = map(Γ, Δ, reverse gens T)
+
+F49E4 =  R = ZZ/2[y_0..y_2];
+
+F49E5 =  S = ZZ/2[z_0..z_2];
+
+F49E6 =  BΔ = barycentricSubdivision(Δ, R)
+
+F49E7 =  BΓ = barycentricSubdivision(Γ, S)
+
+F49E8 =  Bf = barycentricSubdivision(f, S, R)
+
+F49E9 =  ΔFaces = flatten for i to dim Δ + 1 list faces(i, Δ)
+
+F49E10 =  ΓFaces = flatten for i to dim Γ + 1 list faces(i, Γ)
+
+F49E11 =  netList transpose {for y in vertices BΔ list y => ΔFaces_(index y),
+
+          for z in vertices BΓ list z => ΓFaces_(index z)}
+
+F49E12 =  netList transpose {for F in ΔFaces list F => (map f)(F),
+
+          for v in vertices BΔ list v => (map Bf)(v) }
+
+F49E13 =  Bf
+
+F50E0 =  S = ZZ[x_0..x_5];
+
+F50E1 =  Δ = simplicialComplex monomialIdeal(x_0*x_5, x_1*x_4, x_2*x_3)
+
+F50E2 =  id_Δ
+
+F50E3 =  source id_Δ
+
+F50E4 =  assert(source id_Δ === Δ)
+
+F50E5 =  assert(source id_Δ === target id_Δ)
+
+F50E6 =  R = ZZ[y_0..y_3];
+
+F50E7 =  Γ = simplicialComplex monomialIdeal(y_1*y_2)
+
+F50E8 =  f = map(Γ, Δ, {y_0,y_0,y_1,y_2,y_3,y_3})
+
+F50E9 =  assert isWellDefined f
+
+F50E10 =  source f
+
+F50E11 =  assert(source f === Δ)
+
+F50E12 =  peek f
+
+F51E0 =  S = ZZ[a..e];
+
+F51E1 =  Δ = simplicialComplex monomialIdeal (a*b*c*d*e)
+
+F51E2 =  facets Δ
+
+F51E3 =  assert (facets Δ == {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+         and isPure Δ and dim Δ === 3)
+
+F51E4 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F51E5 =  facets Γ
+
+F51E6 =  assert (facets Γ == {e, c*d, b*d, a*b*c} and
+
+         ideal Γ == ideal (a*d, b*c*d, a*e, b*e, c*e, d*e) and
+
+         not isPure Γ and dim Γ === 2)
+
+F51E7 =  irrelevant = simplicialComplex {1_S}
+
+F51E8 =  facets irrelevant
+
+F51E9 =  void = simplicialComplex monomialIdeal 1_S
+
+F51E10 =  facets void
+
+F51E11 =  assert (facets irrelevant == {1_S} and facets void == {})
+
+F51E12 =  peek Δ
+
+F52E0 =  S = QQ[x,y];
+
+F52E1 =  M = monomialIdeal{x*y,x^2,y^3};
+
+F52E2 =  F = lyubeznikResolution M;
+
+F52E3 =  F.dd
+
+F52E4 =  first entries mingens M
+
+F52E5 =  F' = lyubeznikResolution({x^2,y^3,x*y});
+
+F52E6 =  F'.dd
+
+F52E7 =  F' = lyubeznikResolution(M,MonomialOrder=>{1,2,0});
+
+F52E8 =  F'.dd
+
+F53E0 =  S = ZZ/101[a..n];
+
+F53E1 =  Δ = zieglerBallComplex S;
+
+F53E2 =  matrix {facets Δ}
+
+F53E3 =  dim Δ
+
+F53E4 =  fVector Δ
+
+F53E5 =  assert(dim Δ === 3 and isPure Δ)
+
+F53E6 =  assert(fVector Δ === {1,10,38,50,21})
+
+F54E0 =  S = ZZ[x_0..x_6];
+
+F54E1 =  netList for n from -1 to 6 list fVector simplexComplex(n, S)
+
+F54E2 =  assert all(1..7, i -> (fVector simplexComplex(6,S))#i === binomial(7,i))
+
+F54E3 =  S = ZZ[x_1..x_16];
+
+F54E4 =  fVector bartnetteSphereComplex S
+
+F54E5 =  fVector bjornerComplex S
+
+F54E6 =  fVector dunceHatComplex S
+
+F54E7 =  fVector poincareSphereComplex S
+
+F54E8 =  fVector rudinBallComplex S
+
+F54E9 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F54E10 =  fVector irrelevant
+
+F54E11 =  assert(fVector irrelevant === {1})
+
+F54E12 =  void = simplicialComplex monomialIdeal 1_S
+
+F54E13 =  fVector void
+
+F54E14 =  assert(fVector void === {0})
+
+F55E0 =  S = ZZ/101[a,b,c,d];
+
+F55E1 =  Δ = simplexComplex(3,S)
+
+F55E2 =  f = map(Δ,Δ,matrix{{a,b,c,d}})
+
+F55E3 =  map f
+
+F56E0 =  S = QQ[a..e];
+
+F56E1 =  Δ = simplicialComplex {a*b*c, c*d*e}
+
+F56E2 =  R = QQ[f];
+
+F56E3 =  Γ = simplicialComplex {f};
+
+F56E4 =  Δ' = Δ * Γ
+
+F56E5 =  assert (dim Δ' === dim Δ + 1)
+
+F56E6 =  S = QQ[a..d];
+
+F56E7 =  Δ = simplicialComplex {a*b, b*c, c*d, a*d}
+
+F56E8 =  R = QQ[e,f];
+
+F56E9 =  Γ = simplicialComplex {e, f}
+
+F56E10 =  Δ' = Δ * Γ
+
+F56E11 =  assert (dim Δ' === dim Δ + 1)
+
+F56E12 =  assert (apply(2+dim Δ', i -> #faces(i-1,Δ')) == {1,6,12,8})
+
+F56E13 =  S = ZZ[a..f];
+
+F56E14 =  Δ = simplicialComplex {a*b, b*c, c*d, d*e, e*f, a*f}
+
+F56E15 =  R = ZZ[g..k];
+
+F56E16 =  Γ = simplicialComplex {g*h, h*i, i*j, j*k, g*k}
+
+F56E17 =  Δ' = Δ * Γ
+
+F56E18 =  prune HH Δ'
+
+F56E19 =  assert (dim Δ' === 3)
+
+F57E0 =  S = QQ[x_0..x_3, Degrees => {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}}];
+
+F57E1 =  M = monomialIdeal(x_0*x_1,x_0*x_3,x_1*x_2,x_2*x_3);
+
+F57E2 =  T = taylorResolution M;
+
+F57E3 =  C = scarfChainComplex M;
+
+F57E4 =  T.dd
+
+F57E5 =  C.dd
+
+F57E6 =  flatten for i to length C list degrees C_i
+
+F57E7 =  prune homology C
+
+F57E8 =  T' = taylorResolution{x_0*x_1,x_0*x_2,x_0*x_3};
+
+F57E9 =  C' = scarfChainComplex{x_0*x_1,x_0*x_2,x_0*x_3};
+
+F57E10 =  T'.dd
+
+F57E11 =  C'.dd
+
+F57E12 =  prune homology C'
+
+F57E13 =  flatten for i to length C list degrees C'_i
+
+F58E0 =  S = ZZ[a..e];
+
+F58E1 =  Δ = simplicialComplex {a*b*d*e, b*c*d*e, a*b*c*e, a*b*c*d, a*c*d*e}
+
+F58E2 =  facets Δ
+
+F58E3 =  monomialIdeal Δ
+
+F58E4 =  dim Δ
+
+F58E5 =  assert (dim Δ === 3 and numgens ideal Δ === 1 and isPure Δ)
+
+F58E6 =  assert (Δ === simplicialComplex facets Δ)
+
+F58E7 =  Γ = simplicialComplex {a*b*d*e, b*c, a*b*c*d,  a*c*d*e, a*c*d,  b*c*d*e, d, a*b*c*e}
+
+F58E8 =  monomialIdeal Γ
+
+F58E9 =  assert (Γ === Δ)
+
+F58E10 =  assert (Γ === simplicialComplex facets Γ)
+
+F58E11 =  S' = ZZ/101[a..e];
+
+F58E12 =  Δ' = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F58E13 =  monomialIdeal Δ'
+
+F58E14 =  facets Δ'
+
+F58E15 =  dim Δ'
+
+F58E16 =  assert (dim Δ' === 2 and not isPure Δ')
+
+F58E17 =  assert (Δ' === simplicialComplex facets Δ')
+
+F58E18 =  irrelevant = simplicialComplex {1_S'};
+
+F58E19 =  dim irrelevant
+
+F58E20 =  void = simplicialComplex monomialIdeal 1_S
+
+F58E21 =  dim void
+
+F58E22 =  assert (dim irrelevant === -1 and dim void === -infinity)
+
+F58E23 =  assert (irrelevant === simplicialComplex facets irrelevant)
+
+F58E24 =  chainComplex Δ
+
+F58E25 =  chainComplex Γ
+
+F58E26 =  chainComplex Δ'
+
+F59E0 =  S = QQ[vars(0..3)]
+
+F59E1 =  M = monomialIdeal(a*b,c^3,c*d,b^2*c)
+
+F59E2 =  T = taylorResolution M
+
+F59E3 =  T.dd
+
+F59E4 =  L = gens S
+
+F59E5 =  T = taylorResolution L;
+
+F59E6 =  K = koszul matrix{L};
+
+F59E7 =  T.dd
+
+F59E8 =  K.dd
+
+F60E0 =  S = QQ[a..e];
+
+F60E1 =  vertices simplexComplex(4, S)
+
+F60E2 =  Δ = simplicialComplex monomialIdeal(a*b, b*c, c*d, d*e)
+
+F60E3 =  vertices Δ
+
+F60E4 =  faces(0, Δ)
+
+F60E5 =  assert(vertices Δ === gens S)
+
+F60E6 =  vertices simplexComplex(2, S)
+
+F60E7 =  Γ = simplicialComplex monomialIdeal(a, a*b, b*c, c*d)
+
+F60E8 =  vertices Γ
+
+F60E9 =  faces(0, Γ)
+
+F60E10 =  assert(vertices Γ === {b, c, d, e})
+
+F60E11 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F60E12 =  vertices irrelevant
+
+F60E13 =  assert(vertices irrelevant === {})
+
+F60E14 =  void = simplicialComplex monomialIdeal 1_S
+
+F60E15 =  vertices void
+
+F60E16 =  assert(vertices void === {})
+
+F61E0 =  S = ZZ/101[a..q];
+
+F61E1 =  Δ = poincareSphereComplex S;
+
+F61E2 =  matrix {facets Δ}
+
+F61E3 =  dim Δ
+
+F61E4 =  fVector Δ
+
+F61E5 =  prune HH chainComplex Δ
+
+F61E6 =  assert(dim Δ === 3 and isPure Δ)
+
+F61E7 =  assert(fVector Δ === {1,16,106,180,90})
+
+F62E0 =  R = ZZ/101[x_0..x_4];
+
+F62E1 =  L = {x_1^2, x_2^2, x_3^2, x_1*x_3, x_2*x_4};
+
+F62E2 =  BRes = (buchbergerResolution L);
+
+F62E3 =  BRes.dd
+
+F62E4 =  BRes == chainComplex(buchbergerSimplicialComplex(L,R), Labels => L)
+
+F62E5 =  Scarf = scarfChainComplex L
+
+F62E6 =  BRes == Scarf
+
+F63E0 =  S = ZZ[a..e];
+
+F63E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F63E2 =  I = ideal Δ
+
+F63E3 =  dim Δ
+
+F63E4 =  assert (I == ideal a*b*c*d*e and instance(I, Ideal) and
+
+         numgens I === 1 and dim Δ === 3)
+
+F63E5 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F63E6 =  J = ideal Γ
+
+F63E7 =  assert (J == ideal (a*d, b*c*d, a*e, b*e, c*e, d*e) and
+
+         dim Γ === 2 and instance(J, Ideal))
+
+F63E8 =  irrelevant = simplicialComplex {1_S};
+
+F63E9 =  M = ideal irrelevant
+
+F63E10 =  assert (M == ideal gens S and instance(M, Ideal))
+
+F63E11 =  void = simplicialComplex monomialIdeal 1_S
+
+F63E12 =  U = ideal void
+
+F63E13 =  assert (U == ideal 1_S and instance (U, Ideal))
+
+F63E14 =  printWidth = 250;
+
+F63E15 =  code (ideal, SimplicialComplex)
+
+F63E16 =  code (monomialIdeal, SimplicialComplex)
+
+F64E0 =  S = ZZ[a..h];
+
+F64E1 =  Δ = skeleton(2, simplexComplex(3, S))
+
+F64E2 =  prune homology(0, Δ)
+
+F64E3 =  prune homology(1, Δ)
+
+F64E4 =  prune homology(2, Δ)
+
+F64E5 =  assert(homology(2, Δ) === HH_2 Δ)
+
+F64E6 =  prune homology(2, Δ, QQ)
+
+F64E7 =  prune homology(2, Δ, ZZ/2)
+
+F64E8 =  assert(prune homology(0, Δ) === ZZ^0)
+
+F64E9 =  assert(prune homology(1, Δ) === ZZ^0)
+
+F64E10 =  assert(prune homology(2, Δ) === ZZ^1)
+
+F64E11 =  Γ = kleinBottleComplex S
+
+F64E12 =  prune homology(0, Γ)
+
+F64E13 =  prune homology(1, Γ)
+
+F64E14 =  prune homology(1, Γ, QQ)
+
+F64E15 =  prune homology(1, Γ, ZZ/2)
+
+F64E16 =  assert(homology(1, Γ, ZZ/2) === HH_1(Γ, ZZ/2))
+
+F64E17 =  prune homology(2, Γ)
+
+F64E18 =  assert(prune homology(0, Γ) === ZZ^0)
+
+F64E19 =  assert(prune homology(1, Γ, QQ) === QQ^1)
+
+F64E20 =  assert(prune homology(1, Γ, ZZ/2) === (ZZ/2)^2)
+
+F64E21 =  assert(prune homology(2, Γ) === ZZ^0)
+
+F64E22 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F64E23 =  homology(-1, irrelevant)
+
+F64E24 =  assert(homology(-1, irrelevant) === ZZ^1)
+
+F64E25 =  void = simplicialComplex monomialIdeal 1_S
+
+F64E26 =  homology(-1, void)
+
+F64E27 =  assert(homology(-1, void) === ZZ^0)
+
+F65E0 =  S = QQ[x,y];
+
+F65E1 =  R = QQ[a,b,c];
+
+F65E2 =  M = monomialIdeal{x*y,x^2,y^3};
+
+F65E3 =  D = lyubeznikSimplicialComplex(M,R)
+
+F65E4 =  L = lyubeznikResolution(M);
+
+F65E5 =  L.dd
+
+F65E6 =  L' = chainComplex(D,Labels=>(first entries mingens M));
+
+F65E7 =  L'.dd
+
+F65E8 =  first entries mingens M
+
+F65E9 =  D' = lyubeznikSimplicialComplex(M,R,MonomialOrder=>{1,2,0})
+
+F65E10 =  D' = lyubeznikSimplicialComplex({x^2,y^3,x*y},R)
+
+F65E11 =  (lyubeznikResolution(M,MonomialOrder=>{1,2,0})).dd
+
+F66E0 =  S = ZZ[x_0..x_3];
+
+F66E1 =  Δ = simplicialComplex{x_0*x_1*x_2, x_2*x_3, x_1*x_3}
+
+F66E2 =  Γ = inducedSubcomplex(Δ, {x_1, x_2, x_3})
+
+F66E3 =  vertices Γ
+
+F66E4 =  assert (isWellDefined Γ and set vertices Γ === set {x_1, x_2, x_3})
+
+F66E5 =  assert all (facets Γ, F -> member(F, faces(#support F - 1, Δ)))
+
+F66E6 =  void = simplicialComplex monomialIdeal(1_S);
+
+F66E7 =  inducedSubcomplex(void, {})
+
+F66E8 =  assert(void === inducedSubcomplex(void, {}))
+
+F66E9 =  irrelevant = simplicialComplex {1_S};
+
+F66E10 =  inducedSubcomplex(irrelevant, {})
+
+F66E11 =  assert(irrelevant === inducedSubcomplex(irrelevant, {}))
+
+F67E0 =  S = QQ[a,b,c];
+
+F67E1 =  Δ = simplexComplex(2, S)
+
+F67E2 =  R = QQ[d,e,f];
+
+F67E3 =  Γ = simplexComplex(2, R)
+
+F67E4 =  ΔvΓ = wedge (Δ, Γ, a, f)
+
+F67E5 =  vertices ΔvΓ
+
+F67E6 =  assert (# gens ring ΔvΓ === # gens ring Δ + # gens ring Γ - 1)
+
+F67E7 =  ΔvΓ' = wedge (Δ, Γ, a, d, Variables => toList(x_0..x_4))
+
+F67E8 =  vertices ΔvΓ'
+
+F67E9 =  ΔvΓ'' = wedge (Δ, Δ, a, a, Variables => {a,b,c,d,e})
+
+F67E10 =  vertices ΔvΓ''
+
+F67E11 =  ring ΔvΓ''
+
+F68E0 =  R = QQ[x_0..x_2];
+
+F68E1 =  S = QQ[y_0..y_6];
+
+F68E2 =  Δ = simplexComplex(2, R)
+
+F68E3 =  Γ = barycentricSubdivision(Δ, S)
+
+F68E4 =  ΓFacets = facets Γ
+
+F68E5 =  ΔFaces = flatten for i to 1 + dim Δ list faces(i, Δ)
+
+F68E6 =  netList for F in ΓFacets list F => ΔFaces_(indices F)
+
+F69E0 =  S = QQ[x_0..x_6];
+
+F69E1 =  Δ = simplicialComplex {x_0*x_1, x_1*x_2, x_3*x_4, x_4*x_5, x_5*x_6}
+
+F69E2 =  C = connectedComponents Δ
+
+F69E3 =  assert all(C, Γ -> connectedComponents Γ === {Γ})
+
+F69E4 =  void = simplicialComplex monomialIdeal(1_S)
+
+F69E5 =  connectedComponents void
+
+F69E6 =  assert({void} === connectedComponents void)
+
+F69E7 =  irrelevant = simplicialComplex {1_S}
+
+F69E8 =  connectedComponents irrelevant
+
+F69E9 =  assert({irrelevant} === connectedComponents irrelevant)
+
+F70E0 =  S = ZZ[a..h];
+
+F70E1 =  Δ = skeleton(2, simplexComplex(3, S))
+
+F70E2 =  prune homology Δ
+
+F70E3 =  prune homology(Δ, QQ)
+
+F70E4 =  prune homology(Δ, ZZ/2)
+
+F70E5 =  assert(homology Δ == HH Δ)
+
+F70E6 =  assert(prune homology Δ == gradedModule ZZ^1[-2])
+
+F70E7 =  Γ = kleinBottleComplex S
+
+F70E8 =  prune homology Γ
+
+F70E9 =  prune homology(Γ, QQ)
+
+F70E10 =  prune homology(Γ, ZZ/2)
+
+F70E11 =  assert(prune homology(Γ, ZZ/2) == gradedModule((ZZ/2)^2[-1] ++ (ZZ/2)^1[-2]))
+
+F70E12 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F70E13 =  homology irrelevant
+
+F70E14 =  assert(homology irrelevant == gradedModule ZZ^1[1])
+
+F70E15 =  void = simplicialComplex monomialIdeal 1_S
+
+F70E16 =  homology void
+
+F70E17 =  assert(homology void == gradedModule ZZ^0[0])
+
+F71E0 =  S = ZZ[x_1..x_18];
+
+F71E1 =  isPure simplexComplex(5, S)
+
+F71E2 =  isPure bartnetteSphereComplex S
+
+F71E3 =  isPure bjornerComplex S
+
+F71E4 =  isPure dunceHatComplex S
+
+F71E5 =  isPure poincareSphereComplex S
+
+F71E6 =  R = ZZ/101[a..f];
+
+F71E7 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F71E8 =  isPure Γ
+
+F71E9 =  isPure skeleton (1, Γ)
+
+F71E10 =  isPure skeleton (2, Γ)
+
+F71E11 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F71E12 =  isPure irrelevant
+
+F71E13 =  void = simplicialComplex monomialIdeal 1_S
+
+F71E14 =  isPure void
+
+F72E0 =  R = ZZ[a..d];
+
+F72E1 =  Δ = simplicialComplex {a*b*c*d}
+
+F72E2 =  boundaryMap(0, Δ)
+
+F72E3 =  boundaryMap(1, Δ)
+
+F72E4 =  boundaryMap(2, Δ)
+
+F72E5 =  boundaryMap(3, Δ)
+
+F72E6 =  fVector Δ
+
+F72E7 =  C = chainComplex Δ
+
+F72E8 =  assert all(4, i -> C.dd_i == - boundaryMap(i, Δ))
+
+F72E9 =  R' = ZZ/2[a..d];
+
+F72E10 =  Δ' = sub(Δ, R');
+
+F72E11 =  boundaryMap(0, Δ')
+
+F72E12 =  boundaryMap(1, Δ')
+
+F72E13 =  boundaryMap(2, Δ')
+
+F72E14 =  boundaryMap(3, Δ')
+
+F72E15 =  S = ZZ/101[x_0, x_1];
+
+F72E16 =  M = monomialIdeal(x_1^3, x_0*x_1^2, x_0^2*x_1, x_0^3);
+
+F72E17 =  boundaryMap(0, Δ,  Labels => sort M_*)
+
+F72E18 =  boundaryMap(1, Δ,  Labels => sort M_*)
+
+F72E19 =  boundaryMap(2, Δ,  Labels => sort M_*)
+
+F72E20 =  boundaryMap(3, Δ,  Labels => sort M_*)
+
+F72E21 =  T = taylorResolution M
+
+F72E22 =  T.dd
+
+F72E23 =  assert all(4, i -> T.dd_(i+1) == boundaryMap(i, Δ,  Labels => sort M_*))
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F4E13", "F4E14", "F4E15", "F4E16", "F4E17", "F4E18", "F4E19", "F4E20", "F4E21", "F4E22", "F4E23", "F4E24", "F4E25", "F4E26", "F4E27", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F7E0", "F7E1", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F9E21", "F9E22", "F9E23", "F9E24", "F9E25", "F9E26", "F9E27", "F9E28", "F9E29", "F9E30", "F9E31", "F9E32", "F9E33", "F9E34", "F9E35", "F9E36", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F13E10", "F13E11", "F13E12", "F13E13", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F22E14", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F27E6", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F28E8", "F28E9", "F28E10", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F29E7", "F29E8", "F29E9", "F29E10", "F29E11", "F29E12", "F29E13", "F29E14", "F29E15", "F29E16", "F29E17", "F29E18", "F29E19", "F29E20", "F29E21", "F29E22", "F29E23", "F29E24", "F29E25", "F29E26", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12", "F32E13", "F32E14", "F32E15", "F32E16", "F32E17", "F32E18", "F32E19", "F32E20", "F32E21", "F32E22", "F32E23", "F32E24", "F32E25", "F32E26", "F32E27", "F32E28", "F32E29", "F32E30", "F32E31", "F32E32", "F32E33", "F32E34", "F32E35", "F32E36", "F32E37", "F32E38", "F32E39", "F32E40", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15", "F34E16", "F34E17", "F34E18", "F34E19", "F34E20", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F35E6", "F35E7", "F35E8", "F35E9", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F36E7", "F36E8", "F36E9", "F36E10", "F36E11", "F36E12", "F36E13", "F36E14", "F36E15", "F36E16", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F37E11", "F37E12", "F37E13", "F37E14", "F37E15", "F37E16", "F37E17", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F39E0", "F39E1", "F39E2", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F40E10", "F40E11", "F40E12", "F40E13", "F40E14", "F40E15", "F40E16", "F40E17", "F40E18", "F40E19", "F40E20", "F40E21", "F40E22", "F40E23", "F40E24", "F40E25", "F40E26", "F40E27", "F40E28", "F40E29", "F41E0", "F41E1", "F41E2", "F41E3", "F41E4", "F41E5", "F41E6", "F41E7", "F41E8", "F41E9", "F41E10", "F41E11", "F41E12", "F42E0", "F42E1", "F42E2", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F43E5", "F43E6", "F43E7", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F44E6", "F44E7", "F44E8", "F44E9", "F44E10", "F44E11", "F44E12", "F44E13", "F44E14", "F44E15", "F44E16", "F44E17", "F44E18", "F44E19", "F44E20", "F44E21", "F44E22", "F44E23", "F44E24", "F44E25", "F44E26", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F45E7", "F45E8", "F45E9", "F45E10", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F46E5", "F46E6", "F46E7", "F46E8", "F46E9", "F46E10", "F46E11", "F46E12", "F46E13", "F46E14", "F46E15", "F46E16", "F46E17", "F46E18", "F46E19", "F46E20", "F46E21", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F47E7", "F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F48E6", "F48E7", "F49E0", "F49E1", "F49E2", "F49E3", "F49E4", "F49E5", "F49E6", "F49E7", "F49E8", "F49E9", "F49E10", "F49E11", "F49E12", "F49E13", "F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F50E5", "F50E6", "F50E7", "F50E8", "F50E9", "F50E10", "F50E11", "F50E12", "F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F51E9", "F51E10", "F51E11", "F51E12", "F52E0", "F52E1", "F52E2", "F52E3", "F52E4", "F52E5", "F52E6", "F52E7", "F52E8", "F53E0", "F53E1", "F53E2", "F53E3", "F53E4", "F53E5", "F53E6", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F54E10", "F54E11", "F54E12", "F54E13", "F54E14", "F55E0", "F55E1", "F55E2", "F55E3", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F56E9", "F56E10", "F56E11", "F56E12", "F56E13", "F56E14", "F56E15", "F56E16", "F56E17", "F56E18", "F56E19", "F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F57E5", "F57E6", "F57E7", "F57E8", "F57E9", "F57E10", "F57E11", "F57E12", "F57E13", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F58E6", "F58E7", "F58E8", "F58E9", "F58E10", "F58E11", "F58E12", "F58E13", "F58E14", "F58E15", "F58E16", "F58E17", "F58E18", "F58E19", "F58E20", "F58E21", "F58E22", "F58E23", "F58E24", "F58E25", "F58E26", "F59E0", "F59E1", "F59E2", "F59E3", "F59E4", "F59E5", "F59E6", "F59E7", "F59E8", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F60E6", "F60E7", "F60E8", "F60E9", "F60E10", "F60E11", "F60E12", "F60E13", "F60E14", "F60E15", "F60E16", "F61E0", "F61E1", "F61E2", "F61E3", "F61E4", "F61E5", "F61E6", "F61E7", "F62E0", "F62E1", "F62E2", "F62E3", "F62E4", "F62E5", "F62E6", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F63E7", "F63E8", "F63E9", "F63E10", "F63E11", "F63E12", "F63E13", "F63E14", "F63E15", "F63E16", "F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F64E5", "F64E6", "F64E7", "F64E8", "F64E9", "F64E10", "F64E11", "F64E12", "F64E13", "F64E14", "F64E15", "F64E16", "F64E17", "F64E18", "F64E19", "F64E20", "F64E21", "F64E22", "F64E23", "F64E24", "F64E25", "F64E26", "F64E27", "F65E0", "F65E1", "F65E2", "F65E3", "F65E4", "F65E5", "F65E6", "F65E7", "F65E8", "F65E9", "F65E10", "F65E11", "F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F66E7", "F66E8", "F66E9", "F66E10", "F66E11", "F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F67E5", "F67E6", "F67E7", "F67E8", "F67E9", "F67E10", "F67E11", "F68E0", "F68E1", "F68E2", "F68E3", "F68E4", "F68E5", "F68E6", "F69E0", "F69E1", "F69E2", "F69E3", "F69E4", "F69E5", "F69E6", "F69E7", "F69E8", "F69E9", "F70E0", "F70E1", "F70E2", "F70E3", "F70E4", "F70E5", "F70E6", "F70E7", "F70E8", "F70E9", "F70E10", "F70E11", "F70E12", "F70E13", "F70E14", "F70E15", "F70E16", "F70E17", "F71E0", "F71E1", "F71E2", "F71E3", "F71E4", "F71E5", "F71E6", "F71E7", "F71E8", "F71E9", "F71E10", "F71E11", "F71E12", "F71E13", "F71E14", "F72E0", "F72E1", "F72E2", "F72E3", "F72E4", "F72E5", "F72E6", "F72E7", "F72E8", "F72E9", "F72E10", "F72E11", "F72E12", "F72E13", "F72E14", "F72E15", "F72E16", "F72E17", "F72E18", "F72E19", "F72E20", "F72E21", "F72E22", "F72E23"}

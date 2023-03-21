@@ -1,0 +1,75 @@
+needsPackage "QthPower"
+
+F0E0 =  wtR = matrix{{5,6,6},{3,6,0}};
+
+F0E1 =  weightGrevlex(wtR) 
+
+F1E0 =  wtR = matrix{{11,6}};
+
+F1E1 =  R0 = QQ[y,x,Weights=> entries weightGrevlex(wtR)];
+
+F1E2 =  GB = {(y^2-3/4*y-15/17*x)^3-9*y*x^4*(y^2-3/4*y-15/17*x)-27*x^11};
+
+F1E3 =  (fractions,relicR,icR,wticR) = rationalIntegralClosure(wtR,R0,GB)
+
+F2E0 =  wtR = matrix{{5,6,6},{3,6,0}};
+
+F2E1 =  grevlexWeight(wtR) 
+
+F3E0 =  wtR = matrix{{5,6,6},{3,6,0}}; 
+
+F3E1 =  Rq = ZZ/23[x,y,z,Weights=>entries weightGrevlex(wtR)];
+
+F3E2 =  GB = {x^6+x^3*z-y^3*z^2};
+
+F3E3 =  (fractions,relicR,icR,wticR) = qthIntegralClosure(wtR,Rq,GB)
+
+F4E0 =  wtr=matrix{{5,6,6},{2,6,0}};
+
+F4E1 =  r=ZZ/2[x,y,z,Weights=> entries weightGrevlex(wtr)];
+
+F4E2 =  GB={x^6+x^3*z-y^3*z^2};
+
+F4E3 =  L=testWeightMatrix(wtr,r,GB)
+
+F5E0 =  wtR = matrix{{12,5}};
+
+F5E1 =  Rq = ZZ/2[y,x,Weights=> entries weightGrevlex(wtR)];
+
+F5E2 =  Iq = {y^5+y^2*(x^4+x)+y*x^2+x^12};
+
+F5E3 =  I  = ideal(Iq);
+
+F5E4 =  depno = (numColumns wtR) -(numRows wtR);
+
+F5E5 =  delta = qthConductor(I,depno)
+
+F6E0 =  wtR = matrix{{31,12}};
+
+F6E1 =  Rq = ZZ/2[y,x,Weights=>entries weightGrevlex(wtR)];
+
+F6E2 =  Iq = {y^12+y^11+y^10*x^2+y^8*x^9+x^31};
+
+F6E3 =  ic1 = qthIntegralClosure(wtR,Rq,Iq)
+
+F6E4 =  ic2 = minimization(ic1); toString ic2
+
+F6E5 =  ic3 = qthIntegralClosure(ic2#0,ic2#1,ic2#2)
+
+F6E6 =  R1=ZZ/2[f38,f31,f12,f5,Weights=> entries weightGrevlex(matrix{{38,31,12,5}})];
+
+F6E7 =  phi1=map(R1,ic2#1,matrix{{0,0,f38,0,f31,0,0,0,0,0,f12,f5}});
+
+F6E8 =  I1=ic2#2/(v->phi1(v))
+
+F6E9 =  G1=transpose gens gb ideal I1
+
+F6E10 =  R2=ZZ/2[f38,f31,f24,f12,f5,MonomialOrder=>{Weights=>{1,1,1,1,0},Weights=>{1,1,1,0,0},Weights=>{1,1,0,0,0},Weights=>{1,0,0,0,0},Weights=>{38,31,24,12,5}}];
+
+F6E11 =  phi2=map(R2,R1,matrix{{f38,f31,f12,f5}});
+
+F6E12 =  I2=ideal((flatten entries G1)/(v->phi2(v)))+ideal(f12^2-f24)
+
+F6E13 =  G2=transpose gens gb I2
+
+exampleIDS = {"F0E0", "F0E1", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F4E2", "F4E3", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13"}

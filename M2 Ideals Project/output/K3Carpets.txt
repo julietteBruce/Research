@@ -1,0 +1,313 @@
+needsPackage "K3Carpets"
+
+F0E0 =  L = {3,4}
+
+F0E1 =  x = symbol x;
+
+F0E2 =  S = productOfProjectiveSpaces(#L,x) --creates the multi-graded ring of (P^1)^(#L)
+
+F0E3 =  Delta = smallDiagonal S -- the ideal of the small diagonal of (P^1)^(#L)
+
+F0E4 =  G = correspondenceScroll(Delta, L)
+
+F0E5 =  minimalBetti G
+
+F0E6 =  G = correspondenceScroll(Delta^2, L)
+
+F0E7 =  minimalBetti G
+
+F0E8 =  T = ZZ/32003[y_0,y_1,y_2]
+
+F0E9 =  threepoints = gens intersect(ideal(y_0,y_1),ideal(y_0,y_2),ideal(y_1,y_2))
+
+F0E10 =  f = threepoints*random(source threepoints, T^{-3}); -- general cubic through the three points
+
+F0E11 =  L = {2,2,2}
+
+F0E12 =  x = symbol x;
+
+F0E13 =  S = productOfProjectiveSpaces(#L,x) --creates the multi-graded ring of (P^1)^(#L)
+
+F0E14 =  ST = (flattenRing(T**S))_0
+
+F0E15 =  irrel = irrelevantIdeal ST;
+
+F0E16 =  ff = entries sub(transpose matrix {{y_0,y_1},{y_0,y_2},{y_1,y_2}}, ST) -- projections from the three points
+
+F0E17 =  D1 = det matrix{{x_(0,0),ff_1_0},{x_(1,0),ff_0_0}}
+
+F0E18 =  D2 = det matrix{{x_(0,1),ff_1_1},{x_(1,1),ff_0_1}}
+
+F0E19 =  D3 = det matrix{{x_(0,2),ff_1_2},{x_(1,2),ff_0_2}}
+
+F0E20 =  J = sub(ideal f, ST)+ideal(D1,D2,D3)
+
+F0E21 =  Js = saturate(J, irrel);
+
+F0E22 =  I = eliminate({y_0,y_1,y_2}, Js);
+
+F0E23 =  IS = (map(S,ST))I;
+
+F0E24 =  codim I
+
+F0E25 =  g = correspondenceScroll(IS, L);
+
+F0E26 =  minimalBetti g
+
+F1E0 =  a=5,b=5
+
+F1E1 =  elapsedTime T=carpetBettiTable(a,b,3)
+
+F1E2 =  J=canonicalCarpet(a+b+1,b,Characteristic=>3);
+
+F1E3 =  elapsedTime T'=minimalBetti J
+
+F1E4 =  T-T'
+
+F1E5 =  elapsedTime h=carpetBettiTables(6,6);
+
+F1E6 =  carpetBettiTable(h,7)
+
+F1E7 =  carpetBettiTable(h,5)
+
+F2E0 =  F = relativeResolution(5,4,3)
+
+F2E1 =  betti F
+
+F3E0 =  R = productOfProjectiveSpaces 3
+
+F3E1 =  vars R
+
+F3E2 =  (gens R)/degree
+
+F3E3 =  irrelevantIdeal R
+
+F4E0 =  homotopyRanks(7,3)
+
+F4E1 =  homotopyRanks(7,3, Characteristic => 2)
+
+F5E0 =  betti res carpet(2,5)
+
+F5E1 =  S = ZZ/101[a..j]
+
+F5E2 =  m = genericMatrix(S,a,2,5)
+
+F5E3 =  I = carpet(2,3,m)
+
+F5E4 =  L = primaryDecomposition I;
+
+F5E5 =  betti res L_0
+
+F5E6 =  betti res L_1
+
+F6E0 =  F = relativeResolution(5,4,3);
+
+F6E1 =  (as,bs)=resonanceScroll(5,4,3)
+
+F6E2 =  betti F
+
+F6E3 =  L = relativeResolutionTwists(as_0,bs_0,F);
+
+F6E4 =  netList apply(L,c-> tally c)
+
+F6E5 =  L = relativeResolutionTwists(as_0+2,bs_0+1,F);
+
+F6E6 =  netList apply(L,c-> tally c)
+
+F7E0 =  (A,B,A1,B1)=coxMatrices(6,5,4);
+
+F7E1 =  A,A1
+
+F7E2 =  B,B1
+
+F7E3 =  (A,B,A1,B1)=coxMatrices(7,4,4);
+
+F7E4 =  A,A1
+
+F7E5 =  B,B1
+
+F8E0 =  a=3,b=3
+
+F8E1 =  I=carpet(a,b);
+
+F8E2 =  F = res(I,FastNonminimal=>true,LengthLimit=>2);
+
+F8E3 =  betti F
+
+F8E4 =  degs=apply(a+1,i->{1,0,i})|apply(b+1,j->{0,1,j})
+
+F8E5 =  S=coefficientRing ring I[gens ring I,Degrees=>degs]
+
+F8E6 =  Fall = allGradings(F,S)
+
+F8E7 =  netList apply(length Fall+1,i->tally degrees Fall_i)
+
+F9E0 =  (a,b)=computeBound(6,4,3)
+
+F9E1 =  computeBound 3
+
+F10E0 =  I = relativeEquations(4,4,3)
+
+F10E1 =  betti I
+
+F11E0 =  a=5,b=5
+
+F11E1 =  e=(-1,5)
+
+F11E2 =  h=degenerateK3BettiTables(a,b,e)
+
+F11E3 =  keys h
+
+F11E4 =  elapsedTime T= minimalBetti degenerateK3(a,b,e,Characteristic=>5)
+
+F11E5 =  T-h#5
+
+F11E6 =  e=(-1,5^2)
+
+F11E7 =  h=degenerateK3BettiTables(a,b,e)
+
+F11E8 =  keys h
+
+F12E0 =  (a,b)=(5,4)
+
+F12E1 =  I = carpet(a,b);
+
+F12E2 =  F = res(I, FastNonminimal =>true)
+
+F12E3 =  betti F
+
+F12E4 =  i=3,n=10
+
+F12E5 =  schreyerName(F,3,10)
+
+F12E6 =  h=schreyerName F;
+
+F12E7 =  h#8
+
+F12E8 =  h#7_20
+
+F12E9 =  h#7_20 == schreyerName(F,7,20)
+
+F13E0 =  a=5,b=5
+
+F13E1 =  h=carpetBettiTables(a,b)
+
+F13E2 =  T= carpetBettiTable(h,3)
+
+F13E3 =  J=canonicalCarpet(a+b+1,b,Characteristic=>3);
+
+F13E4 =  elapsedTime T'=minimalBetti J
+
+F13E5 =  T-T'
+
+F13E6 =  elapsedTime h=carpetBettiTables(6,6);
+
+F13E7 =  keys h
+
+F13E8 =  carpetBettiTable(h,7)
+
+F13E9 =  carpetBettiTable(h,5)
+
+F14E0 =  (F,h0) = canonicalHomotopies(7,3)
+
+F14E1 =  betti F
+
+F14E2 =  netList apply(length F, j-> sum(rank F_1, i->h0(i,j)))
+
+F14E3 =  H = makeHomotopies1(F.dd_1, F);
+
+F14E4 =  (F,h0) = canonicalHomotopies(7,3, FineGrading=>true);
+
+F14E5 =  h0(0,2)
+
+F14E6 =  homotopyRanks(7,3)
+
+F15E0 =  p = 2
+
+F15E1 =  S = ZZ/101[x_0..x_(p+q-2)]
+
+F15E2 =  hankelMatrix(vars S, p,q)
+
+F15E3 =  r = vars S ** transpose vars S
+
+F15E4 =  hankelMatrix(r, p,q)
+
+F15E5 =  hankelMatrix(S,p,q)
+
+F15E6 =  hankelMatrix(r, p,q+2)
+
+F15E7 =  hankelMatrix(p,q+2)
+
+F16E0 =  S = ZZ/101[a,b]
+
+F16E1 =  I = ideal 0_S
+
+F16E2 =  f0 = matrix"a,b"
+
+F16E3 =  f1 = matrix"a,b"
+
+F16E4 =  maps = {f0,f1}
+
+F16E5 =  schemeInProduct(I, maps, Y)
+
+F17E0 =  (as,bs)=resonanceScroll(6,4,3)
+
+F18E0 =  a=4,b=4
+
+F18E1 =  d=carpetDet(a,b)
+
+F18E2 =  factor d
+
+F19E0 =  I=degenerateK3(5,5,{1,1});
+
+F19E1 =  minimalBetti I
+
+F19E2 =  I_10
+
+F19E3 =  I=degenerateK3(5,5,(-1,1));
+
+F19E4 =  I_10
+
+F19E5 =  minimalBetti I
+
+F19E6 =  I=degenerateK3(5,5,{1,1},Characteristic=>3);
+
+F19E7 =  minimalBetti I
+
+F20E0 =  smallDiagonal 3
+
+F20E1 =  S = productOfProjectiveSpaces 3
+
+F20E2 =  smallDiagonal S
+
+F21E0 =  R = productOfProjectiveSpaces{1,3}
+
+F21E1 =  v = gens R
+
+F21E2 =  v/degree
+
+F21E3 =  gens productOfProjectiveSpaces({1,1},symbol y)
+
+F21E4 =  gens productOfProjectiveSpaces 2
+
+F22E0 =  a=4
+
+F22E1 =  (d1,d2)=resonanceDet(a)
+
+F23E0 =  a=5,b=5
+
+F23E1 =  I = carpet(a,b);
+
+F23E2 =  F = res(I, FastNonminimal => true)
+
+F23E3 =  L = analyzeStrand(F,a); #L
+
+F23E4 =  betti F_a, betti F
+
+F23E5 =  factor product L
+
+F23E6 =  L3 = select(L,c->c%3==0); #L3
+
+F23E7 =  carpetBettiTable(a,b,3)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19", "F0E20", "F0E21", "F0E22", "F0E23", "F0E24", "F0E25", "F0E26", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F2E0", "F2E1", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F9E0", "F9E1", "F10E0", "F10E1", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F17E0", "F18E0", "F18E1", "F18E2", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F20E0", "F20E1", "F20E2", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F22E0", "F22E1", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7"}

@@ -1,0 +1,1147 @@
+needsPackage "MultiprojectiveVarieties"
+
+F0E0 =  X = PP_(ZZ/33331)^{2,3,1};
+
+F0E1 =  f = permute(X,{1,0,2});
+
+F0E2 =  assert isIsomorphism f
+
+F0E3 =  Y = random({0,1,1},0_X);
+
+F0E4 =  g = permute(Y,{2,0,1});
+
+F0E5 =  assert isIsomorphism g
+
+F1E0 =  X = PP_(ZZ/65521)[2,1];
+
+F1E1 =  tangentialChowForm(X,1)
+
+F1E2 =  ambientVariety oo
+
+F2E0 =  R = ZZ/101[x_0,x_1,x_2,y_0,y_1,Degrees=>{3:{1,0},2:{0,1}}];
+
+F2E1 =  X = projectiveVariety ideal(x_0^3*y_0+2*x_0^2*x_1*y_0+2*x_0*x_1^2*y_0+x_1^3*y_0+2*x_0^2*x_2*y_0+3*x_0*x_1*x_2*y_0+2*x_1^2*x_2*y_0+2*x_0*x_2^2*y_0+2*x_1*x_2^2*y_0+x_2^3*y_0+x_0^3*y_1+2*x_0^2*x_1*y_1+2*x_0*x_1^2*y_1+x_1^3*y_1+2*x_0^2*x_2*y_1+3*x_0*x_1*x_2*y_1+2*x_1^2*x_2*y_1+2*x_0*x_2^2*y_1+2*x_1*x_2^2*y_1+x_2^3*y_1);
+
+F2E2 =  Y = projectiveVariety ideal(x_0*y_0+x_1*y_0+x_2*y_0+x_0*y_1+x_1*y_1+x_2*y_1);
+
+F2E3 =  Z = X \ Y;
+
+F2E4 =  assert(Z + Y == X and X \ Z == Y)
+
+F3E0 =  R = ZZ/101[x_0,x_1,x_2,y_0,y_1,Degrees=>{3:{1,0},2:{0,1}}];
+
+F3E1 =  (I,J) = (ideal(y_0-26*y_1,x_0*y_1+36*x_1*y_1-40*x_2*y_1),ideal(x_0*y_1+36*x_1*y_1-40*x_2*y_1,x_2*y_0-26*x_2*y_1,x_1*y_0-26*x_1*y_1,x_0*y_0+27*x_1*y_1-30*x_2*y_1));
+
+F3E2 =  I == J
+
+F3E3 =  X = projectiveVariety I
+
+F3E4 =  Y = projectiveVariety J
+
+F3E5 =  X == Y
+
+F4E0 =  K = ZZ/65521;
+
+F4E1 =  X = 2 * PP_K^(1,3);
+
+F4E2 =  degree X, sectionalGenus X
+
+F4E3 =  X' = support X;
+
+F4E4 =  degree X', sectionalGenus X'
+
+F4E5 =  assert(X \ X' == X')
+
+F5E0 =  ZZ/300007[x_0..x_3], f = rationalMap {x_2^2-x_1*x_3, x_1*x_2-x_0*x_3, x_1^2-x_0*x_2}, g = rationalMap {x_1^2-x_0*x_2, x_0*x_3, x_1*x_3, x_2*x_3, x_3^2};
+
+F5E1 =  Phi = last graph rationalMap {f,g};
+
+F5E2 =  Y = projectiveVariety ideal(random({1,1},ring target Phi), random({1,1},ring target Phi));
+
+F5E3 =  time X = Phi^* Y;
+
+F5E4 =  dim X, degree X, degrees X
+
+F6E0 =  GG(2,PP_QQ^5)
+
+F6E1 =  describe oo
+
+F7E0 =  X = PP_QQ^({2,1},{1,3});
+
+F7E1 =  ring X
+
+F8E0 =  Phi = rationalMap{rationalMap(veronese(1,2,ZZ/33331),Dominant=>true),rationalMap(veronese(1,3,ZZ/33331),Dominant=>true)};
+
+F8E1 =  super Phi;
+
+F8E2 =  Psi = rationalMap(Phi,image Phi);
+
+F8E3 =  super Psi == super Phi
+
+F9E0 =  X = projectiveVariety ideal(random({2,1},ring PP_(ZZ/101)^{2,1}),random({1,1},ring PP^{2,1}));
+
+F9E1 =  Y = projectiveVariety ideal random({1,1,1},ring PP^{1,2,1});
+
+F9E2 =  X ** Y
+
+F10E0 =  Y = PP_(ZZ/33331)^(2,2);
+
+F10E1 =  X = point Y;
+
+F10E2 =  isSubset(X,Y)
+
+F10E3 =  isSubset(Y,X)
+
+F11E0 =  K = ZZ/1000003;
+
+F11E1 =  X = PP_K^({1,1,2},{3,2,3});
+
+F11E2 =  time p := point X
+
+F11E3 =  Y = random({2,1,2},X);
+
+F11E4 =  time q = point Y
+
+F11E5 =  assert(isSubset(p,X) and isSubset(q,Y))
+
+F11E6 =  |- p
+
+F11E7 =  |- q
+
+F12E0 =  O = 0_(PP_(ZZ/101)^{2,1});
+
+F12E1 =  X = random({2,1},O);
+
+F12E2 =  Y = random({1,1},O);
+
+F12E3 =  X * Y
+
+F13E0 =  C = PP_(ZZ/100003)^(1,4);
+
+F13E1 =  L = linearSpan sum{point C,point C}, L' = linearSpan sum{point C,point ambient C};
+
+F13E2 =  X = ⋃ {C,L,L'};
+
+F13E3 =  D = decompose X
+
+F13E4 =  assert(X == ⋃ D)
+
+F14E0 =  P5 = PP_(ZZ/65521)^5;
+
+F14E1 =  C = random({{2},3:{1}},0_P5);
+
+F14E2 =  X = random({3:{2}},C);
+
+F14E3 =  H = random(1,0_X); -- it's interpreted as X * H
+
+F14E4 =  D = tally {H, H, C}
+
+F14E5 =  phi = rationalMap(X,D)
+
+F14E6 =  assert(phi == rationalMap(X,tally {X*H, X*H, C}))
+
+F15E0 =  Phi = rationalMap({veronese(1,2,ZZ/33331)},Dominant=>true);
+
+F15E1 =  Psi = rationalMap {veronese(1,3,ZZ/33331)};
+
+F15E2 =  (X,Y,Z) = (source Phi,target Phi,target Psi);
+
+F15E3 =  Eta = Phi | Psi;
+
+F15E4 =  Eta | Phi;
+
+F15E5 =  Phi | Psi | Eta;
+
+F15E6 =  super oo;
+
+F15E7 =  rationalMap(oo,image oo);
+
+F16E0 =  ZZ/33331[x_0..x_3], f = rationalMap {x_2^2-x_1*x_3,x_1*x_2-x_0*x_3,x_1^2-x_0*x_2}, g = rationalMap {x_2^2-x_1*x_3,x_1*x_2-x_0*x_3};
+
+F16E1 =  Phi = last graph rationalMap {f,g};
+
+F16E2 =  Z = (source Phi) * projectiveVariety ideal random({1,1,2},ring ambient source Phi);
+
+F16E3 =  Phi' = Phi|Z;
+
+F16E4 =  source Phi'
+
+F16E5 =  assert(image Phi' == Phi Z)
+
+F16E6 =  Phi|{1,1,2};
+
+F17E0 =  O = 0_(PP_(ZZ/101)^{2,1});
+
+F17E1 =  X = random({2,1},O);
+
+F17E2 =  Y = random({1,1},O);
+
+F17E3 =  Z = X + Y;
+
+F17E4 =  assert(Z \ X == Y and Z \ Y == X)
+
+F18E0 =  Phi = 1_(PP_QQ^2);
+
+F18E1 =  Psi = clean Phi;
+
+F18E2 =  Phi == Psi
+
+F18E3 =  Phi === Psi
+
+F19E0 =  X = PP_(ZZ/333331)^(3,2);
+
+F19E1 =  p := point X
+
+F19E2 =  tangentSpace(X,p)
+
+F20E0 =  X = PP_QQ^({2,1},{1,3});
+
+F20E1 =  degree X
+
+F21E0 =  ZZ/65521[x_0..x_4];
+
+F21E1 =  f = rationalMap({x_3^2-x_2*x_4,x_2*x_3-x_1*x_4,x_1*x_3-x_0*x_4,x_2^2-x_0*x_4,x_1*x_2-x_0*x_3,x_1^2-x_0*x_2},Dominant=>true);
+
+F21E2 =  g = rationalMap {x_3^2-x_2*x_4,x_2*x_3-x_1*x_4,x_1*x_3-x_0*x_4,x_2^2-x_0*x_4,x_1*x_2-x_0*x_3};
+
+F21E3 =  h = rationalMap {-x_3^2+x_2*x_4,2*x_2*x_3-2*x_1*x_4,-3*x_2^2+2*x_1*x_3+x_0*x_4, 2*x_1*x_2-2*x_0*x_3,-x_1^2+x_0*x_2};
+
+F21E4 =  Phi = rationalMap {f,g,h};
+
+F21E5 =  time segre Phi;
+
+F21E6 =  describe segre Phi
+
+F22E0 =  K = ZZ/65521;
+
+F22E1 =  X = PP_K^({1,1},{2,3});
+
+F22E2 =  ideal X
+
+F22E3 =  Y = random X;
+
+F22E4 =  ideal Y
+
+F23E0 =  ZZ/65521[x_0..x_4];
+
+F23E1 =  f = rationalMap {x_2^2-x_1*x_3, x_1*x_2-x_0*x_3, x_1^2-x_0*x_2, x_0*x_4, x_1*x_4, x_2*x_4, x_3*x_4, x_4^2};
+
+F23E2 =  g = rationalMap {-x_3^2+x_2*x_4, 2*x_2*x_3-2*x_1*x_4, -3*x_2^2+2*x_1*x_3+x_0*x_4, 2*x_1*x_2-2*x_0*x_3, -x_1^2+x_0*x_2};
+
+F23E3 =  Phi = rationalMap {f,g};
+
+F23E4 =  time Z = image Phi;
+
+F23E5 =  dim Z, degree Z, degrees Z
+
+F23E6 =  time Z' = projectiveVariety (map segre target Phi) image(segre Phi,"F4");
+
+F23E7 =  assert(Z == Z')
+
+F24E0 =  X = source graph rationalMap PP_(ZZ/65521)^(1,3);
+
+F24E1 =  ? X
+
+F24E2 =  describe X
+
+F24E3 =  ? image segre X
+
+F25E0 =  f = rationalMap ideal PP_(ZZ/65521)^(1,4);
+
+F25E1 =  Phi = rationalMap {f}
+
+F25E2 =  check Phi
+
+F25E3 =  Y = image Phi
+
+F25E4 =  Psi = rationalMap({f},Y)
+
+F25E5 =  check Psi
+
+F25E6 =  p = point Y;
+
+F25E7 =  Eta = rationalMap({f},p);
+
+F25E8 =  stopIfError = false;
+
+F25E9 =  check Eta
+
+F26E0 =  X = PP_(ZZ/33331)^(1,3);
+
+F26E1 =  X^2;
+
+F26E2 =  X^3;
+
+F26E3 =  X^5;
+
+F26E4 =  assert(X^3 == X^2 ** X)
+
+F26E5 =  assert(X^5 == X^3 ** X^2)
+
+F27E0 =  K = ZZ/65521;
+
+F27E1 =  X = (linearSpan {point PP_K^4,point PP_K^4}) + (point PP_K^4);
+
+F27E2 =  top X
+
+F27E3 =  assert(top top X === top X)
+
+F28E0 =  X = point PP_(ZZ/65521)^3;
+
+F28E1 =  Y = random({1},X);
+
+F28E2 =  X % Y
+
+F28E3 =  ambientVariety X
+
+F28E4 =  ambient X
+
+F29E0 =  K = ZZ/333331;
+
+F29E1 =  X = PP_K^(1,7); -- rational normal curve of degree 7
+
+F29E2 =  time f = linearlyNormalEmbedding X;
+
+F29E3 =  Y = (rationalMap {for i to 3 list random(1,ring ambient X)}) X; -- an isomorphic projection of X in PP^3
+
+F29E4 =  time g = linearlyNormalEmbedding Y;
+
+F29E5 =  assert(isIsomorphism g)
+
+F29E6 =  describe g
+
+F30E0 =  K = ZZ/33331;
+
+F30E1 =  A = randomMultidimensionalMatrix({2,2,3},CoefficientRing=>K)
+
+F30E2 =  det A
+
+F30E3 =  X = projectiveVariety A;
+
+F30E4 =  dim singularLocus X
+
+F30E5 =  B = multidimensionalMatrix {{{9492_K, 13628, -9292}, {9311, -5201, -16439}}, {{11828, -16301, 8162}, {15287, 8345, -2094}}}
+
+F30E6 =  det B
+
+F30E7 =  Y = projectiveVariety B;
+
+F30E8 =  dim singularLocus Y
+
+F31E0 =  X = PP_(ZZ/3331)^({2,1,1},{2,1,3});
+
+F31E1 =  segreEmbedding X
+
+F32E0 =  ZZ/33331[x_0..x_3], f = rationalMap {x_2^2-x_1*x_3,x_1*x_2-x_0*x_3,x_1^2-x_0*x_2}, g = rationalMap {x_2^2-x_1*x_3,x_1*x_2-x_0*x_3};
+
+F32E1 =  Phi = last graph rationalMap {f,g};
+
+F32E2 =  Z = projectiveVariety ideal random({1,2},ring target Phi);
+
+F32E3 =  Phi' = Phi||Z;
+
+F32E4 =  target Phi'
+
+F32E5 =  assert(source Phi' == Phi^* Z)
+
+F32E6 =  Phi||{1,2};
+
+F33E0 =  f = rationalMap ideal PP_(ZZ/65521)^(1,4);
+
+F33E1 =  Phi = rationalMap {f}
+
+F33E2 =  isWellDefined Phi
+
+F33E3 =  Y = image Phi
+
+F33E4 =  Psi = rationalMap({f},Y)
+
+F33E5 =  isWellDefined Psi
+
+F33E6 =  p = point Y;
+
+F33E7 =  Eta = rationalMap({f},p);
+
+F33E8 =  isWellDefined Eta
+
+F34E0 =  X = PP_QQ^(2,2);
+
+F34E1 =  class X
+
+F34E2 =  Y = X ** X;
+
+F34E3 =  class Y
+
+F35E0 =  X = PP_QQ^({2,1},{1,3});
+
+F35E1 =  coefficientRing X
+
+F36E0 =  Phi = last graph rationalMap PP_(ZZ/300007)^(1,4);
+
+F36E1 =  for i in {4,3,2,1,0} list time multidegree(i,Phi)
+
+F36E2 =  time assert(oo == multidegree Phi)
+
+F37E0 =  use ring PP_QQ^{2,3};
+
+F37E1 =  X = projectiveVariety ideal(x1_2^2-x1_1*x1_3,x1_1*x1_2-x1_0*x1_3,x1_1^2-x1_0*x1_2,x0_1^2-x0_0*x0_2);
+
+F37E2 =  ideal X
+
+F37E3 =  K = ZZ/65521;
+
+F37E4 =  X' = X ** K;
+
+F37E5 =  ideal X'
+
+F38E0 =  projectiveVariety({2,1,3},ZZ/33331);
+
+F38E1 =  PP_(ZZ/33331)^{2,1,3};
+
+F38E2 =  PP_QQ^{1,1,1,1};
+
+F38E3 =  PP_QQ^{};
+
+F39E0 =  X = PP_QQ^({2,1},{1,3});
+
+F39E1 =  dim X
+
+F40E0 =  ZZ/33331[t_0..t_2,u_0..u_1,Degrees=>{3:{1,0},2:{0,1}}];
+
+F40E1 =  f0 = rationalMap {t_0,t_1,t_2}
+
+F40E2 =  f1 = rationalMap {u_0,u_1}
+
+F40E3 =  f2 = rationalMap {t_0*u_1,t_1*u_0}
+
+F40E4 =  Phi = rationalMap {f0,f1,f2};
+
+F40E5 =  assert(factor Phi === {f0,f1,f2})
+
+F41E0 =  Phi = inverse first graph last graph rationalMap PP_(ZZ/33331)^(1,3)
+
+F41E1 =  time describe Phi
+
+F41E2 =  show Phi
+
+F42E0 =  K = ZZ/33331;
+
+F42E1 =  f = random 1_(PP_K^4);
+
+F42E2 =  show f
+
+F42E3 =  F = GG(1,f);
+
+F42E4 =  show F
+
+F42E5 =  assert(F^-1 == GG(1,f^-1))
+
+F43E0 =  Y = GG(ZZ/33331,1,4);
+
+F43E1 =  p = point Y
+
+F43E2 =  p % Y
+
+F43E3 =  Fano p
+
+F44E0 =  Phi = rationalMap(PP_QQ^(1,4),Dominant=>true);
+
+F44E1 =  class Phi
+
+F44E2 =  f = toRationalMap Phi;
+
+F44E3 =  class f
+
+F44E4 =  assert(Phi == f and Phi =!= f)
+
+F45E0 =  X = random({2,1},point PP_(ZZ/101)^{2,1});
+
+F45E1 =  singularLocus X
+
+F45E2 =  Y = X + random({1,1},0_X);
+
+F45E3 =  singularLocus Y
+
+F46E0 =  G = GG(ZZ/33331,2,5);
+
+F46E1 =  C = schubertCycle({3,2,1},G);
+
+F46E2 =  cycleClass C
+
+F46E3 =  C' = C + schubertCycle({2,2,2},G);
+
+F46E4 =  cycleClass C'
+
+F47E0 =  R = ZZ/101[a_0,a_1,b_0..b_2,Degrees=>{2:{1,0},3:{0,1}}], S = ZZ/101[c_0,c_1,d_0..d_2,Degrees=>{2:{1,0},3:{0,1}}]
+
+F47E1 =  I = ideal (random({0,1},R),random({1,1},R)), J = sub(I,vars S)
+
+F47E2 =  X = projectiveVariety I, Y = projectiveVariety J
+
+F47E3 =  rationalMap(X,ambient X);
+
+F47E4 =  rationalMap(X,Y);
+
+F47E5 =  stopIfError = false;
+
+F47E6 =  rationalMap(ambient X,X)
+
+F48E0 =  R = ring PP_(ZZ/65521)^{2,1};
+
+F48E1 =  f = rationalMap for i to 3 list random({1,1},R);
+
+F48E2 =  g = rationalMap(for i to 4 list random({0,1},R),Dominant=>true);
+
+F48E3 =  h = rationalMap for i to 2 list random({1,0},R);
+
+F48E4 =  Phi = multirationalMap {f,g,h}
+
+F48E5 =  describe Phi -- long description
+
+F48E6 =  ? Phi -- short description
+
+F48E7 =  X = projectiveVariety R;
+
+F48E8 =  Phi;
+
+F48E9 =  Y = target Phi;
+
+F48E10 =  Phi;
+
+F48E11 =  Z = (image multirationalMap {f,g}) ** target h;
+
+F48E12 =  Psi = multirationalMap({f,g,h},Z)
+
+F48E13 =  assert(image Psi == image Phi)
+
+F49E0 =  G = GG(ZZ/33331,1,5);
+
+F49E1 =  S = schubertCycle({2,1},G)
+
+F49E2 =  cycleClass S
+
+F50E0 =  ZZ/65521[x_0..x_4];
+
+F50E1 =  Psi = last graph rationalMap(projectiveVariety ideal(x_4,x_2^2-x_1*x_3,x_1*x_2-x_0*x_3,x_1^2-x_0*x_2),Dominant=>true);
+
+F50E2 =  Phi = first graph Psi;
+
+F50E3 =  Eta = Phi * Psi;
+
+F50E4 =  assert(Eta == last graph Psi);
+
+F51E0 =  K := frac(QQ[a,b,c,d,e])
+
+F51E1 =  X = image phi;
+
+F51E2 =  ideal X
+
+F51E3 =  p := projectiveVariety minors(2,(vars K)||(vars ring PP_K^4))
+
+F51E4 =  coneOfLines(X,phi p)
+
+F51E5 =  ideal oo
+
+F52E0 =  X = PP_QQ^({2,1},{1,3});
+
+F52E1 =  codim X
+
+F53E0 =  Phi = rationalMap({veronese(1,4,ZZ/33331)},Dominant=>true);
+
+F53E1 =  Psi = last graph rationalMap PP_(ZZ/33331)^(1,3);
+
+F53E2 =  (X,Y,Z,W) = (source Phi,target Phi,source Psi,target Psi);
+
+F53E3 =  Eta = Phi || Psi;
+
+F53E4 =  Psi || Eta;
+
+F53E5 =  Psi || Eta || Phi;
+
+F53E6 =  assert(oo == (Psi || Eta) || Phi and (Psi || Eta) || Phi == Psi || (Eta || Phi))
+
+F54E0 =  Phi = rationalMap(PP_(ZZ/333331)^(1,4),Dominant=>true)
+
+F54E1 =  time (Phi1,Phi2) = graph Phi
+
+F54E2 =  Phi1;
+
+F54E3 =  Phi2;
+
+F54E4 =  time (Phi21,Phi22) = graph Phi2
+
+F54E5 =  Phi21;
+
+F54E6 =  Phi22;
+
+F54E7 =  time (Phi211,Phi212) = graph Phi21
+
+F54E8 =  Phi211;
+
+F54E9 =  Phi212;
+
+F54E10 =  assert(
+
+      source Phi1 == source Phi2 and target Phi1 == source Phi and target Phi2 == target Phi and
+
+      source Phi21 == source Phi22 and target Phi21 == source Phi2 and target Phi22 == target Phi2 and 
+
+      source Phi211 == source Phi212 and target Phi211 == source Phi21 and target Phi212 == target Phi21)
+
+F54E11 =  assert(Phi1 * Phi == Phi2 and Phi21 * Phi2 == Phi22 and Phi211 * Phi21 == Phi212)
+
+F55E0 =  K = ZZ/33331;
+
+F55E1 =  X = PP_K^(2,2);
+
+F55E2 =  Y = PP_K^({1,1,1},{2,3,1});
+
+F55E3 =  Z = PP_K^(1,4);
+
+F55E4 =  ∏ {X,Y,Z};
+
+F55E5 =  assert(oo == ∏ {X ** Y,Z} and ∏ {X ** Y,Z} == ∏ {X, Y ** Z})
+
+F56E0 =  ringP3 = ZZ/33331[a..d]; C = ideal(c^2-b*d,b*c-a*d,b^2-a*c), L = ideal(b+c+d,a-d)
+
+F56E1 =  phi = first graph rationalMap C;
+
+F56E2 =  psi = parametrize L;
+
+F56E3 =  F = fiberProduct(phi,psi);
+
+F56E4 =  describe F
+
+F56E5 =  p = projections F;
+
+F56E6 =  -- first natural morphism
+
+F56E7 =  -- second natural morphism
+
+F56E8 =  assert(phi' * phi == psi' * psi)
+
+F57E0 =  X = projectiveVariety({2,1,3},{3,4,2},ZZ/33331);
+
+F57E1 =  X = PP_(ZZ/33331)^({2,1,3},{3,4,2});
+
+F57E2 =  parametrize X;
+
+F58E0 =  ZZ/300007[x_0..x_3], f = rationalMap {x_2^2-x_1*x_3, x_1*x_2-x_0*x_3, x_1^2-x_0*x_2}, g = rationalMap {x_1^2-x_0*x_2, x_0*x_3, x_1*x_3, x_2*x_3, x_3^2};
+
+F58E1 =  Phi = last graph rationalMap {f,g};
+
+F58E2 =  time degree Phi
+
+F59E0 =  R = ZZ/33331[x_0..x_4];
+
+F59E1 =  Phi = (last graph multirationalMap rationalMap transpose jacobian(-x_2^3+2*x_1*x_2*x_3-x_0*x_3^2-x_1^2*x_4+x_0*x_2*x_4))||projectiveVariety ideal(random(2,R));
+
+F59E2 =  ? Phi
+
+F59E3 =  time degree(Phi,Strategy=>"random point")
+
+F59E4 =  time degree(Phi,Strategy=>"0-th projective degree")
+
+F59E5 =  time degree Phi
+
+F60E0 =  X = PP_(ZZ/65521)^(1,3); -- twisted cubic curve
+
+F60E1 =  random({2},X);
+
+F60E2 =  ideal oo
+
+F60E3 =  random({{2},{2}},X);
+
+F60E4 =  ideal oo
+
+F60E5 =  X = X^2;
+
+F60E6 =  random({1,2},X);
+
+F60E7 =  ideal oo
+
+F60E8 =  random({{1,2},{1,2},{2,0}},X);
+
+F60E9 =  degrees oo
+
+F61E0 =  X = PP_QQ^(3,2);
+
+F61E1 =  sectionalGenus X
+
+F62E0 =  K = ZZ/33331
+
+F62E1 =  Phi = rationalMap C; -- map defined by the quadrics through C
+
+F62E2 =  Q = random(2,C); -- random quadric hypersurface through C
+
+F62E3 =  Phi = Phi|Q;
+
+F62E4 =  image Phi
+
+F62E5 =  Psi = trim Phi;
+
+F62E6 =  image Psi
+
+F62E7 =  Phi || Phi || Psi;
+
+F62E8 =  image oo
+
+F62E9 =  trim (Phi || Phi || Psi);
+
+F62E10 =  image oo
+
+F63E0 =  K = ZZ/10000019;
+
+F63E1 =  -- map defined by the cubics through the secant variety to the rational normal curve of degree 6
+
+F63E2 =  time Psi = inverse2 Phi;
+
+F63E3 =  assert(Phi * Psi == 1)
+
+F63E4 =  Phi' = Phi || Phi;
+
+F63E5 =  time Psi' = inverse2 Phi';
+
+F63E6 =  assert(Phi' * Psi' == 1)
+
+F64E0 =  ZZ/300007[x_0..x_3], f = rationalMap {x_2^2-x_1*x_3, x_1*x_2-x_0*x_3, x_1^2-x_0*x_2}, g = rationalMap {x_1^2-x_0*x_2, x_0*x_3, x_1*x_3, x_2*x_3, x_3^2};
+
+F64E1 =  Phi = last graph rationalMap {f,g};
+
+F64E2 =  time multidegree Phi
+
+F64E3 =  (degree source Phi,degree image Phi)
+
+F65E0 =  ZZ/65521[x_0..x_4];
+
+F65E1 =  f = last graph rationalMap {x_2^2-x_1*x_3, x_1*x_2-x_0*x_3, x_1^2-x_0*x_2, x_0*x_4, x_1*x_4, x_2*x_4, x_3*x_4, x_4^2};
+
+F65E2 =  Phi = rationalMap {f,f};
+
+F65E3 =  Z = source Phi;
+
+F65E4 =  time Phi Z;
+
+F65E5 =  dim oo, degree oo, degrees oo
+
+F65E6 =  time Phi (point Z + point Z + point Z)
+
+F65E7 =  dim oo, degree oo, degrees oo
+
+F66E0 =  K = ZZ/10000019;
+
+F66E1 =  (M,N) = (apply(9,i -> random(1,ring PP_K^8)), apply(9,i -> random(1,ring PP_K^8)));
+
+F66E2 =  X = projectiveVariety(minors(2,matrix{take(M,6),take(M,{1,6})}) + ideal take(M,-2));
+
+F66E3 =  Y = projectiveVariety(minors(2,matrix{take(N,6),take(N,{1,6})}) + ideal take(N,-2));
+
+F66E4 =  ? X
+
+F66E5 =  time f = X ===> Y;
+
+F66E6 =  f X
+
+F66E7 =  f^* Y
+
+F66E8 =  V = random({{2},{1}},X);
+
+F66E9 =  W = random({{2},{1}},Y);
+
+F66E10 =  time g = V ===> W;
+
+F66E11 =  g||W
+
+F66E12 =  A = matrix pack(5,for i to 24 list random(1,ring PP_K^9)); A = A - transpose A
+
+F66E13 =  Z = projectiveVariety pfaffians(4,A);
+
+F66E14 =  ? Z
+
+F66E15 =  time h = Z ===> GG_K(1,4)
+
+F66E16 =  h || GG_K(1,4)
+
+F66E17 =  show oo
+
+F67E0 =  Phi = multirationalMap graph rationalMap PP_(ZZ/65521)^(1,4);
+
+F67E1 =  time ? Phi
+
+F67E2 =  image Phi;
+
+F67E3 =  time ? Phi
+
+F67E4 =  time describe Phi
+
+F67E5 =  time ? Phi
+
+F68E0 =  X = PP_QQ^({2,1},{1,3});
+
+F68E1 =  ideal X
+
+F69E0 =  X = PP_QQ^(2,2);
+
+F69E1 =  X' = dual X;
+
+F69E2 =  describe X'
+
+F69E3 =  assert(dual X' == X)
+
+F70E0 =  X = PP_(ZZ/3331)^({2,1,1},{2,1,3});
+
+F70E1 =  segre X
+
+F71E0 =  X = PP_QQ^(2,3);
+
+F71E1 =  hilbertPolynomial X
+
+F71E2 =  hilbertPolynomial(X,Projective=>false)
+
+F72E0 =  X = PP_QQ^{2,3,1};
+
+F72E1 =  1_X;
+
+F72E2 =  0_X;
+
+F73E0 =  Phi = rationalMap {minors(3,(PP_(ZZ/65521)([6],2)).matrix)};
+
+F73E1 =  Y = image(Phi,2)
+
+F73E2 =  forceImage(Phi,Y)
+
+F73E3 =  image Phi
+
+F73E4 =  Psi = rationalMap({minors(3,(PP_(ZZ/65521)([6],2)).matrix)},Dominant=>2);
+
+F73E5 =  forceImage(Psi,target Psi)
+
+F73E6 =  Psi;
+
+F74E0 =  X = projectiveVariety(ZZ/101[x_0..x_3]) ** projectiveVariety(ZZ/101[y_0..y_2]);
+
+F74E1 =  projections X
+
+F75E0 =  Y = random(3,0_(PP_(ZZ/333331)^6)), q = point Y, j = parametrize tangentSpace(Y,q);
+
+F75E1 =  (X, p) = (j^* Y, j^* q);
+
+F75E2 =  C = tangentCone(X,p);
+
+F75E3 =  describe C
+
+F75E4 =  assert(isSubset(C,tangentSpace(X,p)) and coneOfLines(C,p) == C)
+
+F76E0 =  ZZ/300007[a..e], f = first graph rationalMap ideal(c^2-b*d,b*c-a*d,b^2-a*c,e), g = rationalMap submatrix(matrix f,{0..2});
+
+F76E1 =  Phi = rationalMap {f,g};
+
+F76E2 =  time isMorphism Phi
+
+F76E3 =  time Psi = first graph Phi;
+
+F76E4 =  time isMorphism Psi
+
+F76E5 =  assert((not o3) and o5)
+
+F77E0 =  X = PP_QQ^({1,1,1},{2,1,3});
+
+F77E1 =  ambient X;
+
+F78E0 =  Phi = rationalMap {super specialQuadraticTransformation 1}
+
+F78E1 =  Y = image Phi
+
+F78E2 =  Psi = rationalMap(Phi,Y)
+
+F79E0 =  K = ZZ/333331;
+
+F79E1 =  C = PP_K^(1,5); -- rational normal quintic curve
+
+F79E2 =  L = linearSpan {point ambient C,point ambient C}; -- random line
+
+F79E3 =  C ++ L
+
+F79E4 =  C ++ C
+
+F79E5 =  (point C) ++ (point C) ++ (point C)
+
+F80E0 =  K = ZZ/333331
+
+F80E1 =  X = projectiveVariety ideal(t_4^2-t_3*t_5,t_2*t_4-t_1*t_5,t_2*t_3-t_1*t_4,t_2^2-t_0*t_5,t_1*t_2-t_0*t_4,t_1^2-t_0*t_3);
+
+F80E2 =  X!
+
+F80E3 =  K[x_0..x_7];
+
+F80E4 =  X = projectiveVariety ideal(x_5*x_6-x_4*x_7,x_4*x_6-x_3*x_7,x_2*x_6-x_1*x_7,x_1*x_6-x_0*x_7,x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_1*x_4-x_0*x_5,x_2*x_3-x_0*x_5,x_1*x_3-x_0*x_4,x_1^2-x_0*x_2);
+
+F80E5 =  X!
+
+F80E6 =  (random({2},X))!
+
+F80E7 =  (random({{2},{2}},X))!
+
+F81E0 =  R = ZZ/101[x_0,x_1,x_2,y_0,y_1,Degrees=>{3:{1,0},2:{0,1}}];
+
+F81E1 =  X = projectiveVariety ideal(x_0^3*y_0^2+2*x_0^2*x_1*y_0^2+2*x_0*x_1^2*y_0^2+x_1^3*y_0^2+2*x_0^2*x_2*y_0^2+3*x_0*x_1*x_2*y_0^2+2*x_1^2*x_2*y_0^2+2*x_0*x_2^2*y_0^2+2*x_1*x_2^2*y_0^2+x_2^3*y_0^2+2*x_0^3*y_0*y_1+4*x_0^2*x_1*y_0*y_1+4*x_0*x_1^2*y_0*y_1+2*x_1^3*y_0*y_1+4*x_0^2*x_2*y_0*y_1+6*x_0*x_1*x_2*y_0*y_1+4*x_1^2*x_2*y_0*y_1+4*x_0*x_2^2*y_0*y_1+4*x_1*x_2^2*y_0*y_1+2*x_2^3*y_0*y_1+x_0^3*y_1^2+2*x_0^2*x_1*y_1^2+2*x_0*x_1^2*y_1^2+x_1^3*y_1^2+2*x_0^2*x_2*y_1^2+3*x_0*x_1*x_2*y_1^2+2*x_1^2*x_2*y_1^2+2*x_0*x_2^2*y_1^2+2*x_1*x_2^2*y_1^2+x_2^3*y_1^2);
+
+F81E2 =  Y = projectiveVariety ideal(x_0*y_0+x_1*y_0+x_2*y_0+x_0*y_1+x_1*y_1+x_2*y_1);
+
+F81E3 =  Z = X \\ Y;
+
+F81E4 =  assert(Z == (X \ Y) \ Y)
+
+F82E0 =  K = ZZ/33331;
+
+F82E1 =  L = linearSpan {point PP_K^4,point PP_K^4}; -- a line in P^4
+
+F82E2 =  p := Fano L
+
+F82E3 =  Fano p
+
+F82E4 =  assert(Fano p == L)
+
+F82E5 =  G = GG_K(1,4);
+
+F82E6 =  Y := (G * random({{1},{1},{1},{1},{1}},0_G)) % G -- an elliptic curve
+
+F82E7 =  W = Fano Y; -- surface swept out by the lines of Y
+
+F82E8 =  Fano(1,W) -- variety of lines contained in W
+
+F82E9 =  assert(oo == Y)
+
+F83E0 =  X = PP_QQ^(2,2); -- Veronese surface
+
+F83E1 =  euler X
+
+F83E2 =  X4 = X^4;
+
+F83E3 =  euler X4
+
+F84E0 =  Phi = parametrize PP_(ZZ/65521)^({1,3},{2,1});
+
+F84E1 =  X = image Phi;
+
+F84E2 =  describe X
+
+F84E3 =  Y = PP^{3,5};
+
+F84E4 =  Psi = Phi << Y;
+
+F84E5 =  describe image Psi
+
+F84E6 =  j = X << Y;
+
+F84E7 =  assert(Phi * j == Psi and j == (1_X << Y))
+
+F85E0 =  t = gens ring PP_(ZZ/33331)^5;
+
+F85E1 =  Phi = rationalMap {rationalMap {t_0,t_1,t_2},rationalMap {t_3,t_4,t_5}};
+
+F85E2 =  X = baseLocus Phi;
+
+F85E3 =  describe X
+
+F85E4 =  Psi = inverse(Phi|random(3,baseLocus Phi));
+
+F85E5 =  Y = baseLocus Psi;
+
+F85E6 =  describe Y
+
+F86E0 =  X = PP_QQ^(2,2);
+
+F86E1 =  C = conormalVariety X;
+
+F86E2 =  p2 = multirationalMap last projections C;
+
+F86E3 =  image p2 == dual X
+
+F87E0 =  X = PP_(ZZ/65521)^{2,3,1};
+
+F87E1 =  shape X
+
+F87E2 =  p = point X;
+
+F87E3 =  shape p
+
+F88E0 =  X = random({{1,1},{2,1}},point PP_(ZZ/33331)^{2,2});
+
+F88E1 =  multidegree X
+
+F89E0 =  K = ZZ/33331;
+
+F89E1 =  p = point PP_K^({1,2},{1,1});
+
+F89E2 =  X = random({1,1},p);
+
+F89E3 =  Y = random({2,1},p);
+
+F89E4 =  Z = random({2,2},p);
+
+F89E5 =  ⋂ {X,Y,Z}
+
+F90E0 =  -- map defined by the quadrics through a rational normal quartic curve
+
+F90E1 =  -- we see Phi as a dominant map
+
+F90E2 =  time inverse Phi;
+
+F90E3 =  Psi = last graph Phi;
+
+F90E4 =  time inverse Psi;
+
+F90E5 =  Eta = first graph Psi;
+
+F90E6 =  time inverse Eta;
+
+F90E7 =  assert(Phi * Phi^-1 == 1 and Phi^-1 * Phi == 1)
+
+F90E8 =  assert(Psi * Psi^-1 == 1 and Psi^-1 * Psi == 1)
+
+F90E9 =  assert(Eta * Eta^-1 == 1 and Eta^-1 * Eta == 1)
+
+F91E0 =  K = ZZ/33331;
+
+F91E1 =  L = for i to 9 list point PP_K^({1,2,2},{1,1,3});
+
+F91E2 =  ⋃ L
+
+F91E3 =  degree oo
+
+F92E0 =  X = ⋃ for i to 10 list point PP_(ZZ/33331)^{2,3};
+
+F92E1 =  ? X
+
+F92E2 =  degrees X
+
+F93E0 =  Phi = inverse first graph rationalMap PP_QQ^(2,2);
+
+F93E1 =  describe Phi
+
+F93E2 =  K = ZZ/65521;
+
+F93E3 =  Phi' = Phi ** K;
+
+F93E4 =  describe Phi'
+
+F93E5 =  Phi'' = Phi ** frac(K[t]);
+
+F93E6 =  describe Phi''
+
+F94E0 =  K = ZZ/65521;
+
+F94E1 =  X = PP_K^{2,4,1,3};
+
+F94E2 =  f = parametrize X;
+
+F94E3 =  Y = random({{1,0,0,0},{0,1,0,0},{0,1,0,0},{0,0,0,1}},0_X);
+
+F94E4 =  g = parametrize Y;
+
+F94E5 =  Z = random({{1,1,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1},{0,0,0,1}},0_X);
+
+F94E6 =  h = parametrize Z;
+
+F94E7 =  describe h
+
+F94E8 =  describe inverse h
+
+F94E9 =  A = matrix pack(5,for i to 24 list random(1,ring PP_K^8)), A = A - transpose A;
+
+F94E10 =  W = projectiveVariety pfaffians(4,A);
+
+F94E11 =  parametrize W
+
+F94E12 =  parametrize (W ** (point W))
+
+F95E0 =  -- map defined by the quadrics through a twisted cubic curve
+
+F95E1 =  Phi = rationalMap {f,f};
+
+F95E2 =  time isIsomorphism Phi
+
+F95E3 =  Psi = first graph Phi;
+
+F95E4 =  time isIsomorphism Psi
+
+F95E5 =  Eta = first graph Psi;
+
+F95E6 =  time isIsomorphism Eta
+
+F95E7 =  assert(o8 and (not o6) and (not o4))
+
+F96E0 =  P = PP_(ZZ/333331)^7;
+
+F96E1 =  S = apply(3,i -> point P)
+
+F96E2 =  L = linearSpan ⋃ S;
+
+F96E3 =  assert(L == linearSpan S)
+
+F96E4 =  assert(dim L == 2 and degree L == 1)
+
+F97E0 =  X = PP_QQ^(1,3);
+
+F97E1 =  a = 4, b = 2;
+
+F97E2 =  phi = rationalMap X;
+
+F97E3 =  assert(phi <==> multirationalMap {rationalMap ideal X})
+
+F97E4 =  phi = rationalMap(X,a);
+
+F97E5 =  assert(phi <==> multirationalMap {rationalMap(ideal X,a)})
+
+F97E6 =  phi = rationalMap(X,a,b);
+
+F97E7 =  assert(phi <==> multirationalMap {rationalMap(ideal X,a,b)})
+
+F97E8 =  Y = random(3,X);
+
+F97E9 =  rationalMap(X_Y,a);
+
+F97E10 =  rationalMap X_Y;
+
+F98E0 =  Phi = inverse first graph last graph rationalMap PP_(ZZ/33331)^(1,3);
+
+F98E1 =  degreeSequence Phi
+
+F99E0 =  X = PP_(ZZ/65521)[2,1];
+
+F99E1 =  chowForm X
+
+F99E2 =  ambientVariety oo
+
+F100E0 =  X = PP_QQ^(2,2);
+
+F100E1 =  class X
+
+F100E2 =  X' = variety X;
+
+F100E3 =  class X'
+
+F100E4 =  assert(ring X === ring X')
+
+F101E0 =  K = ZZ/333331;
+
+F101E1 =  R = K[x_0..x_2,y_0..y_3,z_0,z_1,Degrees=>{3:{1,0,0},4:{0,1,0},2:{0,0,1}}];
+
+F101E2 =  I = ideal(random({2,1,0},R),random({1,0,1},R))
+
+F101E3 =  X = projectiveVariety I
+
+F101E4 =  ? X -- short description
+
+F101E5 =  describe X -- long description
+
+F101E6 =  s = segreEmbedding X;
+
+F101E7 =  X' = image s
+
+F101E8 =  (dim X', codim X', degree X')
+
+F101E9 =  ? X'
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F7E0", "F7E1", "F8E0", "F8E1", "F8E2", "F8E3", "F9E0", "F9E1", "F9E2", "F10E0", "F10E1", "F10E2", "F10E3", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F12E0", "F12E1", "F12E2", "F12E3", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F20E0", "F20E1", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7", "F24E0", "F24E1", "F24E2", "F24E3", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F27E0", "F27E1", "F27E2", "F27E3", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F31E0", "F31E1", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F34E0", "F34E1", "F34E2", "F34E3", "F35E0", "F35E1", "F36E0", "F36E1", "F36E2", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F38E0", "F38E1", "F38E2", "F38E3", "F39E0", "F39E1", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F41E0", "F41E1", "F41E2", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F43E0", "F43E1", "F43E2", "F43E3", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F45E0", "F45E1", "F45E2", "F45E3", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F48E6", "F48E7", "F48E8", "F48E9", "F48E10", "F48E11", "F48E12", "F48E13", "F49E0", "F49E1", "F49E2", "F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F52E0", "F52E1", "F53E0", "F53E1", "F53E2", "F53E3", "F53E4", "F53E5", "F53E6", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F54E10", "F54E11", "F55E0", "F55E1", "F55E2", "F55E3", "F55E4", "F55E5", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F57E0", "F57E1", "F57E2", "F58E0", "F58E1", "F58E2", "F59E0", "F59E1", "F59E2", "F59E3", "F59E4", "F59E5", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F60E6", "F60E7", "F60E8", "F60E9", "F61E0", "F61E1", "F62E0", "F62E1", "F62E2", "F62E3", "F62E4", "F62E5", "F62E6", "F62E7", "F62E8", "F62E9", "F62E10", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F64E0", "F64E1", "F64E2", "F64E3", "F65E0", "F65E1", "F65E2", "F65E3", "F65E4", "F65E5", "F65E6", "F65E7", "F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F66E7", "F66E8", "F66E9", "F66E10", "F66E11", "F66E12", "F66E13", "F66E14", "F66E15", "F66E16", "F66E17", "F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F67E5", "F68E0", "F68E1", "F69E0", "F69E1", "F69E2", "F69E3", "F70E0", "F70E1", "F71E0", "F71E1", "F71E2", "F72E0", "F72E1", "F72E2", "F73E0", "F73E1", "F73E2", "F73E3", "F73E4", "F73E5", "F73E6", "F74E0", "F74E1", "F75E0", "F75E1", "F75E2", "F75E3", "F75E4", "F76E0", "F76E1", "F76E2", "F76E3", "F76E4", "F76E5", "F77E0", "F77E1", "F78E0", "F78E1", "F78E2", "F79E0", "F79E1", "F79E2", "F79E3", "F79E4", "F79E5", "F80E0", "F80E1", "F80E2", "F80E3", "F80E4", "F80E5", "F80E6", "F80E7", "F81E0", "F81E1", "F81E2", "F81E3", "F81E4", "F82E0", "F82E1", "F82E2", "F82E3", "F82E4", "F82E5", "F82E6", "F82E7", "F82E8", "F82E9", "F83E0", "F83E1", "F83E2", "F83E3", "F84E0", "F84E1", "F84E2", "F84E3", "F84E4", "F84E5", "F84E6", "F84E7", "F85E0", "F85E1", "F85E2", "F85E3", "F85E4", "F85E5", "F85E6", "F86E0", "F86E1", "F86E2", "F86E3", "F87E0", "F87E1", "F87E2", "F87E3", "F88E0", "F88E1", "F89E0", "F89E1", "F89E2", "F89E3", "F89E4", "F89E5", "F90E0", "F90E1", "F90E2", "F90E3", "F90E4", "F90E5", "F90E6", "F90E7", "F90E8", "F90E9", "F91E0", "F91E1", "F91E2", "F91E3", "F92E0", "F92E1", "F92E2", "F93E0", "F93E1", "F93E2", "F93E3", "F93E4", "F93E5", "F93E6", "F94E0", "F94E1", "F94E2", "F94E3", "F94E4", "F94E5", "F94E6", "F94E7", "F94E8", "F94E9", "F94E10", "F94E11", "F94E12", "F95E0", "F95E1", "F95E2", "F95E3", "F95E4", "F95E5", "F95E6", "F95E7", "F96E0", "F96E1", "F96E2", "F96E3", "F96E4", "F97E0", "F97E1", "F97E2", "F97E3", "F97E4", "F97E5", "F97E6", "F97E7", "F97E8", "F97E9", "F97E10", "F98E0", "F98E1", "F99E0", "F99E1", "F99E2", "F100E0", "F100E1", "F100E2", "F100E3", "F100E4", "F101E0", "F101E1", "F101E2", "F101E3", "F101E4", "F101E5", "F101E6", "F101E7", "F101E8", "F101E9"}

@@ -1,0 +1,69 @@
+needsPackage "Kronecker"
+
+F0E0 =  R = ZZ/101[x,y]
+
+F0E1 =  A = matrix{{x,y,x,y},{y,x,y,x},{x,y,x,y},{y,y,y,y},{x,x,y,y}}
+
+F0E2 =  (B,P,Q) = kroneckerNormalForm A
+
+F0E3 =  B - P*A*Q == 0
+
+F0E4 =  kroneckerNormalForm(A, ChangeMatrix => {true,false})
+
+F0E5 =  kroneckerNormalForm(A, ChangeMatrix => {false,true})
+
+F0E6 =  kroneckerNormalForm(A, ChangeMatrix => {false,false})
+
+F0E7 =  (B,P,Q) = kroneckerNormalForm(A,x+y,x-y)
+
+F0E8 =  B - P*A*Q == 0
+
+F1E0 =  Q = ZZ/101[x,y]
+
+F1E1 =  R = Q/(x^2,y^2)
+
+F1E2 =  M = coker random(R^5, R^8 ** R^{-1})
+
+F1E3 =  (N,f) = decomposeModule M
+
+F1E4 =  components N
+
+F1E5 =  ker f == 0
+
+F1E6 =  coker f == 0
+
+F2E0 =  R = ZZ/101[x,y]
+
+F2E1 =  A = matrix{{x,y,x,y},{y,x,y,x},{x,y,x,y},{y,y,y,y},{x,x,y,y}}
+
+F2E2 =  kroneckerNormalForm(A, ChangeMatrix => {false,false})
+
+F2E3 =  kroneckerIndices(A,x,y)
+
+F3E0 =  R = QQ
+
+F3E1 =  A = random(R^2, R^5)
+
+F3E2 =  B = random(R^2, R^5)
+
+F3E3 =  (A',B',P,Q) = kroneckerNormalForm(A,B)
+
+F3E4 =  P*A*Q - A' == 0
+
+F3E5 =  P*B*Q - B' == 0
+
+F4E0 =  R = ZZ/101[x]
+
+F4E1 =  M = R^4
+
+F4E2 =  A = random(M,M)
+
+F4E3 =  factor det(x*id_M - A)
+
+F4E4 =  (B,P,Q) = rationalNormalForm A
+
+F4E5 =  B - P*A*Q == 0
+
+F4E6 =  P*Q - id_M == 0
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6"}

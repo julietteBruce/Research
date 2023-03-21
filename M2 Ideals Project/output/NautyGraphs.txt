@@ -1,0 +1,169 @@
+needsPackage "NautyGraphs"
+
+F0E0 =  graphComplement "Dhc"
+
+F0E1 =  graphComplement graph {{1,2},{2,3},{3,4},{4,5},{1,5}}
+
+F0E2 =  G = generateBipartiteGraphs 7;
+
+F0E3 =  time graphComplement G;
+
+F0E4 =  time (graphComplement \ G);
+
+F1E0 =  G = graph {{0,1},{1,2},{2,3},{3,4},{0,4}}
+
+F1E1 =  relabelGraph G
+
+F2E0 =  L = {graph {{1,2}}, graph {{1,2},{2,3}}, graph {{1,2},{2,3},{3,4}}, graph {{1,2},{2,3},{3,4},{4,5}}};
+
+F2E1 =  s = buildGraphFilter {"NumEdges" => 3};
+
+F2E2 =  filterGraphs(L, s)
+
+F2E3 =  s = buildGraphFilter {"NumEdges" => (2,3)};
+
+F2E4 =  filterGraphs(L, s)
+
+F2E5 =  s = buildGraphFilter {"NumEdges" => (,3)};
+
+F2E6 =  filterGraphs(L, s)
+
+F2E7 =  s = buildGraphFilter {"NumEdges" => (2,)};
+
+F2E8 =  filterGraphs(L, s)
+
+F2E9 =  s = buildGraphFilter {"NumEdges" => (2,), "NegateNumEdges" => true};
+
+F2E10 =  filterGraphs(L, s)
+
+F3E0 =  G = graph {{1,2},{2,3},{3,4},{4,5},{1,5}};
+
+F3E1 =  H = graph {{1,3},{3,5},{5,2},{2,4},{4,1}};
+
+F3E2 =  areIsomorphic(G, H)
+
+F3E3 =  L = graphToString \ apply(permutations 5, P -> graph apply(5, i -> {P_i, P_((i+1)%5)}));
+
+F3E4 =  N = removeIsomorphs L
+
+F3E5 =  stringToGraph first N
+
+F4E0 =  sparse6ToGraph6 ":DaY_~"
+
+F4E1 =  sparse6ToGraph6 ":M"
+
+F5E0 =  stringToGraph "Dhc"
+
+F6E0 =  A000088 = apply(1..9, n -> #generateGraphs n)
+
+F6E1 =  B = apply(1..12, n -> generateGraphs(n, OnlyBipartite => true));
+
+F6E2 =  forestsOnly = buildGraphFilter {"NumCycles" => 0};
+
+F6E3 =  A005195 = apply(B, graphs -> #filterGraphs(graphs, forestsOnly))
+
+F6E4 =  treesOnly = buildGraphFilter {"NumCycles" => 0, "Connectivity" => 0, "NegateConnectivity" => true};
+
+F6E5 =  A000055 = apply(B, graphs -> #filterGraphs(graphs, treesOnly))
+
+F6E6 =  connected = buildGraphFilter {"Connectivity" => 0, "NegateConnectivity" => true};
+
+F6E7 =  prob = n -> log(n)/n;
+
+F6E8 =  apply(2..30, n -> #filterGraphs(generateRandomGraphs(n, 100, 2*(prob n)), connected))
+
+F6E9 =  apply(2..30, n -> #filterGraphs(generateRandomGraphs(n, 100, (prob n)/2), connected))
+
+F7E0 =  isPlanar graph {{0,1}, {1,2}, {2,3}, {3,4}, {0,4}}
+
+F7E1 =  isPlanar graph flatten for i from 0 to 4 list for j from i+1 to 4 list {i,j}
+
+F8E0 =  newEdges graph {{a,b},{c,d}}
+
+F9E0 =  G = graph {{1,2},{2,3},{3,4},{4,5},{1,5}};
+
+F9E1 =  addEdges G
+
+F10E0 =  removeEdges graph {{1,2},{1,3},{2,3},{3,4},{4,5}}
+
+F11E0 =  R = QQ[a..e];
+
+F11E1 =  stringToEdgeIdeal("Dhc", R)
+
+F12E0 =  generateRandomGraphs(5, 5, RandomSeed => 314159)
+
+F12E1 =  generateRandomGraphs(5, 5)
+
+F12E2 =  generateRandomGraphs(5, 5, RandomSeed => 314159)
+
+F13E0 =  generateGraphs(5, 4, 6, OnlyConnected => true)
+
+F14E0 =  L = generateGraphs 5;
+
+F14E1 =  filterGraphs(L, {"Connectivity" => 0, "NegateConnectivity" => true})
+
+F15E0 =  G = {"EhEG", graph {{0,1},{1,2},{2,3},{3,4},{4,5},{0,5}}, "DhC", graph {{0,1}}};
+
+F15E1 =  removeIsomorphs G
+
+F16E0 =  generateRandomRegularGraphs(5, 3, 2)
+
+F17E0 =  graph6ToSparse6 "Dhc"
+
+F17E1 =  graph6ToSparse6 "M????????????????"
+
+F18E0 =  L = generateGraphs 5;
+
+F18E1 =  countGraphs(L, {"Connectivity" => 0, "NegateConnectivity" => true})
+
+F19E0 =  G = graph {{1,2},{2,3},{3,4},{4,5},{1,5}};
+
+F19E1 =  H = graph {{1,3},{3,5},{5,2},{2,4},{4,1}};
+
+F19E2 =  I = graph {{1,2},{1,3},{1,4},{1,5},{2,3},{2,4},{2,5},{3,4},{3,5},{4,5}};
+
+F19E3 =  areIsomorphic(G, H)
+
+F19E4 =  G == H
+
+F19E5 =  areIsomorphic(G, I)
+
+F19E6 =  G == "Dhc"
+
+F19E7 =  I == "Dhc"
+
+F20E0 =  K5 = graph flatten for i from 0 to 4 list for j from i+1 to 4 list {i,j};
+
+F20E1 =  P = onlyPlanar(generateGraphs 5, true)
+
+F20E2 =  areIsomorphic(first P, K5)
+
+F21E0 =  graphToString({{0,1}, {1,2}, {2,3}, {3,4}, {0,4}}, 5)
+
+F21E1 =  R = QQ[a..e];
+
+F21E2 =  graphToString monomialIdeal (a*c, a*d, b*d, b*e, c*e)
+
+F21E3 =  graphToString graph {{0,1}, {1,2}, {2,3}, {3,4}, {0,4}}
+
+F21E4 =  graphToString "Dhc"
+
+F22E0 =  G = graph {{1,2},{1,4},{1,6},{3,2},{3,4},{3,6},{5,2},{5,4},{5,6}};
+
+F22E1 =  relabelBipartite G
+
+F23E0 =  C26 = graph append(apply(25, i -> {i, i+1}), {0, 25});
+
+F23E1 =  g6 = graphToString C26; #g6
+
+F23E2 =  s6 = graph6ToSparse6 g6; #s6
+
+F23E3 =  K26 = graph flatten for i from 0 to 25 list for j from i+1 to 25 list {i,j};
+
+F23E4 =  g6 = graphToString K26; #g6
+
+F23E5 =  s6 = graph6ToSparse6 g6; #s6
+
+F24E0 =  neighborhoodComplements graph {{1,2},{1,3},{2,3},{3,4},{4,5}}
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F4E0", "F4E1", "F5E0", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F7E0", "F7E1", "F8E0", "F9E0", "F9E1", "F10E0", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F13E0", "F14E0", "F14E1", "F15E0", "F15E1", "F16E0", "F17E0", "F17E1", "F18E0", "F18E1", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F20E0", "F20E1", "F20E2", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F22E0", "F22E1", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F24E0"}

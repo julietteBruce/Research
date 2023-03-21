@@ -1,0 +1,267 @@
+needsPackage "GraphicalModelsMLE"
+
+F0E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph {{3,4}});
+
+F0E1 =  U = matrix{{6.2849049, 10.292875, 1.038475, 1.1845757}, {3.1938475, 3.2573, 1.13847, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F0E2 =  solverMLE(G,U,RealPrecision=>10)
+
+F1E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph {{3,4}})
+
+F1E1 =  R=gaussianRing(G)
+
+F1E2 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F1E3 =  J=scoreEquations(R,U,SaturateOptions => {DegreeLimit=>1, MinimalGenerators => false})
+
+F2E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph {{3,4}});
+
+F2E1 =  R=gaussianRing(G);
+
+F2E2 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}}
+
+F2E3 =  J=scoreEquations(R,U,SampleData=>true)
+
+F2E4 =  V=sampleCovarianceMatrix(U)
+
+F2E5 =  I=scoreEquations(R,V,SampleData=>false)
+
+F3E0 =  G=graph{{1,2},{2,3},{3,4},{1,4}}
+
+F3E1 =  U=random(ZZ^4,ZZ^4)
+
+F3E2 =  solverMLE(G,U,Saturate=>false)
+
+F4E0 =  G=graph{{1,2},{2,3},{3,4},{4,1}}
+
+F4E1 =  MLdegree(gaussianRing G)
+
+F5E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph {{3,4}});
+
+F5E1 =  R=gaussianRing(G);
+
+F5E2 =  U = matrix{{6.2849049, 10.292875, 1.038475, 1.1845757}, {3.1938475, 3.2573, 1.13847, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F5E3 =  J=scoreEquations(R,U,RealPrecision=>3)
+
+F6E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph {{3,4}});
+
+F6E1 =  R=gaussianRing(G);
+
+F6E2 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F6E3 =  JnoSat=scoreEquations(R,U,Saturate=>false);
+
+F6E4 =  dim JnoSat
+
+F6E5 =  degree JnoSat
+
+F6E6 =  J=scoreEquations(R,U)
+
+F6E7 =  degree JnoSat==degree J
+
+F7E0 =  L={matrix{{1,0},{0,1}},matrix{{-2,0},{0,1}},matrix{{sqrt(-1),0},{0,sqrt (-1)}},matrix{{0,0},{0,0}}}
+
+F7E1 =  checkPSD(L)
+
+F8E0 =  G=graph{{1,2},{2,3},{3,4},{1,4}}
+
+F8E1 =  U=random(ZZ^4,ZZ^4)
+
+F8E2 =  solverMLE(G,U,SaturateOptions => {DegreeLimit=>1, MinimalGenerators => false})
+
+F9E0 =  L={matrix{{10^(-9)+10^(-10)*sqrt(-1),0},{0,10^(-9)+10^(-10)*sqrt (-1)}},
+
+         matrix{{10^(-10)+10^(-10)*sqrt(-1),0},{0,10^(-10)+10^(-10)*sqrt (-1)}},
+
+         matrix{{1+10^(-10)*sqrt(-1),0},{0,1+10^(-10)*sqrt (-1)}},
+
+         matrix{{1-10^(-9)*sqrt(-1),0},{0,1+10^(-9)*sqrt (-1)}}
+
+         }
+
+F9E1 =  checkPD L
+
+F10E0 =  G=graph{{1,2},{2,3},{3,4},{1,4}};
+
+F10E1 =  U =matrix{{1,2,1,-1},{2,1,3,0},{-1, 0, 1, 1},{-5, 3, 4, -6}};
+
+F10E2 =  solverMLE(G,U)
+
+F10E3 =  G=graph{{1,2},{2,3},{3,4},{1,4}};
+
+F10E4 =  U = {{1,2,1,-1},{2,1,3,0},{-1, 0, 1, 1},{-5, 3, 4, -6}};
+
+F10E5 =  solverMLE(G,U)
+
+F10E6 =  G = mixedGraph(digraph {{1,3},{2,4}},bigraph {{3,4}});
+
+F10E7 =  S =  matrix {{7/20, 13/50, -3/50, -19/100}, {13/50, 73/100, -7/100, -9/100},{-3/50, -7/100, 2/5, 3/50}, {-19/100, -9/100, 3/50, 59/100}};
+
+F10E8 =  solverMLE(G,S,SampleData=>false)
+
+F10E9 =  G = mixedGraph(digraph {{1,3},{2,4}},bigraph {{3,4}},graph {{1,2}});
+
+F10E10 =  S =  matrix {{7/20, 13/50, -3/50, -19/100}, {13/50, 73/100, -7/100, -9/100},{-3/50, -7/100, 2/5, 3/50}, {-19/100, -9/100, 3/50, 59/100}};
+
+F10E11 =  solverMLE(G,S,SampleData=>false,ConcentrationMatrix=>true)
+
+F10E12 =  R=QQ[x,y];
+
+F10E13 =  M=matrix{{115,-13,x,47},{-13,5,7,y},{x,7,27,-21},{47,y,-21,29}}
+
+F10E14 =  G=graph{{1,2},{2,3},{3,4},{1,4}};
+
+F10E15 =  V=matrix{{115,-13,-29,47},{-13,5,7,-11},{-29,7,27,-21},{47,-11,-21,29}}
+
+F10E16 =  (mx,MLE,ML)=solverMLE(G,V,SampleData=>false)
+
+F11E0 =  L={matrix{{10^(-9)+10^(-10)*sqrt(-1),0},{0,10^(-9)+10^(-10)*sqrt (-1)}},
+
+         matrix{{10^(-10)+10^(-10)*sqrt(-1),0},{0,10^(-10)+10^(-10)*sqrt (-1)}},
+
+         matrix{{1+10^(-10)*sqrt(-1),0},{0,1+10^(-10)*sqrt (-1)}},
+
+         matrix{{1-10^(-9)*sqrt(-1),0},{0,1+10^(-9)*sqrt (-1)}}
+
+         }
+
+F11E1 =  checkPD L
+
+F12E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph {{3,4}});
+
+F12E1 =  R=gaussianRing(G);
+
+F12E2 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F12E3 =  (J,Sigma)=scoreEquations(R,U,CovarianceMatrix=>true);
+
+F12E4 =  Sigma
+
+F13E0 =  L= {{1,2,1,-1},{2,1,3,0},{-1, 0, 1, 1},{-5, 3, 4, -6}};
+
+F13E1 =  sampleCovarianceMatrix(L)
+
+F13E2 =  U= matrix{{1,2,1,-1},{2,1,3,0},{-1, 0, 1, 1},{-5, 3, 4, -6}};
+
+F13E3 =  sampleCovarianceMatrix(U)
+
+F14E0 =  L={matrix{{1,0},{0,1}},matrix{{-2,0},{0,1}},matrix{{sqrt(-1),0},{0,sqrt (-1)}}}
+
+F14E1 =  checkPD(L)
+
+F15E0 =  G=mixedGraph(graph{{a,b},{b,c}})
+
+F15E1 =  solverMLE(G,matrix{{1,0,0},{0,1,0},{0,0,1}},Solver=>"NAG4M2",OptionsNAG4M2=>{tStep =>.01,numberSuccessesBeforeIncrease => 5})
+
+F16E0 =  U= matrix{{1,2,1,-1},{2,1,3,0},{-1, 0, 1, 1},{-5, 3, 4, -6}};
+
+F16E1 =  sampleCovarianceMatrix(U)
+
+F16E2 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph{{3,4}});
+
+F16E3 =  R = gaussianRing(G);
+
+F16E4 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F16E5 =  scoreEquations(R,U)
+
+F16E6 =  G=graph{{1,2},{2,3},{3,4},{4,1}};
+
+F16E7 =  MLdegree(gaussianRing G)
+
+F16E8 =  G = mixedGraph(digraph {{1,3},{2,4}},bigraph {{3,4}},graph {{1,2}});
+
+F16E9 =  V =  matrix {{7/20, 13/50, -3/50, -19/100}, {13/50, 73/100, -7/100, -9/100},{-3/50, -7/100, 2/5, 3/50}, {-19/100, -9/100, 3/50, 59/100}};
+
+F16E10 =  solverMLE(G,V,SampleData=>false)
+
+F16E11 =  R=QQ[x,y];
+
+F16E12 =  M=matrix{{115,-13,x,47},{-13,5,7,y},{x,7,27,-21},{47,y,-21,29}}
+
+F16E13 =  G=graph{{1,2},{2,3},{3,4},{1,4}};
+
+F16E14 =  V=matrix{{115,-13,-29,47},{-13,5,7,-11},{-29,7,27,-21},{47,-11,-21,29}};
+
+F16E15 =  (mx,MLE,ML)=solverMLE(G,V,SampleData=>false)
+
+F17E0 =  R=QQ[x,y];
+
+F17E1 =  FR=frac R;
+
+F17E2 =  F=1/(x^2+y^2);
+
+F17E3 =  jacobianMatrixOfRationalFunction(F)
+
+F17E4 =  R=QQ[t_1,t_2,t_3];
+
+F17E5 =  FR=frac R;
+
+F17E6 =  jacobianMatrixOfRationalFunction( (t_1^2*t_2)/(t_1+t_2^2+t_3^3) )
+
+F18E0 =  G= mixedGraph(graph{{a,b},{b,c}},digraph {{a,d},{c,e},{f,g}},bigraph {{d,e}})
+
+F18E1 =  solverMLE (G, random(QQ^7,QQ^7))
+
+F18E2 =  solverMLE (G, random(QQ^7,QQ^7), ConcentrationMatrix=>true)
+
+F19E0 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph{{3,4}});
+
+F19E1 =  R = gaussianRing(G);
+
+F19E2 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F19E3 =  JU=scoreEquations(R,U)
+
+F19E4 =  V = sampleCovarianceMatrix U
+
+F19E5 =  JV=scoreEquations(R,V,SampleData=>false)
+
+F19E6 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph{{3,4}});
+
+F19E7 =  R = gaussianRing(G);
+
+F19E8 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F19E9 =  J=scoreEquations(R,U,SaturateOptions => {Strategy => Eliminate})
+
+F19E10 =  JnoSat=scoreEquations(R,U,Saturate=>false)
+
+F19E11 =  G = mixedGraph(digraph {{1,2},{1,3},{2,3},{3,4}},bigraph{{3,4}});
+
+F19E12 =  R = gaussianRing(G);
+
+F19E13 =  U = matrix{{6, 10, 1/3, 1}, {3/5, 3, 1/2, 1}, {4/5, 3/2, 9/8, 3/10}, {10/7, 2/3,1, 8/3}};
+
+F19E14 =  J = scoreEquations(R,U)
+
+F19E15 =  dim J, degree J
+
+F20E0 =  G=mixedGraph(graph{{a,b}},digraph{{a,d}},bigraph{{c,d}})
+
+F20E1 =  U=matrix{{1, 2, 5, 1}, {5, 3, 2, 1}, {4, 3, 5, 10}, {2, 5,1, 3}};
+
+F20E2 =  solverMLE (G,U,Solver=>"EigenSolver")
+
+F20E3 =  solverMLE (G,U,Solver=>"NAG4M2")
+
+F21E0 =  G=mixedGraph(graph{{a,b},{b,c}})
+
+F21E1 =  solverMLE(G,matrix{{1,0,0},{0,1,0},{0,0,1}},Solver=>"EigenSolver",OptionsEigenSolver=>{Multiplier =>1, Strategy=>"Stickelberger"})
+
+F21E2 =  G=mixedGraph(graph{{a,b},{b,c}})
+
+F21E3 =  solverMLE(G,matrix{{1,0,0},{0,1,0},{0,0,1}},OptionsEigenSolver=>{Multiplier =>1, Strategy=>"Stickelberger"})
+
+F22E0 =  G=graph{{1,2},{2,3},{3,4},{1,4}}
+
+F22E1 =  U=random(ZZ^4,ZZ^4)
+
+F22E2 =  solverMLE(G,U,SampleData=>true)
+
+F22E3 =  V=sampleCovarianceMatrix(U)
+
+F22E4 =  solverMLE(G,V,SampleData=>false)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F10E13", "F10E14", "F10E15", "F10E16", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F15E0", "F15E1", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F18E0", "F18E1", "F18E2", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15", "F20E0", "F20E1", "F20E2", "F20E3", "F21E0", "F21E1", "F21E2", "F21E3", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4"}

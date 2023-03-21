@@ -1,4 +1,4 @@
-needsPackage "package_directory/Depth/example-output"
+needsPackage "Depth"
 
 F0E0 =  A = ZZ/2[x,y,z];
 
@@ -42,21 +42,19 @@ F2E6 =  inhomogeneousSystemOfParameters(I,A,Attempts=>1,Bound=>100,Sparseness=>.
 
 F2E7 =  x = symbol x
 
-F2E8 =  y = symbol y
+F2E8 =  n = 2;
 
-F2E9 =  n = 2;
+F2E9 =  A = ZZ/101[x_(1,1)..x_(n,n),y_(1,1)..y_(n,n)];
 
-F2E10 =  A = ZZ/101[x_(1,1)..x_(n,n),y_(1,1)..y_(n,n)];
+F2E10 =  X = transpose genericMatrix(A,n,n);
 
-F2E11 =  X = transpose genericMatrix(A,n,n);
+F2E11 =  Y = transpose genericMatrix(A,y_(1,1),n,n);
 
-F2E12 =  Y = transpose genericMatrix(A,y_(1,1),n,n);
+F2E12 =  b = ideal(X*Y - Y*X);
 
-F2E13 =  b = ideal(X*Y - Y*X);
+F2E13 =  B = A/b;
 
-F2E14 =  B = A/b;
-
-F2E15 =  inhomogeneousSystemOfParameters(B,Attempts=>1,Maximal=>false)
+F2E14 =  inhomogeneousSystemOfParameters(B,Attempts=>1,Maximal=>false)
 
 F3E0 =  A = ZZ[x_1..x_4]/(x_4^2)	  
 
@@ -98,4 +96,4 @@ F6E5 =  X3 = {1_A, x, y};
 
 F6E6 =  isRegularSequence X3
 
-exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F2E15", "F3E0", "F3E1", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6"}
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F3E0", "F3E1", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6"}

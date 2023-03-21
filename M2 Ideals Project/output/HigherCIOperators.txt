@@ -1,0 +1,41 @@
+needsPackage "HigherCIOperators"
+
+F0E0 =  S = ZZ/101[a,b,c,d]
+
+F0E1 =  ff = matrix{{a,b,c,d}}
+
+F0E2 =  (koszul ff).dd_2
+
+F0E3 =  (trueKoszul ff).dd_2
+
+F0E4 =  basis(2,(ZZ/101[a,b,c,d, SkewCommutative => true]))
+
+F1E0 =  needsPackage "CompleteIntersectionResolutions"
+
+F1E1 =  S = ZZ/101[a,b,c];
+
+F1E2 =  ff = matrix"a4,b4,c4";
+
+F1E3 =  N = coker matrix"a,b,c
+
+F1E4 =  R = S/ideal ff;
+
+F1E5 =  M = highSyzygy (R**N);
+
+F1E6 =  AA = res(M, LengthLimit => 5);
+
+F1E7 =  Alist = apply(length AA, i-> lift(AA.dd_(i+1), S));
+
+F1E8 =  A = chainComplex Alist;
+
+F1E9 =  L = trueKoszul ff;
+
+F1E10 =  AL = ciOperatorResolution(A,L)
+
+F1E11 =  G = res pushForward(map(R,S),M)
+
+F1E12 =  betti AL
+
+F1E13 =  betti G
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13"}

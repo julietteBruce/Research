@@ -1,0 +1,305 @@
+needsPackage "HighestWeights"
+
+F0E0 =  R=QQ[x_(1,1)..x_(4,2)];
+
+F0E1 =  D=dynkinType{{"A",1},{"A",3}};
+
+F0E2 =  U={{1,1,0,0},{-1,1,0,0},{1,-1,1,0},{-1,-1,1,0},{1,0,-1,1},{-1,0,-1,1},{1,0,0,-1},{-1,0,0,-1}};
+
+F0E3 =  setWeights(R,D,U);
+
+F0E4 =  G=genericMatrix(R,2,4);
+
+F0E5 =  M=coker G
+
+F0E6 =  highestWeightsDecomposition(M,{2},{{-1,0,0,0},{1,0,0,0}})
+
+F0E7 =  highestWeightsDecomposition(M,2,{{-1,0,0,0},{1,0,0,0}})
+
+F0E8 =  highestWeightsDecomposition(M,0,4,{{-1,0,0,0},{1,0,0,0}})
+
+F1E0 =  R=QQ[x_(1,1)..x_(3,4)];
+
+F1E1 =  G=genericMatrix(R,4,3)
+
+F1E2 =  I=minors(2,G);
+
+F1E3 =  D=dynkinType{{"A",2},{"A",3}};
+
+F1E4 =  U={{1,0,1,0,0},{1,0,-1,1,0},{1,0,0,-1,1},{1,0,0,0,-1},{-1,1,1,0,0},{-1,1,-1,1,0},{-1,1,0,-1,1},{-1,1,0,0,-1},{0,-1,1,0,0},{0,-1,-1,1,0},{0,-1,0,-1,1},{0,-1,0,0,-1}};
+
+F1E5 =  setWeights(R,D,U)
+
+F1E6 =  highestWeightsDecomposition(I,{2})
+
+F1E7 =  highestWeightsDecomposition(I,2)
+
+F1E8 =  highestWeightsDecomposition(I,0,4)
+
+F2E0 =  D=dynkinType{{"A",3}};
+
+F2E1 =  L={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}};
+
+F2E2 =  decomposeWeightsList(D,L)
+
+F3E0 =  R=QQ[x_(1,1)..x_(3,4)];
+
+F3E1 =  G=genericMatrix(R,4,3)
+
+F3E2 =  I=minors(2,G);
+
+F3E3 =  resI=res I
+
+F3E4 =  betti resI
+
+F3E5 =  D=dynkinType{{"A",2},{"A",3}};
+
+F3E6 =  U={{1,0,1,0,0},{1,0,-1,1,0},{1,0,0,-1,1},{1,0,0,0,-1},{-1,1,1,0,0},{-1,1,-1,1,0},{-1,1,0,-1,1},{-1,1,0,0,-1},{0,-1,1,0,0},{0,-1,-1,1,0},{0,-1,0,-1,1},{0,-1,0,0,-1}};
+
+F3E7 =  setWeights(R,D,U)
+
+F3E8 =  highestWeightsDecomposition(resI,0,{{0,0,0,0,0}})
+
+F3E9 =  highestWeightsDecomposition(resI,0,{{0,0,0,0,0}},Range=>{0,2})
+
+F3E10 =  highestWeightsDecomposition(resI)
+
+F4E0 =  R=QQ[x_1..x_4]
+
+F4E1 =  D=dynkinType{{"A",3}}
+
+F4E2 =  W={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}}
+
+F4E3 =  setWeights(R,D,W)
+
+F5E0 =  R=QQ[x_1..x_4];
+
+F5E1 =  D=dynkinType{{"A",3}};
+
+F5E2 =  W={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}};
+
+F5E3 =  setWeights(R,D,W);
+
+F5E4 =  getWeights(x_1^4*x_2*x_4^6)
+
+F6E0 =  R=QQ[x_(-2, 1),x_(-1, 0),x_(-1, 1),x_(0, 0),x_(1,-1),x_(1, 0),x_(2,-1)]
+
+F6E1 =  m=ideal vars R;
+
+F6E2 =  K=koszul gens m; betti K
+
+F6E3 =  W={{-2, 1},{-1, 0},{-1, 1},{0, 0},{1,-1},{1, 0},{2,-1}}
+
+F6E4 =  D=dynkinType{{"G",2}}; setWeights(R,D,W)
+
+F6E5 =  highestWeightsDecomposition(K,Range=>{0,3})
+
+F6E6 =  highestWeightsDecomposition(m,0,4)
+
+F6E7 =  highestWeightsDecomposition(R,0,4)
+
+F7E0 =  R=QQ[x_{}, x_{0,1}, x_{0,2}, x_{1,2}, x_{0,3}, x_{1,3}, x_{2,3}, x_{0,4}, x_{1,4}, x_{2,4}, x_{3,4}, x_{0,1,2,3}, x_{0,1,2,4}, x_{0,1,3,4}, x_{0,2,3,4}, x_{1,2,3,4}]
+
+F7E1 =  I=ideal(x_{}*x_{0,1,2,3}-x_{0,1}*x_{2,3}+x_{0,2}*x_{1,3}-x_{0,3}*x_{1,2},
+
+         x_{}*x_{0,1,2,4}-x_{0,1}*x_{2,4}+x_{0,2}*x_{1,4}-x_{0,4}*x_{1,2},
+
+         x_{}*x_{0,1,3,4}-x_{0,1}*x_{3,4}+x_{0,3}*x_{1,4}-x_{0,4}*x_{1,3},
+
+         x_{}*x_{0,2,3,4}-x_{0,2}*x_{3,4}+x_{0,3}*x_{2,4}-x_{0,4}*x_{2,3},
+
+         x_{}*x_{1,2,3,4}-x_{1,2}*x_{3,4}+x_{1,3}*x_{2,4}-x_{1,4}*x_{2,3},
+
+         x_{0,1}*x_{0,2,3,4}-x_{0,2}*x_{0,1,3,4}+x_{0,3}*x_{0,1,2,4}-x_{0,4}*x_{0,1,2,3},
+
+         -x_{0,1}*x_{1,2,3,4}+x_{1,2}*x_{0,1,3,4}-x_{1,3}*x_{0,1,2,4}+x_{1,4}*x_{0,1,2,3},
+
+         x_{0,2}*x_{1,2,3,4}-x_{1,2}*x_{0,2,3,4}+x_{2,3}*x_{0,1,2,4}-x_{2,4}*x_{0,1,2,3},
+
+         -x_{0,3}*x_{1,2,3,4}+x_{1,3}*x_{0,2,3,4}-x_{2,3}*x_{0,1,3,4}+x_{3,4}*x_{0,1,2,3},
+
+         x_{0,4}*x_{1,2,3,4}-x_{1,4}*x_{0,2,3,4}+x_{2,4}*x_{0,1,3,4}-x_{3,4}*x_{0,1,2,4});
+
+F7E2 =  RI=res I; betti RI
+
+F7E3 =  ind = apply(gens R,g->(baseName g)#1)
+
+F7E4 =  makeWeight = J -> apply(5,i->if member(i,J) then 1/2 else -1/2)
+
+F7E5 =  W'=apply(ind,makeWeight)
+
+F7E6 =  M=inverse promote(matrix{{1,0,0,0,0},{-1,1,0,0,0},{0,-1,1,0,0},{0,0,-1,1,1},{0,0,0,-1,1}},QQ)
+
+F7E7 =  D=dynkinType{{"D",5}}
+
+F7E8 =  N=transpose promote(cartanMatrix(rootSystem(D)),QQ)
+
+F7E9 =  W=entries transpose lift(N*M*(transpose matrix W'),ZZ)
+
+F7E10 =  setWeights(R,D,W)
+
+F7E11 =  highestWeightsDecomposition(RI)
+
+F7E12 =  highestWeightsDecomposition(R/I,0,4)
+
+F8E0 =  R=QQ[x_(1,1)..x_(2,4)];
+
+F8E1 =  D=dynkinType{{"A",1},{"A",3}};
+
+F8E2 =  U={{1,1,0,0},{1,-1,1,0},{1,0,-1,1},{1,0,0,-1},{-1,1,0,0},{-1,-1,1,0},{-1,0,-1,1},{-1,0,0,-1}};
+
+F8E3 =  setWeights(R,D,U);
+
+F8E4 =  M=map(R^2,R^{4:-1},{{x_(1,1),x_(1,1)+x_(1,2),x_(1,3),x_(1,4)},{x_(2,1),x_(2,2)+x_(2,1),x_(2,3),x_(2,4)}})
+
+F8E5 =  (V,C)=propagateWeights(M,{{-1,0,0,0},{1,0,0,0}});
+
+F8E6 =  V
+
+F8E7 =  C
+
+F8E8 =  M*inverse(C)
+
+F9E0 =  R=QQ[x,y,z];
+
+F9E1 =  L={{1,0},{-1,1},{0,-1}};
+
+F9E2 =  D=dynkinType{{"A",2}};
+
+F9E3 =  setWeights(R,D,L)
+
+F9E4 =  loadPackage "PieriMaps";
+
+F9E5 =  f=pureFree({0,2,3,6},R)
+
+F9E6 =  W=apply(apply(standardTableaux(3, {2,2}), flatten), i->sum(apply(i,j->L_j)))
+
+F9E7 =  EFW=res coker f; betti EFW
+
+F9E8 =  highestWeightsDecomposition(EFW,0,W)
+
+F10E0 =  R=QQ[x_{1,2,3},x_{1,2,4},x_{1,2,5},x_{1,2,6},x_{1,3,4},x_{1,3,5},x_{1,4,5},x_{1,4,6},x_{1,5,6},x_{2,3,4},x_{2,4,5},x_{2,4,6},x_{3,4,5},x_{4,5,6}]
+
+F10E1 =  X=matrix{{x_{2,3,4},-x_{1,3,4},x_{1,2,4}},{-x_{1,3,4},-x_{1,3,5},x_{1,2,5}},{x_{1,2,4},x_{1,2,5},x_{1,2,6}}}
+
+F10E2 =  Y=matrix{{x_{1,5,6},-x_{1,4,6},x_{1,4,5}},{-x_{1,4,6},-x_{2,4,6},x_{2,4,5}},{x_{1,4,5},x_{2,4,5},x_{3,4,5}}}
+
+F10E3 =  Delta=(x_{1,2,3}*x_{4,5,6}-trace(X*Y))^2+4*x_{1,2,3}*det(Y)+4*x_{4,5,6}*det(X)-4*sum(3,i->sum(3,j->det(submatrix'(X,{i},{j}))*det(submatrix'(Y,{i},{j}))));
+
+F10E4 =  I=ideal jacobian ideal Delta;
+
+F10E5 =  RI=res I; betti RI
+
+F10E6 =  v_1={1,0,0}
+
+F10E7 =  ind = apply(gens R,g->(baseName g)#1)
+
+F10E8 =  W'=apply(ind,j->v_(j_0)+v_(j_1)+v_(j_2))
+
+F10E9 =  M=inverse promote(matrix{{1,0,0},{-1,1,0},{0,-1,2}},QQ)
+
+F10E10 =  D=dynkinType{{"C",3}}
+
+F10E11 =  N=transpose promote(cartanMatrix(rootSystem(D)),QQ)
+
+F10E12 =  W=entries transpose lift(N*M*(transpose matrix W'),ZZ)
+
+F10E13 =  setWeights(R,D,W)
+
+F10E14 =  highestWeightsDecomposition(RI)
+
+F10E15 =  highestWeightsDecomposition(R/I,0,4)
+
+F11E0 =  I=Grassmannian(1,5,CoefficientRing=>QQ)
+
+F11E1 =  RI=res I; betti RI
+
+F11E2 =  L={{1,0,0,0,0},{-1,1,0,0,0},{0,-1,1,0,0},{0,0,-1,1,0},{0,0,0,-1,1},{0,0,0,0,-1}}
+
+F11E3 =  W=apply(subsets({0,1,2,3,4,5},2),s->L_(s_0)+L_(s_1))
+
+F11E4 =  D=dynkinType{{"A",5}}; setWeights(R,D,W)
+
+F11E5 =  getWeights(p_(0,1)*p_(1,2))
+
+F11E6 =  highestWeightsDecomposition(RI)
+
+F11E7 =  Q=R/I; highestWeightsDecomposition(Q,0,4)
+
+F11E8 =  highestWeightsDecomposition(R,2)
+
+F11E9 =  highestWeightsDecomposition(I,2)
+
+F12E0 =  R=QQ[x_(1,1)..x_(6,3)];
+
+F12E1 =  G=genericMatrix(R,3,6)
+
+F12E2 =  M=coker G
+
+F12E3 =  e={{1,0,0,0,0},{-1,1,0,0,0},{0,-1,1,0,0},{0,0,-1,1,0},{0,0,0,-1,1},{0,0,0,0,-1}};
+
+F12E4 =  f={{1,0},{-1,1},{0,-1}};
+
+F12E5 =  W=flatten table(e,f,(u,v)->u|v)
+
+F12E6 =  D=dynkinType{{"A",5},{"A",2}}; setWeights(R,D,W)
+
+F12E7 =  U0={{0,0,0,0,0,-1,0},{0,0,0,0,0,1,-1},{0,0,0,0,0,0,1}};
+
+F12E8 =  H0=highestWeightsDecomposition(BR,0,U0)
+
+F12E9 =  U1={{1,0,0,0,0,0,0},{-1,1,0,0,0,0,0},{0,-1,1,0,0,0,0},{0,0,-1,1,0,0,0},{0,0,0,-1,1,0,0},{0,0,0,0,-1,0,0}};
+
+F12E10 =  H1=highestWeightsDecomposition(BR,1,U1); H0===H1
+
+F12E11 =  highestWeightsDecomposition(M,-1,2,U0)
+
+F13E0 =  R=QQ[x_(1,1)..x_(3,2),y_(1,1)..y_(4,2),Degrees=>{6:{1,0},8:{0,1}}]
+
+F13E1 =  G=genericMatrix(R,2,3)|genericMatrix(R,y_(1,1),2,4)
+
+F13E2 =  I=minors(2,G);
+
+F13E3 =  EN=res I; betti EN
+
+F13E4 =  e={{1,0},{-1,1},{0,-1}}
+
+F13E5 =  f={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}}
+
+F13E6 =  h={{1},{-1}}
+
+F13E7 =  W=(flatten table(e,h,(u,v)->u|{0,0,0}|v))|(flatten table(f,h,(u,v)->{0,0}|u|v))
+
+F13E8 =  D=dynkinType{{"A",2},{"A",3},{"A",1}}; setWeights(R,D,W)
+
+F13E9 =  highestWeightsDecomposition(EN)
+
+F13E10 =  Q=R/I
+
+F13E11 =  highestWeightsDecomposition(Q,{2,0})
+
+F13E12 =  highestWeightsDecomposition(Q,{1,1})
+
+F13E13 =  highestWeightsDecomposition(Q,{0,2})
+
+F14E0 =  R=QQ[x_(1,1)..x_(3,4)];
+
+F14E1 =  G=genericMatrix(R,4,3)
+
+F14E2 =  I=minors(2,G);
+
+F14E3 =  Q=R/I;
+
+F14E4 =  D=dynkinType{{"A",2},{"A",3}};
+
+F14E5 =  U={{1,0,1,0,0},{1,0,-1,1,0},{1,0,0,-1,1},{1,0,0,0,-1},{-1,1,1,0,0},{-1,1,-1,1,0},{-1,1,0,-1,1},{-1,1,0,0,-1},{0,-1,1,0,0},{0,-1,-1,1,0},{0,-1,0,-1,1},{0,-1,0,0,-1}};
+
+F14E6 =  setWeights(R,D,U)
+
+F14E7 =  highestWeightsDecomposition(Q,{2})
+
+F14E8 =  highestWeightsDecomposition(Q,2)
+
+F14E9 =  highestWeightsDecomposition(Q,0,4)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F2E0", "F2E1", "F2E2", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F4E0", "F4E1", "F4E2", "F4E3", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F10E13", "F10E14", "F10E15", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F13E10", "F13E11", "F13E12", "F13E13", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9"}
