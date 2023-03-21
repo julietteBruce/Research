@@ -1,0 +1,127 @@
+needsPackage "Polyhedra"
+
+F64E0 =  V = matrix {{0,2,-2,0},{-1,1,1,1}}
+
+F64E1 =  P = convexHull V
+
+F64E2 =  vertices P
+
+F64E3 =  (HS,v) = facets P
+
+F64E4 =  hyperplanes P
+
+F64E5 =  isFullDimensional P
+
+F64E6 =  ambDim P
+
+F64E7 =  dim P
+
+F64E8 =  rays P
+
+F64E9 =  linealitySpace P
+
+F64E10 =  C = cone P
+
+F64E11 =  rays C
+
+F64E12 =  vertices P
+
+F64E13 =  R = matrix {{1},{0},{0}}
+
+F64E14 =  V1 = V || matrix {{1,1,1,1}}
+
+F64E15 =  P1 = convexHull(V1,R)
+
+F64E16 =  vertices P1
+
+F64E17 =  isCompact P1
+
+F64E18 =  isFullDimensional P1
+
+F64E19 =  rays P1
+
+F64E20 =  hyperplanes P1
+
+F64E21 =  inequalities = transpose (V || matrix {{-1,2,0,1}})
+
+F64E22 =  v = matrix {{1},{1},{1},{1}}
+
+F64E23 =  equations = matrix {{1,1,1}}
+
+F64E24 =  w = matrix {{3}}
+
+F64E25 =  P2 = polyhedronFromHData(inequalities,v,equations,w)
+
+F64E26 =  isFullDimensional P2
+
+F64E27 =  vertices P2
+
+F64E28 =  P3 = polyhedronFromHData(inequalities,v)
+
+F64E29 =  vertices P3
+
+F64E30 =  linealitySpace P3
+
+F64E31 =  isFullDimensional P3
+
+F64E32 =  P4 = hypercube(3,2)
+
+F64E33 =  vertices P4
+
+F64E34 =  P5 = crossPolytope(3,3)
+
+F64E35 =  vertices P5
+
+F64E36 =  P6 = stdSimplex 2
+
+F64E37 =  vertices P6
+
+F64E38 =  P7 = convexHull(P4,P5)
+
+F64E39 =  vertices P7
+
+F64E40 =  P8 = intersection(P4,P5)
+
+F64E41 =  vertices P8
+
+F64E42 =  P9 = convexHull {(V1,R),P2,P6}
+
+F64E43 =  vertices P9
+
+F64E44 =  Q = convexHull (-V)
+
+F64E45 =  P10 = P + Q
+
+F64E46 =  vertices P10
+
+F64E47 =  (C,L,M) = minkSummandCone P10
+
+F64E48 =  apply(values L, vertices)
+
+F64E49 =  P11 = P * Q
+
+F64E50 =  vertices P11
+
+F64E51 =  ambDim P11
+
+F64E52 =  fVector P11
+
+F64E53 =  L = faces(1,P11)
+
+F64E54 =  vertP11 = vertices P11
+
+F64E55 =  apply(L, l -> vertP11_(l#0))
+
+F64E56 =  L = latticePoints P11
+
+F64E57 =  #L
+
+F64E58 =  C = tailCone P1
+
+F64E59 =  rays C
+
+F64E60 =  P12 = polar P11
+
+F64E61 =  vertices P12
+
+exampleIDS = {"F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F64E5", "F64E6", "F64E7", "F64E8", "F64E9", "F64E10", "F64E11", "F64E12", "F64E13", "F64E14", "F64E15", "F64E16", "F64E17", "F64E18", "F64E19", "F64E20", "F64E21", "F64E22", "F64E23", "F64E24", "F64E25", "F64E26", "F64E27", "F64E28", "F64E29", "F64E30", "F64E31", "F64E32", "F64E33", "F64E34", "F64E35", "F64E36", "F64E37", "F64E38", "F64E39", "F64E40", "F64E41", "F64E42", "F64E43", "F64E44", "F64E45", "F64E46", "F64E47", "F64E48", "F64E49", "F64E50", "F64E51", "F64E52", "F64E53", "F64E54", "F64E55", "F64E56", "F64E57", "F64E58", "F64E59", "F64E60", "F64E61"}

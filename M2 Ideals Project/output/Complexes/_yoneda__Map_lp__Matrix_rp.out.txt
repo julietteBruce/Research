@@ -1,0 +1,53 @@
+needsPackage "Complexes"
+
+F51E0 =  S = ZZ/101[a..d]
+
+F51E1 =  I = ideal"a2,ab,ac,b3"
+
+F51E2 =  E = Ext^1(I, S^1/I)
+
+F51E3 =  B = basis(0, E)
+
+F51E4 =  f = B * random(S^16, S^1)
+
+F51E5 =  g = yonedaMap f
+
+F51E6 =  assert isWellDefined g
+
+F51E7 =  assert(degree g === -1)
+
+F51E8 =  assert isCommutative g
+
+F51E9 =  assert isHomogeneous g
+
+F51E10 =  source g -- free resolution of I
+
+F51E11 =  target g -- free resolution of S/I
+
+F51E12 =  assert(yonedaMap' g == f)
+
+F51E13 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F51E14 =  M = truncate(1,R^1)
+
+F51E15 =  prune Ext^3(M, M)
+
+F51E16 =  B = basis(-4, Ext^3(M, M))
+
+F51E17 =  f = B_{2}
+
+F51E18 =  g = yonedaMap(f, LengthLimit => 8)
+
+F51E19 =  assert isHomogeneous g
+
+F51E20 =  assert isWellDefined g
+
+F51E21 =  assert isCommutative g
+
+F51E22 =  assert(degree g === -3)
+
+F51E23 =  assert(yonedaMap' g == map(target f, R^1, f, Degree => -4))
+
+F51E24 =  assert(isHomogeneous yonedaMap' g)
+
+exampleIDS = {"F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F51E9", "F51E10", "F51E11", "F51E12", "F51E13", "F51E14", "F51E15", "F51E16", "F51E17", "F51E18", "F51E19", "F51E20", "F51E21", "F51E22", "F51E23", "F51E24"}

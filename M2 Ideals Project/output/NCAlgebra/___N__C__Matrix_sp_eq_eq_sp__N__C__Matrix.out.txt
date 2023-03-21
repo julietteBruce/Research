@@ -1,0 +1,33 @@
+needsPackage "NCAlgebra"
+
+F1E0 =  A = QQ{x,y,z}
+
+F1E1 =  f = y*z + z*y - x^2
+
+F1E2 =  g = x*z + z*x - y^2
+
+F1E3 =  h = z^2 - x*y - y*x
+
+F1E4 =  I = ncIdeal {f,g,h}
+
+F1E5 =  Igb = ncGroebnerBasis I
+
+F1E6 =  M = ncMatrix {{x, y, z}}
+
+F1E7 =  sigma = ncMap(A,A,{y,z,x})
+
+F1E8 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F1E9 =  Nred = N^3 % Igb
+
+F1E10 =  B = A/I
+
+F1E11 =  phi = ncMap(B,A,gens B)
+
+F1E12 =  NB = phi N
+
+F1E13 =  N3B = NB^3
+
+F1E14 =  (phi Nred) == N3B
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14"}

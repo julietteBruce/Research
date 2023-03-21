@@ -1,0 +1,53 @@
+needsPackage "SpectralSequences"
+
+F38E0 =  needsPackage "SpectralSequences"
+
+F38E1 =  R = QQ[x,y,z,w]
+
+F38E2 =  d2 = matrix(R,{{1},{0}})
+
+F38E3 =  d1 = matrix(R,{{0,1}})
+
+F38E4 =  C = chainComplex({d1,d2})
+
+F38E5 =  D_2 = image matrix(R,{{1}})
+
+F38E6 =  D_1 = image matrix(R,{{1,0},{0,0}})
+
+F38E7 =  D_0 = image matrix(R,{{1}})
+
+F38E8 =  D = chainComplex({inducedMap(D_0,D_1,C.dd_1),inducedMap(D_1,D_2,C.dd_2)})
+
+F38E9 =  d = chainComplexMap(C,D,apply(spots C, i-> inducedMap(C_i,D_i,id_C _i)))
+
+F38E10 =  isChainComplexMap d
+
+F38E11 =  d == chainComplexMap(C,D,{inducedMap(C_0,D_0,id_(C_0)),inducedMap(C_1,D_1,id_(C_1)),inducedMap(C_2,D_2,id_(C_2))})
+
+F38E12 =  E_2 = image matrix(R,{{0}})
+
+F38E13 =  E_1 = image matrix(R,{{1,0},{0,0}})
+
+F38E14 =  E_0 = image matrix(R,{{1}})
+
+F38E15 =  E = chainComplex({inducedMap(E_0,E_1,C.dd_1),inducedMap(E_1,E_2,C.dd_2)})
+
+F38E16 =  e = chainComplexMap(C,E,apply(spots C, i->inducedMap(C_i,D_i, id_C _i)))
+
+F38E17 =  K = filteredComplex({d,e})
+
+F38E18 =  L = filteredComplex({d,e},Shift => 1)
+
+F38E19 =  M = filteredComplex({d,e},Shift => -1)
+
+F38E20 =  D = simplicialComplex {x*y*z, x*y, y*z, w*z}
+
+F38E21 =  E = simplicialComplex {x*y, w}
+
+F38E22 =  F = simplicialComplex {x,w}
+
+F38E23 =  K = filteredComplex{D,E,F}
+
+F38E24 =  filteredComplex({D,E,F}, ReducedHomology => false)
+
+exampleIDS = {"F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F38E11", "F38E12", "F38E13", "F38E14", "F38E15", "F38E16", "F38E17", "F38E18", "F38E19", "F38E20", "F38E21", "F38E22", "F38E23", "F38E24"}

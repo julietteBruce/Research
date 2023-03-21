@@ -1,0 +1,65 @@
+needsPackage "Normaliz"
+
+F9E0 =  R=ZZ/37[x_1..x_7];
+
+F9E1 =  l={{1, 0, 0, 0, 0, 0, 0},
+
+        {0, 1, 0, 0, 0, 0, 0},
+
+        {0, 0, 1, 0, 0, 0, 0},
+
+        {0, 0, 0, 1, 0, 0, 0},
+
+        {0, 0, 0, 0, 1, 0, 0},
+
+        {0, 0, 0, 0, 0, 1, 0},
+
+        {1, 1, 1, 0, 0, 0, 1},
+
+        {1, 1, 0, 1, 0, 0, 1},
+
+        {1, 0, 1, 0, 1, 0, 1},
+
+        {1, 0, 0, 1, 0, 1, 1},
+
+        {1, 0, 0, 0, 1, 1, 1},
+
+        {0, 1, 1, 0, 0, 1, 1},
+
+        {0, 1, 0, 1, 1, 0, 1},
+
+        {0, 1, 0, 0, 1, 1, 1},
+
+        {0, 0, 1, 1, 1, 0, 1},
+
+        {0, 0, 1, 1, 0, 1, 1}};
+
+F9E2 =  L=for i in l list R_i
+
+F9E3 =  S=intclToricRing L
+
+F9E4 =  hb = flatten \ exponents \  gens S
+
+F9E5 =  M=matrix l;
+
+F9E6 =  d=(normaliz(M,"normalization"))#"gen"
+
+F9E7 =  set entries d===set hb
+
+F9E8 =  nmzFilename="rproj2";
+
+F9E9 =  intclToricRing L;
+
+F9E10 =  hypes=readNmzData("sup")
+
+F9E11 =  rmNmzFiles();
+
+F9E12 =  normaliz(hypes,"inequalities")
+
+F9E13 =  set entries oo#"gen"===set hb
+
+F9E14 =  eq=matrix {{1, 1, 1, -1, -1, -1,  0,  0,  0}, {1, 1, 1,  0,  0,  0, -1, -1, -1}, {0, 1, 1, -1,  0,  0, -1,  0,  0}, {1, 0, 1,  0, -1,  0,  0, -1,  0}, {1, 1, 0,  0,  0, -1,  0,  0, -1}, {0, 1, 1,  0, -1,  0,  0,  0, -1}, {1, 1, 0,  0, -1,  0, -1,  0,  0}};
+
+F9E15 =  normaliz(eq,"equations")
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15"}

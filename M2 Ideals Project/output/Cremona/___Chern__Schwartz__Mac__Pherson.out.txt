@@ -1,0 +1,27 @@
+needsPackage "Cremona"
+
+F7E0 =  GF(5^7)[x_0..x_4]
+
+F7E1 =  C = minors(2,matrix{{x_0,x_1,x_2},{x_1,x_2,x_3}})
+
+F7E2 =  time ChernSchwartzMacPherson C
+
+F7E3 =  time ChernSchwartzMacPherson(C,Certify=>true)
+
+F7E4 =  oo == ooo
+
+F7E5 =  ChernClass = method(Options=>{Certify=>false});
+
+F7E6 =  ChernClass (Ideal) := o -> (I) -> (
+
+        s := SegreClass(I,Certify=>o.Certify);
+
+        s*(1+first gens ring s)^(numgens ring I));
+
+F7E7 =  -- example: Chern class of G(1,4)
+
+F7E8 =  time ChernClass G
+
+F7E9 =  time ChernClass(G,Certify=>true)
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9"}

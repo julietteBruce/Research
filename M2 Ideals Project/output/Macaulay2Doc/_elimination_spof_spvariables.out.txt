@@ -1,0 +1,53 @@
+needsPackage "Macaulay2Doc"
+
+F1123E0 =  R = QQ[s,t,x,y,z, MonomialOrder=>Eliminate 2];
+
+F1123E1 =  I = ideal(x-s^3-s*t-1, y-t^3-3*t^2-t, z-s*t^3)
+
+F1123E2 =  time leadTerm gens gb I
+
+F1123E3 =  G = selectInSubring(1,gens gb I)
+
+F1123E4 =  ans1 = G_(0,0)
+
+F1123E5 =  R = QQ[x,y,z,s,t];
+
+F1123E6 =  I = ideal(x-s^3-s*t-1, y-t^3-3*t^2-t, z-s*t^3)
+
+F1123E7 =  time G = eliminate(I,{s,t})
+
+F1123E8 =  ans2 = G_0
+
+F1123E9 =  R1 = QQ[x,y,z,s,t, Degrees=>{3,3,4,1,1}];
+
+F1123E10 =  I1 = substitute(I,R1);
+
+F1123E11 =  time G = eliminate(I1,{s,t})
+
+F1123E12 =  ans3 = G_0
+
+F1123E13 =  A = QQ[s,t];
+
+F1123E14 =  B = QQ[x,y,z];
+
+F1123E15 =  F = map(A,B,{s^3+s*t+1, t^3+3*t^2+t, s*t^3})
+
+F1123E16 =  time G = kernel F
+
+F1123E17 =  ans4 = G_0
+
+F1123E18 =  use ring I
+
+F1123E19 =  time f1 = resultant(I_0,I_2,s)
+
+F1123E20 =  time f2 = resultant(I_1,f1,t)
+
+F1123E21 =  ans5 = -f2
+
+F1123E22 =  L = {ans1,ans2,ans3,ans4,ans5};
+
+F1123E23 =  L = apply(L, f -> substitute(f,B));
+
+F1123E24 =  length unique L
+
+exampleIDS = {"F1123E0", "F1123E1", "F1123E2", "F1123E3", "F1123E4", "F1123E5", "F1123E6", "F1123E7", "F1123E8", "F1123E9", "F1123E10", "F1123E11", "F1123E12", "F1123E13", "F1123E14", "F1123E15", "F1123E16", "F1123E17", "F1123E18", "F1123E19", "F1123E20", "F1123E21", "F1123E22", "F1123E23", "F1123E24"}

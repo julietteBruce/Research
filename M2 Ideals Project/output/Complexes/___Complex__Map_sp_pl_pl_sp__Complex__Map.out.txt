@@ -1,0 +1,47 @@
+needsPackage "Complexes"
+
+F69E0 =  R = ZZ/101[a..d];
+
+F69E1 =  C1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F69E2 =  C2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F69E3 =  D1 = (freeResolution coker matrix{{a,b,c}})
+
+F69E4 =  D2 = freeResolution coker matrix{{a^2, b^2, c^2}}[-1]
+
+F69E5 =  f = randomComplexMap(D1, C1, Cycle => true)
+
+F69E6 =  g = randomComplexMap(D2, C2, Cycle => true)
+
+F69E7 =  h = f ++ g
+
+F69E8 =  assert isWellDefined h
+
+F69E9 =  assert(h == map(D1 ++ D2, C1 ++ C2, {{f,0},{0,g}}))
+
+F69E10 =  directSum(f, g, f[2])
+
+F69E11 =  h2 = directSum(mike => f, greg => g, dan => f[2])
+
+F69E12 =  h2_[greg,dan]
+
+F69E13 =  assert(source oo == C2 ++ C1[2])
+
+F69E14 =  h_[0]^[0] == f
+
+F69E15 =  h_[1]^[1] == g
+
+F69E16 =  h_[0]^[1] == 0
+
+F69E17 =  h_[1]^[0] == 0
+
+F69E18 =  h_[0] == h * (C1 ++ C2)_[0]
+
+F69E19 =  h_[1] == h * (C1 ++ C2)_[1]
+
+F69E20 =  h^[0] == (D1 ++ D2)^[0] * h
+
+F69E21 =  h^[1] == (D1 ++ D2)^[1] * h
+
+exampleIDS = {"F69E0", "F69E1", "F69E2", "F69E3", "F69E4", "F69E5", "F69E6", "F69E7", "F69E8", "F69E9", "F69E10", "F69E11", "F69E12", "F69E13", "F69E14", "F69E15", "F69E16", "F69E17", "F69E18", "F69E19", "F69E20", "F69E21"}

@@ -1,0 +1,49 @@
+needsPackage "NormalToricVarieties"
+
+F16E0 =  X = hirzebruchSurface 1;
+
+F16E1 =  delta = diagonalToricMap X
+
+F16E2 =  assert (isWellDefined delta and source delta === X and target delta === X ^** 2)
+
+F16E3 =  S = ring target delta;
+
+F16E4 =  I = ideal delta
+
+F16E5 =  assert (codim I === dim X)
+
+F16E6 =  X2 = target delta;
+
+F16E7 =  assert (X2^[0] * delta == id_X and X2^[1] * delta == id_X)
+
+F16E8 =  assert (delta == diagonalToricMap(X,2) and delta == diagonalToricMap(X,2,[0,1]))
+
+F16E9 =  X2 = target delta;
+
+F16E10 =  assert (X2_[0] == diagonalToricMap(X,2,[0]))
+
+F16E11 =  assert (X2_[1] == diagonalToricMap(X,2,[1]))
+
+F16E12 =  m = 3;
+
+F16E13 =  largeD = diagonalToricMap(X, m)
+
+F16E14 =  assert (isWellDefined largeD and source largeD === X and target largeD === X ^** m)
+
+F16E15 =  assert (codim ideal largeD === (m-1) * dim X)
+
+F16E16 =  assert (largeD == diagonalToricMap(X, m, [0,1,2]))
+
+F16E17 =  smallD = diagonalToricMap (X, 3, [0,2])
+
+F16E18 =  assert (isWellDefined smallD and source smallD === X and target smallD === X ^** m)
+
+F16E19 =  assert (codim ideal smallD === (m-1) * dim X)
+
+F16E20 =  X3 = target smallD;
+
+F16E21 =  assert (X3^[0] * smallD == id_X and X3^[1] * smallD == map(X,X,0) and
+
+          X3^[2] * smallD == id_X)
+
+exampleIDS = {"F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17", "F16E18", "F16E19", "F16E20", "F16E21"}

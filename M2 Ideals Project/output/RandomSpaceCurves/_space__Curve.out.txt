@@ -1,0 +1,41 @@
+needsPackage "RandomSpaceCurves"
+
+F5E0 =  setRandomSeed("alpha");
+
+F5E1 =  R=ZZ/20011[x_0..x_3];
+
+F5E2 =  d=10
+
+F5E3 =  betti res (J=(random spaceCurve)(d,g,R))
+
+F5E4 =  degree J==d and genus J == g
+
+F5E5 =  setRandomSeed("alpha");
+
+F5E6 =  kk=ZZ/20011;
+
+F5E7 =  R=kk[x_0..x_3];
+
+F5E8 =  L=flatten apply(toList(0..40),g->apply(toList(3..30),d->(d,g)));
+
+F5E9 =  halpenBound = d ->(d/2-1)^2;
+
+F5E10 =  L = select(L,(d,g) ->
+
+           g <= halpenBound d
+
+           and
+
+           knownUnirationalComponentOfSpaceCurves(d,g));
+
+F5E11 =  #L
+
+F5E12 =  hashTable apply(L,(d,g) -> (
+
+                J = (random spaceCurve)(d,g,R);
+
+                assert (degree J == d and genus J == g);
+
+                (d,g) => g-4*(g+3-d) => betti res J))
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12"}

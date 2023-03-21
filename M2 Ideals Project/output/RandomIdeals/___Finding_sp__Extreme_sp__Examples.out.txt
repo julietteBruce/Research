@@ -1,0 +1,17 @@
+needsPackage "RandomIdeals"
+
+F4E0 =  kk=ZZ/101
+
+F4E1 =  S=kk[vars(0..5)]
+
+F4E2 =  L=for n from 1 to 100 list res randomSquareFreeMonomialIdeal(10:3,S);
+
+F4E3 =  tally apply(L, F -> length F)
+
+F4E4 =  tally apply(L, F -> regularity F - ((max flatten degrees F_2) - 2))
+
+F4E5 =  L=for n from 1 to 500 list res randomSquareFreeMonomialIdeal(10:3,S);
+
+F4E6 =  scan(L, F -> if 1<(regularity F - (max flatten degrees F_2) + 2) then print F.dd_1)
+
+exampleIDS = {"F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6"}

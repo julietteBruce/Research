@@ -1,0 +1,23 @@
+needsPackage "ChainComplexOperations"
+
+F2E0 =  S = ZZ/101[a,b]
+
+F2E1 =  F = chainComplex{map(S^1,S^{-1},a)}
+
+F2E2 =  G = chainComplex{map(S^1,S^{-1},b)}[3]
+
+F2E3 =  phi = reverseFactors(F,G)
+
+F2E4 =  G**F
+
+F2E5 =  F**G
+
+F2E6 =  apply(1+length(F**G), i->(
+
+                 (phi_i)*((F**G).dd_(i+1)) ==  ((G**F).dd_(i+1))*phi_(i+1)
+
+                 ))
+
+F2E7 =  apply(length (F**G), i -> (rank phi_i) == rank ((F**G)_i))
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7"}

@@ -1,0 +1,23 @@
+needsPackage "PHCpack"
+
+F15E0 =  R=CC[a,b,c,d];
+
+F15E1 =  M=matrix for i to 2 list for j to 3 list random(1,R)+random(0,R);
+
+F15E2 =  I=minors(3,M);
+
+F15E3 =  f=flatten entries gens I;
+
+F15E4 =  (w,ns) = topWitnessSet(f,2);
+
+F15E5 =  slcmat = matrix applyTable (entries w.Slice, x->1_CC*realPart x);
+
+F15E6 =  Rtwo = ring w.Equations;
+
+F15E7 =  X = transpose matrix {gens Rtwo | {1_CC}};
+
+F15E8 =  slcRR = flatten entries (promote(slcmat,Rtwo) * X);
+
+F15E9 =  fsols = intersectSlice(w,slcRR)
+
+exampleIDS = {"F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9"}

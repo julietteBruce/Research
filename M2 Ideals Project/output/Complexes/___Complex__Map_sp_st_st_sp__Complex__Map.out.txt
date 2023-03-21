@@ -1,0 +1,51 @@
+needsPackage "Complexes"
+
+F62E0 =  S = ZZ/101[a..c]
+
+F62E1 =  C = freeResolution coker vars S
+
+F62E2 =  D = (freeResolution coker matrix{{a^2,a*b,b^3}})[-1]
+
+F62E3 =  f = randomComplexMap(D,C)
+
+F62E4 =  E = (dual C)[-3]
+
+F62E5 =  F = (dual D)[-3]
+
+F62E6 =  g = randomComplexMap(F,E)
+
+F62E7 =  h = f ** g
+
+F62E8 =  assert isWellDefined h
+
+F62E9 =  assert(source h === C ** E)
+
+F62E10 =  assert(target h === D ** F)
+
+F62E11 =  fE = f ** E
+
+F62E12 =  assert(fE === f ** id_E)
+
+F62E13 =  k = coker vars S
+
+F62E14 =  gk = g ** k
+
+F62E15 =  assert(gk == g ** id_(complex k))
+
+F62E16 =  D' = (freeResolution coker matrix{{a^2,a*b,c^3}})[-1]
+
+F62E17 =  f' = randomComplexMap(D', D)
+
+F62E18 =  (f' * f) ** g == (f' ** g) * (f ** id_E)
+
+F62E19 =  (f' * f) ** g == (f' ** id_F) * (f ** g)
+
+F62E20 =  F' = dual (freeResolution coker matrix{{a^2,a*b,a*c,b^3}})[-3]
+
+F62E21 =  g' = randomComplexMap(F', F)
+
+F62E22 =  f ** (g' * g) == (f ** g') * (id_C ** g)
+
+F62E23 =  f ** (g' * g) == (id_D ** g') * (f ** g)
+
+exampleIDS = {"F62E0", "F62E1", "F62E2", "F62E3", "F62E4", "F62E5", "F62E6", "F62E7", "F62E8", "F62E9", "F62E10", "F62E11", "F62E12", "F62E13", "F62E14", "F62E15", "F62E16", "F62E17", "F62E18", "F62E19", "F62E20", "F62E21", "F62E22", "F62E23"}

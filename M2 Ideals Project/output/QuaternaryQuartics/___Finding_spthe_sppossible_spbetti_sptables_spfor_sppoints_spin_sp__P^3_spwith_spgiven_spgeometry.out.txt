@@ -1,0 +1,21 @@
+needsPackage "QuaternaryQuartics"
+
+F6E0 =  K = ZZ/101;
+
+F6E1 =  R = K[x_0..x_3];
+
+F6E2 =  TwoSets3Points=transpose matrix{{1,0,0,0},{0,1,0,0},{1,1,0,0},{0,0,1,1},{0,0,1,0},{0,0,0,1}}**R
+
+F6E3 =  I = pointsIdeal TwoSets3Points
+
+F6E4 =  minimalBetti I
+
+F6E5 =  SevenPointsOnTC=transpose matrix{{1,1,1,1},{1,2,4,8},{1,3,9,27},{1,4,16,64},{1,5,25,125},{1,6,36,216},{1,7,49,343}}**R
+
+F6E6 =  J = pointsIdeal SevenPointsOnTC
+
+F6E7 =  minimalBetti J
+
+F6E8 =  netList(pack(2,apply({3,4,5,6,7,8,9,10},i->(minimalBetti pointsIdeal random(R^4,R^i)))))
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8"}

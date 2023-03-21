@@ -1,0 +1,29 @@
+needsPackage "RandomPoints"
+
+F2E0 =  R = ZZ/5[x,y,z];
+
+F2E1 =  I = ideal(random(3,R)-2, random(2,R));
+
+F2E2 =  M = jacobian(I);
+
+F2E3 =  extendIdealByNonZeroMinor(2,M,I, Strategy => LinearIntersection)
+
+F2E4 =  T = ZZ/101[x1,x2,x3,x4,x5,x6,x7];
+
+F2E5 =  I =  ideal(x5*x6-x4*x7,x1*x6-x2*x7,x5^2-x1*x7,x4*x5-x2*x7,x4^2-x2*x6,x1*x4-x2*x5,x2*x3^3*x5+3*x2*x3^2*x7+8*x2^2*x5+3*x3*x4*x7-8*x4*x7+x6*x7,x1*x3^3*x5+3*x1*x3^2*x7+8*x1*x2*x5+3*x3*x5*x7-8*x5*x7+x7^2,x2*x3^3*x4+3*x2*x3^2*x6+8*x2^2*x4+3*x3*x4*x6-8*x4*x6+x6^2,x2^2*x3^3+3*x2*x3^2*x4+8*x2^3+3*x2*x3*x6-8*x2*x6+x4*x6,x1*x2*x3^3+3*x2*x3^2*x5+8*x1*x2^2+3*x2*x3*x7-8*x2*x7+x4*x7,x1^2*x3^3+3*x1*x3^2*x5+8*x1^2*x2+3*x1*x3*x7-8*x1*x7+x5*x7);
+
+F2E6 =  M = jacobian I;
+
+F2E7 =  i = 0;
+
+F2E8 =  J = I;
+
+F2E9 =  elapsedTime(while (i < 10) and dim J > 1 do (i = i+1
+
+i: J = extendIdealByNonZeroMinor(4, M, J)) )
+
+F2E10 =  dim J
+
+F2E11 =  i
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11"}

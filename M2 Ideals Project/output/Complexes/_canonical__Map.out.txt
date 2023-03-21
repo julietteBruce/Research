@@ -1,0 +1,103 @@
+needsPackage "Complexes"
+
+F47E0 =  R = ZZ/101[a,b,c,d];
+
+F47E1 =  D = freeResolution coker vars R
+
+F47E2 =  C = (freeResolution coker matrix"a,b,c")[1]
+
+F47E3 =  f = randomComplexMap(D, C, Cycle=>true)
+
+F47E4 =  assert isComplexMorphism f
+
+F47E5 =  K1 = kernel f
+
+F47E6 =  g = canonicalMap(source f, K1)
+
+F47E7 =  degree g
+
+F47E8 =  assert(isWellDefined g and isComplexMorphism g)
+
+F47E9 =  f2 = randomComplexMap(D, C)
+
+F47E10 =  assert not isComplexMorphism f2
+
+F47E11 =  K2 = kernel f2
+
+F47E12 =  g2 = canonicalMap(source f2, K2)
+
+F47E13 =  assert(isWellDefined g2 and isComplexMorphism g2)
+
+F47E14 =  Q = cokernel f
+
+F47E15 =  g3 = canonicalMap(Q, target f)
+
+F47E16 =  assert(isWellDefined g3 and isComplexMorphism g3)
+
+F47E17 =  I = image f
+
+F47E18 =  g4 = canonicalMap(target f, I)
+
+F47E19 =  assert(isWellDefined g4 and isComplexMorphism g4)
+
+F47E20 =  J = coimage f
+
+F47E21 =  g5 = canonicalMap(J, source f)
+
+F47E22 =  assert(isWellDefined g5 and isComplexMorphism g5)
+
+F47E23 =  J2 = coimage f2
+
+F47E24 =  g6 = canonicalMap(J2, source f2)
+
+F47E25 =  assert(isWellDefined g6 and isComplexMorphism g6)
+
+F47E26 =  E = cone f
+
+F47E27 =  g = canonicalMap(E, target f)
+
+F47E28 =  h = canonicalMap((source f)[-1], E)
+
+F47E29 =  assert(isWellDefined g and isWellDefined h)
+
+F47E30 =  assert(isComplexMorphism g and isComplexMorphism h)
+
+F47E31 =  assert isShortExactSequence(h,g)
+
+F47E32 =  F = cylinder f
+
+F47E33 =  g = canonicalMap(F, source f)
+
+F47E34 =  h = canonicalMap(E, F)
+
+F47E35 =  assert(isWellDefined g and isWellDefined h)
+
+F47E36 =  assert(isComplexMorphism g and isComplexMorphism h)
+
+F47E37 =  assert isShortExactSequence(h,g)
+
+F47E38 =  g' = canonicalMap(F, target f)
+
+F47E39 =  h' = canonicalMap(target f, F)
+
+F47E40 =  assert(isWellDefined g' and isWellDefined h')
+
+F47E41 =  assert(isComplexMorphism g' and isComplexMorphism h')
+
+F47E42 =  assert not isShortExactSequence(h',g')
+
+F47E43 =  f' = id_C
+
+F47E44 =  F' = cylinder f'
+
+F47E45 =  g = canonicalMap(F', C, UseTarget=>true)
+
+F47E46 =  h = canonicalMap(F', C, UseTarget=>false)
+
+F47E47 =  assert(isWellDefined g and isWellDefined h)
+
+F47E48 =  assert(g != h)
+
+F47E49 =  assert(isComplexMorphism g and isComplexMorphism h)
+
+exampleIDS = {"F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F47E7", "F47E8", "F47E9", "F47E10", "F47E11", "F47E12", "F47E13", "F47E14", "F47E15", "F47E16", "F47E17", "F47E18", "F47E19", "F47E20", "F47E21", "F47E22", "F47E23", "F47E24", "F47E25", "F47E26", "F47E27", "F47E28", "F47E29", "F47E30", "F47E31", "F47E32", "F47E33", "F47E34", "F47E35", "F47E36", "F47E37", "F47E38", "F47E39", "F47E40", "F47E41", "F47E42", "F47E43", "F47E44", "F47E45", "F47E46", "F47E47", "F47E48", "F47E49"}

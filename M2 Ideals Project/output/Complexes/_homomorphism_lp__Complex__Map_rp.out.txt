@@ -1,0 +1,59 @@
+needsPackage "Complexes"
+
+F67E0 =  R = ZZ/101[a,b,c]
+
+F67E1 =  C = freeResolution ideal"a,b,c"
+
+F67E2 =  D = freeResolution ideal"a2,b2,c2"
+
+F67E3 =  H = Hom(C,D)
+
+F67E4 =  f = randomComplexMap(H, complex R^{-2})
+
+F67E5 =  isWellDefined f
+
+F67E6 =  g = homomorphism f
+
+F67E7 =  isWellDefined g
+
+F67E8 =  assert not isCommutative g
+
+F67E9 =  f = randomComplexMap(H, complex R^{-2}, Cycle => true)
+
+F67E10 =  isWellDefined f
+
+F67E11 =  g = homomorphism f
+
+F67E12 =  isWellDefined g
+
+F67E13 =  assert isCommutative g
+
+F67E14 =  assert(degree g === 0)
+
+F67E15 =  assert(source g === C)
+
+F67E16 =  assert(target g === D)
+
+F67E17 =  assert(homomorphism' g == f)
+
+F67E18 =  f1 = randomComplexMap(H, complex R^1, Degree => -2)
+
+F67E19 =  f2 = map(target f1, (source f1)[2], i -> f1_(i+2))
+
+F67E20 =  assert isWellDefined f2
+
+F67E21 =  g1 = homomorphism f1
+
+F67E22 =  g2 = homomorphism f2
+
+F67E23 =  assert(g1 == g2)
+
+F67E24 =  assert isWellDefined g1
+
+F67E25 =  assert isWellDefined g2
+
+F67E26 =  homomorphism' g1 == f1
+
+F67E27 =  homomorphism' g2 == f1
+
+exampleIDS = {"F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F67E5", "F67E6", "F67E7", "F67E8", "F67E9", "F67E10", "F67E11", "F67E12", "F67E13", "F67E14", "F67E15", "F67E16", "F67E17", "F67E18", "F67E19", "F67E20", "F67E21", "F67E22", "F67E23", "F67E24", "F67E25", "F67E26", "F67E27"}

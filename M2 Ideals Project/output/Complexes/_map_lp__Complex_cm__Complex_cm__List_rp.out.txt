@@ -1,0 +1,53 @@
+needsPackage "Complexes"
+
+F99E0 =  R = ZZ/101[a,b,c];
+
+F99E1 =  C = freeResolution coker matrix{{a^2-b^2,b^3-c^3,c^4}}
+
+F99E2 =  D = freeResolution coker vars R
+
+F99E3 =  L = {map(D_0, C_0, 1),
+
+         map(D_1, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+         map(D_2, C_2, {{a*b^2, 0, 0}, {-a*c^2, a*c^3, 0}, {b*c^2, -b*c^3, b^2*c^3}}),
+
+         map(D_3, C_3, {{a*b^2*c^3}})
+
+         }
+
+F99E4 =  f = map(D, C, L)
+
+F99E5 =  assert isWellDefined f
+
+F99E6 =  assert isHomogeneous f
+
+F99E7 =  assert(degree f == 0)
+
+F99E8 =  assert isComplexMorphism f
+
+F99E9 =  f = extend(D,C,id_(R^1))
+
+F99E10 =  assert(degree f == 0)
+
+F99E11 =  g = map(D, C[-1], f[-1], Degree => -1) -- a variant of f having degree -1
+
+F99E12 =  cf = map(E = C[-1] ++ D, E, {
+
+              {dd^(C[-1]),    0},
+
+              {         g, dd^D}
+
+              })
+
+F99E13 =  assert isWellDefined cf
+
+F99E14 =  assert(degree cf == -1)
+
+F99E15 =  conef = complex cf
+
+F99E16 =  assert isWellDefined conef
+
+F99E17 =  assert(conef == cone f)
+
+exampleIDS = {"F99E0", "F99E1", "F99E2", "F99E3", "F99E4", "F99E5", "F99E6", "F99E7", "F99E8", "F99E9", "F99E10", "F99E11", "F99E12", "F99E13", "F99E14", "F99E15", "F99E16", "F99E17"}

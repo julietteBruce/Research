@@ -1,0 +1,93 @@
+needsPackage "BettiCharacters"
+
+F5E0 =  kk = toField(QQ[a]/ideal(sum apply(7,i->a^i)))
+
+F5E1 =  R = kk[x,y,z]
+
+F5E2 =  f4 = x^3*y+y^3*z+z^3*x
+
+F5E3 =  H = jacobian transpose jacobian f4
+
+F5E4 =  f6 = -1/54*det(H)
+
+F5E5 =  I = minors(2,jacobian matrix{{f4,f6}})
+
+F5E6 =  RI = res I
+
+F5E7 =  betti RI
+
+F5E8 =  I2 = I^2;
+
+F5E9 =  RI2 = res I2
+
+F5E10 =  betti RI2
+
+F5E11 =  g = matrix{{a^4,0,0},{0,a^2,0},{0,0,a}}
+
+F5E12 =  h = matrix{{0,1,0},{0,0,1},{1,0,0}}
+
+F5E13 =  i = (2*a^4+2*a^2+2*a+1)/7 * matrix{
+
+          {a-a^6,a^2-a^5,a^4-a^3},
+
+          {a^2-a^5,a^4-a^3,a-a^6},
+
+          {a^4-a^3,a-a^6,a^2-a^5}
+
+          }
+
+F5E14 =  j = -1/(2*a^4+2*a^2+2*a+1) * matrix{
+
+          {a^5-a^4,1-a^5,1-a^3},
+
+          {1-a^5,a^6-a^2,1-a^6},
+
+          {1-a^3,1-a^6,a^3-a}
+
+          }
+
+F5E15 =  G = {id_(R^3),i,h,j,g,inverse g};
+
+F5E16 =  A1 = action(RI,G,Sub=>false)
+
+F5E17 =  A2 = action(RI2,G,Sub=>false)
+
+F5E18 =  elapsedTime a1 = character A1
+
+F5E19 =  elapsedTime a2 = character A2
+
+F5E20 =  s = {1,21,56,42,24,24}
+
+F5E21 =  m = matrix{{1,1,1,1,1,1},
+
+          {3,-1,0,1,a^4+a^2+a,-a^4-a^2-a-1},
+
+          {3,-1,0,1,-a^4-a^2-a-1,a^4+a^2+a},
+
+          {6,2,0,0,-1,-1},
+
+          {7,-1,1,-1,0,0},
+
+          {8,0,-1,0,1,1}};
+
+F5E22 =  conj = map(kk,kk,{a^6})
+
+F5E23 =  T = characterTable(s,m,R,conj)
+
+F5E24 =  a1/T
+
+F5E25 =  a2/T
+
+F5E26 =  needsPackage "SymbolicPowers"
+
+F5E27 =  Is2 = symbolicPower(I,2);
+
+F5E28 =  M = Is2 / I2;
+
+F5E29 =  B = action(M,G,Sub=>false)
+
+F5E30 =  elapsedTime b = character(B,21)
+
+F5E31 =  b/T
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16", "F5E17", "F5E18", "F5E19", "F5E20", "F5E21", "F5E22", "F5E23", "F5E24", "F5E25", "F5E26", "F5E27", "F5E28", "F5E29", "F5E30", "F5E31"}

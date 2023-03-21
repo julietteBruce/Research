@@ -1,0 +1,55 @@
+needsPackage "ReesAlgebra"
+
+F6E0 =  kk = ZZ/101;
+
+F6E1 =  S=kk[x_0..x_4];
+
+F6E2 =  i= trim monomialCurveIdeal(S,{2,3,5,6})
+
+F6E3 =  time V1 = reesIdeal i;
+
+F6E4 =  time V2 = reesIdeal(i,i_0);
+
+F6E5 =  S=kk[a,b,c]
+
+F6E6 =  m=matrix{{a,0},{b,a},{0,b}}
+
+F6E7 =  i=minors(2,m)
+
+F6E8 =  time I1 = reesIdeal i;
+
+F6E9 =  time I2 = reesIdeal(i,i_0);
+
+F6E10 =  transpose gens I1
+
+F6E11 =  transpose gens I2
+
+F6E12 =  R = ZZ/32003[x,y]
+
+F6E13 =  I = ideal(x,y)
+
+F6E14 =  cusp = ideal(x^2-y^3)
+
+F6E15 =  RI = reesIdeal(I)
+
+F6E16 =  S = ring RI
+
+F6E17 =  totalTransform = substitute(cusp, S) + RI
+
+F6E18 =  D = decompose totalTransform -- the components are the strict transform of the cuspidal curve and the exceptional curve
+
+F6E19 =  totalTransform = first flattenRing totalTransform
+
+F6E20 =  L = primaryDecomposition totalTransform
+
+F6E21 =  apply(L, i -> (degree i)/(degree radical i))
+
+F6E22 =  use ring L_0
+
+F6E23 =  singular = ideal(singularLocus(L_0));
+
+F6E24 =  SL = saturate(singular, ideal(x,y));
+
+F6E25 =  saturate(SL, ideal(w_0,w_1))
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16", "F6E17", "F6E18", "F6E19", "F6E20", "F6E21", "F6E22", "F6E23", "F6E24", "F6E25"}

@@ -1,0 +1,51 @@
+needsPackage "Bertini"
+
+F25E0 =  s=makeB'Section({x,y,z})
+
+F25E1 =  class s
+
+F25E2 =  randomRealCoefficientGenerator=()->random(RR)
+
+F25E3 =  sReal=makeB'Section({x,y,z},RandomCoefficientGenerator=>randomRealCoefficientGenerator)
+
+F25E4 =  sReal#B'NumberCoefficients
+
+F25E5 =  randomRationalCoefficientGenerator=()->random(QQ)
+
+F25E6 =  sRational=makeB'Section({x,y,z},RandomCoefficientGenerator=>randomRationalCoefficientGenerator)
+
+F25E7 =  sRational#B'NumberCoefficients
+
+F25E8 =  affineSection=makeB'Section({x,y,z,1})
+
+F25E9 =  X={x,y,z}
+
+F25E10 =  P={1,2,3}
+
+F25E11 =  affineContainingPoint=makeB'Section({x,y,z},ContainsPoint=>P)
+
+F25E12 =  r= affineContainingPoint#B'SectionString
+
+F25E13 =  print r
+
+F25E14 =  rHomogeSection= makeB'Section({x,y,z},ContainsPoint=>P,B'Homogenization=>"x+y+z")
+
+F25E15 =  peek rHomogeSection
+
+F25E16 =  print rHomogeSection#B'SectionString
+
+F25E17 =  f="y^3-x*y+1"
+
+F25E18 =  s1=makeB'Section({x,y,1})
+
+F25E19 =  makeB'InputFile(storeBM2Files,
+
+        AffVariableGroup=>{x,y},
+
+        B'Polynomials=>{f,s1});
+
+F25E20 =  runBertini(storeBM2Files)
+
+F25E21 =  #importSolutionsFile(storeBM2Files)==3
+
+exampleIDS = {"F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F25E13", "F25E14", "F25E15", "F25E16", "F25E17", "F25E18", "F25E19", "F25E20", "F25E21"}

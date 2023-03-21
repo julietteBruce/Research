@@ -1,0 +1,47 @@
+needsPackage "Complexes"
+
+F66E0 =  S = ZZ/101[a,b,c];
+
+F66E1 =  I = ideal(a^3, b^3, c^3)
+
+F66E2 =  J = I + ideal(a*b*c)
+
+F66E3 =  K = I : ideal(a*b*c)
+
+F66E4 =  C = complex{
+
+         map(comodule J, comodule I, 1),
+
+         map(comodule I, (comodule K) ** S^{-3}, {{a*b*c}})
+
+         }
+
+F66E5 =  assert isShortExactSequence C
+
+F66E6 =  (beta, alpha) = horseshoeResolution C
+
+F66E7 =  assert isShortExactSequence(beta, alpha)
+
+F66E8 =  assert(prune HH source alpha == complex C_2)
+
+F66E9 =  assert(prune HH target alpha == complex C_1)
+
+F66E10 =  assert(prune HH target beta == complex C_0)
+
+F66E11 =  assert isFree target alpha
+
+F66E12 =  target alpha
+
+F66E13 =  freeResolution C_1
+
+F66E14 =  minimize target alpha
+
+F66E15 =  (beta, alpha) = horseshoeResolution(C, LengthLimit => 2)
+
+F66E16 =  assert isShortExactSequence(beta, alpha)
+
+F66E17 =  prune HH source alpha
+
+F66E18 =  assert isFree target alpha
+
+exampleIDS = {"F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F66E7", "F66E8", "F66E9", "F66E10", "F66E11", "F66E12", "F66E13", "F66E14", "F66E15", "F66E16", "F66E17", "F66E18"}

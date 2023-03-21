@@ -1,0 +1,29 @@
+needsPackage "SimplicialComplexes"
+
+F17E0 =  S = QQ[a,b,c, DegreeRank => 3];
+
+F17E1 =  degrees S
+
+F17E2 =  Δ = simplexComplex(2, S)
+
+F17E3 =  flagfVector Δ
+
+F17E4 =  R = ZZ[a..e, Degrees => {{1,0,0},{0,1,0},{0,0,1},{1,0,0},{0,1,0}}];
+
+F17E5 =  Γ = simplicialComplex {a*b*c, c*d*e}
+
+F17E6 =  assert isProper Γ
+
+F17E7 =  flagfVector Γ
+
+F17E8 =  fVector Γ
+
+F17E9 =  apply(toList(-1..dim Γ), i -> (
+
+          F := flagfVector Γ;
+
+          sum for L in keys F list if sum L == i+1 then F#L else 0))
+
+F17E10 =  assert(oo === fVector Γ)
+
+exampleIDS = {"F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10"}

@@ -1,0 +1,35 @@
+needsPackage "Macaulay2Doc"
+
+F329E0 =  R = QQ[x_0..x_4];
+
+F329E1 =  a = {1,0,0,0,0}
+
+F329E2 =  b = {0,1,0,0,1}
+
+F329E3 =  c = {0,0,1,1,0}
+
+F329E4 =  M1 = matrix table(5,5, (i,j)-> x_((i+j)%5)*a_((i-j)%5))
+
+F329E5 =  M2 = matrix table(5,5, (i,j)-> x_((i+j)%5)*b_((i-j)%5))
+
+F329E6 =  M3 = matrix table(5,5, (i,j)-> x_((i+j)%5)*c_((i-j)%5))
+
+F329E7 =  M = M1 | M2 | M3;
+
+F329E8 =  betti (C=res coker M)
+
+F329E9 =  N = transpose submatrix(C.dd_3,{10..28},{2..36});
+
+F329E10 =  betti (D=res coker N)
+
+F329E11 =  Pfour = Proj(R)
+
+F329E12 =  HorrocksMumford = sheaf(coker D.dd_3);
+
+F329E13 =  HH^0(HorrocksMumford(1))
+
+F329E14 =  HH^0(HorrocksMumford(2))
+
+F329E15 =  eulers(HorrocksMumford(2))
+
+exampleIDS = {"F329E0", "F329E1", "F329E2", "F329E3", "F329E4", "F329E5", "F329E6", "F329E7", "F329E8", "F329E9", "F329E10", "F329E11", "F329E12", "F329E13", "F329E14", "F329E15"}

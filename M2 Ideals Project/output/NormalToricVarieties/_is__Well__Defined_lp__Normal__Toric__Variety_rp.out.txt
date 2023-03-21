@@ -1,0 +1,73 @@
+needsPackage "NormalToricVarieties"
+
+F51E0 =  assert all (5, d -> isWellDefined toricProjectiveSpace (d+1))
+
+F51E1 =  setRandomSeed (currentTime ());
+
+F51E2 =  a = sort apply (3, i -> random (7))
+
+F51E3 =  assert isWellDefined kleinschmidt (4,a)
+
+F51E4 =  q = sort apply (5, j -> random (1,9));
+
+F51E5 =  while not all (subsets (q,#q-1), s -> gcd s === 1) do q = sort apply (5, j -> random (1,9));
+
+F51E6 =  q
+
+F51E7 =  assert isWellDefined weightedProjectiveSpace q
+
+F51E8 =  X = new MutableHashTable;
+
+F51E9 =  coneList = max toricProjectiveSpace 2;
+
+F51E10 =  X#1 = normalToricVariety ({{-1,-1},{1,0},{0,1},{-1,0}}, coneList);
+
+F51E11 =  isWellDefined X#1
+
+F51E12 =  debugLevel = 1;
+
+F51E13 =  isWellDefined X#1
+
+F51E14 =  X#2 = normalToricVariety ({},{});
+
+F51E15 =  isWellDefined X#2
+
+F51E16 =  X#3 = normalToricVariety ({{}},{});
+
+F51E17 =  isWellDefined X#3
+
+F51E18 =  X#4 = normalToricVariety ({{}},{{}});
+
+F51E19 =  isWellDefined X#4
+
+F51E20 =  coneList' = {{0,1},{0,3},{1,2},{2,3},{3}};
+
+F51E21 =  X#5 = normalToricVariety ({{-1,0},{0,-1},{1,-1},{0,1}}, coneList');
+
+F51E22 =  isWellDefined X#5
+
+F51E23 =  X#6 = normalToricVariety ({{-1,-1},{1,0},{0,1,1}},coneList);
+
+F51E24 =  isWellDefined X#6
+
+F51E25 =  X#7 = normalToricVariety ({{-1,-1/1},{1,0},{0,1}},coneList);
+
+F51E26 =  isWellDefined X#7
+
+F51E27 =  X#8 = normalToricVariety ({{1,0},{0,1},{-1,0}},{{0,1,2}});
+
+F51E28 =  isWellDefined X#8
+
+F51E29 =  X#9 = normalToricVariety ({{1,0,0},{0,1,0},{0,0,2}},{{0,1,2}});
+
+F51E30 =  isWellDefined X#9
+
+F51E31 =  X#10 = normalToricVariety ({{1,0},{0,1},{1,1}},{{0,1},{1,2}});
+
+F51E32 =  isWellDefined X#10
+
+F51E33 =  debugLevel = 0;
+
+F51E34 =  assert all (keys X, k -> not isWellDefined X#k)
+
+exampleIDS = {"F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F51E9", "F51E10", "F51E11", "F51E12", "F51E13", "F51E14", "F51E15", "F51E16", "F51E17", "F51E18", "F51E19", "F51E20", "F51E21", "F51E22", "F51E23", "F51E24", "F51E25", "F51E26", "F51E27", "F51E28", "F51E29", "F51E30", "F51E31", "F51E32", "F51E33", "F51E34"}

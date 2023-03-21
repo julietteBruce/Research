@@ -1,0 +1,23 @@
+needsPackage "VirtualResolutions"
+
+F1E0 =  X = toricProjectiveSpace(1) ** toricProjectiveSpace(1);
+
+F1E1 =  S = ring X
+
+F1E2 =  J = saturate(intersect(
+
+           ideal(x_1 - 1*x_0, x_3 - 4*x_2),
+
+           ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+           ideal(x_1 - 3*x_0, x_3 - 6*x_2)),
+
+           B)
+
+F1E3 =  minres = res J
+
+F1E4 =  vres = virtualOfPair(J, {{3,1}}) --(3,1) = (2,0) + (1,1)
+
+F1E5 =  isVirtual(B, vres)
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5"}

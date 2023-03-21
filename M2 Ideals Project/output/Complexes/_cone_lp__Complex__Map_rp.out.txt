@@ -1,0 +1,63 @@
+needsPackage "Complexes"
+
+F33E0 =  S = ZZ/32003[x,y,z];
+
+F33E1 =  M = ideal vars S
+
+F33E2 =  B = freeResolution(S^1/M^2)
+
+F33E3 =  C = freeResolution(S^1/M)
+
+F33E4 =  f = extend(C,B,id_(S^1))
+
+F33E5 =  Cf = cone f
+
+F33E6 =  dd^Cf
+
+F33E7 =  prune HH Cf
+
+F33E8 =  assert(prune HH_1 Cf == prune(M/M^2))
+
+F33E9 =  g = canonicalMap(Cf,C)
+
+F33E10 =  h = canonicalMap(B[-1],Cf)
+
+F33E11 =  assert(isWellDefined g and isWellDefined h)
+
+F33E12 =  assert(isShortExactSequence(h,g))
+
+F33E13 =  aug = augmentationMap C
+
+F33E14 =  assert isWellDefined aug
+
+F33E15 =  cone aug
+
+F33E16 =  assert(0 == prune HH cone aug)
+
+F33E17 =  assert isQuasiIsomorphism aug
+
+F33E18 =  S = ZZ/32003[a..d]
+
+F33E19 =  I = monomialCurveIdeal(S, {1,2,3})
+
+F33E20 =  K = ideal((gens I) * random(source gens I, S^{-3,-3}))
+
+F33E21 =  C = freeResolution(S^1/I)
+
+F33E22 =  B = freeResolution(S^1/K)
+
+F33E23 =  f = dual extend(C,B,id_(S^1))
+
+F33E24 =  Cf = (cone f)[-2]
+
+F33E25 =  prune HH Cf
+
+F33E26 =  Cf' = minimize Cf
+
+F33E27 =  J = ideal dd^Cf'_1
+
+F33E28 =  freeResolution J
+
+F33E29 =  assert(degree J == 6)
+
+exampleIDS = {"F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12", "F33E13", "F33E14", "F33E15", "F33E16", "F33E17", "F33E18", "F33E19", "F33E20", "F33E21", "F33E22", "F33E23", "F33E24", "F33E25", "F33E26", "F33E27", "F33E28", "F33E29"}

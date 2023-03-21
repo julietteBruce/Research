@@ -1,0 +1,47 @@
+needsPackage "Macaulay2Doc"
+
+F938E0 =  X = Proj(QQ[x_0..x_2])
+
+F938E1 =  HH^0(OO_X^1(>=0))
+
+F938E2 =  HH^1(OO_X^1(>=0))
+
+F938E3 =  HH^2(OO_X^1(>=-3)) -- this should change to * once implemented
+
+F938E4 =  TruncDual = HH^2(OO_X^1(>=-4))
+
+F938E5 =  hilbertFunction(-4, TruncDual)
+
+F938E6 =  hilbertFunction(-3, TruncDual)
+
+F938E7 =  R = QQ[x_0..x_4];
+
+F938E8 =  a = {1,0,0,0,0}
+
+F938E9 =  b = {0,1,0,0,1}
+
+F938E10 =  c = {0,0,1,1,0}
+
+F938E11 =  M1 = matrix table(5,5, (i,j)-> x_((i+j)%5)*a_((i-j)%5))
+
+F938E12 =  M2 = matrix table(5,5, (i,j)-> x_((i+j)%5)*b_((i-j)%5))
+
+F938E13 =  M3 = matrix table(5,5, (i,j)-> x_((i+j)%5)*c_((i-j)%5))
+
+F938E14 =  M = M1 | M2 | M3;
+
+F938E15 =  betti (C=res coker M)
+
+F938E16 =  N = transpose submatrix(C.dd_3,{10..28},{2..36});
+
+F938E17 =  betti (D=res coker N)
+
+F938E18 =  Pfour = Proj(R)
+
+F938E19 =  HorrocksMumford = sheaf(coker D.dd_3);
+
+F938E20 =  T = HH^1(HorrocksMumford(>=-1))
+
+F938E21 =  apply(-1..2, i-> hilbertFunction(i,T))
+
+exampleIDS = {"F938E0", "F938E1", "F938E2", "F938E3", "F938E4", "F938E5", "F938E6", "F938E7", "F938E8", "F938E9", "F938E10", "F938E11", "F938E12", "F938E13", "F938E14", "F938E15", "F938E16", "F938E17", "F938E18", "F938E19", "F938E20", "F938E21"}

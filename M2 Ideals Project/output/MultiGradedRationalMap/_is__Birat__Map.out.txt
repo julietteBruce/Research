@@ -1,0 +1,49 @@
+needsPackage "MultiGradedRationalMap"
+
+F2E0 =  R = QQ[x,y,u,v, Degrees => {{1,0}, {1,0}, {0,1}, {0,1}}]
+
+F2E1 =  I = ideal(x*u, y*u, y*v) -- a birational map
+
+F2E2 =  isBiratMap I
+
+F2E3 =  I = ideal(x*u, y*v, x*v + y*u) -- a non birational map
+
+F2E4 =  isBiratMap I
+
+F2E5 =  A = matrix{ {x^5*u,  x^2*v^2},
+
+                 {y^5*v, x^2*u^2},
+
+                 {0,     y^2*v^2}
+
+               };
+
+F2E6 =  I = minors(2, A)  -- a non birational
+
+F2E7 =  isBiratMap I
+
+F2E8 =  I = ideal(x*u^2, y*u^2, x*v^2) -- a non birational map
+
+F2E9 =  isBiratMap I
+
+F2E10 =  R = QQ[x,y,z,w]
+
+F2E11 =  A = matrix{ {x + y,  x, x},
+
+                  {3*z - 4*w, y, z},
+
+                  {w,  z, z + w},
+
+                  {y - z,  w, x + y}
+
+                };
+
+F2E12 =  I = minors(3, A) -- a birational map
+
+F2E13 =  isBiratMap I
+
+F2E14 =  I = ideal(random(2, R), random(2, R), random(2, R), random(2, R)); -- a non birational
+
+F2E15 =  isBiratMap I
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F2E15"}

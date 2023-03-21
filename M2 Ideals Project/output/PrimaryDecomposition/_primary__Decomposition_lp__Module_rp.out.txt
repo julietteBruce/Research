@@ -1,0 +1,31 @@
+needsPackage "PrimaryDecomposition"
+
+F5E0 =  R = QQ[x_0..x_3]
+
+F5E1 =  (I1,I2,I3) = ({1,2,3},{2,3},{4,5}) / monomialCurveIdeal_R
+
+F5E2 =  M = comodule I1 ++ comodule I2 ++ comodule I3
+
+F5E3 =  associatedPrimes M
+
+F5E4 =  C = primaryDecomposition M;
+
+F5E5 =  netList C
+
+F5E6 =  intersect C == 0 and all(C, isPrimary_M)
+
+F5E7 =  C / degree
+
+F5E8 =  I = intersect((ideal(x_0..x_3))^5, (ideal(x_0..x_2))^4, (ideal(x_0..x_1))^3)
+
+F5E9 =  S = R/I
+
+F5E10 =  associatedPrimes S
+
+F5E11 =  comps = primaryDecomposition S
+
+F5E12 =  apply(comps, Q -> ideal mingens(I + ideal gens Q))
+
+F5E13 =  I == intersect oo
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13"}

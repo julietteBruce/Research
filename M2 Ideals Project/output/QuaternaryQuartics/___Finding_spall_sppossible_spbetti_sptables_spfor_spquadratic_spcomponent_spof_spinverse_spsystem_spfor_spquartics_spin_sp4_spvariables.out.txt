@@ -1,0 +1,27 @@
+needsPackage "QuaternaryQuartics"
+
+F25E0 =  GetQuads = (d,k,n)->(
+
+         R=ZZ/2[x_1..x_k];
+
+         quartics=super basis(d,R);
+
+         MonList=apply(rank source quartics, i->quartics_(0,i));
+
+         L=subsets(MonList,n);
+
+         J=apply(L, j->(F=gens ideal sum j;
+
+         InvSysF=fromDual F;
+
+         Idegs=degrees source mingens ideal InvSysF;
+
+         if (not ((member({1},Idegs)))) then minimalBetti coker super basis(2, ideal InvSysF)));
+
+         Jlist =drop(unique J,1);
+
+         netList pack(4,Jlist))
+
+F25E1 =  GetQuads(4,4,2)
+
+exampleIDS = {"F25E0", "F25E1"}

@@ -1,0 +1,67 @@
+needsPackage "Complexes"
+
+F105E0 =  S = ZZ/101[a..d];
+
+F105E1 =  I = ideal(a*b*c, b*c*d, a*d^2)
+
+F105E2 =  C = S^{{-3}} ** freeResolution (I:a*c*d)
+
+F105E3 =  D = freeResolution I
+
+F105E4 =  f = map(D_0, C_0, matrix{{a*c*d}})
+
+F105E5 =  g = extend(D, C, f)
+
+F105E6 =  assert isWellDefined g
+
+F105E7 =  assert isComplexMorphism g
+
+F105E8 =  assert(g_0 == f)
+
+F105E9 =  E = cone g
+
+F105E10 =  dd^E
+
+F105E11 =  I = monomialCurveIdeal(S, {1,2,3})
+
+F105E12 =  K = ideal(I_1^2, I_2^2)
+
+F105E13 =  FI = freeResolution I
+
+F105E14 =  FK = freeResolution K
+
+F105E15 =  f = map(FI_0, FK_0, 1)
+
+F105E16 =  g = extend(FI, FK, f)
+
+F105E17 =  assert isWellDefined g
+
+F105E18 =  assert isComplexMorphism g
+
+F105E19 =  assert(g_0 == f)
+
+F105E20 =  C = cone (dual g)[- codim K]
+
+F105E21 =  dd^C
+
+F105E22 =  dd^(minimize C)
+
+F105E23 =  assert(ideal relations HH_0 C == K:I)
+
+F105E24 =  f = map(FK_0, FI_1, matrix {{a*c^2-a*b*d, -b*c^2+a*c*d, -c^3+a*d^2}}, Degree => 1)
+
+F105E25 =  assert isHomogeneous f
+
+F105E26 =  assert isWellDefined f
+
+F105E27 =  g = extend(FK, FI, f, (0,1))
+
+F105E28 =  assert isWellDefined g
+
+F105E29 =  assert isCommutative g
+
+F105E30 =  assert(degree g === -1)
+
+F105E31 =  assert isHomogeneous g
+
+exampleIDS = {"F105E0", "F105E1", "F105E2", "F105E3", "F105E4", "F105E5", "F105E6", "F105E7", "F105E8", "F105E9", "F105E10", "F105E11", "F105E12", "F105E13", "F105E14", "F105E15", "F105E16", "F105E17", "F105E18", "F105E19", "F105E20", "F105E21", "F105E22", "F105E23", "F105E24", "F105E25", "F105E26", "F105E27", "F105E28", "F105E29", "F105E30", "F105E31"}

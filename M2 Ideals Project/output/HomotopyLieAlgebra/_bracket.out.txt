@@ -1,0 +1,41 @@
+needsPackage "HomotopyLieAlgebra"
+
+F0E0 =  kk = ZZ/101
+
+F0E1 =  S = kk[x,y,z]
+
+F0E2 =  R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+F0E3 =  lastCyclesDegree = 4
+
+F0E4 =  KR = koszulComplexDGA(ideal R)
+
+F0E5 =  A = acyclicClosure(KR, EndDegree => lastCyclesDegree);
+
+F0E6 =  p2 = allgens(A,1) -- dual generators of Pi^2
+
+F0E7 =  p3 = allgens(A,2) -- dual generators of Pi^3
+
+F0E8 =  a5 = allgens(A,4) -- generators of A of homological degree 5
+
+F0E9 =  bracket(A, {sum p2, sum p3})
+
+F0E10 =  bracket(A,{sum p2, sum p3}, sum a5)
+
+F0E11 =  H = bracket(A,2,3);
+
+F0E12 =  #keys H
+
+F0E13 =  H' = select(keys H, k->H#k != 0);
+
+F0E14 =  H'
+
+F0E15 =  H#(H'_0)
+
+F0E16 =  bracketMatrix(A,1,2)
+
+F0E17 =  bracketMatrix(A,2,1)
+
+F0E18 =  bracketMatrix(A,1,1)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18"}

@@ -1,0 +1,33 @@
+needsPackage "Complexes"
+
+F82E0 =  S = ZZ/101[a,b,c,d];
+
+F82E1 =  J = ideal(a*b, a*d, b*c);
+
+F82E2 =  I = J + ideal(c^3);
+
+F82E3 =  C = prune Hom(S^{2} ** freeResolution I, S^1/I)
+
+F82E4 =  D = prune Hom(freeResolution J, S^1/J)
+
+F82E5 =  r = randomComplexMap(D,C,Cycle=>true)
+
+F82E6 =  f = r * resolutionMap C
+
+F82E7 =  g = resolutionMap D
+
+F82E8 =  assert isQuasiIsomorphism g
+
+F82E9 =  f' = liftMapAlongQuasiIsomorphism(f, g)
+
+F82E10 =  assert(f' == f//g)
+
+F82E11 =  assert isWellDefined f'
+
+F82E12 =  assert isComplexMorphism f'
+
+F82E13 =  h = homotopyMap f'
+
+F82E14 =  isNullHomotopyOf(h, g * (f//g) - f)
+
+exampleIDS = {"F82E0", "F82E1", "F82E2", "F82E3", "F82E4", "F82E5", "F82E6", "F82E7", "F82E8", "F82E9", "F82E10", "F82E11", "F82E12", "F82E13", "F82E14"}

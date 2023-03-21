@@ -1,0 +1,19 @@
+needsPackage "BGG"
+
+F6E0 =  (p,q) = (2,5) -- number of rows and columns
+
+F6E1 =  A=ZZ/101[a_(0,0)..a_(p-1,q-1)];
+
+F6E2 =  S = A [x_0..x_(p-1)];
+
+F6E3 =  M = sub(map(A^p, A^{q:-1},transpose genericMatrix(A,a_(0,0),q,p)), S)
+
+F6E4 =  Y = map(S^1, S^{q:{-1,-1}}, (vars S)*M)
+
+F6E5 =  F = koszul Y
+
+F6E6 =  L = for i from -1 to q-p+1 list directImageComplex(F**S^{{i,0}});
+
+F6E7 =  L/betti
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7"}

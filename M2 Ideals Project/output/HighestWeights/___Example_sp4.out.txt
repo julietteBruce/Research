@@ -1,0 +1,21 @@
+needsPackage "HighestWeights"
+
+F9E0 =  R=QQ[x,y,z];
+
+F9E1 =  L={{1,0},{-1,1},{0,-1}};
+
+F9E2 =  D=dynkinType{{"A",2}};
+
+F9E3 =  setWeights(R,D,L)
+
+F9E4 =  loadPackage "PieriMaps";
+
+F9E5 =  f=pureFree({0,2,3,6},R)
+
+F9E6 =  W=apply(apply(standardTableaux(3, {2,2}), flatten), i->sum(apply(i,j->L_j)))
+
+F9E7 =  EFW=res coker f; betti EFW
+
+F9E8 =  highestWeightsDecomposition(EFW,0,W)
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8"}

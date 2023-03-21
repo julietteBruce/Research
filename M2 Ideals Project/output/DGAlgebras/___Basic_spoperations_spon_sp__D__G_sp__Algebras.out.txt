@@ -1,0 +1,39 @@
+needsPackage "DGAlgebras"
+
+F41E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3}
+
+F41E1 =  A = freeDGAlgebra(R,{{1,1},{1,1},{1,1},{1,1}})
+
+F41E2 =  setDiff(A, gens R)
+
+F41E3 =  B = koszulComplexDGA(R, Variable=>"S")
+
+F41E4 =  HB = HH B
+
+F41E5 =  describe HB
+
+F41E6 =  degrees HB
+
+F41E7 =  HB.cache.cycles
+
+F41E8 =  C = adjoinVariables(B,{first HB.cache.cycles})
+
+F41E9 =  homologyAlgebra(C,GenDegreeLimit=>4,RelDegreeLimit=>4)
+
+F41E10 =  C = killCycles(B)
+
+F41E11 =  homologyAlgebra(C,GenDegreeLimit=>4,RelDegreeLimit=>4)
+
+F41E12 =  D = acyclicClosure R
+
+F41E13 =  R' = ZZ/101[x,y,z]/ideal{x^2,y^2,z^2,x*y*z}
+
+F41E14 =  E = acyclicClosure(R',EndDegree=>5)
+
+F41E15 =  tally degrees E.natural
+
+F41E16 =  deviations(R,DegreeLimit=>6)
+
+F41E17 =  deviations(R',DegreeLimit=>6)
+
+exampleIDS = {"F41E0", "F41E1", "F41E2", "F41E3", "F41E4", "F41E5", "F41E6", "F41E7", "F41E8", "F41E9", "F41E10", "F41E11", "F41E12", "F41E13", "F41E14", "F41E15", "F41E16", "F41E17"}

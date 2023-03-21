@@ -1,0 +1,29 @@
+needsPackage "Complexes"
+
+F104E0 =  R = ZZ/101[x]/x^3;
+
+F104E1 =  M = coker vars R
+
+F104E2 =  C = freeResolution(M, LengthLimit => 6)
+
+F104E3 =  D = C[1]
+
+F104E4 =  f = map(D, C, i ->
+
+         if odd i then
+
+             map(D_i, C_i, {{x}})
+
+         else map(D_i, C_i, {{x^2}})
+
+         )
+
+F104E5 =  assert isWellDefined f
+
+F104E6 =  assert isCommutative f
+
+F104E7 =  assert(source f == C)
+
+F104E8 =  assert(target f == D)
+
+exampleIDS = {"F104E0", "F104E1", "F104E2", "F104E3", "F104E4", "F104E5", "F104E6", "F104E7", "F104E8"}

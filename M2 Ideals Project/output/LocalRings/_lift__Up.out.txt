@@ -1,0 +1,37 @@
+needsPackage "LocalRings"
+
+F6E0 =  R = ZZ/32003[vars(0..5)];
+
+F6E1 =  I = ideal"abc-def,ab2-cd2-c,-b3+acd";
+
+F6E2 =  C = res I;
+
+F6E3 =  M = ideal gens R;
+
+F6E4 =  RM = localRing(R, M);
+
+F6E5 =  F = C.dd_2;
+
+F6E6 =  FM = F ** RM
+
+F6E7 =  f = liftUp FM;
+
+F6E8 =  g = syz f;
+
+F6E9 =  h = syz g;
+
+F6E10 =  C = {g ** RM, h ** RM};
+
+F6E11 =  C = first pruneComplex(C, 1, Direction => "right");
+
+F6E12 =  g' = C#0;
+
+F6E13 =  N = transpose entries FM;
+
+F6E14 =  for i from 0 to numcols FM - 1 do
+
+F6E15 =  GM = map(source FM, , matrix g')
+
+F6E16 =  kernel FM == image GM
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16"}

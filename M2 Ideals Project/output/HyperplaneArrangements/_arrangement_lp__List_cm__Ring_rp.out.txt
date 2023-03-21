@@ -1,0 +1,35 @@
+needsPackage "HyperplaneArrangements"
+
+F47E0 =  S = QQ[w,x,y,z];
+
+F47E1 =  A3 = arrangement {w-x, w-y, w-z, x-y, x-z, y-z}
+
+F47E2 =  assert isCentral A3
+
+F47E3 =  A3' = arrangement ((w-x)*(w-y)*(w-z)*(x-y)*(x-z)*(y-z))
+
+F47E4 =  assert(A3 != A3')
+
+F47E5 =  arrangement (x^2*y^2*(x^2-y^2)*(x^2-z^2))
+
+F47E6 =  kk = toField(QQ[p]/(p^2+p+1)) -- toField is necessary so that M2 treats this as a field
+
+F47E7 =  R = kk[s,t]
+
+F47E8 =  arrangement (s^3-t^3)
+
+F47E9 =  R = S/ideal(w+x+y+z);
+
+F47E10 =  A3'' = arrangement({w-x,w-y,w-z,x-y,x-z,y-z}, R)
+
+F47E11 =  ring A3''
+
+F47E12 =  assert(rank A3'' === dim ring A3'')
+
+F47E13 =  trivial = arrangement({},S)
+
+F47E14 =  ring trivial
+
+F47E15 =  assert isCentral trivial
+
+exampleIDS = {"F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F47E7", "F47E8", "F47E9", "F47E10", "F47E11", "F47E12", "F47E13", "F47E14", "F47E15"}

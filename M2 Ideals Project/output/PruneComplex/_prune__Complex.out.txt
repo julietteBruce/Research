@@ -1,0 +1,37 @@
+needsPackage "PruneComplex"
+
+F3E0 =  R = ZZ/32003[a..f]
+
+F3E1 =  I = ideal"abc-def,ab2-cd2-c,acd-b3-1"
+
+F3E2 =  S = (coefficientRing R)(monoid [gens R, local h]);
+
+F3E3 =  Ihom = ideal homogenize(sub(gens gb I, S), S_(numgens R));
+
+F3E4 =  Chom = (res(Ihom, FastNonminimal=>true))[-10];
+
+F3E5 =  C = (map(R, S, gens R | {1})) Chom
+
+F3E6 =  D = pruneComplex C
+
+F3E7 =  D.dd
+
+F3E8 =  D1 = pruneComplex(C, PruningMap => false)
+
+F3E9 =  D1.dd
+
+F3E10 =  D2 = pruneComplex(C, Strategy => null, Direction => "both")
+
+F3E11 =  D2.dd
+
+F3E12 =  R = ZZ/32003[vars(0..8)]
+
+F3E13 =  M = genericMatrix(R,3,3)
+
+F3E14 =  I = minors(2, M)
+
+F3E15 =  C = res(I, FastNonminimal=>true)
+
+F3E16 =  pruneComplex(C, UnitTest => isScalar)
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16"}

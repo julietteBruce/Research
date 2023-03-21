@@ -1,0 +1,39 @@
+needsPackage "Complexes"
+
+F86E0 =  R = ZZ/101[a..d];
+
+F86E1 =  C = (freeResolution coker matrix{{a,b,c}})[1]
+
+F86E2 =  D = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F86E3 =  E = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F86E4 =  f = randomComplexMap(D, C)
+
+F86E5 =  g = randomComplexMap(E, D)
+
+F86E6 =  h = g * f
+
+F86E7 =  tf = naiveTruncation(f, 0, 1)
+
+F86E8 =  tg = naiveTruncation(g, (0, 1))
+
+F86E9 =  th = naiveTruncation(h, (0, 1))
+
+F86E10 =  assert all({tf, tg, th}, isWellDefined)
+
+F86E11 =  assert(th == tg * tf)
+
+F86E12 =  t2f = naiveTruncation(f, -infinity, 1)
+
+F86E13 =  assert(t2f == naiveTruncation(f,, 1))
+
+F86E14 =  assert(tf != t2f)
+
+F86E15 =  t2f = naiveTruncation(f, (0,1), (1,2))
+
+F86E16 =  assert(source t2f == naiveTruncation(C, (1,2)))
+
+F86E17 =  assert(target t2f == naiveTruncation(D, (0,1)))
+
+exampleIDS = {"F86E0", "F86E1", "F86E2", "F86E3", "F86E4", "F86E5", "F86E6", "F86E7", "F86E8", "F86E9", "F86E10", "F86E11", "F86E12", "F86E13", "F86E14", "F86E15", "F86E16", "F86E17"}

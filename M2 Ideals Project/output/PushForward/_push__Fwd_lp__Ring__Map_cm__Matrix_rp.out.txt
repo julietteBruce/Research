@@ -1,0 +1,65 @@
+needsPackage "PushForward"
+
+F1E0 =  kk = QQ
+
+F1E1 =  A = kk[a,b]
+
+F1E2 =  B = kk[z,t]
+
+F1E3 =  f = map(B,A,{z^2,t^2})
+
+F1E4 =  M = B^1/ideal(z^3,t^3)
+
+F1E5 =  g = map(M,M,matrix{{z*t}})
+
+F1E6 =  p = pushFwd(f,g)
+
+F1E7 =  source p == pushFwd(f, source g)
+
+F1E8 =  target p == pushFwd(f, target g)
+
+F1E9 =  kerg = pushFwd(f,ker g)
+
+F1E10 =  kerp = prune ker p
+
+F1E11 =  k = ZZ/32003
+
+F1E12 =  A = k[x,y]/(y^4-2*x^3*y^2-4*x^5*y+x^6-y^7)
+
+F1E13 =  A = k[x,y]/(y^3-x^7)
+
+F1E14 =  B = integralClosure(A, Keep =>{})
+
+F1E15 =  describe B
+
+F1E16 =  f = map(B^1, B^1, matrix{{w_(3,0)}})
+
+F1E17 =  g = pushFwd(icMap A, f)
+
+F1E18 =  pushFwd(icMap A, f^2) == g*g
+
+F1E19 =  A = kk[x]
+
+F1E20 =  B = A[y, Join => false]/(y^3-x^7)
+
+F1E21 =  pushFwd B^1
+
+F1E22 =  pushFwd matrix{{y}}
+
+F1E23 =  B = A[y,z,Join => false]/(y^3 - x*z, z^3-y^7);
+
+F1E24 =  pushFwd B^1
+
+F1E25 =  fy = pushFwd matrix{{y}}
+
+F1E26 =  fz = pushFwd matrix{{z}};
+
+F1E27 =  fx = pushFwd matrix{{x_B}};
+
+F1E28 =  g =  pushFwd matrix{{y*z -x_B*z^2}}
+
+F1E29 =  g == fy*fz-fx*fz^2
+
+F1E30 =  fz^3-fy^7 == 0
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F1E16", "F1E17", "F1E18", "F1E19", "F1E20", "F1E21", "F1E22", "F1E23", "F1E24", "F1E25", "F1E26", "F1E27", "F1E28", "F1E29", "F1E30"}

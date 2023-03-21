@@ -1,0 +1,35 @@
+needsPackage "NormalToricVarieties"
+
+F24E0 =  X = hirzebruchSurface 1;
+
+F24E1 =  Y = toricProjectiveSpace 1;
+
+F24E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F24E3 =  f' = classGroup f
+
+F24E4 =  assert (isWellDefined f and source f' == classGroup Y and
+
+         target f' == classGroup X)
+
+F24E5 =  f'' = weilDivisorGroup f
+
+F24E6 =  assert(f' * fromWDivToCl Y  == fromWDivToCl X  * f'')
+
+F24E7 =  Z = toricBlowup({0, 1}, X, {1,2});
+
+F24E8 =  assert (isWellDefined Z and not isSmooth Z)
+
+F24E9 =  g = map(Y, Z, matrix{{1, 0}})
+
+F24E10 =  g' = classGroup g
+
+F24E11 =  g'' = weilDivisorGroup g
+
+F24E12 =  assert(g' * fromWDivToCl Y == fromWDivToCl Z  * g'')
+
+F24E13 =  assert (isWellDefined g and source g' == classGroup Y and
+
+          target g' == classGroup Z)
+
+exampleIDS = {"F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F24E7", "F24E8", "F24E9", "F24E10", "F24E11", "F24E12", "F24E13"}

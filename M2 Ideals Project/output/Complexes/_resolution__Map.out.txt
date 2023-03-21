@@ -1,0 +1,47 @@
+needsPackage "Complexes"
+
+F60E0 =  R = ZZ/101[a,b,c];
+
+F60E1 =  I = ideal(a^2, a*b, b*c)
+
+F60E2 =  C = Hom(freeResolution I, R^1/I)
+
+F60E3 =  assert all(min C .. max C, i -> not isFreeModule C_i)
+
+F60E4 =  fC = resolutionMap C
+
+F60E5 =  FC = resolution C
+
+F60E6 =  prune HH FC
+
+F60E7 =  assert isQuasiIsomorphism fC
+
+F60E8 =  assert isFree FC
+
+F60E9 =  assert isWellDefined fC
+
+F60E10 =  assert(0 == coker fC) -- showing that fC is surjective.
+
+F60E11 =  J = ideal(a,b)
+
+F60E12 =  K = ideal(b^2,c)
+
+F60E13 =  g1 = map(R^1/(J+K), R^1/J ++ R^1/K, {{1,-1}})
+
+F60E14 =  g2 = map(R^1/J ++ R^1/K, R^1/(intersect(J,K)), {{1},{1}})
+
+F60E15 =  D = complex{g1, g2}
+
+F60E16 =  assert isWellDefined D
+
+F60E17 =  assert isShortExactSequence(g1,g2)
+
+F60E18 =  fD = resolutionMap D
+
+F60E19 =  assert isWellDefined fD
+
+F60E20 =  assert isQuasiIsomorphism fD
+
+F60E21 =  assert(0 == source fD) -- so fD is certainly not surjective!
+
+exampleIDS = {"F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F60E6", "F60E7", "F60E8", "F60E9", "F60E10", "F60E11", "F60E12", "F60E13", "F60E14", "F60E15", "F60E16", "F60E17", "F60E18", "F60E19", "F60E20", "F60E21"}

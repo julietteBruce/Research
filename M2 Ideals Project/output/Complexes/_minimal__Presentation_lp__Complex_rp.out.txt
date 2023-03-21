@@ -1,0 +1,63 @@
+needsPackage "Complexes"
+
+F9E0 =  S = ZZ/101[a,b,c,d,e];
+
+F9E1 =  I = ideal(a,b) * ideal(c,d,e)
+
+F9E2 =  F = dual freeResolution I
+
+F9E3 =  C = HH F
+
+F9E4 =  D = prune C
+
+F9E5 =  g = D.cache.pruningMap
+
+F9E6 =  assert isWellDefined g
+
+F9E7 =  assert isComplexMorphism g
+
+F9E8 =  assert (target g == C)
+
+F9E9 =  assert (source g == D)
+
+F9E10 =  g^-1
+
+F9E11 =  assert(g*g^-1 == 1 and g^-1*g == 1)
+
+F9E12 =  S = ZZ/101[a,b,c];
+
+F9E13 =  I = ideal(a^2,b^2,c^2);
+
+F9E14 =  J = I + ideal(a*b*c);
+
+F9E15 =  FI = freeResolution I
+
+F9E16 =  FJ = freeResolution J
+
+F9E17 =  f = randomComplexMap(FJ, FI ** S^{-1}, Cycle => true)
+
+F9E18 =  C = image f
+
+F9E19 =  D = prune C
+
+F9E20 =  g = D.cache.pruningMap
+
+F9E21 =  assert isWellDefined g
+
+F9E22 =  assert isComplexMorphism g
+
+F9E23 =  assert (target g == C)
+
+F9E24 =  assert (source g == D)
+
+F9E25 =  g^-1
+
+F9E26 =  assert(g*g^-1 == 1 and g^-1*g == 1)
+
+F9E27 =  h = prune f
+
+F9E28 =  assert(source h === prune source f)
+
+F9E29 =  assert(target h === prune target f)
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F9E21", "F9E22", "F9E23", "F9E24", "F9E25", "F9E26", "F9E27", "F9E28", "F9E29"}

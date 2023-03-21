@@ -1,0 +1,39 @@
+needsPackage "SimplicialComplexes"
+
+F15E0 =  S = QQ[x_0..x_3];
+
+F15E1 =  Δ = simplexComplex(3, S)
+
+F15E2 =  faces Δ
+
+F15E3 =  dim Δ
+
+F15E4 =  subsets vertices Δ
+
+F15E5 =  assert(faces Δ === hashTable for i from -1 to 3 list
+
+         i => first entries sub(matrix{rsort subsets(vertices Δ, i+1)/product}, S))
+
+F15E6 =  R = ZZ[a..h];
+
+F15E7 =  Γ = bartnetteSphereComplex R;
+
+F15E8 =  matrix {facets Γ}
+
+F15E9 =  faces Γ
+
+F15E10 =  monomialIdeal Γ
+
+F15E11 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F15E12 =  faces irrelevant
+
+F15E13 =  assert(faces irrelevant === hashTable{-1 => {1_S}})
+
+F15E14 =  void = simplicialComplex monomialIdeal 1_S
+
+F15E15 =  faces void
+
+F15E16 =  assert(faces void === hashTable{})
+
+exampleIDS = {"F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16"}

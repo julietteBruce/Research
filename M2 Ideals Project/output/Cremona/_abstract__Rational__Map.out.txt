@@ -1,0 +1,45 @@
+needsPackage "Cremona"
+
+F9E0 =  f = a -> {-a_1^3*max(sin(a_2),1)+a_0*a_1*a_2*ceiling((log(1 + abs a_0))^0),-a_1^2*a_2+a_0*a_1*a_3,-a_1*a_2^2+a_1^2*a_3,-a_1^2*a_3+a_0*a_1*a_4,-a_1*a_2*a_3+a_1^2*a_4,-a_1*a_3^2+a_1*a_2*a_4}
+
+F9E1 =  P4 := QQ[t_0..t_4]
+
+F9E2 =  P5 := QQ[u_0..u_5]
+
+F9E3 =  time psi = abstractRationalMap(P4,P5,f)
+
+F9E4 =  time projectiveDegrees(psi,3)
+
+F9E5 =  time rationalMap psi
+
+F9E6 =  phi = rationalMap map specialCremonaTransformation(3,ZZ/10000019);
+
+F9E7 =  phi' = abstractRationalMap phi
+
+F9E8 =  psi' = inverseMap phi'
+
+F9E9 =  psi = rationalMap psi';
+
+F9E10 =  assert(isInverseMap(phi,psi))
+
+F9E11 =  ZZ/65521[x_0..x_3]; I = minors(2,matrix{{x_0,x_1,x_2},{x_1,x_2,x_3}})
+
+F9E12 =  time T = abstractRationalMap(I,"OADP")
+
+F9E13 =  time projectiveDegrees(T,2)
+
+F9E14 =  time T2 = T * T
+
+F9E15 =  time projectiveDegrees(T2,2)
+
+F9E16 =  p = apply(3,i->random(ZZ/65521))|{1}
+
+F9E17 =  q = T p
+
+F9E18 =  T q
+
+F9E19 =  time f = rationalMap T
+
+F9E20 =  describe f!
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20"}

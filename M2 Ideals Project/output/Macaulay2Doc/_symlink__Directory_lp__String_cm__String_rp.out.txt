@@ -1,0 +1,31 @@
+needsPackage "Macaulay2Doc"
+
+F841E0 =  src = temporaryFileName() | "/"
+
+F841E1 =  dst = temporaryFileName() | "/"
+
+F841E2 =  makeDirectory (src|"a/")
+
+F841E3 =  makeDirectory (src|"b/")
+
+F841E4 =  makeDirectory (src|"b/c/")
+
+F841E5 =  src|"a/f" << "hi there" << close
+
+F841E6 =  src|"a/g" << "hi there" << close
+
+F841E7 =  src|"b/c/g" << "ho there" << close
+
+F841E8 =  symlinkDirectory(src,dst,Verbose=>true)
+
+F841E9 =  get (dst|"b/c/g")
+
+F841E10 =  symlinkDirectory(src,dst,Verbose=>true,Undo=>true)
+
+F841E11 =  rm = d -> if isDirectory d then removeDirectory d else removeFile d
+
+F841E12 =  scan(reverse findFiles src, rm)
+
+F841E13 =  scan(reverse findFiles dst, rm)
+
+exampleIDS = {"F841E0", "F841E1", "F841E2", "F841E3", "F841E4", "F841E5", "F841E6", "F841E7", "F841E8", "F841E9", "F841E10", "F841E11", "F841E12", "F841E13"}

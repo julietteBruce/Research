@@ -1,0 +1,31 @@
+needsPackage "Macaulay2Doc"
+
+F1003E0 =  A = QQ[x,y,z]
+
+F1003E1 =  M = matrix(A, {{1,2,3},{4,5,6},{7,8,9}})
+
+F1003E2 =  Hom(M,A^2)
+
+F1003E3 =  Hom(A^2,M)
+
+F1003E4 =  contraHom = (M, s) -> (
+
+         (n,m) := (numgens target M, numgens source M);
+
+         R := mutableMatrix(ring M, s*n, s*m);
+
+         for b from 0 to m-1 do
+
+           for a from 0 to s-1 do
+
+             for c from 0 to n-1 do
+
+               R_(a*n+c,a*m+b) = M_(b,c);
+
+         matrix R
+
+         )
+
+F1003E5 =  contraHom(M,2)
+
+exampleIDS = {"F1003E0", "F1003E1", "F1003E2", "F1003E3", "F1003E4", "F1003E5"}

@@ -1,0 +1,31 @@
+needsPackage "Jets"
+
+F11E0 =  R = QQ[x,y,z]
+
+F11E1 =  I = ideal(x*y*z)
+
+F11E2 =  J2I = jets(2,I)
+
+F11E3 =  elapsedTime jetsRadical(2,I)
+
+F11E4 =  elapsedTime radical J2I
+
+F11E5 =  P = minimalPrimes J2I
+
+F11E6 =  (A,f) = flattenRing ring J2I
+
+F11E7 =  needsPackage "LocalRings"
+
+F11E8 =  M = cokernel gens f J2I
+
+F11E9 =  mult = for p in P list (
+
+          Rp := localRing(A,f p);
+
+          length(M ** Rp)
+
+          );
+
+F11E10 =  netList(pack(4,mingle{P,mult}),HorizontalSpace=>1)
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10"}

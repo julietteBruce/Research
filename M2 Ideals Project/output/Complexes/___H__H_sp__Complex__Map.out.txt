@@ -1,0 +1,43 @@
+needsPackage "Complexes"
+
+F43E0 =  S = ZZ/101[a..d]
+
+F43E1 =  I = ideal(a*b, a*d, c*b, c*d)
+
+F43E2 =  C = (dual freeResolution I)[1]
+
+F43E3 =  D = dual complex for i from 0 to 4 list koszul(i,gens I)
+
+F43E4 =  assert isWellDefined D
+
+F43E5 =  f = randomComplexMap(D, C, Cycle => true)
+
+F43E6 =  assert isCommutative f
+
+F43E7 =  h = HH f
+
+F43E8 =  assert isWellDefined h
+
+F43E9 =  prune h
+
+F43E10 =  assert(source h == HH C)
+
+F43E11 =  assert(target h == HH D)
+
+F43E12 =  f2 = randomComplexMap(D, C, Cycle => true, Degree => -1)
+
+F43E13 =  h2 = HH f2
+
+F43E14 =  assert isWellDefined h2
+
+F43E15 =  prune h2
+
+F43E16 =  f3 = randomComplexMap(D, C, Boundary => true)
+
+F43E17 =  h3 = HH f3
+
+F43E18 =  assert isWellDefined h3
+
+F43E19 =  assert(h3 == 0)
+
+exampleIDS = {"F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F43E5", "F43E6", "F43E7", "F43E8", "F43E9", "F43E10", "F43E11", "F43E12", "F43E13", "F43E14", "F43E15", "F43E16", "F43E17", "F43E18", "F43E19"}

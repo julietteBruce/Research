@@ -1,0 +1,49 @@
+needsPackage "Polyhedra"
+
+F123E0 =  C = coneFromVData matrix {{1,0,0},{0,1,0},{0,0,1}}
+
+F123E1 =  F = fan C
+
+F123E2 =  maxCones F
+
+F123E3 =  C1 = coneFromVData matrix {{1,0,0},{1,1,0},{0,0,-1}}
+
+F123E4 =  commonFace(C,C1)
+
+F123E5 =  (b,C2) = areCompatible(C,C1)
+
+F123E6 =  rays C2
+
+F123E7 =  C1 = coneFromVData matrix {{1,0,0},{0,1,0},{0,0,-1}}
+
+F123E8 =  F = addCone(C1,F)
+
+F123E9 =  C2 = coneFromVData matrix {{-1,0,0},{0,1,0},{0,0,1}};
+
+F123E10 =  C3 = coneFromVData matrix {{-1,0,0},{0,1,0},{0,0,-1}};
+
+F123E11 =  C4 = coneFromVData matrix {{-1,0,0},{0,-1,0},{0,0,1}};
+
+F123E12 =  C5 = coneFromVData matrix {{-1,0,0},{0,-1,0},{0,0,-1}};
+
+F123E13 =  F1 = fan {C2,C3,C4,C5}
+
+F123E14 =  C6 = coneFromVData matrix {{1,0,0},{0,-1,0},{0,0,1}};
+
+F123E15 =  C7 = coneFromVData matrix {{1,0,0},{0,-1,0},{0,0,-1}};
+
+F123E16 =  F1 = addCone( {C6,C7}, F1)
+
+F123E17 =  P = hypercube 4
+
+F123E18 =  F2 = normalFan P
+
+F123E19 =  F3 = fan {coneFromVData matrix {{1}},coneFromVData matrix {{-1}}}
+
+F123E20 =  F1 = F3 * F1
+
+F123E21 =  ambDim F1
+
+F123E22 =  F1 == F2
+
+exampleIDS = {"F123E0", "F123E1", "F123E2", "F123E3", "F123E4", "F123E5", "F123E6", "F123E7", "F123E8", "F123E9", "F123E10", "F123E11", "F123E12", "F123E13", "F123E14", "F123E15", "F123E16", "F123E17", "F123E18", "F123E19", "F123E20", "F123E21", "F123E22"}

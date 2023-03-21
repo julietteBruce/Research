@@ -1,0 +1,59 @@
+needsPackage "Complexes"
+
+F7E0 =  R = ZZ/101[a..d];
+
+F7E1 =  C = freeResolution coker matrix{{a*b, a*c^2, b*c*d^3, a^3}}
+
+F7E2 =  D = freeResolution coker matrix{{a*b, a*c^2, b*c*d^3, a^3, a*c*d}}
+
+F7E3 =  f = randomComplexMap(D, C, Cycle => true)
+
+F7E4 =  g = randomComplexMap(D, C, Boundary => true)
+
+F7E5 =  f+g
+
+F7E6 =  f-g
+
+F7E7 =  -f
+
+F7E8 =  3*f
+
+F7E9 =  0*f
+
+F7E10 =  a*f
+
+F7E11 =  assert(0*f == 0)
+
+F7E12 =  assert(1*f == f)
+
+F7E13 =  assert((-1)*f == -f)
+
+F7E14 =  assert(-(f-g) == g-f)
+
+F7E15 =  assert((a+b)*f == a*f + b*f)
+
+F7E16 =  assert(a*(f+g) == a*f + a*g)
+
+F7E17 =  assert isComplexMorphism (f+g)
+
+F7E18 =  h = randomComplexMap(C, C)
+
+F7E19 =  h+1
+
+F7E20 =  assert(h+1 == h + id_C)
+
+F7E21 =  assert(h+a == h + a*id_C)
+
+F7E22 =  assert(1-h == id_C - h)
+
+F7E23 =  assert(b-c*h == -c*h + b*id_C)
+
+F7E24 =  assert(b-h*c == -h*c + id_C*b)
+
+F7E25 =  E = complex(-dd^C)
+
+F7E26 =  isWellDefined E
+
+F7E27 =  assert(dd^E == map(E, E, -dd^C))
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F7E17", "F7E18", "F7E19", "F7E20", "F7E21", "F7E22", "F7E23", "F7E24", "F7E25", "F7E26", "F7E27"}

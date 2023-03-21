@@ -1,0 +1,51 @@
+needsPackage "SimplicialComplexes"
+
+F72E0 =  R = ZZ[a..d];
+
+F72E1 =  Δ = simplicialComplex {a*b*c*d}
+
+F72E2 =  boundaryMap(0, Δ)
+
+F72E3 =  boundaryMap(1, Δ)
+
+F72E4 =  boundaryMap(2, Δ)
+
+F72E5 =  boundaryMap(3, Δ)
+
+F72E6 =  fVector Δ
+
+F72E7 =  C = chainComplex Δ
+
+F72E8 =  assert all(4, i -> C.dd_i == - boundaryMap(i, Δ))
+
+F72E9 =  R' = ZZ/2[a..d];
+
+F72E10 =  Δ' = sub(Δ, R');
+
+F72E11 =  boundaryMap(0, Δ')
+
+F72E12 =  boundaryMap(1, Δ')
+
+F72E13 =  boundaryMap(2, Δ')
+
+F72E14 =  boundaryMap(3, Δ')
+
+F72E15 =  S = ZZ/101[x_0, x_1];
+
+F72E16 =  M = monomialIdeal(x_1^3, x_0*x_1^2, x_0^2*x_1, x_0^3);
+
+F72E17 =  boundaryMap(0, Δ,  Labels => sort M_*)
+
+F72E18 =  boundaryMap(1, Δ,  Labels => sort M_*)
+
+F72E19 =  boundaryMap(2, Δ,  Labels => sort M_*)
+
+F72E20 =  boundaryMap(3, Δ,  Labels => sort M_*)
+
+F72E21 =  T = taylorResolution M
+
+F72E22 =  T.dd
+
+F72E23 =  assert all(4, i -> T.dd_(i+1) == boundaryMap(i, Δ,  Labels => sort M_*))
+
+exampleIDS = {"F72E0", "F72E1", "F72E2", "F72E3", "F72E4", "F72E5", "F72E6", "F72E7", "F72E8", "F72E9", "F72E10", "F72E11", "F72E12", "F72E13", "F72E14", "F72E15", "F72E16", "F72E17", "F72E18", "F72E19", "F72E20", "F72E21", "F72E22", "F72E23"}

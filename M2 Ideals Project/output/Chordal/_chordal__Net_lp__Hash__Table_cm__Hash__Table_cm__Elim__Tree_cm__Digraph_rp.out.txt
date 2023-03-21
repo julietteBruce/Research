@@ -1,0 +1,25 @@
+needsPackage "Chordal"
+
+F26E0 =  R = QQ[a,b,c,d,MonomialOrder=>Lex];
+
+F26E1 =  DG = digraph {{"a0","b0"}, {"a0","b1"}, {"a1","b2"}, {"b0","c1"}, {"b1","c0"}, {"b2","c0"}, {"c0","d0"}, {"c1","d1"}}
+
+F26E2 =  G = chordalGraph digraph hashTable{a=>{b,c},b=>{c},c=>{d},d=>{}};
+
+F26E3 =  tree = elimTree G
+
+F26E4 =  rnk = hashTable{"a0"=>a, "a1"=>a, "b0"=>b, "b1"=>b, "b2"=>b,
+
+                     "c0"=>c, "d0"=>d, "c1"=>c, "d1"=>d};
+
+F26E5 =  eqs = hashTable{"a0" => ({a},{}), "a1" => ({},{}),
+
+                     "b0" => ({b},{}), "b1" => ({},{}), "b2" => ({b},{}),
+
+                     "c0" => ({c},{}), "c1" => ({},{}),
+
+                     "d0" => ({},{}), "d1" => ({d},{}) };
+
+F26E6 =  chordalNet(eqs,rnk,tree,DG)
+
+exampleIDS = {"F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6"}

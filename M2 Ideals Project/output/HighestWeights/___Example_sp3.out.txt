@@ -1,0 +1,31 @@
+needsPackage "HighestWeights"
+
+F13E0 =  R=QQ[x_(1,1)..x_(3,2),y_(1,1)..y_(4,2),Degrees=>{6:{1,0},8:{0,1}}]
+
+F13E1 =  G=genericMatrix(R,2,3)|genericMatrix(R,y_(1,1),2,4)
+
+F13E2 =  I=minors(2,G);
+
+F13E3 =  EN=res I; betti EN
+
+F13E4 =  e={{1,0},{-1,1},{0,-1}}
+
+F13E5 =  f={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}}
+
+F13E6 =  h={{1},{-1}}
+
+F13E7 =  W=(flatten table(e,h,(u,v)->u|{0,0,0}|v))|(flatten table(f,h,(u,v)->{0,0}|u|v))
+
+F13E8 =  D=dynkinType{{"A",2},{"A",3},{"A",1}}; setWeights(R,D,W)
+
+F13E9 =  highestWeightsDecomposition(EN)
+
+F13E10 =  Q=R/I
+
+F13E11 =  highestWeightsDecomposition(Q,{2,0})
+
+F13E12 =  highestWeightsDecomposition(Q,{1,1})
+
+F13E13 =  highestWeightsDecomposition(Q,{0,2})
+
+exampleIDS = {"F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F13E10", "F13E11", "F13E12", "F13E13"}

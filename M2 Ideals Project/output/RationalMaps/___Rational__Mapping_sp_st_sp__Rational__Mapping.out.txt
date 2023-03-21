@@ -1,0 +1,41 @@
+needsPackage "RationalMaps"
+
+F0E0 =  R = QQ[x,y,z]
+
+F0E1 =  P2 = Proj(R)
+
+F0E2 =  phi = rationalMapping (P2, P2, {y*z,x*z,x*y})
+
+F0E3 =  ident = rationalMapping (P2, P2, {x,y,z})
+
+F0E4 =  phi*phi == ident
+
+F0E5 =  P5ring = ZZ/103[a..f];
+
+F0E6 =  R = ZZ/103[x,y,z];
+
+F0E7 =  P2 = Proj R;
+
+F0E8 =  identP2 = rationalMapping(P2, P2, {x,y,z});
+
+F0E9 =  M = matrix{{a,b,c},{d,e,f}};
+
+F0E10 =  blowUp = Proj(P5ring/(minors(2, M)+ideal(b - d)));
+
+F0E11 =  identBlowUp = rationalMapping(blowUp, blowUp, {a,b,c,d,e,f});
+
+F0E12 =  tau = rationalMapping(P2, blowUp,{a, b, c});
+
+F0E13 =  tauInverse = tau^-1;
+
+F0E14 =  tau*tauInverse == identP2 --a map composed with its inverse is the identity
+
+F0E15 =  tauInverse*tau == identBlowUp
+
+F0E16 =  phi^3 == phi^-1
+
+F0E17 =  phi^-2 == ident
+
+F0E18 =  phi^1 == ident
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18"}

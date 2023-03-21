@@ -1,0 +1,27 @@
+needsPackage "Schubert2"
+
+F90E0 =  X = point
+
+F90E1 =  RX = intersectionRing X
+
+F90E2 =  Y = abstractProjectiveSpace 3
+
+F90E3 =  RY = intersectionRing Y
+
+F90E4 =  fUpper = map(RX, RY, splice{4:0_RX})
+
+F90E5 =  fLower = method()
+
+F90E6 =  fLower RX := a -> promote(a,RY) * ctop last bundles Y;
+
+F90E7 =  incl = abstractVarietyMap(Y,X,fUpper,fLower)
+
+F90E8 =  integral incl_* 1_RX
+
+F90E9 =  X = point
+
+F90E10 =  Y = abstractProjectiveSpace 3
+
+F90E11 =  incl = map(Y,X,OO_X)
+
+exampleIDS = {"F90E0", "F90E1", "F90E2", "F90E3", "F90E4", "F90E5", "F90E6", "F90E7", "F90E8", "F90E9", "F90E10", "F90E11"}

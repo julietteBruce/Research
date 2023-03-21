@@ -1,0 +1,37 @@
+needsPackage "Complexes"
+
+F73E0 =  S = ZZ/101[a..d];
+
+F73E1 =  B = intersect(ideal(a,c),ideal(b,d))
+
+F73E2 =  C1 = freeResolution B
+
+F73E3 =  C2 = dual C1
+
+F73E4 =  assert(C2 == Hom(C1, S^1))
+
+F73E5 =  C1 == dual dual C1
+
+F73E6 =  prune HH C2
+
+F73E7 =  I = ideal(a^2, a*b, b^2)
+
+F73E8 =  J = ideal(b^3, b*c, c^3)
+
+F73E9 =  K = intersect(I,J)
+
+F73E10 =  f = map(S^1/I ++ S^1/J, S^1/K, {{1},{1}})
+
+F73E11 =  g = map(S^1/(I+J), S^1/I ++ S^1/J, {{1,-1}})
+
+F73E12 =  C = complex{g,f}
+
+F73E13 =  assert isWellDefined C
+
+F73E14 =  assert isExact C
+
+F73E15 =  assert(dual C == 0)
+
+F73E16 =  assert(C != dual dual C)
+
+exampleIDS = {"F73E0", "F73E1", "F73E2", "F73E3", "F73E4", "F73E5", "F73E6", "F73E7", "F73E8", "F73E9", "F73E10", "F73E11", "F73E12", "F73E13", "F73E14", "F73E15", "F73E16"}

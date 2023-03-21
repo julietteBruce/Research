@@ -1,0 +1,37 @@
+needsPackage "SimplicialComplexes"
+
+F22E0 =  R = ZZ[x_0..x_5];
+
+F22E1 =  Hexagon = simplicialComplex {x_0*x_1,x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_0}
+
+F22E2 =  Edge = simplicialComplex {x_0*x_1}
+
+F22E3 =  prune cohomology(1, Hexagon)
+
+F22E4 =  prune cohomology(1, Hexagon, Edge) == prune cohomology(1,Hexagon)
+
+F22E5 =  S = ZZ[y_0..y_4];
+
+F22E6 =  Sphere = simplicialComplex {y_0*y_1*y_3, y_0*y_2*y_3, y_1*y_2*y_3,
+
+                                 y_0*y_1*y_4, y_0*y_2*y_4, y_1*y_2*y_4}
+
+F22E7 =  prune cohomology(1, Sphere)
+
+F22E8 =  Poles = simplicialComplex {y_3, y_4}
+
+F22E9 =  prune cohomology(1, Sphere, Poles)
+
+F22E10 =  T = ZZ[z_0..z_5];
+
+F22E11 =  Fish = simplicialComplex {z_0*z_1, z_1*z_2, z_2*z_3, z_3*z_0,
+
+                                z_0*z_4, z_0*z_5, z_4*z_5}
+
+F22E12 =  prune cohomology(1, Fish, Hexagon)
+
+F22E13 =  inclusion = map(Hexagon, Fish, gens ring Hexagon);
+
+F22E14 =  isWellDefined inclusion
+
+exampleIDS = {"F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F22E14"}

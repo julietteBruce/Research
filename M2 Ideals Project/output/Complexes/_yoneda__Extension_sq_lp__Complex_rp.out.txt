@@ -1,0 +1,63 @@
+needsPackage "Complexes"
+
+F54E0 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F54E1 =  M = truncate(1,R^1)
+
+F54E2 =  N = R^1;
+
+F54E3 =  E = coker map(R^{3:-1} ++ R^1,,{
+
+             {y, x, 0, 0},
+
+             {-z, 0, x, -y*z},
+
+             {0, -z, -y, x^2-3*x*z+2*z^2},
+
+             {x^2-3*x*z+2*z^2, y*z, 0, 0}
+
+             })
+
+F54E4 =  d1 = map(M, E, (cover E)^[0])
+
+F54E5 =  d2 = map(E, N, (cover E)_[1])
+
+F54E6 =  C = complex{d1,d2}
+
+F54E7 =  assert isWellDefined C
+
+F54E8 =  assert isHomogeneous C
+
+F54E9 =  assert(HH C == 0)
+
+F54E10 =  f = yonedaExtension' C
+
+F54E11 =  assert(C == yonedaExtension f)
+
+F54E12 =  assert(basis(0, Ext^1(M,N)) == f)
+
+F54E13 =  R = ZZ/101[a,b,c,d,e];
+
+F54E14 =  M = coker matrix"a,b,d,e"
+
+F54E15 =  N = coker matrix"c,d,e"
+
+F54E16 =  Ext^3(M,N)
+
+F54E17 =  C = complex{id_M, map(M, R^0, 0), map(R^0, N, 0), id_N}
+
+F54E18 =  assert isWellDefined C
+
+F54E19 =  assert(HH C == 0)
+
+F54E20 =  f = yonedaExtension' C
+
+F54E21 =  assert(target f === Ext^3(M,N))
+
+F54E22 =  assert(f == 0)
+
+F54E23 =  D = yonedaExtension f
+
+F54E24 =  assert(C != D)
+
+exampleIDS = {"F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F54E10", "F54E11", "F54E12", "F54E13", "F54E14", "F54E15", "F54E16", "F54E17", "F54E18", "F54E19", "F54E20", "F54E21", "F54E22", "F54E23", "F54E24"}

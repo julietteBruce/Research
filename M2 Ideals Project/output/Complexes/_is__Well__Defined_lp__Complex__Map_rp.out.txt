@@ -1,0 +1,41 @@
+needsPackage "Complexes"
+
+F48E0 =  R = ZZ/101[a,b,c];
+
+F48E1 =  C = freeResolution coker matrix{{a^2-b^2,b^3-c^3,c^4}}
+
+F48E2 =  D = freeResolution coker vars R
+
+F48E3 =  H = hashTable { 0 => map(D_0, C_0, 1),
+
+         1 => map(D_1, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+         2 => map(D_2, C_2, {{a*b^2, 0, 0}, {-a*c^2, a*c^3, 0}, {b*c^2, -b*c^3, b^2*c^3}}),
+
+         3 => map(D_3, C_3, {{a*b^2*c^3}})
+
+         }
+
+F48E4 =  f = map(D, C, H)
+
+F48E5 =  assert isWellDefined f
+
+F48E6 =  assert isHomogeneous f
+
+F48E7 =  assert(degree f == 0)
+
+F48E8 =  assert isComplexMorphism f
+
+F48E9 =  g = randomComplexMap(D,C)
+
+F48E10 =  assert isWellDefined g
+
+F48E11 =  assert not isCommutative g
+
+F48E12 =  h = randomComplexMap(D,C, Cycle => true)
+
+F48E13 =  assert isWellDefined h
+
+F48E14 =  assert isComplexMorphism h
+
+exampleIDS = {"F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F48E6", "F48E7", "F48E8", "F48E9", "F48E10", "F48E11", "F48E12", "F48E13", "F48E14"}

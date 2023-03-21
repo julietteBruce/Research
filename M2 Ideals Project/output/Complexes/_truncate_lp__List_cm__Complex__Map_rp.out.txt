@@ -1,0 +1,45 @@
+needsPackage "Complexes"
+
+F61E0 =  R = QQ[a,b,c];
+
+F61E1 =  C = freeResolution ideal(a*b, a*c, b*c)
+
+F61E2 =  D = (freeResolution ideal(a*b, a*c, b*c, a^2-b^2))[-1]
+
+F61E3 =  f = randomComplexMap(D,C, Cycle => true)
+
+F61E4 =  g = truncate(3,f)
+
+F61E5 =  assert isWellDefined g
+
+F61E6 =  assert (source g == truncate(3, source f))
+
+F61E7 =  assert (target g == truncate(3, target f))
+
+F61E8 =  assert(f == truncate(0, f))
+
+F61E9 =  A = ZZ/101[x_0, x_1, y_0, y_1, y_2, Degrees => {2:{1,0}, 3:{0,1}}];
+
+F61E10 =  I = intersect(ideal(x_0, x_1), ideal(y_0, y_1, y_2))
+
+F61E11 =  C = freeResolution I
+
+F61E12 =  J = intersect(ideal(x_0^2, x_1^2), ideal(y_0^2, y_1^2, y_2^2))
+
+F61E13 =  D = freeResolution J
+
+F61E14 =  f = extend(C, D, id_(A^1))
+
+F61E15 =  g1 = prune truncate({{1,1}}, f)
+
+F61E16 =  g2 = truncate({{1,0}}, f)
+
+F61E17 =  g3 = truncate({{0,1}}, f)
+
+F61E18 =  g4 = truncate({{1,0},{0,1}}, f)
+
+F61E19 =  g5 = truncate({{2,2}}, f)
+
+F61E20 =  assert all({g1,g2,g3,g4,g5}, isWellDefined)
+
+exampleIDS = {"F61E0", "F61E1", "F61E2", "F61E3", "F61E4", "F61E5", "F61E6", "F61E7", "F61E8", "F61E9", "F61E10", "F61E11", "F61E12", "F61E13", "F61E14", "F61E15", "F61E16", "F61E17", "F61E18", "F61E19", "F61E20"}

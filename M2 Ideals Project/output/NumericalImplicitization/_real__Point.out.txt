@@ -1,0 +1,21 @@
+needsPackage "NumericalImplicitization"
+
+F11E0 =  (n,r) = (4,5)
+
+F11E1 =  R = RR[x_(1,1)..x_(n,r)]
+
+F11E2 =  A = transpose genericMatrix(R,r,n)
+
+F11E3 =  I1 = ideal(A*transpose A - (r/n)*id_(R^n));
+
+F11E4 =  I2 = ideal apply(entries transpose A, row -> sum(row, v -> v^2) - 1);
+
+F11E5 =  I = I1 + I2;
+
+F11E6 =  elapsedTime p = realPoint(I, Iterations => 100)
+
+F11E7 =  matrix pack(5, p#Coordinates)
+
+F11E8 =  norm evaluate(gens I, p)
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8"}

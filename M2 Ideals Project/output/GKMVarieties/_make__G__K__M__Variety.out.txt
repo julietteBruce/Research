@@ -1,0 +1,55 @@
+needsPackage "GKMVarieties"
+
+F41E0 =  L = {0,1,2,3};
+
+F41E1 =  R = makeCharacterRing 4
+
+F41E2 =  X = makeGKMVariety(L,R)
+
+F41E3 =  M = {{{-1, 1, 0, 0}, {-1, 0, 1, 0}, {-1, 0, 0, 1}},
+
+             {{1, -1, 0, 0}, {0, -1, 1, 0}, {0, -1, 0, 1}},
+
+             {{1, 0, -1, 0}, {0, 1, -1, 0}, {0, 0, -1, 1}},
+
+             {{1, 0, 0, -1}, {0, 1, 0, -1}, {0, 0, 1, -1}}};
+
+F41E4 =  Y = makeGKMVariety(L,M,R);
+
+F41E5 =  peek Y
+
+F41E6 =  SpGr24 = generalizedFlagVariety("C",2,{2})
+
+F41E7 =  peek SpGr24
+
+F41E8 =  SpFl4 = generalizedFlagVariety("C",2,{1,2})
+
+F41E9 =  peek SpFl4
+
+F41E10 =  V = {{set {0, 1}}, {set {0, "1*"}}, {set {"0*", 1}}, {set {"0*", "1*"}}};
+
+F41E11 =  edgs = {{{set {"0*", 1}}, {set {"0*", "1*"}}},
+
+              {{set {0, "1*"}}, {set {"0*", "1*"}}},
+
+              {{set {0, "1*"}}, {set {"0*", 1}}},
+
+              {{set {0, "1*"}}, {set {0, 1}}},
+
+              {{set {0, 1}}, {set {"0*", "1*"}}},
+
+              {{set {0, 1}}, {set {"0*", 1}}}};
+
+F41E12 =  wghts = {{0,-1},{-1,0},{-1,1},{0,1},{-1,-1},{-1,0}}
+
+F41E13 =  E = hashTable(apply(edgs, v -> (v,wghts)));
+
+F41E14 =  t = symbol t; H = QQ[t_0, t_1]
+
+F41E15 =  G = momentGraph(V,E,H);
+
+F41E16 =  Z = makeGKMVariety(G);
+
+F41E17 =  peek Z
+
+exampleIDS = {"F41E0", "F41E1", "F41E2", "F41E3", "F41E4", "F41E5", "F41E6", "F41E7", "F41E8", "F41E9", "F41E10", "F41E11", "F41E12", "F41E13", "F41E14", "F41E15", "F41E16", "F41E17"}

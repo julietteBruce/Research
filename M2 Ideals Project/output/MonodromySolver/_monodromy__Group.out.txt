@@ -1,0 +1,21 @@
+needsPackage "MonodromySolver"
+
+F6E0 =  setRandomSeed 100;
+
+F6E1 =  declareVariable \ {t_1,t_2,u_0,u_1,u_2,u_3};
+
+F6E2 =  paramMatrix = gateMatrix{{u_0,u_1,u_2,u_3}};
+
+F6E3 =  varMatrix = gateMatrix{{t_1,t_2}};
+
+F6E4 =  phi = transpose gateMatrix{{t_1^3, t_1^2*t_2, t_1*t_2^2, t_2^3}};
+
+F6E5 =  loss = sum for i from 0 to 3 list (u_i - phi_(i,0))^2;
+
+F6E6 =  dLoss = diff(varMatrix, gateMatrix{{loss}});
+
+F6E7 =  G = gateSystem(paramMatrix,varMatrix,transpose dLoss);
+
+F6E8 =  monodromyGroup(G,"msOptions" => {NumberOfEdges=>10})
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8"}

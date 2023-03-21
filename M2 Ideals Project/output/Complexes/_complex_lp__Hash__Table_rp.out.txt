@@ -1,0 +1,25 @@
+needsPackage "Complexes"
+
+F94E0 =  S = ZZ/101[a..d]
+
+F94E1 =  I = ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F94E2 =  F1 = map(S^1,,matrix{{I_0, I_1, I_2}})
+
+F94E3 =  F2 = map(source F1,,matrix{
+
+             {0, I_2, -I_1},
+
+             {-I_2, 0, I_0},
+
+             {I_1, -I_0, 0}
+
+             })
+
+F94E4 =  F3 = map(source F2,,matrix{{I_0}, {I_1}, {I_2}})
+
+F94E5 =  C = complex hashTable{1 => F1, 2 => F2, 3 => F3}
+
+F94E6 =  isWellDefined C
+
+exampleIDS = {"F94E0", "F94E1", "F94E2", "F94E3", "F94E4", "F94E5", "F94E6"}

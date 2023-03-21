@@ -1,0 +1,31 @@
+needsPackage "QthPower"
+
+F6E0 =  wtR = matrix{{31,12}};
+
+F6E1 =  Rq = ZZ/2[y,x,Weights=>entries weightGrevlex(wtR)];
+
+F6E2 =  Iq = {y^12+y^11+y^10*x^2+y^8*x^9+x^31};
+
+F6E3 =  ic1 = qthIntegralClosure(wtR,Rq,Iq)
+
+F6E4 =  ic2 = minimization(ic1); toString ic2
+
+F6E5 =  ic3 = qthIntegralClosure(ic2#0,ic2#1,ic2#2)
+
+F6E6 =  R1=ZZ/2[f38,f31,f12,f5,Weights=> entries weightGrevlex(matrix{{38,31,12,5}})];
+
+F6E7 =  phi1=map(R1,ic2#1,matrix{{0,0,f38,0,f31,0,0,0,0,0,f12,f5}});
+
+F6E8 =  I1=ic2#2/(v->phi1(v))
+
+F6E9 =  G1=transpose gens gb ideal I1
+
+F6E10 =  R2=ZZ/2[f38,f31,f24,f12,f5,MonomialOrder=>{Weights=>{1,1,1,1,0},Weights=>{1,1,1,0,0},Weights=>{1,1,0,0,0},Weights=>{1,0,0,0,0},Weights=>{38,31,24,12,5}}];
+
+F6E11 =  phi2=map(R2,R1,matrix{{f38,f31,f12,f5}});
+
+F6E12 =  I2=ideal((flatten entries G1)/(v->phi2(v)))+ideal(f12^2-f24)
+
+F6E13 =  G2=transpose gens gb I2
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13"}

@@ -1,0 +1,141 @@
+needsPackage "NCAlgebra"
+
+F91E0 =  A = QQ{x,y,z}
+
+F91E1 =  f = y*z + z*y - x^2
+
+F91E2 =  g = x*z + z*x - y^2
+
+F91E3 =  h = z^2 - x*y - y*x
+
+F91E4 =  B = A/ncIdeal{f,g,h}
+
+F91E5 =  centralElements(B,3)
+
+F91E6 =  j = y^3+x*y*z-y*x*z-x^3
+
+F91E7 =  isCentral j
+
+F91E8 =  apply(5,i->isLeftRegular(j,i+1))
+
+F91E9 =  normalElements(B,3,n,o)
+
+F91E10 =  basis(3,B)
+
+F91E11 =  use A
+
+F91E12 =  I = B.ideal
+
+F91E13 =  J = ncIdeal promote(j,A)
+
+F91E14 =  B' = A/(I+J)
+
+F91E15 =  k = ncMatrix {gens B'}
+
+F91E16 =  M = rightKernelBergman rightKernelBergman k
+
+F91E17 =  N = rightKernelBergman M
+
+F91E18 =  BprimeToB = ncMap(B,B',gens B)
+
+F91E19 =  liftM = BprimeToB M
+
+F91E20 =  liftN = BprimeToB N
+
+F91E21 =  liftM*liftN
+
+F91E22 =  jId = promote(j,B)*(ncMatrix applyTable(entries id_(ZZ^4), i -> promote(i,B)))
+
+F91E23 =  assignDegrees(jId,{2,2,2,3},{5,5,5,6});
+
+F91E24 =  M' = jId // liftM
+
+F91E25 =  N
+
+F91E26 =  liftM*M'
+
+F91E27 =  M'*liftM
+
+F91E28 =  C = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+
+F91E29 =  R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+F91E30 =  B = skewPolynomialRing(R,q,{x,y,z,w})
+
+F91E31 =  x*y == q*y*x
+
+F91E32 =  use C
+
+F91E33 =  sigma = ncMap(C,C,{y,z,w,x})
+
+F91E34 =  isWellDefined sigma
+
+F91E35 =  D = oreExtension(C,sigma,a)
+
+F91E36 =  isNormal a
+
+F91E37 =  apply(5,i-> isLeftRegular(a,i+1))
+
+F91E38 =  sigmaD = normalAutomorphism a
+
+F91E39 =  normalElements(sigmaD,1)
+
+F91E40 =  normalElements(sigmaD,2)
+
+F91E41 =  normalElements(D,2,P,Q)
+
+F91E42 =  basis(2,D)
+
+F91E43 =  isNormal (x^2+z^2-y^2-w^2)
+
+F91E44 =  E' = QQ[x,y,z,w,SkewCommutative=>true]
+
+F91E45 =  E = toNCRing E'
+
+F91E46 =  f = ncMap(E,C,gens E)
+
+F91E47 =  f x^2
+
+F91E48 =  use C
+
+F91E49 =  x^2 == 0
+
+F91E50 =  C' = toM2Ring C
+
+F91E51 =  x*y
+
+F91E52 =  x*x
+
+F91E53 =  C'' = toM2Ring(C,SkewCommutative=>true)
+
+F91E54 =  y*x
+
+F91E55 =  y*y
+
+F91E56 =  Dop = oppositeRing D
+
+F91E57 =  a*x == w*a
+
+F91E58 =  use D
+
+F91E59 =  a*w == x*a
+
+F91E60 =  Q = QQ[a,b,c]
+
+F91E61 =  R = Q/ideal{a*b-c^2}
+
+F91E62 =  kRes = res(coker vars R, LengthLimit=>7);
+
+F91E63 =  M = coker kRes.dd_5
+
+F91E64 =  B = endomorphismRing(M,X);
+
+F91E65 =  gensI = gens ideal B
+
+F91E66 =  gensIMin = minimizeRelations(gensI, Verbosity=>1)
+
+F91E67 =  maps = B.cache.endomorphismRingGens
+
+F91E68 =  maps#3 == maps#0*maps#2
+
+exampleIDS = {"F91E0", "F91E1", "F91E2", "F91E3", "F91E4", "F91E5", "F91E6", "F91E7", "F91E8", "F91E9", "F91E10", "F91E11", "F91E12", "F91E13", "F91E14", "F91E15", "F91E16", "F91E17", "F91E18", "F91E19", "F91E20", "F91E21", "F91E22", "F91E23", "F91E24", "F91E25", "F91E26", "F91E27", "F91E28", "F91E29", "F91E30", "F91E31", "F91E32", "F91E33", "F91E34", "F91E35", "F91E36", "F91E37", "F91E38", "F91E39", "F91E40", "F91E41", "F91E42", "F91E43", "F91E44", "F91E45", "F91E46", "F91E47", "F91E48", "F91E49", "F91E50", "F91E51", "F91E52", "F91E53", "F91E54", "F91E55", "F91E56", "F91E57", "F91E58", "F91E59", "F91E60", "F91E61", "F91E62", "F91E63", "F91E64", "F91E65", "F91E66", "F91E67", "F91E68"}

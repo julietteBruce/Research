@@ -1,0 +1,61 @@
+needsPackage "Complexes"
+
+F63E0 =  R = ZZ/101[a,b,c];
+
+F63E1 =  C = freeResolution coker matrix{{a^2-b^2,b^3-c^3,c^4}}
+
+F63E2 =  D = freeResolution coker vars R
+
+F63E3 =  H = hashTable { 0 => map(D_0, C_0, 1),
+
+         1 => map(D_1, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+         2 => map(D_2, C_2, {{a*b^2, 0, 0}, {-a*c^2, a*c^3, 0}, {b*c^2, -b*c^3, b^2*c^3}}),
+
+         3 => map(D_3, C_3, {{a*b^2*c^3}})
+
+         }
+
+F63E4 =  f = map(D, C, H)
+
+F63E5 =  assert isWellDefined f
+
+F63E6 =  assert isHomogeneous f
+
+F63E7 =  assert(degree f == 0)
+
+F63E8 =  assert isComplexMorphism f
+
+F63E9 =  E = D[-3]
+
+F63E10 =  H = hashTable { 0 => map(E_3, C_0, 1),
+
+          1 => map(E_4, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+          3 => map(E_6, C_3, {{a*b^2*c^3}})
+
+          }
+
+F63E11 =  g = map(E, C, H, Degree => 3)
+
+F63E12 =  g_2
+
+F63E13 =  assert(g_1 == f_1)
+
+F63E14 =  assert(g != f)
+
+F63E15 =  assert isWellDefined g
+
+F63E16 =  assert isHomogeneous g
+
+F63E17 =  assert(degree g == 3)
+
+F63E18 =  assert not isComplexMorphism g
+
+F63E19 =  assert not isCommutative g
+
+F63E20 =  assert(source g == C)
+
+F63E21 =  assert(target g == E)
+
+exampleIDS = {"F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F63E7", "F63E8", "F63E9", "F63E10", "F63E11", "F63E12", "F63E13", "F63E14", "F63E15", "F63E16", "F63E17", "F63E18", "F63E19", "F63E20", "F63E21"}

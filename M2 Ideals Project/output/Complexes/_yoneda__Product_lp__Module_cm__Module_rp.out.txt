@@ -1,0 +1,33 @@
+needsPackage "Complexes"
+
+F111E0 =  S = ZZ/101[x_0..x_3];
+
+F111E1 =  I = borel monomialIdeal(x_1*x_2)
+
+F111E2 =  E1 = Ext^1(S^1/I, S^1/I)
+
+F111E3 =  h = yonedaProduct(E1, E1)
+
+F111E4 =  assert isWellDefined h
+
+F111E5 =  assert(target h == Ext^2(S^1/I, S^1/I))
+
+F111E6 =  coker h == 0
+
+F111E7 =  R = S/(x_0*x_1, x_2*x_3);
+
+F111E8 =  E1 = Ext^1(R^1/(x_0, x_2), R^1/(x_0, x_2, x_3))
+
+F111E9 =  E2 = Ext^2(R^1/(x_0, x_2, x_3), R^1/(x_0, x_1, x_2, x_3))
+
+F111E10 =  E3 = Ext^3(R^1/(x_0, x_2), R^1/(x_0, x_1, x_2, x_3))
+
+F111E11 =  h = yonedaProduct(E1, E2)
+
+F111E12 =  assert isWellDefined h
+
+F111E13 =  assert(target h == E3)
+
+F111E14 =  prune coker h
+
+exampleIDS = {"F111E0", "F111E1", "F111E2", "F111E3", "F111E4", "F111E5", "F111E6", "F111E7", "F111E8", "F111E9", "F111E10", "F111E11", "F111E12", "F111E13", "F111E14"}

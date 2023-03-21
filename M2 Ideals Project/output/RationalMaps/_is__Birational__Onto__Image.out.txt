@@ -1,0 +1,31 @@
+needsPackage "RationalMaps"
+
+F8E0 =  R=QQ[x,y];
+
+F8E1 =  S=QQ[a,b,c,d];
+
+F8E2 =  Pi = map(R, S, {x^3, x^2*y, x*y^2, y^3});
+
+F8E3 =  isBirationalOntoImage(Pi, Verbosity=>0)
+
+F8E4 =  isBirationalMap(Pi,  Verbosity=>0)
+
+F8E5 =  A = QQ[z_0..z_6];
+
+F8E6 =  H=map(A^4,4,(i,j)->A_(i+j));
+
+F8E7 =  SH=sub(H,{z_5=>0,z_6=>0})
+
+F8E8 =  sh=map(A, A, transpose jacobian ideal det SH );
+
+F8E9 =  isBirationalOntoImage(sh, Verbosity=>0)
+
+F8E10 =  B=QQ[t_0..t_4];
+
+F8E11 =  li=map(B,A,matrix{{t_0..t_4,0,0}});
+
+F8E12 =  phi=li*sh;
+
+F8E13 =  isBirationalOntoImage(phi, HybridLimit=>2)
+
+exampleIDS = {"F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F8E12", "F8E13"}

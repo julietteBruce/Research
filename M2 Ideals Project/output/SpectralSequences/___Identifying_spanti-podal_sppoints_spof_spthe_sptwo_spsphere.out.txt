@@ -1,0 +1,41 @@
+needsPackage "SpectralSequences"
+
+F25E0 =  S = ZZ[v1,v2,v3,v4,v5,v6,v15,v12,v36,v34,v46,v25];
+
+F25E1 =  twoSphere = simplicialComplex {v3*v4*v5, v5*v4*v15, v15*v34*v4, v15*v34*v1, v34*v1*v6, v34*v46*v6, v36*v46*v6, v3*v4*v46, v4*v46*v34, v3*v46*v36, v1*v6*v2, v6*v2*v36, v2*v36*v12,v36*v12*v3, v12*v3*v5, v12*v5*v25, v25*v5*v15, v2*v12*v25, v1*v2*v25, v1*v25*v15};
+
+F25E2 =  C = truncate(chainComplex twoSphere,1)
+
+F25E3 =  prune HH C
+
+F25E4 =  R = ZZ[a,b,c,d,e,f];
+
+F25E5 =  realProjectivePlane = simplicialComplex {a*b*c, b*c*d, c*d*e, a*e*d, e*b*a, e*f*b, d*f*b, a*f*d, c*f*e,a*f*c};
+
+F25E6 =  B = truncate(chainComplex realProjectivePlane,1)
+
+F25E7 =  prune HH B
+
+F25E8 =  F0twoSphere = simplicialComplex {v1,v3,v5,v6, v4,v2, v36,v15, v34,v12, v46,v25}
+
+F25E9 =  F1twoSphere = simplicialComplex {v3*v4, v1*v2,v3*v5, v1*v6,v4*v5, v2*v6, v5*v15, v6*v36, v4*v34, v2*v12, v15*v34, v36*v12, v1*v15, v3*v36, v46*v34, v25*v12, v6*v34, v5*v12, v6*v46, v5*v25, v36*v46, v15*v25, v3*v46, v1*v25, v4*v15, v2*v36, v1*v34, v3*v12, v4*v46, v25*v2}
+
+F25E10 =  F2twoSphere = twoSphere
+
+F25E11 =  K = filteredComplex({F2twoSphere, F1twoSphere, F0twoSphere}, ReducedHomology => false)
+
+F25E12 =  E = prune spectralSequence K
+
+F25E13 =  E^0
+
+F25E14 =  E^1
+
+F25E15 =  E^0 .dd
+
+F25E16 =  E^1 .dd
+
+F25E17 =  E^2
+
+F25E18 =  E^2 .dd
+
+exampleIDS = {"F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F25E13", "F25E14", "F25E15", "F25E16", "F25E17", "F25E18"}

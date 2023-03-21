@@ -1,0 +1,99 @@
+needsPackage "Complexes"
+
+F22E0 =  S = ZZ/101[x_0..x_8];
+
+F22E1 =  C = complex{genericMatrix(S,x_0,2,1)}
+
+F22E2 =  D = complex{genericMatrix(S,x_2,1,2)}
+
+F22E3 =  F = C ** D
+
+F22E4 =  G = D ** C
+
+F22E5 =  f = tensorCommutativity(C,D)
+
+F22E6 =  assert isWellDefined f
+
+F22E7 =  assert isComplexMorphism f
+
+F22E8 =  assert(source f === F)
+
+F22E9 =  assert(target f === G)
+
+F22E10 =  assert(f_1 != id_(source f_1))
+
+F22E11 =  assert(prune ker f == 0)
+
+F22E12 =  assert(prune coker f == 0)
+
+F22E13 =  g = f^-1
+
+F22E14 =  assert isWellDefined g
+
+F22E15 =  assert(g * f == 1)
+
+F22E16 =  assert(f * g == 1)
+
+F22E17 =  ses = (I,J) -> (
+
+          complex{
+
+              map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}}),
+
+              map(S^1/I ++ S^1/J, S^1/(intersect(I,J)), {{1},{-1}})
+
+              }
+
+          )
+
+F22E18 =  C = ses(ideal(x_0,x_1), ideal(x_1,x_2))
+
+F22E19 =  D = ses(ideal(x_3,x_4,x_5), ideal(x_6,x_7,x_8))
+
+F22E20 =  h = tensorCommutativity(C, D);
+
+F22E21 =  assert isWellDefined h
+
+F22E22 =  assert isComplexMorphism h
+
+F22E23 =  assert(ker h == 0)
+
+F22E24 =  assert(coker h == 0)
+
+F22E25 =  k = h^-1;
+
+F22E26 =  assert(h*k == 1)
+
+F22E27 =  assert(k*h == 1)
+
+F22E28 =  h_2
+
+F22E29 =  assert(source h_2 != target h_2)
+
+F22E30 =  h1 = tensorCommutativity(D, C)
+
+F22E31 =  assert isComplexMorphism h1
+
+F22E32 =  assert(h1*h == id_(C**D))
+
+F22E33 =  assert(h*h1 == id_(D**C))
+
+F22E34 =  C = freeResolution ideal(x_0^2, x_1^2)
+
+F22E35 =  D = freeResolution ideal(x_0, x_1)
+
+F22E36 =  f = extend(D, C, map(D_0, C_0, 1))
+
+F22E37 =  E = freeResolution ideal(x_2^3, x_3^3, x_4^3)
+
+F22E38 =  F = freeResolution ideal(x_2, x_3, x_4)
+
+F22E39 =  g = extend(F, E, map(F_0, E_0, 1))
+
+F22E40 =  assert(tensorCommutativity(D,F) * (f**g) == (g**f) * tensorCommutativity(C,E))
+
+F22E41 =  assert isComplexMorphism tensorCommutativity(D,F)
+
+F22E42 =  assert isComplexMorphism tensorCommutativity(C,E)
+
+exampleIDS = {"F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F22E14", "F22E15", "F22E16", "F22E17", "F22E18", "F22E19", "F22E20", "F22E21", "F22E22", "F22E23", "F22E24", "F22E25", "F22E26", "F22E27", "F22E28", "F22E29", "F22E30", "F22E31", "F22E32", "F22E33", "F22E34", "F22E35", "F22E36", "F22E37", "F22E38", "F22E39", "F22E40", "F22E41", "F22E42"}

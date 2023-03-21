@@ -1,0 +1,49 @@
+needsPackage "SVDComplexes"
+
+F0E0 =  needsPackage "RandomComplexes"
+
+F0E1 =  setRandomSeed "a good example";
+
+F0E2 =  h={2,3,5,2}
+
+F0E3 =  r={4,3,3}
+
+F0E4 =  elapsedTime C=randomChainComplex(h,r,Height=>5,ZeroMean=>true)
+
+F0E5 =  C.dd^2
+
+F0E6 =  CR=(C**RR_53)
+
+F0E7 =  h=(SVDHomology CR)_0
+
+F0E8 =  D=disturb(C,1e-2,Strategy=>Discrete)
+
+F0E9 =  C.dd_1
+
+F0E10 =  D.dd_1
+
+F0E11 =  D.dd^2
+
+F0E12 =  C'=projectToComplex(D,h)
+
+F0E13 =  C'.dd^2
+
+F0E14 =  euclideanDistance(C',D)
+
+F0E15 =  euclideanDistance(CR,D)
+
+F0E16 =  euclideanDistance(C',CR)
+
+F0E17 =  Dd=dual D
+
+F0E18 =  Dd[1]
+
+F0E19 =  hd=(SVDHomology((dual CR)[1]))_0
+
+F0E20 =  C''=(dual projectToComplex(Dd[1],hd))[1]
+
+F0E21 =  C''.dd_1,C'.dd_1
+
+F0E22 =  euclideanDistance(CR,D), euclideanDistance(C'',D), euclideanDistance(C',D)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19", "F0E20", "F0E21", "F0E22"}

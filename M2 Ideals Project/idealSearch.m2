@@ -16,7 +16,6 @@ parentRing(Thing) := (t) -> (
 	t
 	)
     )
-
     
 isAmbientOK = method();
 isAmbientOK(Thing) := (t) -> (
@@ -86,7 +85,29 @@ buildExampleFromEntry(HashTable) := (H) -> (
     value H#"object"
     )
 
+
+buildDatabaseFromFolder = method();
+buildDatabaseFromFolder(String,String,String) := (folderPath,outputPath,overviewPath) -> (
+    overviewHash = value get overviewPath;
+    applyPairs(overviewHash, (packageNumber, packageName)->(
+	    print packageNumber;
+	    filePath = folderPath|"/"|toString(packageName)|".txt";
+	    databaseForPackage = buildPackageDatabase(filePath,toString(packageNumber),toString(packageName),desiredTypes);
+	    g = openOut (outputPath|"/"|toString(packageName)|".txt");
+	    g << toExternalString databaseForPackage;
+	    g << endl;
+	    close g;
+	    ))
+    )
+
 desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing,Ring,EngineRing}
+
+folderPath = "outTest"
+overviewPath = "outTest/overview.txt"
+outputPath = "outM2"
+
+
+
 filePath = "VirRes-test.txt"
 packageName = "VirtualResolutions"
 packageNumber = "P2"

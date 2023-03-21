@@ -1,0 +1,27 @@
+needsPackage "SimplicialComplexes"
+
+F66E0 =  S = ZZ[x_0..x_3];
+
+F66E1 =  Δ = simplicialComplex{x_0*x_1*x_2, x_2*x_3, x_1*x_3}
+
+F66E2 =  Γ = inducedSubcomplex(Δ, {x_1, x_2, x_3})
+
+F66E3 =  vertices Γ
+
+F66E4 =  assert (isWellDefined Γ and set vertices Γ === set {x_1, x_2, x_3})
+
+F66E5 =  assert all (facets Γ, F -> member(F, faces(#support F - 1, Δ)))
+
+F66E6 =  void = simplicialComplex monomialIdeal(1_S);
+
+F66E7 =  inducedSubcomplex(void, {})
+
+F66E8 =  assert(void === inducedSubcomplex(void, {}))
+
+F66E9 =  irrelevant = simplicialComplex {1_S};
+
+F66E10 =  inducedSubcomplex(irrelevant, {})
+
+F66E11 =  assert(irrelevant === inducedSubcomplex(irrelevant, {}))
+
+exampleIDS = {"F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F66E7", "F66E8", "F66E9", "F66E10", "F66E11"}

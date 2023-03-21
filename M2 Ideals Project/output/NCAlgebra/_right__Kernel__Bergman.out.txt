@@ -1,0 +1,27 @@
+needsPackage "NCAlgebra"
+
+F117E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F117E1 =  A = ambient B
+
+F117E2 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F117E3 =  C = A/(ideal B + ncIdeal g)
+
+F117E4 =  M3 = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+F117E5 =  assignDegrees(M3,{1,0,0,0},{2,2,2,1})
+
+F117E6 =  ker1M3 = rightKernelBergman(M3)
+
+F117E7 =  M3*ker1M3 == 0
+
+F117E8 =  ker2M3 = rightKernelBergman(ker1M3)
+
+F117E9 =  ker1M3*ker2M3 == 0
+
+F117E10 =  ker3M3 = rightKernelBergman(ker2M3)
+
+F117E11 =  ker2M3*ker3M3 == 0
+
+exampleIDS = {"F117E0", "F117E1", "F117E2", "F117E3", "F117E4", "F117E5", "F117E6", "F117E7", "F117E8", "F117E9", "F117E10", "F117E11"}

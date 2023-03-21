@@ -1,0 +1,43 @@
+needsPackage "Complexes"
+
+F0E0 =  R = ZZ/101[a..d];
+
+F0E1 =  C1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F0E2 =  C2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F0E3 =  D1 = (freeResolution coker matrix{{a,b,c}})
+
+F0E4 =  D2 = freeResolution coker matrix{{a^2, b^2, c^2}}[-1]
+
+F0E5 =  f = randomComplexMap(D1, C1, Cycle => true)
+
+F0E6 =  g = randomComplexMap(D2, C2, Cycle => true)
+
+F0E7 =  h = f ++ g
+
+F0E8 =  h_[0] == h * (C1 ++ C2)_[0]
+
+F0E9 =  h_[1] == h * (C1 ++ C2)_[1]
+
+F0E10 =  h^[0] == (D1 ++ D2)^[0] * h
+
+F0E11 =  h^[1] == (D1 ++ D2)^[1] * h
+
+F0E12 =  h_[0]^[0] == f
+
+F0E13 =  h_[1]^[1] == g
+
+F0E14 =  h_[0]^[1] == 0
+
+F0E15 =  h_[1]^[0] == 0
+
+F0E16 =  assert(h == map(D1 ++ D2, C1 ++ C2, {{f,0},{0,g}}))
+
+F0E17 =  h = (mike => f) ++ (greg => g)
+
+F0E18 =  h_[mike]^[mike] == f
+
+F0E19 =  h_[greg]^[greg] == g
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19"}

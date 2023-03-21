@@ -1,0 +1,27 @@
+needsPackage "SubalgebraBases"
+
+F7E0 =  gndR = QQ[(t_1..t_3)|(w_1..w_3)|(v_1..v_3), MonomialOrder => Lex];
+
+F7E1 =  translation := matrix {{w_1}, {w_2}, {w_3}, {t_1*w_2+t_2*w_3+v_1}, {-t_1*w_1+t_3*w_3+v_2}, {-t_2*w_1-t_3*w_2+v_3}};
+
+F7E2 =  sag := sagbi transpose translation;
+
+F7E3 =  netList first entries gens sag
+
+F7E4 =  R = QQ[x_1..x_9, MonomialOrder => Lex];
+
+F7E5 =  eqns := {x_1^2+x_2^2+x_3^2-1, x_1*x_4+x_2*x_5+x_3*x_6, x_1*x_7+x_2*x_8+x_3*x_9, x_1*x_4+x_2*x_5+x_3*x_6,
+
+              x_4^2+x_5^2+x_6^2-1, x_4*x_7+x_5*x_8+x_6*x_9, x_1*x_7+x_2*x_8+x_3*x_9, x_4*x_7+x_5*x_8+x_6*x_9,
+
+              x_7^2+x_8^2+x_9^2-1, x_1*x_5*x_9-x_1*x_6*x_8-x_2*x_4*x_9+x_2*x_6*x_7+x_3*x_4*x_8-x_3*x_5*x_7-1};
+
+F7E6 =  sag1 = subring sagbi eqns;
+
+F7E7 =  SB = sagbi(sag1, Limit => 100);
+
+F7E8 =  isSAGBI SB
+
+F7E9 =  netList first entries gens SB
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9"}

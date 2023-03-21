@@ -1,0 +1,37 @@
+needsPackage "Schubert2"
+
+F30E0 =  p = point
+
+F30E1 =  S = intersectionRing p
+
+F30E2 =  Y = projectiveBundle(5,p)
+
+F30E3 =  A = intersectionRing Y
+
+F30E4 =  B = S[h, Join => false]/h^3 -- A^*(P2), but using 2 times a line as the generating class:
+
+F30E5 =  integral B := (b) -> (4 * coefficient((B_0)^2, b))
+
+F30E6 =  c = 1 + (9/2)*h + (15/2)*h^2 -- normal class
+
+F30E7 =  f = map(B,A,{-h, h, h^2, h^3, h^4, h^5})
+
+F30E8 =  i = inclusion(f,
+
+         NormalClass => c,
+
+         Codimension => 3,
+
+         Base => p) -- Base not necessary, will be correctly computed
+
+F30E9 =  Z = target i
+
+F30E10 =  X = source i
+
+F30E11 =  Xstruct = X / point
+
+F30E12 =  rank Xstruct_* tangentBundle X
+
+F30E13 =  integral chern tangentBundle Z
+
+exampleIDS = {"F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13"}

@@ -1,0 +1,89 @@
+needsPackage "Complexes"
+
+F50E0 =  S = ZZ/101[a..c];
+
+F50E1 =  C = freeResolution coker vars S
+
+F50E2 =  D = (freeResolution coker matrix{{a^2,a*b,b^3}})[-1]
+
+F50E3 =  f = randomComplexMap(D,C)
+
+F50E4 =  E = (dual C)[-3]
+
+F50E5 =  F = (dual D)[-3]
+
+F50E6 =  g = randomComplexMap(F,E)
+
+F50E7 =  h = Hom(f,g)
+
+F50E8 =  assert isWellDefined h
+
+F50E9 =  assert(source h === Hom(D,E))
+
+F50E10 =  assert(target h === Hom(C,F))
+
+F50E11 =  e = randomComplexMap(source h, complex(S^1))
+
+F50E12 =  phi = homomorphism e
+
+F50E13 =  psi = homomorphism'(g * phi * f)
+
+F50E14 =  assert(h*e == psi)
+
+F50E15 =  assert(Hom(f, C) == Hom(f, id_C))
+
+F50E16 =  assert(Hom(C, f) == Hom(id_C, f))
+
+F50E17 =  assert(Hom(f, S) == Hom(f, id_(complex S)))
+
+F50E18 =  assert(Hom(S, f) == Hom(id_(complex S), f))
+
+F50E19 =  M = S^1/(a^2, b^2, c^2)
+
+F50E20 =  assert(Hom(f, M) == Hom(f, id _ (complex M)))
+
+F50E21 =  assert(Hom(M, f) == Hom(id _ (complex M), f))
+
+F50E22 =  m = vars S;
+
+F50E23 =  h1 = Hom(f, m)
+
+F50E24 =  assert(h1 == Hom(f, map(complex target m, complex source m, i -> m)))
+
+F50E25 =  m = vars S;
+
+F50E26 =  h2 = Hom(m, f)
+
+F50E27 =  assert(h2 == Hom(map(complex target m, complex source m, i -> m), f))
+
+F50E28 =  e = randomComplexMap(source h, complex(S^1, Base => -1))
+
+F50E29 =  phi = homomorphism e
+
+F50E30 =  assert(degree phi == -1)
+
+F50E31 =  psi = homomorphism'(g * phi * f)
+
+F50E32 =  i = map(complex S^1, source e, id_(source e), Degree => 1)
+
+F50E33 =  assert(h*e == psi*i)
+
+F50E34 =  assert((degree h, degree e, degree psi, degree i) === (0, 0, -1, 1))
+
+F50E35 =  D' = (freeResolution coker matrix{{a^2,a*b,c^3}})[-1]
+
+F50E36 =  f' = randomComplexMap(D', D)
+
+F50E37 =  Hom(f' * f, g) == Hom(f, id_F) * Hom(f', g)
+
+F50E38 =  Hom(f' * f, g) == Hom(f, g) * Hom(f', id_E)
+
+F50E39 =  F' = dual (freeResolution coker matrix{{a^2,a*b,a*c,b^3}})[-3]
+
+F50E40 =  g' = randomComplexMap(F', F)
+
+F50E41 =  Hom(f, g' * g) == Hom(f, g') * Hom(id_D, g)
+
+F50E42 =  Hom(f, g' * g) == Hom(id_C, g') * Hom(f, g)
+
+exampleIDS = {"F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F50E5", "F50E6", "F50E7", "F50E8", "F50E9", "F50E10", "F50E11", "F50E12", "F50E13", "F50E14", "F50E15", "F50E16", "F50E17", "F50E18", "F50E19", "F50E20", "F50E21", "F50E22", "F50E23", "F50E24", "F50E25", "F50E26", "F50E27", "F50E28", "F50E29", "F50E30", "F50E31", "F50E32", "F50E33", "F50E34", "F50E35", "F50E36", "F50E37", "F50E38", "F50E39", "F50E40", "F50E41", "F50E42"}

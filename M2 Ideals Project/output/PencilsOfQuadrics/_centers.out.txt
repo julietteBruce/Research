@@ -1,0 +1,33 @@
+needsPackage "PencilsOfQuadrics"
+
+F18E0 =  kk=ZZ/101
+
+F18E1 =  n=2*d
+
+F18E2 =  R=kk[a_0..a_(binomial(n+2,2)-1)]
+
+F18E3 =  S=kk[x_0..x_(n-1),a_0..a_(binomial(n+2,2)-1)]
+
+F18E4 =  M=genericSymmetricMatrix(S,a_0,n)
+
+F18E5 =  X=(vars S)_{0..n-1}
+
+F18E6 =  Y=X*M
+
+F18E7 =  (M1,M2)=matrixFactorizationK(X,Y);
+
+F18E8 =  (eOdd,eEv)=cliffordOperators(M1,M2,R);
+
+F18E9 =  sM = symMatrix(eOdd,eEv)
+
+F18E10 =  f = det sM
+
+F18E11 =  f == (cliffordModule(eOdd,eEv)).hyperellipticBranchEquation
+
+F18E12 =  (c0,c1)=centers(eOdd,eEv)
+
+F18E13 =  assert(c0^2-(-1)^d*f*id_(source c0)==0)
+
+F18E14 =  assert(c1^2-(-1)^d*f*id_(source c1)==0)
+
+exampleIDS = {"F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14"}

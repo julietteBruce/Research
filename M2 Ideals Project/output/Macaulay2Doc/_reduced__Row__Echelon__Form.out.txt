@@ -1,0 +1,65 @@
+needsPackage "Macaulay2Doc"
+
+F188E0 =  R0 = matrix(QQ, {{1,0,3,0,5},{0,1,-2,0,2},{0,0,0,1,7}})
+
+F188E1 =  B = matrix(QQ, {{1,2,3},{0,3,-1},{1,2,0}})
+
+F188E2 =  A = B * R0
+
+F188E3 =  R = reducedRowEchelonForm A
+
+F188E4 =  assert(R == R0)
+
+F188E5 =  LUdecomposition A
+
+F188E6 =  A5 = sub(A, ZZ/5)
+
+F188E7 =  reducedRowEchelonForm A5
+
+F188E8 =  rank A5
+
+F188E9 =  AR = sub(A, RR)
+
+F188E10 =  LUdecomposition AR
+
+F188E11 =  SVD AR
+
+F188E12 =  AC = sub(A, CC)
+
+F188E13 =  LUdecomposition AC
+
+F188E14 =  SVD AC
+
+F188E15 =  A9 = sub(A, GF 9)
+
+F188E16 =  R9 = reducedRowEchelonForm A9
+
+F188E17 =  S = frac(QQ[x])
+
+F188E18 =  R = matrix(S, {{1,0,x,0,x^2+1},{0,1,-1/x,0,2*x},{0,0,0,1,7*x}})
+
+F188E19 =  B = matrix(S, {{1,2*x,3},{0,3,-x},{1,2*x^2,0}})
+
+F188E20 =  A = B * R
+
+F188E21 =  LUdecomposition A
+
+F188E22 =  M = mutableMatrix A
+
+F188E23 =  rowAdd(M, 2, -1, 0)
+
+F188E24 =  rowMult(M, 1, 1/M_(1,1))
+
+F188E25 =  rowAdd(M, 2, -M_(2,1), 1)
+
+F188E26 =  rowMult(M, 2, 1/M_(2,3))
+
+F188E27 =  rowAdd(M, 0, -M_(0,1), 1)
+
+F188E28 =  rowAdd(M, 0, -M_(0,3), 2)
+
+F188E29 =  rowAdd(M, 1, -M_(1,3), 2)
+
+F188E30 =  assert(R == matrix M)
+
+exampleIDS = {"F188E0", "F188E1", "F188E2", "F188E3", "F188E4", "F188E5", "F188E6", "F188E7", "F188E8", "F188E9", "F188E10", "F188E11", "F188E12", "F188E13", "F188E14", "F188E15", "F188E16", "F188E17", "F188E18", "F188E19", "F188E20", "F188E21", "F188E22", "F188E23", "F188E24", "F188E25", "F188E26", "F188E27", "F188E28", "F188E29", "F188E30"}

@@ -1,0 +1,59 @@
+needsPackage "SimplicialComplexes"
+
+F64E0 =  S = ZZ[a..h];
+
+F64E1 =  Δ = skeleton(2, simplexComplex(3, S))
+
+F64E2 =  prune homology(0, Δ)
+
+F64E3 =  prune homology(1, Δ)
+
+F64E4 =  prune homology(2, Δ)
+
+F64E5 =  assert(homology(2, Δ) === HH_2 Δ)
+
+F64E6 =  prune homology(2, Δ, QQ)
+
+F64E7 =  prune homology(2, Δ, ZZ/2)
+
+F64E8 =  assert(prune homology(0, Δ) === ZZ^0)
+
+F64E9 =  assert(prune homology(1, Δ) === ZZ^0)
+
+F64E10 =  assert(prune homology(2, Δ) === ZZ^1)
+
+F64E11 =  Γ = kleinBottleComplex S
+
+F64E12 =  prune homology(0, Γ)
+
+F64E13 =  prune homology(1, Γ)
+
+F64E14 =  prune homology(1, Γ, QQ)
+
+F64E15 =  prune homology(1, Γ, ZZ/2)
+
+F64E16 =  assert(homology(1, Γ, ZZ/2) === HH_1(Γ, ZZ/2))
+
+F64E17 =  prune homology(2, Γ)
+
+F64E18 =  assert(prune homology(0, Γ) === ZZ^0)
+
+F64E19 =  assert(prune homology(1, Γ, QQ) === QQ^1)
+
+F64E20 =  assert(prune homology(1, Γ, ZZ/2) === (ZZ/2)^2)
+
+F64E21 =  assert(prune homology(2, Γ) === ZZ^0)
+
+F64E22 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F64E23 =  homology(-1, irrelevant)
+
+F64E24 =  assert(homology(-1, irrelevant) === ZZ^1)
+
+F64E25 =  void = simplicialComplex monomialIdeal 1_S
+
+F64E26 =  homology(-1, void)
+
+F64E27 =  assert(homology(-1, void) === ZZ^0)
+
+exampleIDS = {"F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F64E5", "F64E6", "F64E7", "F64E8", "F64E9", "F64E10", "F64E11", "F64E12", "F64E13", "F64E14", "F64E15", "F64E16", "F64E17", "F64E18", "F64E19", "F64E20", "F64E21", "F64E22", "F64E23", "F64E24", "F64E25", "F64E26", "F64E27"}

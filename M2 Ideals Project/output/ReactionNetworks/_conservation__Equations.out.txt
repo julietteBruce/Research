@@ -1,0 +1,43 @@
+needsPackage "ReactionNetworks"
+
+F31E0 =  N = reactionNetwork "A <--> 2B, A + C <--> D, B + E --> A + C, D --> B+E"
+
+F31E1 =  R = createRing(N, QQ)
+
+F31E2 =  conservationEquations N
+
+F31E3 =  N = modificationOfTwoSubstratesI()
+
+F31E4 =  createRing(N,QQ)
+
+F31E5 =  netList conservationEquations N
+
+F31E6 =  N = twoLayerCascadeL()
+
+F31E7 =  R = createRing(N, ZZ/2)
+
+F31E8 =  G = conservationEquations(N, ZZ/2)
+
+F31E9 =  N = twoLayerCascadeL()
+
+F31E10 =  N.Species
+
+F31E11 =  R = createRing(N,QQ)
+
+F31E12 =  G = conservationEquations(N, QQ)
+
+F31E13 =  N = reactionNetwork("A --> 2B, A + C --> D, D --> 0", NullSymbol => "0")
+
+F31E14 =  R = createRing N
+
+F31E15 =  CE = conservationEquations N
+
+F31E16 =  L = {1,2,3,4}
+
+F31E17 =  Iv = toList(apply(0..length N.InitialValues-1, i-> value(N.InitialValues#i)))
+
+F31E18 =  S=toList(apply(0..length Iv-1, i-> Iv#i=>L#i))
+
+F31E19 =  toList apply(0..length CE-1, i-> sub(CE#i,S))
+
+exampleIDS = {"F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F31E7", "F31E8", "F31E9", "F31E10", "F31E11", "F31E12", "F31E13", "F31E14", "F31E15", "F31E16", "F31E17", "F31E18", "F31E19"}

@@ -1,0 +1,31 @@
+needsPackage "Complexes"
+
+F57E0 =  R = QQ[a,b,c,d];
+
+F57E1 =  S = QQ[s,t];
+
+F57E2 =  phi = map(S, R, {s, s+t, t, s-t})
+
+F57E3 =  I = ideal(a*b, b*c, c*d)
+
+F57E4 =  J = I + ideal(a^2, b^2, c^2, d^2)
+
+F57E5 =  CI = freeResolution I
+
+F57E6 =  CJ = freeResolution J
+
+F57E7 =  f = extend(CJ, CI, map(CJ_0, CI_0, 1))
+
+F57E8 =  assert isWellDefined f
+
+F57E9 =  g = phi ** f
+
+F57E10 =  assert isWellDefined g
+
+F57E11 =  dd^(source g)
+
+F57E12 =  dd^(target g)
+
+F57E13 =  prune HH g
+
+exampleIDS = {"F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F57E5", "F57E6", "F57E7", "F57E8", "F57E9", "F57E10", "F57E11", "F57E12", "F57E13"}

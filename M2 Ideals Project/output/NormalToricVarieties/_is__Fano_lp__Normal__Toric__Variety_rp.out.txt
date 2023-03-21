@@ -1,0 +1,27 @@
+needsPackage "NormalToricVarieties"
+
+F69E0 =  PP3 = toricProjectiveSpace 3;
+
+F69E1 =  assert isFano PP3
+
+F69E2 =  K = toricDivisor PP3
+
+F69E3 =  isAmple (-K)
+
+F69E4 =  assert all (5, d -> isFano toricProjectiveSpace (d+1))
+
+F69E5 =  assert all (18, i -> (X := smoothFanoToricVariety (3,i); isSmooth X and isFano X))
+
+F69E6 =  X = normalToricVariety matrix {{1,0,-1},{0,1,-1}};
+
+F69E7 =  assert (not isSmooth X and isFano X)
+
+F69E8 =  Y = normalToricVariety matrix {{1,1,-1,-1},{0,1,1,-1}};
+
+F69E9 =  assert (not isSmooth Y and isFano Y)
+
+F69E10 =  Z = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F69E11 =  assert (not isSmooth Z and isFano Z)
+
+exampleIDS = {"F69E0", "F69E1", "F69E2", "F69E3", "F69E4", "F69E5", "F69E6", "F69E7", "F69E8", "F69E9", "F69E10", "F69E11"}

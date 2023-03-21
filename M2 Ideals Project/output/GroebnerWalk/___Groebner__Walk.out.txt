@@ -1,0 +1,19 @@
+needsPackage "GroebnerWalk"
+
+F3E0 =  R1 = QQ[x,y,z,u,v, MonomialOrder=>Weights=>{1,1,1,0,0}];
+
+F3E1 =  I1 = ideal(u + u^2 - 2*v - 2*u^2*v + 2*u*v^2 - x,
+
+                -6*u + 2*v + v^2 - 5*v^3 + 2*u*v^2 - 4*u^2*v^2 - y,
+
+                -2 + 2*u^2 + 6*v - 3*u^2*v^2 - z);
+
+F3E2 =  R2 = QQ[x,y,z,u,v, MonomialOrder=>Weights=>{0,0,0,1,1}];
+
+F3E3 =  I2 = sub(I1, R2);
+
+F3E4 =  elapsedTime gb I2
+
+F3E5 =  elapsedTime groebnerWalk(gb I1, R2)
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5"}

@@ -1,0 +1,35 @@
+needsPackage "Schubert2"
+
+F51E0 =  X = abstractProjectiveSpace 0
+
+F51E1 =  Y = abstractProjectiveSpace 2
+
+F51E2 =  i = map(Y,X,OO_X)
+
+F51E3 =  (Ytilde, PN, PNmap, Ymap) = blowup(i)
+
+F51E4 =  Ediv = chern(1, exceptionalDivisor Ytilde) -- the class of the exceptional divisor
+
+F51E5 =  integral (Ediv^2)
+
+F51E6 =  B = base(r,s,t)
+
+F51E7 =  X = abstractProjectiveSpace(1, B)
+
+F51E8 =  Y = abstractProjectiveSpace(3, B)
+
+F51E9 =  i = map(Y,X,OO_X(3)) --includes P^1 into P^3 as the twisted cubic
+
+F51E10 =  (Ytilde, PN, PNmap, Ymap) = blowup(i)
+
+F51E11 =  Ediv = chern(1, exceptionalDivisor Ytilde)
+
+F51E12 =  hyperplane = chern(1,OO_Y(1))
+
+F51E13 =  (rsurf, ssurf, tsurf) = (x -> hyperplane * x) \ (r,s,t) --classes of surfaces of degrees r,s,t
+
+F51E14 =  (ptr, pts, ptt) = (x -> (Ymap^* x) - Ediv) \ oo --proper transforms of each surface
+
+F51E15 =  integral(ptr * pts * ptt)
+
+exampleIDS = {"F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F51E9", "F51E10", "F51E11", "F51E12", "F51E13", "F51E14", "F51E15"}

@@ -1,0 +1,35 @@
+needsPackage "QuaternaryQuartics"
+
+F36E0 =  kk = ZZ/101;
+
+F36E1 =  R = kk[x_0..x_3];
+
+F36E2 =  HT = bettiStrataExamples R;
+
+F36E3 =  netList for k in {"[420]","[430]","[441a]","[441b]"} list (
+
+             if doubling(8,pointsIdeal((HT#k)_0))===null then
+
+             {k, betti res pointsIdeal((HT#k)_0), "No injective map"}
+
+         else
+
+             {k, betti res pointsIdeal((HT#k)_0),
+
+                 betti res doubling(8,pointsIdeal((HT#k)_0))}
+
+         )
+
+F36E4 =  Mpts = randomPoints(R,4,2)|(randomPoints(R,2,4)||(randomPoints(R,2,4)*0));
+
+F36E5 =  IGamma = pointsIdeal(Mpts);
+
+F36E6 =  betti res IGamma
+
+F36E7 =  netList for k in {2,3,4,5,6} list (
+
+         if doubling(k+4,IGamma)===null then {k, "No injective map"}
+
+         else {k, betti res doubling(k+4,IGamma)})
+
+exampleIDS = {"F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F36E7"}

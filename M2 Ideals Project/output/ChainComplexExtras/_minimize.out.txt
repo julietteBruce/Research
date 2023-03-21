@@ -1,0 +1,39 @@
+needsPackage "ChainComplexExtras"
+
+F3E0 =  S = ZZ/32003[a,b,c]
+
+F3E1 =  red = map(S,S,toList(numgens S:0_S))
+
+F3E2 =  C = koszul gens (ideal vars S)^2
+
+F3E3 =  G = S^{0,-1,-2,-3,-4,-5,-6}
+
+F3E4 =  D = apply(length C+1, i-> C_i++G++G)
+
+F3E5 =  zG = map(G,G,0)
+
+F3E6 =  difs0 = apply(length C, i-> (map(D_i, D_(i+1), matrix{{C.dd_(i+1), map(C_i,G,0), map(C_i,G,0)},{map(G,C_(i+1),0), zG, zG},{map(G,C_(i+1),0), id_G, zG}})));
+
+F3E7 =  len = #difs0
+
+F3E8 =  Q = apply(len, i-> random(target difs0_i, target difs0_i))|
+
+F3E9 =  difs1 = apply(len, i-> Q_i*difs0_i*Q_(i+1)^(-1));
+
+F3E10 =  E = chainComplex difs1
+
+F3E11 =  isMinimalChainComplex E
+
+F3E12 =  time m = minimize (E[1]);
+
+F3E13 =  isQuasiIsomorphism m
+
+F3E14 =  E[1] == source m
+
+F3E15 =  E' = target m
+
+F3E16 =  isChainComplex E'
+
+F3E17 =  isMinimalChainComplex E'
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17"}

@@ -1,0 +1,29 @@
+needsPackage "VirtualResolutions"
+
+F5E0 =  R = ZZ/101[s,t];
+
+F5E1 =  isVirtual(ideal(s,t),res ideal(t))
+
+F5E2 =  Y = toricProjectiveSpace(1)**toricProjectiveSpace(1);
+
+F5E3 =  S = ring Y;
+
+F5E4 =  B = ideal Y;
+
+F5E5 =  J = saturate(intersect(
+
+        ideal(x_1 - x_0, x_3 - 4*x_2),
+
+        ideal(x_1 - 2*x_0, x_3 - 5*x_2),
+
+        ideal(x_1 - 3*x_0, x_3 - 6*x_2)), B);
+
+F5E6 =  minres = res J;
+
+F5E7 =  vres = virtualOfPair(J,{{3,1}});
+
+F5E8 =  isVirtual(B,vres)
+
+F5E9 =  isVirtual(B,vres,Strategy=>Determinantal)
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9"}

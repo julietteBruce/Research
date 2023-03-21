@@ -1,0 +1,35 @@
+needsPackage "NormalToricVarieties"
+
+F12E0 =  d = 3;
+
+F12E1 =  PPd = toricProjectiveSpace d;
+
+F12E2 =  A0 = intersectionRing PPd;
+
+F12E3 =  TP = dual cotangentSheaf PPd
+
+F12E4 =  f0 = chern TP
+
+F12E5 =  assert (A0 === ring f0)
+
+F12E6 =  assert (f0 === (1+A0_0)^(d+1))
+
+F12E7 =  assert all(d, i -> leadCoefficient chern (i, TP) == binomial(d+1,i))
+
+F12E8 =  assert (chern TP === sum (d+1, i -> chern (i, TP)))
+
+F12E9 =  X = smoothFanoToricVariety (4, 50);
+
+F12E10 =  A = intersectionRing X;
+
+F12E11 =  Omega = cotangentSheaf X
+
+F12E12 =  f1 = chern Omega
+
+F12E13 =  assert (f1 ===  product (# rays X, i -> chern OO (-X_i)))
+
+F12E14 =  f3 = chern (2, Omega)
+
+F12E15 =  assert (f3 == sum (orbits (X, 2), s -> product (s, i -> A_i)))
+
+exampleIDS = {"F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F12E12", "F12E13", "F12E14", "F12E15"}

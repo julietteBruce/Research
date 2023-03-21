@@ -1,0 +1,45 @@
+needsPackage "GroebnerStrata"
+
+F8E0 =  kk = ZZ/101;
+
+F8E1 =  S = kk[a..d];
+
+F8E2 =  F = groebnerFamily ideal"a2,ab,ac,b2,bc2,c3"
+
+F8E3 =  (C, H) = nonminimalMaps F;
+
+F8E4 =  betti(C, Weights => {1,1,1,1})
+
+F8E5 =  keys H
+
+F8E6 =  H#(2,3)
+
+F8E7 =  H#(3,4)
+
+F8E8 =  H#(3,5)
+
+F8E9 =  H#(4,6)
+
+F8E10 =  J = trim(minors(1, H#(2,3)) + groebnerStratum F);
+
+F8E11 =  compsJ = decompose J;
+
+F8E12 =  #compsJ
+
+F8E13 =  pt1 = randomPointOnRationalVariety compsJ_0
+
+F8E14 =  pt2 = randomPointOnRationalVariety compsJ_1
+
+F8E15 =  F1 = sub(F, (vars S)|pt1)
+
+F8E16 =  betti res F1
+
+F8E17 =  F2 = sub(F, (vars S)|pt2)
+
+F8E18 =  betti res F2
+
+F8E19 =  netList decompose F1
+
+F8E20 =  netList decompose F2
+
+exampleIDS = {"F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F8E12", "F8E13", "F8E14", "F8E15", "F8E16", "F8E17", "F8E18", "F8E19", "F8E20"}

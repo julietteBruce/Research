@@ -1,0 +1,27 @@
+needsPackage "HighestWeights"
+
+F12E0 =  R=QQ[x_(1,1)..x_(6,3)];
+
+F12E1 =  G=genericMatrix(R,3,6)
+
+F12E2 =  M=coker G
+
+F12E3 =  e={{1,0,0,0,0},{-1,1,0,0,0},{0,-1,1,0,0},{0,0,-1,1,0},{0,0,0,-1,1},{0,0,0,0,-1}};
+
+F12E4 =  f={{1,0},{-1,1},{0,-1}};
+
+F12E5 =  W=flatten table(e,f,(u,v)->u|v)
+
+F12E6 =  D=dynkinType{{"A",5},{"A",2}}; setWeights(R,D,W)
+
+F12E7 =  U0={{0,0,0,0,0,-1,0},{0,0,0,0,0,1,-1},{0,0,0,0,0,0,1}};
+
+F12E8 =  H0=highestWeightsDecomposition(BR,0,U0)
+
+F12E9 =  U1={{1,0,0,0,0,0,0},{-1,1,0,0,0,0,0},{0,-1,1,0,0,0,0},{0,0,-1,1,0,0,0},{0,0,0,-1,1,0,0},{0,0,0,0,-1,0,0}};
+
+F12E10 =  H1=highestWeightsDecomposition(BR,1,U1); H0===H1
+
+F12E11 =  highestWeightsDecomposition(M,-1,2,U0)
+
+exampleIDS = {"F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11"}

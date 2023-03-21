@@ -1,0 +1,67 @@
+needsPackage "QuaternaryQuartics"
+
+F7E0 =  GetInv = (d,k,n)->(R=ZZ/2[x_1..x_k];
+
+         quartics=super basis(d,R);
+
+         MonList=first entries quartics;
+
+         L=subsets(MonList,n);
+
+         J=apply(L, j->(F=sum j;
+
+                    InvSysF=ideal fromDual F;
+
+                    Idegs=degrees source mingens InvSysF;
+
+                         if (not ((member({1},Idegs)))) then minimalBetti InvSysF));
+
+         Jlist = drop(unique J,1);  --get unique betti table, drop empty table from list
+
+         netList pack(4,Jlist))    --format output to look nice
+
+F7E1 =  GetInv(4,4,2)
+
+F7E2 =  R=ZZ/101[x_1..x_4];
+
+F7E3 =  IdealList={
+
+       {x_2*x_4, x_1*x_4, x_1*x_2^2+x_3*x_4^2-x_4^3, x_1^2, x_2^3, x_3^2},
+
+       {x_2*x_3, x_1*x_3, x_2*x_4^2, x_1*x_4^2, x_1*x_2^2-x_3*x_4^2, x_3*x_4^3-x_4^4, x_1^2, x_2^3, x_3^2},
+
+       {x_2*x_4, x_1*x_4, x_3^2*x_4, x_1*x_2*x_3+x_3*x_4^2-x_4^3, x_1^2, x_2^2, x_3^3},
+
+       {x_2*x_4^2, x_1*x_4^2, x_1*x_2*x_4+x_3*x_4^2-x_4^3, x_1*x_2*x_3-x_3*x_4^2, x_1^2, x_2^2, x_3^2},
+
+       {x_2*x_3, x_1*x_3, x_1*x_2-x_3*x_4, x_3*x_4^3-x_4^4, x_2*x_4^3, x_1*x_4^3, x_1^2, x_2^2, x_3^2},
+
+       {x_2*x_4, x_1*x_4, x_2*x_3, x_1*x_3, x_3*x_4^3-x_4^4, x_1^2*x_2^2-x_4^4, x_1^3, x_2^3, x_3^2},
+
+       {x_2*x_3, x_1*x_3, x_2*x_4^2, x_1*x_4^2, x_3^2*x_4-x_4^3, x_1*x_2^2-x_4^3, x_1^2, x_2^3, x_3^3},
+
+       {x_2*x_4^2, x_1*x_4^2, x_3^2*x_4-x_4^3, x_1*x_2*x_4-x_3*x_4^2, x_2*x_3^2, x_1*x_3^2, x_1*x_2*x_3-x_4^3, x_1^2, x_2^2, x_3^3},
+
+       {x_2*x_3, x_1*x_3, x_1*x_2-x_3^2, x_3^2*x_4-x_4^3, x_1^2, x_2^2, x_3^3},
+
+       {x_3*x_4, x_2*x_4, x_1*x_4, x_1*x_2*x_3-x_3^3, x_3^4-x_4^4, x_1^2, x_2^2},
+
+       {x_1*x_4, x_3^2*x_4, x_2*x_3*x_4-x_4^3, x_1*x_3^2-x_3*x_4^2, x_1*x_2*x_3-x_2*x_4^2, x_1^2, x_2^2, x_3^3},
+
+       {x_1*x_4, x_1*x_3, x_3*x_4^2, x_2*x_4^2, x_2^2*x_4, x_2*x_3^2-x_4^3, x_2^2*x_3, x_1*x_2^2-x_3^2*x_4, x_1^2, x_2^4, x_3^3},
+
+       {x_3*x_4, x_2^2*x_4, x_1^2*x_4, x_2*x_3^2, x_1*x_3^2-x_2*x_4^2, x_2^2*x_3-x_1*x_4^2, x_1*x_2*x_3, x_2^3-x_1^2*x_3, x_1*x_2^2, x_1^2*x_2, x_1^3, x_2^4, x_3^3, x_4^3},
+
+       {x_3*x_4 , x_2^2*x_4, x_3^3-x_1*x_2*x_4, x_2*x_3^2, x_2^2*x_3-x_1^2*x_4, x_1*x_2*x_3, x_1^2*x_3, x_2^3-x_1*x_3^2, x_1*x_2^2, x_1^3, x_2^4, x_3^4, x_4^2},
+
+       {x_3*x_4^2, x_2*x_4^2, x_1*x_4^2, x_3^2*x_4,x_2^2*x_4, x_1^2*x_4, x_3^3-x_1*x_2*x_4, x_2*x_3^2, x_1*x_3^2, x_2^2*x_3, x_1*x_2*x_3-x_4^3, x_1^2*x_3, x_2^3-x_1*x_3*x_4, x_1*x_2^2, x_1^2*x_2,x_1^3-x_2*x_3*x_4},
+
+       {x_1^2,x_2^2,x_3^2,x_4^2}};
+
+F7E4 =  netList(pack(4,apply(IdealList,i->minimalBetti ideal i)))
+
+F7E5 =  Qs = apply(IdealList, I -> first flatten entries inverseSystem(5, ideal I))
+
+F7E6 =  for F in Qs list quarticType F
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6"}

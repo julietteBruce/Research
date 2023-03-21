@@ -1,0 +1,63 @@
+needsPackage "Complexes"
+
+F92E0 =  R = ZZ/101[a,b,c,d,e];
+
+F92E1 =  I = intersect(ideal(a,b),ideal(c,d,e))
+
+F92E2 =  C = (dual freeResolution I)[-4]
+
+F92E3 =  C1 = canonicalTruncation(C, 1, 2)
+
+F92E4 =  assert isWellDefined C1
+
+F92E5 =  HH C1
+
+F92E6 =  naiveTruncation(HH C, 1, 2) == HH C1
+
+F92E7 =  prune HH C1
+
+F92E8 =  C2 = canonicalTruncation(C, 1, 6)
+
+F92E9 =  assert isWellDefined C2
+
+F92E10 =  C3 = canonicalTruncation(C, 1, infinity)
+
+F92E11 =  C2 == C3
+
+F92E12 =  C4 = canonicalTruncation(C, -13, 2)
+
+F92E13 =  C5 = canonicalTruncation(C, -infinity, 2)
+
+F92E14 =  C4 == C5
+
+F92E15 =  C6 = canonicalTruncation(C, , 2)
+
+F92E16 =  C4 == C6
+
+F92E17 =  assert(canonicalTruncation(C, 1, 1) == naiveTruncation(HH C, 1, 1))
+
+F92E18 =  f = inducedMap(C, C3)
+
+F92E19 =  assert isWellDefined f
+
+F92E20 =  assert(ker f == 0)
+
+F92E21 =  prune coker f
+
+F92E22 =  C7 = canonicalTruncation(C, -infinity, 1)
+
+F92E23 =  C7 != coker f
+
+F92E24 =  g = inducedMap(C5, C)
+
+F92E25 =  assert isWellDefined g
+
+F92E26 =  assert(coker g == 0)
+
+F92E27 =  C8 = canonicalTruncation(C, 2, infinity)
+
+F92E28 =  prune C8
+
+F92E29 =  prune ker g
+
+exampleIDS = {"F92E0", "F92E1", "F92E2", "F92E3", "F92E4", "F92E5", "F92E6", "F92E7", "F92E8", "F92E9", "F92E10", "F92E11", "F92E12", "F92E13", "F92E14", "F92E15", "F92E16", "F92E17", "F92E18", "F92E19", "F92E20", "F92E21", "F92E22", "F92E23", "F92E24", "F92E25", "F92E26", "F92E27", "F92E28", "F92E29"}

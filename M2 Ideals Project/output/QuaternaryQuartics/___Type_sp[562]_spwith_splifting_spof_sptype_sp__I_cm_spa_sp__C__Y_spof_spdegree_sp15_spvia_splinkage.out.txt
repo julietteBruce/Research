@@ -1,0 +1,39 @@
+needsPackage "QuaternaryQuartics"
+
+F18E0 =  kk=QQ;
+
+F18E1 =  U=kk[y0,y1,y2,y3,y4,y5,y6,y7];
+
+F18E2 =  P5c=ideal(y0,y1);  -- a P5
+
+F18E3 =  P5a=ideal(y2,y3);  --P5 of S8
+
+F18E4 =  P5b=ideal(y4,y5);   --P5 of S7
+
+F18E5 =  P3ac=P5a+P5c;-- P3 intersection of P5a and P5c
+
+F18E6 =  P3bc=P5b+P5c;
+
+F18E7 =  P1=P5a+P5b+P5c; --a line L, the intersection of all three P5s
+
+F18E8 =  F=matrix{{y0,random(2,U),random(2,P1)},{y1,random(2,U),random(2,P1)}};
+
+F18E9 =  X8=P5a+minors(2,F);-- a 3-fold of degree 8 in P5a
+
+F18E10 =  Z4=P5c+X8; -- a quartic surface in P3ac that contains L
+
+F18E11 =  XY=P5c+ideal(random(2,intersect(P5a,P5b)),random(4,intersect(Z4,P5b)));
+
+F18E12 =  X7=XY:P3bc;--a 3-fold of degree 7 in P5b
+
+F18E13 =  (dim X7, degree X7)
+
+F18E14 =  betti res X7
+
+F18E15 =  X15=intersect(X7,X8);--a 3-fold of degree 15 in P7 with betti table of type [562],  the union of X7 and X8.
+
+F18E16 =  (dim X15, degree X15)
+
+F18E17 =  betti res X15
+
+exampleIDS = {"F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14", "F18E15", "F18E16", "F18E17"}

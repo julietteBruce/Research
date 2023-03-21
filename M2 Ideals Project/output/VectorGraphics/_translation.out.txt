@@ -1,0 +1,15 @@
+needsPackage "VectorGraphics"
+
+F26E0 =  v={vector{7.456, 5.201, -4.166}, vector{2.7263, -2.992, 9.144},
+
+        vector{-8.130, 5.783, 0.671}, vector {-2.052, -7.993, -5.649}};
+
+F26E1 =  f={{v#2,v#1,v#0},{v#0,v#1,v#3},{v#0,v#3,v#2},{v#1,v#2,v#3}};
+
+F26E2 =  tetra=gList(apply(4,i->Polygon{f#i,"fill"=>"white"}))
+
+F26E3 =  g = memoize(n -> if n==0 then tetra else gList apply(4,i->g(n-1)++{TransformMatrix=>translation(2^(n-1)*v#i)}))
+
+F26E4 =  apply(4,g)
+
+exampleIDS = {"F26E0", "F26E1", "F26E2", "F26E3", "F26E4"}

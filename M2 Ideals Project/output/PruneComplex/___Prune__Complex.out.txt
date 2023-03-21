@@ -1,0 +1,19 @@
+needsPackage "PruneComplex"
+
+F4E0 =  R = ZZ/32003[vars(0..17)];
+
+F4E1 =  m1 = genericMatrix(R,a,3,3)
+
+F4E2 =  m2 = genericMatrix(R,j,3,3)
+
+F4E3 =  I = ideal(m1*m2-m2*m1)
+
+F4E4 =  C = res(I, FastNonminimal=>true)
+
+F4E5 =  D = pruneComplex(C, UnitTest => isScalar)
+
+F4E6 =  isCommutative D.cache.pruningMap
+
+F4E7 =  betti D == betti res I
+
+exampleIDS = {"F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7"}

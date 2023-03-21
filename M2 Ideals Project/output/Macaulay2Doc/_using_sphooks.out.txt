@@ -1,0 +1,39 @@
+needsPackage "Macaulay2Doc"
+
+F994E0 =  f = {a=>3, c=>12} >> opts -> val -> if val == 1 then opts.a + opts.c;
+
+F994E1 =  g = method(Options => {b => 5});
+
+F994E2 =  g ZZ := opts -> val -> if val == 2 then opts.b + 1;
+
+F994E3 =  h = val -> if val == 3 then 24;
+
+F994E4 =  foo = method(Options => true);
+
+F994E5 =  addHook((foo, ZZ), f)
+
+F994E6 =  addHook((foo, ZZ), g, Strategy => "G")
+
+F994E7 =  addHook((foo, ZZ), h)
+
+F994E8 =  foo ZZ := true >> opts -> args -> runHooks((foo, ZZ), args, opts);
+
+F994E9 =  debugLevel = 1
+
+F994E10 =  assert( foo 1 == 15 )
+
+F994E11 =  assert( foo(2, b => 9) == 10 )
+
+F994E12 =  assert( foo 3 == 24 )
+
+F994E13 =  hooks(foo, ZZ)
+
+F994E14 =  assert( foo(3, Strategy => 2) == 24 )
+
+F994E15 =  assert( foo(2, Strategy => "G") == 6 )
+
+F994E16 =  hooks(quotient, Ideal, Ideal)
+
+F994E17 =  code 1
+
+exampleIDS = {"F994E0", "F994E1", "F994E2", "F994E3", "F994E4", "F994E5", "F994E6", "F994E7", "F994E8", "F994E9", "F994E10", "F994E11", "F994E12", "F994E13", "F994E14", "F994E15", "F994E16", "F994E17"}

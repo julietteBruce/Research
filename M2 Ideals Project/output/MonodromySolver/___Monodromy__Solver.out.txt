@@ -1,0 +1,15 @@
+needsPackage "MonodromySolver"
+
+F9E0 =  setRandomSeed 0;
+
+F9E1 =  declareVariable \ {A,B,C,D,X,Y};
+
+F9E2 =  F = gateSystem(matrix{{A,B,C,D}},matrix{{X,Y}},matrix{{A*(X-1)^2-B}, {C*(Y+2)^2+D}});
+
+F9E3 =  p0 = point{{1,1,1,1}};
+
+F9E4 =  sols = solveFamily(p0, F, NumberOfNodes=>3);
+
+F9E5 =  for i from 0 to 3 list norm(evaluate(F, p0, sols#i))
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5"}

@@ -1,0 +1,21 @@
+needsPackage "Triangulations"
+
+F2E0 =  LP = {{-1, 0, -1, 1}, {-1, 0, 1, 0}, {-1, 0, 2, -1}, {-1, 1, -1, 0}, {1, 0, -1, 0}, {1, 0, 1, 0}, {2, -1, -1, 0}, {0, 0, 1, 0}, {1, 0, 0, 0}, {0,0,0,0}}
+
+F2E1 =  A = transpose matrix LP
+
+F2E2 =  elapsedTime Ts = allTriangulations(A, Fine => true);
+
+F2E3 =  select(Ts, T -> isStar T)
+
+F2E4 =  #oo == 1
+
+F2E5 =  #Ts == 51
+
+F2E6 =  T = regularFineTriangulation A
+
+F2E7 =  elapsedTime Ts2 = generateTriangulations T;
+
+F2E8 =  #Ts2 == #Ts
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8"}

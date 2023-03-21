@@ -1,0 +1,23 @@
+needsPackage "SimplicialComplexes"
+
+F6E0 =  R = ZZ/101[x_0..x_4];
+
+F6E1 =  S = ZZ/101[a,b,c,d,e];
+
+F6E2 =  I = monomialIdeal(x_1^2, x_2^2, x_3^2, x_1*x_3, x_2*x_4);
+
+F6E3 =  B1 = buchbergerSimplicialComplex(I,S)
+
+F6E4 =  BRes = chainComplex(B1, Labels => first entries mingens I)
+
+F6E5 =  HH_0(BRes)
+
+F6E6 =  all(1..dim B1+1, i -> prune HH_i(BRes) == 0)
+
+F6E7 =  BRes == buchbergerResolution(I)
+
+F6E8 =  L = {x_1*x_2, x_1*x_3*x_4, x_0*x_2*x_4};
+
+F6E9 =  B2 = buchbergerSimplicialComplex(L,S)
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9"}

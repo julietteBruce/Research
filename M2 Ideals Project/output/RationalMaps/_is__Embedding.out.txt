@@ -1,0 +1,53 @@
+needsPackage "RationalMaps"
+
+F3E0 =  R = ZZ/7[x,y];
+
+F3E1 =  S = ZZ/7[a,b,c];
+
+F3E2 =  h = map(R, S, {x^2, x*y, y^2});
+
+F3E3 =  isEmbedding(h, Verbosity=>1)
+
+F3E4 =  R=QQ[x,y,z];
+
+F3E5 =  S=QQ[a,b];
+
+F3E6 =  h=rationalMapping(R, S, {y,z});
+
+F3E7 =  isEmbedding(h, Verbosity=>0)
+
+F3E8 =  R=QQ[x,y,z]/(x^2+y^2-z^2);
+
+F3E9 =  S=QQ[a,b];
+
+F3E10 =  h=map(R,S, {y,z});
+
+F3E11 =  isRegularMap(h)
+
+F3E12 =  isEmbedding(h, Verbosity=>0)
+
+F3E13 =  R = ZZ/103[x,y,z];
+
+F3E14 =  T = ZZ/103[u,v];
+
+F3E15 =  P2 = Proj R;
+
+F3E16 =  P1 = Proj T;
+
+F3E17 =  phi = rationalMapping(P2, P1, {u^3, u^2*v, v^3});
+
+F3E18 =  isEmbedding(phi, Verbosity=>0)
+
+F3E19 =  P5ring = ZZ/103[a..f];
+
+F3E20 =  M = matrix{{a,b,c},{d,e,f}};
+
+F3E21 =  blowUpSubvar = Proj(P5ring/(minors(2, M)+ideal(b - d)));
+
+F3E22 =  tau = rationalMapping(P2, blowUpSubvar,{a, b, c}); --the blowup
+
+F3E23 =  tauInverse = tau^-1; --the inverse blowup
+
+F3E24 =  isEmbedding(tauInverse*phi, Verbosity => 0)
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F3E23", "F3E24"}

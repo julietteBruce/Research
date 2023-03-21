@@ -1,0 +1,15 @@
+needsPackage "DeterminantalRepresentations"
+
+F1E0 =  A = randomPSD 5 -- 5x5 PSD of full rank
+
+F1E1 =  L = cholesky A
+
+F1E2 =  clean(1e-12, A - L*transpose L) == 0
+
+F1E3 =  B = randomPSD(7, 3) -- 7x7 PSD matrix of rank 3
+
+F1E4 =  L = cholesky B
+
+F1E5 =  clean(1e-12, B - L*transpose L) == 0
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5"}

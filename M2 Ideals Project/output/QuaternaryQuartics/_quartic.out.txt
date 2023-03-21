@@ -1,0 +1,29 @@
+needsPackage "QuaternaryQuartics"
+
+F33E0 =  S = ZZ/101[a..d]
+
+F33E1 =  M = transpose matrix(S, {{1,0,0,0}, {0,1,0,0}})
+
+F33E2 =  quartic M
+
+F33E3 =  H = bettiStrataExamples S
+
+F33E4 =  keys H
+
+F33E5 =  M = first H#"[420]"
+
+F33E6 =  F = quartic M
+
+F33E7 =  lins := flatten entries((vars S) * M)
+
+F33E8 =  F1 = sum for g in lins list g^4
+
+F33E9 =  F1 == F
+
+F33E10 =  I = inverseSystem F
+
+F33E11 =  (degree I, codim I, regularity(S^1/I))
+
+F33E12 =  minimalBetti I
+
+exampleIDS = {"F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12"}

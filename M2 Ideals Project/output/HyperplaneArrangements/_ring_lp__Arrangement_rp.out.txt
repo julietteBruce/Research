@@ -1,0 +1,37 @@
+needsPackage "HyperplaneArrangements"
+
+F17E0 =  S = ZZ[w,x,y,z];
+
+F17E1 =  A = arrangement(matrix{{1,1,1,0,0,0},{-1,0,0,1,1,0},{0,-1,0,-1,0,1},{0,0,-1,0,-1,-1}}, S)
+
+F17E2 =  ring A
+
+F17E3 =  assert(ring A === S)
+
+F17E4 =  S' = ZZ/101[w,x,y,z];
+
+F17E5 =  A' = typeA(3, S')
+
+F17E6 =  ring A'
+
+F17E7 =  assert(ring A' === S')
+
+F17E8 =  assert(A' =!= A)
+
+F17E9 =  R = S'/(w+x+y+z)
+
+F17E10 =  A'' = sub(A, R) -- this changes the coordinate ring of the arrangement
+
+F17E11 =  ring A''
+
+F17E12 =  assert(rank A'' == dim ring A'')
+
+F17E13 =  trivial = arrangement({}, S)
+
+F17E14 =  assert(ring trivial === S)
+
+F17E15 =  trivial' = arrangement({},R)
+
+F17E16 =  assert(ring trivial' === R)
+
+exampleIDS = {"F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13", "F17E14", "F17E15", "F17E16"}

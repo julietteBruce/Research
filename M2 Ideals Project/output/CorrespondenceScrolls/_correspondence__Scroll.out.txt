@@ -1,0 +1,57 @@
+needsPackage "CorrespondenceScrolls"
+
+F0E0 =  L = {3,4}
+
+F0E1 =  S = productOfProjectiveSpaces(#L) --creates the multi-graded ring of (P^1)^(#L)
+
+F0E2 =  Delta = smallDiagonal S -- the ideal of the small diagonal of (P^1)^(#L)
+
+F0E3 =  G = correspondenceScroll(Delta, L)
+
+F0E4 =  minimalBetti G
+
+F0E5 =  G = correspondenceScroll(Delta^2, L)
+
+F0E6 =  minimalBetti G
+
+F0E7 =  T = ZZ/32003[y_0,y_1,y_2]
+
+F0E8 =  threepoints = gens intersect(ideal(y_0,y_1),ideal(y_0,y_2),ideal(y_1,y_2))
+
+F0E9 =  f = threepoints*random(source threepoints, T^{-3}); -- general cubic through the three points
+
+F0E10 =  L = {2,2,2}
+
+F0E11 =  x = symbol x;
+
+F0E12 =  S = productOfProjectiveSpaces(#L,VariableName =>"x") --creates the multi-graded ring of (P^1)^(#L)
+
+F0E13 =  ST = (flattenRing(T**S))_0
+
+F0E14 =  irrel = irrelevantIdeal ST;
+
+F0E15 =  ff =  {{y_0,y_1},{y_0,y_2},{y_1,y_2}} -- projections from the three points
+
+F0E16 =  ff =  apply(ff, f-> apply(f, p-> sub(p, ST)))
+
+F0E17 =  D1 = det matrix{{x_(0,0),ff_0_1},{x_(0,1),ff_0_0}}
+
+F0E18 =  D2 = det matrix{{x_(1,0),ff_1_1},{x_(1,1),ff_1_0}}
+
+F0E19 =  D3 = det matrix{{x_(2,0),ff_2_1},{x_(2,1),ff_2_1}}
+
+F0E20 =  J = sub(ideal f, ST)+ideal(D1,D2,D3)
+
+F0E21 =  Js = saturate(J, irrel);
+
+F0E22 =  I = eliminate({y_0,y_1,y_2}, Js);
+
+F0E23 =  IS = (map(S,ST))I;
+
+F0E24 =  codim I
+
+F0E25 =  g = correspondenceScroll(IS, L);
+
+F0E26 =  minimalBetti g
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19", "F0E20", "F0E21", "F0E22", "F0E23", "F0E24", "F0E25", "F0E26"}

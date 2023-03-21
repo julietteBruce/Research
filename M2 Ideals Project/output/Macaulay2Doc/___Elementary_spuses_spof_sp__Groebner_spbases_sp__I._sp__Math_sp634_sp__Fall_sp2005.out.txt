@@ -1,0 +1,145 @@
+needsPackage "Macaulay2Doc"
+
+F1148E0 =  KK = ZZ/32003
+
+F1148E1 =  R = KK[x,y,z,w]
+
+F1148E2 =  I = ideal(x^2*y,x*y^2+x^3)
+
+F1148E3 =  J = gens gb I
+
+F1148E4 =  R = KK[x,y,z,w,MonomialOrder=>Lex]
+
+F1148E5 =  I = substitute(I,R)
+
+F1148E6 =  gens gb I
+
+F1148E7 =  R = KK[x,y,z]
+
+F1148E8 =  F = random(R^1, R^{-2,-3})
+
+F1148E9 =  GB = gens gb F
+
+F1148E10 =  LT = leadTerm GB
+
+F1148E11 =  betti LT
+
+F1148E12 =  R = KK[x,y,z, MonomialOrder => Lex]
+
+F1148E13 =  F = random(R^1, R^{-2,-3})
+
+F1148E14 =  GB = gens gb F
+
+F1148E15 =  LT = leadTerm GB
+
+F1148E16 =  betti LT
+
+F1148E17 =  R = KK[a..i]
+
+F1148E18 =  M = genericMatrix(R,a,3,3)
+
+F1148E19 =  N = M^3
+
+F1148E20 =  I = flatten N
+
+F1148E21 =  Tr = trace M 
+
+F1148E22 =  Tr //I  -- the quotient, which is 0
+
+F1148E23 =  Tr % I  -- the remainder, which is Tr again
+
+F1148E24 =  Tr^2 % I
+
+F1148E25 =  Tr^3 % I
+
+F1148E26 =  Tr^4 % I
+
+F1148E27 =  Tr^5 % I
+
+F1148E28 =  Tr^6 % I
+
+F1148E29 =  Tr^7 % I
+
+F1148E30 =  Tr^6 // I
+
+F1148E31 =  Tr^6 == I * (Tr^6 // I) + (Tr^6 % I)
+
+F1148E32 =  R = KK[t,y,z,MonomialOrder=>Lex]
+
+F1148E33 =  I = ideal(y-(t^2+t+1), z-(t^3+1))
+
+F1148E34 =  GB = gens gb I
+
+F1148E35 =  F = GB_(0,0)
+
+F1148E36 =  substitute(F, {y =>t^2+t+1, z=>t^3+1})
+
+F1148E37 =  R = KK[y,z,t]
+
+F1148E38 =  I = substitute(I,R)
+
+F1148E39 =  eliminate(I,t)
+
+F1148E40 =  A = KK[t]
+
+F1148E41 =  B = KK[y,z]
+
+F1148E42 =  G = map(A,B,{t^2+t+1, t^3+1})
+
+F1148E43 =  kernel G
+
+F1148E44 =  R = KK[t,x,y,z]
+
+F1148E45 =  I = ideal(x^3,y^3,z^3)
+
+F1148E46 =  F = x+y+z
+
+F1148E47 =  L = t*I + (1-t)*ideal(F)
+
+F1148E48 =  L1 = eliminate(L,t)
+
+F1148E49 =  gens gb L1
+
+F1148E50 =  (gens L1) % F
+
+F1148E51 =  J = ideal ((gens L1)//F)
+
+F1148E52 =  mingens J
+
+F1148E53 =  betti oo
+
+F1148E54 =  R = KK[x,y,z]
+
+F1148E55 =  I = ideal(x^3,y^3,z^3)
+
+F1148E56 =  F = x+y+z
+
+F1148E57 =  J = I : F
+
+F1148E58 =  betti J
+
+F1148E59 =  transpose gens J
+
+F1148E60 =  transpose gens gb J
+
+F1148E61 =  R = KK[t,a..f]
+
+F1148E62 =  I = ideal(a*b*c-d*e*f, a^2*b-c^2*d, a*f^2-d*b*c)
+
+F1148E63 =  F = a*b*c*d*e*f
+
+F1148E64 =  J = eliminate(I + ideal(t*F-1), t)
+
+F1148E65 =  transpose gens J
+
+F1148E66 =  R = KK[a..f]
+
+F1148E67 =  I = substitute(I,R)
+
+F1148E68 =  F = product gens R
+
+F1148E69 =  J' = saturate(I,F)
+
+F1148E70 =  transpose gens J'
+
+exampleIDS = {"F1148E0", "F1148E1", "F1148E2", "F1148E3", "F1148E4", "F1148E5", "F1148E6", "F1148E7", "F1148E8", "F1148E9", "F1148E10", "F1148E11", "F1148E12", "F1148E13", "F1148E14", "F1148E15", "F1148E16", "F1148E17", "F1148E18", "F1148E19", "F1148E20", "F1148E21", "F1148E22", "F1148E23", "F1148E24", "F1148E25", "F1148E26", "F1148E27", "F1148E28", "F1148E29", "F1148E30", "F1148E31", "F1148E32", "F1148E33", "F1148E34", "F1148E35", "F1148E36", "F1148E37", "F1148E38", "F1148E39", "F1148E40", "F1148E41", "F1148E42", "F1148E43", "F1148E44", "F1148E45", "F1148E46", "F1148E47", "F1148E48", "F1148E49", "F1148E50", "F1148E51", "F1148E52", "F1148E53", "F1148E54", "F1148E55", "F1148E56", "F1148E57", "F1148E58", "F1148E59", "F1148E60", "F1148E61", "F1148E62", "F1148E63", "F1148E64", "F1148E65", "F1148E66", "F1148E67", "F1148E68", "F1148E69", "F1148E70"}

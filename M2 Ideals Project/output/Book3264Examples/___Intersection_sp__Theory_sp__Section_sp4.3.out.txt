@@ -1,0 +1,55 @@
+needsPackage "Book3264Examples"
+
+F5E0 =  G24 = flagBundle({3,2})
+
+F5E1 =  sigma_(2,1,1) = placeholderSchubertCycle({2,1,1},G24)
+
+F5E2 =  G14 = flagBundle({2,3})
+
+F5E3 =  sigma_1 = placeholderSchubertCycle({1,0},G14)
+
+F5E4 =  integral (sigma_1)^6
+
+F5E5 =  numOfLines = k -> (
+
+          G := flagBundle({2,2*k});
+
+          sigma := placeholderSchubertCycle({k,0}, G);
+
+          integral sigma^4)
+
+F5E6 =  for k from 1 to 5 do (
+
+          << numOfLines(k) << " lines meet four " << k << "-planes in P" << 2*k+1 << "\n")
+
+F5E7 =  G37 = flagBundle({3,4})
+
+F5E8 =  A37 = intersectionRing G37
+
+F5E9 =  sigma = 8*placeholderSchubertCycle({3,2,1},G37)
+
+F5E10 =  integral sigma^2
+
+F5E11 =  numOfPlanes = k -> (
+
+           G:= flagBundle({k+1,k+2});
+
+           schubertlist := apply(k+1,i-> k+1-i); --the list {k+1,k,...,1}
+
+           sigma := (2^(k+1))*placeholderSchubertCycle(schubertlist, G);
+
+           integral sigma^2)
+
+F5E12 =  numOfPlanes(2) --This was Exercise 4.43
+
+F5E13 =  for k from 2 to 4 do (
+
+           << numOfPlanes(k) << " " << k << "-planes in two quadrics in P" << 2*k+2 <<"\n")
+
+F5E14 =  G36 = flagBundle({3,3})
+
+F5E15 =  c = placeholderSchubertCycle({2,1,0},G36)
+
+F5E16 =  placeholderToSchubertBasis(c^2,G36)
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16"}

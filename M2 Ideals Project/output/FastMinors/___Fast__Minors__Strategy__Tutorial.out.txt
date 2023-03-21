@@ -1,0 +1,113 @@
+needsPackage "FastMinors"
+
+F11E0 =  S = ZZ/103[x_1..x_9];
+
+F11E1 =  J = ideal(x_6*x_8-x_5*x_9,x_3*x_8-x_2*x_9,x_6*x_7-x_4*x_9,x_5*x_7-x_4*x_8,x_3*x_7-x_1*x_9,x_2*x_7-x_1*x_8,x_3*x_5-x_2*x_6,x_3*x_4-x_1*x_6,x_2*x_4-x_1*x_5,x_7^3-x_8^2*x_9-x_7*x_9^2,x_4*x_7^2-x_5*x_8*x_9-x_4*x_9^2, x_1*x_7^2-x_2*x_8*x_9-x_1*x_9^2,x_4^2*x_7-x_5^2*x_9-x_4*x_6*x_9,x_1*x_4*x_7-x_2*x_5*x_9-x_1*x_6*x_9,x_1^2*x_7-x_2^2*x_9-x_1*x_3*x_9,x_4^3-x_5^2*x_6-x_4*x_6^2,x_1*x_4^2-x_2*x_5*x_6-x_1*x_6^2,x_1^2*x_4-x_2^2*x_6-x_1*x_3*x_6,x_1^3-x_2^2*x_3-x_1*x_3^2,x_3^4+x_6^4-x_9^4,x_2*x_3^3+x_5*x_6^3-x_8*x_9^3,x_1*x_3^3+x_4*x_6^3-x_7*x_9^3,x_2^2*x_3^2+x_5^2*x_6^2-x_8^2*x_9^2,x_1*x_2*x_3^2+x_4*x_5*x_6^2-x_7*x_8*x_9^2,x_1^2*x_3^2+x_4^2*x_6^2-x_7^2*x_9^2,x_2^3*x_3+x_5^3*x_6-x_8^3*x_9,x_1*x_2^2*x_3+x_4*x_5^2*x_6-x_7*x_8^2*x_9,x_1^2*x_2*x_3+x_4^2*x_5*x_6-x_7^2*x_8*x_9,x_2^4+x_5^4-x_8^4,x_1*x_2^3+x_4*x_5^3-x_7*x_8^3,x_1^2*x_2^2+x_4^2*x_5^2-x_7^2*x_8^2)
+
+F11E2 =  M = jacobian J
+
+F11E3 =  a = getSubmatrixOfRank(6, M**(S/J), Strategy=>Random)
+
+F11E4 =  M^(a#0)_(a#1)
+
+F11E5 =  d = getSubmatrixOfRank(6, M**(S/J), MaxMinors=>100, Strategy=>LexSmallest)
+
+F11E6 =  M^(d#0)_(d#1)
+
+F11E7 =  e = getSubmatrixOfRank(6, M**(S/J), Strategy=>LexSmallestTerm)
+
+F11E8 =  M^(e#0)_(e#1)
+
+F11E9 =  f = getSubmatrixOfRank(6, M**(S/J), MaxMinors=>100, Strategy=>LexLargest)
+
+F11E10 =  M^(f#0)_(f#1)
+
+F11E11 =  g = getSubmatrixOfRank(6, M**(S/J), Strategy=>Points)
+
+F11E12 =  M^(g#0)_(g#1)
+
+F11E13 =  b = getSubmatrixOfRank(6, M, Strategy=>GRevLexSmallest)
+
+F11E14 =  M^(b#0)_(b#1)
+
+F11E15 =  c = getSubmatrixOfRank(6, M, Strategy=>GRevLexSmallestTerm)
+
+F11E16 =  M^(c#0)_(c#1)
+
+F11E17 =  h = getSubmatrixOfRank(6, M, Strategy=>LexLargest)
+
+F11E18 =  M^(h#0)_(h#1)
+
+F11E19 =  chooseGoodMinors(1, 6, M, J, Strategy=>Random)
+
+F11E20 =  chooseGoodMinors(1, 6, M, J, Strategy=>LexSmallest)
+
+F11E21 =  chooseGoodMinors(1, 6, M, J, Strategy=>LexSmallestTerm)
+
+F11E22 =  chooseGoodMinors(1, 6, M, J, Strategy=>LexLargest)
+
+F11E23 =  chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexSmallest)
+
+F11E24 =  chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexSmallestTerm)
+
+F11E25 =  chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexLargest)
+
+F11E26 =  chooseGoodMinors(1, 6, M, J, Strategy=>Points)
+
+F11E27 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>Random))
+
+F11E28 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexSmallest))
+
+F11E29 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexSmallestTerm))
+
+F11E30 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexLargest))
+
+F11E31 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexSmallest))
+
+F11E32 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexSmallestTerm))
+
+F11E33 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexLargest))
+
+F11E34 =  time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>Points))
+
+F11E35 =  peek StrategyDefault
+
+F11E36 =  time chooseGoodMinors(20, 6, M, J, Strategy=>StrategyDefault, Verbose=>true);
+
+F11E37 =  peek StrategyDefaultNonRandom
+
+F11E38 =  peek StrategyDefaultWithPoints
+
+F11E39 =  peek StrategyPoints
+
+F11E40 =  ptsStratGeometric = new OptionTable from (options chooseGoodMinors)#PointOptions;
+
+F11E41 =  ptsStratGeometric#ExtendField --look at the default value
+
+F11E42 =  time dim (J + chooseGoodMinors(1, 6, M, J, Strategy=>Points, PointOptions=>ptsStratGeometric))
+
+F11E43 =  ptsStratRational = ptsStratGeometric++{ExtendField=>false} --change that value
+
+F11E44 =  ptsStratRational.ExtendField --look at our changed value
+
+F11E45 =  time dim (J + chooseGoodMinors(1, 6, M, J, Strategy=>Points, PointOptions=>ptsStratRational))
+
+F11E46 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefault)
+
+F11E47 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefaultNonRandom)
+
+F11E48 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>Random)
+
+F11E49 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>LexSmallest)
+
+F11E50 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>LexSmallestTerm)
+
+F11E51 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>GRevLexSmallest)
+
+F11E52 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>GRevLexSmallestTerm)
+
+F11E53 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>Points)
+
+F11E54 =  time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefaultWithPoints)
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F11E23", "F11E24", "F11E25", "F11E26", "F11E27", "F11E28", "F11E29", "F11E30", "F11E31", "F11E32", "F11E33", "F11E34", "F11E35", "F11E36", "F11E37", "F11E38", "F11E39", "F11E40", "F11E41", "F11E42", "F11E43", "F11E44", "F11E45", "F11E46", "F11E47", "F11E48", "F11E49", "F11E50", "F11E51", "F11E52", "F11E53", "F11E54"}

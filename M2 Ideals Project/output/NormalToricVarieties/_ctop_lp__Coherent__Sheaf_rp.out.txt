@@ -1,0 +1,33 @@
+needsPackage "NormalToricVarieties"
+
+F82E0 =  X0 = toricProjectiveSpace 5;
+
+F82E1 =  A0 = intersectionRing X0;
+
+F82E2 =  ctop dual cotangentSheaf X0
+
+F82E3 =  assert all (5, d -> (leadCoefficient ctop dual cotangentSheaf toricProjectiveSpace (d+1)) == d+2)
+
+F82E4 =  assert all (5, d -> (
+
+             F := dual cotangentSheaf toricProjectiveSpace (d+1);
+
+             chern (d+1, F) === ctop F
+
+             )
+
+         )
+
+F82E5 =  X1 = smoothFanoToricVariety (4, 50);
+
+F82E6 =  A1 = intersectionRing X1;
+
+F82E7 =  E1 = cotangentSheaf X1
+
+F82E8 =  f1 = ctop E1
+
+F82E9 =  assert (f1 === sum(max X1, s -> product(s, i -> -A1_i)))
+
+F82E10 =  assert (f1 === chern (dim X1, E1))
+
+exampleIDS = {"F82E0", "F82E1", "F82E2", "F82E3", "F82E4", "F82E5", "F82E6", "F82E7", "F82E8", "F82E9", "F82E10"}

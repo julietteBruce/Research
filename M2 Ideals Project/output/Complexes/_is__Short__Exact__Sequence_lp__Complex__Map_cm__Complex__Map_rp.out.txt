@@ -1,0 +1,39 @@
+needsPackage "Complexes"
+
+F29E0 =  R = ZZ/101[a,b,c];
+
+F29E1 =  B = freeResolution coker matrix{{a^2*b, a*b*c, c^3}}
+
+F29E2 =  C = freeResolution coker vars R
+
+F29E3 =  h = randomComplexMap(C, B, Cycle => true)
+
+F29E4 =  f = canonicalMap(C, image h)
+
+F29E5 =  g = canonicalMap(coker h, C)
+
+F29E6 =  assert isShortExactSequence(g,f)
+
+F29E7 =  I = ideal(a^3, b^3, c^3)
+
+F29E8 =  J = I + ideal(a*b*c)
+
+F29E9 =  K = I : ideal(a*b*c)
+
+F29E10 =  SES = complex{
+
+          map(comodule J, comodule I, 1),
+
+          map(comodule I, (comodule K) ** R^{-3}, {{a*b*c}})
+
+          }
+
+F29E11 =  assert isWellDefined SES
+
+F29E12 =  assert isShortExactSequence(dd^SES_1, dd^SES_2)
+
+F29E13 =  (g,f) = horseshoeResolution SES
+
+F29E14 =  assert isShortExactSequence(g,f)
+
+exampleIDS = {"F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F29E7", "F29E8", "F29E9", "F29E10", "F29E11", "F29E12", "F29E13", "F29E14"}

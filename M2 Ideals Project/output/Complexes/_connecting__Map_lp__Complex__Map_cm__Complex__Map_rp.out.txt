@@ -1,0 +1,107 @@
+needsPackage "Complexes"
+
+F40E0 =  S = ZZ/101[a..d, Degrees=>{2:{1,0},2:{0,1}}];
+
+F40E1 =  h = a*c^2 + a*c*d + b*d^2;
+
+F40E2 =  I = (ideal(a,b) * ideal(c,d))^[2]
+
+F40E3 =  F = freeResolution comodule I;
+
+F40E4 =  g = Hom(F, map(S^1/h, S^1, 1))
+
+F40E5 =  f = Hom(F, map(S^1, S^{-degree h}, {{h}}))
+
+F40E6 =  assert isWellDefined g
+
+F40E7 =  assert isWellDefined f
+
+F40E8 =  assert isShortExactSequence(g, f)
+
+F40E9 =  delta = connectingMap(g, f)
+
+F40E10 =  assert isWellDefined delta
+
+F40E11 =  assert(degree delta == 0)
+
+F40E12 =  assert(source delta_(-1) == Ext^1(comodule I, S^1/h))
+
+F40E13 =  assert(target delta_(-1) == Ext^2(comodule I, S^{{-1,-2}}))
+
+F40E14 =  L = longExactSequence(g,f)
+
+F40E15 =  assert isWellDefined L
+
+F40E16 =  assert(HH L == 0)
+
+F40E17 =  assert(dd^L_-9 === delta_-3)
+
+F40E18 =  assert(dd^L_-8 === HH_-3 g)
+
+F40E19 =  assert(dd^L_-7 === HH_-3 f)
+
+F40E20 =  assert(dd^L_-6 === delta_-2)
+
+F40E21 =  assert(dd^L_-5 === HH_-2 g)
+
+F40E22 =  assert(dd^L_-4 === HH_-2 f)
+
+F40E23 =  assert(dd^L_-3 === delta_-1)
+
+F40E24 =  S = ZZ/101[a..d];
+
+F40E25 =  I = ideal(c^3-b*d^2, b*c-a*d)
+
+F40E26 =  J = ideal(a*c^2-b^2*d, b^3-a^2*c)
+
+F40E27 =  ses = complex{
+
+          map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}}),
+
+          map(S^1/I ++ S^1/J, S^1/intersect(I,J), {{1},{-1}})
+
+          }
+
+F40E28 =  assert isWellDefined ses
+
+F40E29 =  assert(HH ses == 0)
+
+F40E30 =  (g,f) = horseshoeResolution ses
+
+F40E31 =  assert isShortExactSequence(g,f)
+
+F40E32 =  (Hf, Hg) = (Hom(f, S), Hom(g, S));
+
+F40E33 =  assert isShortExactSequence(Hf, Hg)
+
+F40E34 =  delta = connectingMap(Hf, Hg)
+
+F40E35 =  assert isWellDefined delta
+
+F40E36 =  assert isComplexMorphism delta
+
+F40E37 =  assert(source delta_-2 == Ext^2(comodule intersect(I,J), S))
+
+F40E38 =  assert(target delta_-2 == Ext^3(comodule (I+J), S))
+
+F40E39 =  L = longExactSequence(Hf, Hg)
+
+F40E40 =  assert isWellDefined L
+
+F40E41 =  assert(HH L == 0)
+
+F40E42 =  assert(dd^L_-6 === delta_-3)
+
+F40E43 =  assert(dd^L_-5 === HH_-3 Hf)
+
+F40E44 =  assert(dd^L_-4 === HH_-3 Hg)
+
+F40E45 =  assert(dd^L_-3 === delta_-2)
+
+F40E46 =  assert(dd^L_-2 === HH_-2 Hf)
+
+F40E47 =  assert(dd^L_-1 === HH_-2 Hg)
+
+F40E48 =  assert(dd^L_0 === delta_-1)
+
+exampleIDS = {"F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F40E10", "F40E11", "F40E12", "F40E13", "F40E14", "F40E15", "F40E16", "F40E17", "F40E18", "F40E19", "F40E20", "F40E21", "F40E22", "F40E23", "F40E24", "F40E25", "F40E26", "F40E27", "F40E28", "F40E29", "F40E30", "F40E31", "F40E32", "F40E33", "F40E34", "F40E35", "F40E36", "F40E37", "F40E38", "F40E39", "F40E40", "F40E41", "F40E42", "F40E43", "F40E44", "F40E45", "F40E46", "F40E47", "F40E48"}

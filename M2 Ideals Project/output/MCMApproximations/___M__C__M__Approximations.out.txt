@@ -1,0 +1,17 @@
+needsPackage "MCMApproximations"
+
+F4E0 =  S = ZZ/101[a,b,c]
+
+F4E1 =  R = S/ideal(a^3+b^3+c^3)
+
+F4E2 =  M = coker random(R^2, R^{4:-1});
+
+F4E3 =  Ea = approximationSequence M;
+
+F4E4 =  netList apply({1,2,3}, i-> betti res Ea_i)
+
+F4E5 =  Ec = coApproximationSequence M;
+
+F4E6 =  netList apply(5, i-> betti res prune Ec_i)
+
+exampleIDS = {"F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6"}

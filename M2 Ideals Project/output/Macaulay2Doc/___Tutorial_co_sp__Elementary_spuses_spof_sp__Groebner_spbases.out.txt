@@ -1,0 +1,141 @@
+needsPackage "Macaulay2Doc"
+
+F953E0 =  KK = ZZ/31991
+
+F953E1 =  R = KK[x,y,z,w]
+
+F953E2 =  I = ideal(x^2*y,x*y^2+x^3)
+
+F953E3 =  J = gens gb I
+
+F953E4 =  R = KK[a..d]
+
+F953E5 =  I = monomialCurveIdeal(R,{1,3,4})
+
+F953E6 =  codim I
+
+F953E7 =  dim I
+
+F953E8 =  codim (R^1/(I*R^1))
+
+F953E9 =  M = coker gens I
+
+F953E10 =  codim M
+
+F953E11 =  dim M
+
+F953E12 =  degree I
+
+F953E13 =  degree M
+
+F953E14 =  hilbertPolynomial M
+
+F953E15 =  hilbertSeries M
+
+F953E16 =  Mres = res M
+
+F953E17 =  betti Mres
+
+F953E18 =  R = KK[x,y,z]
+
+F953E19 =  F = random(R^1, R^{-2,-3})
+
+F953E20 =  GB = gens gb F
+
+F953E21 =  LT = leadTerm gens gb F
+
+F953E22 =  betti LT
+
+F953E23 =  R = KK[x,y,z, MonomialOrder => Lex]
+
+F953E24 =  F = random(R^1, R^{-2,-3})
+
+F953E25 =  GB = gens gb F
+
+F953E26 =  LT = leadTerm gens gb F
+
+F953E27 =  betti LT
+
+F953E28 =  R = KK[a..i]
+
+F953E29 =  M = genericMatrix(R,a,3,3)
+
+F953E30 =  N = M^3
+
+F953E31 =  I = flatten N
+
+F953E32 =  Tr = trace M 
+
+F953E33 =  Tr //I  -- the quotient, which is 0
+
+F953E34 =  Tr % I  -- the remainder, which is Tr again
+
+F953E35 =  Tr^2 % I
+
+F953E36 =  Tr^3 % I
+
+F953E37 =  Tr^4 % I
+
+F953E38 =  Tr^5 % I
+
+F953E39 =  Tr^6 % I
+
+F953E40 =  Tr^7 % I
+
+F953E41 =  Tr^6 // I
+
+F953E42 =  Tr^6 == I * (Tr^6 // I) + (Tr^6 % I)
+
+F953E43 =  x = global x
+
+F953E44 =  R = KK[x_0..x_3] 
+
+F953E45 =  M = map(R^2, 3, (i,j)->x_(i+j))
+
+F953E46 =  I = gens minors(2,M)
+
+F953E47 =  pideal = ideal(x_0+x_3, x_1, x_2)
+
+F953E48 =  y = global y
+
+F953E49 =  S = KK[y_0..y_3,MonomialOrder=> Eliminate 1]
+
+F953E50 =  I1 = substitute(I, matrix{{y_0,y_1,y_2,y_3-y_0}})
+
+F953E51 =  J = selectInSubring(1,gens gb I1)
+
+F953E52 =  S1 = KK[y_1..y_3]
+
+F953E53 =  J1 = substitute(J, S1)
+
+F953E54 =  Rbar = R/(ideal I)
+
+F953E55 =  f = map(Rbar, S1, matrix(Rbar,{{x_0+x_3, x_1,x_2}}))
+
+F953E56 =  J1 = ker f
+
+F953E57 =  R = KK[a,b,c,d]
+
+F953E58 =  I1 = ideal(d*b-a^2, d^2*c-a^3)
+
+F953E59 =  I1aug = (gens I1) | matrix{{d}}
+
+F953E60 =  augrelations = gens ker I1aug
+
+F953E61 =  I21 = submatrix(augrelations, {2}, {0,1})
+
+F953E62 =  I21 = ideal I21
+
+F953E63 =  I22 = I21 : d
+
+F953E64 =  I23 = I22 : d
+
+F953E65 =  (gens I23) % (gens I22)
+
+F953E66 =  gens gb I1
+
+F953E67 =  I2 = divideByVariable(gens gb I1,d)
+
+F953E68 =  saturate(I1, d)
+
+exampleIDS = {"F953E0", "F953E1", "F953E2", "F953E3", "F953E4", "F953E5", "F953E6", "F953E7", "F953E8", "F953E9", "F953E10", "F953E11", "F953E12", "F953E13", "F953E14", "F953E15", "F953E16", "F953E17", "F953E18", "F953E19", "F953E20", "F953E21", "F953E22", "F953E23", "F953E24", "F953E25", "F953E26", "F953E27", "F953E28", "F953E29", "F953E30", "F953E31", "F953E32", "F953E33", "F953E34", "F953E35", "F953E36", "F953E37", "F953E38", "F953E39", "F953E40", "F953E41", "F953E42", "F953E43", "F953E44", "F953E45", "F953E46", "F953E47", "F953E48", "F953E49", "F953E50", "F953E51", "F953E52", "F953E53", "F953E54", "F953E55", "F953E56", "F953E57", "F953E58", "F953E59", "F953E60", "F953E61", "F953E62", "F953E63", "F953E64", "F953E65", "F953E66", "F953E67", "F953E68"}

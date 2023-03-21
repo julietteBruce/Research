@@ -1,0 +1,55 @@
+needsPackage "EliminationMatrices"
+
+F15E0 =  R=QQ[a_0..a_8,x,y,z]
+
+F15E1 =  f1 = a_0*x+a_1*y+a_2*z
+
+F15E2 =  f2 = a_3*x+a_4*y+a_5*z
+
+F15E3 =  f3 = a_6*x+a_7*y+a_8*z
+
+F15E4 =  M = matrix{{f1,f2,f3}}
+
+F15E5 =  l = {x,y,z}
+
+F15E6 =  MR = eliminationMatrix (l,M, Strategy => Macaulay)
+
+F15E7 =  R=QQ[a_0..a_5,b_0..b_5,x,y]
+
+F15E8 =  M:=matrix{{a_0*x+a_1*y,a_2*x+a_3*y,a_4*x+a_5*y},{b_0*x+b_1*y,b_2*x+b_3*y,b_4*x+b_5*y}}
+
+F15E9 =  eliminationMatrix(1,{x,y},M, Strategy => determinantal)
+
+F15E10 =  R = QQ[X,Y,Z,x,y,z]
+
+F15E11 =  F = matrix{{x*y^2,y^3,x*z^2,y^3+z^3}}
+
+F15E12 =  G = matrix{{y^2,z^2}}
+
+F15E13 =  M = matrix{{1,0,0},{0,1,0},{0,0,1},{-X,-Y,-Z}}
+
+F15E14 =  H = (F//G)*M
+
+F15E15 =  l = {x,y,z}
+
+F15E16 =  L=eliminationMatrix (l,G,H, Strategy => CM2Residual)
+
+F15E17 =  maxCol L
+
+F15E18 =  R=QQ[a_0,a_1,a_2,a_3,a_4,b_0,b_1,b_2,b_3,b_4,c_0,c_1,c_2,c_3,c_4,x,y,z]
+
+F15E19 =  G=matrix{{z,x^2+y^2}}
+
+F15E20 =  H=matrix{{a_0*z+a_1*x+a_2*y,b_0*z+b_1*x+b_2*y,c_0*z+c_1*x+c_2*y},{a_3,b_3,c_3}}
+
+F15E21 =  L=eliminationMatrix ({x,y,z},G,H, Strategy => ciResidual)
+
+F15E22 =  R=QQ[a_0,a_1,a_2,a_3,a_4,b_0,b_1,b_2,b_3,b_4,c_0,c_1,c_2,c_3,c_4,x,y,z]
+
+F15E23 =  G=matrix{{z,x^2+y^2}}
+
+F15E24 =  H=matrix{{a_0*z+a_1*x+a_2*y,b_0*z+b_1*x+b_2*y,c_0*z+c_1*x+c_2*y},{a_3,b_3,c_3}}
+
+F15E25 =  L=eliminationMatrix ({x,y,z},G,H, Strategy => byResolution)
+
+exampleIDS = {"F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16", "F15E17", "F15E18", "F15E19", "F15E20", "F15E21", "F15E22", "F15E23", "F15E24", "F15E25"}

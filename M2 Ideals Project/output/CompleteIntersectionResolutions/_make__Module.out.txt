@@ -1,0 +1,25 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F10E0 =  SE = ZZ/101[a,b,c,x,y,Degrees=>toList(3:{1,0})|toList(2:{1,1}), SkewCommutative=>{x,y}]
+
+F10E1 =  RE = SE/ideal"a2,b2,c2"
+
+F10E2 =  T = hashTable {{0,RE^1},{1,RE^{2:{ -1,-1}}}, {2,RE^{{ -2,-2}}}}
+
+F10E3 =  E = matrix{{x,y}}
+
+F10E4 =  F=apply(2, j-> source E_{j})
+
+F10E5 =  phi = hashTable{ {{0,0}, map(T#1, F_0**T#0, T#1_{0})},{{1,0}, map(T#1, F_1**T#0, T#1_{1})},{{0,1}, map(T#2, F_0**T#1, T#1^{1})}, {{1,1}, -map(T#2, F_1**T#1, T#1^{0})}}
+
+F10E6 =  apply(keys phi, k->isHomogeneous phi#k)
+
+F10E7 =  X = makeModule(T,E,phi)
+
+F10E8 =  isHomogeneous X
+
+F10E9 =  q = map(ZZ/101[x,y, SkewCommutative => true, DegreeMap => d->{d_1}], ring X, {3:0,x,y})
+
+F10E10 =  prune coker q presentation X
+
+exampleIDS = {"F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10"}

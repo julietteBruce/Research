@@ -1,0 +1,17 @@
+needsPackage "LinearTruncations"
+
+F7E0 =  S = ZZ/101[x_0,x_1,y_0,y_1,z_0,z_1,Degrees=>{{1,0,0},{1,0,0},{0,1,0},{0,1,0},{0,0,1},{0,0,1}}]
+
+F7E1 =  I = ideal(x_0*x_1*y_0*z_0^2, x_1^2*y_0^2*y_1^2*z_0^2, x_0^3*y_0*z_1, x_0^2*x_1*y_1*z_0*z_1, x_0*x_1^2*y_1^2*z_0^3, x_1^3*y_0^2*y_1*z_1^2)
+
+F7E2 =  M = S^1/I
+
+F7E3 =  L = linearTruncationsBound M
+
+F7E4 =  apply(L, d -> isLinearComplex res prune truncate(d,M))
+
+F7E5 =  elapsedTime linearTruncations({{2,2,2},{4,4,4}}, M)
+
+F7E6 =  elapsedTime linearTruncationsBound M
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6"}

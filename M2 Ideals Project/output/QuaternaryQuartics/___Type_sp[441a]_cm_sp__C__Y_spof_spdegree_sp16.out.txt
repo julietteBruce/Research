@@ -1,0 +1,25 @@
+needsPackage "QuaternaryQuartics"
+
+F15E0 =  kk=QQ;
+
+F15E1 =  U=kk[y0,y1,y2,y3,y4,y5,y6,y7];
+
+F15E2 =  P3=ideal(y0,y1,y2,y3);--a P3
+
+F15E3 =  P4=ideal(y1,y2,y3);--a P4
+
+F15E4 =  P6=ideal(y0);--a P6
+
+F15E5 =  M24=matrix{{y1,y2,random(2,U),random(2,U)},{y2,y3,random(2,U),random(2,U)}};--a 2x4 matrix with two columns of linear and two of quadratic forms
+
+F15E6 =  X12=P6+minors(2,M24);--a 3-fold of degree 12 in P6
+
+F15E7 =  Z4=P3+X12;--a quartic surface in X12
+
+F15E8 =  X4=P4+ideal(random(4,Z4));--a quartic 3-fold
+
+F15E9 =  X16=intersect(X12,X4);-- a 3-fold of degree 16 in P7 with betti table of type 441
+
+F15E10 =  betti res X16
+
+exampleIDS = {"F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10"}

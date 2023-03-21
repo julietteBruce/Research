@@ -1,0 +1,21 @@
+needsPackage "MinimalPrimes"
+
+F4E0 =  d = (4,5,6,7)
+
+F4E1 =  n = #d
+
+F4E2 =  R = QQ[x_0..x_n]
+
+F4E3 =  I = ideal homogenize(matrix{{x_1^(d#0)} | apply(toList(1..n-2), i -> x_i - x_(i+1)^(d#i)) | {x_(n-1) - x_0^(d#-1)}}, x_n)
+
+F4E4 =  D = product(I_*/degree/sum)
+
+F4E5 =  x_0^(D-1) % I != 0 and x_0^D % I == 0
+
+F4E6 =  elapsedTime radicalContainment(x_0, I)
+
+F4E7 =  elapsedTime radicalContainment(x_0, I, Strategy => "Kollar")
+
+F4E8 =  elapsedTime radicalContainment(x_n, I, Strategy => "Kollar")
+
+exampleIDS = {"F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8"}

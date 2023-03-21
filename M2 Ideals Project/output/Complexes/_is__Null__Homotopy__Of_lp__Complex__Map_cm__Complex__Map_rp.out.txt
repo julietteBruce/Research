@@ -1,0 +1,37 @@
+needsPackage "Complexes"
+
+F81E0 =  R = ZZ/101[x,y,z];
+
+F81E1 =  M = cokernel matrix{{x,y,z^2}, {y^2,z,x^2}}
+
+F81E2 =  C = complex {id_M}
+
+F81E3 =  h = map(C, C, i -> if i == 0 then id_M, Degree => 1)
+
+F81E4 =  isWellDefined h
+
+F81E5 =  assert isNullHomotopyOf(h, id_C)
+
+F81E6 =  assert isNullHomotopic id_C
+
+F81E7 =  C = (freeResolution M) ** R^1/ideal(x^3, z^3-x)
+
+F81E8 =  f = randomComplexMap(C, C[1], Boundary => true)
+
+F81E9 =  assert isNullHomotopic f
+
+F81E10 =  h = nullHomotopy f
+
+F81E11 =  assert isNullHomotopyOf(h, f)
+
+F81E12 =  g1 = randomComplexMap(C, C[1], Degree => 1)
+
+F81E13 =  g2 = randomComplexMap(C, C[1], Degree => -1)
+
+F81E14 =  debugLevel = 1
+
+F81E15 =  assert not isNullHomotopyOf(g1, f)
+
+F81E16 =  assert not isNullHomotopyOf(g2, f)
+
+exampleIDS = {"F81E0", "F81E1", "F81E2", "F81E3", "F81E4", "F81E5", "F81E6", "F81E7", "F81E8", "F81E9", "F81E10", "F81E11", "F81E12", "F81E13", "F81E14", "F81E15", "F81E16"}

@@ -1,0 +1,33 @@
+needsPackage "Complexes"
+
+F89E0 =  S = ZZ/32003[x,y,z];
+
+F89E1 =  M = ideal vars S
+
+F89E2 =  B = freeResolution(S^1/M^2)
+
+F89E3 =  C = freeResolution(S^1/M)
+
+F89E4 =  f = extend(C,B,id_(S^1))
+
+F89E5 =  cylf = cylinder f
+
+F89E6 =  dd^cylf
+
+F89E7 =  assert isWellDefined cylf
+
+F89E8 =  Cf = cone f
+
+F89E9 =  g = canonicalMap(cylf, B)
+
+F89E10 =  h = canonicalMap(Cf, cylf)
+
+F89E11 =  assert(isWellDefined g and isWellDefined h)
+
+F89E12 =  assert(isShortExactSequence(h,g))
+
+F89E13 =  g = map(B ++ C, B, {{-id_B},{f}})
+
+F89E14 =  cone g == cylf
+
+exampleIDS = {"F89E0", "F89E1", "F89E2", "F89E3", "F89E4", "F89E5", "F89E6", "F89E7", "F89E8", "F89E9", "F89E10", "F89E11", "F89E12", "F89E13", "F89E14"}

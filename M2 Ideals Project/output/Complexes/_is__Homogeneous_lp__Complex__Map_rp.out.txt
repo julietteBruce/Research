@@ -1,0 +1,31 @@
+needsPackage "Complexes"
+
+F17E0 =  S = ZZ/101[a,b,c,d];
+
+F17E1 =  I = minors(2, matrix{{a,b,c},{b,c,d}})
+
+F17E2 =  C = freeResolution (S^1/I)
+
+F17E3 =  assert isHomogeneous dd^C
+
+F17E4 =  f = randomComplexMap(C, C, Degree => -1)
+
+F17E5 =  assert isHomogeneous f
+
+F17E6 =  f = randomComplexMap(C, C, InternalDegree => 2)
+
+F17E7 =  assert isHomogeneous f
+
+F17E8 =  phi = map(S, S, {1,b,c,d})
+
+F17E9 =  D = phi C
+
+F17E10 =  dd^D
+
+F17E11 =  assert not isHomogeneous dd^D
+
+F17E12 =  g = randomComplexMap(D, D, InternalDegree => 1)
+
+F17E13 =  assert isHomogeneous g
+
+exampleIDS = {"F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13"}

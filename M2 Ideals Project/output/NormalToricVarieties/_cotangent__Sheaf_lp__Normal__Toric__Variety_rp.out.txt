@@ -1,0 +1,35 @@
+needsPackage "NormalToricVarieties"
+
+F11E0 =  PP3 = toricProjectiveSpace 3;
+
+F11E1 =  OmegaPP3 = cotangentSheaf PP3
+
+F11E2 =  assert (prune cotangentSheaf PP3 === cotangentSheaf (PP3, Minimize => true))
+
+F11E3 =  L = prune exteriorPower (3, OmegaPP3)
+
+F11E4 =  assert (L === OO toricDivisor PP3)
+
+F11E5 =  assert (L === prune cotangentSheaf (dim PP3, PP3))
+
+F11E6 =  X = hirzebruchSurface 2;
+
+F11E7 =  OmegaX = cotangentSheaf X
+
+F11E8 =  L = prune exteriorPower(dim X, OmegaX)
+
+F11E9 =  assert (L === OO toricDivisor X)
+
+F11E10 =  assert (L === prune cotangentSheaf(dim X, X))
+
+F11E11 =  Y = normalToricVariety ({{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}}, {{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}});
+
+F11E12 =  assert (not isSmooth Y and not isProjective Y)
+
+F11E13 =  OmegaY = cotangentSheaf Y
+
+F11E14 =  prune exteriorPower(dim Y, OmegaY)
+
+F11E15 =  assert (prune exteriorPower(dim Y, OmegaY) === OO toricDivisor Y)
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15"}

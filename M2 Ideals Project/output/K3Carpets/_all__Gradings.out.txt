@@ -1,0 +1,19 @@
+needsPackage "K3Carpets"
+
+F8E0 =  a=3,b=3
+
+F8E1 =  I=carpet(a,b);
+
+F8E2 =  F = res(I,FastNonminimal=>true,LengthLimit=>2);
+
+F8E3 =  betti F
+
+F8E4 =  degs=apply(a+1,i->{1,0,i})|apply(b+1,j->{0,1,j})
+
+F8E5 =  S=coefficientRing ring I[gens ring I,Degrees=>degs]
+
+F8E6 =  Fall = allGradings(F,S)
+
+F8E7 =  netList apply(length Fall+1,i->tally degrees Fall_i)
+
+exampleIDS = {"F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7"}

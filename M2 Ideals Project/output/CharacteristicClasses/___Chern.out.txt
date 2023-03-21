@@ -1,0 +1,53 @@
+needsPackage "CharacteristicClasses"
+
+F3E0 =  setRandomSeed 438;
+
+F3E1 =  R = QQ[v,y,z,w]
+
+F3E2 =  B = matrix{{v,y,z},{y,z,w}}
+
+F3E3 =  Chern minors(2,B)
+
+F3E4 =  Chern(minors(2,B),CompMethod=>PnResidual)
+
+F3E5 =  A=ChowRing(R)
+
+F3E6 =  c1=Chern(A, minors(2,B))
+
+F3E7 =  cHash=Chern(A,minors(2,B),Output=>HashForm)
+
+F3E8 =  peek cHash
+
+F3E9 =  c1==cHash#"Chern"
+
+F3E10 =  R=MultiProjCoordRing({2,2})
+
+F3E11 =  r=gens R
+
+F3E12 =  I=ideal(r_0^2*r_3-r_4*r_1*r_2,r_2^2*r_5)
+
+F3E13 =  Chern I
+
+F3E14 =  needsPackage "NormalToricVarieties"
+
+F3E15 =  Rho = {{1,0,0},{0,1,0},{0,0,1},{-1,-1,0},{0,0,-1}}
+
+F3E16 =  Sigma = {{0,1,2},{1,2,3},{0,2,3},{0,1,4},{1,3,4},{0,3,4}}
+
+F3E17 =  X = normalToricVariety(Rho,Sigma,CoefficientRing =>ZZ/32749)
+
+F3E18 =  CheckToricVarietyValid(X)
+
+F3E19 =  R=ring(X)
+
+F3E20 =  I=ideal(R_0^4*R_1,R_0*R_3*R_4*R_2-R_2^2*R_0^2)
+
+F3E21 =  Chern(X,I)
+
+F3E22 =  Ch=ToricChowRing(X)
+
+F3E23 =  s3=Chern(Ch,X,I)
+
+F3E24 =  s3==(product(gens(Ch),a->a+1)*Segre(Ch,X,I))
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F3E23", "F3E24"}

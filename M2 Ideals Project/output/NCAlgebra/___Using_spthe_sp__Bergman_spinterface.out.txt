@@ -1,0 +1,47 @@
+needsPackage "NCAlgebra"
+
+F75E0 =  A = QQ{x,y,z}
+
+F75E1 =  p = y*z + z*y - x^2
+
+F75E2 =  q = x*z + z*x - y^2
+
+F75E3 =  r = z^2 - x*y - y*x
+
+F75E4 =  I = ncIdeal {p,q,r}
+
+F75E5 =  Igb = twoSidedNCGroebnerBasisBergman I
+
+F75E6 =  Igb2 = ncGroebnerBasis(I,InstallGB=>true)
+
+F75E7 =  z^17 % Igb
+
+F75E8 =  normalFormBergman(z^17,Igb)
+
+F75E9 =  B = A/I
+
+F75E10 =  z^17
+
+F75E11 =  hilbertBergman B
+
+F75E12 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F75E13 =  A = ambient B
+
+F75E14 =  g = -y^3-x*y*z+y*x*z+x^3
+
+F75E15 =  C = A/(ideal B + ncIdeal g)
+
+F75E16 =  M = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+F75E17 =  assignDegrees(M,{1,0,0,0},{2,2,2,1})
+
+F75E18 =  ker1M = rightKernelBergman(M)
+
+F75E19 =  M*ker1M == 0
+
+F75E20 =  ker2M = rightKernelBergman(ker1M)
+
+F75E21 =  ker3M = rightKernelBergman(ker2M)
+
+exampleIDS = {"F75E0", "F75E1", "F75E2", "F75E3", "F75E4", "F75E5", "F75E6", "F75E7", "F75E8", "F75E9", "F75E10", "F75E11", "F75E12", "F75E13", "F75E14", "F75E15", "F75E16", "F75E17", "F75E18", "F75E19", "F75E20", "F75E21"}

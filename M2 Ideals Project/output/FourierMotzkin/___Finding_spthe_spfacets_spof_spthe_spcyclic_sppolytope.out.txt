@@ -1,0 +1,33 @@
+needsPackage "FourierMotzkin"
+
+F0E0 =  cyclicPolytope = (d,n) -> map(ZZ^d, ZZ^n, (i,j) -> j^(i+1));
+
+F0E1 =  vertices = cyclicPolytope(4,8)
+
+F0E2 =  homogenizePolytope = V -> (
+
+          R := ring V;
+
+          n := numgens source V;
+
+          map(R^1, R^n, {toList(n:1)}) || V);
+
+F0E3 =  polyCone = homogenizePolytope vertices
+
+F0E4 =  H = fourierMotzkin polyCone
+
+F0E5 =  halfspaces = H#0
+
+F0E6 =  numgens source halfspaces
+
+F0E7 =  inequalityVector = transpose submatrix(halfspaces,{0},)
+
+F0E8 =  inequalityMatrix = transpose submatrix(halfspaces,{1..4},)
+
+F0E9 =  ones = map(ZZ^1,ZZ^8,{toList(8:1)})
+
+F0E10 =  M = (inequalityMatrix * vertices) + (ones ** inequalityVector)
+
+F0E11 =  incidence = matrix table(20,8, (i,j) -> if M_(i,j) == 0 then 1 else 0)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11"}

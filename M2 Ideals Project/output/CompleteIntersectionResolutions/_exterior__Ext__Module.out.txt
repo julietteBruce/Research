@@ -1,0 +1,51 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F3E0 =  kk = ZZ/101
+
+F3E1 =  S = kk[a,b,c]
+
+F3E2 =  f = matrix"a4,b4,c4"
+
+F3E3 =  R = S/ideal f
+
+F3E4 =  p = map(R,S)
+
+F3E5 =  M = coker map(R^2, R^{3:-1}, {{a,b,c},{b,c,a}})
+
+F3E6 =  betti (FF =res( M, LengthLimit =>6))
+
+F3E7 =  MS = prune pushForward(p, coker FF.dd_6);
+
+F3E8 =  resFld := pushForward(p, coker vars R);
+
+F3E9 =  T = exteriorTorModule(f,MS);
+
+F3E10 =  E = exteriorExtModule(f,MS);
+
+F3E11 =  hf(-4..0,E)
+
+F3E12 =  betti res MS
+
+F3E13 =  betti res (PE = prune E)
+
+F3E14 =  betti res (PT = prune T)
+
+F3E15 =  E1 = prune exteriorExtModule(f, MS, resFld);
+
+F3E16 =  ring E1
+
+F3E17 =  exRing = kk[e_0,e_1,e_2, SkewCommutative =>true]
+
+F3E18 =  E1 = prune exteriorExtModule(f, MS, resFld);
+
+F3E19 =  ring E1
+
+F3E20 =  exRing = kk[e_0,e_1,e_2, SkewCommutative =>true]
+
+F3E21 =  q = map(exRing, ring E1, {3:0,e_0,e_1,e_2}, DegreeMap => d -> {d_1})
+
+F3E22 =  E2 = coker q presentation E1;
+
+F3E23 =  hf(-5..5,E2) == hf(-5..5,E)
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F3E23"}

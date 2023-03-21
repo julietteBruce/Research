@@ -1,0 +1,31 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F9E0 =  kk = ZZ/101
+
+F9E1 =  S = kk[a,b,c]
+
+F9E2 =  ff = matrix"a2,b2,c2"
+
+F9E3 =  R = S/ideal ff
+
+F9E4 =  M = R^1/ideal"a,bc"
+
+F9E5 =  k = 1
+
+F9E6 =  m = k+5
+
+F9E7 =  F = res(M, LengthLimit => m)
+
+F9E8 =  syzygies = apply(1..m, i->coker F.dd_i);
+
+F9E9 =  t1 = makeT(ff,F,k+4);
+
+F9E10 =  t2 = makeT(ff,F,k+2);
+
+F9E11 =  T2Components = flatten for i from 0 to 1 list(for j from i+1 to 2 list map(F_k, F_(k+4), t2_i*t1_j-t2_j*t1_i));
+
+F9E12 =  g = map(syzygies_k, syzygies_(k+4), T2Components_2)
+
+F9E13 =  isStablyTrivial g
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13"}

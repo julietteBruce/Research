@@ -1,0 +1,29 @@
+needsPackage "MCMApproximations"
+
+F6E0 =  setRandomSeed 100
+
+F6E1 =  c = 3
+
+F6E2 =  S = setupRings(c,d);
+
+F6E3 =  R = S_c; -- complete intersection, codim = c
+
+F6E4 =  R' = S_(c-1); --codim c-1
+
+F6E5 =  Mc = coker vars R;
+
+F6E6 =  (M,k,p) = setupModules(S,Mc); --M_(c-1) is Mc as an R_(c-1)-module
+
+F6E7 =  ca = coApproximation M_(c-1);
+
+F6E8 =  M'' = coker ca;
+
+F6E9 =  N = target ca
+
+F6E10 =  profondeur M'' == dim ring M'' -- an MCM module
+
+F6E11 =  M'' == source approximation(M'', Total=>false) -- no free summands
+
+F6E12 =  2 == length res(N, LengthLimit =>10) -- projective dimension <\infty
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12"}

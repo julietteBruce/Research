@@ -1,0 +1,45 @@
+needsPackage "Complexes"
+
+F16E0 =  S = ZZ/101[a..d, Degrees=>{2:{1,0},2:{0,1}}];
+
+F16E1 =  h = a*c^2 + a*c*d + b*d^2;
+
+F16E2 =  I = (ideal(a,b) * ideal(c,d))^[2]
+
+F16E3 =  g = map(S^1/h, S^1, 1)
+
+F16E4 =  f = map(S^1, S^{-degree h}, {{h}})
+
+F16E5 =  assert isShortExactSequence(g,f)
+
+F16E6 =  delta = connectingExtMap(S^1/I, g, f)
+
+F16E7 =  assert isWellDefined delta
+
+F16E8 =  assert(degree delta == 0)
+
+F16E9 =  assert(source delta_(-1) == Ext^1(comodule I, S^1/h))
+
+F16E10 =  assert(target delta_(-1) == Ext^2(comodule I, S^{{-1,-2}}))
+
+F16E11 =  S = ZZ/101[a..d];
+
+F16E12 =  I = ideal(c^3-b*d^2, b*c-a*d)
+
+F16E13 =  J = ideal(a*c^2-b^2*d, b^3-a^2*c)
+
+F16E14 =  g = map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}})
+
+F16E15 =  f = map(S^1/I ++ S^1/J, S^1/intersect(I,J), {{1},{-1}})
+
+F16E16 =  assert isShortExactSequence(g,f)
+
+F16E17 =  delta = connectingExtMap(g, f, S^1)
+
+F16E18 =  assert isWellDefined delta
+
+F16E19 =  assert(source delta_-2 == Ext^2(comodule intersect(I,J), S))
+
+F16E20 =  assert(target delta_-2 == Ext^3(comodule (I+J), S))
+
+exampleIDS = {"F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17", "F16E18", "F16E19", "F16E20"}

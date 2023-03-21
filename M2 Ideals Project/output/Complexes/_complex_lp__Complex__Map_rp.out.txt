@@ -1,0 +1,25 @@
+needsPackage "Complexes"
+
+F46E0 =  S = ZZ/101[x_1..x_4];
+
+F46E1 =  F = freeResolution coker vars S
+
+F46E2 =  d = randomComplexMap(F, F, Cycle => true, InternalDegree => -1, Degree => -1)
+
+F46E3 =  d^2
+
+F46E4 =  C = complex d
+
+F46E5 =  assert isWellDefined C
+
+F46E6 =  assert all(0..4, i -> dd^C_i == d_i)
+
+F46E7 =  e = randomComplexMap(F, F, InternalDegree => -1, Degree => -1)
+
+F46E8 =  D = complex e
+
+F46E9 =  debugLevel = 1
+
+F46E10 =  assert not isWellDefined D
+
+exampleIDS = {"F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F46E5", "F46E6", "F46E7", "F46E8", "F46E9", "F46E10"}

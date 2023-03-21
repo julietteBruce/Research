@@ -1,0 +1,13 @@
+needsPackage "DGAlgebras"
+
+F3E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F3E1 =  RDevs = deviations(R,DegreeLimit=>6)
+
+F3E2 =  devPSeries = deviationsToPoincare(RDevs,DegreeLimit=>6)
+
+F3E3 =  pSeries = poincareN (res(coker vars R, LengthLimit=>6))
+
+F3E4 =  substitute(devPSeries,ring pSeries) == pSeries
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4"}

@@ -1,0 +1,49 @@
+needsPackage "Complexes"
+
+F34E0 =  S = ZZ/101[a..d];
+
+F34E1 =  I = ideal(c^3-b*d^2, b*c-a*d)
+
+F34E2 =  J = ideal(a*c^2-b^2*d, b^3-a^2*c)
+
+F34E3 =  g = map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}});
+
+F34E4 =  f = map(S^1/I ++ S^1/J, S^1/intersect(I,J), {{1},{-1}});
+
+F34E5 =  assert isShortExactSequence(g,f)
+
+F34E6 =  kk = coker vars S
+
+F34E7 =  delta = connectingTorMap(kk, g, f)
+
+F34E8 =  assert isWellDefined delta
+
+F34E9 =  assert(source delta_2 == Tor_2(kk, target g))
+
+F34E10 =  assert(target delta_2 == Tor_1(kk, source f))
+
+F34E11 =  prune delta
+
+F34E12 =  F = freeResolution kk;
+
+F34E13 =  LES = longExactSequence(F ** g, F ** f);
+
+F34E14 =  assert all(3, i -> dd^LES_(3*(i+1)) == delta_(i+1))
+
+F34E15 =  assert(HH LES == 0)
+
+F34E16 =  delta' = connectingTorMap(g, f, kk)
+
+F34E17 =  assert isWellDefined delta'
+
+F34E18 =  (g',f') = horseshoeResolution(g,f);
+
+F34E19 =  assert isShortExactSequence(g',f')
+
+F34E20 =  LES' = longExactSequence(g' ** kk, f' ** kk);
+
+F34E21 =  assert(HH LES' == 0)
+
+F34E22 =  assert all(3, i -> dd^LES'_(3*(i+1)) == delta'_(i+1))
+
+exampleIDS = {"F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15", "F34E16", "F34E17", "F34E18", "F34E19", "F34E20", "F34E21", "F34E22"}

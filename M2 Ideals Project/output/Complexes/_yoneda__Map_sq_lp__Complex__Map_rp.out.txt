@@ -1,0 +1,53 @@
+needsPackage "Complexes"
+
+F18E0 =  S = ZZ/101[a..d]
+
+F18E1 =  I = ideal"a2,ab,ac,b3"
+
+F18E2 =  E = Ext^1(I, S^1/I)
+
+F18E3 =  B = basis(0, E)
+
+F18E4 =  f0 = B * random(S^16, S^1)
+
+F18E5 =  g = yonedaMap f0
+
+F18E6 =  assert(degree g === -1)
+
+F18E7 =  f = yonedaMap' g
+
+F18E8 =  assert isWellDefined f
+
+F18E9 =  assert(degree f == {0})
+
+F18E10 =  assert isHomogeneous f
+
+F18E11 =  source f === S^1
+
+F18E12 =  target f === E
+
+F18E13 =  assert(f == f0)
+
+F18E14 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F18E15 =  M = truncate(1,R^1)
+
+F18E16 =  B = basis(-4, Ext^3(M, M))
+
+F18E17 =  f0 = B_{2}
+
+F18E18 =  g = yonedaMap(f0, LengthLimit => 8)
+
+F18E19 =  f = yonedaMap' g
+
+F18E20 =  assert isWellDefined f
+
+F18E21 =  assert isHomogeneous f
+
+F18E22 =  assert(degree f === {-4})
+
+F18E23 =  assert(f != f0)
+
+F18E24 =  assert(yonedaMap(f, LengthLimit => 8) == g)
+
+exampleIDS = {"F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14", "F18E15", "F18E16", "F18E17", "F18E18", "F18E19", "F18E20", "F18E21", "F18E22", "F18E23", "F18E24"}

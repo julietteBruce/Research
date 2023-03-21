@@ -1,0 +1,17 @@
+needsPackage "CodingTheory"
+
+F5E0 =  C = hammingCode(2,3);
+
+F5E1 =  msg = matrix {{1,0,1,0}};
+
+F5E2 =  v = msg*(C.GeneratorMatrix);
+
+F5E3 =  err = matrix take(random entries basis source v, 1);
+
+F5E4 =  received = (transpose (v+err));
+
+F5E5 =  syndromeDecode(C, received, 3);
+
+F5E6 =  C.cache#"syndromeLUT"
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6"}

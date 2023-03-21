@@ -1,0 +1,43 @@
+needsPackage "Macaulay2Doc"
+
+F857E0 =  R = QQ[x..z];
+
+F857E1 =  M = cokernel vars R
+
+F857E2 =  C = res M
+
+F857E3 =  R = ZZ/2[a..d];
+
+F857E4 =  M = coker random(R^4, R^{5:-3,6:-4});
+
+F857E5 =  handleInterrupts = true
+
+F857E6 =  (<< "-- computation started: " << endl;
+
+      while true do try (
+
+          alarm 1;
+
+          time res M;
+
+          alarm 0;
+
+          << "-- computation complete" << endl;
+
+          status M.cache.resolution;
+
+          << res M << endl << endl;
+
+          break;
+
+          ) else (
+
+          << "-- computation interrupted" << endl;
+
+          status M.cache.resolution;
+
+          << "-- continuing the computation" << endl;
+
+          ))
+
+exampleIDS = {"F857E0", "F857E1", "F857E2", "F857E3", "F857E4", "F857E5", "F857E6"}

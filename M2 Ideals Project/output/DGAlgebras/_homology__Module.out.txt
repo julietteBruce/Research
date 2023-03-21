@@ -1,0 +1,31 @@
+needsPackage "DGAlgebras"
+
+F2E0 =  Q = QQ[x,y,z,w]
+
+F2E1 =  I = ideal (w^2, y*w+z*w, x*w, y*z+z^2, y^2+z*w, x*y+x*z, x^2+z*w)
+
+F2E2 =  R = Q/I
+
+F2E3 =  KR = koszulComplexDGA R
+
+F2E4 =  cxKR = toComplex KR
+
+F2E5 =  HKR = HH(KR)
+
+F2E6 =  degList = first entries vars Q / degree / first
+
+F2E7 =  M = Ext^4(Q^1/I,Q^{-(sum degList)}) ** R
+
+F2E8 =  HKM = homologyModule(KR,M);
+
+F2E9 =  hsHKR = value numerator reduceHilbert hilbertSeries HKR
+
+F2E10 =  hsHKM = value numerator reduceHilbert hilbertSeries HKM
+
+F2E11 =  AA = ring hsHKR
+
+F2E12 =  e = numgens Q
+
+F2E13 =  hsHKR == T_0^e*T_1^e*sub(hsHKM, {T_0 => T_0^(-1), T_1 => T_1^(-1)})
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13"}

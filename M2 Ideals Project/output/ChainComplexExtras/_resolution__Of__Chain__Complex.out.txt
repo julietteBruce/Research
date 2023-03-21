@@ -1,0 +1,33 @@
+needsPackage "ChainComplexExtras"
+
+F5E0 =  kk= ZZ/101
+
+F5E1 =  S = kk[a,b,c]
+
+F5E2 =  R = S/ideal"ab2,a2c3"
+
+F5E3 =  f = map(R,S,vars R)
+
+F5E4 =  C = res(R^1/(ideal vars R))**(R^1/(ideal vars R)^5);
+
+F5E5 =  mods = for i from 0 to max C list pushForward(f, C_i);
+
+F5E6 =  C = chainComplex for i from min C+1 to max C list map(mods_(i-1),mods_i,substitute(matrix C.dd_i,S));
+
+F5E7 =  time m = resolutionOfChainComplex C;
+
+F5E8 =  time n = cartanEilenbergResolution C;
+
+F5E9 =  betti source m
+
+F5E10 =  betti source n
+
+F5E11 =  betti target minimize source n
+
+F5E12 =  C=koszul (gens (ideal vars S)^2)
+
+F5E13 =  betti source resolutionOfChainComplex C
+
+F5E14 =  betti source cartanEilenbergResolution C
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14"}

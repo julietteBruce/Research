@@ -1,0 +1,23 @@
+needsPackage "NumericalCertification"
+
+F6E0 =  R = CC[x,y,z];
+
+F6E1 =  f = polySystem {x^2+y+z-1,x+y^2+z-1,x+y+z^2-1};
+
+F6E2 =  p = point{{1e-7-1e-7*ii,1e-7+1e-7*ii,1+1e-7}};
+
+F6E3 =  certifySingularSolution(f,p)
+
+F6E4 =  R = CC[x,y]
+
+F6E5 =  f = polySystem {x+y^3,x^2*y-y^4};
+
+F6E6 =  p = point {{-3.38813e-21+1.35525e-20*ii, -3.38813e-21+2.03288e-20*ii}};
+
+F6E7 =  certifySingularSolution(f,p,2) -- false, two iterations are not enough
+
+F6E8 =  certifySingularSolution(f,p,3)
+
+F6E9 =  certifySingularSolution(f,p,3,Strategy => "intervalArithmetic")
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9"}

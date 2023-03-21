@@ -1,0 +1,81 @@
+needsPackage "Complexes"
+
+F74E0 =  R = QQ[x,y,z];
+
+F74E1 =  S = QQ[s,t];
+
+F74E2 =  phi = map(S, R, {s, s+t, t})
+
+F74E3 =  I = ideal(x^3, x^2*y, x*y^4, y*z^5)
+
+F74E4 =  C = freeResolution I
+
+F74E5 =  D = phi ** C
+
+F74E6 =  assert isWellDefined D
+
+F74E7 =  dd^D
+
+F74E8 =  prune HH D
+
+F74E9 =  A = R/(x^2+y^2+z^2);
+
+F74E10 =  C ** A
+
+F74E11 =  assert(map(A,R) ** C == C ** A)
+
+F74E12 =  assert(D == C ** phi)
+
+F74E13 =  assert(C ** A == A ** C)
+
+F74E14 =  use R
+
+F74E15 =  I = ideal(x*y, x*z, y*z);
+
+F74E16 =  J = I + ideal(x^2, y^2);
+
+F74E17 =  g = inducedMap(module J, module I)
+
+F74E18 =  assert isWellDefined g
+
+F74E19 =  C = complex {g}
+
+F74E20 =  D1 = phi C
+
+F74E21 =  assert isWellDefined D1
+
+F74E22 =  D2 = phi ** C
+
+F74E23 =  assert isWellDefined D2
+
+F74E24 =  prune D1
+
+F74E25 =  prune D2
+
+F74E26 =  R = ZZ/101[a..d];
+
+F74E27 =  S = ZZ/101[s,t];
+
+F74E28 =  f = map(S, R, {s^4, s^3*t, s*t^3, t^4}, DegreeMap => i -> 4*i)
+
+F74E29 =  C = freeResolution coker vars R
+
+F74E30 =  D = f ** C
+
+F74E31 =  D == f C
+
+F74E32 =  assert isWellDefined D
+
+F74E33 =  assert isHomogeneous D
+
+F74E34 =  prune HH D
+
+F74E35 =  C1 = Hom(C, image vars R)
+
+F74E36 =  D1 = f ** C1
+
+F74E37 =  isWellDefined D1
+
+F74E38 =  assert isHomogeneous D1
+
+exampleIDS = {"F74E0", "F74E1", "F74E2", "F74E3", "F74E4", "F74E5", "F74E6", "F74E7", "F74E8", "F74E9", "F74E10", "F74E11", "F74E12", "F74E13", "F74E14", "F74E15", "F74E16", "F74E17", "F74E18", "F74E19", "F74E20", "F74E21", "F74E22", "F74E23", "F74E24", "F74E25", "F74E26", "F74E27", "F74E28", "F74E29", "F74E30", "F74E31", "F74E32", "F74E33", "F74E34", "F74E35", "F74E36", "F74E37", "F74E38"}

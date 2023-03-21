@@ -1,0 +1,27 @@
+needsPackage "NormalToricVarieties"
+
+F18E0 =  PP2 = toricProjectiveSpace 2;
+
+F18E1 =  FF2 = hirzebruchSurface 2;
+
+F18E2 =  X = FF2 ** PP2;
+
+F18E3 =  assert (# rays X == # rays FF2 + # rays PP2)
+
+F18E4 =  assert (matrix rays X == matrix rays FF2 ++ matrix rays PP2)
+
+F18E5 =  primaryDecomposition ideal X
+
+F18E6 =  flatten (primaryDecomposition \ {ideal FF2,ideal PP2})
+
+F18E7 =  assert (fromWDivToCl FF2 ++ fromWDivToCl PP2 == fromWDivToCl X)
+
+F18E8 =  factors = components X
+
+F18E9 =  assert (# factors === 2)
+
+F18E10 =  assert (factors#0 === FF2)
+
+F18E11 =  assert (factors#1 === PP2)
+
+exampleIDS = {"F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11"}

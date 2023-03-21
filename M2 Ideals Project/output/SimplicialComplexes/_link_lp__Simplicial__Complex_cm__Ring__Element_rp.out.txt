@@ -1,0 +1,89 @@
+needsPackage "SimplicialComplexes"
+
+F32E0 =  S = QQ[a..e];
+
+F32E1 =  Δ = simplicialComplex monomialIdeal (d*e, a*b*e, a*c*e, a*b*c*d)
+
+F32E2 =  link (Δ, a)
+
+F32E3 =  link (Δ, c)
+
+F32E4 =  link (Δ, e)
+
+F32E5 =  link (Δ, b*c)
+
+F32E6 =  link (Δ, a*e)
+
+F32E7 =  assert (facets link (Δ, a) ===  {e, c*d, b*d, b*c})
+
+F32E8 =  assert (facets link (Δ, c) ===  {b*e, b*d, a*d, a*b})
+
+F32E9 =  assert (facets link (Δ, e) === {a, b*c})
+
+F32E10 =  assert (facets link (Δ, b*c) === {e,d,a})
+
+F32E11 =  assert (facets link (Δ, a*e) === {1_S})
+
+F32E12 =  assert (isPure link (Δ, c) and dim link (Δ, a*e) === -1)
+
+F32E13 =  link(Δ, 1_S)
+
+F32E14 =  void = simplicialComplex monomialIdeal 1_S
+
+F32E15 =  link (void, 1_S)
+
+F32E16 =  assert (link (Δ, 1_S) === Δ and link(void, 1_S) === void)
+
+F32E17 =  S = ZZ/101[a..g];
+
+F32E18 =  Δ = simplicialComplex {a*b*c, a*c*d, a*d*e, a*e*f, a*f*g, a*b*g}
+
+F32E19 =  link (Δ, a*b)
+
+F32E20 =  link (Δ, g)
+
+F32E21 =  link (Δ, c)
+
+F32E22 =  betti res ideal Δ
+
+F32E23 =  R = QQ[a..e, DegreeRank => 5];
+
+F32E24 =  Γ = simplicialComplex monomialIdeal (d*e, a*b*e, a*c*e, a*b*c*d)
+
+F32E25 =  prune Tor_0(R^1/gens R,ideal Γ)
+
+F32E26 =  assert (hilbertFunction({1,1,1,1,0}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, e)))
+
+F32E27 =  assert (hilbertFunction({1,1,0,0,1}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, c*d)))
+
+F32E28 =  assert (hilbertFunction({1,0,1,0,1}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, b*d)))
+
+F32E29 =  assert (hilbertFunction({0,0,0,1,1}, Tor_0(R^1/gens R, ideal Γ)) === rank HH_(-1) (link (dual Γ, a*b*c)))
+
+F32E30 =  prune Tor_1(R^1/gens R, ideal Γ)
+
+F32E31 =  assert (hilbertFunction({1,1,1,0,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, d)))
+
+F32E32 =  assert (hilbertFunction({1,1,0,1,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, c)))
+
+F32E33 =  assert (hilbertFunction({1,0,1,1,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, b)))
+
+F32E34 =  assert (hilbertFunction({1,1,1,1,1}, Tor_1(R^1/gens R, ideal Γ)) === rank HH_0 (link (dual Γ, 1_R)))
+
+F32E35 =  prune Tor_2(R^1/gens R, ideal Γ)
+
+F32E36 =  assert (hilbertFunction({1,1,1,1,1}, Tor_2(R^1/gens R, ideal Γ)) === rank HH_1 (link (dual Γ, 1_R)))
+
+F32E37 =  R' = QQ[a..h];
+
+F32E38 =  B = bartnetteSphereComplex R'
+
+F32E39 =  pdim comodule ideal B === codim ideal B  -- B is Cohen-Macaulay
+
+F32E40 =  assert all (flatten apply(-1..2, i -> (faces B)#i), f -> (
+
+               L := link (B, f);
+
+               all (-1..dim L - 1, j -> HH_j(L) == 0)))
+
+exampleIDS = {"F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12", "F32E13", "F32E14", "F32E15", "F32E16", "F32E17", "F32E18", "F32E19", "F32E20", "F32E21", "F32E22", "F32E23", "F32E24", "F32E25", "F32E26", "F32E27", "F32E28", "F32E29", "F32E30", "F32E31", "F32E32", "F32E33", "F32E34", "F32E35", "F32E36", "F32E37", "F32E38", "F32E39", "F32E40"}

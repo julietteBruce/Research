@@ -1,0 +1,145 @@
+needsPackage "QuaternaryQuartics"
+
+F11E0 =  setRandomSeed 4332367823
+
+F11E1 =  kk = ZZ/101
+
+F11E2 =  S = kk[a,b,c,d];
+
+F11E3 =  B6 = stronglyStableIdeals(6, S)
+
+F11E4 =  B6 = nondegenerateBorels(6, S)
+
+F11E5 =  B6/minimalBetti
+
+F11E6 =  matrix for J in B6 list for d to 6 list hilbertFunction(d, J)
+
+F11E7 =  I = pointsIdeal randomPoints(S, 6)
+
+F11E8 =  degree I
+
+F11E9 =  hilbertPolynomial(I, Projective => false)
+
+F11E10 =  J = monomialIdeal leadTerm I
+
+F11E11 =  isBorel J
+
+F11E12 =  betti res I
+
+F11E13 =  needsPackage "GroebnerStrata"
+
+F11E14 =  J = B6_1
+
+F11E15 =  J = ideal(a^2,a*b,b^2,a*c,b*c^2,c^3)
+
+F11E16 =  F = groebnerFamily J
+
+F11E17 =  U = ring F;
+
+F11E18 =  T = coefficientRing U
+
+F11E19 =  netList F_*
+
+F11E20 =  L = trim groebnerStratum F;
+
+F11E21 =  assert(dim L == 18)
+
+F11E22 =  elapsedTime isPrime L
+
+F11E23 =  I = pointsIdeal randomPoints(S, 6)
+
+F11E24 =  degree I
+
+F11E25 =  radical I == I
+
+F11E26 =  betti res I
+
+F11E27 =  (CF, H) = nonminimalMaps F;
+
+F11E28 =  U = ring CF
+
+F11E29 =  CF
+
+F11E30 =  betti(CF, Weights=>{1}) -- alas, it is a poor non-minimal resolution
+
+F11E31 =  assert isHomogeneous CF -- but it is homogeneous, as it needs to be.
+
+F11E32 =  keys H
+
+F11E33 =  M1 = H#(2,3) -- rank is 0, 1, or 2.
+
+F11E34 =  M2 = H#(3,4) -- rank is 1 or 2
+
+F11E35 =  M3 = H#(3,5) -- maximal rank, can ignore
+
+F11E36 =  M4 = H#(4,6) -- maximal rank, can ignore
+
+F11E37 =  ideal M1 == minors(2, M2)
+
+F11E38 =  L441 = trim(L + ideal M1);
+
+F11E39 =  elapsedTime compsL441 = decompose L441;
+
+F11E40 =  #compsL441
+
+F11E41 =  compsL441/dim -- two components, of dimensions 14 and 16.
+
+F11E42 =  compsL441/dim == {16, 14}
+
+F11E43 =  pta = randomPointOnRationalVariety compsL441_0
+
+F11E44 =  Fa = sub(F, (vars S) | pta)
+
+F11E45 =  betti res Fa
+
+F11E46 =  netList decompose Fa -- this one is 5 points on a plane, and another point
+
+F11E47 =  CFa = minimalPrimes Fa
+
+F11E48 =  lin = CFa_1_0 -- a linear form, defining a plane.
+
+F11E49 =  CFa/degree
+
+F11E50 =  CFa/(I -> lin % I == 0) -- so 5 points on the plane.
+
+F11E51 =  degree(Fa : (Fa : lin))  -- somewhat simpler(?) way to see the ideal of the 5 points
+
+F11E52 =  ptb = randomPointOnRationalVariety compsL441_1
+
+F11E53 =  Fb = sub(F, (vars S) | ptb)
+
+F11E54 =  betti res Fb
+
+F11E55 =  netList decompose Fb --
+
+F11E56 =  netList for x in subsets(decompose Fb, 3) list intersect(x#0, x#1, x#2)
+
+F11E57 =  pt0 = randomPointOnRationalVariety(compsL441_0)
+
+F11E58 =  pt1 = randomPointOnRationalVariety(compsL441_1)
+
+F11E59 =  I0 = sub(sub(F, (vars ring F) | sub(pt0, ring F)), S)
+
+F11E60 =  I1 = sub(sub(F, (vars ring F) | sub(pt1, ring F)), S)
+
+F11E61 =  betti res I0
+
+F11E62 =  betti res I1
+
+F11E63 =  netList decompose I0
+
+F11E64 =  netList decompose I1
+
+F11E65 =  L430 = (trim minors(2, M1)) + groebnerStratum F;
+
+F11E66 =  C = res(I, FastNonminimal => true)
+
+F11E67 =  betti C
+
+F11E68 =  m1 = submatrixByDegrees(C.dd_2, {3}, {3})
+
+F11E69 =  m2 = submatrixByDegrees(C.dd_3, {4}, {4})
+
+F11E70 =  minimalBetti I
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F11E23", "F11E24", "F11E25", "F11E26", "F11E27", "F11E28", "F11E29", "F11E30", "F11E31", "F11E32", "F11E33", "F11E34", "F11E35", "F11E36", "F11E37", "F11E38", "F11E39", "F11E40", "F11E41", "F11E42", "F11E43", "F11E44", "F11E45", "F11E46", "F11E47", "F11E48", "F11E49", "F11E50", "F11E51", "F11E52", "F11E53", "F11E54", "F11E55", "F11E56", "F11E57", "F11E58", "F11E59", "F11E60", "F11E61", "F11E62", "F11E63", "F11E64", "F11E65", "F11E66", "F11E67", "F11E68", "F11E69", "F11E70"}

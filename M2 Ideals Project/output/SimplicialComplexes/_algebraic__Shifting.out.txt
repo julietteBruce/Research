@@ -1,0 +1,33 @@
+needsPackage "SimplicialComplexes"
+
+F18E0 =  R = QQ[x_1..x_6];
+
+F18E1 =  I = monomialIdeal(x_2*x_3*x_4*x_5, x_1*x_6);
+
+F18E2 =  stacked = simplicialComplex I
+
+F18E3 =  shifted = algebraicShifting stacked
+
+F18E4 =  fVector stacked
+
+F18E5 =  fVector shifted
+
+F18E6 =  R' = QQ[a,b,c];
+
+F18E7 =  triangle = simplicialComplex {a*b, b*c, a*c}
+
+F18E8 =  algebraicShifting triangle === triangle
+
+F18E9 =  grading = {{1,0,0}, {1,0,0}, {1,0,0}, {0,1,0}, {0,0,1}};
+
+F18E10 =  R = QQ[x_{1,1}, x_{1,2}, x_{1,3}, x_{2,1}, x_{3,1}, Degrees => grading];
+
+F18E11 =  delta = simplicialComplex({x_{1,3}*x_{2,1}*x_{3,1}, x_{1,1}*x_{2,1}, x_{1,2}*x_{3,1}})
+
+F18E12 =  shifted = algebraicShifting(delta, Multigrading => true)
+
+F18E13 =  prune (homology(delta))_1
+
+F18E14 =  prune (homology(shifted))_1
+
+exampleIDS = {"F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14"}

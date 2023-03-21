@@ -1,0 +1,17 @@
+needsPackage "LinearTruncations"
+
+F12E0 =  S = ZZ/101[x_1..x_4,Degrees=>{{1,0},{1,0},{0,1},{0,1}}]
+
+F12E1 =  I = ideal(x_1^3*x_3, x_2*x_3*x_4, x_3^4*x_4, x_4*x_2^2, x_1^3*x_2^3, x_3^3)
+
+F12E2 =  M = S^1/I
+
+F12E3 =  regularity M
+
+F12E4 =  r = coarseMultigradedRegularity M
+
+F12E5 =  L = linearTruncations({{0,0}, r}, M)
+
+F12E6 =  apply(L, i -> isLinearComplex res truncate(i,M))
+
+exampleIDS = {"F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6"}

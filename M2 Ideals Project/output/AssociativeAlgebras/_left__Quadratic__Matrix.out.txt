@@ -1,0 +1,31 @@
+needsPackage "AssociativeAlgebras"
+
+F22E0 =  R = ZZ/32003 <|x_4,x_1,x_2,x_3|>
+
+F22E1 =  I = ideal {x_3^2 - x_1*x_2, x_4^2 - x_2*x_1, x_1*x_3 - x_2*x_4,
+
+                x_3*x_1 - x_2*x_3, x_1*x_4 - x_4*x_2, x_4*x_1 - x_3*x_2}
+
+F22E2 =  lQ = leftQuadraticMatrix I
+
+F22E3 =  rQ = rightQuadraticMatrix I
+
+F22E4 =  d = matrix {{x_4,x_1,x_2,x_3}}
+
+F22E5 =  e = matrix transpose {{x_4,x_1,x_2,x_3}}
+
+F22E6 =  NCReductionTwoSided(ncMatrixMult(d,rQ),I)
+
+F22E7 =  NCReductionTwoSided(ncMatrixMult(lQ,e),I)
+
+F22E8 =  S = R/I
+
+F22E9 =  (lQS,dS) = (sub(lQ,S),sub(d,S));
+
+F22E10 =  (rQS,eS) = (sub(rQ,S),sub(e,S));
+
+F22E11 =  ncMatrixMult(dS,rQS)
+
+F22E12 =  ncMatrixMult(lQS,eS)
+
+exampleIDS = {"F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12"}

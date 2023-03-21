@@ -1,0 +1,61 @@
+needsPackage "SpectralSequences"
+
+F47E0 =  B = QQ[a_0..a_2,b_0..b_2,c_0..c_2,d_0..d_2];
+
+F47E1 =  l1 = {a_0*b_0*b_1*c_1,a_0*b_0*c_0*c_1,a_0*a_1*b_1*c_1,b_0*b_1*c_1*d_1,b_0*c_0*c_1*d_2,a_0*a_1*c_1*d_2,a_0*c_0*c_1*d_2,b_0*c_1*d_1*d_2};
+
+F47E2 =  l2 = {b_1*c_1*c_2*a_2,b_1*c_1*a_1*a_2,b_1*b_2*c_2*a_2,c_1*c_2*a_2*d_1,c_1*a_1*a_2*d_2,b_1*b_2*a_2*d_2,b_1*a_1*a_2*d_2,c_1*a_2*d_1*d_2};
+
+F47E3 =  l3 = {c_2*a_2*a_0*b_0,c_2*a_2*b_2*b_0,c_2*c_0*a_0*b_0,a_2*a_0*b_0*d_1,a_2*b_2*b_0*d_2,c_2*c_0*b_0*d_2,c_2*b_2*b_0*d_2,a_2*b_0*d_1*d_2};
+
+F47E4 =  l4 = {a_0*b_0*b_1*d_1,a_0*b_1*d_0*d_1,b_1*c_1*c_2*d_1,b_1*c_2*d_0*d_1,a_0*a_2*c_2*d_1,a_0*c_2*d_0*d_1};
+
+F47E5 =  l5 = {a_0*b_1*d_0*d_2,a_0*a_1*b_1*d_2,b_1*c_2*d_0*d_2,b_1*b_2*c_2*d_2,a_0*c_2*d_0*d_2,a_0*c_0*c_2*d_2};
+
+F47E6 =  S3 = simplicialComplex(join(l1,l2,l3,l4,l5));
+
+F47E7 =  f1l1 = {a_0*b_0*b_1,a_0*a_1*b_1,a_0*c_0*c_1,a_0*a_1*c_1,a_0*a_1*d_2,d_1*d_2,b_0*b_1*c_1,b_0*c_0*c_1,b_0*b_1*d_1,b_0*d_1*d_2,c_1*d_1*d_2,c_0*c_1*d_2};
+
+F47E8 =  f1l2 = {b_1*a_1*a_2,b_1*b_2*a_2,c_1*c_2*a_2,c_1*a_1*a_2,a_1*a_2*d_2,a_2*d_1*d_2,b_1*c_1*c_2,b_1*b_2*c_2,b_1*b_2*d_2,d_1*d_2,c_1*d_1*d_2,c_1*c_2*d_1};
+
+F47E9 =  f1l3 = {a_2*a_0*b_0,a_2*b_2*b_0, c_2*a_2*a_0,c_2*c_0*a_0,a_2*a_0*d_1,a_2*d_1*d_2,b_2*b_0*c_2,c_2*c_0*b_0,b_2*b_0*d_2,b_0*d_1*d_2,c_2*c_0*d_2,d_1*d_2};
+
+F47E10 =  f1l4 = {a_0*b_0*b_1,a_0*a_2,a_0*a_2*c_2,c_1*c_2,a_0*d_0*d_1,a_0*a_2*d_1,b_1*c_1*c_2,b_0*b_1,b_0*b_1*d_1,b_1*d_0*d_1,c_1*c_2*d_1,c_2*d_0*d_1}
+
+F47E11 =  f1l5 = {a_0*a_1*b_1,b_1*b_2,a_0*c_0*c_2,a_0*a_1,a_0*d_0*d_2,a_0*a_1*d_2,b_1*b_2*c_2,c_0*c_2,b_1*d_0*d_2,b_1*b_2*d_2,c_2*d_0*d_2,c_0*c_2*d_2};
+
+F47E12 =  F1S3 = simplicialComplex(join(f1l1,f1l2,f1l3,f1l4,f1l5));
+
+F47E13 =  f0l1 = {a_0*a_1,b_0*b_1,c_0*c_1,d_1*d_2};
+
+F47E14 =  f0l2 = {a_1*a_2,b_1*b_2,c_1*c_2,d_1*d_2};
+
+F47E15 =  f0l3 = {a_0*a_2,b_0*b_2,c_0*c_2,d_1*d_2};
+
+F47E16 =  f0l4 = {a_0*a_2,b_0*b_1,c_1*c_2,d_0*d_1};
+
+F47E17 =  f0l5 = {a_0*a_1,b_1*b_2,c_0*c_2,d_0*d_2};
+
+F47E18 =  F0S3 = simplicialComplex(join(f0l1,f0l2,f0l3,f0l4,f0l5));
+
+F47E19 =  K = filteredComplex({S3,F1S3,F0S3}, ReducedHomology => false);
+
+F47E20 =  E = prune spectralSequence K;
+
+F47E21 =  E0 = E^0
+
+F47E22 =  E0.dd
+
+F47E23 =  E1 = E^1
+
+F47E24 =  E1.dd
+
+F47E25 =  E2 = E^2
+
+F47E26 =  E2.dd
+
+F47E27 =  E3 = E^3
+
+F47E28 =  E3.dd
+
+exampleIDS = {"F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F47E7", "F47E8", "F47E9", "F47E10", "F47E11", "F47E12", "F47E13", "F47E14", "F47E15", "F47E16", "F47E17", "F47E18", "F47E19", "F47E20", "F47E21", "F47E22", "F47E23", "F47E24", "F47E25", "F47E26", "F47E27", "F47E28"}

@@ -1,0 +1,39 @@
+needsPackage "ReactionNetworks"
+
+F34E0 =  N = reactionNetwork "A <--> 2B, A + C <--> D, B + E --> A + C, D --> B+E"
+
+F34E1 =  R = createRing(N, QQ)
+
+F34E2 =  SS = flatten entries steadyStateEquations N
+
+F34E3 =  K = toList(apply(0..length N.ReactionRates-1, i-> random(QQ)))
+
+F34E4 =  Rr = toList(apply(0..length N.ReactionRates-1, i->
+
+             value(N.ReactionRates#i)))
+
+F34E5 =  P = toList(apply(0..length Rr-1, i-> Rr#i=>sub(K#i,R)))
+
+F34E6 =  F' = toList apply(0..length SS-1, i-> sub(SS#i,P))
+
+F34E7 =  C = conservationEquations N
+
+F34E8 =  L = {0,0,0,0,0}
+
+F34E9 =  Iv = toList(apply(0..length N.InitialValues-1, i->
+
+              value(N.InitialValues#i)))
+
+F34E10 =  S = toList(apply(0..length Iv-1, i-> Iv#i=>L#i))
+
+F34E11 =  F'' = toList apply(0..length C-1, i-> sub(C#i,S))
+
+F34E12 =  F = join(F',F'')
+
+F34E13 =  I = ideal F
+
+F34E14 =  degree I
+
+F34E15 =  dim I
+
+exampleIDS = {"F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15"}

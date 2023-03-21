@@ -1,0 +1,17 @@
+needsPackage "DGAlgebras"
+
+F28E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F28E1 =  M = coker matrix {{a^3*b^3*c^3*d^3}};
+
+F28E2 =  S = R/ideal{a^3*b^3*c^3*d^3}
+
+F28E3 =  HB = torAlgebra(R,S,GenDegreeLimit=>4,RelDegreeLimit=>8)
+
+F28E4 =  numgens HB
+
+F28E5 =  apply(5,i -> #(flatten entries getBasis(i,HB)))
+
+F28E6 =  Mres = res(M, LengthLimit=>8)
+
+exampleIDS = {"F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6"}

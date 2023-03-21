@@ -1,0 +1,49 @@
+needsPackage "MultiGradedRationalMap"
+
+F7E0 =  R = QQ[x,y,u,v, Degrees => {{1,0}, {1,0}, {0,1}, {0,1}}]
+
+F7E1 =  I = ideal(x*u, y*u, y*v) -- a birational map
+
+F7E2 =  jacobianDualRank I
+
+F7E3 =  I = ideal(x*u, y*v, x*v + y*u) -- a non birational map
+
+F7E4 =  jacobianDualRank I
+
+F7E5 =  A = matrix{ {x^5*u,  x^2*v^2},
+
+                 {y^5*v, x^2*u^2},
+
+                 {0,     y^2*v^2}
+
+               };
+
+F7E6 =  I = minors(2, A)  -- a non birational
+
+F7E7 =  jacobianDualRank I
+
+F7E8 =  I = ideal(x*u^2, y*u^2, x*v^2) -- non birational map
+
+F7E9 =  jacobianDualRank I
+
+F7E10 =  R = QQ[x,y,z,w]
+
+F7E11 =  A = matrix{ {x + y,  x, x},
+
+                  {3*z - 4*w, y, z},
+
+                  {w,  z, z + w},
+
+                  {y - z,  w, x + y}
+
+                };
+
+F7E12 =  I = minors(3, A) -- a birational map
+
+F7E13 =  jacobianDualRank I
+
+F7E14 =  I = ideal(random(2, R), random(2, R), random(2, R), random(2, R)); -- a non birational
+
+F7E15 =  jacobianDualRank I
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15"}

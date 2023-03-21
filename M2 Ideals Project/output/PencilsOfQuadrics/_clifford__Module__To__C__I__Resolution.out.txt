@@ -1,0 +1,33 @@
+needsPackage "PencilsOfQuadrics"
+
+F6E0 =  kk=ZZ/101;
+
+F6E1 =  g=1;
+
+F6E2 =  rNP=randNicePencil(kk,g);
+
+F6E3 =  qq=rNP.quadraticForm;
+
+F6E4 =  S=rNP.qqRing;
+
+F6E5 =  P=kk[drop(gens S,-2)]
+
+F6E6 =  qs=sub(diff(matrix{{S_(2*g+2), S_(2*g+3)}}, qq), P)
+
+F6E7 =  CI=P/ideal qs
+
+F6E8 =  cM=cliffordModule(rNP.matFact1,rNP.matFact2,rNP.baseRing)
+
+F6E9 =  betti (F=cliffordModuleToCIResolution(cM,S,CI))
+
+F6E10 =  cMu=cliffordModule(rNP.matFactu1,rNP.matFactu2,rNP.baseRing)
+
+F6E11 =  f=cMu.hyperellipticBranchEquation
+
+F6E12 =  L=randomLineBundle(0,f);
+
+F6E13 =  betti (FL=cliffordModuleToCIResolution(tensorProduct(cM,L),S,CI))
+
+F6E14 =  betti (FuL=cliffordModuleToCIResolution(tensorProduct(cMu,L),S,CI))
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14"}

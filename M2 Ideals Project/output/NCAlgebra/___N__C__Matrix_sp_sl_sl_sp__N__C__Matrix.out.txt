@@ -1,0 +1,27 @@
+needsPackage "NCAlgebra"
+
+F93E0 =  B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+
+F93E1 =  A = ambient B
+
+F93E2 =  g = 2*(-y^3-x*y*z+y*x*z+x^3)
+
+F93E3 =  J = (ideal B) + ncIdeal {g}
+
+F93E4 =  B' = A/J -- Factor of sklyanin
+
+F93E5 =  k = ncMatrix {{x,y,z}}
+
+F93E6 =  BprimeToB = ncMap(B,B',gens B) -- way to lift back from B' to B
+
+F93E7 =  M = BprimeToB rightKernelBergman rightKernelBergman k  -- second syzygy of k over B
+
+F93E8 =  gId = g*(ncMatrix applyTable(entries id_(ZZ^4), i -> promote(i,B)))
+
+F93E9 =  assignDegrees(gId,{2,2,2,3},{5,5,5,6});
+
+F93E10 =  M' = gId // M
+
+F93E11 =  M*M' == gId
+
+exampleIDS = {"F93E0", "F93E1", "F93E2", "F93E3", "F93E4", "F93E5", "F93E6", "F93E7", "F93E8", "F93E9", "F93E10", "F93E11"}

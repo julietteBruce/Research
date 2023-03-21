@@ -1,0 +1,17 @@
+needsPackage "NoetherianOperators"
+
+F33E0 =  R = QQ[x,y,t]
+
+F33E1 =  I = intersect(ideal((y+t)^2), ideal(x^2, y^2 - t*x))
+
+F33E2 =  radI = radical I
+
+F33E3 =  primes = associatedPrimes I
+
+F33E4 =  L = primes / (P -> (P, noetherianOperators(I, P)))
+
+F33E5 =  N = noethOpsFromComponents L
+
+F33E6 =  all(flatten table(N, I_*, (D, f) -> (D f) % radI == 0), identity)
+
+exampleIDS = {"F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6"}

@@ -1,0 +1,35 @@
+needsPackage "Macaulay2Doc"
+
+F94E0 =  src = temporaryFileName() | "/"
+
+F94E1 =  dst = temporaryFileName() | "/"
+
+F94E2 =  makeDirectory (src|"a/")
+
+F94E3 =  makeDirectory (src|"b/")
+
+F94E4 =  makeDirectory (src|"b/c/")
+
+F94E5 =  src|"a/f" << "hi there" << close
+
+F94E6 =  src|"a/g" << "hi there" << close
+
+F94E7 =  src|"b/c/g" << "ho there" << close
+
+F94E8 =  stack findFiles src
+
+F94E9 =  copyDirectory(src,dst,Verbose=>true)
+
+F94E10 =  copyDirectory(src,dst,Verbose=>true,UpdateOnly => true)
+
+F94E11 =  stack findFiles dst
+
+F94E12 =  get (dst|"b/c/g")
+
+F94E13 =  rm = d -> if isDirectory d then removeDirectory d else removeFile d
+
+F94E14 =  scan(reverse findFiles src, rm)
+
+F94E15 =  scan(reverse findFiles dst, rm)
+
+exampleIDS = {"F94E0", "F94E1", "F94E2", "F94E3", "F94E4", "F94E5", "F94E6", "F94E7", "F94E8", "F94E9", "F94E10", "F94E11", "F94E12", "F94E13", "F94E14", "F94E15"}

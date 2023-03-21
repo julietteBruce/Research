@@ -1,0 +1,41 @@
+needsPackage "VersalDeformations"
+
+F12E0 =  S=QQ[x1,x2,x3,y1,y2,y3,z1,z2,z3,Degrees=>
+
+     	  {{1,0,0},{1,0,0},{1,0,0},{0,1,0},{0,1,0},{0,1,0},{0,0,1},{0,0,1},{0,0,1}}];
+
+F12E1 =  I=ideal {y1*z2, x1*z2, y2*z1, y1*z1, x2*z1, x1*z1, x1*y2, x2*y1,
+
+     	   x1*y1, x2*y2*z2};
+
+F12E2 =  (F,R,G,C)=versalDeformation(gens I,normalMatrix({0,0,0},gens I),
+
+     	  CT^2({0,0,0},gens I),Verbose=>2);
+
+F12E3 =  T=ring first G;
+
+F12E4 =  sum G
+
+F12E5 =  # primaryDecomposition ideal sum G
+
+F12E6 =  S=QQ[x,y]/ideal {x^4+y^3};
+
+F12E7 =  f= matrix {{x,-y^2},{y,x^3}};
+
+F12E8 =  (F,R,G,C)=versalDeformation(f,CT^1(f),extMatrix(f),Verbose=>2);
+
+F12E9 =  T=ring first G;
+
+F12E10 =  ideal sum G
+
+F12E11 =  S = QQ[a, b];
+
+F12E12 =  f =  matrix{{a, b, 0, 0}, {0, 0, a, b}};
+
+F12E13 =  (F,R,G,C)=versalDeformation(f,normalMatrix(f),extMatrix(f),Verbose=>2);
+
+F12E14 =  T=ring first G;
+
+F12E15 =  ideal sum G
+
+exampleIDS = {"F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F12E12", "F12E13", "F12E14", "F12E15"}

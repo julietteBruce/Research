@@ -1,0 +1,75 @@
+needsPackage "Complexes"
+
+F21E0 =  S = ZZ/101[x_0..x_11]
+
+F21E1 =  C = complex{genericMatrix(S,x_0,2,1)}
+
+F21E2 =  D = complex{genericMatrix(S,x_4,1,2)}
+
+F21E3 =  E = complex{genericMatrix(S,x_8,2,2)}
+
+F21E4 =  F = (C ** D) ** E
+
+F21E5 =  G = C ** (D ** E)
+
+F21E6 =  f = tensorAssociativity(C,D,E)
+
+F21E7 =  assert isWellDefined f
+
+F21E8 =  assert(source f === G)
+
+F21E9 =  assert(target f === F)
+
+F21E10 =  f_1
+
+F21E11 =  assert(f_1 != id_(source f_1))
+
+F21E12 =  assert(prune ker f == 0)
+
+F21E13 =  assert(prune coker f == 0)
+
+F21E14 =  g = f^-1
+
+F21E15 =  assert isWellDefined g
+
+F21E16 =  assert(g * f == 1)
+
+F21E17 =  assert(f * g == 1)
+
+F21E18 =  ses = (I,J) -> (
+
+          complex{
+
+              map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}}),
+
+              map(S^1/I ++ S^1/J, S^1/(intersect(I,J)), {{1},{-1}})
+
+              }
+
+          )
+
+F21E19 =  C = ses(ideal(x_0,x_1), ideal(x_1,x_2))
+
+F21E20 =  D = ses(ideal(x_3,x_4,x_5), ideal(x_6,x_7,x_8))
+
+F21E21 =  E = ses(ideal(x_1^2, x_1*x_2), ideal(x_1*x_3,x_9^2))
+
+F21E22 =  h = tensorAssociativity(C, D, E);
+
+F21E23 =  assert isWellDefined h
+
+F21E24 =  assert(ker h == 0)
+
+F21E25 =  assert(coker h == 0)
+
+F21E26 =  k = h^-1;
+
+F21E27 =  assert(h*k == 1)
+
+F21E28 =  assert(k*h == 1)
+
+F21E29 =  h_2
+
+F21E30 =  assert(source h_2 != target h_2)
+
+exampleIDS = {"F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23", "F21E24", "F21E25", "F21E26", "F21E27", "F21E28", "F21E29", "F21E30"}

@@ -1,0 +1,49 @@
+needsPackage "SpectralSequences"
+
+F44E0 =  S = ZZ/101[x,y];
+
+F44E1 =  I = ideal(x^2,x*y,y^2);
+
+F44E2 =  R = S/I;
+
+F44E3 =  kR = coker vars R;
+
+F44E4 =  kS = coker vars S;
+
+F44E5 =  CS = res kS;
+
+F44E6 =  CR = res(kR,LengthLimit=>6);
+
+F44E7 =  CS' = CS**R;
+
+F44E8 =  E = prune spectralSequence (CS' ** filteredComplex CR);
+
+F44E9 =  use ZZ[t]
+
+F44E10 =  easyPresentation = (P,n,m) -> (
+
+         transpose matrix apply(n,
+
+             i-> apply(m,
+
+                 j-> (length (P_{i,j}))*t^(
+
+                     if (L = unique flatten degrees P_{i,j})!= {} then first L else 0)
+
+                 )
+
+             ));
+
+F44E11 =  easyPresentation(E_infinity,6,3)
+
+F44E12 =  easyPresentation(E_1,6,3)
+
+F44E13 =  easyPresentation(E_2,6,3)
+
+F44E14 =  easyPresentation(E_3,6,3)
+
+F44E15 =  length image ((E_2).dd_{3,0})
+
+F44E16 =  length image (E_3).dd_{3,0}
+
+exampleIDS = {"F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F44E6", "F44E7", "F44E8", "F44E9", "F44E10", "F44E11", "F44E12", "F44E13", "F44E14", "F44E15", "F44E16"}

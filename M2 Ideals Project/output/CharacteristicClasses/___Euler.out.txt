@@ -1,0 +1,57 @@
+needsPackage "CharacteristicClasses"
+
+F16E0 =  kk=ZZ/32749;
+
+F16E1 =  R=kk[x_0..x_4]
+
+F16E2 =  I=ideal(random(1,R),random(2,R))
+
+F16E3 =  time Euler(I,InputIsSmooth=>true)
+
+F16E4 =  time Euler I
+
+F16E5 =  EulerIHash=Euler(I,Output=>HashForm);
+
+F16E6 =  A=ring EulerIHash#"CSM"
+
+F16E7 =  EulerIHash#{0,1}==CSM(A,ideal(I_0*I_1))
+
+F16E8 =  J=I+ideal(x_0*x_2-x_3*x_0)
+
+F16E9 =  time Euler(J,Method=>DirectCompleteInt)
+
+F16E10 =  time Euler(J,Method=>DirectCompleteInt,IndsOfSmooth=>{0,1})
+
+F16E11 =  R=MultiProjCoordRing({2,2})
+
+F16E12 =  r=gens R
+
+F16E13 =  K=ideal(r_0^2*r_3-r_4*r_1*r_2,r_2^2*r_5)
+
+F16E14 =  EulerK=Euler(K)
+
+F16E15 =  csmK= CSM(K)
+
+F16E16 =  EulerK==Euler(csmK)
+
+F16E17 =  needsPackage "NormalToricVarieties"
+
+F16E18 =  Rho = {{1,0,0},{0,1,0},{0,0,1},{-1,-1,0},{0,0,-1}}
+
+F16E19 =  Sigma = {{0,1,2},{1,2,3},{0,2,3},{0,1,4},{1,3,4},{0,3,4}}
+
+F16E20 =  X = normalToricVariety(Rho,Sigma,CoefficientRing =>ZZ/32749)
+
+F16E21 =  CheckToricVarietyValid(X)
+
+F16E22 =  R=ring(X)
+
+F16E23 =  I=ideal(R_0^4*R_1,R_0*R_3*R_4*R_2-R_2^2*R_0^2)
+
+F16E24 =  csmI=CSM(X,I)
+
+F16E25 =  EulerI=Euler(X,I)
+
+F16E26 =  Euler(csmI)==EulerI
+
+exampleIDS = {"F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17", "F16E18", "F16E19", "F16E20", "F16E21", "F16E22", "F16E23", "F16E24", "F16E25", "F16E26"}

@@ -1,0 +1,37 @@
+needsPackage "Bertini"
+
+F17E0 =  writeParameterFile(storeBM2Files,{2,3,5,7});
+
+F17E1 =  fileExists(storeBM2Files|"/final_parameters")
+
+F17E2 =  moveB'File(storeBM2Files,"final_parameters","start_parameters")
+
+F17E3 =  fileExists(storeBM2Files|"/final_parameters")
+
+F17E4 =  fileExists(storeBM2Files|"/start_parameters")
+
+F17E5 =  moveB'File(storeBM2Files,"start_parameters","backup",CopyB'File=>true)
+
+F17E6 =  fileExists(storeBM2Files|"/start_parameters")
+
+F17E7 =  fileExists(storeBM2Files|"/backup")
+
+F17E8 =  Dir1 = temporaryFileName();
+
+F17E9 =  makeDirectory Dir1
+
+F17E10 =  writeParameterFile(storeBM2Files,{2,3,5,7});
+
+F17E11 =  moveB'File(storeBM2Files,"final_parameters","start_parameters",MoveToDirectory=>Dir1)
+
+F17E12 =  fileExists(Dir1|"/start_parameters")
+
+F17E13 =  makeDirectory (storeBM2Files|"/Dir2")
+
+F17E14 =  writeParameterFile(storeBM2Files,{2,3,5,7});
+
+F17E15 =  moveB'File(storeBM2Files,"final_parameters","start_parameters",SubFolder=>"Dir2")
+
+F17E16 =  fileExists(storeBM2Files|"/Dir2/start_parameters")
+
+exampleIDS = {"F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13", "F17E14", "F17E15", "F17E16"}

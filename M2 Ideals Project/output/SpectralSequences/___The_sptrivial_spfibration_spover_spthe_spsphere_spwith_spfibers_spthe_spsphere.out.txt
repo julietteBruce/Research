@@ -1,0 +1,29 @@
+needsPackage "SpectralSequences"
+
+F32E0 =  S = ZZ/101[a00,a10,a20,a01,a11,a21,a02,a12,a22];
+
+F32E1 =  Delta = simplicialComplex {a00*a02*a10, a02*a12*a10, a01*a02*a12, a01*a11*a12, a00*a01*a11, a00*a10*a11, a12*a10*a20, a12*a20*a22, a11*a12*a22, a11*a22*a21, a10*a11*a21, a10*a21*a20, a20*a22*a00, a22*a00*a02, a21*a22*a02, a21*a02*a01, a20*a21*a01, a20*a01*a00}
+
+F32E2 =  C = truncate(chainComplex Delta,1)
+
+F32E3 =  prune HH C
+
+F32E4 =  F1Delta = Delta;
+
+F32E5 =  F0Delta = simplicialComplex {a00*a01, a01*a02, a00*a02, a10*a11,a11*a12,a10*a12, a21*a20,a21*a22,a20*a22};
+
+F32E6 =  K = filteredComplex({F1Delta, F0Delta}, ReducedHomology => false) ;
+
+F32E7 =  E = prune spectralSequence K
+
+F32E8 =  E^0
+
+F32E9 =  E^0 .dd
+
+F32E10 =  E^1
+
+F32E11 =  E^1 .dd
+
+F32E12 =  E^2
+
+exampleIDS = {"F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12"}

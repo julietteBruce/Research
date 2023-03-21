@@ -1,0 +1,67 @@
+needsPackage "Complexes"
+
+F91E0 =  S = ZZ/101[a..c]
+
+F91E1 =  C = freeResolution coker matrix{{a*b, a*c, b*c}}
+
+F91E2 =  D = freeResolution coker vars S
+
+F91E3 =  f = randomComplexMap(D,C)
+
+F91E4 =  assert isWellDefined f
+
+F91E5 =  assert not isCommutative f
+
+F91E6 =  assert not isNullHomotopic f
+
+F91E7 =  g = randomComplexMap(D,C, Cycle => true)
+
+F91E8 =  assert isWellDefined g
+
+F91E9 =  assert isCommutative g
+
+F91E10 =  assert isComplexMorphism g
+
+F91E11 =  assert not isNullHomotopic g
+
+F91E12 =  h = randomComplexMap(D,C, Boundary => true)
+
+F91E13 =  assert isWellDefined h
+
+F91E14 =  assert isCommutative h
+
+F91E15 =  assert isComplexMorphism h
+
+F91E16 =  assert isNullHomotopic h
+
+F91E17 =  nullHomotopy h
+
+F91E18 =  p = randomComplexMap(D, C, Cycle => true, Degree => -1)
+
+F91E19 =  assert isWellDefined p
+
+F91E20 =  assert isCommutative p
+
+F91E21 =  assert not isComplexMorphism p
+
+F91E22 =  assert(degree p === -1)
+
+F91E23 =  q = randomComplexMap(D, C, Boundary => true, InternalDegree => 2)
+
+F91E24 =  assert all({0,1,2}, i -> degree q_i === {2})
+
+F91E25 =  assert isHomogeneous q
+
+F91E26 =  assert isWellDefined q
+
+F91E27 =  assert isCommutative q
+
+F91E28 =  assert isComplexMorphism q
+
+F91E29 =  source q === C
+
+F91E30 =  target q === D
+
+F91E31 =  assert isNullHomotopic q
+
+exampleIDS = {"F91E0", "F91E1", "F91E2", "F91E3", "F91E4", "F91E5", "F91E6", "F91E7", "F91E8", "F91E9", "F91E10", "F91E11", "F91E12", "F91E13", "F91E14", "F91E15", "F91E16", "F91E17", "F91E18", "F91E19", "F91E20", "F91E21", "F91E22", "F91E23", "F91E24", "F91E25", "F91E26", "F91E27", "F91E28", "F91E29", "F91E30", "F91E31"}

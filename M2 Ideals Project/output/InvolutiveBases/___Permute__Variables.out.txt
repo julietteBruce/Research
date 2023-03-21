@@ -1,0 +1,31 @@
+needsPackage "InvolutiveBases"
+
+F0E0 =  R = QQ[x,y,z];
+
+F0E1 =  I = ideal(x*y^2+2*x^2*y, z^3);
+
+F0E2 =  J = janetBasis I;
+
+F0E3 =  N1 = invNoetherNormalization J
+
+F0E4 =  N2 = invNoetherNormalization(J, PermuteVariables => true)
+
+F0E5 =  R = QQ[w,x,y,z];
+
+F0E6 =  I = ideal(w*x-y^2, y*z-x^2)
+
+F0E7 =  J = janetBasis I;
+
+F0E8 =  N1 = invNoetherNormalization J
+
+F0E9 =  J1 = janetBasis substitute(gens I, for i in toList(0..numgens(R)-1) list R_i => N1#0#i);
+
+F0E10 =  F1 = factorModuleBasis(J1)
+
+F0E11 =  N2 = invNoetherNormalization(J, PermuteVariables => true)
+
+F0E12 =  J2 = janetBasis substitute(gens I, for i in toList(0..numgens(R)-1) list R_i => N2#0#i);
+
+F0E13 =  F2 = factorModuleBasis(J2)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13"}

@@ -1,0 +1,71 @@
+needsPackage "ReactionNetworks"
+
+F32E0 =  N = reactionNetwork "A <--> 2B, A + C <--> D, B + E --> A + C, D --> B+E"
+
+F32E1 =  N = reactionNetwork {"S_0+E <--> X_1", "X_1 --> S_1+E",
+
+                          "S_1+E <--> X_2", "X_2 --> S_2+E",
+
+                          "S_1+F <--> Y_1", "Y_1 --> S_0+F",
+
+                          "S_2+F <--> Y_2", "Y_2 --> S_1+F"}
+
+F32E2 =  N = reactionNetwork ({"A --> 0", "0 --> A"}, NullSymbol => "0")
+
+F32E3 =  N = reactionNetwork "A <--> 2B, A + C <--> D, B + E --> A + C, D --> B+E"
+
+F32E4 =  N.Species
+
+F32E5 =  N.Complexes
+
+F32E6 =  N.ReactionGraph
+
+F32E7 =  N = reactionNetwork "A <--> 2B, A + C <--> D, B + E --> A + C, D --> B + E"
+
+F32E8 =  peek N
+
+F32E9 =  L = matrix{{-1,1,0,0,0},{1,-1,0,0,0},{0,0,-1,1,0},{0,0,1,-2,1},{0,0,1,0,-1}}
+
+F32E10 =  Comp = transpose matrix{{1,0,0,0,0},{0,2,0,0,0},{1,0,1,0,0},{0,0,0,1,0},{0,1,0,0,1}}
+
+F32E11 =  N = reactionNetwork({Comp,L},Input=>"Laplacian")
+
+F32E12 =  peek N
+
+F32E13 =  R = QQ[k_1..k_6,x_1..x_5]
+
+F32E14 =  A = matrix{{-k_1,k_1,0,0,0},{k_2,-k_2,0,0,0},{0,0,-k_3,k_3,0},{0,0,k_4,-k_4-k_5,k_5},{0,0,k_6,0,-k_6}}
+
+F32E15 =  Comp = transpose matrix{{1,0,0,0,0},{0,2,0,0,0},{1,0,1,0,0},{0,0,0,1,0},{0,1,0,0,1}}
+
+F32E16 =  N = reactionNetwork({Comp,A},Input=>"Laplacian")
+
+F32E17 =  peek N
+
+F32E18 =  R = QQ[k_1..k_6,x_1..x_5]
+
+F32E19 =  StoichM = matrix{{-1,1,-1,1,0,1},{2,-2,0,0,1,-1},{0,0,-1,1,0,1},{0,0,1,-1,-1,0},{0,0,0,0,1,-1}}
+
+F32E20 =  FluxV = transpose matrix{{k_1*x_1,k_2*x_2^2,k_3*x_1*x_3,k_4*x_4,k_5*x_4,k_6*x_2*x_5}}
+
+F32E21 =  N = reactionNetwork({StoichM,FluxV},Input=>"Stoichiometric")
+
+F32E22 =  peek N
+
+F32E23 =  R = QQ[k_1..k_6,x_1..x_5]
+
+F32E24 =  I = ideal(k_2*x_2^2-k_3*x_1*x_3+k_6*x_2*x_5-k_1*x_1+k_4*x_4,
+
+          -2*k_2*x_2^2-k_6*x_2*x_5+2*k_1*x_1+k_5*x_4,
+
+          -k_3*x_1*x_3+k_6*x_2*x_5+k_4*x_4,
+
+          k_3*x_1*x_3-k_4*x_4-k_5*x_4,
+
+          -k_6*x_2*x_5+k_5*x_4)
+
+F32E25 =  N = reactionNetwork I
+
+F32E26 =  peek N
+
+exampleIDS = {"F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12", "F32E13", "F32E14", "F32E15", "F32E16", "F32E17", "F32E18", "F32E19", "F32E20", "F32E21", "F32E22", "F32E23", "F32E24", "F32E25", "F32E26"}

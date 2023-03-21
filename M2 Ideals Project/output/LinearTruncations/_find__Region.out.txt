@@ -1,0 +1,17 @@
+needsPackage "LinearTruncations"
+
+F1E0 =  S = ZZ/101[x,y,Degrees=>{{1,0},{0,1}}]
+
+F1E1 =  I = ideal(x*y^2,x^3*y)
+
+F1E2 =  M = S^1/I
+
+F1E3 =  f = (d,M) -> truncate(d,M)==0
+
+F1E4 =  findRegion({{0,0},{4,4}},M,f)
+
+F1E5 =  elapsedTime findRegion({{0,0},{4,4}},M,f)
+
+F1E6 =  elapsedTime findRegion({{0,0},{4,4}},M,f,Inner=>{{1,2},{3,1}},Outer=>{{1,1}})
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6"}

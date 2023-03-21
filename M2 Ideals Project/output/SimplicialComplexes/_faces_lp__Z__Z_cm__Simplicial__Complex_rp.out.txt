@@ -1,0 +1,39 @@
+needsPackage "SimplicialComplexes"
+
+F30E0 =  S = QQ[x_0..x_3];
+
+F30E1 =  Δ = simplexComplex(3, S)
+
+F30E2 =  netList for i from -1 to dim Δ list {i,faces(i, Δ)}
+
+F30E3 =  assert all(-1..dim Δ, i ->  faces(i, Δ) === first entries sub(matrix{rsort subsets(vertices Δ, i+1)/product}, S))
+
+F30E4 =  R = ZZ[a..h];
+
+F30E5 =  Γ = dunceHatComplex R;
+
+F30E6 =  matrix {facets Γ}
+
+F30E7 =  netList for i from -1 to dim Γ list {i,faces(i, Γ)}
+
+F30E8 =  monomialIdeal Γ
+
+F30E9 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F30E10 =  dim irrelevant
+
+F30E11 =  faces (-1, irrelevant)
+
+F30E12 =  assert(faces(-1, irrelevant) === {1_S})
+
+F30E13 =  void = simplicialComplex monomialIdeal 1_S
+
+F30E14 =  faces(-1, void)
+
+F30E15 =  assert all(-2..7, i -> faces(i, void) == {})
+
+F30E16 =  peek Δ.cache
+
+F30E17 =  peek Δ.cache.faces
+
+exampleIDS = {"F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17"}

@@ -1,0 +1,127 @@
+needsPackage "ReesAlgebra"
+
+F14E0 =  R = ZZ/32003[x,y]
+
+F14E1 =  cusp = ideal(x^2-y^3)
+
+F14E2 =  mm = radical ideal singularLocus cusp
+
+F14E3 =  B = first flattenRing reesAlgebra(mm)
+
+F14E4 =  vars B
+
+F14E5 =  proj = map(B,R,{x,y})
+
+F14E6 =  totalTransform = proj cusp
+
+F14E7 =  D = decompose totalTransform
+
+F14E8 =  D/codim
+
+F14E9 =  irrelB = ideal(B_0,B_1)
+
+F14E10 =  doublePoint = saturate(D_0+D_1, irrelB)
+
+F14E11 =  codim doublePoint
+
+F14E12 =  degree doublePoint
+
+F14E13 =  divisors = primaryDecomposition totalTransform
+
+F14E14 =  strictTransform = divisors_0
+
+F14E15 =  exceptional = divisors_1
+
+F14E16 =  divisors/(i-> degree i/degree radical i)
+
+F14E17 =  T = ring ideal B
+
+F14E18 =  irrelT  = ideal(w_0,w_1)
+
+F14E19 =  sing = saturate(ideal singularLocus strictTransform, irrelT)
+
+F14E20 =  jacobianMatrix = diff(vars B, transpose gens strictTransform)
+
+F14E21 =  codim strictTransform
+
+F14E22 =  jacobianIdeal  = strictTransform+ minors(1,jacobianMatrix)
+
+F14E23 =  sing1 = saturate(jacobianIdeal, irrelB)
+
+F14E24 =  R = ZZ/32003[x,y]
+
+F14E25 =  tacnode = ideal(x^2-y^4)
+
+F14E26 =  sing = ideal singularLocus tacnode
+
+F14E27 =  mm = radical sing
+
+F14E28 =  B1 = first flattenRing reesAlgebra mm
+
+F14E29 =  proj1 = map(B1,R,{x,y})
+
+F14E30 =  irrelB1 = ideal(w_0,w_1)
+
+F14E31 =  totalTransform1 = proj1 tacnode
+
+F14E32 =  netList (D1 = decompose totalTransform1)
+
+F14E33 =  strictTransform1 = saturate(totalTransform1,proj1 mm )
+
+F14E34 =  strictTransform1 == intersect(D1_1,D1_2)
+
+F14E35 =  degree (D1_1+D1_2)
+
+F14E36 =  mm1 = sub(radical ideal singularLocus strictTransform1, B1)
+
+F14E37 =  B2 = first flattenRing reesAlgebra(mm1, Variable => p)
+
+F14E38 =  vars B2
+
+F14E39 =  proj2 = map(B2,B1,{w_0,w_1,x,y})
+
+F14E40 =  irrelB2 = ideal(p_0,p_1,p_2)
+
+F14E41 =  irrelTot = (proj2 irrelB1) *irrelB2
+
+F14E42 =  totalTransform2 = saturate(proj2 proj1 tacnode, irrelTot)
+
+F14E43 =  exceptional2 = saturate(proj2 proj1 mm, irrelTot)
+
+F14E44 =  netList(D2 = decompose totalTransform2)
+
+F14E45 =  netList(E2 = decompose exceptional2)
+
+F14E46 =  strictTransform2 = saturate(totalTransform2, exceptional2)
+
+F14E47 =  time sing2 = ideal singularLocus strictTransform2;
+
+F14E48 =  saturate(sing2, sub(irrelTot, ring sing2))
+
+F14E49 =  R = ZZ/32003[x,y];
+
+F14E50 =  tacnode = ideal(x^2-y^4);
+
+F14E51 =  mm = ideal(x,y^2);
+
+F14E52 =  B = first flattenRing reesAlgebra mm;
+
+F14E53 =  irrelB = ideal(w_0,w_1);
+
+F14E54 =  proj = map(B,R,{x,y});
+
+F14E55 =  totalTransform = proj tacnode
+
+F14E56 =  netList (D = decompose totalTransform)
+
+F14E57 =  exceptional = proj mm
+
+F14E58 =  strictTransform = saturate(totalTransform, exceptional);
+
+F14E59 =  netList decompose strictTransform
+
+F14E60 =  sing0 = sub(ideal singularLocus strictTransform, B);
+
+F14E61 =  sing = saturate(sing0,irrelB)
+
+exampleIDS = {"F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F14E27", "F14E28", "F14E29", "F14E30", "F14E31", "F14E32", "F14E33", "F14E34", "F14E35", "F14E36", "F14E37", "F14E38", "F14E39", "F14E40", "F14E41", "F14E42", "F14E43", "F14E44", "F14E45", "F14E46", "F14E47", "F14E48", "F14E49", "F14E50", "F14E51", "F14E52", "F14E53", "F14E54", "F14E55", "F14E56", "F14E57", "F14E58", "F14E59", "F14E60", "F14E61"}

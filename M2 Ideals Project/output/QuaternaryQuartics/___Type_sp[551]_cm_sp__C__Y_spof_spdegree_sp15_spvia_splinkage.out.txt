@@ -1,0 +1,27 @@
+needsPackage "QuaternaryQuartics"
+
+F37E0 =  kk = QQ;
+
+F37E1 =  U = kk[y0,y1,y2,y3,y4,y5,y6,y7];
+
+F37E2 =  P3 = ideal(y0,y1,y2,y3); --a P3
+
+F37E3 =  CI = ideal(y0, random(2, P3), random(2, P3), random(3, P3));
+
+F37E4 =  X11 = CI : P3; -- degree 11, codim 4.
+
+F37E5 =  (codim X11, degree X11)
+
+F37E6 =  s114 = X11 + P3; -- intersect X11 with the P3.  Take a random quartic in this ideal.
+
+F37E7 =  X4 = ideal(y1,y2,y3, random(4, s114));
+
+F37E8 =  X15 = intersect(X4, X11);
+
+F37E9 =  assert isPrime(X4 + X15) -- a quartic in P^3.
+
+F37E10 =  (dim X15, degree X15)
+
+F37E11 =  betti resolution X15
+
+exampleIDS = {"F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F37E11"}

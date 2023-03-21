@@ -1,0 +1,29 @@
+needsPackage "EdgeIdeals"
+
+F26E0 =  R = QQ[x_1..x_3,y_1..y_3];
+
+F26E1 =  G = graph(R,{x_1*y_1,x_2*y_2,x_3*y_3, x_1*y_2,x_1*y_3,x_2*y_3})
+
+F26E2 =  isCM G and isBipartite G
+
+F26E3 =  L = getGoodLeaf(G)
+
+F26E4 =  degreeVertex(G,y_1)
+
+F26E5 =  H = inducedHyperGraph(G, vertices(G) - set(L))
+
+F26E6 =  K = simplicialComplexToHyperGraph independenceComplex H;
+
+F26E7 =  edges K
+
+F26E8 =  use ring K;
+
+F26E9 =  A = apply(edges(K), e->append(e, y_1));
+
+F26E10 =  B = apply(edges inducedHyperGraph(K, {x_2,x_3}), e-> append(e, x_1));
+
+F26E11 =  shelling = join(A,B)
+
+F26E12 =  independenceComplex(G)
+
+exampleIDS = {"F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F26E11", "F26E12"}

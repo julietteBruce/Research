@@ -1,0 +1,41 @@
+needsPackage "SimplicialComplexes"
+
+F63E0 =  S = ZZ[a..e];
+
+F63E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F63E2 =  I = ideal Δ
+
+F63E3 =  dim Δ
+
+F63E4 =  assert (I == ideal a*b*c*d*e and instance(I, Ideal) and
+
+         numgens I === 1 and dim Δ === 3)
+
+F63E5 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F63E6 =  J = ideal Γ
+
+F63E7 =  assert (J == ideal (a*d, b*c*d, a*e, b*e, c*e, d*e) and
+
+         dim Γ === 2 and instance(J, Ideal))
+
+F63E8 =  irrelevant = simplicialComplex {1_S};
+
+F63E9 =  M = ideal irrelevant
+
+F63E10 =  assert (M == ideal gens S and instance(M, Ideal))
+
+F63E11 =  void = simplicialComplex monomialIdeal 1_S
+
+F63E12 =  U = ideal void
+
+F63E13 =  assert (U == ideal 1_S and instance (U, Ideal))
+
+F63E14 =  printWidth = 250;
+
+F63E15 =  code (ideal, SimplicialComplex)
+
+F63E16 =  code (monomialIdeal, SimplicialComplex)
+
+exampleIDS = {"F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F63E7", "F63E8", "F63E9", "F63E10", "F63E11", "F63E12", "F63E13", "F63E14", "F63E15", "F63E16"}

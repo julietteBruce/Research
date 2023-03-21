@@ -1,0 +1,19 @@
+needsPackage "NormalToricVarieties"
+
+F31E0 =  F = faceFan convexHull (id_(ZZ^3) | -id_(ZZ^3))
+
+F31E1 =  rays F
+
+F31E2 =  maxCones F
+
+F31E3 =  X = normalToricVariety F;
+
+F31E4 =  assert (transpose matrix rays X == rays F and max X == sort maxCones F)
+
+F31E5 =  X1 = time normalToricVariety ({{-1,-1},{1,0},{0,1}}, {{0,1},{1,2},{0,2}})
+
+F31E6 =  X2 = time normalToricVariety fan {posHull matrix {{-1,1},{-1,0}}, posHull matrix {{1,0},{0,1}}, posHull matrix{{-1,0},{-1,1}}};
+
+F31E7 =  assert (sort rays X1 == sort rays X2 and max X1 == max X2)
+
+exampleIDS = {"F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F31E7"}

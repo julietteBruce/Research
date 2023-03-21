@@ -1,0 +1,39 @@
+needsPackage "QuaternaryQuartics"
+
+F16E0 =  kk = ZZ/101;
+
+F16E1 =  R = kk[x_0..x_3];
+
+F16E2 =  HT = bettiStrataExamples(R);
+
+F16E3 =  MGamma = (HT#"[300b]")_0
+
+F16E4 =  F = quartic MGamma;
+
+F16E5 =  quarticType F
+
+F16E6 =  Fperp = inverseSystem F;
+
+F16E7 =  betti res Fperp
+
+F16E8 =  IGamma = pointsIdeal MGamma;
+
+F16E9 =  degree IGamma
+
+F16E10 =  decompose IGamma -- 7 points, therefore the rank is at most 7
+
+F16E11 =  betti res IGamma
+
+F16E12 =  Q = ideal super basis(2,IGamma);
+
+F16E13 =  betti res Q
+
+F16E14 =  Ip = Q:IGamma;
+
+F16E15 =  betti res Ip
+
+F16E16 =  v = random(2,(Fperp:Ip));
+
+F16E17 =  Fperp == IGamma + v*Ip
+
+exampleIDS = {"F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17"}

@@ -1,0 +1,23 @@
+needsPackage "Schubert2"
+
+F14E0 =  G = flagBundle({2,2}, VariableNames => {,c})
+
+F14E1 =  (S,Q) = bundles G
+
+F14E2 =  B = symmetricPower(3,Q)
+
+F14E3 =  c = chern(rank B,B)
+
+F14E4 =  integral c
+
+F14E5 =  f = n -> (
+
+          G := flagBundle({n-1,2});
+
+          integral chern symmetricPower_(2*n-3) last bundles G
+
+          )
+
+F14E6 =  for n from 2 to 10 list time f n
+
+exampleIDS = {"F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6"}

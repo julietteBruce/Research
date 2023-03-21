@@ -1,0 +1,23 @@
+needsPackage "PruneComplex"
+
+F0E0 =  R = ZZ/32003[vars(0..17)];
+
+F0E1 =  m1 = genericMatrix(R,a,3,3)
+
+F0E2 =  m2 = genericMatrix(R,j,3,3)
+
+F0E3 =  I = ideal(m1*m2-m2*m1)
+
+F0E4 =  C = res I;
+
+F0E5 =  D = C[-10]
+
+F0E6 =  MC = toMutableComplex D;
+
+F0E7 =  MC = first pruneComplex MC;
+
+F0E8 =  D' = toChainComplex MC
+
+F0E9 =  assert(betti D == betti D'[-10])
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9"}

@@ -1,0 +1,27 @@
+needsPackage "DGAlgebras"
+
+F17E0 =  R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+F17E1 =  K1 = koszulComplexDGA(ideal vars R,Variable=>"Y")
+
+F17E2 =  K2 = koszulComplexDGA(ideal {b,c},Variable=>"T")
+
+F17E3 =  g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+F17E4 =  g' = toComplexMap g
+
+F17E5 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F17E6 =  S = R/ideal{a^2*b^2*c^2}
+
+F17E7 =  f = map(S,R)
+
+F17E8 =  A = acyclicClosure(R,EndDegree=>3)
+
+F17E9 =  B = acyclicClosure(S,EndDegree=>3)
+
+F17E10 =  phi = liftToDGMap(B,A,f)
+
+F17E11 =  toComplexMap(phi,EndDegree=>3)
+
+exampleIDS = {"F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11"}

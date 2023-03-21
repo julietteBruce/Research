@@ -1,0 +1,43 @@
+needsPackage "FourierMotzkin"
+
+F2E0 =  findHeft := vectorConfig -> (
+
+          A := transpose matrix vectorConfig;
+
+          B := (fourierMotzkin A)#0;
+
+          r := rank source B;
+
+          heft := first entries (matrix{toList(r:-1)} * transpose B);
+
+          g := gcd heft;
+
+          if g > 1 then heft = apply(heft, h -> h //g);
+
+          heft);
+
+F2E1 =  vectorConfig = {{1,0},{-2,1},{1,0},{0,1}}
+
+F2E2 =  hft = findHeft vectorConfig
+
+F2E3 =  S = QQ[x_1,x_2,y_1,y_2, Heft => hft, Degrees => vectorConfig];
+
+F2E4 =  irrelevantIdeal = intersect(ideal(x_1,x_2), ideal(y_1,y_2))
+
+F2E5 =  res (S^1/irrelevantIdeal)
+
+F2E6 =  vectorConfig = {{1,0,0,0},{0,1,0,0},{0,-1,1,0},{0,1,-1,1},
+
+     	  {1,0,-1,1},{-1,0,0,1}}
+
+F2E7 =  hft = findHeft vectorConfig
+
+F2E8 =  R = QQ[x_1..x_6, Heft => hft, Degrees => vectorConfig];
+
+F2E9 =  irrelevantIdeal = ideal(x_3*x_4*x_5*x_6,x_1*x_4*x_5*x_6,x_1*x_2*x_5*x_6,
+
+           x_1*x_2*x_3*x_6,x_2*x_3*x_4*x_5,x_1*x_2*x_3*x_4)
+
+F2E10 =  res (R^1/irrelevantIdeal)
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10"}

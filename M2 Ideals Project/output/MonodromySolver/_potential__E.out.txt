@@ -1,0 +1,13 @@
+needsPackage "MonodromySolver"
+
+F2E0 =  R = CC[a,b,c,d,e,f,g,h][x,y,z];
+
+F2E1 =  polys = polySystem {a*x+b*y+c*z,d*x*y+e*x*z+f*y*z,g*x*y*z+h};
+
+F2E2 =  (p0,x0) := createSeedPair polys
+
+F2E3 =  mixedVolume = computeMixedVolume specializeSystem(p0,polys)
+
+F2E4 =  monodromySolve(polys,p0,{x0},SelectEdgeAndDirection=>selectBestEdgeAndDirection, Potential=>potentialE, TargetSolutionCount=>mixedVolume)
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4"}

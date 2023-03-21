@@ -1,0 +1,17 @@
+needsPackage "DGAlgebras"
+
+F5E0 =  R = ZZ/101[a,b,c]
+
+F5E1 =  I = ideal{a^3,b^3,c^3,a^2*b^2*c^2}
+
+F5E2 =  A = koszulComplexDGA(I)
+
+F5E3 =  complexA = toComplex A
+
+F5E4 =  complexA.dd
+
+F5E5 =  ranks = apply(4, i -> numgens prune HH_i(complexA))
+
+F5E6 =  ranks == apply(4, i -> numgens prune HH_i(koszul gens I))
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6"}

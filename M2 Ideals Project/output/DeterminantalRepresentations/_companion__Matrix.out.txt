@@ -1,0 +1,15 @@
+needsPackage "DeterminantalRepresentations"
+
+F9E0 =  R = CC[x]
+
+F9E1 =  eigenvalues companionMatrix(9*x^2 - 1)
+
+F9E2 =  f = x^10 + sum(10, i -> random(i, R))
+
+F9E3 =  C = companionMatrix f
+
+F9E4 =  clean(1e-10, f - det(x*id_(R^10) - C))
+
+F9E5 =  all(eigenvalues C, z -> clean(1e-10, sub(f, R_0 => z)) == 0)
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5"}

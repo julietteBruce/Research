@@ -1,0 +1,39 @@
+needsPackage "Macaulay2Doc"
+
+F158E0 =  A = QQ[x,y];
+
+F158E1 =  I = ideal "x10+x9y2,y8-x2y7";
+
+F158E2 =  transpose gens gb I
+
+F158E3 =  A1 = QQ[x,y,MonomialOrder=>Lex];
+
+F158E4 =  I = substitute(I,A1)
+
+F158E5 =  transpose gens gb I
+
+F158E6 =  B = QQ[x,y,MonomialOrder=>{Weights=>{-1,-1},2},Global=>false];
+
+F158E7 =  I = substitute(I,B)
+
+F158E8 =  transpose gens gb I
+
+F158E9 =  B = QQ[x,y,MonomialOrder=>{Weights=>{-1,0},Weights=>{0,-1}},Global=>false];
+
+F158E10 =  I = substitute(I,B)
+
+F158E11 =  transpose gens gb I
+
+F158E12 =  M = matrix{{1,1,1},{0,-1,-1},{0,0,-1}}
+
+F158E13 =  mo = apply(entries M, e -> Weights => e)
+
+F158E14 =  C = QQ[t,x,y,MonomialOrder=>mo];
+
+F158E15 =  I = homogenize(substitute(I,C),t)
+
+F158E16 =  transpose gens gb I
+
+F158E17 =  substitute(transpose gens gb I, {t=>1})
+
+exampleIDS = {"F158E0", "F158E1", "F158E2", "F158E3", "F158E4", "F158E5", "F158E6", "F158E7", "F158E8", "F158E9", "F158E10", "F158E11", "F158E12", "F158E13", "F158E14", "F158E15", "F158E16", "F158E17"}

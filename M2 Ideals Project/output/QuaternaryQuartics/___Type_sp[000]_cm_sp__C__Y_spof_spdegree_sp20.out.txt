@@ -1,0 +1,69 @@
+needsPackage "QuaternaryQuartics"
+
+F2E0 =  kk = ZZ/31
+
+F2E1 =  U = kk[y0,y1,y2,y3,y4,y5,y6,y7];
+
+F2E2 =  setRandomSeed 8327432
+
+F2E3 =  U1 = vars U
+
+F2E4 =  P6 = matrix{{y1,y2,y3,y4,y5,y6,y7}} -- The hyperplane y0 == 0
+
+F2E5 =  F1 = P6 * random(kk^7,kk^5);
+
+F2E6 =  F2 = P6 * random(kk^7,kk^5);
+
+F2E7 =  F3 = P6 * random(kk^7,kk^5);
+
+F2E8 =  fg = transpose F1 | transpose F2 | transpose F3 ;
+
+F2E9 =  ff = matrix{{y0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
+F2E10 =  fg = transpose fg + ff;    --3x5 matrix of rank 1 at (1:0:..:0), of rank 2 on fourfold Y
+
+F2E11 =  Y = fg3 = minors(3,fg);
+
+F2E12 =  fg2 = minors(2,fg);
+
+F2E13 =  codim fg3
+
+F2E14 =  codim fg2, degree fg2
+
+F2E15 =  saturate fg2
+
+F2E16 =  sf1 = fg^{0,1}
+
+F2E17 =  sf2 = fg^{0,2}
+
+F2E18 =  Z1 = sf12 = minors(2,sf1);--threefold rational scroll of degree 5 in Y
+
+F2E19 =  Z2 = sf22 = minors(2,sf2);--threefold rational scroll of degree 5 in Y
+
+F2E20 =  sf = trim intersect(Z1, Z2);-- threefold rational scroll over reducible conic of degree 10 in Y
+
+F2E21 =  (dim Z1, degree Z1)
+
+F2E22 =  betti sf  --in 11 cubics, so sf is in a cubic hypersurface section of Y
+
+F2E23 =  k3 = ideal select(sf_*, f -> degree f == {3}); -- the cubics in the ideal
+
+F2E24 =  k3=submatrix(gens sf,{0,1,2,3,4,5,6,7,8,9,10});  --the cubics in the ideal of sf
+
+F2E25 =  k3=ideal flatten k3;
+
+F2E26 =  X = cy = (k3:Z1):Z2; --the CY threefold, residual to sf in a cubic hypersurface section
+
+F2E27 =  betti X
+
+F2E28 =  betti res X
+
+F2E29 =  (dim X, degree X)
+
+F2E30 =  J = jacobian X;
+
+F2E31 =  minors(4, sub(J, matrix{{1_kk,0,0,0,0,0,0,0}})) == 0
+
+F2E32 =  sub(X, matrix{{1_kk,0,0,0,0,0,0,0}})
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F2E15", "F2E16", "F2E17", "F2E18", "F2E19", "F2E20", "F2E21", "F2E22", "F2E23", "F2E24", "F2E25", "F2E26", "F2E27", "F2E28", "F2E29", "F2E30", "F2E31", "F2E32"}

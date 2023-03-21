@@ -1,0 +1,39 @@
+needsPackage "SimplicialComplexes"
+
+F70E0 =  S = ZZ[a..h];
+
+F70E1 =  Δ = skeleton(2, simplexComplex(3, S))
+
+F70E2 =  prune homology Δ
+
+F70E3 =  prune homology(Δ, QQ)
+
+F70E4 =  prune homology(Δ, ZZ/2)
+
+F70E5 =  assert(homology Δ == HH Δ)
+
+F70E6 =  assert(prune homology Δ == gradedModule ZZ^1[-2])
+
+F70E7 =  Γ = kleinBottleComplex S
+
+F70E8 =  prune homology Γ
+
+F70E9 =  prune homology(Γ, QQ)
+
+F70E10 =  prune homology(Γ, ZZ/2)
+
+F70E11 =  assert(prune homology(Γ, ZZ/2) == gradedModule((ZZ/2)^2[-1] ++ (ZZ/2)^1[-2]))
+
+F70E12 =  irrelevant = simplicialComplex monomialIdeal gens S
+
+F70E13 =  homology irrelevant
+
+F70E14 =  assert(homology irrelevant == gradedModule ZZ^1[1])
+
+F70E15 =  void = simplicialComplex monomialIdeal 1_S
+
+F70E16 =  homology void
+
+F70E17 =  assert(homology void == gradedModule ZZ^0[0])
+
+exampleIDS = {"F70E0", "F70E1", "F70E2", "F70E3", "F70E4", "F70E5", "F70E6", "F70E7", "F70E8", "F70E9", "F70E10", "F70E11", "F70E12", "F70E13", "F70E14", "F70E15", "F70E16", "F70E17"}

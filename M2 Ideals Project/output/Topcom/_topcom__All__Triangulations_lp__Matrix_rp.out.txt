@@ -1,0 +1,47 @@
+needsPackage "Topcom"
+
+F3E0 =  A = transpose matrix {{0,3},{0,1},{-1,-1},{1,-1},{-4,-2},{4,-2}}
+
+F3E1 =  Ts = topcomAllTriangulations A;
+
+F3E2 =  #Ts == 16
+
+F3E3 =  netList Ts
+
+F3E4 =  tri = Ts#0
+
+F3E5 =  topcomIsTriangulation(A, tri)
+
+F3E6 =  topcomIsRegularTriangulation(A, tri)
+
+F3E7 =  topcomRegularTriangulationWeights(A, tri)
+
+F3E8 =  tally for tri in Ts list sort unique flatten tri
+
+F3E9 =  options topcomAllTriangulations
+
+F3E10 =  Ts = topcomAllTriangulations(A, Fine => true);
+
+F3E11 =  #Ts == 6
+
+F3E12 =  T1s = topcomAllTriangulations(A, RegularOnly => true)
+
+F3E13 =  T2s = topcomAllTriangulations(A, RegularOnly => false)
+
+F3E14 =  #T1s
+
+F3E15 =  #T2s
+
+F3E16 =  T3s = topcomAllTriangulations(A, RegularOnly => false, ConnectedToRegular => false)
+
+F3E17 =  #T3s
+
+F3E18 =  netList Ts
+
+F3E19 =  for tri in Ts list topcomIsTriangulation(A, tri)
+
+F3E20 =  for tri in Ts list topcomIsRegularTriangulation(A, tri)
+
+F3E21 =  for tri in Ts list topcomRegularTriangulationWeights(A, tri)
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21"}

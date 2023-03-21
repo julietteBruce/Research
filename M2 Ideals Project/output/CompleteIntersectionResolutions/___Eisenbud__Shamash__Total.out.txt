@@ -1,0 +1,43 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F37E0 =  n = 3
+
+F37E1 =  c = 2
+
+F37E2 =  kk = ZZ/101
+
+F37E3 =  R = kk[x_0..x_(n-1)]
+
+F37E4 =  I = ideal(x_0^2, x_2^3)
+
+F37E5 =  ff = gens I
+
+F37E6 =  Rbar = R/I
+
+F37E7 =  bar = map(Rbar, R)
+
+F37E8 =  Mbar = prune coker random(Rbar^1, Rbar^{-2})
+
+F37E9 =  (d0,d1) = EisenbudShamashTotal(Mbar,Grading =>1)
+
+F37E10 =  d0*d1
+
+F37E11 =  d1*d0
+
+F37E12 =  S = ring d0
+
+F37E13 =  phi = map(S,R)
+
+F37E14 =  IS = phi I
+
+F37E15 =  Sbar = S/IS
+
+F37E16 =  SMbar = Sbar**Mbar
+
+F37E17 =  prune HH_1 chainComplex{dual (Sbar**d0), dual(Sbar**d1)} == 0
+
+F37E18 =  Mbar' = Sbar^1/(Sbar_0, Sbar_1)**SMbar
+
+F37E19 =  ideal presentation prune HH_1 chainComplex{dual (Sbar**d1), dual(Sbar**d0)} == ideal presentation Mbar'
+
+exampleIDS = {"F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F37E11", "F37E12", "F37E13", "F37E14", "F37E15", "F37E16", "F37E17", "F37E18", "F37E19"}

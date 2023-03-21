@@ -1,0 +1,43 @@
+needsPackage "Complexes"
+
+F87E0 =  S = ZZ/101[a..d, Degrees=>{2:{1,0},2:{0,1}}];
+
+F87E1 =  h = a*c^2 + a*c*d + b*d^2;
+
+F87E2 =  I = (ideal(a,b) * ideal(c,d))^[2]
+
+F87E3 =  F = freeResolution comodule I;
+
+F87E4 =  g = Hom(F, map(S^1/h, S^1, 1))
+
+F87E5 =  f = Hom(F, map(S^1, S^{-degree h}, {{h}}))
+
+F87E6 =  assert isWellDefined g
+
+F87E7 =  assert isWellDefined f
+
+F87E8 =  assert isShortExactSequence(g, f)
+
+F87E9 =  L = longExactSequence(g,f)
+
+F87E10 =  assert isWellDefined L
+
+F87E11 =  assert(HH L == 0)
+
+F87E12 =  delta = connectingMap(g, f);
+
+F87E13 =  assert(dd^L_-9 === delta_-3)
+
+F87E14 =  assert(dd^L_-8 === HH_-3 g)
+
+F87E15 =  assert(dd^L_-7 === HH_-3 f)
+
+F87E16 =  assert(dd^L_-6 === delta_-2)
+
+F87E17 =  assert(dd^L_-5 === HH_-2 g)
+
+F87E18 =  assert(dd^L_-4 === HH_-2 f)
+
+F87E19 =  assert(dd^L_-3 === delta_-1)
+
+exampleIDS = {"F87E0", "F87E1", "F87E2", "F87E3", "F87E4", "F87E5", "F87E6", "F87E7", "F87E8", "F87E9", "F87E10", "F87E11", "F87E12", "F87E13", "F87E14", "F87E15", "F87E16", "F87E17", "F87E18", "F87E19"}

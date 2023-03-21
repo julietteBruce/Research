@@ -1,0 +1,35 @@
+needsPackage "NumericalAlgebraicGeometry"
+
+F14E0 =  CC[x,y,z]
+
+F14E1 =  F = polySystem {x^3,y^3,x^2*y,z^2}
+
+F14E2 =  P0 = point matrix{{0.000001, 0.000001*ii,0.000001-0.000001*ii}}
+
+F14E3 =  isFullNumericalRank evaluate(jacobian F,P0)
+
+F14E4 =  r1 = deflate (F,P0)
+
+F14E5 =  P1' = liftPointToDeflation(P0,F,r1) 
+
+F14E6 =  F1 = F.Deflation#r1
+
+F14E7 =  P1 = newton(F1,P1')
+
+F14E8 =  isFullNumericalRank evaluate(jacobian F1,P1)
+
+F14E9 =  r2 = deflate (F1,P1)
+
+F14E10 =  P2' = liftPointToDeflation(P1,F1,r2) 
+
+F14E11 =  F2 = F1.Deflation#r2
+
+F14E12 =  P2 = newton(F2,P2')
+
+F14E13 =  isFullNumericalRank evaluate(jacobian F2,P2)
+
+F14E14 =  P = point {take(coordinates P2, F.NumberOfVariables)}
+
+F14E15 =  assert(residual(F,P) < 1e-50)	
+
+exampleIDS = {"F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15"}

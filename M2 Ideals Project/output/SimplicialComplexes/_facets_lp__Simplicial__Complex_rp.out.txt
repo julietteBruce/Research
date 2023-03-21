@@ -1,0 +1,35 @@
+needsPackage "SimplicialComplexes"
+
+F51E0 =  S = ZZ[a..e];
+
+F51E1 =  Δ = simplicialComplex monomialIdeal (a*b*c*d*e)
+
+F51E2 =  facets Δ
+
+F51E3 =  assert (facets Δ == {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+         and isPure Δ and dim Δ === 3)
+
+F51E4 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F51E5 =  facets Γ
+
+F51E6 =  assert (facets Γ == {e, c*d, b*d, a*b*c} and
+
+         ideal Γ == ideal (a*d, b*c*d, a*e, b*e, c*e, d*e) and
+
+         not isPure Γ and dim Γ === 2)
+
+F51E7 =  irrelevant = simplicialComplex {1_S}
+
+F51E8 =  facets irrelevant
+
+F51E9 =  void = simplicialComplex monomialIdeal 1_S
+
+F51E10 =  facets void
+
+F51E11 =  assert (facets irrelevant == {1_S} and facets void == {})
+
+F51E12 =  peek Δ
+
+exampleIDS = {"F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F51E9", "F51E10", "F51E11", "F51E12"}

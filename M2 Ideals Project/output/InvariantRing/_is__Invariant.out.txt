@@ -1,0 +1,57 @@
+needsPackage "InvariantRing"
+
+F11E0 =  R = QQ[x_1..x_3]
+
+F11E1 =  L = apply(2, i -> permutationMatrix(3, [i + 1, i + 2] ) )
+
+F11E2 =  S3 = finiteAction(L, R)
+
+F11E3 =  isInvariant(1 + x_1^2 + x_2^2 + x_3^2, S3)
+
+F11E4 =  isInvariant(x_1*x_2*x_3^2, S3)
+
+F11E5 =  R = QQ[x_1..x_4]
+
+F11E6 =  W = matrix{{0,1,-1,1}, {1,0,-1,-1}}
+
+F11E7 =  T = diagonalAction(W, R)
+
+F11E8 =  isInvariant(x_1*x_2*x_3, T)
+
+F11E9 =  isInvariant(x_1*x_2*x_4, T)
+
+F11E10 =  R = QQ[x_1..x_3]
+
+F11E11 =  W = matrix{{1,0,1}, {0,1,1}}
+
+F11E12 =  A = diagonalAction(W, {3,3}, R)
+
+F11E13 =  isInvariant(x_1*x_2*x_3, A)
+
+F11E14 =  isInvariant((x_1*x_2*x_3)^3, A)
+
+F11E15 =  S = QQ[a,b,c,d,t]
+
+F11E16 =  I = ideal((det genericMatrix(S,2,2))*t-1)
+
+F11E17 =  R = QQ[x_(1,1)..x_(2,2)]
+
+F11E18 =  Q = (S/I)(monoid R);
+
+F11E19 =  G = transpose genericMatrix(S/I,2,2)
+
+F11E20 =  X = transpose genericMatrix(Q,x_(1,1),2,2)
+
+F11E21 =  N = reshape(Q^1,Q^4,transpose(inverse(G)*X*G));
+
+F11E22 =  phi = map(S,Q);
+
+F11E23 =  M = phi last coefficients N;
+
+F11E24 =  L = linearlyReductiveAction(I, M, R)
+
+F11E25 =  isInvariant(det genericMatrix(R,2,2),L)
+
+F11E26 =  isInvariant(trace genericMatrix(R,2,2),L)
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F11E23", "F11E24", "F11E25", "F11E26"}

@@ -1,0 +1,41 @@
+needsPackage "SpectralSequences"
+
+F16E0 =  R = QQ[x,y,z,w] ;
+
+F16E1 =  c2 = matrix(R,{{1},{0}}) ;
+
+F16E2 =  c1 = matrix(R,{{0,1}}) ;
+
+F16E3 =  C = chainComplex({c1,c2})
+
+F16E4 =  D_2 = image matrix(R,{{1}});
+
+F16E5 =  D_1 = image matrix(R,{{1,0},{0,0}});
+
+F16E6 =  D_0 = image matrix(R,{{1}});
+
+F16E7 =  D = chainComplex({inducedMap(D_0,D_1,C.dd_1),inducedMap(D_1,D_2,C.dd_2)})
+
+F16E8 =  E_2 = image matrix(R,{{0}});
+
+F16E9 =  E_1 = image matrix(R,{{1,0},{0,0}});
+
+F16E10 =  E_0 = image matrix(R,{{1}});
+
+F16E11 =  E = chainComplex({inducedMap(E_0,E_1,C.dd_1),inducedMap(E_1,E_2,C.dd_2)})
+
+F16E12 =  d = chainComplexMap(C,D,apply(spots C, i-> inducedMap(C_i,D_i,id_C _i)))
+
+F16E13 =  e = chainComplexMap(C,E,apply(spots C, i->inducedMap(C_i,E_i, id_C _i)))
+
+F16E14 =  isChainComplexMap d
+
+F16E15 =  isChainComplexMap e
+
+F16E16 =  K = filteredComplex({d,e})
+
+F16E17 =  L = filteredComplex({d,e},Shift =>1)
+
+F16E18 =  M = filteredComplex({d,e},Shift =>-1)
+
+exampleIDS = {"F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17", "F16E18"}

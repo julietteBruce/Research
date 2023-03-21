@@ -1,0 +1,51 @@
+needsPackage "Complexes"
+
+F103E0 =  R = QQ[a..d];
+
+F103E1 =  I = ideal(c^2-b*d, b*c-a*d, b^2-a*c)
+
+F103E2 =  J = ideal(I_0, I_1)
+
+F103E3 =  M = R^1/J
+
+F103E4 =  N = R^1/I
+
+F103E5 =  f = map(N, M, 1)
+
+F103E6 =  g = freeResolution f
+
+F103E7 =  assert isWellDefined g
+
+F103E8 =  assert isComplexMorphism g
+
+F103E9 =  assert(source g === freeResolution M)
+
+F103E10 =  assert(target g === freeResolution N)
+
+F103E11 =  K = ideal(I_0)
+
+F103E12 =  L = R^1/K
+
+F103E13 =  f' = map(M, L, 1)
+
+F103E14 =  g' = freeResolution f'
+
+F103E15 =  g'' = freeResolution(f * f')
+
+F103E16 =  assert(g'' === g * g')
+
+F103E17 =  assert(freeResolution id_N === id_(freeResolution N))
+
+F103E18 =  S = ZZ/101[a,b]
+
+F103E19 =  R = S/(a^3+b^3)
+
+F103E20 =  f = map(R^1/(a,b), R^1/(a^2, b^2), 1)
+
+F103E21 =  g = freeResolution(f, LengthLimit => 7)
+
+F103E22 =  assert isWellDefined g
+
+F103E23 =  assert isComplexMorphism g
+
+exampleIDS = {"F103E0", "F103E1", "F103E2", "F103E3", "F103E4", "F103E5", "F103E6", "F103E7", "F103E8", "F103E9", "F103E10", "F103E11", "F103E12", "F103E13", "F103E14", "F103E15", "F103E16", "F103E17", "F103E18", "F103E19", "F103E20", "F103E21", "F103E22", "F103E23"}

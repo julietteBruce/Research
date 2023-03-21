@@ -1,0 +1,29 @@
+needsPackage "NormalToricVarieties"
+
+F22E0 =  X = hirzebruchSurface 1;
+
+F22E1 =  Y = toricProjectiveSpace 1;
+
+F22E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F22E3 =  f' = weilDivisorGroup f
+
+F22E4 =  assert (isWellDefined f and source f' == weilDivisorGroup Y and
+
+         target f' == weilDivisorGroup X)
+
+F22E5 =  Z = toricProjectiveSpace 2;
+
+F22E6 =  g = map(Z, X, matrix {{1, 0}, {0, -1}})
+
+F22E7 =  g' = weilDivisorGroup g
+
+F22E8 =  assert (isWellDefined g and source g' == weilDivisorGroup Z and
+
+         target g' == weilDivisorGroup X)
+
+F22E9 =  g'' = classGroup g
+
+F22E10 =  assert(g'' * fromWDivToCl Z  == fromWDivToCl X  * g')
+
+exampleIDS = {"F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10"}

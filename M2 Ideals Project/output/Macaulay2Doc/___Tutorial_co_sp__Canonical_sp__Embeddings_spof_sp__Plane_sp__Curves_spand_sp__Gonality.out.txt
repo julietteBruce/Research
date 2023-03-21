@@ -1,0 +1,113 @@
+needsPackage "Macaulay2Doc"
+
+F494E0 =  R = ZZ/31991[a,b,c] -- the coordinate ring of P^2
+
+F494E1 =  ipoint1 = ideal matrix({{a,b}})
+
+F494E2 =  ipoint1 = ideal(a,b)
+
+F494E3 =  ipoint2 = ideal(a,c)
+
+F494E4 =  ipoint3 = ideal(b,c)
+
+F494E5 =  icurves1 = intersect(
+
+                    ipoint1^2,
+
+                    ipoint2^2,
+
+                    ipoint3^2
+
+                )
+
+F494E6 =  Icurves1 = gens icurves1
+
+F494E7 =  F1 = Icurves1 * random(source Icurves1, R^{-6})
+
+F494E8 =  betti F1
+
+F494E9 =  Icurves2 = gens (ipoint1^3)
+
+F494E10 =  F2 = Icurves2 * random(source Icurves2, R^{-6})
+
+F494E11 =  betti F2
+
+F494E12 =  i = ideal((a-b)^2) + (ipoint1^4)
+
+F494E13 =  icurves3 = intersect(i, ipoint3^2)
+
+F494E14 =  Icurves3 = gens icurves3
+
+F494E15 =  F3 = Icurves3 * random(source Icurves3, R^{-6})
+
+F494E16 =  betti F3
+
+F494E17 =  can1 = basis(3, intersect(ipoint1,ipoint2,ipoint3))
+
+F494E18 =  target can1
+
+F494E19 =  source can1
+
+F494E20 =  can1 = can1 ** R
+
+F494E21 =  can1 = super can1
+
+F494E22 =  can2 = basis(3, ipoint1^2)
+
+F494E23 =  can2 = super (can2 ** R)
+
+F494E24 =  can3 = basis(3, intersect(ideal(a-b) + ipoint1^2, ipoint3))
+
+F494E25 =  can3 = super (can3 ** R)
+
+F494E26 =  betti  can1
+
+F494E27 =  betti  can2
+
+F494E28 =  betti  can3
+
+F494E29 =  S = (coefficientRing R)[x_0..x_6]
+
+F494E30 =  T1 = R/ideal F1
+
+F494E31 =  f1 = map(T1,S,substitute(can1, T1))
+
+F494E32 =  IC1 = mingens ker f1
+
+F494E33 =  T2 = R/ideal F2
+
+F494E34 =  f2 = map(T2,S,substitute(can2, T2))
+
+F494E35 =  IC2 = mingens ker f2
+
+F494E36 =  T3 = R/ideal F3
+
+F494E37 =  f3 = map(T3,S,substitute(can3, T3))
+
+F494E38 =  IC3 = mingens ker f3
+
+F494E39 =  IC1res = res(coker IC1)
+
+F494E40 =  betti  IC1res
+
+F494E41 =  IC2res = res(coker IC2)
+
+F494E42 =  betti  IC2res
+
+F494E43 =  IC3res = res(coker IC3)
+
+F494E44 =  betti  IC3res
+
+F494E45 =  IC1 = matrix entries IC1
+
+F494E46 =  IC1res = res(coker IC1, DegreeLimit => {1})
+
+F494E47 =  betti IC1res
+
+F494E48 =  ff1 = map(R,S,can1)
+
+F494E49 =  G = map(coker F1,ff1)
+
+F494E50 =  trim coimage G
+
+exampleIDS = {"F494E0", "F494E1", "F494E2", "F494E3", "F494E4", "F494E5", "F494E6", "F494E7", "F494E8", "F494E9", "F494E10", "F494E11", "F494E12", "F494E13", "F494E14", "F494E15", "F494E16", "F494E17", "F494E18", "F494E19", "F494E20", "F494E21", "F494E22", "F494E23", "F494E24", "F494E25", "F494E26", "F494E27", "F494E28", "F494E29", "F494E30", "F494E31", "F494E32", "F494E33", "F494E34", "F494E35", "F494E36", "F494E37", "F494E38", "F494E39", "F494E40", "F494E41", "F494E42", "F494E43", "F494E44", "F494E45", "F494E46", "F494E47", "F494E48", "F494E49", "F494E50"}

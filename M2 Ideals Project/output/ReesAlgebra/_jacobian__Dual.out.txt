@@ -1,0 +1,51 @@
+needsPackage "ReesAlgebra"
+
+F11E0 =  setRandomSeed 0
+
+F11E1 =  n=3;
+
+F11E2 =  kk = ZZ/101;
+
+F11E3 =  S = kk[a_0..a_(n-2)];
+
+F11E4 =  phi' = map(S^(n),S^(n-1), (i,j) -> if i == 0 then a_j else random(2,S));
+
+F11E5 =  I = minors(n-1,phi');
+
+F11E6 =  betti (F = res I)
+
+F11E7 =  phi = F.dd_2;
+
+F11E8 =  jphi = jacobianDual phi
+
+F11E9 =  ell = analyticSpread I
+
+F11E10 =  r = reductionNumber(I, minimalReduction I)
+
+F11E11 =  whichGm I >= ell
+
+F11E12 =  apply(toList(1..ell-1), p-> {p+1, codim minors(n-p, phi)})
+
+F11E13 =  reesI = reesIdeal I;
+
+F11E14 =  codim reesI
+
+F11E15 =  betti res reesI
+
+F11E16 =  psi = jacobianDual phi
+
+F11E17 =  ST = ring psi
+
+F11E18 =  T = vars ST
+
+F11E19 =  J = ideal(T*promote(phi, ST))
+
+F11E20 =  betti res J
+
+F11E21 =  J1 = minors(ell, psi)
+
+F11E22 =  betti (G = res trim (J+J1))
+
+F11E23 =  betti res reesIdeal I
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F11E23"}

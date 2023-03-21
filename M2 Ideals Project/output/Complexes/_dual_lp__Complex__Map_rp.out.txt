@@ -1,0 +1,27 @@
+needsPackage "Complexes"
+
+F83E0 =  S = ZZ/101[a..c]
+
+F83E1 =  C = freeResolution coker vars S
+
+F83E2 =  D = (freeResolution coker matrix{{a^2,a*b,b^3}})[-1]
+
+F83E3 =  f = randomComplexMap(D,C)
+
+F83E4 =  h = dual f
+
+F83E5 =  assert isWellDefined h
+
+F83E6 =  assert(h == Hom(f, S^1))
+
+F83E7 =  assert(source h == Hom(D,S^1))
+
+F83E8 =  assert(target h == Hom(C,S^1))
+
+F83E9 =  D' = (freeResolution coker matrix{{a^2,a*b,c^3}})[-1]
+
+F83E10 =  f' = randomComplexMap(D', D)
+
+F83E11 =  dual(f' * f) == dual f * dual f'
+
+exampleIDS = {"F83E0", "F83E1", "F83E2", "F83E3", "F83E4", "F83E5", "F83E6", "F83E7", "F83E8", "F83E9", "F83E10", "F83E11"}

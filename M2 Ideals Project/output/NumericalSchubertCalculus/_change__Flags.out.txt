@@ -1,0 +1,29 @@
+needsPackage "NumericalSchubertCalculus"
+
+F5E0 =  k=3
+
+F5E1 =  l1={2,1};
+
+F5E2 =  l2={2,1};
+
+F5E3 =  l3={2,1};
+
+F5E4 =  F = {(l1, id_(CC^n)), (l2, rsort id_(CC^n)), (l3,random(CC^n,CC^n))}
+
+F5E5 =  G = randomSchubertProblemInstance({l1,l2,l3},k,n);
+
+F5E6 =  S = solveSchubertProblem(F,k,n);
+
+F5E7 =  FlagsF = F/last;
+
+F5E8 =  FlagsG = G/last;
+
+F5E9 =  time S' = changeFlags(S,({l1,l2,l3},FlagsF,FlagsG))
+
+F5E10 =  assert all(S', s-> checkIncidenceSolution(s,G))
+
+F5E11 =  time S' = changeFlags(S,({l1,l2,l3},FlagsF,FlagsG), OneHomotopy=>false)
+
+F5E12 =  assert all(S', s-> checkIncidenceSolution(s,G))
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12"}

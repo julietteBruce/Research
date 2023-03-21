@@ -98,6 +98,28 @@ def process_package_example_out(package_name: str, package_directory: str, outpu
 			package_example_ids.extend(file_example_ids)
 	write_list_of_example_ids_to_file(package_example_ids,output_file_name)
 
+def process_package_example(package_name: str, package_directory: str, output_directory: str, delimiter_pairs: List[str]) -> None:
+	file_number = 0
+	os.makedirs(output_directory, exist_ok = True)
+	for file_name in os.scandir(package_directory):
+		print(file_name.name)
+		if file_name.is_file() and is_out_file(file_name.name):
+			package_example_path = os.path.join(output_directory, file_name.name + ".txt")
+			write_line_to_file(f"needsPackage \"{package_name}\"\n", package_example_path)
+			overview_dictionary = {}
+			package_example_ids = []
+			file_example_ids = process_example_out_file(file_name.path, package_example_path, delimiter_pairs, file_number)
+			overview_dictionary[file_name.name] = {'file_number': file_number, 'example_ids': file_example_ids}
+			file_number += 1
+			package_example_ids.extend(file_example_ids)
+			write_list_of_example_ids_to_file(package_example_ids,package_example_path)
+
+def dictionary_to_M2_hash(dictionary: Dict) -> List:
+	dictionary_M2_list = [f"{pair[0]} => {pair[1]}" for pair in dictionary.items()]
+	seperator = ', '
+	dictionary_M2_string = f"new hashTable {{{seperator.join(dictionary_M2_list)}}}\n"
+	print(dictionary_M2_string)
+
 def process_all_packages(package_directory: str, output_folder: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	package_number = 0
 	overview_dictionary = {}
@@ -107,18 +129,22 @@ def process_all_packages(package_directory: str, output_folder: str, output_file
 		package_example_folder = os.path.join(package_folder.path, 'example-output')
 		print(f"{package_folder.name}: {package_number}\n")
 		if os.path.exists(package_example_folder):
-			package_output_file_name = os.path.join(output_folder, package_folder.name + '.' + 'txt')
-			process_package_example_out(package_folder.name, package_example_folder, package_output_file_name, delimiter_pairs)
+			package_output_directory = os.path.join(output_folder, package_folder.name)
+			process_package_example(package_folder.name, package_example_folder, package_output_directory, delimiter_pairs)
 			overview_dictionary[package_folder.name] = package_number
 			package_number += 1
 	output_overview_name = os.path.join(output_folder, output_file_name + '.' + 'txt')
-	write_line_to_file(overview_dictionary,output_overview_name)
+	write_line_to_file(overview_dictionary, output_overview_name)
+	write_line_to_file(dictionary_to_M2_hash(overview_dictionary), output_overview_name)
 
 
 delimiter_pairs = ['()', '[]', "{}"]
 
-# package_directory = 'VirtualResolutions'
+package_directory = 'VirtualResolutions'
+package_name = 'VirtualResolutions'
+output_directory = 'VirtualResolutions-Examples'
 # output_file_name = 'VirRes-test.txt'
+# process_package_example(package_name,package_directory,output_directory,delimiter_pairs)
 
 # package_directory = 'NormalToricVarieties'
 # output_file_name = 'NTV-test.txt'
@@ -126,12 +152,9 @@ delimiter_pairs = ['()', '[]', "{}"]
 
 package_directory = 'package_directory'
 output_folder = 'output'
-output_file_name = '00overview'
+output_file_name = '0overview'
 process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
 
-# output_file_name = 'testtest.txt'
-# input_file_name = 'package_directory/SimpleDoc/example-output/_wikipedia.out'
-# process_example_out_file(input_file_name,output_file_name,delimiter_pairs)
 
 # package_directory = 'package_directory/GKMVarieties/example-output'
 # output_file_name = 'test-test.txt'
@@ -142,25 +165,20 @@ process_all_packages(package_directory,output_folder,output_file_name,delimiter_
 # output_file_name = 'test-test.txt'
 # process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
 
-# package_directory = 'package_directory/GeometricDecomposability/example-output'
-# output_file_name = 'test-test.txt'
-# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
-
-
 # Issues: 
-# 1. SimpleDoc: _package__Template.out
+# FIXED 1. SimpleDoc: _package__Template.out
 #
-# 2. GKMVarieties: _is__Well__Defined_lp__K__Class_rp.out The issue here is the input on line i4 "isWellDefined badC --no longer well-defined"
+# FIXED 2. GKMVarieties: _is__Well__Defined_lp__K__Class_rp.out The issue here is the input on line i4 "isWellDefined badC --no longer well-defined"
 # for some reason despite the documentation this function returns something before the output line. 
 # see http://www2.macaulay2.com/Macaulay2/doc/Macaulay2-1.17/share/doc/Macaulay2/GKMVarieties/html/_is__Well__Defined_lp__K__Class_rp.html 
 #
-# 3. GKMVarieties: Folder conatins a .DS_store file. Fixed. 
+# FIXED 3. GKMVarieties: Folder conatins a .DS_store file.
 #
-# 4. GeometricDecomposability: The same issue with the Verbose=>true option effects the following files
+# FIXED 4. GeometricDecomposability: The same issue with the Verbose=>true option effects the following files
 # ___Verbose.out
 # _is__G__V__D.out 
 # _is__Lex__Compatibly__G__V__D
 # The issue here is the function isGVD(...,Verbose=>) returns something before the output
 # line. see https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/GeometricDecomposability/html/_is__G__V__D.html
 #
-# 5. IntegralClosure: _integral__Closure_lp..._cm__Verbosity_eq_gt..._rp _integral__Closure_lp..._cm__Strategy_eq_gt..._rp Verbosity issue again
+# FIXED 5. IntegralClosure: _integral__Closure_lp..._cm__Verbosity_eq_gt..._rp _integral__Closure_lp..._cm__Strategy_eq_gt..._rp Verbosity issue again

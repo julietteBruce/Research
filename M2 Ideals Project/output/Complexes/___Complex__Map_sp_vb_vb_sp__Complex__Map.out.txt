@@ -1,0 +1,25 @@
+needsPackage "Complexes"
+
+F112E0 =  R = ZZ/101[a..d];
+
+F112E1 =  D1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F112E2 =  D2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F112E3 =  C = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F112E4 =  f = randomComplexMap(D1, C)
+
+F112E5 =  g = randomComplexMap(D2, C)
+
+F112E6 =  h = f||g
+
+F112E7 =  assert isWellDefined h
+
+F112E8 =  assert(target h === target f ++ target g)
+
+F112E9 =  assert(source h === source f)
+
+F112E10 =  assert(h === map(D1 ++ D2, C, {{f},{g}}))
+
+exampleIDS = {"F112E0", "F112E1", "F112E2", "F112E3", "F112E4", "F112E5", "F112E6", "F112E7", "F112E8", "F112E9", "F112E10"}

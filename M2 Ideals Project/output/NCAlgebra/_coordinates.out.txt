@@ -1,0 +1,29 @@
+needsPackage "NCAlgebra"
+
+F90E0 =  R = QQ[w]/ideal(w^2+w+1)
+
+F90E1 =  A = skewPolynomialRing(R,promote(-1,R),{x,y,z})
+
+F90E2 =  g = ncMap(A,A,{y,z,x})
+
+F90E3 =  gList = {g, g^2, g^3}
+
+F90E4 =  a = sum apply(3,i-> (gList#i)(x^3))
+
+F90E5 =  b = sum apply(3,i-> (gList#i)(x^2*y))
+
+F90E6 =  c = sum apply(3,i-> (gList#i)(x*y^2))
+
+F90E7 =  d = sum apply(3,i-> (gList#i)(x*y*z))
+
+F90E8 =  p = w^2*z^2*y+x^2*z+(1-w)*y^3
+
+F90E9 =  g(p)==p
+
+F90E10 =  p' = sum apply(3,i-> (gList#i)(p))
+
+F90E11 =  g(p')==p'
+
+F90E12 =  coordinates(p',Basis=>{a,b,c,d})
+
+exampleIDS = {"F90E0", "F90E1", "F90E2", "F90E3", "F90E4", "F90E5", "F90E6", "F90E7", "F90E8", "F90E9", "F90E10", "F90E11", "F90E12"}

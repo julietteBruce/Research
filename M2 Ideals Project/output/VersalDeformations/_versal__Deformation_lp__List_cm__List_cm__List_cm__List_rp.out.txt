@@ -1,0 +1,35 @@
+needsPackage "VersalDeformations"
+
+F0E0 =  S=QQ[x1,x2,x3,x4,x5,x6,y1,y2,z];
+
+F0E1 =  I=ideal {x1*x4-z^2,x2*x5-z^2,x3*x6-z^2,x1*x3-z*x2,x2*x4-z*x3,x3*x5-z*x4,x4*x6-z*x5,x5*x1-z*x6,x6*x2-z*x1,y1*y2-z^2};
+
+F0E2 =  F0=gens I;
+
+F0E3 =  (F,R,G,C)=versalDeformation(F0,CT^1(0,F0),CT^2(0,F0),HighestOrder=>2);
+
+F0E4 =  T=ring first G;
+
+F0E5 =  G_0
+
+F0E6 =  decompose ideal G_0
+
+F0E7 =  A=(coefficientRing ring F_0)[s];
+
+F0E8 =  sublist=apply(gens T,v->(if v==t_19 or v==t_20  then return v=>s
+
+i: v=>0))
+
+F0E9 =  f=apply(F,i->sub(i,sublist));
+
+F0E10 =  r=apply(R,i->sub(i,sublist));
+
+F0E11 =  g=apply(G,i->sub(i,sublist));
+
+F0E12 =  c=apply(C,i->sub(i,sublist));
+
+F0E13 =  (F,R,G,C)=versalDeformation(f,r,g,c);
+
+F0E14 =  sum F
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14"}

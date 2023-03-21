@@ -1,0 +1,55 @@
+needsPackage "AlgebraicSplines"
+
+F11E0 =  V={{0,0},{0,1},{-1,-1},{1,0}};
+
+F11E1 =  F={{0,1,2},{0,2,3},{0,1,3}};
+
+F11E2 =  R=QQ[x,y];
+
+F11E3 =  phi=stanleyReisnerPresentation(V,F,1,Homogenize=>false,BaseRing=>R)
+
+F11E4 =  H=source phi;
+
+F11E5 =  scan(gens H, g->print phi(g))--see the expression of each generator in the Stanley Reisner ring
+
+F11E6 =  M=splineModule(V,F,1,Homogenize=>false,BaseRing=>R);
+
+F11E7 =  phi1=ringStructure(M);
+
+F11E8 =  H=source phi
+
+F11E9 =  gens H
+
+F11E10 =  gens H1
+
+F11E11 =  psi=map(H,H1,gens H);--phi1 has "same" source as H, but they are viewed as different rings by Macaulay2
+
+F11E12 =  scan(gens H1,g->print {g,phi1(g),phi(psi(g))})--phi expresses generators of M in the Stanley Reisner ring, while phi1 expresses generators in the free module R^3
+
+F11E13 =  (ker phi)==psi(ker phi1)--the kernels are the same
+
+F11E14 =  V={{0,0,0},{1,0,0},{0,1,0},{0,0,1},{-1,0,0},{0,-1,0},{0,0,-1}};
+
+F11E15 =  F={{0,1,2,3},{0,1,2,6},{0,2,3,4},{0,2,4,6},{0,1,3,5},{0,3,4,5},{0,4,5,6},{0,1,5,6}};--centrally triangulated octahedron
+
+F11E16 =  S=QQ[x,y,z];
+
+F11E17 =  stanleyReisnerPresentation(V,F,1,Homogenize=>false,BaseRing=>S)
+
+F11E18 =  stanleyReisnerPresentation(V,F,1,Homogenize=>false,BaseRing=>S,Trim=>true)
+
+F11E19 =  V'={{0,0,0},{1,0,0},{0,1,0},{1,1,1},{-1,0,0},{0,-1,0},{0,0,-1}}; --centrally triangulated octahedron that has been perturbed
+
+F11E20 =  F={{0,1,2,3},{0,1,2,6},{0,2,3,4},{0,2,4,6},{0,1,3,5},{0,3,4,5},{0,4,5,6},{0,1,5,6}};
+
+F11E21 =  stanleyReisnerPresentation(V',F,1,Homogenize=>false,BaseRing=>S,Trim=>true)
+
+F11E22 =  V={{0,1},{-1,-1},{1,-1},{0,2},{-2,-2},{2,-2}};
+
+F11E23 =  F={{0,1,2},{0,1,3,4},{0,2,3,5},{1,2,4,5}}; --symmetric triangular prism--
+
+F11E24 =  S=QQ[x,y,z];
+
+F11E25 =  stanleyReisnerPresentation(V,F,1,BaseRing=>S,Trim=>true)
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F11E15", "F11E16", "F11E17", "F11E18", "F11E19", "F11E20", "F11E21", "F11E22", "F11E23", "F11E24", "F11E25"}

@@ -1,0 +1,63 @@
+needsPackage "SimplicialComplexes"
+
+F40E0 =  S = QQ[a..e];
+
+F40E1 =  Δ4 = simplexComplex(4, S)
+
+F40E2 =  monomialIdeal Δ4
+
+F40E3 =  prune Δ4
+
+F40E4 =  assert(Δ4 === prune Δ4)
+
+F40E5 =  Γ = simplicialComplex monomialIdeal(a, a*b, b*c, c*d)
+
+F40E6 =  monomialIdeal Γ
+
+F40E7 =  prune Γ
+
+F40E8 =  monomialIdeal prune Γ
+
+F40E9 =  R = ring prune Γ;
+
+F40E10 =  (gens R, vertices  Γ)
+
+F40E11 =  assert(ring Γ =!= ring prune Γ)
+
+F40E12 =  assert(gens R  === apply(vertices Γ, x -> sub(x, R)))
+
+F40E13 =  Δ2 = simplexComplex(2, S)
+
+F40E14 =  prune Δ2
+
+F40E15 =  R = ring prune Δ2;
+
+F40E16 =  (gens R, vertices  Δ2)
+
+F40E17 =  assert(ring Δ2 =!= ring prune Δ2)
+
+F40E18 =  assert(gens R  === apply(vertices Δ2, x -> sub(x, R)))
+
+F40E19 =  void = simplicialComplex monomialIdeal(1_S)
+
+F40E20 =  facets void
+
+F40E21 =  monomialIdeal prune void
+
+F40E22 =  assert(gens ring prune void === {})
+
+F40E23 =  assert(monomialIdeal prune void == 1)
+
+F40E24 =  irrelevant = simplicialComplex{1_S}
+
+F40E25 =  facets irrelevant
+
+F40E26 =  prune irrelevant
+
+F40E27 =  monomialIdeal prune irrelevant
+
+F40E28 =  assert(gens ring prune irrelevant === {})
+
+F40E29 =  assert(monomialIdeal prune irrelevant == 0)
+
+exampleIDS = {"F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F40E10", "F40E11", "F40E12", "F40E13", "F40E14", "F40E15", "F40E16", "F40E17", "F40E18", "F40E19", "F40E20", "F40E21", "F40E22", "F40E23", "F40E24", "F40E25", "F40E26", "F40E27", "F40E28", "F40E29"}

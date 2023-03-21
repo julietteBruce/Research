@@ -1,0 +1,39 @@
+needsPackage "DGAlgebras"
+
+F14E0 =  R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+F14E1 =  K1 = koszulComplexDGA(ideal vars R,Variable=>"Y")
+
+F14E2 =  K2 = koszulComplexDGA(ideal {b,c},Variable=>"T")
+
+F14E3 =  f = dgAlgebraMap(K2,K1,matrix{{0,T_1,T_2}})
+
+F14E4 =  isWellDefined f
+
+F14E5 =  g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+F14E6 =  isWellDefined g
+
+F14E7 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F14E8 =  S = R/ideal{a^2*b^2*c^2}
+
+F14E9 =  f = map(S,R)
+
+F14E10 =  A = acyclicClosure(R,EndDegree=>3)
+
+F14E11 =  B = acyclicClosure(S,EndDegree=>3)
+
+F14E12 =  phi = liftToDGMap(B,A,f)
+
+F14E13 =  cmPhi = toComplexMap(phi,EndDegree=>3)
+
+F14E14 =  source phi
+
+F14E15 =  target phi
+
+F14E16 =  HHg = HH g
+
+F14E17 =  matrix HHg
+
+exampleIDS = {"F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17"}

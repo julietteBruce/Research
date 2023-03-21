@@ -1,0 +1,23 @@
+needsPackage "QuaternaryQuartics"
+
+F23E0 =  kk = ZZ/101;
+
+F23E1 =  R = kk[x_0..x_3];
+
+F23E2 =  HT = bettiStrataExamples(R);
+
+F23E3 =  MGamma = (HT#"[300a]")_0
+
+F23E4 =  linforms = flatten entries((vars R) * MGamma);
+
+F23E5 =  F = sum for ell in linforms list random(kk)*ell^4
+
+F23E6 =  Fperp = inverseSystem F;
+
+F23E7 =  betti res Fperp
+
+F23E8 =  Q = ideal super basis(2,Fperp);
+
+F23E9 =  Q == pointsIdeal(MGamma)
+
+exampleIDS = {"F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7", "F23E8", "F23E9"}

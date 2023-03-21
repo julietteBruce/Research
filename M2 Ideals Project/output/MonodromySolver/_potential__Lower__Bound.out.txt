@@ -1,0 +1,13 @@
+needsPackage "MonodromySolver"
+
+F5E0 =  R = CC[a,b,c,d][x,y];
+
+F5E1 =  polys = polySystem {a*x+b*y^2,c*x*y+d};
+
+F5E2 =  (V, npaths) = monodromySolve(polys,SelectEdgeAndDirection=>selectBestEdgeAndDirection, Potential=>potentialLowerBound)
+
+F5E3 =  G = V.Graph;
+
+F5E4 =  apply(toList G.Edges,e->e.Potential12)--potentials for all edges of a given direction
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4"}

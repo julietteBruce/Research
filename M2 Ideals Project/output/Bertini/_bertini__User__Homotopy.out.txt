@@ -1,0 +1,33 @@
+needsPackage "Bertini"
+
+F11E0 =  R = CC[x,a,t]; -- include the path variable in the ring
+
+F11E1 =  H = { (x^2-1)*a + (x^2-2)*(1-a)};
+
+F11E2 =  sol1 = point {{1}};
+
+F11E3 =  sol2 = point {{-1}};
+
+F11E4 =  S1= { sol1, sol2  };--solutions to H when t=1
+
+F11E5 =  S0 = bertiniUserHomotopy (t,{a=>t}, H, S1) --solutions to H when t=0
+
+F11E6 =  peek S0_0
+
+F11E7 =  R=CC[x,y,t,a]; -- include the path variable in the ring
+
+F11E8 =  f1=(x^2-y^2);
+
+F11E9 =  f2=(2*x^2-3*x*y+5*y^2);
+
+F11E10 =  H = { f1*a + f2*(1-a)}; --H is a list of polynomials in x,y,t
+
+F11E11 =  sol1=    point{{1,1}}--{{x,y}} coordinates
+
+F11E12 =  sol2=    point{{ -1,1}}
+
+F11E13 =  S1={sol1,sol2}--solutions to H when t=1
+
+F11E14 =  S0=bertiniUserHomotopy(t,{a=>t}, H, S1, HomVariableGroup=>{x,y}) --solutions to H when t=0
+
+exampleIDS = {"F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14"}

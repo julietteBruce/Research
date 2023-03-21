@@ -1,0 +1,65 @@
+needsPackage "CohomCalg"
+
+F0E0 =  needsPackage "NormalToricVarieties"
+
+F0E1 =  X = smoothFanoToricVariety(3,15)
+
+F0E2 =  rays X
+
+F0E3 =  max X
+
+F0E4 =  S = ring X
+
+F0E5 =  SR = dual monomialIdeal X
+
+F0E6 =  KX = toricDivisor X
+
+F0E7 =  assert isVeryAmple (-KX)
+
+F0E8 =  cohoms1 = for i from 0 to 6 list X_i => cohomCalg X_i
+
+F0E9 =  cohoms2 = for i from 0 to 6  list X_i => (
+
+          for j from 0 to dim X list rank HH^j(X, OO_X(toSequence degree X_i))
+
+          )
+
+F0E10 =  assert(cohoms1 === cohoms2)
+
+F0E11 =  needsPackage "ReflexivePolytopesDB"
+
+F0E12 =  topes = kreuzerSkarke(21, Limit => 20);
+
+F0E13 =  A = matrix topes_10
+
+F0E14 =  P = convexHull A
+
+F0E15 =  X = normalToricVariety P
+
+F0E16 =  SR = dual monomialIdeal X
+
+F0E17 =  D2 = subsets(for i from 0 to #rays X - 1 list (-X_i), 2)
+
+F0E18 =  D2 = D2/sum/degree
+
+F0E19 =  elapsedTime hvecs = cohomCalg(X, D2)
+
+F0E20 =  peek cohomCalg X
+
+F0E21 =  degree(X_3 + X_7 + X_8)
+
+F0E22 =  elapsedTime cohomvec1 = cohomCalg(X_3 + X_7 + X_8)
+
+F0E23 =  elapsedTime cohomvec2 = for j from 0 to dim X list rank HH^j(X, OO_X(0,0,1,2,0,-1))
+
+F0E24 =  assert(cohomvec1 == cohomvec2)
+
+F0E25 =  degree(X_3 + X_7 - X_8)
+
+F0E26 =  elapsedTime cohomvec1 = cohomCalg(X_3 + X_7 - X_8)
+
+F0E27 =  elapsedTime cohomvec2 = elapsedTime for j from 0 to dim X list rank HH^j(X, OO_X(0,0,1,2,-2,-1))
+
+F0E28 =  assert(cohomvec1 == cohomvec2)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19", "F0E20", "F0E21", "F0E22", "F0E23", "F0E24", "F0E25", "F0E26", "F0E27", "F0E28"}

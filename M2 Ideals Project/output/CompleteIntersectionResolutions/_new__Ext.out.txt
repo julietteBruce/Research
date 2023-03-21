@@ -1,0 +1,67 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F14E0 =  n = 3
+
+F14E1 =  R = ZZ/101[x_0..x_(n-1)]
+
+F14E2 =  Rbar = R/(ideal apply(c, i-> R_i^3))
+
+F14E3 =  Mbar = Nbar = coker vars Rbar
+
+F14E4 =  E = newExt(Mbar,Nbar)
+
+F14E5 =  tally degrees E
+
+F14E6 =  annihilator E
+
+F14E7 =  setRandomSeed 0
+
+F14E8 =  n = 3
+
+F14E9 =  c = 3
+
+F14E10 =  kk = ZZ/101
+
+F14E11 =  R = kk[x_0..x_(n-1)]
+
+F14E12 =  I = ideal apply(c, i->R_i^2)
+
+F14E13 =  ff = gens I
+
+F14E14 =  Rbar = R/I
+
+F14E15 =  bar = map(Rbar, R)
+
+F14E16 =  K = coker vars Rbar
+
+F14E17 =  Mbar = prune coker random(Rbar^2, Rbar^{-2,-2})
+
+F14E18 =  ES = newExt(Mbar,K,Lift => true)
+
+F14E19 =  S = ring ES
+
+F14E20 =  EE = Ext(Mbar,K);
+
+F14E21 =  S' = ring EE -- note that S' is the polynomial ring
+
+F14E22 =  A = res ES
+
+F14E23 =  B = res EE
+
+F14E24 =  all(length A+1, i-> sort degrees A_i == sort degrees B_i)
+
+F14E25 =  ann EE
+
+F14E26 =  ann ES
+
+F14E27 =  EEtoES = map(ring ES,ring EE, gens ring ES)
+
+F14E28 =  EE' = coker EEtoES presentation EE
+
+F14E29 =  H = Hom(EE',ES);
+
+F14E30 =  Q = positions(degrees target presentation H, i-> i == {0,0})
+
+F14E31 =  f = sum(Q, p-> random (S^1, S^1)**homomorphism H_{p})
+
+exampleIDS = {"F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F14E27", "F14E28", "F14E29", "F14E30", "F14E31"}

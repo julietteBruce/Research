@@ -1,0 +1,39 @@
+needsPackage "Macaulay2Doc"
+
+F554E0 =  R = ZZ/32003[vars(0..17)];
+
+F554E1 =  M = coker genericMatrix(R,a,3,6)
+
+F554E2 =  isHomogeneous M
+
+F554E3 =  codim M
+
+F554E4 =  degree M
+
+F554E5 =  genera M
+
+F554E6 =  poincare M
+
+F554E7 =  hf = hilbertSeries M
+
+F554E8 =  reduceHilbert hf
+
+F554E9 =  poincare' = (M) -> (
+
+      	H := poincare M;
+
+      	t := (ring H)_0;  -- The variable t above
+
+      	while H % (1-t) == 0 do H = H // (1-t);
+
+      	H);
+
+F554E10 =  poincare' M
+
+F554E11 =  C = resolution M
+
+F554E12 =  C.dd_3
+
+F554E13 =  betti C
+
+exampleIDS = {"F554E0", "F554E1", "F554E2", "F554E3", "F554E4", "F554E5", "F554E6", "F554E7", "F554E8", "F554E9", "F554E10", "F554E11", "F554E12", "F554E13"}

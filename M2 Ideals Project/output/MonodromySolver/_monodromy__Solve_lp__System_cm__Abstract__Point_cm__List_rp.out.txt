@@ -1,0 +1,19 @@
+needsPackage "MonodromySolver"
+
+F0E0 =  setRandomSeed 0;
+
+F0E1 =  S = CC[a,b,c];
+
+F0E2 =  R = S[x,w];
+
+F0E3 =  (h, f) = (a*x+b*w+c, 3*x^2 - w + 1);
+
+F0E4 =  x0 = point {{ii_CC,-2}}; -- clearly a zero of f
+
+F0E5 =  l = apply(2,i->random CC);
+
+F0E6 =  p0 = point({append(l,- sum apply(l, x0.Coordinates,(i,x)->i*x))});
+
+F0E7 =  (N, npaths) = monodromySolve(polySystem {h,f},p0,{x0},NumberOfNodes=>3);
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7"}

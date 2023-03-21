@@ -1,0 +1,79 @@
+needsPackage "CharacteristicClasses"
+
+F12E0 =  kk=ZZ/32749;
+
+F12E1 =  R=kk[x_0..x_4]
+
+F12E2 =  I=ideal(random(1,R),random(2,R),x_0*x_2-x_3*x_0);
+
+F12E3 =  CSM(ideal I_0,CompMethod=>PnResidual)
+
+F12E4 =  csmI=CSM(I)
+
+F12E5 =  A=ring csmI
+
+F12E6 =  csmIHash=CSM(A,I,Output=>HashForm);
+
+F12E7 =  csmIHash#{0,1}==CSM(A,ideal(I_0*I_1))
+
+F12E8 =  csmI==CSM(A,I,Method=>DirectCompleteInt)
+
+F12E9 =  CSM(A,I,Method=>DirectCompleteInt,IndsOfSmooth=>{0,1})
+
+F12E10 =  R=MultiProjCoordRing({2,2})
+
+F12E11 =  A=ChowRing(R)
+
+F12E12 =  r=gens R
+
+F12E13 =  K=ideal(r_0^2*r_3-r_4*r_1*r_2,r_2^2*r_5)
+
+F12E14 =  time csmK=CSM(A,K)
+
+F12E15 =  csmKHash= CSM(A,K,Output=>HashForm)
+
+F12E16 =  csmK==csmKHash#"CSM"
+
+F12E17 =  CSM(A,ideal(K_0))==csmKHash#{0}
+
+F12E18 =  m=new MutableHashTable;
+
+F12E19 =  m#{0}=csmKHash#{0}
+
+F12E20 =  m#{0,1}=csmKHash#{0,1}
+
+F12E21 =  time CSM(A,K,m)
+
+F12E22 =  needsPackage "NormalToricVarieties"
+
+F12E23 =  Rho = {{1,0,0},{0,1,0},{0,0,1},{-1,-1,0},{0,0,-1}}
+
+F12E24 =  Sigma = {{0,1,2},{1,2,3},{0,2,3},{0,1,4},{1,3,4},{0,3,4}}
+
+F12E25 =  X = normalToricVariety(Rho,Sigma,CoefficientRing =>ZZ/32749)
+
+F12E26 =  csmX=CSM X
+
+F12E27 =  Ch=ring csmX
+
+F12E28 =  CheckToricVarietyValid(X)
+
+F12E29 =  R=ring(X)
+
+F12E30 =  I=ideal(R_0^4*R_1,R_0*R_3*R_4*R_2-R_2^2*R_0^2)
+
+F12E31 =  CSM(X,I)
+
+F12E32 =  CSM(Ch,X,I)
+
+F12E33 =  needsPackage "NormalToricVarieties"
+
+F12E34 =  U = hirzebruchSurface 7
+
+F12E35 =  Ch=ToricChowRing(U)
+
+F12E36 =  CSM U
+
+F12E37 =  csm1=CSM(Ch,U)
+
+exampleIDS = {"F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F12E12", "F12E13", "F12E14", "F12E15", "F12E16", "F12E17", "F12E18", "F12E19", "F12E20", "F12E21", "F12E22", "F12E23", "F12E24", "F12E25", "F12E26", "F12E27", "F12E28", "F12E29", "F12E30", "F12E31", "F12E32", "F12E33", "F12E34", "F12E35", "F12E36", "F12E37"}

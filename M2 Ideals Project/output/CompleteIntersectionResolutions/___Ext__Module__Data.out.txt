@@ -1,0 +1,35 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F19E0 =  setRandomSeed 100
+
+F19E1 =  S = ZZ/101[a,b,c,d];
+
+F19E2 =  f = map(S^1, S^4, (i,j) -> S_j^3)
+
+F19E3 =  R = S/ideal f;
+
+F19E4 =  M = R^1/ideal"ab2+cd2";
+
+F19E5 =  betti (F = res(M, LengthLimit => 5))
+
+F19E6 =  E = ExtModuleData M;
+
+F19E7 =  E_2
+
+F19E8 =  E_3
+
+F19E9 =  r = max(2*E_2,2*E_3+1)
+
+F19E10 =  Er = ExtModuleData coker F.dd_r;
+
+F19E11 =  regularity Er_0
+
+F19E12 =  regularity Er_1
+
+F19E13 =  regularity evenExtModule(coker F.dd_(r-1))
+
+F19E14 =  ff = f*random(source f, source f);
+
+F19E15 =  matrixFactorization(ff, coker F.dd_(r+1));
+
+exampleIDS = {"F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15"}

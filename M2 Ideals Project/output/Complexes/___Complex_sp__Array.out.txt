@@ -1,0 +1,35 @@
+needsPackage "Complexes"
+
+F70E0 =  S = ZZ/101[a..d]
+
+F70E1 =  C = freeResolution coker vars S
+
+F70E2 =  dd^C_3
+
+F70E3 =  D = C[1]
+
+F70E4 =  assert isWellDefined D
+
+F70E5 =  assert(dd^D_2 == -dd^C_3)
+
+F70E6 =  E = complex(C, Base => -1)
+
+F70E7 =  assert isWellDefined E
+
+F70E8 =  assert(dd^E_2 == dd^C_3)
+
+F70E9 =  C2 = freeResolution (S^1/(a^2, b^2, c^2, d^2))
+
+F70E10 =  C3 = freeResolution (S^1/(a^2, b^3, c^4, d^5))
+
+F70E11 =  f2 = extend(C, C2, map(C_0, C2_0, 1))
+
+F70E12 =  f3 = extend(C2, C3, map(C2_0, C3_0, 1))
+
+F70E13 =  assert((f2*f3)[1] == (f2[1]) * (f3[1]))
+
+F70E14 =  assert(source(f2[1]) == C2[1])
+
+F70E15 =  assert(target(f2[1]) == C[1])
+
+exampleIDS = {"F70E0", "F70E1", "F70E2", "F70E3", "F70E4", "F70E5", "F70E6", "F70E7", "F70E8", "F70E9", "F70E10", "F70E11", "F70E12", "F70E13", "F70E14", "F70E15"}

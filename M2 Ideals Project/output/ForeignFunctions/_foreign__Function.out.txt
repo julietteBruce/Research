@@ -1,0 +1,47 @@
+needsPackage "ForeignFunctions"
+
+F19E0 =  mpfr = openSharedLibrary "mpfr"
+
+F19E1 =  mpfrVersion = foreignFunction(mpfr, "mpfr_get_version", charstar, void)
+
+F19E2 =  mpfrVersion()
+
+F19E3 =  mpfrVersion = foreignFunction("mpfr_get_version", charstar, void)
+
+F19E4 =  mpfrVersion()
+
+F19E5 =  myatan2 = foreignFunction("atan2", double, {double, double})
+
+F19E6 =  myatan2(1, sqrt 3)
+
+F19E7 =  sprintf = foreignFunction("sprintf", void, {charstar, charstar},
+
+         Variadic => true)
+
+F19E8 =  buf = charstar "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+F19E9 =  sprintf(buf, "%s %d", "foo", 3)
+
+F19E10 =  buf
+
+F19E11 =  sprintf(buf, "%s %.1f", "foo", 3)
+
+F19E12 =  buf
+
+F19E13 =  sprintf(buf, "%s %.1f", "foo", double 3)
+
+F19E14 =  buf
+
+F19E15 =  stopIfError = false
+
+F19E16 =  sprintf(buf, "%c", char' 77)
+
+F19E17 =  malloc = foreignFunction("malloc", voidstar, ulong)
+
+F19E18 =  free = foreignFunction("free", void, voidstar)
+
+F19E19 =  x = malloc 8
+
+F19E20 =  registerFinalizer(x, free)
+
+exampleIDS = {"F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15", "F19E16", "F19E17", "F19E18", "F19E19", "F19E20"}

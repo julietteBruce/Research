@@ -1,0 +1,35 @@
+needsPackage "SimplicialComplexes"
+
+F49E0 =  T = ZZ/2[x_0,x_1,x_2];
+
+F49E1 =  Δ = simplicialComplex{T_1*T_2}
+
+F49E2 =  Γ = simplicialComplex{T_0*T_1}
+
+F49E3 =  f = map(Γ, Δ, reverse gens T)
+
+F49E4 =  R = ZZ/2[y_0..y_2];
+
+F49E5 =  S = ZZ/2[z_0..z_2];
+
+F49E6 =  BΔ = barycentricSubdivision(Δ, R)
+
+F49E7 =  BΓ = barycentricSubdivision(Γ, S)
+
+F49E8 =  Bf = barycentricSubdivision(f, S, R)
+
+F49E9 =  ΔFaces = flatten for i to dim Δ + 1 list faces(i, Δ)
+
+F49E10 =  ΓFaces = flatten for i to dim Γ + 1 list faces(i, Γ)
+
+F49E11 =  netList transpose {for y in vertices BΔ list y => ΔFaces_(index y),
+
+          for z in vertices BΓ list z => ΓFaces_(index z)}
+
+F49E12 =  netList transpose {for F in ΔFaces list F => (map f)(F),
+
+          for v in vertices BΔ list v => (map Bf)(v) }
+
+F49E13 =  Bf
+
+exampleIDS = {"F49E0", "F49E1", "F49E2", "F49E3", "F49E4", "F49E5", "F49E6", "F49E7", "F49E8", "F49E9", "F49E10", "F49E11", "F49E12", "F49E13"}

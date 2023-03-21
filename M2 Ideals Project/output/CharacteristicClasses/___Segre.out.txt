@@ -1,0 +1,51 @@
+needsPackage "CharacteristicClasses"
+
+F9E0 =  setRandomSeed 72;
+
+F9E1 =  R = ZZ/32749[w,y,z]
+
+F9E2 =  Segre(ideal(w*y),CompMethod=>PnResidual)
+
+F9E3 =  A=ChowRing(R)
+
+F9E4 =  Segre(A,ideal(w^2*y,w*y^2))
+
+F9E5 =  R=MultiProjCoordRing({2,2})
+
+F9E6 =  r=gens R
+
+F9E7 =  A=ChowRing(R)
+
+F9E8 =  I=ideal(r_0^2*r_3-r_4*r_1*r_2,r_2^2*r_5)
+
+F9E9 =  Segre I
+
+F9E10 =  s1=Segre(A,I)
+
+F9E11 =  SegHash=Segre(A,I,Output=>HashForm)
+
+F9E12 =  peek SegHash
+
+F9E13 =  s1==SegHash#"Segre"
+
+F9E14 =  needsPackage "NormalToricVarieties"
+
+F9E15 =  Rho = {{1,0,0},{0,1,0},{0,0,1},{-1,-1,0},{0,0,-1}}
+
+F9E16 =  Sigma = {{0,1,2},{1,2,3},{0,2,3},{0,1,4},{1,3,4},{0,3,4}}
+
+F9E17 =  X = normalToricVariety(Rho,Sigma,CoefficientRing =>ZZ/32749)
+
+F9E18 =  CheckToricVarietyValid(X)
+
+F9E19 =  R=ring(X)
+
+F9E20 =  I=ideal(R_0^4*R_1,R_0*R_3*R_4*R_2-R_2^2*R_0^2)
+
+F9E21 =  Segre(X,I)
+
+F9E22 =  Ch=ToricChowRing(X)
+
+F9E23 =  s3=Segre(Ch,X,I)
+
+exampleIDS = {"F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F9E21", "F9E22", "F9E23"}

@@ -1,0 +1,71 @@
+needsPackage "NumericalCertification"
+
+F7E0 =  R = CC[x1,x2,y1,y2];
+
+F7E1 =  f = polySystem {3*y1 + 2*y2 -1, 3*x1 + 2*x2 -3.5, x1^2 + y1^2 -1, x2^2 + y2^2 -1};
+
+F7E2 =  sols = solveSystem f
+
+F7E3 =  c = certifySolutions(f, sols, Strategy => "alphaTheory");
+
+F7E4 =  peek c
+
+F7E5 =  R = RR[x1,x2,y1,y2];
+
+F7E6 =  f = polySystem {3*y1 + 2*y2 -1, 3*x1 + 2*x2 -3.5, x1^2 + y1^2 -1, x2^2 + y2^2 -1};
+
+F7E7 =  p1 = point{{.95, .32, -.30, .95}};
+
+F7E8 =  p2 = point{{.9, .3, -.3, 1}}; -- poorly approximated solution
+
+F7E9 =  certifyRegularSolution(f,p1)
+
+F7E10 =  certifyRegularSolution(f,p2) -- not an approximate solution
+
+F7E11 =  p1 = point{{.95,.32,-.30,.95}};
+
+F7E12 =  p2 = point{{.65,.77,.76,-.64}};
+
+F7E13 =  certifyDistinctSolutions(f,p1,p2)
+
+F7E14 =  p = point{{.954379, .318431, -.298633, .947949}};
+
+F7E15 =  certifyRealSolution(f,p)
+
+F7E16 =  R = QQ[x1,x2,y1,y2]
+
+F7E17 =  f = polySystem {3*y1 + 2*y2 -1, 3*x1 + 2*x2 -7/2, x1^2 + y1^2 -1, x2^2 + y2^2 -1};
+
+F7E18 =  p = point{{95/100,32/100,-30/100,95/100}}; -- an input over the rational numbers
+
+F7E19 =  computeConstants(f,p)
+
+F7E20 =  certifyRegularSolution(f,p)
+
+F7E21 =  R = RR[x1,x2,y1,y2];
+
+F7E22 =  f = polySystem {3*y1 + 2*y2 -1, 3*x1 + 2*x2 -3.5, x1^2 + y1^2 -1, x2^2 + y2^2 -1};
+
+F7E23 =  (I1, I2, I3, I4) = (interval(.94,.96), interval(.31,.33), interval(-.31,-.29), interval(.94,.96));
+
+F7E24 =  krawczykOperator(f,matrix{{I1,I2,I3,I4}})
+
+F7E25 =  krawczykTest(f,matrix{{I1,I2,I3,I4}})
+
+F7E26 =  R = RR[x1,x2,y1,y2];
+
+F7E27 =  f = polySystem {3*y1 + 2*y2 -1, 3*x1 + 2*x2 -3.5, x1^2 + y1^2 -1, x2^2 + y2^2 -1};
+
+F7E28 =  p = point{{.954379, .318431, -.298633, .947949}};
+
+F7E29 =  I = pointToInterval(f,p)
+
+F7E30 =  krawczykTest(f,I)
+
+F7E31 =  f = polySystem {x^2+y+z-1,x+y^2+z-1,x+y+z^2-1};
+
+F7E32 =  p = point{{1e-7-1e-7*ii,1e-7+1e-7*ii,1+1e-7}};
+
+F7E33 =  certifySingularSolution(f,p)
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F7E17", "F7E18", "F7E19", "F7E20", "F7E21", "F7E22", "F7E23", "F7E24", "F7E25", "F7E26", "F7E27", "F7E28", "F7E29", "F7E30", "F7E31", "F7E32", "F7E33"}

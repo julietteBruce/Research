@@ -1,0 +1,23 @@
+needsPackage "LLLBases"
+
+F3E0 =  m1 = map(ZZ^50, ZZ^50, (j,i) -> (i+1)^8 * (j+1)^4 + i + j + 2);
+
+F3E1 =  m = syz m1;
+
+F3E2 =  time LLL m;
+
+F3E3 =  time LLL(m, Strategy=>CohenEngine);
+
+F3E4 =  time LLL(m, Strategy=>CohenTopLevel);
+
+F3E5 =  time LLL(m, Strategy=>{Givens,RealFP});
+
+F3E6 =  time LLL(m, Strategy=>{Givens,RealQP});
+
+F3E7 =  time LLL(m, Strategy=>{Givens,RealXD});
+
+F3E8 =  time LLL(m, Strategy=>{Givens,RealRR});
+
+F3E9 =  time LLL(m, Strategy=>{BKZ,Givens,RealQP});
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9"}

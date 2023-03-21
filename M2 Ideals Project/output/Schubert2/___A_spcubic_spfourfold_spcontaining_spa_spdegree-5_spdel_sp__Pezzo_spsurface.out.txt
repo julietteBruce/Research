@@ -1,0 +1,71 @@
+needsPackage "Schubert2"
+
+F1E0 =  p = base(r,s)
+
+F1E1 =  P5 = projectiveBundle(5,p)
+
+F1E2 =  Y = sectionZeroLocus OO_P5(3) -- cubic fourfold
+
+F1E3 =  x = chern(1,OO_Y(1)) -- hyperplane class
+
+F1E4 =  S = intersectionRing p -- important that we use the same base ring
+
+F1E5 =  B1 = S[e_1..e_4,h, Join => false]
+
+F1E6 =  I1 = (ideal vars B1)^3 -- relations imposed by dimension
+
+F1E7 =  I2 = ideal flatten (for i from 0 to 4 list (for j from i+1 to 4 list (B1_i * B1_j))) -- relations imposed by non-intersection
+
+F1E8 =  I3 = ideal for i from 1 to 4 list (e_i^2 + h^2) -- relations that make each exceptional divisor a (-1)-curve
+
+F1E9 =  I = trim (I1 + I2 + I3)
+
+F1E10 =  B = B1/I
+
+F1E11 =  integral B := b -> coefficient((B_4)^2, b)
+
+F1E12 =  K = -(3*h - e_1 - e_2 - e_3 - e_4)
+
+F1E13 =  tX = 1 - K + 7*h^2
+
+F1E14 =  A = intersectionRing Y
+
+F1E15 =  f = map(B, A, {K, -K, K^2, -K^3, K^4, -K^5})
+
+F1E16 =  i = inclusion(f,
+
+         SubTangent => tX,
+
+         SubDimension => 2,
+
+         Base => p)
+
+F1E17 =  X = source i
+
+F1E18 =  Z = target i
+
+F1E19 =  (Ztilde, PN, PNmap, Zmap) = blowup(i)
+
+F1E20 =  AZtilde = intersectionRing Ztilde
+
+F1E21 =  exc = chern(1,exceptionalDivisor Ztilde) -- exceptional class
+
+F1E22 =  EBA = intersectionRing Z
+
+F1E23 =  hyp = Zmap^* promote(x, EBA) -- hyperplane class of Ztilde
+
+F1E24 =  L = OO_Ztilde(2*hyp - exc)
+
+F1E25 =  chi L
+
+F1E26 =  integral ((chern(1,L))^4)
+
+F1E27 =  (r', s') = ((r_A, s_A) / (elt ->  promote(elt, EBA))) / Zmap^*
+
+F1E28 =  L = OO_Ztilde(r' * hyp + s' * exc)
+
+F1E29 =  chi L
+
+F1E30 =  integral ((chern(1,L))^4)
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F1E16", "F1E17", "F1E18", "F1E19", "F1E20", "F1E21", "F1E22", "F1E23", "F1E24", "F1E25", "F1E26", "F1E27", "F1E28", "F1E29", "F1E30"}

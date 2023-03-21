@@ -1,0 +1,45 @@
+needsPackage "Complexes"
+
+F59E0 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F59E1 =  M = truncate(1,R^1)
+
+F59E2 =  f = basis(0, Ext^1(M, R^1))
+
+F59E3 =  C = yonedaExtension f
+
+F59E4 =  assert isWellDefined C
+
+F59E5 =  assert isShortExactSequence(dd^C_1, dd^C_2)
+
+F59E6 =  E = C_1
+
+F59E7 =  fittingIdeal(1, E)
+
+F59E8 =  saturate fittingIdeal(2, E)
+
+F59E9 =  x = symbol x;
+
+F59E10 =  S = ZZ/101[x_0..x_5];
+
+F59E11 =  I = borel monomialIdeal(x_2*x_3)
+
+F59E12 =  E = Ext^4(S^1/I, S^{-5})
+
+F59E13 =  f = E_{0}
+
+F59E14 =  assert(isHomogeneous f and degree f === {0})
+
+F59E15 =  C = yonedaExtension f
+
+F59E16 =  assert isWellDefined C
+
+F59E17 =  assert isHomogeneous C
+
+F59E18 =  assert(HH C == 0)
+
+F59E19 =  f' = yonedaExtension' C
+
+F59E20 =  assert(f' == f)
+
+exampleIDS = {"F59E0", "F59E1", "F59E2", "F59E3", "F59E4", "F59E5", "F59E6", "F59E7", "F59E8", "F59E9", "F59E10", "F59E11", "F59E12", "F59E13", "F59E14", "F59E15", "F59E16", "F59E17", "F59E18", "F59E19", "F59E20"}

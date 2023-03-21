@@ -1,0 +1,33 @@
+needsPackage "Complexes"
+
+F84E0 =  R = ZZ/101[a..d];
+
+F84E1 =  I = ideal(c^2-b*d, b*c-a*d, b^2-a*c)
+
+F84E2 =  J = ideal(I_0, I_1)
+
+F84E3 =  C = koszulComplex vars R
+
+F84E4 =  f = map(R^1/I, R^1/J, 1)
+
+F84E5 =  C ** f
+
+F84E6 =  f ** C
+
+F84E7 =  f' = random(R^2, R^{-1, -1, -1})
+
+F84E8 =  C ** f'
+
+F84E9 =  f' ** C
+
+F84E10 =  assert isWellDefined(C ** f')
+
+F84E11 =  assert isWellDefined(f' ** C)
+
+F84E12 =  f'' = random(source f', R^{-2,-2})
+
+F84E13 =  assert((C ** f') * (C ** f'') == C ** (f' * f''))
+
+F84E14 =  assert(C ** id_(R^{-1,-2,-3}) == id_(C ** R^{-1,-2,-3}))
+
+exampleIDS = {"F84E0", "F84E1", "F84E2", "F84E3", "F84E4", "F84E5", "F84E6", "F84E7", "F84E8", "F84E9", "F84E10", "F84E11", "F84E12", "F84E13", "F84E14"}

@@ -1,0 +1,43 @@
+needsPackage "NCAlgebra"
+
+F56E0 =  A = QQ{a,b,c,d}
+
+F56E1 =  M = ncMatrix {{a,b,c,d}}
+
+F56E2 =  N = ncMatrix {{M,2*M,3*M},{4*M,5*M,6*M}}
+
+F56E3 =  B = QQ{x,y,z}
+
+F56E4 =  f = y*z + z*y - x^2
+
+F56E5 =  g = x*z + z*x - y^2
+
+F56E6 =  h = z^2 - x*y - y*x
+
+F56E7 =  I = ncIdeal {f,g,h}
+
+F56E8 =  Igb = ncGroebnerBasis I
+
+F56E9 =  M = ncMatrix {{x, y, z}}
+
+F56E10 =  sigma = ncMap(B,B,{y,z,x})
+
+F56E11 =  N = ncMatrix {{M},{sigma M}, {sigma sigma M}}
+
+F56E12 =  Nred = N^3 % Igb
+
+F56E13 =  C = B/I
+
+F56E14 =  phi = ncMap(C,B,gens C)
+
+F56E15 =  NC = phi N
+
+F56E16 =  N3C = NC^3
+
+F56E17 =  X = NC + 3*NC
+
+F56E18 =  Y = NC | 2*NC
+
+F56E19 =  Z = X || NC
+
+exampleIDS = {"F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F56E9", "F56E10", "F56E11", "F56E12", "F56E13", "F56E14", "F56E15", "F56E16", "F56E17", "F56E18", "F56E19"}

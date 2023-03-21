@@ -1,0 +1,55 @@
+needsPackage "Complexes"
+
+F64E0 =  R = ZZ/101[a..d];
+
+F64E1 =  L = R^1/ideal(a^2, b^2, c^2, a*c, b*d)
+
+F64E2 =  N = R^1/ideal(a^2, b^2, c^2, a*c, b*d, a*b)
+
+F64E3 =  f = map(N,L,1)
+
+F64E4 =  M = coker vars R
+
+F64E5 =  betti freeResolution L
+
+F64E6 =  betti freeResolution N
+
+F64E7 =  g1 = Tor_1(f, M)
+
+F64E8 =  g2 = Tor_2(f, M)
+
+F64E9 =  g3 = Tor_3(f, M)
+
+F64E10 =  g4 = Tor_4(f, M)
+
+F64E11 =  assert(source g2 === Tor_2(L, M))
+
+F64E12 =  assert(target g2 === Tor_2(N, M))
+
+F64E13 =  prune ker g3
+
+F64E14 =  prune coker g3
+
+F64E15 =  M = R^1/ideal(a^2,b^2,c^3,b*d)
+
+F64E16 =  h1 = Tor_1(M, f)
+
+F64E17 =  h1' = Tor_1(f, M)
+
+F64E18 =  Tor_1(L, M)
+
+F64E19 =  Tor_1(M, L)
+
+F64E20 =  assert(source h1 == Tor_1(M, L))
+
+F64E21 =  assert(source h1' == Tor_1(L, M))
+
+F64E22 =  h2 = Tor_2(M, f)
+
+F64E23 =  h2' = Tor_2(f, M)
+
+F64E24 =  prune h2
+
+F64E25 =  prune h2'
+
+exampleIDS = {"F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F64E5", "F64E6", "F64E7", "F64E8", "F64E9", "F64E10", "F64E11", "F64E12", "F64E13", "F64E14", "F64E15", "F64E16", "F64E17", "F64E18", "F64E19", "F64E20", "F64E21", "F64E22", "F64E23", "F64E24", "F64E25"}

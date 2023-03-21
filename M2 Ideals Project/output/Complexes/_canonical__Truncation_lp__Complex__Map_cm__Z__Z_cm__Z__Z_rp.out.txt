@@ -1,0 +1,33 @@
+needsPackage "Complexes"
+
+F42E0 =  R = ZZ/101[a..d];
+
+F42E1 =  C = (freeResolution coker matrix{{a,b,c}})[1]
+
+F42E2 =  D = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F42E3 =  E = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F42E4 =  f = randomComplexMap(D, C)
+
+F42E5 =  g = randomComplexMap(E, D)
+
+F42E6 =  h = g * f
+
+F42E7 =  tf = canonicalTruncation(f, (0, 1))
+
+F42E8 =  tg = canonicalTruncation(g, (0, 1))
+
+F42E9 =  th = canonicalTruncation(h, (0, 1))
+
+F42E10 =  assert all({tf, tg, th}, isWellDefined)
+
+F42E11 =  assert(th == tg * tf)
+
+F42E12 =  t2f = canonicalTruncation(f, (-infinity, 1))
+
+F42E13 =  assert(t2f == canonicalTruncation(f, (, 1)))
+
+F42E14 =  assert(tf != t2f)
+
+exampleIDS = {"F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F42E6", "F42E7", "F42E8", "F42E9", "F42E10", "F42E11", "F42E12", "F42E13", "F42E14"}

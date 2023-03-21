@@ -1,0 +1,51 @@
+needsPackage "CompleteIntersectionResolutions"
+
+F21E0 =  kk=ZZ/101
+
+F21E1 =  S = kk[a,b,c,d]
+
+F21E2 =  M = truncate(3,S^1)
+
+F21E3 =  betti matrix S2(0,M)
+
+F21E4 =  betti matrix S2(1,M)
+
+F21E5 =  M = S^1/intersect(ideal"a,b,c", ideal"b,c,d",ideal"c,d,a",ideal"d,a,b")
+
+F21E6 =  prune source S2(0,M)
+
+F21E7 =  prune target S2(0,M)
+
+F21E8 =  S = ZZ/101[x_0..x_2];
+
+F21E9 =  ff = apply(3, i->x_i^2);
+
+F21E10 =  R = S/ideal ff;
+
+F21E11 =  M = cokernel matrix {{x_0, x_1*x_2}};
+
+F21E12 =  b = 5;
+
+F21E13 =  Mb = prune syzygyModule(-b,M);
+
+F21E14 =  E = prune evenExtModule Mb;
+
+F21E15 =  S2map = S2(0,E);
+
+F21E16 =  SE = prune target S2map;
+
+F21E17 =  extra = prune coker S2map;
+
+F21E18 =  KE = prune ker S2map;
+
+F21E19 =  betti res(Mb, LengthLimit => 10)
+
+F21E20 =  apply (5, i-> hilbertFunction(i, KE))
+
+F21E21 =  apply (5, i-> hilbertFunction(i, E))
+
+F21E22 =  apply (5, i-> hilbertFunction(i, SE))
+
+F21E23 =  apply (5, i-> hilbertFunction(i, extra))
+
+exampleIDS = {"F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23"}

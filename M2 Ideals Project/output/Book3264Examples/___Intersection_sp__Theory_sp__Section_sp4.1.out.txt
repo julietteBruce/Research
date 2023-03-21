@@ -1,0 +1,51 @@
+needsPackage "Book3264Examples"
+
+F3E0 =  kk = ZZ/32003 --Our base field
+
+F3E1 =  R = kk[x_1 .. x_8]
+
+F3E2 =  M = genericMatrix(R,x_1,2,4) -- A generic 2x4 matrix in the x_i
+
+F3E3 =  I = minors(2,M) -- The ideal of 2x2 minors of M
+
+F3E4 =  P5 = kk[p_0 .. p_5] -- The coordinate ring of PP^5
+
+F3E5 =  f = map(R,P5, gens I) -- The Plücker map for GG(1,3)
+
+F3E6 =  J = saturate ker f -- The ideal of GG(1,3) in PP^3
+
+F3E7 =  kk = ZZ/32003
+
+F3E8 =  pluckerIdeal = (k,n) -> (
+
+       assert (k <= n);
+
+       N := k*n; --number of variables in our generic matrix
+
+       R := kk[x_1 .. x_N];
+
+       M := genericMatrix(R,x_1,k,n); --the generic k-by-n matrix
+
+       s := binomial(n,k) - 1; --the dimension of PP(Wedge^k(kk^n))
+
+       Ps = kk[p_0 .. p_s];
+
+       f := map(R,Ps, gens minors(k,M)); --the Plücker map
+
+       J = saturate ker f) --the kernel of the Plücker map is the ideal we want
+
+F3E9 =  pluckerIdeal(2,4)
+
+F3E10 =  Grassmannian(1,4)
+
+F3E11 =  grass = (k,n) -> flagBundle({k,n-k}) --In Schubert, we build Grassmannians as special cases
+
+F3E12 =  G = grass(2,4) -- Our favorite GG(1,3)
+
+F3E13 =  (S,Q) = G.Bundles -- S is the universal subbundle, Q is the universal quotient bundle
+
+F3E14 =  S -- Schubert tells us that S is an abstract sheaf of rank 2
+
+F3E15 =  Q -- And so is Q.
+
+exampleIDS = {"F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15"}

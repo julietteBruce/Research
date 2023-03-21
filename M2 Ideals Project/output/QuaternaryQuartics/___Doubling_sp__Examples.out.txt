@@ -1,0 +1,27 @@
+needsPackage "QuaternaryQuartics"
+
+F22E0 =  kk = ZZ/101;
+
+F22E1 =  R = kk[x_0..x_3];
+
+F22E2 =  HT = bettiStrataExamples R;
+
+F22E3 =  netList prepend(
+
+         {"type", "I = ideal of points", "Fperp", "doubling of points"},
+
+         sort for k in keys HT list (
+
+         I := pointsIdeal((HT#k)_0);
+
+         F := quartic (HT#k)_0;
+
+         {k, minimalBetti I,
+
+             minimalBetti inverseSystem F,
+
+             minimalBetti doubling(8, I)}
+
+         ))
+
+exampleIDS = {"F22E0", "F22E1", "F22E2", "F22E3"}

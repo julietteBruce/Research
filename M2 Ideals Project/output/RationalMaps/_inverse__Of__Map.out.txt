@@ -1,0 +1,45 @@
+needsPackage "RationalMaps"
+
+F5E0 =  R = ZZ/7[x,y,z];
+
+F5E1 =  S = ZZ/7[a,b,c];
+
+F5E2 =  h = map(R, S, {y*z, x*z, x*y});
+
+F5E3 =  inverseOfMap (h, Verbosity=>0)
+
+F5E4 =  P5 = QQ[a..f];
+
+F5E5 =  M = matrix{{a,b,c},{d,e,f}};
+
+F5E6 =  blowUpSubvar = P5/(minors(2, M)+ideal(b - d));
+
+F5E7 =  h = map(blowUpSubvar, QQ[x,y,z],{a, b, c});
+
+F5E8 =  g = inverseOfMap(h, Verbosity=>0)
+
+F5E9 =  baseLocusOfMap(g)
+
+F5E10 =  baseLocusOfMap(h)
+
+F5E11 =  Q=QQ[x,y,z,t,u];
+
+F5E12 =  phi=map(Q,Q,matrix{{x^5,y*x^4,z*x^4+y^5,t*x^4+z^5,u*x^4+t^5}});
+
+F5E13 =  time inverseOfMap(phi,CheckBirational=>false, Verbosity=>0)
+
+F5E14 =  R=QQ[x,y,z,t]/(z-2*t);
+
+F5E15 =  F = {y*z*(x-z)*(x-2*y), x*z*(y-z)*(x-2*y),y*x*(y-z)*(x-z)};
+
+F5E16 =  S = QQ[u,v,w];
+
+F5E17 =  ident = rationalMapping map(S, S)
+
+F5E18 =  h = rationalMapping(R, S, F);
+
+F5E19 =  g = inverseOfMap(h, Verbosity=>0)
+
+F5E20 =  h*g == ident
+
+exampleIDS = {"F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16", "F5E17", "F5E18", "F5E19", "F5E20"}

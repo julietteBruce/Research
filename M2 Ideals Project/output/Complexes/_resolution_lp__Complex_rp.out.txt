@@ -1,0 +1,47 @@
+needsPackage "Complexes"
+
+F32E0 =  R = ZZ/101[a,b,c];
+
+F32E1 =  I = ideal(a^2, a*b, b*c)
+
+F32E2 =  C = Hom(freeResolution I, R^1/I)
+
+F32E3 =  assert all(min C .. max C, i -> not isFreeModule C_i)
+
+F32E4 =  fC = resolutionMap C
+
+F32E5 =  FC = resolution C
+
+F32E6 =  prune HH FC
+
+F32E7 =  assert isQuasiIsomorphism fC
+
+F32E8 =  assert isFree FC
+
+F32E9 =  assert isWellDefined fC
+
+F32E10 =  assert(0 == coker fC) -- showing that fC is surjective.
+
+F32E11 =  J = ideal(a,b)
+
+F32E12 =  K = ideal(b^2,c)
+
+F32E13 =  g1 = map(R^1/(J+K), R^1/J ++ R^1/K, {{1,-1}})
+
+F32E14 =  g2 = map(R^1/J ++ R^1/K, R^1/(intersect(J,K)), {{1},{1}})
+
+F32E15 =  D = complex{g1, g2}
+
+F32E16 =  assert isWellDefined D
+
+F32E17 =  assert isShortExactSequence(g1,g2)
+
+F32E18 =  fD = resolutionMap D
+
+F32E19 =  assert isWellDefined fD
+
+F32E20 =  assert isQuasiIsomorphism fD
+
+F32E21 =  assert(0 == source fD) -- so fD is certainly not surjective!
+
+exampleIDS = {"F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12", "F32E13", "F32E14", "F32E15", "F32E16", "F32E17", "F32E18", "F32E19", "F32E20", "F32E21"}

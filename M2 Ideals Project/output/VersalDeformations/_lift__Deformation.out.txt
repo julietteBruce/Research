@@ -1,0 +1,33 @@
+needsPackage "VersalDeformations"
+
+F6E0 =  S=QQ[x_0..x_4];
+
+F6E1 =  I=minors(2,matrix {{x_0,x_1,x_2,x_3},{x_1,x_2,x_3,x_4}});
+
+F6E2 =  F0=gens I
+
+F6E3 =  T1=cotangentCohomology1(F0);
+
+F6E4 =  R0=gens ker F0;
+
+F6E5 =  (f,r)=firstOrderDeformations(F0,R0,T1);
+
+F6E6 =  A:=(ring f_0)/(image f_0);
+
+F6E7 =  T2=cotangentCohomology2(F0);
+
+F6E8 =  NT2:=lift(sub(T2,A)%sub(transpose r_0,A),ring f_0);
+
+F6E9 =  c={NT2};
+
+F6E10 =  g={};
+
+F6E11 =  (F,R,G,C)=liftDeformation(f,r,g,c);
+
+F6E12 =  T=ring first F;
+
+F6E13 =  sum F -- equations for family
+
+F6E14 =  sum G -- base equations
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14"}

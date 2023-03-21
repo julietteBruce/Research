@@ -1,0 +1,29 @@
+needsPackage "NormalToricVarieties"
+
+F34E0 =  X = smoothFanoToricVariety(3,14);
+
+F34E1 =  Y = hirzebruchSurface 1;
+
+F34E2 =  f = map(Y, X, matrix{{1,0,0},{0,1,0}})
+
+F34E3 =  assert (isWellDefined f and source f === X and target f === Y)
+
+F34E4 =  Z = toricProjectiveSpace 1;
+
+F34E5 =  g = map(Z, Y, matrix{{1, 0}})
+
+F34E6 =  assert (isWellDefined g and source g === Y and target g === Z)
+
+F34E7 =  h = g * f
+
+F34E8 =  assert (isWellDefined h and source h === X and target h === Z)
+
+F34E9 =  X = hirzebruchSurface 1;
+
+F34E10 =  X2 = X ** X;
+
+F34E11 =  delta = diagonalToricMap X
+
+F34E12 =  assert (X2^[0] * delta == id_X and X2^[1] * delta == id_X)
+
+exampleIDS = {"F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12"}

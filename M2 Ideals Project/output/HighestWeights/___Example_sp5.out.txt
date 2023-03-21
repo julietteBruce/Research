@@ -1,0 +1,35 @@
+needsPackage "HighestWeights"
+
+F10E0 =  R=QQ[x_{1,2,3},x_{1,2,4},x_{1,2,5},x_{1,2,6},x_{1,3,4},x_{1,3,5},x_{1,4,5},x_{1,4,6},x_{1,5,6},x_{2,3,4},x_{2,4,5},x_{2,4,6},x_{3,4,5},x_{4,5,6}]
+
+F10E1 =  X=matrix{{x_{2,3,4},-x_{1,3,4},x_{1,2,4}},{-x_{1,3,4},-x_{1,3,5},x_{1,2,5}},{x_{1,2,4},x_{1,2,5},x_{1,2,6}}}
+
+F10E2 =  Y=matrix{{x_{1,5,6},-x_{1,4,6},x_{1,4,5}},{-x_{1,4,6},-x_{2,4,6},x_{2,4,5}},{x_{1,4,5},x_{2,4,5},x_{3,4,5}}}
+
+F10E3 =  Delta=(x_{1,2,3}*x_{4,5,6}-trace(X*Y))^2+4*x_{1,2,3}*det(Y)+4*x_{4,5,6}*det(X)-4*sum(3,i->sum(3,j->det(submatrix'(X,{i},{j}))*det(submatrix'(Y,{i},{j}))));
+
+F10E4 =  I=ideal jacobian ideal Delta;
+
+F10E5 =  RI=res I; betti RI
+
+F10E6 =  v_1={1,0,0}
+
+F10E7 =  ind = apply(gens R,g->(baseName g)#1)
+
+F10E8 =  W'=apply(ind,j->v_(j_0)+v_(j_1)+v_(j_2))
+
+F10E9 =  M=inverse promote(matrix{{1,0,0},{-1,1,0},{0,-1,2}},QQ)
+
+F10E10 =  D=dynkinType{{"C",3}}
+
+F10E11 =  N=transpose promote(cartanMatrix(rootSystem(D)),QQ)
+
+F10E12 =  W=entries transpose lift(N*M*(transpose matrix W'),ZZ)
+
+F10E13 =  setWeights(R,D,W)
+
+F10E14 =  highestWeightsDecomposition(RI)
+
+F10E15 =  highestWeightsDecomposition(R/I,0,4)
+
+exampleIDS = {"F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F10E13", "F10E14", "F10E15"}

@@ -1,0 +1,71 @@
+needsPackage "ReesAlgebra"
+
+F7E0 =  S = ZZ/101[x,y,z];
+
+F7E1 =  FF=res ((ideal vars S)^3);
+
+F7E2 =  M=coker (FF.dd_2)
+
+F7E3 =  versalEmbedding M
+
+F7E4 =  x = symbol x;
+
+F7E5 =  R=QQ[x_1..x_8];
+
+F7E6 =  m1=genericMatrix(R,x_1,2,2)
+
+F7E7 =  m=m1*m2
+
+F7E8 =  d1=minors(2,m1)
+
+F7E9 =  M=matrix{{0,d1_0,m_(0,0),m_(0,1)},	   {0,0,m_(1,0),m_(1,1)},	   {0,0,0,d2_0},	   {0,0,0,0}}
+
+F7E10 =  M=M-(transpose M);
+
+F7E11 =  N= coker(res coker transpose M).dd_2
+
+F7E12 =  versalEmbedding(N)
+
+F7E13 =  p = 3;
+
+F7E14 =  S = ZZ/p[x,y,z];
+
+F7E15 =  R = S/((ideal(x^p,y^p))+(ideal(x,y,z))^(p+1))
+
+F7E16 =  I = module ideal(z)
+
+F7E17 =  betti Hom(I,R^1)
+
+F7E18 =  ui = versalEmbedding I
+
+F7E19 =  kernel ui
+
+F7E20 =  inci = map(R^1,I,matrix{{z}})
+
+F7E21 =  kernel inci
+
+F7E22 =  gi = map(R^2, I, matrix{{x},{y}})
+
+F7E23 =  kernel gi
+
+F7E24 =  u= map(R^3,R^{-1},ui)
+
+F7E25 =  inc=map(R^1, R^{-1}, matrix{{z}})
+
+F7E26 =  g=map(R^2, R^{-1}, matrix{{x},{y}})
+
+F7E27 =  A=symmetricKernel u
+
+F7E28 =  B1=symmetricKernel inc
+
+F7E29 =  B=(map(ring A, ring B1)) B1
+
+F7E30 =  C1 = symmetricKernel g
+
+F7E31 =  C=(map(ring A, ring C1)) C1
+
+F7E32 =  A==B
+
+F7E33 =  A==C
+
+exampleIDS = {"F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F7E17", "F7E18", "F7E19", "F7E20", "F7E21", "F7E22", "F7E23", "F7E24", "F7E25", "F7E26", "F7E27", "F7E28", "F7E29", "F7E30", "F7E31", "F7E32", "F7E33"}

@@ -1,0 +1,23 @@
+needsPackage "NautyGraphs"
+
+F6E0 =  A000088 = apply(1..9, n -> #generateGraphs n)
+
+F6E1 =  B = apply(1..12, n -> generateGraphs(n, OnlyBipartite => true));
+
+F6E2 =  forestsOnly = buildGraphFilter {"NumCycles" => 0};
+
+F6E3 =  A005195 = apply(B, graphs -> #filterGraphs(graphs, forestsOnly))
+
+F6E4 =  treesOnly = buildGraphFilter {"NumCycles" => 0, "Connectivity" => 0, "NegateConnectivity" => true};
+
+F6E5 =  A000055 = apply(B, graphs -> #filterGraphs(graphs, treesOnly))
+
+F6E6 =  connected = buildGraphFilter {"Connectivity" => 0, "NegateConnectivity" => true};
+
+F6E7 =  prob = n -> log(n)/n;
+
+F6E8 =  apply(2..30, n -> #filterGraphs(generateRandomGraphs(n, 100, 2*(prob n)), connected))
+
+F6E9 =  apply(2..30, n -> #filterGraphs(generateRandomGraphs(n, 100, (prob n)/2), connected))
+
+exampleIDS = {"F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9"}

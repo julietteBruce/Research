@@ -1,0 +1,21 @@
+needsPackage "HyperplaneArrangements"
+
+F30E0 =  R = QQ[x,y,z]
+
+F30E1 =  A = arrangement ((x^2 - y^2)*(x^2 - z^2)*(y^2 - z^2)*z)
+
+F30E2 =  multiplierIdeal(3/7,A)
+
+F30E3 =  H = new MutableHashTable
+
+F30E4 =  scan(39,i -> (
+
+                 s := i/21;
+
+                 I := multiplierIdeal(s,A);
+
+                 if not H#?I then H#I = {s} else H#I = H#I|{s}))
+
+F30E5 =  netList sort values H -- values of s giving same multiplier ideal
+
+exampleIDS = {"F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5"}

@@ -1,0 +1,43 @@
+needsPackage "SimplicialComplexes"
+
+F37E0 =  S = ZZ[a..e];
+
+F37E1 =  Δ = simplicialComplex {b*c*d*e, a*c*d*e, a*b*d*e, a*b*c*e, a*b*c*d}
+
+F37E2 =  I = monomialIdeal Δ
+
+F37E3 =  dim Δ
+
+F37E4 =  assert (I == monomialIdeal a*b*c*d*e and numgens I === 1 and
+
+         instance(I, MonomialIdeal) and dim Δ === 3)
+
+F37E5 =  Γ = simplicialComplex {e, c*d, b*d, a*b*c}
+
+F37E6 =  J = monomialIdeal Γ
+
+F37E7 =  assert (J == monomialIdeal (a*d, b*c*d, a*e, b*e, c*e, d*e) and
+
+         dim Γ === 2 and instance(J, MonomialIdeal))
+
+F37E8 =  irrelevant = simplicialComplex {1_S};
+
+F37E9 =  M = monomialIdeal irrelevant
+
+F37E10 =  void = simplicialComplex monomialIdeal 1_S
+
+F37E11 =  assert (M == monomialIdeal gens S and instance(M, MonomialIdeal))
+
+F37E12 =  U = monomialIdeal void
+
+F37E13 =  assert (U == monomialIdeal 1_S and instance (U, MonomialIdeal))
+
+F37E14 =  printWidth = 250;
+
+F37E15 =  code (ideal, SimplicialComplex)
+
+F37E16 =  code (monomialIdeal, SimplicialComplex)
+
+F37E17 =  peek Δ
+
+exampleIDS = {"F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F37E11", "F37E12", "F37E13", "F37E14", "F37E15", "F37E16", "F37E17"}

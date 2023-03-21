@@ -1,0 +1,17 @@
+needsPackage "GroebnerWalk"
+
+F2E0 =  KK = ZZ/32003;
+
+F2E1 =  R1 = KK[x,y,z,u,v, MonomialOrder=>Eliminate 3];
+
+F2E2 =  I1 = ideal(3 - 2*u + 2*u^2 - 2*u^3 - v + u*v + 2*u^2*v^3 - x,
+
+                6*u + 5*u^2 - u^3 + v + u*v + v^2 - y,
+
+                -2 + 3*u - u*v + 2*u*v^2 - z);
+
+F2E3 =  R2 = KK[x,y,z,u,v, MonomialOrder=>Weights=>{0,0,0,1,1}];
+
+F2E4 =  groebnerWalk(I1, R2)
+
+exampleIDS = {"F2E0", "F2E1", "F2E2", "F2E3", "F2E4"}

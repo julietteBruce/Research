@@ -1,0 +1,81 @@
+needsPackage "RunExternalM2"
+
+F1E0 =  fn=temporaryFileName()|".m2"
+
+F1E1 =  fn<</// square = (x) -> (stderr<<"Running"<<endl
+
+i: sleep(1)
+
+i: x^2)
+
+F1E2 =  fn<</// justexit = () -> ( exit(27)
+
+i: )
+
+F1E3 =  fn<</// spin = (x) -> (stderr<<"Spinning!!"<<endl
+
+i: startTime:=cpuTime()
+
+i: while(cpuTime()-startTime<x) do for i to 10000000 do i
+
+i: return(x)
+
+i: )
+
+F1E4 =  fn<<flush;
+
+F1E5 =  h=runExternalM2(fn,"square",(4));
+
+F1E6 =  h
+
+F1E7 =  h#value===4^2
+
+F1E8 =  h#"exit code"===0
+
+F1E9 =  h=runExternalM2(fn,"justexit",());
+
+F1E10 =  h
+
+F1E11 =  fileExists(h#"output file")
+
+F1E12 =  fileExists(h#"answer file")
+
+F1E13 =  h=runExternalM2(fn,"spin",10,PreRunScript=>"ulimit -t 2");
+
+F1E14 =  h
+
+F1E15 =  if h#"output file" =!= null and fileExists(h#"output file") then get(h#"output file")
+
+F1E16 =  if h#"answer file" =!= null and fileExists(h#"answer file") then get(h#"answer file")
+
+F1E17 =  h=runExternalM2(fn,"spin",3,KeepStatistics=>true);
+
+F1E18 =  h#"statistics"
+
+F1E19 =  v=/// A complicated string^%&C@#CERQVASDFQ#BQBSDH"' ewrjwklsf///;
+
+F1E20 =  (runExternalM2(fn,identity,v))#value===v
+
+F1E21 =  R=QQ[x,y];
+
+F1E22 =  v=coker random(R^2,R^{3:-1})
+
+F1E23 =  h=runExternalM2(fn,identity,v)
+
+F1E24 =  get(h#"output file")
+
+F1E25 =  fn<<///R=QQ[x,y]
+
+F1E26 =  (runExternalM2(fn,identity,v))#value===v
+
+F1E27 =  v=R;
+
+F1E28 =  h=runExternalM2(fn,identity,v);
+
+F1E29 =  h#value
+
+F1E30 =  v===h#value
+
+F1E31 =  R===value(toExternalString(R))
+
+exampleIDS = {"F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F1E16", "F1E17", "F1E18", "F1E19", "F1E20", "F1E21", "F1E22", "F1E23", "F1E24", "F1E25", "F1E26", "F1E27", "F1E28", "F1E29", "F1E30", "F1E31"}

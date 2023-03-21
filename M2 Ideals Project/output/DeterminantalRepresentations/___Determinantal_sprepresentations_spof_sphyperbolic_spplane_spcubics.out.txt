@@ -1,0 +1,17 @@
+needsPackage "DeterminantalRepresentations"
+
+F0E0 =  R = RR[x1, x2, x3]
+
+F0E1 =  f = 6*x1^3+36*x1^2*x2+66*x1*x2^2+36*x2^3+11*x1^2*x3+42*x1*x2*x3+36*x2^2*x3+6*x1*x3^2+11*x2*x3^2+x3^3
+
+F0E2 =  repList = detRep f
+
+F0E3 =  all(repList, A -> clean(1e-10, f - det A) == 0)
+
+F0E4 =  g = product gens R -- hyperbolic with respect to (1,1,1)
+
+F0E5 =  B = clean(1e-6, first detRep(g, HyperbolicPt => matrix{{1_RR},{1},{1}}))
+
+F0E6 =  clean(1e-6, g - det B)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6"}
