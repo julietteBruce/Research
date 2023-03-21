@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>MixedMultiplicity -- Calculate mixed multiplicities, mixed volume and sectional Milnor numbers</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_hom__Ideal__Polytope.html">next</a> | previous | <a href="_hom__Ideal__Polytope.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Calculate mixed multiplicities, mixed volume and sectional Milnor numbers" href="index.html">MixedMultiplicity</a> :: <a title="Calculate mixed multiplicities, mixed volume and sectional Milnor numbers" href="index.html">MixedMultiplicity</a>    </div>
+    <hr/>
+    <div>
+      <h1>MixedMultiplicity -- Calculate mixed multiplicities, mixed volume and sectional Milnor numbers</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>P. B. Bhattacharya and J. J. Risler - B. Teissier proved that if $I_0,I_1,\ldots,I_r$ are $m$-primary ideals in a Noetherian local ring $(R,m)$ of dimension $d$, then the function $B(u_0,u_1,\ldots,u_r) = l(R/I_0^{u_0}I_1^{u_1} \cdots I_r^{u_r})$ is a polynomial function in $u_0,u_1,\ldots,u_r$ of degree $d$ for large values of $u_0,u_1,\ldots,u_r.$ The coefficients of the top degree term are called the mixed multiplicities of the ideals $I_0,I_1,\ldots,I_r.$ This result was generalized for ideals of positive height in the works of D. Katz, J. K. Verma and N. V. Trung. D. Rees studied these numbers using complete and joint reductions of ideals.</p>
+          <p>Our algorithm to compute the mixed multiplicities requires computation of the defining ideal of the multi-Rees algebra of ideals. An expression of the defining ideal of the multi-Rees algebra of monomial ideals over a polynomial ring was given by D. Cox, K.-i. Lin and G. Sosa in (Multi-Rees algebras and toric dynamical systems. Proc. Amer. Math. Soc., 147(11):4605-4616, 2019). We use a generalization of their result to compute the defining ideal of multi-Rees algebras of ideals over domains. Otherwise, we use a generalization of the algorithm of the function reesIdeal to the multi-ideal case.</p>
+          <p>The computation of mixed multiplicities helps compute mixed volume of a collection of lattice polytopes and also the sectional Milnor numbers of hypersurfaces with an isolated singularity.</p>
+          <p>Let $Q_1,\ldots,Q_n$ be a collection of lattice polytopes in $\mathbb{R}^n$ and $t_1,\ldots,t_n \in \mathbb{R}_+$. Minkowski proved that the $n$-dimensional volume, $vol_n(t_1Q_1 + \cdots + t_nQ_n)$ is a homogeneous polynomial of degree $n$ in $t_1,\ldots,t_n.$ The coefficient of $t_1 \cdots t_n$ is called the mixed volume of $Q_1,\ldots,Q_n.$ N. V. Trung and J. K. Verma proved that the mixed volume of lattice polytopes in the above setup can be realized as a mixed multiplicity of the homogeneous ideals corresponding to the lattice polytopes.</p>
+          <p>Let origin be an isolated singular point of a complex analytic hypersurface $H = V(f).$ The $\mathbb{C}$-vector space dimension of $\mathbb{C}\{x_0,\ldots,x_n\}/(f_{x_0},\ldots,f_{x_n})$ is called the Milnor number of the hypersurface $H$ at the origin. Let $(X, x)$ be a germ of a hypersurface in $\mathbb{C}^{n+1}$ with an isolated singularity. The Milnor number of $X \cap E$, where $E$ is a general linear subspace of dimension $i$ passing through $x,$ is called the $i$-th sectional Milnor number of $X$. B. Teissier identified the $i$-th sectional Milnor number with the $i$-th mixed multiplicity of the maximal homogeneous ideal of the polynomial ring and the Jacobian ideal of $f.$</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="https://sites.google.com/view/kritigoel">Kriti Goel</a><span> &lt;<a href="mailto:kritigoel.maths@gmail.com">kritigoel.maths@gmail.com</a>></span>            </li>
+            <li>
+<a href="https://web.iitd.ac.in/~vmukunda">Vivek Mukundan</a><span> &lt;<a href="mailto:vivekm85@gmail.com">vivekm85@gmail.com</a>></span>            </li>
+            <li>
+<a href="https://sites.google.com/site/sudeshnaroy11">Sudeshna Roy</a><span> &lt;<a href="mailto:sudeshnaroy@math.iitb.ac.in">sudeshnaroy@math.iitb.ac.in</a>></span>            </li>
+            <li>
+<a href="https://sites.google.com/site/profjkvermaiitbombay/">J. K. Verma</a><span> &lt;<a href="mailto:jkv@math.iitb.ac.in">jkv@math.iitb.ac.in</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>2.0</b> of MixedMultiplicity.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/MixedMultiplicity.m2">MixedMultiplicity.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="Compute the homogeneous ideal corresponding to the vertices of a lattice polytope in $\\mathbb{R}^n$." href="_hom__Ideal__Polytope.html">homIdealPolytope</a> -- Compute the homogeneous ideal corresponding to the vertices of a lattice polytope in $\mathbb{R}^n$.</span>                  </li>
+                  <li>
+<span><a title="Compute a given mixed multiplicity of ideals" href="_mixed__Multiplicity.html">mixedMultiplicity</a> -- Compute a given mixed multiplicity of ideals</span>                  </li>
+                  <li>
+<span><a title="Compute the mixed volume of a collection of lattice polytopes" href="_m__Mixed__Volume.html">mMixedVolume</a> -- Compute the mixed volume of a collection of lattice polytopes</span>                  </li>
+                  <li>
+<span><a title="Compute the defining ideal of multi-Rees algebra of ideals" href="_multi__Rees__Ideal.html">multiReesIdeal</a> -- Compute the defining ideal of multi-Rees algebra of ideals</span>                  </li>
+                  <li>
+<span><a title="Compute the sectional Milnor numbers of a hypersurface with an isolated singularity" href="_sec__Milnor__Numbers.html">secMilnorNumbers</a> -- Compute the sectional Milnor numbers of a hypersurface with an isolated singularity</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;homIdealPolytope(List)&quot;</tt> -- see <span><a title="Compute the homogeneous ideal corresponding to the vertices of a lattice polytope in $\\mathbb{R}^n$." href="_hom__Ideal__Polytope.html">homIdealPolytope</a> -- Compute the homogeneous ideal corresponding to the vertices of a lattice polytope in $\mathbb{R}^n$.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedMultiplicity(Sequence,Sequence)&quot;</tt> -- see <span><a title="Compute a given mixed multiplicity of ideals" href="_mixed__Multiplicity.html">mixedMultiplicity</a> -- Compute a given mixed multiplicity of ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mMixedVolume(List)&quot;</tt> -- see <span><a title="Compute the mixed volume of a collection of lattice polytopes" href="_m__Mixed__Volume.html">mMixedVolume</a> -- Compute the mixed volume of a collection of lattice polytopes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiReesIdeal(Ideal)&quot;</tt> -- see <span><a title="Compute the defining ideal of multi-Rees algebra of ideals" href="_multi__Rees__Ideal.html">multiReesIdeal</a> -- Compute the defining ideal of multi-Rees algebra of ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiReesIdeal(Ideal,RingElement)&quot;</tt> -- see <span><a title="Compute the defining ideal of multi-Rees algebra of ideals" href="_multi__Rees__Ideal.html">multiReesIdeal</a> -- Compute the defining ideal of multi-Rees algebra of ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiReesIdeal(List)&quot;</tt> -- see <span><a title="Compute the defining ideal of multi-Rees algebra of ideals" href="_multi__Rees__Ideal.html">multiReesIdeal</a> -- Compute the defining ideal of multi-Rees algebra of ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiReesIdeal(List,List)&quot;</tt> -- see <span><a title="Compute the defining ideal of multi-Rees algebra of ideals" href="_multi__Rees__Ideal.html">multiReesIdeal</a> -- Compute the defining ideal of multi-Rees algebra of ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;secMilnorNumbers(RingElement)&quot;</tt> -- see <span><a title="Compute the sectional Milnor numbers of a hypersurface with an isolated singularity" href="_sec__Milnor__Numbers.html">secMilnorNumbers</a> -- Compute the sectional Milnor numbers of a hypersurface with an isolated singularity</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Calculate mixed multiplicities, mixed volume and sectional Milnor numbers" href="index.html">MixedMultiplicity</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,109 @@
+-- -*- M2-comint -*- hash: 259047312
+
+i1 : R = QQ[x,y,z]/ideal(x^2-y*z);
+
+i2 : m = ideal(x,y,z);
+
+o2 : Ideal of R
+
+i3 : dualize(m)
+
+o3 = ideal x
+
+o3 : Ideal of R
+
+i4 : I = ideal(x,y);
+
+o4 : Ideal of R
+
+i5 : dualize(I)
+
+o5 = ideal (z, x)
+
+o5 : Ideal of R
+
+i6 : dualize(I^2)
+
+o6 = ideal z
+
+o6 : Ideal of R
+
+i7 : dualize(I^3)
+
+             2
+o7 = ideal (z , x*z)
+
+o7 : Ideal of R
+
+i8 : R = ZZ/2[x,y,z]/ideal(z^2-x*y*z-x^2*y-x*y^2);
+
+i9 : m = ideal(x,y,z);
+
+o9 : Ideal of R
+
+i10 : J = m^9;
+
+o10 : Ideal of R
+
+i11 : M = J*R^1;
+
+i12 : time dualize(J, Strategy=>IdealStrategy);
+     -- used 0.0584301 seconds
+
+o12 : Ideal of R
+
+i13 : time dualize(J, Strategy=>ModuleStrategy);
+     -- used 1.22379 seconds
+
+o13 : Ideal of R
+
+i14 : time dualize(M, Strategy=>IdealStrategy);
+     -- used 1.40644 seconds
+
+i15 : time dualize(M, Strategy=>ModuleStrategy);
+     -- used 0.00330675 seconds
+
+i16 : time embedAsIdeal dualize(M, Strategy=>ModuleStrategy);
+     -- used 0.00295242 seconds
+
+o16 : Ideal of R
+
+i17 : R = ZZ/7[x,y,u,v]/ideal(x*y-u*v);
+
+i18 : I = ideal(x,u);
+
+o18 : Ideal of R
+
+i19 : J = I^15;
+
+o19 : Ideal of R
+
+i20 : time dualize(J, Strategy=>IdealStrategy);
+     -- used 0.128842 seconds
+
+o20 : Ideal of R
+
+i21 : time dualize(J, Strategy=>ModuleStrategy);
+     -- used 0.00829133 seconds
+
+o21 : Ideal of R
+
+i22 : R = QQ[x,y]/ideal(x*y);
+
+i23 : J = ideal(x,y);
+
+o23 : Ideal of R
+
+i24 : dualize(J, KnownDomain=>true)
+
+o24 = ideal x
+
+o24 : Ideal of R
+
+i25 : dualize(J, KnownDomain=>false)
+
+o25 = ideal (y, x)
+
+o25 : Ideal of R
+
+i26 : 

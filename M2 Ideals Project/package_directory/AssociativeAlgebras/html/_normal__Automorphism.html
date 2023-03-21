@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>normalAutomorphism -- Computes the automorphism determined by a normal homogeneous element</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_normal__Elements.html">next</a> | <a href="___N__C__Reduction__Two__Sided.html">previous</a> | <a href="_normal__Elements.html">forward</a> | <a href="___N__C__Reduction__Two__Sided.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Noncommutative algebra computations" href="index.html">AssociativeAlgebras</a> :: <a title="Computes the automorphism determined by a normal homogeneous element" href="_normal__Automorphism.html">normalAutomorphism</a>    </div>
+    <hr/>
+    <div>
+      <h1>normalAutomorphism -- Computes the automorphism determined by a normal homogeneous element</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">normalAutomorphism x</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a homogeneous normal element</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let x be a homogeneous element in a noncommutative ring R. If x is normal then x determines a graded ring automorphism f of R by x*a = f(x)*a.  This method returns this automorphism as a RingMap.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ&lt;|a,b,c|>
+
+o1 = A
+
+o1 : FreeAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal {a*b+b*a,a*c+c*a,b*c+c*b}
+
+o2 = ideal (a*b + b*a, a*c + c*a, b*c + c*b)
+
+o2 : Ideal of A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = A/I
+Using numthreads = 0
+
+o3 = B
+
+o3 : FreeAlgebraQuotient</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : sigma = map(B,B,{b,c,a})
+
+o4 = map (B, B, {b, c, a})
+
+o4 : RingMap B &lt;--- B</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C = oreExtension(B,sigma,w)
+Using numthreads = 0
+
+o5 = C
+
+o5 : FreeAlgebraQuotient</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>By construction, w is normal, and the normalizing automorphism is sigma extended to C sending w to itself.  It follows that therefore w^2 is also normal whose automorphism is the square of sigma extended to C in a similar way.  We verify these facts with the following commands:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isNormal w^2
+
+o6 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : phi = normalAutomorphism w^2
+
+o7 = map (C, C, {a, b, c, w})
+
+o7 : RingMap C &lt;--- C</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : matrix phi
+
+o8 = | a b c w |
+
+             1       4
+o8 : Matrix C  &lt;--- C</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : matrix (sigma * sigma)
+
+o9 = | c a b |
+
+             1       3
+o9 : Matrix B  &lt;--- B</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Finds normal elements" href="_normal__Elements.html">normalElements</a> -- Finds normal elements</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>normalAutomorphism</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;normalAutomorphism(RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes the automorphism determined by a normal homogeneous element" href="_normal__Automorphism.html">normalAutomorphism</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

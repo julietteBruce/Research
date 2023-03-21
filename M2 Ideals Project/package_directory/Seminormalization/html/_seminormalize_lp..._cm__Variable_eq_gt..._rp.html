@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>seminormalize(...,Variable=>...) -- set the name for new variables created by the function</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Yy.html">next</a> | <a href="_seminormalize.html">previous</a> | <a href="___Yy.html">forward</a> | <a href="_seminormalize.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package used to seminormalize rings" href="index.html">Seminormalization</a> :: <a title="set the name for new variables created by the function" href="_seminormalize_lp..._cm__Variable_eq_gt..._rp.html">seminormalize(...,Variable=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>seminormalize(...,Variable=>...) -- set the name for new variables created by the function</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This option sets the default variable for new variables created by the above functions.  You must pass it a symbol.  We first give an example of this in the context of seminormalization.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ[a,b]/ideal(a^2-b^5);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : seminormalize(A, Variable=>X)
+
+                 QQ[X ..X ]                            QQ[X ..X ]           
+                     0   2                                 0   2            
+o2 = {-------------------------------, map (-------------------------------,
+        2        2          3                 2        2          3         
+      (X  - X , X X  - X , X  - X X )       (X  - X , X X  - X , X  - X X ) 
+        2    0   0 2    1   0    1 2          2    0   0 2    1   0    1 2  
+     ------------------------------------------------------------------------
+                                   QQ[Yy   , a..b]            
+                                        1,0                   
+     A, {X , X }), map (-------------------------------------,
+          1   0                2        2       2    2        
+                        (Yy   b  - a, Yy   b - b , Yy    - b) 
+                           1,0          1,0          1,0      
+     ------------------------------------------------------------------------
+                QQ[X ..X ]
+                    0   2
+     -------------------------------, {b, a, Yy   })}
+       2        2          3                   1,0
+     (X  - X , X X  - X , X  - X X )
+       2    0   0 2    1   0    1 2
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Here is an example where we normalize a non-domain.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = QQ[u,v]/ideal(u*v);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : betterNormalizationMap(B, Variable=>Y)
+
+                  QQ[Y0, Y1, Y2]
+o4 = map (-----------------------------, B, {Y1, Y0})
+             2
+          (Y2  - Y2, Y1*Y2 - Y1, Y0*Y2)
+
+                     QQ[Y0, Y1, Y2]
+o4 : RingMap ----------------------------- &lt;--- B
+                2
+             (Y2  - Y2, Y1*Y2 - Y1, Y0*Y2)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We conclude with an example of taking the product of two rings.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C = QQ[x];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : D = QQ[y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : ringProduct({C,D}, Variable=>z)
+
+                  QQ[z0, z1, z2, z3]
+o7 = {------------------------------------------, MutableList{...2...},
+                      2
+      (z1 + z3 - 1, z3  - z3, z2*z3 - z2, z0*z3)
+     ------------------------------------------------------------------------
+     {{z0}, {z2}}}
+
+o7 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <a title="default symbol for new variables in the seminormalization method" href="___Yy.html">Yy</a></span>          </li>
+          <li>
+<span>Function: <span><a title="seminormalize a reduced ring" href="_seminormalize.html">seminormalize</a> -- seminormalize a reduced ring</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="specify a name for a variable" href="../../Macaulay2Doc/html/___Variable.html">Variable</a> -- specify a name for a variable</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Variable</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>conwayPolynomial(...,Variable=>...)</tt> (missing documentation)<!--tag: [conwayPolynomial, Variable]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;GF(...,Variable=>...)&quot;</tt> -- see <span><a title="make a finite field" href="../../Macaulay2Doc/html/___G__F.html">GF</a> -- make a finite field</span></span>          </li>
+          <li>
+<span><tt>&quot;Grassmannian(...,Variable=>...)&quot;</tt> -- see <span><a title="the Grassmannian of linear subspaces of a vector space" href="../../Macaulay2Doc/html/___Grassmannian_lp__Z__Z_cm__Z__Z_rp.html">Grassmannian(ZZ,ZZ)</a> -- the Grassmannian of linear subspaces of a vector space</span></span>          </li>
+          <li>
+<span><a title="Sets the name of the indexed variables introduced in computing the endomorphism ring Hom(J,J)." href="../../IntegralClosure/html/_idealizer_lp..._cm__Variable_eq_gt..._rp.html">idealizer(...,Variable=>...)</a> -- Sets the name of the indexed variables introduced in computing the endomorphism ring Hom(J,J).</span>          </li>
+          <li>
+<span><a title="set the base letter for the indexed variables introduced while computing the integral closure" href="../../IntegralClosure/html/_integral__Closure_lp..._cm__Variable_eq_gt..._rp.html">integralClosure(...,Variable=>...)</a> -- set the base letter for the indexed variables introduced while computing the integral closure</span>          </li>
+          <li>
+<span><tt>&quot;intersectInP(...,Variable=>...)&quot;</tt> -- see <span><a title="Option for intersectInP" href="../../ReesAlgebra/html/_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">intersectInP(...,BasisElementLimit=>...)</a> -- Option for intersectInP</span></span>          </li>
+          <li>
+<span><tt>&quot;multiplicity(...,Variable=>...)&quot;</tt> -- see <span><a title="Option for intersectInP" href="../../ReesAlgebra/html/_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">intersectInP(...,BasisElementLimit=>...)</a> -- Option for intersectInP</span></span>          </li>
+          <li>
+<span><a title="Sets the name of the indexed variables introduced in computing the S2-ification." href="../../IntegralClosure/html/_make__S2_lp..._cm__Variable_eq_gt..._rp.html">makeS2(...,Variable=>...)</a> -- Sets the name of the indexed variables introduced in computing the S2-ification.</span>          </li>
+          <li>
+<span><tt>&quot;ringFromFractions(...,Variable=>...)&quot;</tt> -- see <span><a title="find presentation for f.g. ring" href="../../IntegralClosure/html/_ring__From__Fractions.html">ringFromFractions</a> -- find presentation for f.g. ring</span></span>          </li>
+          <li>
+<span><tt>&quot;Schubert(...,Variable=>...)&quot;</tt> -- see <span><a title="find the Plücker ideal of a Schubert variety" href="../../Macaulay2Doc/html/___Schubert_lp__Z__Z_cm__Z__Z_cm__Visible__List_rp.html">Schubert(ZZ,ZZ,VisibleList)</a> -- find the Plücker ideal of a Schubert variety</span></span>          </li>
+          <li>
+<tt>&quot;betterNormalizationMap(...,Variable=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;ringProduct(...,Variable=>...)&quot;</tt>          </li>
+          <li>
+<span><a title="set the name for new variables created by the function" href="_seminormalize_lp..._cm__Variable_eq_gt..._rp.html">seminormalize(...,Variable=>...)</a> -- set the name for new variables created by the function</span>          </li>
+          <li>
+<span><tt>&quot;distinguished(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;isReduction(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;jacobianDual(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;normalCone(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;reesAlgebra(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;reesIdeal(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;specialFiber(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><tt>&quot;specialFiberIdeal(...,Variable=>...)&quot;</tt> -- see <span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span></span>          </li>
+          <li>
+<span><a title="Choose name for variables in the created ring" href="../../ReesAlgebra/html/_symmetric__Kernel_lp..._cm__Variable_eq_gt..._rp.html">symmetricKernel(...,Variable=>...)</a> -- Choose name for variables in the created ring</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

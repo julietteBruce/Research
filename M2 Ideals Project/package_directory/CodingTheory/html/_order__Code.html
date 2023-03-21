@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>orderCode -- computes an order code for a given weight</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_reed__Solomon__Code.html">next</a> | <a href="_cartesian__Code.html">previous</a> | <a href="_reed__Solomon__Code.html">forward</a> | <a href="___Sets.html">backward</a> | <a href="_evaluation__Code.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a> > <a title="functions to construct evaluation codes over Galois fields" href="_evaluation__Code.html">evaluationCode</a> > <a title="computes an order code for a given weight" href="_order__Code.html">orderCode</a>    </div>
+    <hr/>
+    <div>
+      <h1>orderCode -- computes an order code for a given weight</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">orderCode(F,P,v,d)</code></dd>
+              <dd><code class="language-macaulay2">orderCode(I,P,v,d)</code></dd>
+              <dd><code class="language-macaulay2">orderCode(I,v,d)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a></span>, $C$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let <tt>F</tt> be a finite field and <tt>F</tt>$[t_1,\ldots,t_m]$ a polynomial ring with a weight order defined by the list <tt>v</tt> of size $m$. For <tt>P</tt>$=\{P_1,\ldots,P_n\}\subset$<tt>F</tt>$^m$, the order code of degree $d$ is the <tt>F</tt>-vector space generated by the vectors $(f(P_1),\ldots,f(P_n))$, where $f$ is a monomial of weight at most $d$. We describe ways to obtain an order code below.</p>
+        </div>
+        <div>
+          <h2>a list of points and the  weight vector are given</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">orderCode(F,P,v,d)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>                </li>
+                <li>
+<span><tt>P</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>v</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p>The order code $C$ of degree <tt>d</tt> over the points of <tt>P</tt> using the weight vector <tt>v</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i1 : F = GF(4);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i2 : P = {{0, 0}, {a, a}, {a+1, a}, {1, a}, {a, a+1}, {a+1, a+1}, {1, a+1}, {0, 1}};</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i3 : C = orderCode(F,P,{2,3},7);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i4 : peek C
+
+o4 = EvaluationCode{cache => CacheTable{}                                                                                                                                                                                                                                                                                           }
+                    Points => {{0, 0}, {a, a}, {a + 1, a}, {1, a}, {a, a + 1}, {a + 1, a + 1}, {1, a + 1}, {0, 1}}
+                                                               8
+                    LinearCode => LinearCode{AmbientModule => F                                                                                                                                                                                                                                                                    }
+                                             BaseField => F
+                                             cache => CacheTable{}
+                                             Code => image | 1 0   0   0   0 0   0   0   |
+                                                           | 1 a+1 1   a   1 a   a+1 a+1 |
+                                                           | 1 a   a+1 a   1 a+1 a+1 1   |
+                                                           | 1 1   a   a   1 1   a+1 a   |
+                                                           | 1 a+1 a   a+1 1 a   a   1   |
+                                                           | 1 a   1   a+1 1 a+1 a   a   |
+                                                           | 1 1   a+1 a+1 1 1   a   a+1 |
+                                                           | 1 0   0   1   0 0   1   0   |
+                                             GeneratorMatrix => | 1 1   1   1   1   1   1   1 |
+                                                                | 0 a+1 a   1   a+1 a   1   0 |
+                                                                | 0 1   a+1 a   a   1   a+1 0 |
+                                                                | 0 a   a   a   a+1 a+1 a+1 1 |
+                                                                | 0 1   1   1   1   1   1   0 |
+                                                                | 0 a   a+1 1   a   a+1 1   0 |
+                                                                | 0 a+1 a+1 a+1 a   a   a   1 |
+                                                                | 0 a+1 1   a   1   a   a+1 0 |
+                                             Generators => {{1, 1, 1, 1, 1, 1, 1, 1}, {0, a + 1, a, 1, a + 1, a, 1, 0}, {0, 1, a + 1, a, a, 1, a + 1, 0}, {0, a, a, a, a + 1, a + 1, a + 1, 1}, {0, 1, 1, 1, 1, 1, 1, 0}, {0, a, a + 1, 1, a, a + 1, 1, 0}, {0, a + 1, a + 1, a + 1, a, a, a, 1}, {0, a + 1, 1, a, 1, a, a + 1, 0}}
+                                             ParityCheckMatrix => | 1 1 1 1 1 1 1 1 |
+                                             ParityCheckRows => {{1, 1, 1, 1, 1, 1, 1, 1}}
+                                                2               3    2        4
+                    VanishingIdeal => ideal (t t  + t t  + t , t  + t  + t , t  + t )
+                                              0 1    0 1    0   0    1    1   1    1
+                                          2   2         3       2
+                    PolynomialSet => {1, t , t t , t , t , t , t , t t }
+                                          0   0 1   1   0   0   1   0 1</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+        <div>
+          <h2>given the ideal of the finite algebra associated to the order function and a list of points</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">orderCode(I,P,v,d)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>                </li>
+                <li>
+<span><tt>P</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>v</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p>If <tt>I</tt> is the ideal associated to the semigroup generated by <tt>v</tt>, this function allows us to improve by knowing a basis defined through <tt>I</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i5 : F = GF(4);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i6 : R = F[x,y];</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i7 : I = ideal(x^3+y^2+y)
+
+            3    2
+o7 = ideal(x  + y  + y)
+
+o7 : Ideal of R</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i8 : P = {{0, 0}, {a, a}, {a+1, a}, {1, a}};</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i9 : C = orderCode(I,P,{2,3},7);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i10 : peek C
+
+o10 = EvaluationCode{cache => CacheTable{}                                                                                                                                     }
+                     Points => {{0, 0}, {a, a}, {a + 1, a}, {1, a}}
+                                                                4
+                     LinearCode => LinearCode{AmbientModule => F                                                                                                              }
+                                              BaseField => F
+                                              cache => CacheTable{}
+                                              Code => image | 0   0 0   0   0   1 0 |
+                                                            | 1   a a+1 a+1 a   1 1 |
+                                                            | a+1 a 1   a   a+1 1 1 |
+                                                            | a   a a   1   1   1 1 |
+                                              GeneratorMatrix => | 0 1   a+1 a |
+                                                                 | 0 a   a   a |
+                                                                 | 0 a+1 1   a |
+                                                                 | 0 a+1 a   1 |
+                                                                 | 0 a   a+1 1 |
+                                                                 | 1 1   1   1 |
+                                                                 | 0 1   1   1 |
+                                              Generators => {{0, 1, a + 1, a}, {0, a, a, a}, {0, a + 1, 1, a}, {0, a + 1, a, 1}, {0, a, a + 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}}
+                                              ParityCheckMatrix => 0
+                                              ParityCheckRows => {}
+                                               2                       3
+                     VanishingIdeal => ideal (t  + a*t , t t  + a*t , t  + (a + 1)t )
+                                               1      1   0 1      0   0           1
+                                        2               2          3
+                     PolynomialSet => {t t , t , t t , t , t , 1, t }
+                                        0 1   1   0 1   0   0      0</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+        <div>
+          <h2>given just an ideal and the weight vector</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">orderCode(I,v,d)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>                </li>
+                <li>
+<span><tt>v</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p>The order code of degree <tt>d</tt>, using the order function defined by <tt>v</tt> and the set of points the zeroes of <tt>I</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i11 : F = GF(4);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i12 : R = F[x,y];</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i13 : I = ideal(x^3+y^2+y);
+
+o13 : Ideal of R</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i14 : C = orderCode(I,{2,3},7);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i15 : peek C
+
+o15 = EvaluationCode{cache => CacheTable{}                                                                                                                                                                                                                                                     }
+                     Points => {{0, 0}, {a, a}, {a + 1, a}, {1, a}, {a, a + 1}, {a + 1, a + 1}, {1, a + 1}, {0, 1}}
+                                                                8
+                     LinearCode => LinearCode{AmbientModule => F                                                                                                                                                                                                                              }
+                                              BaseField => F
+                                              cache => CacheTable{}
+                                              Code => image | 0   0   1 0 0   0   0   |
+                                                            | a+1 a   1 1 1   a   a+1 |
+                                                            | a   a+1 1 1 a+1 a   1   |
+                                                            | 1   1   1 1 a   a   a   |
+                                                            | a+1 a   1 1 a   a+1 1   |
+                                                            | a   a+1 1 1 1   a+1 a   |
+                                                            | 1   1   1 1 a+1 a+1 a+1 |
+                                                            | 0   0   1 0 0   1   0   |
+                                              GeneratorMatrix => | 0 a+1 a   1 a+1 a   1   0 |
+                                                                 | 0 a   a+1 1 a   a+1 1   0 |
+                                                                 | 1 1   1   1 1   1   1   1 |
+                                                                 | 0 1   1   1 1   1   1   0 |
+                                                                 | 0 1   a+1 a a   1   a+1 0 |
+                                                                 | 0 a   a   a a+1 a+1 a+1 1 |
+                                                                 | 0 a+1 1   a 1   a   a+1 0 |
+                                              Generators => {{0, a + 1, a, 1, a + 1, a, 1, 0}, {0, a, a + 1, 1, a, a + 1, 1, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {0, 1, 1, 1, 1, 1, 1, 0}, {0, 1, a + 1, a, a, 1, a + 1, 0}, {0, a, a, a, a + 1, a + 1, a + 1, 1}, {0, a + 1, 1, a, 1, a, a + 1, 0}}
+                                              ParityCheckMatrix => | 1 1 1 1 1 1 1 1 |
+                                              ParityCheckRows => {{1, 1, 1, 1, 1, 1, 1, 1}}
+                                                 2               3    2        4
+                     VanishingIdeal => ideal (t t  + t t  + t , t  + t  + t , t  + t )
+                                               0 1    0 1    0   0    1    1   1    1
+                                        2          3   2
+                     PolynomialSet => {t , t , 1, t , t t , t , t t }
+                                        0   0      0   0 1   1   0 1</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>While this function may work even when a ring is given, instead of a finite field, it is possible that the results are not the expected ones.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>orderCode</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;orderCode(Ideal,List,List,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;orderCode(Ideal,List,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;orderCode(Ring,List,List,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes an order code for a given weight" href="_order__Code.html">orderCode</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toXMLnode(LibxmlNode) -- convert an object of type LibxmlNode to a hashtable of type XMLnode</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Trim.html">next</a> | <a href="_to__Libxml__Node_lp__X__M__Lnode_rp.html">previous</a> | <a href="___Trim.html">forward</a> | <a href="_to__Libxml__Node_lp__X__M__Lnode_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an XML parser" href="index.html">XML</a> :: <a title="convert an object of type LibxmlNode to a hashtable of type XMLnode" href="_to__X__M__Lnode_lp__Libxml__Node_rp.html">toXMLnode(LibxmlNode)</a>    </div>
+    <hr/>
+    <div>
+      <h1>toXMLnode(LibxmlNode) -- convert an object of type LibxmlNode to a hashtable of type XMLnode</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="convert an object of type LibxmlNode to a hashtable of type XMLnode" href="_to__X__M__Lnode_lp__Libxml__Node_rp.html">toXMLnode</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toXMLnode n</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an instance of the type <a title="the class of all XML nodes created by libxml2" href="___Libxml__Node.html">LibxmlNode</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Trim</tt><tt> => </tt><tt>...</tt>, <span>default value true</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all XML trees created by the library libxml2" href="___X__M__Lnode.html">XMLnode</a></span>, a representation of the XML tree represented by <tt>n</tt></span>              </li>
+              <li>
+<span><tt>Trim</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, whether to trim leading and trailing spaces from the lines in text nodes</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function translates an XML tree created by the libxml library into a tree of hash tables of type <a title="the class of all XML trees created by the library libxml2" href="___X__M__Lnode.html">XMLnode</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : n = xmlParse ///&lt;foo a=&quot;hi there&quot;>  ho there  &lt;bar/>&lt;/foo>///
+
+o1 = &lt;foo a=&quot;hi there&quot;>  ho there  &lt;bar/>&lt;/foo>
+
+o1 : LibxmlNode (xmlTypeDescription)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : x = toXMLnode n
+
+o2 = &lt;foo a=&quot;hi there&quot;
+       &quot;ho there&quot;
+       &lt;bar
+
+o2 : XMLnode</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : peek'_3 x
+
+o3 = XMLnode{&quot;a&quot; => &quot;hi there&quot;                              }
+             children => {&quot;ho there&quot;, XMLnode{tag => &quot;bar&quot;}}
+             tag => &quot;foo&quot;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : x#&quot;a&quot;
+
+o4 = hi there</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : x.children
+
+o5 = {ho there, &lt;bar}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : class \ oo
+
+o6 = {String, XMLnode}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : x.tag
+
+o7 = foo</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : x = toXMLnode(n,Trim=>false)
+
+o8 = &lt;foo a=&quot;hi there&quot;
+       &quot;  ho there  &quot;
+       &lt;bar
+
+o8 : XMLnode</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="parse a string containing XML" href="_xml__Parse_lp__String_rp.html">xmlParse</a> -- parse a string containing XML</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="convert an object of type LibxmlNode to a hashtable of type XMLnode" href="_to__X__M__Lnode_lp__Libxml__Node_rp.html">toXMLnode(LibxmlNode)</a> -- convert an object of type LibxmlNode to a hashtable of type XMLnode</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

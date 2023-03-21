@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>member(RingElement,CoincidentRootLocus) -- test membership in a coincident root locus</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_partition_lp__Coincident__Root__Locus_rp.html">next</a> | <a href="_map_lp__Coincident__Root__Locus_rp.html">previous</a> | <a href="_partition_lp__Coincident__Root__Locus_rp.html">forward</a> | <a href="_map_lp__Coincident__Root__Locus_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for computations with coincident root loci" href="index.html">CoincidentRootLoci</a> :: <a title="test membership in a coincident root locus" href="_member_lp__Ring__Element_cm__Coincident__Root__Locus_rp.html">member(RingElement,CoincidentRootLocus)</a>    </div>
+    <hr/>
+    <div>
+      <h1>member(RingElement,CoincidentRootLocus) -- test membership in a coincident root locus</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="test membership in a list or set" href="../../Macaulay2Doc/html/_member.html">member</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">member(F,X)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a binary form</span>              </li>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all coincident root loci" href="___Coincident__Root__Locus.html">coincident root locus</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether $F$ belongs to $X$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R := QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = x^7-3*x^6*y+5*x^5*y^2-7*x^4*y^3+7*x^3*y^4-5*x^2*y^5+3*x*y^6-y^7
+
+      7     6      5 2     4 3     3 4     2 5       6    7
+o2 = x  - 3x y + 5x y  - 7x y  + 7x y  - 5x y  + 3x*y  - y
+
+o2 : QQ[x..y]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : member(F,coincidentRootLocus {3,2,2})
+
+o3 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : member(F,coincidentRootLocus {5,2})
+
+o4 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="get a random element" href="_random_lp__Coincident__Root__Locus_rp.html">random(CoincidentRootLocus)</a> -- get a random element</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="test membership in a coincident root locus" href="_member_lp__Ring__Element_cm__Coincident__Root__Locus_rp.html">member(RingElement,CoincidentRootLocus)</a> -- test membership in a coincident root locus</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

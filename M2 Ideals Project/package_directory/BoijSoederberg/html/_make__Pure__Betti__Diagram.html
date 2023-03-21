@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>makePureBettiDiagram -- makes a pure Betti diagram given a list of degrees</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_mat2betti_lp__Matrix_cm__Z__Z_rp.html">next</a> | <a href="_make__Pure__Betti_lp__List_rp.html">previous</a> | <a href="_mat2betti_lp__Matrix_cm__Z__Z_rp.html">forward</a> | <a href="_make__Pure__Betti_lp__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Betti diagram routines" href="index.html">BoijSoederberg</a> :: <a title="makes a pure Betti diagram given a list of degrees" href="_make__Pure__Betti__Diagram.html">makePureBettiDiagram</a>    </div>
+    <hr/>
+    <div>
+      <h1>makePureBettiDiagram -- makes a pure Betti diagram given a list of degrees</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">makePureBettiDiagram L</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, of strictly increasing integers</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>TableEntries</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value LeastIntegerEntries</span>, proscribes the scaled versions of the entries of the pure diagram; options are LeastIntegerEntries, HerzogKuhl, and RealizationModules.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all Betti tallies" href="../../Macaulay2Doc/html/___Betti__Tally.html">Betti tally</a></span>, containing the Betti numbers which satisfy the Herzog-Kuhl equations according to given options. Defaults to the minimal integral Betti numbers which satisfy the Herzog-Kuhl equations.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+See <a title="list of smallest integral Betti numbers corresponding to a degree sequence" href="_pure__Betti_lp__List_rp.html">pureBetti</a> for a description of the Herzog-Kuhl equations.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : makePureBettiDiagram{0,2,4,5}
+
+            0  1  2 3
+o1 = total: 3 10 15 8
+         0: 3  .  . .
+         1: . 10  . .
+         2: .  . 15 8
+
+o1 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : makePureBettiDiagram({0,2,4,5}, TableEntries => HerzogKuhl)
+
+               0    1   2    3
+o2 = total: 1/40 1/12 1/8 1/15
+         0: 1/40    .   .    .
+         1:    . 1/12   .    .
+         2:    .    . 1/8 1/15
+
+o2 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : makePureBettiDiagram{0,3,4,5,6,7,10}
+
+            0  1   2   3   4  5 6
+o3 = total: 1 50 175 252 175 50 1
+         0: 1  .   .   .   .  . .
+         1: .  .   .   .   .  . .
+         2: . 50 175 252 175 50 .
+         3: .  .   .   .   .  . .
+         4: .  .   .   .   .  . 1
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : makePureBettiDiagram({0,3,4,5,6,7,10}, TableEntries => RealizationModules)
+
+             0    1    2    3    4    5  6
+o4 = total: 36 1800 6300 9072 6300 1800 36
+         0: 36    .    .    .    .    .  .
+         1:  .    .    .    .    .    .  .
+         2:  . 1800 6300 9072 6300 1800  .
+         3:  .    .    .    .    .    .  .
+         4:  .    .    .    .    .    . 36
+
+o4 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : makePureBettiDiagram{0,3,4,5,6,7,8,11}
+
+            0  1   2   3   4   5  6 7
+o5 = total: 1 77 330 616 616 330 77 1
+         0: 1  .   .   .   .   .  . .
+         1: .  .   .   .   .   .  . .
+         2: . 77 330 616 616 330 77 .
+         3: .  .   .   .   .   .  . .
+         4: .  .   .   .   .   .  . 1
+
+o5 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : makePureBettiDiagram({0,3,4,5,6,7,8,11}, TableEntries => HerzogKuhl)
+
+                   0      1     2     3     4     5      6        7
+o6 = total: 1/221760 1/2880 1/672 1/360 1/360 1/672 1/2880 1/221760
+         0: 1/221760      .     .     .     .     .      .        .
+         1:        .      .     .     .     .     .      .        .
+         2:        . 1/2880 1/672 1/360 1/360 1/672 1/2880        .
+         3:        .      .     .     .     .     .      .        .
+         4:        .      .     .     .     .     .      . 1/221760
+
+o6 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : makePureBettiDiagram({0,3,4,5,6,7,8,11}, TableEntries => RealizationModules)
+
+             0    1     2     3     4     5    6  7
+o7 = total: 45 3465 14850 27720 27720 14850 3465 45
+         0: 45    .     .     .     .     .    .  .
+         1:  .    .     .     .     .     .    .  .
+         2:  . 3465 14850 27720 27720 14850 3465  .
+         3:  .    .     .     .     .     .    .  .
+         4:  .    .     .     .     .     .    . 45
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="An argument for the option TableEntries" href="___Least__Integer__Entries.html">LeastIntegerEntries</a> -- An argument for the option TableEntries</span>          </li>
+          <li>
+<span><a title="An argument for the option TableEntries" href="___Herzog__Kuhl.html">HerzogKuhl</a> -- An argument for the option TableEntries</span>          </li>
+          <li>
+<span><a title="An argument for the option TableEntries" href="___Realization__Modules.html">RealizationModules</a> -- An argument for the option TableEntries</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>makePureBettiDiagram</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;makePureBettiDiagram(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="makes a pure Betti diagram given a list of degrees" href="_make__Pure__Betti__Diagram.html">makePureBettiDiagram</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

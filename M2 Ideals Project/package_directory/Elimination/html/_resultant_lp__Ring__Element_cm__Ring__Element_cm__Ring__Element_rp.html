@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>resultant(RingElement,RingElement,RingElement)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_sylvester__Matrix_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">next</a> | <a href="_eliminate.html">previous</a> | <a href="_sylvester__Matrix_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">forward</a> | <a href="_eliminate.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="eliminating specified variables, and Sylvester resultant" href="index.html">Elimination</a> :: <a href="_resultant_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">resultant(RingElement,RingElement,RingElement)</a>    </div>
+    <hr/>
+    <div>
+      <h1>resultant(RingElement,RingElement,RingElement)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a href="_resultant_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">resultant</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">resultant(f,g,x)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span></span>              </li>
+              <li>
+<span><tt>g</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, in the same polynomial ring <tt>R</tt> as <tt>f</tt></span>              </li>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a variable in <tt>R</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the Sylvester resultant of <tt>f</tt> and <tt>g</tt> with respect to the variable <tt>x</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>The elements <tt>f</tt> and <tt>g</tt> should be polynomials in the same ring, and <tt>x</tt> should be a variable in that ring.  The result is the determinant of the Sylvester matrix, <tt>sylvesterMatrix(f,g,x)</tt>.  The resultant of <tt>f</tt> and its derivative with respect to <tt>x</tt> is the discriminant, <tt>discriminant(f,x)</tt>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ[x,a,b,c,d]	  
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = x^7+3*x^4+a*x+b
+
+      7     4
+o2 = x  + 3x  + x*a + b
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : g = x^8+x^5+c*x+d
+
+      8    5
+o3 = x  + x  + x*c + d
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time eliminate(ideal(f,g),x)
+     -- used 2.86041 seconds
+
+            7       8     3 5    8     6         3 4      7       3 3 2  
+o4 = ideal(a b*c - a d + a b  - b  - 6a b*c - 18a b c + 7b c + 48a b c  -
+     ------------------------------------------------------------------------
+        6 2      3 2 3      5 3      3   4      4 4      3 5     2 6      7  
+     21b c  - 46a b c  + 35b c  + 15a b*c  - 35b c  + 21b c  - 7b c  + b*c  +
+     ------------------------------------------------------------------------
+       7       4 3        6       4 2           5         4   2         4 2 
+     6a d + 21a b d - 8a*b d - 85a b c*d + 41a*b c*d + 79a b*c d - 85a*b c d
+     ------------------------------------------------------------------------
+          4 3         3 3         2 4           5       6       5   2  
+     - 15a c d + 90a*b c d - 50a*b c d + 13a*b*c d - a*c d + 37a b*d  -
+     ------------------------------------------------------------------------
+        2 4 2      5   2      2 3   2      2 2 2 2      2   3 2     2 4 2  
+     20a b d  - 33a c*d  + 66a b c*d  - 78a b c d  + 38a b*c d  - 6a c d  -
+     ------------------------------------------------------------------------
+        3 2 3      3     3     3 2 3     4 4     2 5      5         2 4   
+     16a b d  + 25a b*c*d  - 9a c d  - 2a d  - 6a b  + 12a b*c + 84a b c -
+     ------------------------------------------------------------------------
+         2 3 2       2 2 3       2   4      6        3 3       6   
+     328a b c  + 428a b c  - 178a b*c  - 12a d - 102a b d - 10b d +
+     ------------------------------------------------------------------------
+         3 2         5          3   2       4 2        3 3       3 3   
+     578a b c*d + 22b c*d - 710a b*c d + 12b c d + 178a c d - 68b c d +
+     ------------------------------------------------------------------------
+        2 4         5        4   2       4 2       4   2        3   2  
+     62b c d - 18b*c d - 250a b*d  - 2a*b d  + 282a c*d  - 40a*b c*d  +
+     ------------------------------------------------------------------------
+           2 2 2          3 2        4 2     2 2 3      2     3      2 2 3  
+     104a*b c d  - 80a*b*c d  + 18a*c d  + 4a b d  - 78a b*c*d  + 18a c d  +
+     ------------------------------------------------------------------------
+        3 4      3 4      2   4        2 4     3 4          5          5    7
+     87a d  - 17b d  + 37b c*d  - 23b*c d  + 3c d  - 35a*b*d  + 21a*c*d  - d 
+     ------------------------------------------------------------------------
+            5     4            4          3 2          2 3           4     5 
+     + 12a*b  - 8a b*c - 152a*b c + 656a*b c  - 1128a*b c  + 612a*b*c  + 8a d
+     ------------------------------------------------------------------------
+           2 3         2 2           2   2        2 3        3   2      4 2  
+     + 188a b d - 1188a b c*d + 1884a b*c d - 612a c d + 532a b*d  - 88b d  -
+     ------------------------------------------------------------------------
+         3   2      3   2      2 2 2         2 3             3       2 4  
+     756a c*d  + 64b c*d  + 24b c d  + 196a*b d  + 156a*b*c*d  - 714a d  +
+     ------------------------------------------------------------------------
+           5        5     5      4        3 2       2 3         4         3 
+     114b*d  - 54c*d  - 8b  + 96b c - 432b c  + 864b c  - 648b*c  - 120a*b d
+     ------------------------------------------------------------------------
+             2               2          3        2   2       2   2       2 3
+     + 792a*b c*d - 1512a*b*c d + 648a*c d - 360a b*d  + 648a c*d  - 504b d 
+     ------------------------------------------------------------------------
+               3          4        4
+     - 216b*c*d  + 2052a*d  - 1944d )
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time ideal resultant(f,g,x)
+     -- used 0.0251528 seconds
+
+              7       8     3 5    8     6         3 4      7       3 3 2  
+o5 = ideal(- a b*c + a d - a b  + b  + 6a b*c + 18a b c - 7b c - 48a b c  +
+     ------------------------------------------------------------------------
+        6 2      3 2 3      5 3      3   4      4 4      3 5     2 6      7  
+     21b c  + 46a b c  - 35b c  - 15a b*c  + 35b c  - 21b c  + 7b c  - b*c  -
+     ------------------------------------------------------------------------
+       7       4 3        6       4 2           5         4   2         4 2 
+     6a d - 21a b d + 8a*b d + 85a b c*d - 41a*b c*d - 79a b*c d + 85a*b c d
+     ------------------------------------------------------------------------
+          4 3         3 3         2 4           5       6       5   2  
+     + 15a c d - 90a*b c d + 50a*b c d - 13a*b*c d + a*c d - 37a b*d  +
+     ------------------------------------------------------------------------
+        2 4 2      5   2      2 3   2      2 2 2 2      2   3 2     2 4 2  
+     20a b d  + 33a c*d  - 66a b c*d  + 78a b c d  - 38a b*c d  + 6a c d  +
+     ------------------------------------------------------------------------
+        3 2 3      3     3     3 2 3     4 4     2 5      5         2 4   
+     16a b d  - 25a b*c*d  + 9a c d  + 2a d  + 6a b  - 12a b*c - 84a b c +
+     ------------------------------------------------------------------------
+         2 3 2       2 2 3       2   4      6        3 3       6   
+     328a b c  - 428a b c  + 178a b*c  + 12a d + 102a b d + 10b d -
+     ------------------------------------------------------------------------
+         3 2         5          3   2       4 2        3 3       3 3   
+     578a b c*d - 22b c*d + 710a b*c d - 12b c d - 178a c d + 68b c d -
+     ------------------------------------------------------------------------
+        2 4         5        4   2       4 2       4   2        3   2  
+     62b c d + 18b*c d + 250a b*d  + 2a*b d  - 282a c*d  + 40a*b c*d  -
+     ------------------------------------------------------------------------
+           2 2 2          3 2        4 2     2 2 3      2     3      2 2 3  
+     104a*b c d  + 80a*b*c d  - 18a*c d  - 4a b d  + 78a b*c*d  - 18a c d  -
+     ------------------------------------------------------------------------
+        3 4      3 4      2   4        2 4     3 4          5          5    7
+     87a d  + 17b d  - 37b c*d  + 23b*c d  - 3c d  + 35a*b*d  - 21a*c*d  + d 
+     ------------------------------------------------------------------------
+            5     4            4          3 2          2 3           4     5 
+     - 12a*b  + 8a b*c + 152a*b c - 656a*b c  + 1128a*b c  - 612a*b*c  - 8a d
+     ------------------------------------------------------------------------
+           2 3         2 2           2   2        2 3        3   2      4 2  
+     - 188a b d + 1188a b c*d - 1884a b*c d + 612a c d - 532a b*d  + 88b d  +
+     ------------------------------------------------------------------------
+         3   2      3   2      2 2 2         2 3             3       2 4  
+     756a c*d  - 64b c*d  - 24b c d  - 196a*b d  - 156a*b*c*d  + 714a d  -
+     ------------------------------------------------------------------------
+           5        5     5      4        3 2       2 3         4         3 
+     114b*d  + 54c*d  + 8b  - 96b c + 432b c  - 864b c  + 648b*c  + 120a*b d
+     ------------------------------------------------------------------------
+             2               2          3        2   2       2   2       2 3
+     - 792a*b c*d + 1512a*b*c d - 648a*c d + 360a b*d  - 648a c*d  + 504b d 
+     ------------------------------------------------------------------------
+               3          4        4
+     + 216b*c*d  - 2052a*d  + 1944d )
+
+o5 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : sylvesterMatrix(f,g,x)
+
+o6 = {-14} | 1 0 0 3 0 0 a b 0 0 0 0 0 0 0 |
+     {-13} | 0 1 0 0 3 0 0 a b 0 0 0 0 0 0 |
+     {-12} | 0 0 1 0 0 3 0 0 a b 0 0 0 0 0 |
+     {-11} | 0 0 0 1 0 0 3 0 0 a b 0 0 0 0 |
+     {-10} | 0 0 0 0 1 0 0 3 0 0 a b 0 0 0 |
+     {-9}  | 0 0 0 0 0 1 0 0 3 0 0 a b 0 0 |
+     {-8}  | 0 0 0 0 0 0 1 0 0 3 0 0 a b 0 |
+     {-7}  | 0 0 0 0 0 0 0 1 0 0 3 0 0 a b |
+     {-14} | 1 0 0 1 0 0 0 c d 0 0 0 0 0 0 |
+     {-13} | 0 1 0 0 1 0 0 0 c d 0 0 0 0 0 |
+     {-12} | 0 0 1 0 0 1 0 0 0 c d 0 0 0 0 |
+     {-11} | 0 0 0 1 0 0 1 0 0 0 c d 0 0 0 |
+     {-10} | 0 0 0 0 1 0 0 1 0 0 0 c d 0 0 |
+     {-9}  | 0 0 0 0 0 1 0 0 1 0 0 0 c d 0 |
+     {-8}  | 0 0 0 0 0 0 1 0 0 1 0 0 0 c d |
+
+             15       15
+o6 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : discriminant(f,x)
+
+           7          6           3 3          6          5           2 3  
+o7 = 46656a  - 314928a  - 1555848a b  + 823543b  + 708588a  + 9501786a b  -
+     ------------------------------------------------------------------------
+            4              3            3
+     531441a  - 20575296a*b  + 15116544b
+
+o7 : R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a href="_sylvester__Matrix_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">sylvesterMatrix</a></span>          </li>
+          <li>
+<span><a href="_discriminant_lp__Ring__Element_cm__Ring__Element_rp.html">discriminant</a></span>          </li>
+          <li>
+<span><a href="_eliminate.html">eliminate</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a href="_resultant_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">resultant(RingElement,RingElement,RingElement)</a></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

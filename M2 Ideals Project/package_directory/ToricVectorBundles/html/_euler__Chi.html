@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>eulerChi --  the Euler characteristic of a toric vector bundle</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_exists__Decomposition.html">next</a> | <a href="_dual_lp__Toric__Vector__Bundle_rp.html">previous</a> | <a href="_exists__Decomposition.html">forward</a> | <a href="_dual_lp__Toric__Vector__Bundle_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="cohomology computations of equivariant vector bundles on toric varieties" href="index.html">ToricVectorBundles</a> :: <a title=" the Euler characteristic of a toric vector bundle" href="_euler__Chi.html">eulerChi</a>    </div>
+    <hr/>
+    <div>
+      <h1>eulerChi --  the Euler characteristic of a toric vector bundle</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">i = eulerChi E </code></dd>
+              <dd><code class="language-macaulay2">eulerChi(u,E)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E</tt>, <span>an instance of the type <a title="the class of all toric vector bundles" href="___Toric__Vector__Bundle.html">ToricVectorBundle</a></span></span>              </li>
+              <li>
+<span><tt>u</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with just one column over <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> representing a degree vector</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>i</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+This function computes the Euler characteristic of a vector bundle if only the bundle is given to the function. For this it first computes the set of all degrees that give non-zero cohomology (see <a title=" the polytope of possible degrees that give non zero cohomology" href="_delta__E.html">deltaE</a>) and then computes the Euler characteristic for each these degrees. If the underlying variety is not complete then this set may not be finite. Thus, for a non-complete toric variety an error is returned.        <p/>
+If in addition a one-column matrix over <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a>, representing a degree vector <tt>u</tt>, is given, it computes the Euler characteristic of the degree <tt>u</tt>-part of the vector bundle <tt>E</tt>. For this the variety need not be complete.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : E = tangentBundle hirzebruchFan 3
+
+o1 = {dimension of the variety => 2 }
+      number of affine charts => 4
+      number of rays => 4
+      rank of the vector bundle => 2
+
+o1 : ToricVectorBundleKlyachko</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : u = matrix {{0},{0}}
+
+o2 = 0
+
+              2        1
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : eulerChi(u,E)
+
+o3 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : eulerChi E
+
+o4 = 6</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : E = tangentBundle(hirzebruchFan 3,&quot;Type&quot; => &quot;Kaneyama&quot;)
+
+o5 = {dimension of the variety => 2 }
+      number of affine charts => 4
+      rank of the vector bundle => 2
+
+o5 : ToricVectorBundleKaneyama</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : u = matrix {{0},{0}}
+
+o6 = 0
+
+              2        1
+o6 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : eulerChi(u,E)
+
+o7 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : eulerChi E
+
+o8 = 6</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title=" the polytope of possible degrees that give non zero cohomology" href="_delta__E.html">deltaE</a> --  the polytope of possible degrees that give non zero cohomology</span>          </li>
+          <li>
+<span><a title=" the i-th cohomology group of a toric vector bundle" href="___H__H^__Z__Z_sp__Toric__Vector__Bundle.html">HH^ZZ ToricVectorBundle</a> --  the i-th cohomology group of a toric vector bundle</span>          </li>
+          <li>
+<span><a title=" the rank of the i-th cohomology group of a toric vector bundle" href="_hh^__Z__Z_sp__Toric__Vector__Bundle.html">hh^ZZ ToricVectorBundle</a> --  the rank of the i-th cohomology group of a toric vector bundle</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>eulerChi</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;eulerChi(Matrix,ToricVectorBundle)&quot;</tt>          </li>
+          <li>
+<tt>&quot;eulerChi(ToricVectorBundle)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title=" the Euler characteristic of a toric vector bundle" href="_euler__Chi.html">eulerChi</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

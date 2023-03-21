@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>inhomogeneousSystemOfParameters -- generates an inhomogeneous system of parameters</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__C__M.html">next</a> | <a href="_depth_lp__Ideal_cm__Ring_rp.html">previous</a> | <a href="_is__C__M.html">forward</a> | <a href="_depth_lp__Ideal_cm__Ring_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Finds the depth of a module or ideal, and systems of parameters in an ideal" href="index.html">Depth</a> :: <a title="generates an inhomogeneous system of parameters" href="_inhomogeneous__System__Of__Parameters.html">inhomogeneousSystemOfParameters</a>    </div>
+    <hr/>
+    <div>
+      <h1>inhomogeneousSystemOfParameters -- generates an inhomogeneous system of parameters</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">inhomogeneousSystemOfParameters(I,A)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span></span>              </li>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Attempts</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 100</span>, number of attempts made to generate an inhomogeneous system of parameters</span>              </li>
+              <li>
+<span><tt>Bound</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 1</span>, bound on the value of the random coefficients</span>              </li>
+              <li>
+<span><tt>Sparseness</tt><tt> => </tt><span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, <span>default value .5</span>, between 0 and 1 giving the frequency of the coefficients being equal to zero</span>              </li>
+              <li>
+<span><tt>Maximal</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, whether to insist on searching for a maximal inhomogeneous system of parameters</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Given a ring and an ideal, <tt>inhomogeneousSystemOfParameters</tt> attempts to generate an inhomogeneous system of parameters contained in <tt>I</tt>. The algorithm is based on one found in Chapter 5.5 of W. Vasconcelos' book: <em>Computational Methods in Commutative Algebra and Algebraic Geometry</em>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = ZZ/5051[x, y, z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal (x, x*y, y*z);
+
+o2 : Ideal of A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : X = inhomogeneousSystemOfParameters(I,A)
+
+o3 = | yz+x xy |
+
+             1       2
+o3 : Matrix A  &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isRegularSequence(X,A)
+
+o4 = true</code></pre>
+</td>          </tr>
+        </table>
+Here are examples with optional inputs:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : A = ZZ/5051[x, y, z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : I = ideal (x, x*y, y*z);
+
+o6 : Ideal of A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : inhomogeneousSystemOfParameters(I,A,Attempts=>1,Bound=>100,Sparseness=>.9)
+--warning: no maximal regular sequence found
+
+o7 = 0
+
+             1
+o7 : Matrix A  &lt;--- 0</code></pre>
+</td>          </tr>
+        </table>
+Here are examples with the optional input <tt>Maximal => false</tt>:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : x = symbol x; y = symbol y;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : n = 2;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : A = ZZ/101[x_(1,1)..x_(n,n),y_(1,1)..y_(n,n)];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : X = transpose genericMatrix(A,n,n);
+
+              2       2
+o12 : Matrix A  &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : Y = transpose genericMatrix(A,y_(1,1),n,n);
+
+              2       2
+o13 : Matrix A  &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : b = ideal(X*Y - Y*X);
+
+o14 : Ideal of A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : B = A/b;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : inhomogeneousSystemOfParameters(B,Attempts=>1,Maximal=>false)
+
+o16 = | -x_(2,1)-y_(1,2)+y_(2,1) x_(1,2)-y_(2,2)
+      -----------------------------------------------------------------------
+      -x_(2,1)+x_(2,2)-y_(1,1)+y_(1,2) -x_(1,1)+x_(2,1)
+      -----------------------------------------------------------------------
+      x_(1,1)-x_(2,1)-y_(1,1) x_(1,1)+x_(1,2) |
+
+              1       6
+o16 : Matrix B  &lt;--- B</code></pre>
+</td>          </tr>
+        </table>
+        <p>This symbol is provided by the package <a title="Finds the depth of a module or ideal, and systems of parameters in an ideal" href="index.html">Depth</a>.</p>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>inhomogeneousSystemOfParameters</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;inhomogeneousSystemOfParameters(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;inhomogeneousSystemOfParameters(Ideal,Ring)&quot;</tt>          </li>
+          <li>
+<tt>&quot;inhomogeneousSystemOfParameters(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="generates an inhomogeneous system of parameters" href="_inhomogeneous__System__Of__Parameters.html">inhomogeneousSystemOfParameters</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

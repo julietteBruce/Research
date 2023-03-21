@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>setWeights(PolynomialRing,DynkinType,List) -- attach (Lie theoretic) weights to the variables of a ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_set__Weights.html">previous</a> | forward | <a href="_set__Weights.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="decompose free resolutions and graded modules with a semisimple Lie group action" href="index.html">HighestWeights</a> :: <a title="attach (Lie theoretic) weights to the variables of a ring" href="_set__Weights_lp__Polynomial__Ring_cm__Dynkin__Type_cm__List_rp.html">setWeights(PolynomialRing,DynkinType,List)</a>    </div>
+    <hr/>
+    <div>
+      <h1>setWeights(PolynomialRing,DynkinType,List) -- attach (Lie theoretic) weights to the variables of a ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="attach (Lie theoretic) weights to the variables of a ring" href="_set__Weights.html">setWeights</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">T = setWeights(R,D,L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, </span>              </li>
+              <li>
+<span><tt>D</tt>, <span>an instance of the type <a title="the class of Dynkin Types" href="../../WeylGroups/html/___Dynkin__Type.html">DynkinType</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a table of weights given as lists of integers</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>a <a title="the class of all tally results" href="../../Macaulay2Doc/html/___Tally.html">tally</a></span>, the highest weights decomposition of <tt>L</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+Two keys are created in the hashTable of <tt>R</tt>: <tt>LieWeights</tt>, with value a matrix whose rows are the weights in the list <tt>L</tt>; <tt>GroupActing</tt>, with value the DynkinType <tt>D</tt>.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let $G$ be a semisimple Lie group of Dynkin type <tt>D</tt> which acts on <tt>R</tt> compatibly with the grading. Let $T\subset G$ be a maximal torus and assume the variables in <tt>R</tt> are weight vectors for the action of $T$. This function is used to assign a weight to each  variable of <tt>R</tt>. Knowing these weights allows Macaulay2 to return the weight of monomials of <tt>R</tt> upon request.</p>
+          <p>For more information on inputting the Dynkin type of the group the user should consult the documentation of the <tt>WeylGroups</tt> package.</p>
+          <p>Weights are expressed with respect to the basis of fundamental weights in the weight lattice associated to the root system of the given type <tt>D</tt>. In this package, each weight $w$ is represented by a list of integers, namely the coefficients of $w$ in the basis of fundamental weights.</p>
+          <p>In the following example, the polynomial ring <tt>R</tt> is the symmetric algebra over $V$, where $V=\mathbb{C}^4$ and is acted upon by the group $SL_4 (\mathbb{C})$.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x_1..x_4]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D=dynkinType{{&quot;A&quot;,3}}
+
+o2 = DynkinType{{A, 3}}
+
+o2 : DynkinType</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : W={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}}
+
+o3 = {{1, 0, 0}, {-1, 1, 0}, {0, -1, 1}, {0, 0, -1}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : setWeights(R,D,W)
+
+o4 = Tally{{1, 0, 0} => 1}
+
+o4 : Tally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="attach (Lie theoretic) weights to the variables of a ring" href="_set__Weights_lp__Polynomial__Ring_cm__Dynkin__Type_cm__List_rp.html">setWeights(PolynomialRing,DynkinType,List)</a> -- attach (Lie theoretic) weights to the variables of a ring</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

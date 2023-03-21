@@ -1,0 +1,16 @@
+-- -*- M2-comint -*- hash: 43515301
+
+i1 : for i from 1 to 9 do (x := 0 .. 10000 ; registerFinalizer(x, "-- finalizing sequence #"|i|" --"))
+--finalization: (1)[0]: -- finalizing sequence #1 --
+--finalization: (2)[1]: -- finalizing sequence #2 --
+--finalization: (--finalization: (4)[5]: -- finalizing sequence #6 --
+--finalization: (5)[4]: -- finalizing sequence #5 --
+--finalization: (6)[3]: -- finalizing sequence #4 --
+3)[2]: -- finalizing sequence #3 --
+
+i2 : collectGarbage() 
+--finalization: (7)[6]: -- finalizing sequence #7 --
+--finalization: (--finalization: (9)[8]: -- finalizing sequence #9 --
+8)[7]: -- finalizing sequence #8 --
+
+i3 : 

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>inverse(LieAlgebraMap,LieSubSpace) -- make the inverse image of a Lie subspace under a Lie algebra map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_inverse_lp__Lie__Derivation_cm__Lie__Sub__Space_rp.html">next</a> | <a href="_inner__Derivation.html">previous</a> | <a href="_inverse_lp__Lie__Derivation_cm__Lie__Sub__Space_rp.html">forward</a> | <a href="_inner__Derivation.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="make the inverse image of a Lie subspace under a Lie algebra map" href="_inverse_lp__Lie__Algebra__Map_cm__Lie__Sub__Space_rp.html">inverse(LieAlgebraMap,LieSubSpace)</a>    </div>
+    <hr/>
+    <div>
+      <h1>inverse(LieAlgebraMap,LieSubSpace) -- make the inverse image of a Lie subspace under a Lie algebra map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="compute the inverse" href="../../Macaulay2Doc/html/_inverse.html">inverse</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">I=inverse(f,S)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>an instance of the type <a title="the class of all Lie algebra homomorphisms" href="___Lie__Algebra__Map.html">LieAlgebraMap</a></span>, </span>              </li>
+              <li>
+<span><tt>S</tt>, <span>an instance of the type <a title="the class of all Lie subspaces" href="___Lie__Sub__Space.html">LieSubSpace</a></span>, an instance of type <tt>LieSubSpace</tt>, a Lie subspace of the target of $f$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an instance of the type <a title="the class of all Lie subspaces" href="___Lie__Sub__Space.html">LieSubSpace</a></span>, an instance of <tt>LieSubSpace</tt>, a Lie subspace of the source of $f$, the inverse image of $S$ under $f$, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If $S$ is an instance of <tt>LieIdeal</tt>, then $I$ is of type <tt>LieIdeal</tt>. If $S$ is an instance of  <tt>LieSubAlgebra</tt> but not of <tt>LieIdeal</tt>, then $I$ is of type <tt>LieSubAlgebra</tt>. Otherwise, $I$ is of type <tt>LieSubSpace</tt>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F=lieAlgebra{a,b,c}
+
+o1 = F
+
+o1 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I=lieIdeal{b c - a c}
+
+o2 = I
+
+o2 : FGLieIdeal</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Q=F/I
+
+o3 = Q
+
+o3 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f=map(Q,F)
+
+o4 = f
+
+o4 : LieAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : J=lieIdeal{a b}
+
+o5 = J
+
+o5 : FGLieIdeal</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : K=inverse(f,J)
+
+o6 = K
+
+o6 : LieIdeal</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : dims(1,6,F/K)
+
+o7 = {3, 1, 2, 3, 6, 9}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : dims(1,6,Q/J)
+
+o8 = {3, 1, 2, 3, 6, 9}
+
+o8 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make the inverse image of a Lie subspace under a Lie derivation" href="_inverse_lp__Lie__Derivation_cm__Lie__Sub__Space_rp.html">inverse(LieDerivation,LieSubSpace)</a> -- make the inverse image of a Lie subspace under a Lie derivation</span>          </li>
+          <li>
+<span><a title="make the image of a Lie subspace under a Lie algebra map" href="_image_lp__Lie__Algebra__Map_cm__Lie__Sub__Space_rp.html">image(LieAlgebraMap,LieSubSpace)</a> -- make the image of a Lie subspace under a Lie algebra map</span>          </li>
+          <li>
+<span><a title="make the kernel of a map" href="_kernel_lp__Lie__Algebra__Map_rp.html">kernel(LieAlgebraMap)</a> -- make the kernel of a map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="make the inverse image of a Lie subspace under a Lie algebra map" href="_inverse_lp__Lie__Algebra__Map_cm__Lie__Sub__Space_rp.html">inverse(LieAlgebraMap,LieSubSpace)</a> -- make the inverse image of a Lie subspace under a Lie algebra map</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

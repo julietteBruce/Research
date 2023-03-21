@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PieriHomotopies -- runs the Pieri homotopies to solve a general hypersurface problem</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Pieri__Root__Count.html">next</a> | <a href="_partition2bracket.html">previous</a> | <a href="___Pieri__Root__Count.html">forward</a> | <a href="_partition2bracket.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Numerical Algorithms for Schubert Calculus" href="index.html">NumericalSchubertCalculus</a> :: <a title="runs the Pieri homotopies to solve a general hypersurface problem" href="___Pieri__Homotopies.html">PieriHomotopies</a>    </div>
+    <hr/>
+    <div>
+      <h1>PieriHomotopies -- runs the Pieri homotopies to solve a general hypersurface problem</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(inplanes, outplanes) = PieriHomotopies(m,p)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>m</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the dimension of the input planes</span>              </li>
+              <li>
+<span><tt>p</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the dimension of the output planes</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="request verbose feedback" href="___Pieri__Root__Count_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, request verbose feedback</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>t</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, list of lists, the first list contains the input m-planes, generated at random; the second list holds the output p-planes, p-planes, which meet the input m-planes</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This solves the Schubert intersection problem on $Gr(p,m+p)$ of the $p$-planes that meet $m\cdot p$ general $m$-planes. It is a simple Schubert problem $l_1,\dotsc,l_{mp}$, where each Schubert condition $l_i$ has codimension 1. This is less general than <a title="uses Pieri homotopy algorithm to solve a simple Schubert problem" href="_solve__Simple__Schubert.html">solveSimpleSchubert</a>, which allows up to two of the $\ell_i$ to not have codimension 1</p>
+          <p>The example below computes the two lines that meet four given lines in projective 3-space.</p>
+          <p>To verify the first intersection condition, we concatenate the first input plane with the first output plane. The determinant of the concatenated matrix should have real and imaginary parts of the same magnitude as the machine precision.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : (ipt, otp) := PieriHomotopies(2,2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : print ipt
+{| -.5               -.156693-.47535ii   |, | -.5                -.393934-.433592ii |, | -.5                 .512862+.452276ii  |, | -.5                .0279051+.376076ii  |}
+ | .201236-.457716ii -.488637+.0159579ii |  | .498614+.0372063ii -.276014+.153901ii |  | .144239+.478743ii   -.318615-.207177ii |  | -.177981-.46725ii  -.429875+.0533154ii |
+ | .462573+.189805ii .146037-.49664ii    |  | -.46663+.179601ii  .280441-.151808ii  |  | -.0697009+.495118ii -.260024+.275036ii |  | -.232842-.442475ii .259034+.251049ii   |
+ | .238586-.439405ii .473754+.134341ii   |  | .412393-.282723ii  -.213211-.640151ii |  | .400527-.299296ii   .388872-.305781ii  |  | -.294096-.404361ii .396186-.618923ii   |</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : print otp
+{| 1                   0                 |, | 1                   0                  |}
+ | -.237282-.112854ii  -1.5372-1.19825ii |  | -.193856+.191757ii  1.26877+.351218ii  |
+ | -.0761311+.302235ii 1                 |  | .841397+.00470807ii 1                  |
+ | 0                   1.419-3.27969ii   |  | 0                   -.324549-1.86455ii |</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : in0 = ipt_0
+
+o4 = | -.5               -.156693-.47535ii   |
+     | .201236-.457716ii -.488637+.0159579ii |
+     | .462573+.189805ii .146037-.49664ii    |
+     | .238586-.439405ii .473754+.134341ii   |
+
+                4          2
+o4 : Matrix CC    &lt;--- CC
+              53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : out0 = otp_0
+
+o5 = | 1                   0                 |
+     | -.237282-.112854ii  -1.5372-1.19825ii |
+     | -.0761311+.302235ii 1                 |
+     | 0                   1.419-3.27969ii   |
+
+                4          2
+o5 : Matrix CC    &lt;--- CC
+              53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : m = in0|out0
+
+o6 = | -.5               -.156693-.47535ii   1                  
+     | .201236-.457716ii -.488637+.0159579ii -.237282-.112854ii 
+     | .462573+.189805ii .146037-.49664ii    -.0761311+.302235ii
+     | .238586-.439405ii .473754+.134341ii   0                  
+     ------------------------------------------------------------------------
+     0                 |
+     -1.5372-1.19825ii |
+     1                 |
+     1.419-3.27969ii   |
+
+                4          4
+o6 : Matrix CC    &lt;--- CC
+              53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : det m
+
+o7 = 2.10795754464218e-15-2.69974970552918e-15*ii
+
+o7 : CC (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>PieriHomotopies</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;PieriHomotopies(ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="runs the Pieri homotopies to solve a general hypersurface problem" href="___Pieri__Homotopies.html">PieriHomotopies</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

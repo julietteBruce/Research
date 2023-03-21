@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>newField -- constructor of a vector field</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_new__Field_lp__String_rp.html">next</a> | <a href="_moduli__Ideal.html">previous</a> | <a href="_new__Field_lp__String_rp.html">forward</a> | <a href="_moduli__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="differential algebra" href="index.html">DiffAlg</a> :: <a title="constructor of a vector field" href="_new__Field.html">newField</a>    </div>
+    <hr/>
+    <div>
+      <h1>newField -- constructor of a vector field</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">newField(n,d,varName)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, number of variables minus one</span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, degree of the homogeneous polynomial coefficients</span>              </li>
+              <li>
+<span><tt>varName</tt>, name of the generic scalar coefficients</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all vector fields" href="___Diff__Alg__Field.html">DiffAlgField</a></span>, a homogeneous vector field in (n+1)-dimensional affine space with generic scalar coefficients</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This function defines homogeneous vector fields with generic scalar coefficients. By default, the affine coordinates will be <tt>x_0,...,x_n</tt> and the partial derivatives are denoted as <tt>ax_0,...,ax_n</tt>, respectively.</p>
+<br/>        <p>In this example we define a homogeneous vector field with linear polynomial coefficients in 3 variables. The scalar coefficients are chosen to be defined with the variable a. The index of the scalar coefficients will always start with 0.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = newField(2,2,&quot;a&quot;)
+
+         2               2                          2           2           
+o1 = (a x  + a x x  + a x  + a x x  + a  x x  + a  x )ax  + (a x  + a x x  +
+       0 0    3 0 1    9 1    6 0 2    12 1 2    15 2   0     1 0    4 0 1  
+     ------------------------------------------------------------------------
+         2                          2           2                2           
+     a  x  + a x x  + a  x x  + a  x )ax  + (a x  + a x x  + a  x  + a x x  +
+      10 1    7 0 2    13 1 2    16 2   1     2 0    5 0 1    11 1    8 0 2  
+     ------------------------------------------------------------------------
+                   2
+     a  x x  + a  x )ax
+      14 1 2    17 2   2
+
+o1 : DiffAlgField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : ring X
+
+      QQ[i]
+o2 = ------[][a ..a  ][x ..x ][ax ..ax ]
+      2        0   17   0   2    0    2
+     i  + 1
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+The coefficient <tt>i</tt> is the imaginary unit.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="constructor of a vector field" href="_new__Field_lp__String_rp.html">newField(String)</a> -- constructor of a vector field</span>          </li>
+          <li>
+<span><a title="constructor of a differential form" href="_new__Form.html">newForm</a> -- constructor of a differential form</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>newField</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;newField(ZZ,ZZ,String)&quot;</tt>          </li>
+          <li>
+<span><a title="constructor of a vector field" href="_new__Field_lp__String_rp.html">newField(String)</a> -- constructor of a vector field</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="constructor of a vector field" href="_new__Field.html">newField</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

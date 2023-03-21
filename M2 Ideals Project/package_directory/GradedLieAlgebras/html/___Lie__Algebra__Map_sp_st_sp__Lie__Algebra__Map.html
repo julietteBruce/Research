@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>LieAlgebraMap * LieAlgebraMap -- composition of homomorphisms</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Lie__Algebra__Map_sp_st_sp__Lie__Derivation.html">next</a> | <a href="___Lie__Algebra__Map.html">previous</a> | <a href="___Lie__Algebra__Map_sp_st_sp__Lie__Derivation.html">forward</a> | <a href="___Lie__Algebra__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="composition of homomorphisms" href="___Lie__Algebra__Map_sp_st_sp__Lie__Algebra__Map.html">LieAlgebraMap * LieAlgebraMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>LieAlgebraMap * LieAlgebraMap -- composition of homomorphisms</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for multiplication" href="../../Macaulay2Doc/html/__st.html">*</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">h = f*g</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>an instance of the type <a title="the class of all Lie algebra homomorphisms" href="___Lie__Algebra__Map.html">LieAlgebraMap</a></span>, a homomorphism from $M$ to $L$</span>              </li>
+              <li>
+<span><tt>g</tt>, <span>an instance of the type <a title="the class of all Lie algebra homomorphisms" href="___Lie__Algebra__Map.html">LieAlgebraMap</a></span>, a homomorphism from $N$ to $M$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>h</tt>, <span>an instance of the type <a title="the class of all Lie algebra homomorphisms" href="___Lie__Algebra__Map.html">LieAlgebraMap</a></span>, the composition from $N$ to $L$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If $f$ or $g$ is not well defined, then it may happen that $f*g$ is well defined and not equal to the map $x \ \to\  f(g(x))$ but equal to the map induced by the values $f(g(gen))$ where $gen$ is a generator for $M$. Here is an example of this fact for rings.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = R/(x*x)
+
+o2 = S
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = map(R,S)
+
+o3 = map (R, S, {x})
+
+o3 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : g = map(S,R)
+
+o4 = map (S, R, {x})
+
+o4 : RingMap S &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : h = f*g
+
+o5 = map (R, R, {x})
+
+o5 : RingMap R &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isWellDefined f
+
+o6 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isWellDefined h
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : use R
+
+o8 = R
+
+o8 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : h(x*x)
+
+      2
+o9 = x
+
+o9 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : f(g(x*x))
+
+o10 = 0
+
+o10 : R</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : L = lieAlgebra{a,b}
+
+o11 = L
+
+o11 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : f = map(L,L,{b,-a})
+
+o12 = f
+
+o12 : LieAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : describe(f*f+id_L)
+
+o13 = a => 0
+      b => 0
+      source => L
+      target => L</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="composition of homomorphisms" href="___Lie__Algebra__Map_sp_st_sp__Lie__Algebra__Map.html">LieAlgebraMap * LieAlgebraMap</a> -- composition of homomorphisms</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

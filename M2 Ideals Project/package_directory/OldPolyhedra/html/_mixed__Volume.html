@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>mixedVolume -- computes the mixed volume of a list of polytope</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_net_lp__Cone_rp.html">next</a> | <a href="_mink__Summand__Cone.html">previous</a> | <a href="_net_lp__Cone_rp.html">forward</a> | <a href="_mink__Summand__Cone.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="computes the mixed volume of a list of polytope" href="_mixed__Volume.html">mixedVolume</a>    </div>
+    <hr/>
+    <div>
+      <h1>mixedVolume -- computes the mixed volume of a list of polytope</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">v = mixedVolume L</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing n polytopes in n-space</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>v</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the mixed volume</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+Let $P_1,...,P_n$ be polytopes in $n$-space. Then the volume of the Minkowski sum $\lambda_1 P_1 + ... + \lambda_n P_n$ is a homogeneous polynomial of degree $n$ in nonnegative variables $\lambda_1,...,\lambda_n$. The coefficient Vol$(P_1,...,P_n)$ of $\lambda_1\lambda_2 ... \lambda_n$ is called the mixed volume of $P_1,...,P_n$. For example, the number of toric solutions to a generic system of /$n$ polynomial equations on $n$-space amounts to the mixed volume of the corresponding Newton polytopes.        <p/>
+The function <tt>mixedVolume</tt> takes the <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> <tt>L</tt> with $n$ polytopes in $n$-space and computes their mixed Volume by using the algorithm by Ioannis Z. Emiris in his paper <a href="http://www.nag.co.uk/projects/frisco/frisco/reports/d33421.ps">Mixed Volume Implementation</a>. Note that this function computes an upper bound by using a random lifting. To reassure the result run the function until it returns the same result.        <p/>
+CAVEAT: So far the input is not checked so use the function with care!        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = crossPolytope 2
+
+o1 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o1 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Q = hypercube 2
+
+o2 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o2 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : mixedVolume {P,Q}
+
+o3 = 8
+
+o3 : QQ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>mixedVolume</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;mixedVolume(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the mixed volume of a list of polytope" href="_mixed__Volume.html">mixedVolume</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

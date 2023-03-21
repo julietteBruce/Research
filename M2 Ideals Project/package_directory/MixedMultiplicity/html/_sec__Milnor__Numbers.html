@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>secMilnorNumbers -- Compute the sectional Milnor numbers of a hypersurface with an isolated singularity</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_multi__Rees__Ideal_lp..._cm__Variable__Base__Name_eq_gt..._rp.html">previous</a> | forward | <a href="_multi__Rees__Ideal_lp..._cm__Variable__Base__Name_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Calculate mixed multiplicities, mixed volume and sectional Milnor numbers" href="index.html">MixedMultiplicity</a> :: <a title="Compute the sectional Milnor numbers of a hypersurface with an isolated singularity" href="_sec__Milnor__Numbers.html">secMilnorNumbers</a>    </div>
+    <hr/>
+    <div>
+      <h1>secMilnorNumbers -- Compute the sectional Milnor numbers of a hypersurface with an isolated singularity</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">secMilnorNumbers f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, First $d-1$ sectional Milnor numbers, where $d$ is the dimension of the polynomial ring</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let origin be an isolated singular point of a complex analytic hypersurface $H = V(f).$ The $\mathbb{C}$-vector space dimension of $\mathbb{C}\{x_0,\ldots,x_n\}/(f_{x_0},\ldots,f_{x_n})$ is called the Milnor number of the hypersurface $H$ at the origin. Let $(X, x)$ be a germ of a hypersurface in $\mathbb{C}^{n+1}$ with an isolated singularity at $x$. The Milnor number of $X \cap E$, where $E$ is a general linear subspace of dimension $i$ passing through $x,$ is called the $i$-th sectional Milnor number of $X$. B. Teissier identified the $i$-th sectional Milnor number with the $i$-th mixed multiplicity of the maximal homogeneous ideal of the polynomial ring and the Jacobian ideal of $f.$</p>
+          <p>Let $f$ be an element of a polynomial ring $R$ and let $d$ be the dimension of $R$. The function computes the first $d-1$ sectional Milnor numbers by computing the mixed multiplicities $e_0(m|J(f)),\ldots,e_{d-1}(m|J(f))$, where $m$ is the maximal homogeneous ideal of $R$ and $J(f)$ is the Jacobian ideal of $f$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : secMilnorNumbers(z^5 + x*y^7 + x^15)
+
+o2 = HashTable{0 => 1 }
+               1 => 4
+               2 => 28
+
+o2 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : secMilnorNumbers(z^3 + y^3 + x^3)
+
+o3 = HashTable{0 => 1}
+               1 => 2
+               2 => 4
+
+o3 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>secMilnorNumbers</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;secMilnorNumbers(RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute the sectional Milnor numbers of a hypersurface with an isolated singularity" href="_sec__Milnor__Numbers.html">secMilnorNumbers</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

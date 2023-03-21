@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RunExternalM2 -- a package to run Macaulay2 code externally and retrieve the result</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__External__M2__Child.html">next</a> | previous | <a href="_is__External__M2__Child.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to run Macaulay2 code externally and retrieve the result" href="index.html">RunExternalM2</a> :: <a title="a package to run Macaulay2 code externally and retrieve the result" href="index.html">RunExternalM2</a>    </div>
+    <hr/>
+    <div>
+      <h1>RunExternalM2 -- a package to run Macaulay2 code externally and retrieve the result</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This package allows the user to run a Macaulay2 function in a brand-new instance of Macaulay2, wait for the instance to finish, and automatically retrieve any results. This is primarily done with the <a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a> function.</p>
+          <p>One of the main purposes of this package is to allow the use of operating system features (e.g., ulimit on Unix-like systems) to restrict the resources (e.g., memory, running time) that the Macaulay2 function is allowed to use; see <a title="how to use resource limits with Macaulay2" href="_resource_splimits.html">resource limits</a>. This is particularly useful if you want a computation to give up after a certain amount of time, as an alternative to using <a title="set an alarm" href="../../Macaulay2Doc/html/_alarm.html">alarm</a> and <a title="catch an error" href="../../Macaulay2Doc/html/_try.html">try</a>.</p>
+          <p>For example, suppose you want to find an example of an ideal that has a particular property, and the time required to check for this property can vary enormously. First write a Macaulay2 function <tt>foo()</tt> that generates a random ideal <tt>I</tt> and checks whether <tt>I</tt> has this property. Then use a loop to repeatedly call <tt>foo()</tt> using <a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a>, with a time limit of 20 seconds, until such an ideal is found; now let it run overnight.</p>
+          <p>For examples, please see <a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a> or <a title="suggestions for using RunExternalM2" href="_suggestions_spfor_spusing_sp__Run__External__M2.html">suggestions for using RunExternalM2</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a> -- run a Macaulay2 function in a new Macaulay2 process</span>          </li>
+          <li>
+<span><a title="suggestions for using RunExternalM2" href="_suggestions_spfor_spusing_sp__Run__External__M2.html">suggestions for using RunExternalM2</a> -- suggestions for using RunExternalM2</span>          </li>
+          <li>
+<span><a title="how to use resource limits with Macaulay2" href="_resource_splimits.html">resource limits</a> -- how to use resource limits with Macaulay2</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://www.brianpike.info/">Brian Pike</a><span> &lt;<a href="mailto:bapike@gmail.com">bapike@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.83</b> of RunExternalM2.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/RunExternalM2.m2">RunExternalM2.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="indicate if this process is a child process or not" href="_is__External__M2__Child.html">isExternalM2Child</a> -- indicate if this process is a child process or not</span>                  </li>
+                  <li>
+<span><a title="indicate if this process is a parent process or not" href="_is__External__M2__Parent.html">isExternalM2Parent</a> -- indicate if this process is a parent process or not</span>                  </li>
+                  <li>
+<span><a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a> -- run a Macaulay2 function in a new Macaulay2 process</span>                  </li>
+                  <li>
+<span><a title="stores a Macaulay2 variable's value in a file, to later be read by the RunExternalM2 package" href="_run__External__M2__Return__Answer.html">runExternalM2ReturnAnswer</a> -- stores a Macaulay2 variable's value in a file, to later be read by the RunExternalM2 package</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="an option that tells how to collect statistics" href="___Keep__Statistics__Command.html">KeepStatisticsCommand</a> -- an option that tells how to collect statistics</span>                  </li>
+                  <li>
+<span><a title="a way to impose resource limits" href="___Pre__Run__Script.html">PreRunScript</a> -- a way to impose resource limits</span>                  </li>
+                  <li>
+<span><tt>&quot;KeepStatistics&quot;</tt> -- see <span><a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a> -- run a Macaulay2 function in a new Macaulay2 process</span></span>                  </li>
+                  <li>
+<span><tt>&quot;M2Location&quot;</tt> -- see <span><a title="run a Macaulay2 function in a new Macaulay2 process" href="_run__External__M2.html">runExternalM2</a> -- run a Macaulay2 function in a new Macaulay2 process</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a package to run Macaulay2 code externally and retrieve the result" href="index.html">RunExternalM2</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>degreeOfMap -- computes the degree of a rational map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_degree__Of__Map_lp..._cm__Strategy_eq_gt..._rp.html">next</a> | <a href="index.html">previous</a> | <a href="_degree__Of__Map_lp..._cm__Strategy_eq_gt..._rp.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">MultiGradedRationalMap</a> :: <a title="computes the degree of a rational map" href="_degree__Of__Map.html">degreeOfMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>degreeOfMap -- computes the degree of a rational map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">degreeOfMap(I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal defining the map</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Choose a strategy for computing the degree of map" href="_degree__Of__Map_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value Hm1Rees0Strategy</span>, Choose a strategy for computing the degree of map</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree of the corresponding rational map</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let $R$ be the polynomial ring $R=k[x_0,...,x_r]$ and $I$ be the homogeneous ideal $I=(f_0,f_1,...,f_s)$ where $deg(f_i)=d$. We compute the degree of the rational map $\mathbb{F}: \mathbb{P}^r \to \mathbb{P}^s$ defined by $$ (x_0: ... :x_r) \to (f_0(x_0,...,x_r), f_1(x_0,...,x_r), ..... , f_s(x_0,...,x_r)). $$ The degree can be computed by two different strategies and the default one is &quot;Hm1Rees0Strategy&quot;.</p>
+          <p>The following example is a rational map without base points:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(random(4, R), random(4, R), random(4, R));
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : betti res I
+
+            0 1 2 3
+o3 = total: 1 3 3 1
+         0: 1 . . .
+         1: . . . .
+         2: . . . .
+         3: . 3 . .
+         4: . . . .
+         5: . . . .
+         6: . . 3 .
+         7: . . . .
+         8: . . . .
+         9: . . . 1
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : degreeOfMap I
+
+o4 = 16</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In the following examples we play with the relations of the Hilbert-Burch presentation and the degree of $\mathbb{F}$ (see Proposition 5.2 and Theorem 5.12):</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : A = matrix{ {x, x^2 + y^2},
+                 {-y, y^2 + z*x},
+                 {0, x^2}
+               };
+
+             3       2
+o5 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : I = minors(2, A) -- a birational map
+
+             2       2    3    2    3    2
+o6 = ideal (x y + x*y  + y  + x z, x , -x y)
+
+o6 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : degreeOfMap I
+
+o7 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : A = matrix{ {x^2, x^2 + y^2},
+                 {-y^2, y^2 + z*x},
+                 {0, x^2}
+               };
+
+             3       2
+o8 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : I = minors(2, A) -- a non birational map
+
+              2 2    4    3    4    2 2
+o9 = ideal (2x y  + y  + x z, x , -x y )
+
+o9 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : degreeOfMap I
+
+o10 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : A = matrix{ {x^3, x^2 + y^2},
+                  {-y^3, y^2 + z*x},
+                  {0, x^2}
+                };
+
+              3       2
+o11 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : I = minors(2, A) -- a non birational map
+
+              3 2    2 3    5    4    5    2 3
+o12 = ideal (x y  + x y  + y  + x z, x , -x y )
+
+o12 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : degreeOfMap I
+
+o13 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : A = matrix{ {x^3, x^4},
+                  {-y^3, y^4},
+                  {z^3, x^4}
+                };
+
+              3       2
+o14 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : I = minors(2, A) -- a non birational map
+
+              4 3    3 4   7    4 3     4 3    4 3
+o15 = ideal (x y  + x y , x  - x z , - x y  - y z )
+
+o15 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : degreeOfMap I
+
+o16 = 12</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The following examples are computed with the strategy &quot;SatSpecialFibStrategy&quot;.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : R = QQ[x,y,z,v,w]
+
+o17 = R
+
+o17 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : I = ideal(random(1, R), random(1, R), random(1, R), random(1, R), random(1, R));
+
+o18 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : degreeOfMap(I, Strategy=>SatSpecialFibStrategy)
+
+o19 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : I = ideal(29*x^3 + 55*x*y*z, 7*y^3, 14*z^3, 17*v^3, 12*w^3)
+
+                3              3     3     3     3
+o20 = ideal (29x  + 55x*y*z, 7y , 14z , 17v , 12w )
+
+o20 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : degreeOfMap(I, Strategy=>SatSpecialFibStrategy)
+
+o21 = 81</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>To call the method &quot;degreeOfMap(I)&quot;, the ideal $I$ should be in a single graded polynomial ring.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>degreeOfMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;degreeOfMap(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the degree of a rational map" href="_degree__Of__Map.html">degreeOfMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

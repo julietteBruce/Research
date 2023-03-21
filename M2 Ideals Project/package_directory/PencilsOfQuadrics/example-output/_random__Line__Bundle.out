@@ -1,0 +1,54 @@
+-- -*- M2-comint -*- hash: 1817827244
+
+i1 : kk=ZZ/101;
+
+i2 : g=1;
+
+i3 : rNP=randNicePencil(kk,g);
+
+i4 : cM=cliffordModule(rNP.matFact1,rNP.matFact2,rNP.baseRing);
+
+i5 : f=cM.hyperellipticBranchEquation
+
+          3       2 2        3      4
+o5 = - 12s t - 50s t  - 16s*t  + 47t
+
+o5 : kk[s, t]
+
+i6 : L=randomLineBundle(f)
+
+o6 = VectorBundleOnE{...1...}
+
+o6 : VectorBundleOnE
+
+i7 : degOnE L
+
+o7 = -1
+
+i8 : m=L.yAction
+
+o8 = {-2} | 39s2+21st+34t2 44s3-34s2t+7st2+2t3 |
+     {-1} | 32s+t          -39s2-21st-34t2     |
+
+                      2                2
+o8 : Matrix (kk[s, t])  <--- (kk[s, t])
+
+i9 : (m)^2_(0,0)+(-1)^g*f==0
+
+o9 = true
+
+i10 : L0=randomLineBundle(0,f)
+
+o10 = VectorBundleOnE{...1...}
+
+o10 : VectorBundleOnE
+
+i11 : degOnE L0
+
+o11 = 0
+
+i12 : orderInPic L0
+
+o12 = 37
+
+i13 : 

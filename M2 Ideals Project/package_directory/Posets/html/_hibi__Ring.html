@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hibiRing -- produces the Hibi ring of a poset</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_h__Polynomial.html">next</a> | <a href="_hibi__Ideal.html">previous</a> | <a href="_h__Polynomial.html">forward</a> | <a href="_hibi__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with partially ordered sets" href="index.html">Posets</a> :: <a title="produces the Hibi ring of a poset" href="_hibi__Ring.html">hibiRing</a>    </div>
+    <hr/>
+    <div>
+      <h1>hibiRing -- produces the Hibi ring of a poset</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">H = hibiRing P</code></dd>
+              <dd><code class="language-macaulay2">H = hibiRing(P, Strategy => &quot;kernel&quot;)</code></dd>
+              <dd><code class="language-macaulay2">H = hibiRing(P, Strategy => &quot;4ti2&quot;)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>an instance of the type <a title="a class for partially ordered sets (posets)" href="___Poset.html">Poset</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>CoefficientRing</tt><tt> => </tt><span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, <span>default value QQ</span>, which specifies the coefficient ring of the <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">PolynomialRing</a> $H$</span>              </li>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value &quot;kernel&quot;</span>, which specifies whether to use Macaulay2's native <a title="kernel of a ringmap, matrix, or chain complex" href="../../Macaulay2Doc/html/_kernel.html">kernel</a> method (Strategy => &quot;kernel&quot;) or the package <a title="Interface for 4ti2" href="../../FourTiTwo/html/index.html">FourTiTwo</a> (Strategy => &quot;4ti2&quot;)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">quotient ring</a></span>, the toric algebra which is isomorphic to the Hibi ring of $P$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The Hibi ring of $P$ is a monomial algebra generated by the monomials which generate the Hibi ideal (<a title="produces the Hibi ideal of a poset" href="_hibi__Ideal.html">hibiIdeal</a>).  That is, the monomials built in $2n$ variables $x_0, \ldots, x_{n-1}, y_0, \ldots, y_{n-1}$, where $n$ is the size of the ground set of $P$. The monomials are in bijection with order ideals in $P$.  Let $I$ be an order ideal of $P$. Then the associated monomial is the product of the $x_i$ associated with members of $I$ and the $y_i$ associated with non-members of $I$.</p>
+          <p>This method returns the toric quotient algebra isomorphic to the Hibi ring.  The ideal is the ideal of Hibi relations.  The generators of the <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">PolynomialRing</a> $H$ is built over are of the form $t_I$ where $I$ is an order ideal of $P$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : hibiRing booleanLattice 2
+
+     QQ[t  , t   , t      , t         , t      , t            ]
+         {}   {0}   {0, 1}   {0, 1, 2}   {0, 2}   {0, 1, 2, 3}
+o1 = ----------------------------------------------------------
+                   t   t          - t      t
+                    {0} {0, 1, 2}    {0, 1} {0, 2}
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The Hibi ring of the $n$ chain is just a polynomial ring in $n+1$ variables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : hibiRing chain 4
+
+o2 = QQ[t  , t   , t      , t         , t            ]
+         {}   {0}   {0, 1}   {0, 1, 2}   {0, 1, 2, 3}
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In some cases, it may be faster to use the <a title="Interface for 4ti2" href="../../FourTiTwo/html/index.html">FourTiTwo</a> method <a title="calculates a Groebner basis of the toric ideal I_A, given A; invokes &quot;groebner&quot; from 4ti2" href="../../FourTiTwo/html/_toric__Groebner.html">toricGroebner</a> to generate the Hibi relations.  Using the Strategy &quot;4ti2&quot; tells the method to use this approach.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : hibiRing(divisorPoset 6, Strategy => &quot;4ti2&quot;)
+
+     QQ[t  , t   , t      , t         , t      , t            ]
+         {}   {0}   {0, 1}   {0, 1, 2}   {0, 2}   {0, 1, 2, 3}
+o3 = ----------------------------------------------------------
+                  - t   t          + t      t
+                     {0} {0, 1, 2}    {0, 1} {0, 2}
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="produces the Hibi ideal of a poset" href="_hibi__Ideal.html">hibiIdeal</a> -- produces the Hibi ideal of a poset</span>          </li>
+          <li>
+<span><a title="computes the elements below given elements in a poset" href="_order__Ideal.html">orderIdeal</a> -- computes the elements below given elements in a poset</span>          </li>
+          <li>
+<span><a title="computes the elements below a given element in a poset" href="_principal__Order__Ideal.html">principalOrderIdeal</a> -- computes the elements below a given element in a poset</span>          </li>
+          <li>
+<span><a title="produces the p-partition ring of a poset" href="_p__Partition__Ring.html">pPartitionRing</a> -- produces the p-partition ring of a poset</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hibiRing</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hibiRing(Poset)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="produces the Hibi ring of a poset" href="_hibi__Ring.html">hibiRing</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

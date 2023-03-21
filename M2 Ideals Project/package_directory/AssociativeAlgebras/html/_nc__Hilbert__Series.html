@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ncHilbertSeries -- Computes the Hilbert series of a noncommutative ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_nc__Kernel.html">next</a> | <a href="_nc__Graph__Ideal.html">previous</a> | <a href="_nc__Kernel.html">forward</a> | <a href="_nc__Graph__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Noncommutative algebra computations" href="index.html">AssociativeAlgebras</a> :: <a title="Computes the Hilbert series of a noncommutative ring" href="_nc__Hilbert__Series.html">ncHilbertSeries</a>    </div>
+    <hr/>
+    <div>
+      <h1>ncHilbertSeries -- Computes the Hilbert series of a noncommutative ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">hseries = ncHilbertSeries(A)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="Type of a noncommutative ring" href="___Free__Algebra_sp_sl_sp__Ideal.html">quotient of a free algebra</a></span>, or <a title="Type of a free algebra" href="___Free__Algebra.html">FreeAlgebra</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Order</tt><tt> => </tt><tt>...</tt>, <span>default value 20</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all expressions" href="../../Macaulay2Doc/html/___Expression.html">expression</a></span>, or <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">RingElement</a></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method computes the Hilbert series of a graded noncommutative ring.  If the ring is defined over a field (and potentially not standard graded), then a basis is computed and the generating function of the degrees of that basis is returned.  The degree to which one computes the Hilbert series is controlled with the Order option.  The output is returned as either an expression (if a rational representation can be found using <a title="Attempt to find a rational function representation." href="_to__Rational__Function.html">toRationalFunction</a>) or as an element of the <a title="the ring or monoid of degrees" href="../../Macaulay2Doc/html/_degrees__Ring.html">degreesRing</a> of the input.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ&lt;|x,y,z|>
+
+o1 = A
+
+o1 : FreeAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : ncHilbertSeries(A,Order=>10)
+
+        1
+o2 = ------
+     1 - 3T
+
+o2 : Expression of class Divide</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : A = QQ&lt;|x,y,z,Degrees=>{1,2,3}|>
+
+o3 = A
+
+o3 : FreeAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : ncHilbertSeries(A,Order=>10)
+
+             1
+o4 = -----------------
+               2    3
+     1 - (T + T  + T )
+
+o4 : Expression of class Divide</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+Using numthreads = 0
+
+o5 = B
+
+o5 : FreeAlgebraQuotient</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : ncHilbertSeries(B,Order=>10)
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+
+         1
+o6 = --------
+            3
+     (1 - T)
+
+o6 : Expression of class Divide</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>ncHilbertSeries</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;ncHilbertSeries(FreeAlgebra)&quot;</tt>          </li>
+          <li>
+<tt>&quot;ncHilbertSeries(FreeAlgebraQuotient)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes the Hilbert series of a noncommutative ring" href="_nc__Hilbert__Series.html">ncHilbertSeries</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

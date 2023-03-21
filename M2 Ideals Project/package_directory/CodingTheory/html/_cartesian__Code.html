@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>cartesianCode -- Cartesian code</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_order__Code.html">next</a> | <a href="_ev__Code__Graph.html">previous</a> | <a href="___Sets.html">forward</a> | <a href="_ev__Code__Graph.html">backward</a> | <a href="_evaluation__Code.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a> > <a title="functions to construct evaluation codes over Galois fields" href="_evaluation__Code.html">evaluationCode</a> > <a title="Cartesian code" href="_cartesian__Code.html">cartesianCode</a>    </div>
+    <hr/>
+    <div>
+      <h1>cartesianCode -- Cartesian code</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">cartesianCode(F,L,d)</code></dd>
+              <dd><code class="language-macaulay2">cartesianCode(F,L,S)</code></dd>
+              <dd><code class="language-macaulay2">cartesianCode(F,L,M)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a></span>, $C$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>We present below the ways in how a Cartesian code $C$ can be defined.</p>
+        </div>
+        <div>
+          <h2>a ring, a list and an integer are given</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">cartesianCode(F, L, d)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>                </li>
+                <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p><tt>F</tt> is a field, <tt>L</tt>  is a list of subsets of <tt>F</tt> and <tt>d</tt> is an integer. Returns the Cartesian code $C$ obtained when polynomials of degree at most <tt>d</tt> are evaluated over the points of the Cartesian product made by the subsets of <tt>L</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i1 : C=cartesianCode(ZZ/11,{{1,2,3},{2,6,8}},3)
+
+o1 = EvaluationCode{cache => CacheTable{}                                                                                                                                                                                                                                                                                                                                                             }
+                                                               ZZ 9
+                    LinearCode => LinearCode{AmbientModule => (--)                                                                                                                                                                                                                                                                                                                                   }
+                                                               11
+                                                          ZZ
+                                             BaseField => --
+                                                          11
+                                             cache => CacheTable{}
+                                             Code => image | 1 1 1  1  -5 -5 3  -5 3  -4 |
+                                                           | 1 2 4  -3 2  1  -5 -5 3  -4 |
+                                                           | 1 3 -2 5  -1 -4 -2 -5 3  -4 |
+                                                           | 1 1 1  1  -3 -3 -2 -3 -2 -5 |
+                                                           | 1 2 4  -3 -1 5  -4 -3 -2 -5 |
+                                                           | 1 3 -2 5  -5 2  5  -3 -2 -5 |
+                                                           | 1 1 1  1  2  2  4  2  4  -3 |
+                                                           | 1 2 4  -3 -3 4  -3 2  4  -3 |
+                                                           | 1 3 -2 5  -4 -5 1  2  4  -3 |
+                                             GeneratorMatrix => | 1  1  1  1  1  1  1  1  1  |
+                                                                | 1  2  3  1  2  3  1  2  3  |
+                                                                | 1  4  -2 1  4  -2 1  4  -2 |
+                                                                | 1  -3 5  1  -3 5  1  -3 5  |
+                                                                | -5 2  -1 -3 -1 -5 2  -3 -4 |
+                                                                | -5 1  -4 -3 5  2  2  4  -5 |
+                                                                | 3  -5 -2 -2 -4 5  4  -3 1  |
+                                                                | -5 -5 -5 -3 -3 -3 2  2  2  |
+                                                                | 3  3  3  -2 -2 -2 4  4  4  |
+                                                                | -4 -4 -4 -5 -5 -5 -3 -3 -3 |
+                                             Generators => {{1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 2, 3, 1, 2, 3, 1, 2, 3}, {1, 4, -2, 1, 4, -2, 1, 4, -2}, {1, -3, 5, 1, -3, 5, 1, -3, 5}, {-5, 2, -1, -3, -1, -5, 2, -3, -4}, {-5, 1, -4, -3, 5, 2, 2, 4, -5}, {3, -5, -2, -2, -4, 5, 4, -3, 1}, {-5, -5, -5, -3, -3, -3, 2, 2, 2}, {3, 3, 3, -2, -2, -2, 4, 4, 4}, {-4, -4, -4, -5, -5, -5, -3, -3, -3}}
+                                             ParityCheckMatrix => | 1 -2 1 3 5 3 -4 -3 -4 |
+                                             ParityCheckRows => {{1, -2, 1, 3, 5, 3, -4, -3, -4}}
+                    Points => {{1, 6}, {2, 6}, {3, 6}, {1, 8}, {2, 8}, {3, 8}, {1, 2}, {2, 2}, {3, 2}}
+                                              2   3   2             2       2   3
+                    PolynomialSet => {1, t , t , t , t t , t t , t t , t , t , t }
+                                          0   0   0   0 1   0 1   0 1   1   1   1
+                    Sets => {{1, 2, 3}, {2, 6, 8}}
+                                              3     2       3     2
+                    VanishingIdeal => ideal (t  + 5t  + 5, t  - 5t  - t  + 3)
+                                              0     0       1     1    1
+
+o1 : EvaluationCode</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+        <div>
+          <h2>a ring and two lists are given</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">cartesianCode(F, L, S)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>                </li>
+                <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>S</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p><tt>F</tt> is a field, <tt>L</tt>  is a list of subsets of <tt>F</tt> and <tt>S</tt> is a set of polynomials. Returns the Cartesian code $C$ obtained when polynomials in the list <tt>S</tt> are evaluated over the points of the Cartesian product made by the subsets of <tt>L</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i2 : F=GF(4);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i3 : R=F[x,y];</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i4 : C=cartesianCode(F,{{0,1,a},{0,1,a}},{1+x+y,x*y})
+
+o4 = EvaluationCode{cache => CacheTable{}                                                                                                                                                                                                                                           }
+                                                               9
+                    LinearCode => LinearCode{AmbientModule => F                                                                                                                                                                                                                    }
+                                             BaseField => F
+                                             cache => CacheTable{}
+                                             Code => image | a   a   |
+                                                           | a   a   |
+                                                           | 1   a+1 |
+                                                           | 1   0   |
+                                                           | 0   0   |
+                                                           | 0   0   |
+                                                           | 1   1   |
+                                                           | a+1 0   |
+                                                           | a+1 0   |
+                                             GeneratorMatrix => | a a 1   1 0 0 1 a+1 a+1 |
+                                                                | a a a+1 0 0 0 1 0   0   |
+                                             Generators => {{a, a, 1, 1, 0, 0, 1, a + 1, a + 1}, {a, a, a + 1, 0, 0, 0, 1, 0, 0}}
+                                             ParityCheckMatrix => | 1 0 0 0 0 0 a   0   0 |
+                                                                  | 0 1 0 0 0 0 a   0   0 |
+                                                                  | 0 0 1 0 0 0 a+1 a+1 0 |
+                                                                  | 0 0 0 1 0 0 0   a   0 |
+                                                                  | 0 0 0 0 1 0 0   0   0 |
+                                                                  | 0 0 0 0 0 1 0   0   0 |
+                                                                  | 0 0 0 0 0 0 0   1   1 |
+                                             ParityCheckRows => {{1, 0, 0, 0, 0, 0, a, 0, 0}, {0, 1, 0, 0, 0, 0, a, 0, 0}, {0, 0, 1, 0, 0, 0, a + 1, a + 1, 0}, {0, 0, 0, 1, 0, 0, 0, a, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1}}
+                    Points => {{1, a}, {a, 1}, {a, a}, {0, 0}, {0, 1}, {1, 0}, {1, 1}, {0, a}, {a, 0}}
+                    PolynomialSet => {x + y + 1, x*y}
+                    Sets => {{0, 1, a}, {0, 1, a}}
+                                              3           2         3           2
+                    VanishingIdeal => ideal (x  + (a + 1)x  + a*x, y  + (a + 1)y  + a*y)
+
+o4 : EvaluationCode</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i5 : C.LinearCode
+
+                                  9
+o5 = LinearCode{AmbientModule => F                                                                                                                                                                                                                    }
+                BaseField => F
+                cache => CacheTable{}
+                Code => image | a   a   |
+                              | a   a   |
+                              | 1   a+1 |
+                              | 1   0   |
+                              | 0   0   |
+                              | 0   0   |
+                              | 1   1   |
+                              | a+1 0   |
+                              | a+1 0   |
+                GeneratorMatrix => | a a 1   1 0 0 1 a+1 a+1 |
+                                   | a a a+1 0 0 0 1 0   0   |
+                Generators => {{a, a, 1, 1, 0, 0, 1, a + 1, a + 1}, {a, a, a + 1, 0, 0, 0, 1, 0, 0}}
+                ParityCheckMatrix => | 1 0 0 0 0 0 a   0   0 |
+                                     | 0 1 0 0 0 0 a   0   0 |
+                                     | 0 0 1 0 0 0 a+1 a+1 0 |
+                                     | 0 0 0 1 0 0 0   a   0 |
+                                     | 0 0 0 0 1 0 0   0   0 |
+                                     | 0 0 0 0 0 1 0   0   0 |
+                                     | 0 0 0 0 0 0 0   1   1 |
+                ParityCheckRows => {{1, 0, 0, 0, 0, 0, a, 0, 0}, {0, 1, 0, 0, 0, 0, a, 0, 0}, {0, 0, 1, 0, 0, 0, a + 1, a + 1, 0}, {0, 0, 0, 1, 0, 0, 0, a, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1}}
+
+o5 : LinearCode</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+        <div>
+          <h2>a ring, a list and a Matrix are given</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">cartesianCode(F, L, M)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>                </li>
+                <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+                <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of evaluation codes" href="___Evaluation__Code.html">EvaluationCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p><tt>F</tt> is a field, <tt>L</tt> is a list of subsets of <tt>F</tt> and <tt>M</tt> is the matrix whose rows are the exponents of the monomials to evaluate. Returns the Cartesian code $C$ obtained when the monomials defined by the matrix <tt>M</tt> are evaluated over the points of the Cartesian product made by the subsets of <tt>L</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i6 : F=GF(4);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i7 : R=F[x,y];</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i8 : C=cartesianCode(F,{{0,1,a},{0,1,a}},matrix{{1,2},{2,3}})
+
+o8 = EvaluationCode{cache => CacheTable{}                                                                                                                                                                                                                                       }
+                                                               9
+                    LinearCode => LinearCode{AmbientModule => F                                                                                                                                                                                                                }
+                                             BaseField => F
+                                             cache => CacheTable{}
+                                             Code => image | 0   0   |
+                                                           | 0   0   |
+                                                           | 0   0   |
+                                                           | 0   0   |
+                                                           | 0   0   |
+                                                           | 1   1   |
+                                                           | a+1 1   |
+                                                           | a   a+1 |
+                                                           | 1   a+1 |
+                                             GeneratorMatrix => | 0 0 0 0 0 1 a+1 a   1   |
+                                                                | 0 0 0 0 0 1 1   a+1 a+1 |
+                                             Generators => {{0, 0, 0, 0, 0, 1, a + 1, a, 1}, {0, 0, 0, 0, 0, 1, 1, a + 1, a + 1}}
+                                             ParityCheckMatrix => | 1 0 0 0 0 0 0 0 0   |
+                                                                  | 0 1 0 0 0 0 0 0 0   |
+                                                                  | 0 0 1 0 0 0 0 0 0   |
+                                                                  | 0 0 0 1 0 0 0 0 0   |
+                                                                  | 0 0 0 0 1 0 0 0 0   |
+                                                                  | 0 0 0 0 0 1 0 1 a+1 |
+                                                                  | 0 0 0 0 0 0 1 a 0   |
+                                             ParityCheckRows => {{1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 1, a + 1}, {0, 0, 0, 0, 0, 0, 1, a, 0}}
+                    Points => {{0, 0}, {1, 0}, {0, 1}, {a, 0}, {0, a}, {1, 1}, {1, a}, {a, 1}, {a, a}}
+                                         2   2 3
+                    PolynomialSet => {t t , t t }
+                                       0 1   0 1
+                    Sets => {{0, 1, a}, {0, 1, a}}
+                                              3           2          3           2
+                    VanishingIdeal => ideal (t  + (a + 1)t  + a*t , t  + (a + 1)t  + a*t )
+                                              0           0      0   1           1      1
+
+o8 : EvaluationCode</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>While this function may work even when a ring is given, instead of a finite field, it is possible that the results are not the expected ones.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>cartesianCode</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;cartesianCode(Ring,List,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;cartesianCode(Ring,List,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;cartesianCode(Ring,List,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Cartesian code" href="_cartesian__Code.html">cartesianCode</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+      <div>
+        <h3>Menu</h3>
+        <h4>Symbols that are used as a key for storing information of a Cartesian code</h4>
+        <ul>
+          <li>
+<span><a title="sets of a Cartesian code" href="___Sets.html">Sets</a> -- sets of a Cartesian code</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

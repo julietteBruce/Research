@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isDoublyStochastic -- whether a matrix is doubly stochastic</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Orthogonal.html">next</a> | <a href="_hadamard.html">previous</a> | <a href="_is__Orthogonal.html">forward</a> | <a href="_hadamard.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computing determinantal representations of polynomials" href="index.html">DeterminantalRepresentations</a> :: <a title="whether a matrix is doubly stochastic" href="_is__Doubly__Stochastic.html">isDoublyStochastic</a>    </div>
+    <hr/>
+    <div>
+      <h1>isDoublyStochastic -- whether a matrix is doubly stochastic</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isDoublyStochastic A</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Tolerance</tt><tt> => </tt><tt>...</tt>, <span>default value .000001</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether $A$ is a doubly stochastic matrix</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method determines whether a given matrix is doubly stochastic, i.e., is a real square matrix with all entries nonnegative and all row and column sums equal to $1$.</p>
+          <p>When working over an <a title="the class of all families of inexact fields" href="../../Macaulay2Doc/html/___Inexact__Field__Family.html">InexactFieldFamily</a> like <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">RR</a> or <a title="the class of all complex numbers" href="../../Macaulay2Doc/html/___C__C.html">CC</a>, the option <tt>Tolerance</tt> can be used to specify the internal threshold for checking equality (any floating point number below the tolerance is treated as numerically zero).</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : O = randomOrthogonal 3
+
+o1 = | .54916   .312336 .775158  |
+     | .413897  .704145 -.576947 |
+     | -.726025 .637672 .257413  |
+
+                3          3
+o1 : Matrix RR    &lt;--- RR
+              53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : A = hadamard(O, O)
+
+o2 = | .301576 .0975537 .60087   |
+     | .171311 .495821  .332868  |
+     | .527113 .406625  .0662616 |
+
+                3          3
+o2 : Matrix RR    &lt;--- RR
+              53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isDoublyStochastic A
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isDoublyStochastic</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isDoublyStochastic(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether a matrix is doubly stochastic" href="_is__Doubly__Stochastic.html">isDoublyStochastic</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>denseResultant -- dense resultant (classical resultant)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_determinant_lp__Multidimensional__Matrix_rp.html">next</a> | <a href="_dense__Discriminant.html">previous</a> | <a href="_determinant_lp__Multidimensional__Matrix_rp.html">forward</a> | <a href="_dense__Discriminant.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computations with sparse resultants" href="index.html">SparseResultants</a> :: <a title="dense resultant (classical resultant)" href="_dense__Resultant.html">denseResultant</a>    </div>
+    <hr/>
+    <div>
+      <h1>denseResultant -- dense resultant (classical resultant)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">denseResultant(d_0,d_1,...)</code></dd>
+              <dd><code class="language-macaulay2">denseResultant(f_0,f_1,...)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>(d_0,d_1,...)</tt>, a sequence of integers.</span>              </li>
+              <li>
+<span><tt>(f_0,f_1,...)</tt>, a sequence of $n+1$ Laurent polynomials in $n$ variables.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Algorithm</tt><tt> => </tt><tt>...</tt>, <span>default value &quot;Poisson&quot;</span></span>              </li>
+              <li>
+<span><tt>CoefficientRing</tt><tt> => </tt><tt>...</tt>, <span>default value ZZ</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span>for <tt>(d_0,d_1,...)</tt>, this is the same as <a title="sparse resultant (A-resultant)" href="_sparse__Resultant.html">sparseResultant</a> <a title="exponents in one or more polynomials" href="_exponents__Matrix.html">exponentsMatrix</a> <a title="generic (Laurent) polynomials" href="_generic__Laurent__Polynomials.html">genericLaurentPolynomials</a><tt>(d_0,d_1,...)</tt>;</span>              </li>
+              <li>
+<span>for <tt>(f_0,f_1,...)</tt>, this is the same as <a title="affine resultant" href="../../Resultants/html/_affine__Resultant.html">affineResultant</a><tt>{f_0,f_1,...}</tt>.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : (f0,f1,f2) = genericLaurentPolynomials(1,2,2)
+
+                           2               2                        2  
+o1 = (a x  + a x  + a , b x  + b x x  + b x  + b x  + b x  + b , c x  +
+       2 1    1 2    0   5 1    4 1 2    2 2    3 1    1 2    0   5 1  
+     ------------------------------------------------------------------------
+                 2
+     c x x  + c x  + c x  + c x  + c )
+      4 1 2    2 2    3 1    1 2    0
+
+o1 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : time denseResultant(f0,f1,f2); -- using Poisson formula
+     -- used 0.167377 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time denseResultant(f0,f1,f2,Algorithm=>&quot;Macaulay&quot;); -- using Macaulay formula
+     -- used 0.543511 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time (denseResultant(1,2,2)) (f0,f1,f2); -- using sparseResultant
+     -- used 0.516858 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : assert(o2 == o3 and o3 == o4)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="sparse resultant (A-resultant)" href="_sparse__Resultant.html">sparseResultant</a> -- sparse resultant (A-resultant)</span>          </li>
+          <li>
+<span><a title="affine resultant" href="../../Resultants/html/_affine__Resultant.html">affineResultant</a> -- affine resultant</span>          </li>
+          <li>
+<span><a title="dense discriminant (classical discriminant)" href="_dense__Discriminant.html">denseDiscriminant</a> -- dense discriminant (classical discriminant)</span>          </li>
+          <li>
+<span><a title="exponents in one or more polynomials" href="_exponents__Matrix.html">exponentsMatrix</a> -- exponents in one or more polynomials</span>          </li>
+          <li>
+<span><a title="generic (Laurent) polynomials" href="_generic__Laurent__Polynomials.html">genericLaurentPolynomials</a> -- generic (Laurent) polynomials</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>denseResultant</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;denseResultant(Thing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="dense resultant (classical resultant)" href="_dense__Resultant.html">denseResultant</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__Single.html">method function with a single argument</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

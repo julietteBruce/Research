@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>complex(Complex) -- make a complex by reindexing the terms of the complex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_complex_lp__Complex__Map_rp.html">next</a> | <a href="_complex_lp__Chain__Complex__Map_rp.html">previous</a> | <a href="_complex_lp__Complex__Map_rp.html">forward</a> | <a href="_complex_lp__Chain__Complex__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="development package for beta testing new version of chain complexes" href="index.html">Complexes</a> :: <a title="make a complex by reindexing the terms of the complex" href="_complex_lp__Complex_rp.html">complex(Complex)</a>    </div>
+    <hr/>
+    <div>
+      <h1>complex(Complex) -- make a complex by reindexing the terms of the complex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="make a chain complex" href="_complex.html">complex</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">D = complex(C, Base => i)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="___Complex.html">complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="make a chain complex" href="_complex.html">Base</a><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 0</span>, the target of the lowest differential</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>D</tt>, <span>a <a title="the class of all chain complexes" href="___Complex.html">complex</a></span>, where if $d$ is the smallest index of the target of the differentials of C, then for all integers $j$ we have $D_{i+j} = C_{d+j}$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This returns an alteration of the input complex, reindexing the terms of the complex.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[a..d]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C = freeResolution coker vars S
+
+      1      4      6      4      1
+o2 = S  &lt;-- S  &lt;-- S  &lt;-- S  &lt;-- S
+                                  
+     0      1      2      3      4
+
+o2 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D = complex(C, Base => 1)
+
+      1      4      6      4      1
+o3 = S  &lt;-- S  &lt;-- S  &lt;-- S  &lt;-- S
+                                  
+     1      2      3      4      5
+
+o3 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : E = complex(D, Base => -11)
+
+      1       4       6      4      1
+o4 = S   &lt;-- S   &lt;-- S  &lt;-- S  &lt;-- S
+                                    
+     -11     -10     -9     -8     -7
+
+o4 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : dd^D_2 == dd^C_1
+
+o5 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : dd^E_-9 == dd^C_2
+
+o6 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Rather than specifying the homological degree of the lowest target, one can also shift the homological degree, which may simultaneously negate the maps.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : F = C[-1]
+
+      1      4      6      4      1
+o7 = S  &lt;-- S  &lt;-- S  &lt;-- S  &lt;-- S
+                                  
+     1      2      3      4      5
+
+o7 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : for i from min F to max F list
+         dd^F_i == - dd^D_i
+
+o8 = {true, true, true, true, true}
+
+o8 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="information about the basic constructors" href="___Making_spchain_spcomplexes.html">Making chain complexes</a> -- information about the basic constructors</span>          </li>
+          <li>
+<span><a title="whether a complex is well-defined" href="_is__Well__Defined_lp__Complex_rp.html">isWellDefined(Complex)</a> -- whether a complex is well-defined</span>          </li>
+          <li>
+<span><a title="make a chain complex" href="_complex_lp__Hash__Table_rp.html">complex(HashTable)</a> -- make a chain complex</span>          </li>
+          <li>
+<span><a title="make a chain complex" href="_complex.html">complex(List)</a> -- make a chain complex</span>          </li>
+          <li>
+<span><a title="shift a complex or complex map" href="___Complex_sp__Array.html">Complex Array</a> -- shift a complex or complex map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="make a complex by reindexing the terms of the complex" href="_complex_lp__Complex_rp.html">complex(Complex)</a> -- make a complex by reindexing the terms of the complex</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Number * BasicDivisor -- multiply a divisor by a number</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___O__O_sp__R__Weil__Divisor.html">next</a> | <a href="_non__Cartier__Locus.html">previous</a> | <a href="___O__O_sp__R__Weil__Divisor.html">forward</a> | <a href="_non__Cartier__Locus.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="multiply a divisor by a number" href="___Number_sp_st_sp__Basic__Divisor.html">Number * BasicDivisor</a>    </div>
+    <hr/>
+    <div>
+      <h1>Number * BasicDivisor -- multiply a divisor by a number</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for multiplication" href="../../Macaulay2Doc/html/__st.html">*</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">n * D</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>a <a title="the class of all numbers" href="../../Macaulay2Doc/html/___Number.html">number</a></span>, </span>              </li>
+              <li>
+<span><tt>D</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">BasicDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">BasicDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Multiply a divisor by an integer or a real or rational number.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D = divisor(x^2*y/(x+y));
+
+o2 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : E = divisor({1/2, -5/3}, {ideal(x), ideal(y)}, CoefficientType=>QQ)
+
+o3 = 1/2*Div(x) + -5/3*Div(y)
+
+o3 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = divisor({1.5, 0, -3.2}, {ideal(x), ideal(y), ideal(x^2-y^3)}, CoefficientType=>RR)
+
+o4 = -3.2*Div(-y^3+x^2) + 1.5*Div(x) + 0*Div(y)
+
+o4 : RWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : 8*D
+
+o5 = -8*Div(x+y) + 8*Div(y) + 16*Div(x)
+
+o5 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : (-2/3)*D
+
+o6 = 2/3*Div(x+y) + -2/3*Div(y) + -4/3*Div(x)
+
+o6 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : 0.0*D
+
+o7 = 0, the zero divisor
+
+o7 : RWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : (3/2)*E
+
+o8 = 3/4*Div(x) + -5/2*Div(y)
+
+o8 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : (-1.414)*E
+
+o9 = 2.35667*Div(y) + -.707*Div(x)
+
+o9 : RWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : 6*F
+
+o10 = -19.2*Div(-y^3+x^2) + 9*Div(x)
+
+o10 : RWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : (-3/2)*F
+
+o11 = 4.8*Div(-y^3+x^2) + -2.25*Div(x)
+
+o11 : RWeilDivisor on R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="multiply a divisor by a number" href="___Number_sp_st_sp__Basic__Divisor.html">Number * BasicDivisor</a> -- multiply a divisor by a number</span>          </li>
+          <li>
+<tt>&quot;QQ * RWeilDivisor&quot;</tt>          </li>
+          <li>
+<tt>&quot;QQ * WeilDivisor&quot;</tt>          </li>
+          <li>
+<tt>&quot;RR * QWeilDivisor&quot;</tt>          </li>
+          <li>
+<tt>&quot;RR * RWeilDivisor&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

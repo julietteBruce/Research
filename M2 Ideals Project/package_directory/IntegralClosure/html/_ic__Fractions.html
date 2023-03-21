@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>icFractions -- fractions integral over an affine domain</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ic__Map.html">next</a> | <a href="_ic__Frac__P_lp..._cm__Verbosity_eq_gt..._rp.html">previous</a> | <a href="_ic__Map.html">forward</a> | <a href="_ic__Frac__P_lp..._cm__Verbosity_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="routines for integral closure of affine domains and ideals" href="index.html">IntegralClosure</a> :: <a title="fractions integral over an affine domain" href="_ic__Fractions.html">icFractions</a>    </div>
+    <hr/>
+    <div>
+      <h1>icFractions -- fractions integral over an affine domain</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">icFractions R</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, an affine domain</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of fractions over <tt>R</tt>, generating the integral closure of <tt>R</tt>, as an <tt>R</tt>-algebra.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If the integral closure of <tt>R</tt> has not yet been computed, that computation is performed first.  No extra computation is then involved to find the fractions.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : icFractions R
+
+       3   2
+      x   x
+o2 = {--, --, x, y, z}
+       2   z
+      z
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : R' = integralClosure R
+
+o3 = R'
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gens R'
+
+o4 = {w   , w   , x, y, z}
+       4,0   3,0
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : netList (ideal R')_*
+
+     +--------------+
+     |         2    |
+o5 = |w   z - x     |
+     | 3,0          |
+     +--------------+
+     |w   z - w   x |
+     | 4,0     3,0  |
+     +--------------+
+     |         2    |
+     |w   x - w     |
+     | 4,0     3,0  |
+     +--------------+
+     | 2      2    2|
+     |w    - y  - z |
+     | 4,0          |
+     +--------------+</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Notice that the $i$-th fraction corresponds to the $i$-th generator of the integral closure.  For instance, the variable $w_(3,0) = {x^2 \over z}$.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>(a) Currently in Macaulay2, fractions over quotients of polynomial rings do not have a nice normal form.  In particular, sometimes the fractions are `simplified' to give much nastier looking fractions. We hope to improve this.</p>
+          <p>(b) If you want to control the computation of the integral closure via optional arguments, then make sure you call <a title="compute the integral closure (normalization) of an affine domain" href="_integral__Closure_lp__Ring_rp.html">integralClosure(Ring)</a> first, since <tt>icFractions</tt> does not have optional arguments.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="integral closure of an ideal or a domain" href="_integral__Closure.html">integralClosure</a> -- integral closure of an ideal or a domain</span>          </li>
+          <li>
+<span><a title="natural map from an affine domain into its integral closure" href="_ic__Map.html">icMap</a> -- natural map from an affine domain into its integral closure</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>icFractions</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;icFractions(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="fractions integral over an affine domain" href="_ic__Fractions.html">icFractions</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

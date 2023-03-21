@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>trackHomotopy(Homotopy,List) -- follow points along a homotopy</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_union_lp__Numerical__Variety_cm__Numerical__Variety_rp.html">next</a> | <a href="_track_lp__List_cm__List_cm__List_rp.html">previous</a> | <a href="_union_lp__Numerical__Variety_cm__Numerical__Variety_rp.html">forward</a> | <a href="_track_lp__List_cm__List_cm__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Numerical Algebraic Geometry" href="index.html">NumericalAlgebraicGeometry</a> :: <a title="follow points along a homotopy" href="_track__Homotopy_lp__Homotopy_cm__List_rp.html">trackHomotopy(Homotopy,List)</a>    </div>
+    <hr/>
+    <div>
+      <h1>trackHomotopy(Homotopy,List) -- follow points along a homotopy</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="follow points along a homotopy" href="_track__Homotopy_lp__Homotopy_cm__List_rp.html">trackHomotopy</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">trackHomotopy(H,S)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>an instance of the type <a title="a homotopy abstract type" href="../../NAGtypes/html/___Homotopy.html">Homotopy</a></span>, </span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, start solutions</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">CorrectorTolerance</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">EndZoneFactor</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><tt>Field</tt><tt> => </tt><tt>...</tt>, <span>default value null</span></span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">InfinityThreshold</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">maxCorrSteps</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">NoOutput</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">numberSuccessesBeforeIncrease</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">Precision</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">Predictor</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">Software</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">stepIncreaseFactor</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">tStep</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">tStepMin</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method implements homotopy continuation: it follows a given list <tt>S</tt> of start solutions along a <a title="a homotopy abstract type" href="../../NAGtypes/html/___Homotopy.html">Homotopy</a> <tt>H</tt>.</p>
+          <p>Option <a title="follow points along a homotopy" href="_track__Homotopy_lp__Homotopy_cm__List_rp.html">Field</a> is unique to this method (the default is <a title="the class of all complex numbers" href="../../Macaulay2Doc/html/___C__C.html">CC</a>, but one can imagine using <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">RR</a>). It specifies which <a title="the class of all families of inexact fields" href="../../Macaulay2Doc/html/___Inexact__Field__Family.html">InexactFieldFamily</a> to use when adaptive precision is requested via <tt>Precision=>infinity</tt>. The rest are a subset of <a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">numerical homotopy tracking options</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Note for developers: the old implementation <a title="track a linear segment homotopy given start and target system" href="_track_lp__List_cm__List_cm__List_rp.html">track</a> eventually will be replaced by a call to <a title="follow points along a homotopy" href="_track__Homotopy_lp__Homotopy_cm__List_rp.html">trackHomotopy</a>. Alternative ways for calling (<tt>H</tt> could be a Sequence (a preSLP), Matrix, etc.) are deprecated and are for debugging purposes only.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="homotopy implemented via straight line programs" href="_gate__Homotopy_lp__Gate__Matrix_cm__Gate__Matrix_cm__Input__Gate_rp.html">GateHomotopy</a> -- homotopy implemented via straight line programs</span>          </li>
+          <li>
+<span><a title="a segment homotopy" href="_segment__Homotopy.html">segmentHomotopy</a> -- a segment homotopy</span>          </li>
+          <li>
+<span><a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="follow points along a homotopy" href="_track__Homotopy_lp__Homotopy_cm__List_rp.html">trackHomotopy(Homotopy,List)</a> -- follow points along a homotopy</span>          </li>
+          <li>
+<tt>&quot;trackHomotopy(Matrix,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;trackHomotopy(Sequence,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

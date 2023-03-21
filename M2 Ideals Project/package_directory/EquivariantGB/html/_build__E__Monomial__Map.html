@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>buildEMonomialMap -- builds an equivariant ring map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_build__E__Ring_lp__Ring_cm__Z__Z_rp.html">next</a> | <a href="index.html">previous</a> | <a href="_build__E__Ring_lp__Ring_cm__Z__Z_rp.html">forward</a> | <a href="_build__E__Ring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computing equivariant Gröbner bases" href="index.html">EquivariantGB</a> :: <a title="builds an equivariant ring map" href="_build__E__Monomial__Map.html">buildEMonomialMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>buildEMonomialMap -- builds an equivariant ring map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">m = buildEMonomialMap</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the target ring with symmetric action, produced by <a title="creates a ring to be used with other functions in the EquivariantGB package" href="_build__E__Ring.html">buildERing</a></span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the source ring with symmetric action, produced by <a title="creates a ring to be used with other functions in the EquivariantGB package" href="_build__E__Ring.html">buildERing</a></span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of monomials in <tt>R</tt>, the images of each of the variable orbit generators of <tt>S</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>m</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, an equivariant monomial map to <tt>R</tt> from <tt>S</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><tt>R</tt> and <tt>S</tt> must be rings created by <a title="creates a ring to be used with other functions in the EquivariantGB package" href="_build__E__Ring.html">buildERing</a>. Each orbit of variables in <tt>S</tt> consists of variables of the form <tt>x_{(i_1,...,i_k)}</tt> for some width <tt>k</tt>.  <tt>L</tt> is a list that for each such orbit gives the desired image of <tt>x_{(0,...,k-1)}</tt>.  The rest of the map is extrapolated from these value.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = buildERing({symbol x, symbol y}, {1,1}, QQ, 3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : vars R
+
+o2 = | x_2 x_1 x_0 y_2 y_1 y_0 |
+
+             1       6
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : n = buildEMonomialMap(R,R,{x_0,x_0^3})
+
+                              3   3   3
+o3 = map (R, R, {x , x , x , x , x , x })
+                  2   1   0   2   1   0
+
+o3 : RingMap R &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : n(x_1^3*y_0)
+
+      3 3
+o4 = x x
+      1 0
+
+o4 : R</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S = buildERing({symbol z}, {2}, QQ, 3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : vars S
+
+o6 = | z_(2,2) z_(2,1) z_(2,0) z_(1,2) z_(1,1) z_(1,0) z_(0,2) z_(0,1)
+     ------------------------------------------------------------------------
+     z_(0,0) |
+
+             1       9
+o6 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : m = buildEMonomialMap(R,S,{x_0^2*y_1})
+
+                  2     2     2     2     2     2     2     2     2
+o7 = map (R, S, {x y , x y , x y , x y , x y , x y , x y , x y , x y })
+                  2 2   2 1   2 0   1 2   1 1   1 0   0 2   0 1   0 0
+
+o7 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : m(z_(1,2))
+
+      2
+o8 = x y
+      1 2
+
+o8 : R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>If a given variable orbit of <tt>S</tt> has <tt>k</tt> indices, then the target monomial list in <tt>L</tt> should only use indices between <tt>0</tt> and <tt>k-1</tt>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes the kernel of an equivariant monomial map" href="_egb__Toric.html">egbToric</a> -- computes the kernel of an equivariant monomial map</span>          </li>
+          <li>
+<span><a title="creates a ring to be used with other functions in the EquivariantGB package" href="_build__E__Ring.html">buildERing</a> -- creates a ring to be used with other functions in the EquivariantGB package</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>buildEMonomialMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;buildEMonomialMap(Ring,Ring,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="builds an equivariant ring map" href="_build__E__Monomial__Map.html">buildEMonomialMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

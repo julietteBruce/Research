@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>writeNmzData(Matrix,String) -- creates an input file for Normaliz with one matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_write__Nmz__Data_lp__List_rp.html">previous</a> | forward | <a href="_write__Nmz__Data_lp__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a title="creates an input file for Normaliz with one matrix" href="_write__Nmz__Data_lp__Matrix_cm__String_rp.html">writeNmzData(Matrix,String)</a>    </div>
+    <hr/>
+    <div>
+      <h1>writeNmzData(Matrix,String) -- creates an input file for Normaliz with one matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="creates an input file for Normaliz" href="_write__Nmz__Data.html">writeNmzData</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">writeNmzData(mat, nmzType)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, whose rows are interpreted according to the type</span>              </li>
+              <li>
+<span><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, the type</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+an input file filename.in is written, using the last filename created                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+This function creates an input file for <tt>Normaliz</tt> with a single input matrix and its type. If no filename has been specified, an error occurs.        <p/>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : nmzFilename=&quot;example&quot;; -- to keep the files</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : mat=matrix({{1,2,3},{4,5,6},{7,8,10}})
+
+o2 = | 1 2 3  |
+     | 4 5 6  |
+     | 7 8 10 |
+
+              3        3
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : writeNmzData(mat,&quot;normalization&quot;)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : get (&quot;example.in&quot;)
+
+o4 = 3
+     3
+     1 2 3 
+     4 5 6 
+     7 8 10 
+     normalization</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : rmNmzFiles();</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a> -- reads an output file of Normaliz containing one matrix</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="creates an input file for Normaliz with one matrix" href="_write__Nmz__Data_lp__Matrix_cm__String_rp.html">writeNmzData(Matrix,String)</a> -- creates an input file for Normaliz with one matrix</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

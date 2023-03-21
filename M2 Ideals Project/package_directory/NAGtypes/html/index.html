@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>NAGtypes -- Common types used in Numerical Algebraic Geometry</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Abstract__Point.html">next</a> | previous | <a href="___Abstract__Point.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> :: <a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a>    </div>
+    <hr/>
+    <div>
+      <h1>NAGtypes -- Common types used in Numerical Algebraic Geometry</h1>
+      <div>
+        <h2>Description</h2>
+        <p>The package defines types used by the package <a title="Numerical Algebraic Geometry" href="../../NumericalAlgebraicGeometry/html/index.html">NumericalAlgebraicGeometry</a> as well as other numerical algebraic geometry packages: e.g., interface packages <a title="a package for Polynomial Homotopy Continuation" href="../../PHCpack/html/index.html">PHCpack</a> and <tt>Bertini::Bertini</tt>.</p>
+        <p>Datatypes: </p>
+        <ul>
+          <li>
+<a title="a type used to store a point in complex space" href="___Abstract__Point.html">Point</a> -- a numerical approximation of a point in a complex space          </li>
+          <li>
+<a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system (usually with complex coefficients)          </li>
+          <li>
+<a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set representing (possibly positive-dimensional) solution components          </li>
+          <li>
+<a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical description of a variety          </li>
+          <li>
+<span><a title="a polynomial vector subspace" href="___Poly__Space.html">PolySpace</a> -- a polynomial vector subspace</span>          </li>
+          <li>
+<span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span>          </li>
+        </ul>
+        <p>See the corresponding documentation nodes for description of provided service functions.</p>
+        <p>We display the objects of all new types showing only partial data. Moreover, if an object is assigned to a global variable, only the name of the variable is shown. Use <a title="examine contents of an object" href="../../Macaulay2Doc/html/_peek.html">peek</a> for more information.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y]	
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal((x^2+y^2+2)*x,(x^2+y^2+2)*y);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : w1 = witnessSet(I , ideal(x-y), {point {{0.999999*ii,0.999999*ii}}, point {{-1.000001*ii,-1.000001*ii}}} )
+
+o3 = w1
+
+o3 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : O = point {{0.,0.}}
+
+o4 = O
+
+o4 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : numericalVariety {witnessSet(I, ideal R, {O}),w1}
+
+o5 = a &quot;numerical variety&quot; with components in
+     dim 0:  [dim=0,deg=1]-*may be reducible*-
+     dim 1:  w1
+
+o5 : NumericalVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : V = oo
+
+o6 = V
+
+o6 : NumericalVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : peek V
+
+o7 = NumericalVariety{0 => {[dim=0,deg=1]-*may be reducible*-}}
+                      1 => {w1}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : peek w1
+
+o8 = WitnessSet{cache => CacheTable{...1...}        }
+                Equations => {-3} | x3+xy2+2x |
+                             {-3} | x2y+y3+2y |
+                Points => {{.999999*ii, .999999*ii}}
+                          {{-ii, -ii}              }
+                Slice => | 1 -1 0 |</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : peek O
+
+o9 = Point{cache => CacheTable{}}
+           Coordinates => {0, 0}</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+Anton Leykin<span> &lt;<a href="mailto:leykin@math.gatech.edu">leykin@math.gatech.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.21</b> of NAGtypes.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/NAGtypes.m2">NAGtypes.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/NAGtypes/">NAGtypes/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span>                  </li>
+                  <li>
+<span><tt>&quot;Point&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span>                  </li>
+                  <li>
+<span><a title="a homotopy abstract type" href="___Homotopy.html">Homotopy</a> -- a homotopy abstract type</span>                  </li>
+                  <li>
+<span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span>                  </li>
+                  <li>
+<span><a title="a homotopy that involves parameters" href="___Parameter__Homotopy.html">ParameterHomotopy</a> -- a homotopy that involves parameters</span>                  </li>
+                  <li>
+<span><a title="a polynomial vector subspace" href="___Poly__Space.html">PolySpace</a> -- a polynomial vector subspace</span>                  </li>
+                  <li>
+<span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span>                  </li>
+                  <li>
+<span><a title="a projective witness set" href="___Projective__Witness__Set.html">ProjectiveWitnessSet</a> -- a projective witness set</span>                  </li>
+                  <li>
+<span><a title="a homotopy obtained from a parameter homotopy by specializing parameters" href="___Specialized__Parameter__Homotopy.html">SpecializedParameterHomotopy</a> -- a homotopy obtained from a parameter homotopy by specializing parameters</span>                  </li>
+                  <li>
+<span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span>                  </li>
+                  <li>
+<span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span>                  </li>
+                  <li>
+<span><tt>&quot;Ambient&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;SlicingVariety&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><tt>&quot;coordinates&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><a title="Union of polynomial spaces" href="_addition.html">addition</a> -- Union of polynomial spaces</span>                  </li>
+                  <li>
+<span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span>                  </li>
+                  <li>
+<span><a title="construct a DualSpace" href="_dual__Space.html">dualSpace</a> -- construct a DualSpace</span>                  </li>
+                  <li>
+<span><a title="evaluate a polynomial system or matrix at a point" href="_evaluate.html">evaluate</a> -- evaluate a polynomial system or matrix at a point</span>                  </li>
+                  <li>
+<span><a title="random linear combinations of equations/generators" href="_general__Equations.html">generalEquations</a> -- random linear combinations of equations/generators</span>                  </li>
+                  <li>
+<span><a title="Is one space contained in the other" href="_is__Contained.html">isContained</a> -- Is one space contained in the other</span>                  </li>
+                  <li>
+<span><a title="compare two points" href="_is__G__E__Q.html">isGEQ</a> -- compare two points</span>                  </li>
+                  <li>
+<span><a title="determine whether a point is real" href="_is__Real__Point.html">isRealPoint</a> -- determine whether a point is real</span>                  </li>
+                  <li>
+<span><a title="affine space as a numerical variety" href="_numerical__Affine__Space.html">numericalAffineSpace</a> -- affine space as a numerical variety</span>                  </li>
+                  <li>
+<span><tt>&quot;numericalVariety&quot;</tt> -- see <span><a title="construct a numerical variety" href="_numerical__Variety_lp__List_rp.html">numericalVariety(List)</a> -- construct a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveNumericalVariety&quot;</tt> -- see <span><a title="construct a numerical variety" href="_numerical__Variety_lp__List_rp.html">numericalVariety(List)</a> -- construct a numerical variety</span></span>                  </li>
+                  <li>
+<span><a title="construct a Point" href="_point.html">point</a> -- construct a Point</span>                  </li>
+                  <li>
+<span><a title="construct a PolySpace" href="_poly__Space.html">polySpace</a> -- construct a PolySpace</span>                  </li>
+                  <li>
+<span><tt>&quot;parameters&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><a title="construct a polynomial system" href="_poly__System.html">polySystem</a> -- construct a polynomial system</span>                  </li>
+                  <li>
+<span><tt>&quot;project&quot;</tt> -- see <span><a title="project a point" href="_project_lp__Abstract__Point_cm__Z__Z_rp.html">project(AbstractPoint,ZZ)</a> -- project a point</span></span>                  </li>
+                  <li>
+<span><a title="construct a ProjectiveWitnessSet" href="_projective__Witness__Set.html">projectiveWitnessSet</a> -- construct a ProjectiveWitnessSet</span>                  </li>
+                  <li>
+<span><a title="select real points" href="_real__Points.html">realPoints</a> -- select real points</span>                  </li>
+                  <li>
+<span><a title="reduce the generators of a space" href="_reduce__Space.html">reduceSpace</a> -- reduce the generators of a space</span>                  </li>
+                  <li>
+<span><a title="residual of a polynomial function at a point" href="_residual.html">residual</a> -- residual of a polynomial function at a point</span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveSliceEquations&quot;</tt> -- see <span><a title="slicing linear functions" href="_slice__Equations_lp__Matrix_cm__Ring_rp.html">sliceEquations(Matrix,Ring)</a> -- slicing linear functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sliceEquations&quot;</tt> -- see <span><a title="slicing linear functions" href="_slice__Equations_lp__Matrix_cm__Ring_rp.html">sliceEquations(Matrix,Ring)</a> -- slicing linear functions</span></span>                  </li>
+                  <li>
+<span><a title="replaces clusters of approximately equal points by single points with multiplicity" href="_solutions__With__Multiplicity.html">solutionsWithMultiplicity</a> -- replaces clusters of approximately equal points by single points with multiplicity</span>                  </li>
+                  <li>
+<span><tt>&quot;sortSolutions&quot;</tt> -- see <span><a title="sort the list of solutions" href="_sort__Solutions_lp__List_rp.html">sortSolutions(List)</a> -- sort the list of solutions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluateJacobian&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numFunctions&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numParameters&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numVariables&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toAffineChart&quot;</tt> -- see <span><a title="coordinates of a point in the projective space in an affine chart" href="_to__Affine__Chart_lp__Z__Z_cm__List_rp.html">toAffineChart(ZZ,List)</a> -- coordinates of a point in the projective space in an affine chart</span></span>                  </li>
+                  <li>
+<span><tt>&quot;equations&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;points&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;slice&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;coordinates(AbstractPoint)&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coordinates(Point)&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matrix(AbstractPoint)&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(AbstractPoint)&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;status(AbstractPoint)&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;addition(PolySpace,PolySpace)&quot;</tt> -- see <span><a title="Union of polynomial spaces" href="_addition.html">addition</a> -- Union of polynomial spaces</span></span>                  </li>
+                  <li>
+<span><tt>&quot;AbstractPoint == AbstractPoint&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(AbstractPoint,AbstractPoint)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(BasicList,BasicList)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(CC,CC)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(List,List)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(Matrix,Matrix)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(MutableMatrix,MutableMatrix)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areEqual(Number,Number)&quot;</tt> -- see <span><a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> -- determine if solutions are equal</span></span>                  </li>
+                  <li>
+<span><a title="approximate equality of dual spaces" href="_are__Equal_lp__Dual__Space_cm__Dual__Space_rp.html">areEqual(DualSpace,DualSpace)</a> -- approximate equality of dual spaces</span>                  </li>
+                  <li>
+<span><a title="approximate equality of subspaces spanned by polynomials" href="_are__Equal_lp__Poly__Space_cm__Poly__Space_rp.html">areEqual(PolySpace,PolySpace)</a> -- approximate equality of subspaces spanned by polynomials</span>                  </li>
+                  <li>
+<span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span>                  </li>
+                  <li>
+<span><tt>&quot;components(NumericalVariety,ZZ)&quot;</tt> -- see <span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;components(NumericalVariety,ZZ,InfiniteNumber)&quot;</tt> -- see <span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;components(NumericalVariety,ZZ,ZZ)&quot;</tt> -- see <span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(DualSpace)&quot;</tt> -- see <span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generators(DualSpace)&quot;</tt> -- see <span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(DualSpace)&quot;</tt> -- see <span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;point(DualSpace)&quot;</tt> -- see <span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ring(DualSpace)&quot;</tt> -- see <span><a title="a dual functional vector subspace" href="___Dual__Space.html">DualSpace</a> -- a dual functional vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dualSpace(DualSpace)&quot;</tt> -- see <span><a title="construct a DualSpace" href="_dual__Space.html">dualSpace</a> -- construct a DualSpace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dualSpace(Matrix,AbstractPoint)&quot;</tt> -- see <span><a title="construct a DualSpace" href="_dual__Space.html">dualSpace</a> -- construct a DualSpace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dualSpace(PolySpace,AbstractPoint)&quot;</tt> -- see <span><a title="construct a DualSpace" href="_dual__Space.html">dualSpace</a> -- construct a DualSpace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(Matrix,AbstractPoint)&quot;</tt> -- see <span><a title="evaluate a polynomial system or matrix at a point" href="_evaluate.html">evaluate</a> -- evaluate a polynomial system or matrix at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(Matrix,Matrix)&quot;</tt> -- see <span><a title="evaluate a polynomial system or matrix at a point" href="_evaluate.html">evaluate</a> -- evaluate a polynomial system or matrix at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(PolySystem,Matrix)&quot;</tt> -- see <span><a title="evaluate a polynomial system or matrix at a point" href="_evaluate.html">evaluate</a> -- evaluate a polynomial system or matrix at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluateJacobian(PolySystem,AbstractPoint)&quot;</tt> -- see <span><a title="evaluate a polynomial system or matrix at a point" href="_evaluate.html">evaluate</a> -- evaluate a polynomial system or matrix at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generalEquations(WitnessSet)&quot;</tt> -- see <span><a title="random linear combinations of equations/generators" href="_general__Equations.html">generalEquations</a> -- random linear combinations of equations/generators</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generalEquations(ZZ,Ideal)&quot;</tt> -- see <span><a title="random linear combinations of equations/generators" href="_general__Equations.html">generalEquations</a> -- random linear combinations of equations/generators</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generalEquations(ZZ,List)&quot;</tt> -- see <span><a title="random linear combinations of equations/generators" href="_general__Equations.html">generalEquations</a> -- random linear combinations of equations/generators</span></span>                  </li>
+                  <li>
+<span><a title="homogenize a polynomial system" href="_homogenize_lp__Poly__System_cm__Ring_cm__Ring__Element_rp.html">homogenize(PolySystem,Ring,RingElement)</a> -- homogenize a polynomial system</span>                  </li>
+                  <li>
+<span><a title="Intersection of polynomial spaces" href="_intersection_lp__Poly__Space_cm__Poly__Space_rp.html">intersection(PolySpace,PolySpace)</a> -- Intersection of polynomial spaces</span>                  </li>
+                  <li>
+<span><tt>&quot;isContained(DualSpace,DualSpace)&quot;</tt> -- see <span><a title="Is one space contained in the other" href="_is__Contained.html">isContained</a> -- Is one space contained in the other</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isContained(PolySpace,PolySpace)&quot;</tt> -- see <span><a title="Is one space contained in the other" href="_is__Contained.html">isContained</a> -- Is one space contained in the other</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isGEQ(AbstractPoint,AbstractPoint)&quot;</tt> -- see <span><a title="compare two points" href="_is__G__E__Q.html">isGEQ</a> -- compare two points</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isGEQ(List,List)&quot;</tt> -- see <span><a title="compare two points" href="_is__G__E__Q.html">isGEQ</a> -- compare two points</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isRealPoint(AbstractPoint)&quot;</tt> -- see <span><a title="determine whether a point is real" href="_is__Real__Point.html">isRealPoint</a> -- determine whether a point is real</span></span>                  </li>
+                  <li>
+<span><a title="p-norm of the point" href="_norm_lp__Thing_cm__Abstract__Point_rp.html">norm(Thing,AbstractPoint)</a> -- p-norm of the point</span>                  </li>
+                  <li>
+<span><tt>&quot;numericalAffineSpace(PolynomialRing)&quot;</tt> -- see <span><a title="affine space as a numerical variety" href="_numerical__Affine__Space.html">numericalAffineSpace</a> -- affine space as a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;check(NumericalVariety)&quot;</tt> -- see <span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degree(NumericalVariety)&quot;</tt> -- see <span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(NumericalVariety)&quot;</tt> -- see <span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(NumericalVariety)&quot;</tt> -- see <span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span></span>                  </li>
+                  <li>
+<span><a title="construct a numerical variety" href="_numerical__Variety_lp__List_rp.html">numericalVariety(List)</a> -- construct a numerical variety</span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveNumericalVariety(List)&quot;</tt> -- see <span><a title="construct a numerical variety" href="_numerical__Variety_lp__List_rp.html">numericalVariety(List)</a> -- construct a numerical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;point(AbstractPoint)&quot;</tt> -- see <span><a title="construct a Point" href="_point.html">point</a> -- construct a Point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;point(List)&quot;</tt> -- see <span><a title="construct a Point" href="_point.html">point</a> -- construct a Point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;point(List,CacheTable)&quot;</tt> -- see <span><a title="construct a Point" href="_point.html">point</a> -- construct a Point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;point(Matrix)&quot;</tt> -- see <span><a title="construct a Point" href="_point.html">point</a> -- construct a Point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(PolySpace)&quot;</tt> -- see <span><a title="a polynomial vector subspace" href="___Poly__Space.html">PolySpace</a> -- a polynomial vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generators(PolySpace)&quot;</tt> -- see <span><a title="a polynomial vector subspace" href="___Poly__Space.html">PolySpace</a> -- a polynomial vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(PolySpace)&quot;</tt> -- see <span><a title="a polynomial vector subspace" href="___Poly__Space.html">PolySpace</a> -- a polynomial vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ring(PolySpace)&quot;</tt> -- see <span><a title="a polynomial vector subspace" href="___Poly__Space.html">PolySpace</a> -- a polynomial vector subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;polySpace(Matrix)&quot;</tt> -- see <span><a title="construct a PolySpace" href="_poly__Space.html">polySpace</a> -- construct a PolySpace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;polySpace(PolySpace)&quot;</tt> -- see <span><a title="construct a PolySpace" href="_poly__Space.html">polySpace</a> -- construct a PolySpace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;equations(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ideal(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isHomogeneous(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jacobian(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numFunctions(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numParameters(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numVariables(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;parameters(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ring(PolySystem)&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;polySystem(Ideal)&quot;</tt> -- see <span><a title="construct a polynomial system" href="_poly__System.html">polySystem</a> -- construct a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;polySystem(List)&quot;</tt> -- see <span><a title="construct a polynomial system" href="_poly__System.html">polySystem</a> -- construct a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;polySystem(Matrix)&quot;</tt> -- see <span><a title="construct a polynomial system" href="_poly__System.html">polySystem</a> -- construct a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;polySystem(PolySystem)&quot;</tt> -- see <span><a title="construct a polynomial system" href="_poly__System.html">polySystem</a> -- construct a polynomial system</span></span>                  </li>
+                  <li>
+<span><a title="project a point" href="_project_lp__Abstract__Point_cm__Z__Z_rp.html">project(AbstractPoint,ZZ)</a> -- project a point</span>                  </li>
+                  <li>
+<span><tt>&quot;project(Point,ZZ)&quot;</tt> -- see <span><a title="project a point" href="_project_lp__Abstract__Point_cm__Z__Z_rp.html">project(AbstractPoint,ZZ)</a> -- project a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveWitnessSet(Ideal,Matrix,Matrix,List)&quot;</tt> -- see <span><a title="construct a ProjectiveWitnessSet" href="_projective__Witness__Set.html">projectiveWitnessSet</a> -- construct a ProjectiveWitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;random(DualSpace)&quot;</tt> -- see <span><a title="random element of a subspace" href="_random_lp__Poly__Space_rp.html">random(PolySpace)</a> -- random element of a subspace</span></span>                  </li>
+                  <li>
+<span><a title="random element of a subspace" href="_random_lp__Poly__Space_rp.html">random(PolySpace)</a> -- random element of a subspace</span>                  </li>
+                  <li>
+<span><tt>&quot;random(ZZ,DualSpace)&quot;</tt> -- see <span><a title="random element of a subspace" href="_random_lp__Poly__Space_rp.html">random(PolySpace)</a> -- random element of a subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;random(ZZ,PolySpace)&quot;</tt> -- see <span><a title="random element of a subspace" href="_random_lp__Poly__Space_rp.html">random(PolySpace)</a> -- random element of a subspace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;realPoints(List)&quot;</tt> -- see <span><a title="select real points" href="_real__Points.html">realPoints</a> -- select real points</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reduceSpace(DualSpace)&quot;</tt> -- see <span><a title="reduce the generators of a space" href="_reduce__Space.html">reduceSpace</a> -- reduce the generators of a space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reduceSpace(PolySpace)&quot;</tt> -- see <span><a title="reduce the generators of a space" href="_reduce__Space.html">reduceSpace</a> -- reduce the generators of a space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;residual(List,Point)&quot;</tt> -- see <span><a title="residual of a polynomial function at a point" href="_residual.html">residual</a> -- residual of a polynomial function at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;residual(Matrix,Matrix)&quot;</tt> -- see <span><a title="residual of a polynomial function at a point" href="_residual.html">residual</a> -- residual of a polynomial function at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;residual(System,AbstractPoint)&quot;</tt> -- see <span><a title="residual of a polynomial function at a point" href="_residual.html">residual</a> -- residual of a polynomial function at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;residual(System,Point)&quot;</tt> -- see <span><a title="residual of a polynomial function at a point" href="_residual.html">residual</a> -- residual of a polynomial function at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveSliceEquations(Matrix,Ring)&quot;</tt> -- see <span><a title="slicing linear functions" href="_slice__Equations_lp__Matrix_cm__Ring_rp.html">sliceEquations(Matrix,Ring)</a> -- slicing linear functions</span></span>                  </li>
+                  <li>
+<span><a title="slicing linear functions" href="_slice__Equations_lp__Matrix_cm__Ring_rp.html">sliceEquations(Matrix,Ring)</a> -- slicing linear functions</span>                  </li>
+                  <li>
+<span><tt>&quot;solutionsWithMultiplicity(List)&quot;</tt> -- see <span><a title="replaces clusters of approximately equal points by single points with multiplicity" href="_solutions__With__Multiplicity.html">solutionsWithMultiplicity</a> -- replaces clusters of approximately equal points by single points with multiplicity</span></span>                  </li>
+                  <li>
+<span><a title="sort the list of solutions" href="_sort__Solutions_lp__List_rp.html">sortSolutions(List)</a> -- sort the list of solutions</span>                  </li>
+                  <li>
+<span><a title="substitute a ring in a polynomial system" href="_substitute_lp__Poly__System_cm__Ring_rp.html">substitute(PolySystem,Ring)</a> -- substitute a ring in a polynomial system</span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(System,AbstractPoint)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(System,AbstractPoint,AbstractPoint)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(System,Matrix)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(System,Matrix,Matrix)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluateJacobian(System,AbstractPoint)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluateJacobian(System,AbstractPoint,AbstractPoint)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluateJacobian(System,Matrix)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evaluateJacobian(System,Matrix,Matrix)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numFunctions(System)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numParameters(System)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numVariables(System)&quot;</tt> -- see <span><a title="a system of functions" href="___System.html">System</a> -- a system of functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;texMath(AbstractPoint)&quot;</tt> -- see <span><a title="convert to TeX math format" href="_tex__Math_lp__Poly__Space_rp.html">texMath(PolySpace)</a> -- convert to TeX math format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;texMath(DualSpace)&quot;</tt> -- see <span><a title="convert to TeX math format" href="_tex__Math_lp__Poly__Space_rp.html">texMath(PolySpace)</a> -- convert to TeX math format</span></span>                  </li>
+                  <li>
+<span><a title="convert to TeX math format" href="_tex__Math_lp__Poly__Space_rp.html">texMath(PolySpace)</a> -- convert to TeX math format</span>                  </li>
+                  <li>
+<span><tt>&quot;texMath(PolySystem)&quot;</tt> -- see <span><a title="convert to TeX math format" href="_tex__Math_lp__Poly__Space_rp.html">texMath(PolySpace)</a> -- convert to TeX math format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;texMath(WitnessSet)&quot;</tt> -- see <span><a title="convert to TeX math format" href="_tex__Math_lp__Poly__Space_rp.html">texMath(PolySpace)</a> -- convert to TeX math format</span></span>                  </li>
+                  <li>
+<span><a title="coordinates of a point in the projective space in an affine chart" href="_to__Affine__Chart_lp__Z__Z_cm__List_rp.html">toAffineChart(ZZ,List)</a> -- coordinates of a point in the projective space in an affine chart</span>                  </li>
+                  <li>
+<span><tt>&quot;codim(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degree(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;equations(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ideal(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;points(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ring(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;slice(WitnessSet)&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;witnessSet(Ideal,Ideal,List)&quot;</tt> -- see <span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;witnessSet(Ideal,Matrix,List)&quot;</tt> -- see <span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;witnessSet(PolySystem,Matrix,List)&quot;</tt> -- see <span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;witnessSet(PolySystem,PolySystem,List)&quot;</tt> -- see <span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ambient(SlicingVariety)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ambient(WSet)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;codim(SlicingVariety)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;codim(WSet)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degree(WSet)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(Ambient)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(SlicingVariety)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dim(WSet)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;map(SlicingVariety)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(Ambient)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(SlicingVariety)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(WSet)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                  <li>
+<span><tt>&quot;points(WSet)&quot;</tt> -- see <span><a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> -- (under construction!) new types and methods needed to generalize WitnessSet</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><tt>&quot;ConditionNumber&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Coordinates&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DecreasePrecision&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DeflationNumber&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ErrorBoundEstimate&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;IncreasePrecision&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Infinity&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;LastT&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MaxPrecision&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MinStepFailure&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Multiplicity&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;NumberOfSteps&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;NumericalRankFailure&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Origin&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RefinementFailure&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Regular&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Singular&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;SolutionStatus&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;WindingNumber&quot;</tt> -- see <span><a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a> -- a type used to store a point in complex space</span></span>                  </li>
+                  <li>
+<span><a title="p in the p-norm" href="___Norm.html">Norm</a> -- p in the p-norm</span>                  </li>
+                  <li>
+<span><a title="a collection of parameters" href="___Parameters.html">Parameters</a> -- a collection of parameters</span>                  </li>
+                  <li>
+<span><tt>&quot;Reduced&quot;</tt> -- see <span><a title="construct a PolySpace" href="_poly__Space.html">polySpace</a> -- construct a PolySpace</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ContinuationParameter&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;NumberOfPolys&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;NumberOfVariables&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolyMap&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;SpecializationRing&quot;</tt> -- see <span><a title="a polynomial system" href="___Poly__System.html">PolySystem</a> -- a polynomial system</span></span>                  </li>
+                  <li>
+<span><a title="a projective numerical variety" href="___Projective__Numerical__Variety.html">ProjectiveNumericalVariety</a> -- a projective numerical variety</span>                  </li>
+                  <li>
+<span><tt>&quot;AffineChart&quot;</tt> -- see <span><a title="a projective witness set" href="___Projective__Witness__Set.html">ProjectiveWitnessSet</a> -- a projective witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Equations&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;IsIrreducible&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Points&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ProjectionDimension&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Slice&quot;</tt> -- see <span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

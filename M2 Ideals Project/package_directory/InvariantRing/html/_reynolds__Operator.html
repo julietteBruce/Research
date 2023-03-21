@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>reynoldsOperator -- the image of a polynomial under the Reynolds operator</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ring_lp__Group__Action_rp.html">next</a> | <a href="_relations_lp__Finite__Group__Action_rp.html">previous</a> | <a href="_ring_lp__Group__Action_rp.html">forward</a> | <a href="_relations_lp__Finite__Group__Action_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="invariants of group actions" href="index.html">InvariantRing</a> :: <a title="the image of a polynomial under the Reynolds operator" href="_reynolds__Operator.html">reynoldsOperator</a>    </div>
+    <hr/>
+    <div>
+      <h1>reynoldsOperator -- the image of a polynomial under the Reynolds operator</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">reynoldsOperator(f, G), reynoldsOperator(f, D)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial in the polynomial ring of the given group action</span>              </li>
+              <li>
+<span><tt>G</tt>, <span>an instance of the type <a title="the class of all finite group actions" href="___Finite__Group__Action.html">FiniteGroupAction</a></span></span>              </li>
+              <li>
+<span><tt>D</tt>, <span>an instance of the type <a title="the class of all diagonal actions" href="___Diagonal__Action.html">DiagonalAction</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the invariant polynomial which is the image of the given polynomial under the Reynolds operator of the given finite group action or the given torus action</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+This function is provided by the package <a title="invariants of group actions" href="index.html">InvariantRing</a>.         <p>The following example computes the image of a polynomial under the Reynolds operator for a cyclic permutation of the variables.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/3[x_0..x_6]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : P = permutationMatrix toString 2345671
+
+o2 = | 0 0 0 0 0 0 1 |
+     | 1 0 0 0 0 0 0 |
+     | 0 1 0 0 0 0 0 |
+     | 0 0 1 0 0 0 0 |
+     | 0 0 0 1 0 0 0 |
+     | 0 0 0 0 1 0 0 |
+     | 0 0 0 0 0 1 0 |
+
+              7        7
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C7 = finiteAction(P, R)
+
+o3 = R &lt;- {| 0 0 0 0 0 0 1 |}
+           | 1 0 0 0 0 0 0 |
+           | 0 1 0 0 0 0 0 |
+           | 0 0 1 0 0 0 0 |
+           | 0 0 0 1 0 0 0 |
+           | 0 0 0 0 1 0 0 |
+           | 0 0 0 0 0 1 0 |
+
+o3 : FiniteGroupAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : reynoldsOperator(x_0*x_1*x_2^2, C7)
+
+          2        2        2        2      2      2            2
+o4 = x x x  + x x x  + x x x  + x x x  + x x x  + x x x  + x x x
+      0 1 2    1 2 3    2 3 4    3 4 5    0 1 6    0 5 6    4 5 6
+
+o4 : R</code></pre>
+</td>          </tr>
+        </table>
+        <p>Here is an example computing the image of a polynomial under the Reynolds operator for a two-dimensional torus acting on polynomial ring in four variables:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = QQ[x_1..x_4]
+
+o5 = R
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : W = matrix{{0,1,-1,1}, {1,0,-1,-1}}
+
+o6 = | 0 1 -1 1  |
+     | 1 0 -1 -1 |
+
+              2        4
+o6 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : T = diagonalAction(W, R)
+
+             * 2
+o7 = R &lt;- (QQ )  via 
+
+     | 0 1 -1 1  |
+     | 1 0 -1 -1 |
+
+o7 : DiagonalAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : reynoldsOperator(x_1*x_2*x_3 + x_1*x_2*x_4, T)
+
+o8 = x x x
+      1 2 3
+
+o8 : R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>reynoldsOperator</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;reynoldsOperator(RingElement,DiagonalAction)&quot;</tt>          </li>
+          <li>
+<tt>&quot;reynoldsOperator(RingElement,FiniteGroupAction)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the image of a polynomial under the Reynolds operator" href="_reynolds__Operator.html">reynoldsOperator</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

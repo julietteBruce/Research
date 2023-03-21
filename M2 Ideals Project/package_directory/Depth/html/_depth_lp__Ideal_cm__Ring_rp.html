@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>depth(Ideal,Ring) -- computes the depth of a ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_inhomogeneous__System__Of__Parameters.html">next</a> | <a href="index.html">previous</a> | <a href="_inhomogeneous__System__Of__Parameters.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Finds the depth of a module or ideal, and systems of parameters in an ideal" href="index.html">Depth</a> :: <a title="computes the depth of a ring" href="_depth_lp__Ideal_cm__Ring_rp.html">depth(Ideal,Ring)</a>    </div>
+    <hr/>
+    <div>
+      <h1>depth(Ideal,Ring) -- computes the depth of a ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="depth of a net" href="../../Macaulay2Doc/html/_depth.html">depth</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">d = depth(I,M)</code></dd>
+              <dd><code class="language-macaulay2">d = depth(M)</code></dd>
+              <dd><code class="language-macaulay2">d = depth(I,I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, or Module or Ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the I-depth of a ring, module, or ideal</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The function depth(I,M) computes the I-depth of a ring, module, or ideal. In the most general setting, it does this by computing Ext^i(A^1/I,M) for an A-Module M, and noting where it does not vanish. If the ring in question is a polynomial ring over a field, then it merely computes the codimension of I.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ[x_1..x_3]/ideal(x_1^2, x_1*x_2)
+
+o1 = A
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : depth A
+
+o2 = 1</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If I contains a unit, then depth(I,A) outputs infinity.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : depth(ideal(1_A),A)
+
+o3 = infinity
+
+o3 : InfiniteNumber</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This symbol is provided by the package Depth.m2</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<tt>&quot;depth(Ideal,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;depth(Ideal,Module)&quot;</tt>          </li>
+          <li>
+<span><a title="computes the depth of a ring" href="_depth_lp__Ideal_cm__Ring_rp.html">depth(Ideal,Ring)</a> -- computes the depth of a ring</span>          </li>
+          <li>
+<tt>&quot;depth(Module)&quot;</tt>          </li>
+          <li>
+<tt>&quot;depth(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

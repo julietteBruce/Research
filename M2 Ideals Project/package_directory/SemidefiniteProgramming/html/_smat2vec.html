@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>smat2vec -- vectorization of a symmetric matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Solver.html">next</a> | <a href="___S__D__P.html">previous</a> | <a href="___Solver.html">forward</a> | <a href="___S__D__P.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for solving semidefinite programs" href="index.html">SemidefiniteProgramming</a> :: <a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a>    </div>
+    <hr/>
+    <div>
+      <h1>smat2vec -- vectorization of a symmetric matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">v = smat2vec A</code></dd>
+              <dd><code class="language-macaulay2">A = vec2smat v</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, symmetric</span>              </li>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a vector</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Scaling</tt><tt> => </tt><tt>...</tt>, <span>default value 1</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The method <tt>smat2vec</tt> obtains the vectorization of a symmetric matrix. The method <tt>vec2smat</tt> performs the reverse operation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = matrix(QQ, {{1,2,3,4},{2,5,6,7},{3,6,8,9},{4,7,9,10}})
+
+o1 = | 1 2 3 4  |
+     | 2 5 6 7  |
+     | 3 6 8 9  |
+     | 4 7 9 10 |
+
+              4        4
+o1 : Matrix QQ  &lt;--- QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : v = smat2vec A
+
+o2 = | 1  |
+     | 2  |
+     | 3  |
+     | 4  |
+     | 5  |
+     | 6  |
+     | 7  |
+     | 8  |
+     | 9  |
+     | 10 |
+
+              10        1
+o2 : Matrix QQ   &lt;--- QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : vec2smat v
+
+o3 = | 1 2 3 4  |
+     | 2 5 6 7  |
+     | 3 6 8 9  |
+     | 4 7 9 10 |
+
+              4        4
+o3 : Matrix QQ  &lt;--- QQ</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The scaling of the off-diagonal entries can be controlled with the optional parameter.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : smat2vec(A,Scaling=>2)
+
+o4 = | 1  |
+     | 4  |
+     | 6  |
+     | 8  |
+     | 5  |
+     | 12 |
+     | 14 |
+     | 8  |
+     | 18 |
+     | 10 |
+
+              10        1
+o4 : Matrix QQ   &lt;--- QQ</code></pre>
+</td>          </tr>
+        </table>
+        <pre></pre>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>smat2vec</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;smat2vec(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;smat2vec(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

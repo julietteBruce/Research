@@ -1,0 +1,154 @@
+-- -*- M2-comint -*- hash: -1437882548
+
+i1 : N = reactionNetwork "A <--> 2B, A + C <--> D, B + E --> A + C, D --> B+E"
+
+o1 = A-->2B
+     2B-->A
+     A+C-->D
+     D-->A+C
+     D-->B+E
+     B+E-->A+C
+
+o1 : ReactionNetwork
+
+i2 : R = createRing(N, QQ)
+
+o2 = R
+
+o2 : PolynomialRing
+
+i3 : SS = flatten entries steadyStateEquations N
+
+        2                                                                   
+o3 = {xx kk       - xx xx kk       + xx xx kk       - xx kk       + xx kk   
+        B  {1, 0}     A  C  {2, 3}     B  E  {4, 2}     A  {0, 1}     D  {3,
+     ------------------------------------------------------------------------
+              2
+       , - 2xx kk       - xx xx kk       + 2xx kk       + xx kk      , -
+     2}       B  {1, 0}     B  E  {4, 2}      A  {0, 1}     D  {3, 4}   
+     ------------------------------------------------------------------------
+     xx xx kk       + xx xx kk       + xx kk      , xx xx kk       - xx kk   
+       A  C  {2, 3}     B  E  {4, 2}     D  {3, 2}    A  C  {2, 3}     D  {3,
+     ------------------------------------------------------------------------
+        - xx kk      , - xx xx kk       + xx kk      }
+     2}     D  {3, 4}      B  E  {4, 2}     D  {3, 4}
+
+o3 : List
+
+i4 : K = toList(apply(0..length N.ReactionRates-1, i-> random(QQ)))
+
+      9  1  9  1     3
+o4 = {-, -, -, -, 1, -}
+      2  2  4  2     4
+
+o4 : List
+
+i5 : Rr = toList(apply(0..length N.ReactionRates-1, i->
+             value(N.ReactionRates#i)))
+
+o5 = {kk      , kk      , kk      , kk      , kk      , kk      }
+        {0, 1}    {1, 0}    {2, 3}    {3, 2}    {3, 4}    {4, 2}
+
+o5 : List
+
+i6 : P = toList(apply(0..length Rr-1, i-> Rr#i=>sub(K#i,R)))
+
+                  9              1              9              1             
+o6 = {kk       => -, kk       => -, kk       => -, kk       => -, kk       =>
+        {0, 1}    2    {1, 0}    2    {2, 3}    4    {3, 2}    2    {3, 4}   
+     ------------------------------------------------------------------------
+                    3
+     1, kk       => -}
+          {4, 2}    4
+
+o6 : List
+
+i7 : F' = toList apply(0..length SS-1, i-> sub(SS#i,P))
+
+      1  2   9         3         9      1         2   3                      
+o7 = {-xx  - -xx xx  + -xx xx  - -xx  + -xx , - xx  - -xx xx  + 9xx  + xx , -
+      2  B   4  A  C   4  B  E   2  A   2  D      B   4  B  E      A     D   
+     ------------------------------------------------------------------------
+     9         3         1     9         3       3
+     -xx xx  + -xx xx  + -xx , -xx xx  - -xx , - -xx xx  + xx }
+     4  A  C   4  B  E   2  D  4  A  C   2  D    4  B  E     D
+
+o7 : List
+
+i8 : C = conservationEquations N
+
+o8 = {2xx  + xx  - xx  + xx  - 2cc  - cc  + cc  - cc , - 2xx  - xx  + 2xx  +
+         A     B     C     D      A     B     C     D       A     B      C  
+     ------------------------------------------------------------------------
+     xx  + 2cc  + cc  - 2cc  - cc }
+       E      A     B      C     E
+
+o8 : List
+
+i9 : L = {0,0,0,0,0}
+
+o9 = {0, 0, 0, 0, 0}
+
+o9 : List
+
+i10 : Iv = toList(apply(0..length N.InitialValues-1, i->
+              value(N.InitialValues#i)))
+
+o10 = {cc , cc , cc , cc , cc }
+         A    B    C    D    E
+
+o10 : List
+
+i11 : S = toList(apply(0..length Iv-1, i-> Iv#i=>L#i))
+
+o11 = {cc  => 0, cc  => 0, cc  => 0, cc  => 0, cc  => 0}
+         A         B         C         D         E
+
+o11 : List
+
+i12 : F'' = toList apply(0..length C-1, i-> sub(C#i,S))
+
+o12 = {2xx  + xx  - xx  + xx , - 2xx  - xx  + 2xx  + xx }
+          A     B     C     D       A     B      C     E
+
+o12 : List
+
+i13 : F = join(F',F'')
+
+       1  2   9         3         9      1         2   3                    
+o13 = {-xx  - -xx xx  + -xx xx  - -xx  + -xx , - xx  - -xx xx  + 9xx  + xx ,
+       2  B   4  A  C   4  B  E   2  A   2  D      B   4  B  E      A     D 
+      -----------------------------------------------------------------------
+        9         3         1     9         3       3
+      - -xx xx  + -xx xx  + -xx , -xx xx  - -xx , - -xx xx  + xx , 2xx  + xx 
+        4  A  C   4  B  E   2  D  4  A  C   2  D    4  B  E     D     A     B
+      -----------------------------------------------------------------------
+      - xx  + xx , - 2xx  - xx  + 2xx  + xx }
+          C     D       A     B      C     E
+
+o13 : List
+
+i14 : I = ideal F
+
+             1  2   9         3         9      1         2   3               
+o14 = ideal (-xx  - -xx xx  + -xx xx  - -xx  + -xx , - xx  - -xx xx  + 9xx  +
+             2  B   4  A  C   4  B  E   2  A   2  D      B   4  B  E      A  
+      -----------------------------------------------------------------------
+             9         3         1     9         3       3
+      xx , - -xx xx  + -xx xx  + -xx , -xx xx  - -xx , - -xx xx  + xx , 2xx 
+        D    4  A  C   4  B  E   2  D  4  A  C   2  D    4  B  E     D     A
+      -----------------------------------------------------------------------
+      + xx  - xx  + xx , - 2xx  - xx  + 2xx  + xx )
+          B     C     D       A     B      C     E
+
+o14 : Ideal of R
+
+i15 : degree I
+
+o15 = 5
+
+i16 : dim I
+
+o16 = 11
+
+i17 : 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RatSols -- rational solutions of a holonomic system</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Reduced__B.html">next</a> | <a href="___Rat__Ext_lp..._cm__Strategy_eq_gt..._rp.html">previous</a> | <a href="___Reduced__B.html">forward</a> | <a href="___Rat__Ext_lp..._cm__Strategy_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a>    </div>
+    <hr/>
+    <div>
+      <h1>RatSols -- rational solutions of a holonomic system</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">RatSols I</code></dd>
+              <dd><code class="language-macaulay2">RatSols(I,f)</code></dd>
+              <dd><code class="language-macaulay2">RatSols(I,f,w)</code></dd>
+              <dd><code class="language-macaulay2">RatSols(I,ff)</code></dd>
+              <dd><code class="language-macaulay2">RatSols(I,ff,w)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, holonomic ideal in the Weyl algebra <em>D</em></span>              </li>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial</span>              </li>
+              <li>
+<span><tt>ff</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of polynomials</span>              </li>
+              <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a weight vector</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a basis of the rational solutions of <em>I</em> with poles along <em>f</em> or along the polynomials in <tt>ff</tt> using <em>w</em> for Groebner deformations</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The rational solutions of a holonomic system form a finite-dimensional vector space. The only possibilities for the poles of a rational solution are the codimension one components of the singular locus. An algorithm to compute rational solutions is based on Gr\&quot;obner deformations and works for ideals $I$ of PDE's - see the paper <em>Polynomial and rational solutions of a holonomic system</em> by Oaku, Takayama and Tsai (2000).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : makeWA(QQ[x])
+
+o1 = QQ[x, dx]
+
+o1 : PolynomialRing, 1 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal((x+1)*dx+5)
+
+o2 = ideal(x*dx + dx + 5)
+
+o2 : Ideal of QQ[x, dx]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : RatSols I
+
+                     1
+o3 = {-------------------------------}
+       5     4      3      2
+      x  + 5x  + 10x  + 10x  + 5x + 1
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The most efficient method to find rational solutions of a system of differential equations is to find the singular locus, then try to find its irreducible factors.  With these, call RatSols(I, ff, w), where w should be generic enough so that the PolySols routine will not complain of a non-generic weight vector.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span>          </li>
+          <li>
+<span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span>          </li>
+          <li>
+<span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>RatSols</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;RatSols(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;RatSols(Ideal,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;RatSols(Ideal,List,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;RatSols(Ideal,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;RatSols(Ideal,RingElement,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

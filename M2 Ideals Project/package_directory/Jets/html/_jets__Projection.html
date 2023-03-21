@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>jetsProjection -- canonical map between jets rings</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_jets__Radical.html">next</a> | <a href="_jets.html">previous</a> | <a href="_jets__Radical.html">forward</a> | <a href="___J__J.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="compute jets of various algebraic, geometric and combinatorial objects" href="index.html">Jets</a> > <a title="canonical map between jets rings" href="_jets__Projection.html">jetsProjection</a>    </div>
+    <hr/>
+    <div>
+      <h1>jetsProjection -- canonical map between jets rings</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">jets(t,s,R)</code></dd>
+              <dd><code class="language-macaulay2">jets(t,s,Q)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>t</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>s</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, or a quotient of</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Option for jets" href="_jets_lp..._cm__Projective_eq_gt..._rp.html">Projective</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option for jets</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, between jets orders</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function is provided by the package <a title="compute jets of various algebraic, geometric and combinatorial objects" href="index.html">Jets</a>.  Generates an inclusion map from the order <tt>s</tt> into the order <tt>t</tt> jets of a (quotient of a) polynomial ring. Throws an error if <tt>t&lt;s</tt>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = jetsProjection(5,2,R)
+
+o2 = map (QQ[x0, y0][x1, y1][x2, y2][x3, y3][x4, y4][x5, y5], QQ[x0, y0][x1, y1][x2, y2], {x2, y2, x1, y1, x0, y0})
+
+o2 : RingMap QQ[x0, y0][x1, y1][x2, y2][x3, y3][x4, y4][x5, y5] &lt;--- QQ[x0, y0][x1, y1][x2, y2]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : use jets(2,R)
+
+o3 = QQ[x0, y0][x1, y1][x2, y2]
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : p = (x2 + 2*x1*y1 + x0*y2^2)
+
+          2
+o4 = x0*y2  + x2 + 2x1*y1
+
+o4 : QQ[x0, y0][x1, y1][x2, y2]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : f p
+
+          2
+o5 = x0*y2  + x2 + 2x1*y1
+
+o5 : QQ[x0, y0][x1, y1][x2, y2][x3, y3][x4, y4][x5, y5]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>jetsProjection</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;jetsProjection(ZZ,ZZ,PolynomialRing)&quot;</tt>          </li>
+          <li>
+<tt>&quot;jetsProjection(ZZ,ZZ,QuotientRing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="canonical map between jets rings" href="_jets__Projection.html">jetsProjection</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isMassEliminate -- determines whether the Boij-Soederberg decomposition algorithm eliminates multiple Betti numbers at the same time</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Pure_lp__Betti__Tally_rp.html">next</a> | <a href="_highest__Degrees_lp__Betti__Tally_rp.html">previous</a> | <a href="_is__Pure_lp__Betti__Tally_rp.html">forward</a> | <a href="_highest__Degrees_lp__Betti__Tally_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Betti diagram routines" href="index.html">BoijSoederberg</a> :: <a title="determines whether the Boij-Soederberg decomposition algorithm eliminates multiple Betti numbers at the same time" href="_is__Mass__Eliminate.html">isMassEliminate</a>    </div>
+    <hr/>
+    <div>
+      <h1>isMassEliminate -- determines whether the Boij-Soederberg decomposition algorithm eliminates multiple Betti numbers at the same time</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isMassEliminate(B)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>B</tt></span>              </li>
+              <li>
+<span><span>a <a title="the class of all Betti tallies" href="../../Macaulay2Doc/html/___Betti__Tally.html">Betti tally</a></span>, a Betti diagram</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, True or false if...</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/8821[x,y,z,w]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x^2,y^2,z^4,w^8)
+
+             2   2   4   8
+o2 = ideal (x , y , z , w )
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = betti res I
+
+            0 1 2 3 4
+o3 = total: 1 4 6 4 1
+         0: 1 . . . .
+         1: . 2 . . .
+         2: . . 1 . .
+         3: . 1 . . .
+         4: . . 2 . .
+         5: . . . 1 .
+         6: . . . . .
+         7: . 1 . . .
+         8: . . 2 . .
+         9: . . . 1 .
+        10: . . 1 . .
+        11: . . . 2 .
+        12: . . . . 1
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isMassEliminate(B)
+-- Warning: Not Generic Case
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : J = ideal(x^4,y^5,z^7,w^9)
+
+             4   5   7   9
+o5 = ideal (x , y , z , w )
+
+o5 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C = betti res J
+
+            0 1 2 3 4
+o6 = total: 1 4 6 4 1
+         0: 1 . . . .
+         1: . . . . .
+         2: . . . . .
+         3: . 1 . . .
+         4: . 1 . . .
+         5: . . . . .
+         6: . 1 . . .
+         7: . . 1 . .
+         8: . 1 . . .
+         9: . . 1 . .
+        10: . . 1 . .
+        11: . . 1 . .
+        12: . . 1 . .
+        13: . . . 1 .
+        14: . . 1 . .
+        15: . . . 1 .
+        16: . . . . .
+        17: . . . 1 .
+        18: . . . 1 .
+        19: . . . . .
+        20: . . . . .
+        21: . . . . 1
+
+o6 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isMassEliminate(C)
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isMassEliminate</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isMassEliminate(BettiTally)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="determines whether the Boij-Soederberg decomposition algorithm eliminates multiple Betti numbers at the same time" href="_is__Mass__Eliminate.html">isMassEliminate</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

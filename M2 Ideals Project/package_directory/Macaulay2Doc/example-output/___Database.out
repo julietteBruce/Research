@@ -1,0 +1,40 @@
+-- -*- M2-comint -*- hash: -744305248
+
+i1 : filename = temporaryFileName () | ".dbm"
+
+o1 = /private/tmp/M2-62993-0/0.dbm
+
+i2 : x = openDatabaseOut filename
+
+o2 = /private/tmp/M2-62993-0/0.dbm
+
+o2 : Database
+
+i3 : x#"first" = "hi there"
+
+o3 = hi there
+
+i4 : x#"first"
+
+o4 = hi there
+
+i5 : x#"second" = "ho there"
+
+o5 = ho there
+
+i6 : scanKeys(x,print)
+second
+first
+
+i7 : remove(x,"second")
+
+i8 : scanKeys(x,print)
+first
+
+i9 : close x
+
+o9 = 0
+
+i10 : removeFile filename
+
+i11 : 

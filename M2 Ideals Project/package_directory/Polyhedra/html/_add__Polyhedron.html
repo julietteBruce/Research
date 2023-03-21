@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>addPolyhedron -- adds Polyhedra to a PolyhedralComplex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_affine__Hull.html">next</a> | <a href="_add__Cone.html">previous</a> | <a href="_affine__Hull.html">forward</a> | <a href="_add__Cone.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">Polyhedra</a> :: <a title="adds Polyhedra to a PolyhedralComplex" href="_add__Polyhedron.html">addPolyhedron</a>    </div>
+    <hr/>
+    <div>
+      <h1>addPolyhedron -- adds Polyhedra to a PolyhedralComplex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">PC1 = addPolyhedron(P,PC) </code></dd>
+              <dd><code class="language-macaulay2">PC1 = addPolyhedron(L,PC)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, with elements of class <a title="the class of all convex polyhedra" href="___Polyhedron.html">Polyhedron</a> or <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a></span>              </li>
+              <li>
+<span><tt>PC</tt>, <span>an instance of the type <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>PC1</tt>, <span>an instance of the type <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+If <tt>addPolyhedron</tt> is applied to a <a title="the class of all convex polyhedra" href="___Polyhedron.html">Polyhedron</a> and a <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a> it adds the Polyhedron to the PolyhedralComplex if they are in the same ambient space, if the Polyhedron is compatible with every generating Polyhedron of <tt>PC</tt>, but is not a face of one of them. If one of the first two conditions fails, there will be an error and no PolyhedralComplex will be returned. The pairs of incompatible polyhedra can be accessed with the function <a title="returns the pairs of incompatible polyhedra" href="_incomp__Polyhedra.html">incompPolyhedra</a>. If the last condition fails, then the Polyhedron is already in the PolyhedralComplex as a face of one of the polyhedra, so it does not have to be added. The conditions are checked in this order.        <p/>
+If <tt>addPolyhedron</tt> is applied to a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> and a <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a>, then the function adds the list Polyhedron by Polyhedron and stops if one of the three conditions fails for one of the polyhedra. There is again an error for the first two conditions. The pairs of incompatible polyhedra can again be retrieved using <a title="returns the pairs of incompatible polyhedra" href="_incomp__Polyhedra.html">incompPolyhedra</a>. Note that the may also contain PolyhedralComplexes. Then the function replaces it by its list of generating polyhedra.        <p/>
+If applied to a pair of PolyhedralComplexes it adds the generating polyhedra of the first PolyhedralComplex to the second PolyhedralComplex, again checking for the same conditions as above.        <p/>
+ As an example, we make a PolyhedralComplex consisting of the following Polyhedron and try to add an adjacent cube.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = convexHull matrix {{1,1,1,1,2,2,2,2},{0,0,1,1,0,0,1,1},{0,1,0,1,0,1,0,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : PC = polyhedralComplex P
+
+o2 = PC
+
+o2 : PolyhedralComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : P = hypercube 3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : incompPolyhedra(P,PC)
+
+o4 = {(P, Polyhedron{...1...})}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This shows that the two polyhedra do not intersect in a common face, but if we divide P into three parts, we get a PolyhedralComplex.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : P1 = convexHull matrix {{1,1,1,1,-1,-1,-1,-1},{0,0,1,1,0,0,1,1},{0,1,0,1,0,1,0,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : P2 = convexHull matrix {{1,1,1,1,-1,-1,-1,-1},{0,1,1,-1,0,1,1,-1},{0,0,-1,-1,0,0,-1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : P3 = convexHull matrix {{1,1,1,1,-1,-1,-1,-1},{0,0,-1,-1,0,0,-1,-1},{0,1,1,-1,0,1,1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : P == convexHull {P1,P2,P3}
+
+o8 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : PC = addPolyhedron({P1,P2,P3},PC)
+
+o9 = PC
+
+o9 : PolyhedralComplex</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>addPolyhedron</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;addPolyhedron(List,PolyhedralComplex)&quot;</tt>          </li>
+          <li>
+<tt>&quot;addPolyhedron(Polyhedron,PolyhedralComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="adds Polyhedra to a PolyhedralComplex" href="_add__Polyhedron.html">addPolyhedron</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

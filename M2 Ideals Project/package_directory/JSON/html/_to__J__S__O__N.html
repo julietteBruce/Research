@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toJSON -- encode Macaulay2 things as JSON data</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_nil.html">previous</a> | forward | <a href="_nil.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="JSON encoding and decoding" href="index.html">JSON</a> :: <a title="encode Macaulay2 things as JSON data" href="_to__J__S__O__N.html">toJSON</a>    </div>
+    <hr/>
+    <div>
+      <h1>toJSON -- encode Macaulay2 things as JSON data</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toJSON x</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">thing</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Indent</tt><tt> => </tt><tt>...</tt>, <span>default value null</span>, <a title="the unique member of the empty class" href="../../Macaulay2Doc/html/_null.html">null</a>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, or <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, how much to indent; </span>              </li>
+              <li>
+<span><tt>ValueSeparator</tt><tt> => </tt><tt>...</tt>, <span>default value null</span>, <a title="the unique member of the empty class" href="../../Macaulay2Doc/html/_null.html">null</a> or <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, the string between values; </span>              </li>
+              <li>
+<span><tt>NameSeparator</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value &quot;: &quot;</span>, the string after names in object members; </span>              </li>
+              <li>
+<span><tt>Sort</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to sort object members; </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, containing JSON data; </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method returns a string containing JSON data corresponding to the given Macaulay2 thing.  If the <tt>Indent</tt> option is <tt>null</tt> (the default), then there are no newlines or indentation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : x = hashTable {&quot;foo&quot; => {1, 2, {pi, true, false, nil}}}
+
+o1 = HashTable{foo => {1, 2, {pi, true, false, nil}}}
+
+o1 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : toJSON x
+
+o2 = {&quot;foo&quot;: [1, 2, [3.14159265358979, true, false, null]]}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If the <tt>Indent</tt> option is an integer, then newlines are added between values of arrays and members of lists and the given integer determines the number of spaces to indent for each level of indentation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : toJSON(x, Indent => 2)
+
+o3 = {
+       &quot;foo&quot;: [
+         1,
+         2,
+         [
+           3.14159265358979,
+           true,
+           false,
+           null
+         ]
+       ]
+     }</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Alternatively, the <tt>Indent</tt> option can be a string corresponding to the indentation used for each level.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : toJSON(x, Indent => &quot;\t&quot;)
+
+o4 = {
+             &quot;foo&quot;: [
+                     1,
+                     2,
+                     [
+                             3.14159265358979,
+                             true,
+                             false,
+                             null
+                     ]
+             ]
+     }</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The <tt>ValueSeparator</tt> option determines the string to use between values in an array and members in an object.  If it is <tt>null</tt> (the default), then the string will either be <tt>&quot;, &quot;</tt> or <tt>&quot;,&quot;</tt>, depending on whether <tt>Indent</tt> is <tt>null</tt> or not, respectively. Otherwise, the given string is used.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : toJSON(x, ValueSeparator => &quot; , &quot;)
+
+o5 = {&quot;foo&quot;: [1 , 2 , [3.14159265358979 , true , false , null]]}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The <tt>NameSeparator</tt> option determines the string to use after the name of an object member.  By default, it is <tt>&quot;: &quot;</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : toJSON(x, NameSeparator => &quot; : &quot;)
+
+o6 = {&quot;foo&quot; : [1, 2, [3.14159265358979, true, false, null]]}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>By default, the members of objects are given in arbitrary order.  To sort them by name in lexicographic order as strings, use the <tt>Sort</tt> option.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : toJSON(hashTable{&quot;foo&quot; => 1, &quot;bar&quot; => 2, &quot;baz&quot; => 3}, Sort => true)
+
+o7 = {&quot;bar&quot;: 2, &quot;baz&quot;: 3, &quot;foo&quot;: 1}</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toJSON</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toJSON(Thing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="encode Macaulay2 things as JSON data" href="_to__J__S__O__N.html">toJSON</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

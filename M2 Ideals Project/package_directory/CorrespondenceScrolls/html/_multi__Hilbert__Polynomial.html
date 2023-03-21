@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>multiHilbertPolynomial -- Multi-graded Hilbert polynomial for a product of projective spaces</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_product__Of__Projective__Spaces.html">next</a> | <a href="_irrelevant__Ideal.html">previous</a> | <a href="_product__Of__Projective__Spaces.html">forward</a> | <a href="_irrelevant__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Package to compute and analyze examples of Correspondence Scrolls" href="index.html">CorrespondenceScrolls</a> :: <a title="Multi-graded Hilbert polynomial for a product of projective spaces" href="_multi__Hilbert__Polynomial.html">multiHilbertPolynomial</a>    </div>
+    <hr/>
+    <div>
+      <h1>multiHilbertPolynomial -- Multi-graded Hilbert polynomial for a product of projective spaces</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">H = multiHilbertPolynomial M</code></dd>
+              <dd><code class="language-macaulay2">H = multiHilbertPolynomial (M, VariableName => &quot;s&quot;)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, multigraded over a polynomial ring</span>              </li>
+              <li>
+<span><tt>VariableName</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>VariableName</tt><tt> => </tt><tt>...</tt>, <span>default value &quot;s&quot;</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, in QQ[h]</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let M be a module over a polynomial ring P = kk[x_{0,0}..x_{0,a_0}..x_{n-1,0}..x_{n-1,a_{n-1}}] graded with degree x_{i,j} = e_i, the i-th unit vector. If M = P^{m} is free, then the Hilbert polynomial is the product of the shifted binomial coefficients binomial(a_i+m_i+t,a_i). In general, the routine computes a free resolution of the coker of the initial matrix of a presentation matrix, and then makes an alternating sum of the Hilbert polynomials of the free modules in the resolution. The polynomial returned has variables s_i (the default) or name_i if VariableName => &quot;name&quot; is given.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = productOfProjectiveSpaces{1,2}
+
+o1 = P
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M1 = P^1
+
+      1
+o2 = P
+
+o2 : P-module, free</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : multiHilbertPolynomial M1
+
+     1   2   3       1 2        3
+o3 = -s s  + -s s  + -s  + s  + -s  + 1
+     2 0 1   2 0 1   2 1    0   2 1
+
+o3 : QQ[s ..s ]
+         0   1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Because of the computation of a free resolution, this might be slow on large examples.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes the Hilbert polynomial of a correspondence scroll" href="_correspondence__Polynomial.html">correspondencePolynomial</a> -- computes the Hilbert polynomial of a correspondence scroll</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>multiHilbertPolynomial</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;multiHilbertPolynomial(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Multi-graded Hilbert polynomial for a product of projective spaces" href="_multi__Hilbert__Polynomial.html">multiHilbertPolynomial</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

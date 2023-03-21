@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>bertiniTrackHomotopy -- a main method to track using a user-defined homotopy</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_bertini__Track__Homotopy_lp..._cm__Verbose_eq_gt..._rp.html">next</a> | <a href="_bertini__Sample.html">previous</a> | <a href="_bertini__Track__Homotopy_lp..._cm__Verbose_eq_gt..._rp.html">forward</a> | <a href="_bertini__Sample.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="software for numerical algebraic geometry" href="index.html">Bertini</a> :: <a title="a main method to track using a user-defined homotopy" href="_bertini__Track__Homotopy.html">bertiniTrackHomotopy</a>    </div>
+    <hr/>
+    <div>
+      <h1>bertiniTrackHomotopy -- a main method to track using a user-defined homotopy</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">S0=bertiniTrackHomotopy(t, H, S1)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>t</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a path variable</span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list polynomials that define the homotopy with respect to the path variable</span>              </li>
+              <li>
+<span><tt>S1</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of solutions to the start system</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>BertiniInputConfiguration</tt> (missing documentation)<!--tag: [bertiniTrackHomotopy, BertiniInputConfiguration]-->
+<tt> => </tt><tt>...</tt>, <span>default value {}</span>, </span>              </li>
+              <li>
+<span><a title="optional argument to specify whether to use homogeneous coordinates" href="___Is__Projective.html">IsProjective</a><tt> => </tt><tt>...</tt>, <span>default value -1</span>, optional argument to specify whether to use homogeneous coordinates</span>              </li>
+              <li>
+<span><a title="Option to silence additional output" href="_bertini__Track__Homotopy_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option to silence additional output</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>S0</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of solutions to the target system</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method calls <tt>Bertini</tt> to track a user-defined homotopy.  The user needs to specify the homotopy H, the path variable t, and a list of start solutions S1. Bertini (1) writes the homotopy and start solutions to temporary files, (2) invokes <tt>Bertini</tt>'s solver with configuration keyword <tt>UserHomotopy => 1</tt> in the affine case and <tt>UserHomotopy => 2</tt> in the projective situation, (3) stores the output of <tt>Bertini</tt> in a temporary file, and (4) parses a machine readable file to output a list of solutions.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,t]; -- include the path variable in the ring</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : H = { (x^2-1)*t + (x^2-2)*(1-t)};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : sol1 = point {{1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : sol2 = point {{-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S1= { sol1, sol2  };--solutions to H when t=1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S0 = bertiniTrackHomotopy (t, H, S1) --solutions to H when t=0
+
+o6 = {{-1.41421}, {1.41421}}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : peek S0_0
+
+o7 = Point{ConditionNumber => 1           }
+           Coordinates => {-1.41421}
+           CycleNumber => 1
+           FunctionResidual => 4.44089e-16
+           LastT => .0015625
+           MaximumPrecision => 52
+           Multiplicity => 1
+           NewtonResidual => 0
+           SolutionNumber => -1
+           SolutionStatus => Regular</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In the previous example, we solved $x^2-2$ by moving from $x^2-1$ with a linear homotopy. <tt>Bertini</tt> tracks homotopies starting at $t=1$ and ending at $t=0$. Final solutions are of the type Point.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R=CC[x,y,t]; -- include the path variable in the ring</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : f1=(x^2-y^2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : f2=(2*x^2-3*x*y+5*y^2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : H = { f1*t + f2*(1-t)}; --H is a list of polynomials in x,y,t</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : sol1=    point{{1,1}}--{{x,y}} coordinates
+
+o12 = sol1
+
+o12 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : sol2=    point{{ -1,1}}
+
+o13 = sol2
+
+o13 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : S1={sol1,sol2}--solutions to H when t=1
+
+o14 = {sol1, sol2}
+
+o14 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : S0=bertiniTrackHomotopy(t, H, S1, IsProjective=>1) --solutions to H when t=0
+
+o15 = {{-.947782-.710437*ii, .11122-.740833*ii}, {-.847231+1.44261*ii,
+      -----------------------------------------------------------------------
+      .549043+.904502*ii}}
+
+o15 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Variables must begin with a letter (lowercase or capital) and can only contain letters, numbers, underscores, and square brackets.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>bertiniTrackHomotopy</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;bertiniTrackHomotopy(RingElement,List,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a main method to track using a user-defined homotopy" href="_bertini__Track__Homotopy.html">bertiniTrackHomotopy</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

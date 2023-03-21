@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>pushFwd(RingMap,Module) -- push forward of a module via a finite ring map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_push__Fwd_lp__Ring__Map_cm__Matrix_rp.html">next</a> | <a href="_push__Fwd_lp__Ring__Map_rp.html">previous</a> | <a href="_push__Fwd_lp__Ring__Map_cm__Matrix_rp.html">forward</a> | <a href="_push__Fwd_lp__Ring__Map_rp.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="methods to compute the pushforward of a module along a ring map" href="index.html">PushForward</a> > <a title="push forward of a module via a finite ring map" href="_push__Fwd_lp__Ring__Map_cm__Module_rp.html">pushFwd(RingMap,Module)</a>    </div>
+    <hr/>
+    <div>
+      <h1>pushFwd(RingMap,Module) -- push forward of a module via a finite ring map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="push forward" href="_push__Fwd.html">pushFwd</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">N = pushFwd(f, M)</code></dd>
+              <dd><code class="language-macaulay2">N = pushFwd M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, from a ring $A$ to a ring $B$ or the natural map from coefficientRing B if f not specified</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, a $B$-module, which via $f$ is a finite $A$-module</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="NoPrune option for pushFwd" href="___No__Prune.html">NoPrune</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, NoPrune option for pushFwd</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a (not necessarily finite) ring map $f : A \to B$, the $B$-module $M$ can be considered as a module over $A$. If $M$ is finite, this method returns the corresponding $A$-module.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = QQ;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : A = kk[t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = kk[x,y]/(x*y);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : use B;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : i = ideal(x)
+
+o5 = ideal x
+
+o5 : Ideal of B</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : f = map(B,A,{x})
+
+o6 = map (B, A, {x})
+
+o6 : RingMap B &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : pushFwd(f,module i)
+
+      1
+o7 = A
+
+o7 : A-module, free, degrees {1}</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="push forward of a module map via a finite ring map" href="_push__Fwd_lp__Ring__Map_cm__Matrix_rp.html">pushFwd(Matrix)</a> -- push forward of a module map via a finite ring map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<tt>&quot;pushFwd(Module)&quot;</tt>          </li>
+          <li>
+<span><a title="push forward of a module via a finite ring map" href="_push__Fwd_lp__Ring__Map_cm__Module_rp.html">pushFwd(RingMap,Module)</a> -- push forward of a module via a finite ring map</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

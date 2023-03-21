@@ -1,0 +1,91 @@
+-- -*- M2-comint -*- hash: 2009566763
+
+i1 : A = random(RR^3,RR^5)
+
+o1 = | .892712 .632944  .89189  .775187 .0741835 |
+     | .673395 .0258884 .231053 .909047 .808694  |
+     | .29398  .714827  .461944 .314897 .362835  |
+
+                3          5
+o1 : Matrix RR    <--- RR
+              53         53
+
+i2 : A == realPartMatrix A
+
+o2 = true
+
+i3 : B = sub(A, CC)
+
+o3 = | .892712 .632944  .89189  .775187 .0741835 |
+     | .673395 .0258884 .231053 .909047 .808694  |
+     | .29398  .714827  .461944 .314897 .362835  |
+
+                3          5
+o3 : Matrix CC    <--- CC
+              53         53
+
+i4 : C = realPartMatrix B
+
+o4 = | .892712 .632944  .89189  .775187 .0741835 |
+     | .673395 .0258884 .231053 .909047 .808694  |
+     | .29398  .714827  .461944 .314897 .362835  |
+
+                3          5
+o4 : Matrix RR    <--- RR
+              53         53
+
+i5 : clean(1e-10, A - C) == 0
+
+o5 = true
+
+i6 : D = random(QQ^3, QQ^1)
+
+o6 = | 7/10 |
+     | 1/2  |
+     | 7/10 |
+
+              3        1
+o6 : Matrix QQ  <--- QQ
+
+i7 : D == realPartMatrix D
+
+o7 = true
+
+i8 : R = CC[x,y]
+
+o8 = R
+
+o8 : PolynomialRing
+
+i9 : f = random(2,R)
+-- warning: experimental computation over inexact field begun
+--          results not reliable (one warning given per session)
+
+                             2                                         
+o9 = (.0410167 + .951912*ii)x  + (.752574 + .424521*ii)x*y + (.641878 +
+     ------------------------------------------------------------------------
+                 2
+     .267055*ii)y
+
+o9 : R
+
+i10 : C = last coefficients f
+
+o10 = {2} | .0410167+.951912ii |
+      {2} | .752574+.424521ii  |
+      {2} | .641878+.267055ii  |
+
+              3       1
+o10 : Matrix R  <--- R
+
+i11 : realPartMatrix sub(C, coefficientRing R)
+
+o11 = | .0410167 |
+      | .752574  |
+      | .641878  |
+
+                 3          1
+o11 : Matrix RR    <--- RR
+               53         53
+
+i12 : 

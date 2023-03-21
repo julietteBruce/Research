@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Working with fans - Part 2</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Working_spwith_sppolyhedra.html">next</a> | <a href="___Working_spwith_spfans.html">previous</a> | <a href="___Working_spwith_sppolyhedra.html">forward</a> | <a href="___Working_spwith_spfans.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">Polyhedra</a> :: <a href="___Working_spwith_spfans_sp-_sp__Part_sp2.html">Working with fans - Part 2</a>    </div>
+    <hr/>
+    <div>
+      <h1>Working with fans - Part 2</h1>
+      <div>
+Now we construct a new fan to show some other functions.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C1 = coneFromVData matrix {{1,1,-1,-1},{1,-1,1,-1},{1,1,1,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C2 = coneFromVData matrix {{1,1,1},{0,1,-1},{-1,1,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C3 = coneFromVData matrix {{-1,-1,-1},{0,1,-1},{-1,1,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : C4 = coneFromVData matrix {{1,-1},{0,0},{-1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : F = fan {C1,C2,C3,C4}
+
+o5 = F
+
+o5 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This is not a ''very nice'' fan, as it is neither complete nor of pure dimension:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isComplete F
+
+o6 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isPure F
+
+o7 = false</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+If we add two more cones the fan becomes complete.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : C5 = coneFromVData matrix {{1,-1,1,-1},{-1,-1,0,0},{1,1,-1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : C6 = coneFromVData matrix {{1,-1,1,-1},{1,1,0,0},{1,1,-1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : F = addCone({C5,C6},F)
+
+o10 = F
+
+o10 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : isComplete F
+
+o11 = true</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+For a complete fan we can check if it is projective:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : isPolytopal F
+
+o12 = true</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+If the fan is projective, the function returns a polyhedron such that the fan is its  normal fan, otherwise it returns the empty polyhedron. This means our fan is projective.      </div>
+    </div>
+  </body>
+
+</html>

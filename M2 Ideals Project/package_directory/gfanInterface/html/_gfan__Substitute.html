@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanSubstitute -- rename the variables of a list of polynomials</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__To__Latex.html">next</a> | <a href="_gfan__Stats.html">previous</a> | <a href="_gfan__To__Latex.html">forward</a> | <a href="_gfan__Stats.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="rename the variables of a list of polynomials" href="_gfan__Substitute.html">gfanSubstitute</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanSubstitute -- rename the variables of a list of polynomials</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gfanSubstitute(M,R)</code></dd>
+              <dd><code class="language-macaulay2">gfanSusbtitute(L,R)</code></dd>
+              <dd><code class="language-macaulay2">gfanSubstitute(I,R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a href="___Marked__Polynomial__List.html">marked polynomial list</a></span>, of polynomials</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials</span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, with the same number of variables as the ring of the polynomials in <tt>M</tt>, <tt>L</tt> and <tt>I</tt>.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials from <tt>L</tt> with variables replaced by those in <tt>R</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method replaces each variable in a marked polynomial list with variables from a different ring.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[z,a,b];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : L = markedPolynomialList{{x*y, z^2} , {x*y+ z^2, x*y + z^2}}
+
+               2    2
+o3 = {(x*y) + z , (z ) + x*y}
+
+o3 : MarkedPolynomialList</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gfanSubstitute(L, R)
+
+               2    2
+o4 = {(z*a) + b , (b ) + z*a}
+
+o4 : MarkedPolynomialList</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Caution should be used as this method invokes <tt>use R</tt> which changes the global symbol table. It would be preferable to use the map command which is built into Macaulay 2. A ring map can be applied directly to a marked polynomial list.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : f = map(R,S, {z,a,b})
+
+o5 = map (R, S, {z, a, b})
+
+o5 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : f L
+
+               2    2
+o6 = {(z*a) + b , (b ) + z*a}
+
+o6 : MarkedPolynomialList</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p><strong>gfan Documentation</strong> This program changes the variable names of a polynomial ring. The input is a polynomial ring, a polynomial set in the ring and a new polynomial ring with the same coefficient field but different variable names. The output is the polynomial set written with the variable names of the second polynomial ring.Example:Input:Q[a,b,c,d]{2a-3b,c+d}Q[b,a,c,x]Output:Q[b,a,c,x]{2*b-3*a,c+x}Options:</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfanSubstitute</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfanSubstitute(Ideal,PolynomialRing)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanSubstitute(List,PolynomialRing)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanSubstitute(MarkedPolynomialList,PolynomialRing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="rename the variables of a list of polynomials" href="_gfan__Substitute.html">gfanSubstitute</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Fan -- the class of all fans</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_fan.html">next</a> | <a href="_facets.html">previous</a> | <a href="_fan.html">forward</a> | <a href="_facets.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">Polyhedra</a> :: <a title="the class of all fans" href="___Fan.html">Fan</a>    </div>
+    <hr/>
+    <div>
+      <h1>Fan -- the class of all fans</h1>
+      <div>
+        <h2>Description</h2>
+A Fan represents a fan of rational convex polyhedral cones, i.e. a collection of cones, such that for every cone in the fan all faces are in the fan and for every two cones in the fan their intersection is a face of each (intersection condition). It need not be full dimensional or pure, and the cones need not be pointed. It is saved as a hash table which contains a list of the generating cones of the fan starting with those of maximal dimension. So for every cone in this list all faces are considered to be in the fan. The output of a Fan looks like this:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : normalFan crossPolytope 3
+
+o1 = Fan{...1...}
+
+o1 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This table displays a short summary of the properties of the Fan. However, one can not access the above information directly, because this is just a virtual hash table generated for the output. The data defining a Fan is extracted by the functions included in this package. A Fan can be constructed by collecting Cones that satisfy the intersection condition. Every cone that is added to a Fan is always considered as the collection of the Cone and all of its faces.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C1 = coneFromVData matrix {{2,2},{1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C2 = coneFromVData matrix {{2,-2},{1,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : C3 = coneFromVData matrix {{-2,-2},{1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C4 = coneFromVData matrix {{-2,2},{-1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : F = fan {C1,C2,C3,C4}
+
+o6 = F
+
+o6 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This fan is for example the normal fan of a ''flattened'' crosspolytope in 2-space.        <p/>
+ See also <a href="___Working_spwith_spfans.html">Working with fans</a>.      </div>
+      <div class="waystouse">
+        <h2>Functions and methods returning an object of class Fan :</h2>
+        <ul>
+          <li>
+<span><a title="computes the coarsest common refinement of a set of rays" href="_cc__Refinement.html">ccRefinement</a> -- computes the coarsest common refinement of a set of rays</span>          </li>
+          <li>
+<span><a title=" computes the fan generated by the cones over the faces" href="_face__Fan.html">faceFan</a> --  computes the fan generated by the cones over the faces</span>          </li>
+          <li>
+<span><a title="generates a Fan" href="_fan.html">fan</a> -- generates a Fan</span>          </li>
+          <li>
+<span><a title="computes the fan of the r-th Hirzebruch surface" href="_hirzebruch.html">hirzebruch</a> -- computes the fan of the r-th Hirzebruch surface</span>          </li>
+          <li>
+<span><a title=" computes the fan of the image" href="_image__Fan.html">imageFan</a> --  computes the fan of the image</span>          </li>
+          <li>
+<span><a title="computes the normalFan of a polyhedron" href="_normal__Fan.html">normalFan</a> -- computes the normalFan of a polyhedron</span>          </li>
+          <li>
+<span><a title="computes the k-skeleton of a Fan or PolyhedralComplex" href="_skeleton.html">skeleton</a> -- computes the k-skeleton of a Fan or PolyhedralComplex</span>          </li>
+          <li>
+<span><a title="computes the subfan of all smooth cones" href="_smooth__Subfan.html">smoothSubfan</a> -- computes the subfan of all smooth cones</span>          </li>
+          <li>
+<span><tt>&quot;stellarSubdivision(Fan,Matrix)&quot;</tt> -- see <span><a title="computes the stellar subdivision of the fan by a ray" href="_stellar__Subdivision.html">stellarSubdivision</a> -- computes the stellar subdivision of the fan by a ray</span></span>          </li>
+        </ul>
+        <h2>Methods that use an object of class Fan :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;addCone(Cone,Fan)&quot;</tt> -- see <span><a title="adds cones to a Fan" href="_add__Cone.html">addCone</a> -- adds cones to a Fan</span></span>          </li>
+          <li>
+<span><tt>&quot;addCone(List,Fan)&quot;</tt> -- see <span><a title="adds cones to a Fan" href="_add__Cone.html">addCone</a> -- adds cones to a Fan</span></span>          </li>
+          <li>
+<span><tt>addCone(Fan,Cone)</tt> (missing documentation)<!--tag: (addCone,Fan,Cone)-->
+</span>          </li>
+          <li>
+<span><tt>&quot;commonFace(Cone,Fan)&quot;</tt> -- see <span><a title="checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans" href="_common__Face.html">commonFace</a> -- checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans</span></span>          </li>
+          <li>
+<span><tt>&quot;commonFace(Fan,Cone)&quot;</tt> -- see <span><a title="checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans" href="_common__Face.html">commonFace</a> -- checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans</span></span>          </li>
+          <li>
+<span><tt>&quot;commonFace(Fan,Fan)&quot;</tt> -- see <span><a title="checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans" href="_common__Face.html">commonFace</a> -- checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans</span></span>          </li>
+          <li>
+<span><tt>&quot;cones(ZZ,Fan)&quot;</tt> -- see <span><a title="computes all cones of a fan of a certain dimension" href="_cones.html">cones</a> -- computes all cones of a fan of a certain dimension</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(Fan,Cone)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><a title="computes the direct product of two fans" href="_direct__Product_lp__Fan_cm__Fan_rp.html">directProduct(Fan,Fan)</a> -- computes the direct product of two fans</span>          </li>
+          <li>
+<span><tt>&quot;facesAsCones(ZZ,Fan)&quot;</tt> -- see <span><a title="Returns the faces of a cone as actual cones." href="_faces__As__Cones.html">facesAsCones</a> -- Returns the faces of a cone as actual cones.</span></span>          </li>
+          <li>
+<span><a title="computes the direct product" href="___Fan_sp_st_sp__Fan.html">Fan * Fan</a> -- computes the direct product</span>          </li>
+          <li>
+<span><a title="equality" href="___Fan_sp_eq_eq_sp__Fan.html">Fan == Fan</a> -- equality</span>          </li>
+          <li>
+<span><tt>&quot;incompCones(Cone,Fan)&quot;</tt> -- see <span><a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a> -- returns the pairs of incompatible cones</span></span>          </li>
+          <li>
+<span><tt>&quot;incompCones(Fan,Cone)&quot;</tt> -- see <span><a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a> -- returns the pairs of incompatible cones</span></span>          </li>
+          <li>
+<span><tt>&quot;incompCones(Fan,Fan)&quot;</tt> -- see <span><a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a> -- returns the pairs of incompatible cones</span></span>          </li>
+          <li>
+<span><tt>&quot;isComplete(Fan)&quot;</tt> -- see <span><a title="checks completeness of a Fan or PolyhedralComplex" href="_is__Complete.html">isComplete</a> -- checks completeness of a Fan or PolyhedralComplex</span></span>          </li>
+          <li>
+<span><tt>&quot;isPointed(Fan)&quot;</tt> -- see <span><a title="checks if a Cone or Fan is pointed" href="_is__Pointed.html">isPointed</a> -- checks if a Cone or Fan is pointed</span></span>          </li>
+          <li>
+<span><tt>&quot;isPolytopal(Fan)&quot;</tt> -- see <span><a title="checks if a Fan is polytopal" href="_is__Polytopal.html">isPolytopal</a> -- checks if a Fan is polytopal</span></span>          </li>
+          <li>
+<span><tt>&quot;isPure(Fan)&quot;</tt> -- see <span><a title="checks if a Fan or PolyhedralComplex is of pure dimension" href="_is__Pure.html">isPure</a> -- checks if a Fan or PolyhedralComplex is of pure dimension</span></span>          </li>
+          <li>
+<span><tt>&quot;isSmooth(Fan)&quot;</tt> -- see <span><a title="checks if a Cone or Fan is smooth" href="_is__Smooth.html">isSmooth</a> -- checks if a Cone or Fan is smooth</span></span>          </li>
+          <li>
+<span><tt>&quot;isWellDefined(Fan)&quot;</tt> -- see <span><a title="Checks whether a polyhedral object is well-defined." href="_is__Well__Defined_lp__Cone_rp.html">isWellDefined(Cone)</a> -- Checks whether a polyhedral object is well-defined.</span></span>          </li>
+          <li>
+<span><tt>linearTransform(Fan,Matrix)</tt> (missing documentation)<!--tag: (linearTransform,Fan,Matrix)-->
+</span>          </li>
+          <li>
+<span><tt>&quot;linSpace(Fan)&quot;</tt> -- see <span><a title="Deprecated version of @TO &quot;linealitySpace&quot;@" href="_lin__Space.html">linSpace</a> -- Deprecated version of @TO &quot;linealitySpace&quot;@</span></span>          </li>
+          <li>
+<span><tt>&quot;maxCones(Fan)&quot;</tt> -- see <span><a title="displays the generating Cones of a Fan" href="_max__Cones.html">maxCones</a> -- displays the generating Cones of a Fan</span></span>          </li>
+          <li>
+<span><a title="Giving the minimal non-faces of a fan.." href="_minimal__Non__Faces_lp__Fan_rp.html">minimalNonFaces(Fan)</a> -- Giving the minimal non-faces of a fan..</span>          </li>
+          <li>
+<span><a title="Turn a fan into a polyhedral complex" href="_polyhedral__Complex_lp__Fan_rp.html">polyhedralComplex(Fan)</a> -- Turn a fan into a polyhedral complex</span>          </li>
+          <li>
+<span><tt>&quot;polytope(Fan)&quot;</tt> -- see <span><a title="returns a polytope of which the fan is the normal fan if it is polytopal" href="_polytope.html">polytope</a> -- returns a polytope of which the fan is the normal fan if it is polytopal</span></span>          </li>
+          <li>
+<span><tt>&quot;skeleton(ZZ,Fan)&quot;</tt> -- see <span><a title="computes the k-skeleton of a Fan or PolyhedralComplex" href="_skeleton.html">skeleton</a> -- computes the k-skeleton of a Fan or PolyhedralComplex</span></span>          </li>
+          <li>
+<span><tt>&quot;smoothSubfan(Fan)&quot;</tt> -- see <span><a title="computes the subfan of all smooth cones" href="_smooth__Subfan.html">smoothSubfan</a> -- computes the subfan of all smooth cones</span></span>          </li>
+          <li>
+<span><a title="Give the Stanley–Reisner ring of a fan." href="_stanley__Reisner__Ring_lp__Fan_rp.html">stanleyReisnerRing(Fan)</a> -- Give the Stanley–Reisner ring of a fan.</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the class of all fans" href="___Fan.html">Fan</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all polyhedral objects in Polyhedra" href="___Polyhedral__Object.html">PolyhedralObject</a> &lt; <a title="the class of all mutable hash tables" href="../../Macaulay2Doc/html/___Mutable__Hash__Table.html">MutableHashTable</a> &lt; <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

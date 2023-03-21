@@ -1,0 +1,76 @@
+-- -*- M2-comint -*- hash: 1728988691
+
+i1 : R = ZZ/101[a,b,c,d]
+
+o1 = R
+
+o1 : PolynomialRing
+
+i2 : A = koszulComplexDGA({a,b})
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   2
+      Differential => {a, b}
+
+o2 : DGAlgebra
+
+i3 : B = koszulComplexDGA({c,d})
+
+o3 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   2
+      Differential => {c, d}
+
+o3 : DGAlgebra
+
+i4 : C = A ** B
+
+o4 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => {a, b, c, d}
+
+o4 : DGAlgebra
+
+i5 : Cdd = toComplex C
+
+      1      4      6      4      1
+o5 = R  <-- R  <-- R  <-- R  <-- R
+                                  
+     0      1      2      3      4
+
+o5 : ChainComplex
+
+i6 : Cdd.dd
+
+          1                   4
+o6 = 0 : R  <--------------- R  : 1
+               | a b c d |
+
+          4                                 6
+     1 : R  <----------------------------- R  : 2
+               {1} | -b -c 0  -d 0  0  |
+               {1} | a  0  -c 0  -d 0  |
+               {1} | 0  a  b  0  0  -d |
+               {1} | 0  0  0  a  b  c  |
+
+          6                           4
+     2 : R  <----------------------- R  : 3
+               {2} | c  d  0  0  |
+               {2} | -b 0  d  0  |
+               {2} | a  0  0  d  |
+               {2} | 0  -b -c 0  |
+               {2} | 0  a  0  -c |
+               {2} | 0  0  a  b  |
+
+          4                  1
+     3 : R  <-------------- R  : 4
+               {3} | -d |
+               {3} | c  |
+               {3} | -b |
+               {3} | a  |
+
+o6 : ChainComplexMap
+
+i7 : 

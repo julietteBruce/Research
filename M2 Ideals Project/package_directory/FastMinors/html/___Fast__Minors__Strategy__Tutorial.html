@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>FastMinorsStrategyTutorial -- How to use and construct strategies for selecting submatrices in various functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_get__Submatrix__Of__Rank.html">next</a> | <a href="___Det__Strategy.html">previous</a> | <a href="_get__Submatrix__Of__Rank.html">forward</a> | <a href="___Det__Strategy.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="faster linear algebra, especially for computation of minors" href="index.html">FastMinors</a> :: <a title="How to use and construct strategies for selecting submatrices in various functions" href="___Fast__Minors__Strategy__Tutorial.html">FastMinorsStrategyTutorial</a>    </div>
+    <hr/>
+    <div>
+      <h1>FastMinorsStrategyTutorial -- How to use and construct strategies for selecting submatrices in various functions</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>We will work with the following example, the cone over a product of an elliptic curve and a genus 3 planar curve, embedded with a Segre embedding, so the cone over a surface, embedded in $P^8$ (defined by 31 equations).  The Jacobian is a relatively sparse $9 \times 31$ matrix and to compute the full Jacobian ideal we would need to compute the 61,847,604 minors of size $6 \times 6$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/103[x_1..x_9];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : J = ideal(x_6*x_8-x_5*x_9,x_3*x_8-x_2*x_9,x_6*x_7-x_4*x_9,x_5*x_7-x_4*x_8,x_3*x_7-x_1*x_9,x_2*x_7-x_1*x_8,x_3*x_5-x_2*x_6,x_3*x_4-x_1*x_6,x_2*x_4-x_1*x_5,x_7^3-x_8^2*x_9-x_7*x_9^2,x_4*x_7^2-x_5*x_8*x_9-x_4*x_9^2, x_1*x_7^2-x_2*x_8*x_9-x_1*x_9^2,x_4^2*x_7-x_5^2*x_9-x_4*x_6*x_9,x_1*x_4*x_7-x_2*x_5*x_9-x_1*x_6*x_9,x_1^2*x_7-x_2^2*x_9-x_1*x_3*x_9,x_4^3-x_5^2*x_6-x_4*x_6^2,x_1*x_4^2-x_2*x_5*x_6-x_1*x_6^2,x_1^2*x_4-x_2^2*x_6-x_1*x_3*x_6,x_1^3-x_2^2*x_3-x_1*x_3^2,x_3^4+x_6^4-x_9^4,x_2*x_3^3+x_5*x_6^3-x_8*x_9^3,x_1*x_3^3+x_4*x_6^3-x_7*x_9^3,x_2^2*x_3^2+x_5^2*x_6^2-x_8^2*x_9^2,x_1*x_2*x_3^2+x_4*x_5*x_6^2-x_7*x_8*x_9^2,x_1^2*x_3^2+x_4^2*x_6^2-x_7^2*x_9^2,x_2^3*x_3+x_5^3*x_6-x_8^3*x_9,x_1*x_2^2*x_3+x_4*x_5^2*x_6-x_7*x_8^2*x_9,x_1^2*x_2*x_3+x_4^2*x_5*x_6-x_7^2*x_8*x_9,x_2^4+x_5^4-x_8^4,x_1*x_2^3+x_4*x_5^3-x_7*x_8^3,x_1^2*x_2^2+x_4^2*x_5^2-x_7^2*x_8^2)
+
+                                                                            
+o2 = ideal (x x  - x x , x x  - x x , x x  - x x , x x  - x x , x x  - x x ,
+             6 8    5 9   3 8    2 9   6 7    4 9   5 7    4 8   3 7    1 9 
+     ------------------------------------------------------------------------
+                                                          3    2        2 
+     x x  - x x , x x  - x x , x x  - x x , x x  - x x , x  - x x  - x x ,
+      2 7    1 8   3 5    2 6   3 4    1 6   2 4    1 5   7    8 9    7 9 
+     ------------------------------------------------------------------------
+        2               2     2               2   2      2                   
+     x x  - x x x  - x x , x x  - x x x  - x x , x x  - x x  - x x x , x x x 
+      4 7    5 8 9    4 9   1 7    2 8 9    1 9   4 7    5 9    4 6 9   1 4 7
+     ------------------------------------------------------------------------
+                         2      2              3    2        2     2         
+     - x x x  - x x x , x x  - x x  - x x x , x  - x x  - x x , x x  - x x x 
+        2 5 9    1 6 9   1 7    2 9    1 3 9   4    5 6    4 6   1 4    2 5 6
+     ------------------------------------------------------------------------
+          2   2      2              3    2        2   4    4    4     3  
+     - x x , x x  - x x  - x x x , x  - x x  - x x , x  + x  - x , x x  +
+        1 6   1 4    2 6    1 3 6   1    2 3    1 3   3    6    9   2 3  
+     ------------------------------------------------------------------------
+        3      3     3      3      3   2 2    2 2    2 2       2        2  
+     x x  - x x , x x  + x x  - x x , x x  + x x  - x x , x x x  + x x x  -
+      5 6    8 9   1 3    4 6    7 9   2 3    5 6    8 9   1 2 3    4 5 6  
+     ------------------------------------------------------------------------
+          2   2 2    2 2    2 2   3      3      3       2        2    
+     x x x , x x  + x x  - x x , x x  + x x  - x x , x x x  + x x x  -
+      7 8 9   1 3    4 6    7 9   2 3    5 6    8 9   1 2 3    4 5 6  
+     ------------------------------------------------------------------------
+        2     2        2        2       4    4    4     3      3      3   2 2
+     x x x , x x x  + x x x  - x x x , x  + x  - x , x x  + x x  - x x , x x 
+      7 8 9   1 2 3    4 5 6    7 8 9   2    5    8   1 2    4 5    7 8   1 2
+     ------------------------------------------------------------------------
+        2 2    2 2
+     + x x  - x x )
+        4 5    7 8
+
+o2 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = jacobian J
+
+o3 = {1} | 0    0    0    0    -x_9 -x_8 0    -x_6 -x_5 0             
+     {1} | 0    -x_9 0    0    0    x_7  -x_6 0    x_4  0             
+     {1} | 0    x_8  0    0    x_7  0    x_5  x_4  0    0             
+     {1} | 0    0    -x_9 -x_8 0    0    0    x_3  x_2  0             
+     {1} | -x_9 0    0    x_7  0    0    x_3  0    -x_1 0             
+     {1} | x_8  0    x_7  0    0    0    -x_2 -x_1 0    0             
+     {1} | 0    0    x_6  x_5  x_3  x_2  0    0    0    3x_7^2-x_9^2  
+     {1} | x_6  x_3  0    -x_4 0    -x_1 0    0    0    -2x_8x_9      
+     {1} | -x_5 -x_2 -x_4 0    -x_1 0    0    0    0    -x_8^2-2x_7x_9
+     ------------------------------------------------------------------------
+     0               x_7^2-x_9^2     0              x_4x_7-x_6x_9 
+     0               -x_8x_9         0              -x_5x_9       
+     0               0               0              0             
+     x_7^2-x_9^2     0               2x_4x_7-x_6x_9 x_1x_7        
+     -x_8x_9         0               -2x_5x_9       -x_2x_9       
+     0               0               -x_4x_9        -x_1x_9       
+     2x_4x_7         2x_1x_7         x_4^2          x_1x_4        
+     -x_5x_9         -x_2x_9         0              0             
+     -x_5x_8-2x_4x_9 -x_2x_8-2x_1x_9 -x_5^2-x_4x_6  -x_2x_5-x_1x_6
+     ------------------------------------------------------------------------
+     2x_1x_7-x_3x_9 0              x_4^2-x_6^2     2x_1x_4-x_3x_6
+     -2x_2x_9       0              -x_5x_6         -2x_2x_6      
+     -x_1x_9        0              0               -x_1x_6       
+     0              3x_4^2-x_6^2   2x_1x_4         x_1^2         
+     0              -2x_5x_6       -x_2x_6         0             
+     0              -x_5^2-2x_4x_6 -x_2x_5-2x_1x_6 -x_2^2-x_1x_3 
+     x_1^2          0              0               0             
+     0              0              0               0             
+     -x_2^2-x_1x_3  0              0               0             
+     ------------------------------------------------------------------------
+     3x_1^2-x_3^2   0       0          x_3^3      0          x_2x_3^2   
+     -2x_2x_3       0       x_3^3      0          2x_2x_3^2  x_1x_3^2   
+     -x_2^2-2x_1x_3 4x_3^3  3x_2x_3^2  3x_1x_3^2  2x_2^2x_3  2x_1x_2x_3 
+     0              0       0          x_6^3      0          x_5x_6^2   
+     0              0       x_6^3      0          2x_5x_6^2  x_4x_6^2   
+     0              4x_6^3  3x_5x_6^2  3x_4x_6^2  2x_5^2x_6  2x_4x_5x_6 
+     0              0       0          -x_9^3     0          -x_8x_9^2  
+     0              0       -x_9^3     0          -2x_8x_9^2 -x_7x_9^2  
+     0              -4x_9^3 -3x_8x_9^2 -3x_7x_9^2 -2x_8^2x_9 -2x_7x_8x_9
+     ------------------------------------------------------------------------
+     2x_1x_3^2  0          x_2^2x_3    2x_1x_2x_3  0       x_2^3     
+     0          3x_2^2x_3  2x_1x_2x_3  x_1^2x_3    4x_2^3  3x_1x_2^2 
+     2x_1^2x_3  x_2^3      x_1x_2^2    x_1^2x_2    0       0         
+     2x_4x_6^2  0          x_5^2x_6    2x_4x_5x_6  0       x_5^3     
+     0          3x_5^2x_6  2x_4x_5x_6  x_4^2x_6    4x_5^3  3x_4x_5^2 
+     2x_4^2x_6  x_5^3      x_4x_5^2    x_4^2x_5    0       0         
+     -2x_7x_9^2 0          -x_8^2x_9   -2x_7x_8x_9 0       -x_8^3    
+     0          -3x_8^2x_9 -2x_7x_8x_9 -x_7^2x_9   -4x_8^3 -3x_7x_8^2
+     -2x_7^2x_9 -x_8^3     -x_7x_8^2   -x_7^2x_8   0       0         
+     ------------------------------------------------------------------------
+     2x_1x_2^2  |
+     2x_1^2x_2  |
+     0          |
+     2x_4x_5^2  |
+     2x_4^2x_5  |
+     0          |
+     -2x_7x_8^2 |
+     -2x_7^2x_8 |
+     0          |
+
+             9       31
+o3 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><b>getSubmatrixOfRank:</b>  We begin by exploring submatrices of this matrix, chosen using different strategies.  We try to select submatrices of rank 6 with the command <a title="tries to find a submatrix of the given rank" href="_get__Submatrix__Of__Rank.html">getSubmatrixOfRank</a>.  The <tt>Random</tt> strategy for instance selects a smallest matrix.  On the other hand, <tt>GRevLexSmallest</tt> (respectively <tt>GRevLexLargest</tt>) tries to choose a matrix with minimal (respectively maximal) values with respect to a random <tt>GRevLex</tt> order.  <tt>LexSmallest</tt> and <tt>LexLargest</tt> selects a smallest submatrix whose terms have smallest and largest value with respect to a random <tt>Lex</tt> monomial order.  <tt>Points</tt> first finds a point on $V(J)$ and then finds a submatrix where the matrix has full rank after being evaluated at that point.  For more details on how these strategies work, see <a title="strategies for choosing submatrices" href="___Strategy__Default.html">getSubmatrixOfRank(...,Strategy=>...)</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : a = getSubmatrixOfRank(6, M**(S/J), Strategy=>Random)
+
+o4 = {{0, 4, 5, 6, 7, 8}, {24, 8, 13, 5, 1, 25}}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : M^(a#0)_(a#1)
+
+o5 = {1} | 2x_1x_3^2  -x_5 x_4x_7-x_6x_9  -x_8 0    0          |
+     {1} | 0          -x_1 -x_2x_9        0    0    3x_5^2x_6  |
+     {1} | 2x_4^2x_6  0    -x_1x_9        0    0    x_5^3      |
+     {1} | -2x_7x_9^2 0    x_1x_4         x_2  0    0          |
+     {1} | 0          0    0              -x_1 x_3  -3x_8^2x_9 |
+     {1} | -2x_7^2x_9 0    -x_2x_5-x_1x_6 0    -x_2 -x_8^3     |
+
+             6       6
+o5 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : d = getSubmatrixOfRank(6, M**(S/J), MaxMinors=>100, Strategy=>LexSmallest)
+
+o6 = {{8, 7, 1, 2, 6, 4}, {2, 3, 8, 7, 12, 30}}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : M^(d#0)_(d#1)
+
+o7 = {1} | -x_4 0    0    0   -x_5^2-x_4x_6 0          |
+     {1} | 0    -x_4 0    0   0             -2x_7^2x_8 |
+     {1} | 0    0    x_4  0   0             2x_1^2x_2  |
+     {1} | 0    0    0    x_4 0             0          |
+     {1} | x_6  x_5  0    0   x_4^2         -2x_7x_8^2 |
+     {1} | 0    x_7  -x_1 0   -2x_5x_9      2x_4^2x_5  |
+
+             6       6
+o7 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : e = getSubmatrixOfRank(6, M**(S/J), Strategy=>LexSmallestTerm)
+
+o8 = {{6, 3, 7, 4, 0, 2}, {4, 7, 1, 6, 18, 19}}
+
+o8 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : M^(e#0)_(e#1)
+
+o9 = {1} | x_3  0    0   0   0              0      |
+     {1} | 0    x_3  0   0   0              0      |
+     {1} | 0    0    x_3 0   0              0      |
+     {1} | 0    0    0   x_3 0              0      |
+     {1} | -x_9 -x_6 0   0   3x_1^2-x_3^2   0      |
+     {1} | x_7  x_4  x_8 x_5 -x_2^2-2x_1x_3 4x_3^3 |
+
+             6       6
+o9 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : f = getSubmatrixOfRank(6, M**(S/J), MaxMinors=>100, Strategy=>LexLargest)
+
+o10 = {{0, 2, 1, 5, 8, 4}, {29, 25, 28, 17, 14, 16}}
+
+o10 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : M^(f#0)_(f#1)
+
+o11 = {1} | x_2^3     0         0      2x_1x_4-x_3x_6 2x_1x_7-x_3x_9
+      {1} | 0         x_2^3     0      -x_1x_6        -x_1x_9       
+      {1} | 3x_1x_2^2 3x_2^2x_3 4x_2^3 -2x_2x_6       -2x_2x_9      
+      {1} | 0         x_5^3     0      -x_2^2-x_1x_3  0             
+      {1} | 0         -x_8^3    0      0              -x_2^2-x_1x_3 
+      {1} | 3x_4x_5^2 3x_5^2x_6 4x_5^3 0              0             
+      -----------------------------------------------------------------------
+      x_4^2-x_6^2     |
+      0               |
+      -x_5x_6         |
+      -x_2x_5-2x_1x_6 |
+      0               |
+      -x_2x_6         |
+
+              6       6
+o11 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : g = getSubmatrixOfRank(6, M**(S/J), Strategy=>Points)
+
+o12 = {{0, 1, 2, 3, 4, 6}, {0, 1, 2, 4, 9, 19}}
+
+o12 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : M^(g#0)_(g#1)
+
+o13 = {1} | 0    0    0    -x_9 0            0      |
+      {1} | 0    -x_9 0    0    0            0      |
+      {1} | 0    x_8  0    x_7  0            4x_3^3 |
+      {1} | 0    0    -x_9 0    0            0      |
+      {1} | -x_9 0    0    0    0            0      |
+      {1} | 0    0    x_6  x_3  3x_7^2-x_9^2 0      |
+
+              6       6
+o13 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>You can see that different strategies typically produce submatrices which can appear quite different in their complexity. We left off the strategies <tt>GRevLexLargest, GRevLexSmallest, GRevLexSmallestTerm</tt> as they behave very poorly on this example (indeed, we had to increase <tt>MaxMinors</tt>, the number of submatrices considered, for both <tt>LexSmallest</tt> and <tt>LexLargest</tt> as they did not find a submatrix in the default number of attempts).  Of course, one can view the matrix over $S$, instead of $S/J$, where it's easier to choose a submatrix.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : b = getSubmatrixOfRank(6, M, Strategy=>GRevLexSmallest)
+
+o14 = {{4, 7, 3, 6, 8, 1}, {6, 1, 7, 4, 2, 8}}
+
+o14 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : M^(b#0)_(b#1)
+
+o15 = {1} | x_3  0    0   0    0    -x_1 |
+      {1} | 0    x_3  0   0    0    0    |
+      {1} | 0    0    x_3 0    -x_9 x_2  |
+      {1} | 0    0    0   x_3  x_6  0    |
+      {1} | 0    -x_2 0   -x_1 -x_4 0    |
+      {1} | -x_6 -x_9 0   0    0    x_4  |
+
+              6       6
+o15 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : c = getSubmatrixOfRank(6, M, Strategy=>GRevLexSmallestTerm)
+
+o16 = {{1, 0, 7, 6, 4, 2}, {6, 7, 0, 2, 3, 4}}
+
+o16 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : M^(c#0)_(c#1)
+
+o17 = {1} | -x_6 0    0    0   0    0    |
+      {1} | 0    -x_6 0    0   0    -x_9 |
+      {1} | 0    0    x_6  0   -x_4 0    |
+      {1} | 0    0    0    x_6 x_5  x_3  |
+      {1} | x_3  0    -x_9 0   x_7  0    |
+      {1} | x_5  x_4  0    0   0    x_7  |
+
+              6       6
+o17 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : h = getSubmatrixOfRank(6, M, Strategy=>LexLargest)
+
+o18 = {{4, 3, 5, 0, 8, 2}, {20, 21, 19, 16, 12, 17}}
+
+o18 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : M^(h#0)_(h#1)
+
+o19 = {1} | x_6^3      0          0       -x_2x_6         -2x_5x_9      
+      {1} | 0          x_6^3      0       2x_1x_4         2x_4x_7-x_6x_9
+      {1} | 3x_5x_6^2  3x_4x_6^2  4x_6^3  -x_2x_5-2x_1x_6 -x_4x_9       
+      {1} | 0          x_3^3      0       x_4^2-x_6^2     0             
+      {1} | -3x_8x_9^2 -3x_7x_9^2 -4x_9^3 0               -x_5^2-x_4x_6 
+      {1} | 3x_2x_3^2  3x_1x_3^2  4x_3^3  0               0             
+      -----------------------------------------------------------------------
+      0              |
+      x_1^2          |
+      -x_2^2-x_1x_3  |
+      2x_1x_4-x_3x_6 |
+      0              |
+      -x_1x_6        |
+
+              6       6
+o19 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><b>chooseGoodMinors:</b>  In many cases, we want to consider the determinant of the submatrices we just found, perhaps to append the determinant to an ideal.  The function <a title="returns an ideal generated by interesting minors in a matrix" href="_choose__Good__Minors.html">chooseGoodMinors</a> helps us do that.  Note that <tt>chooseGoodMinors</tt> does not check that the submatrix we are computing has full rank (except by computing its determinant and adding it to our working ideal).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : chooseGoodMinors(1, 6, M, J, Strategy=>Random)
+
+                 5 4   3      2 3 5   3      3   6   3      3 3 2 2   3  
+o20 = ideal(16x x x x x  + 32x x x x x  + 16x x x x x  - 16x x x x x x  -
+               1 2 3 4 7      1 2 3 4 7      1 2 3 4 7      2 3 4 5 6 7  
+      -----------------------------------------------------------------------
+             4 2 2   3        5   4 3      3   2   4 3      2 4 4   2    
+      16x x x x x x x  + 16x x x x x  - 16x x x x x x  - 32x x x x x x  -
+         1 2 3 4 5 6 7      1 2 4 6 7      1 2 3 4 6 7      1 2 3 4 7 8  
+      -----------------------------------------------------------------------
+         3 2 5   2        3 3 4   2        4   5   2          2 3 2 2   2    
+      32x x x x x x  + 24x x x x x x  + 24x x x x x x  + 32x x x x x x x x  -
+         1 2 3 4 7 8      1 2 3 5 7 8      1 2 3 5 7 8      1 2 3 4 5 6 7 8  
+      -----------------------------------------------------------------------
+         2   3   3   2        2 4   4 2        3 2     4 2        3 3   4 2  
+      24x x x x x x x x  - 32x x x x x x  + 32x x x x x x x  + 24x x x x x x 
+         1 2 3 4 5 6 7 8      1 2 4 6 7 8      1 2 3 4 6 7 8      1 2 5 6 7 8
+      -----------------------------------------------------------------------
+           4       4 2        3 3 4   2        4   5   2    
+      - 24x x x x x x x  - 16x x x x x x  - 16x x x x x x  +
+           1 2 3 5 6 7 8      1 2 3 4 7 9      1 2 3 4 7 9  
+      -----------------------------------------------------------------------
+         2   3 2 2   2        3 3   4 2        4       4 2       6 4        
+      16x x x x x x x x  - 16x x x x x x  + 16x x x x x x x  - 8x x x x x x 
+         1 2 3 4 5 6 7 9      1 2 4 6 7 9      1 2 3 4 6 7 9     2 3 4 7 8 9
+      -----------------------------------------------------------------------
+             4 5              2 2 6                5 4          
+      + 16x x x x x x x  + 24x x x x x x x  + 16x x x x x x x  -
+           1 2 3 4 7 8 9      1 2 3 4 7 8 9      1 2 3 5 7 8 9  
+      -----------------------------------------------------------------------
+         3   6                2 3 3 2            2 4 3 2        
+      16x x x x x x x  - 16x x x x x x x x  + 16x x x x x x x  +
+         1 2 3 5 7 8 9      1 2 3 4 5 7 8 9      1 3 4 5 7 8 9  
+      -----------------------------------------------------------------------
+         2   3 2 3           2 4 2 2               5 2 2          
+      32x x x x x x x x  - 8x x x x x x x x  - 8x x x x x x x x  +
+         1 2 3 4 5 7 8 9     2 3 4 5 6 7 8 9     1 3 4 5 6 7 8 9  
+      -----------------------------------------------------------------------
+         2 4 2 3            3 2   2 3            3 3     3        
+      16x x x x x x x  - 48x x x x x x x x  - 32x x x x x x x x  +
+         1 2 4 6 7 8 9      1 2 3 4 6 7 8 9      1 2 4 5 6 7 8 9  
+      -----------------------------------------------------------------------
+         4         3           2 4 4   2       3 2 5   2       3 3 2 3 2    
+      32x x x x x x x x x  - 4x x x x x x  - 4x x x x x x  - 8x x x x x x  +
+         1 2 3 4 5 6 7 8 9     1 2 3 5 8 9     1 2 3 5 8 9     1 3 4 5 8 9  
+      -----------------------------------------------------------------------
+        2 4   3   2       4 2     3 2        3 3   4 2            4   4 2    
+      4x x x x x x x  + 8x x x x x x x  + 16x x x x x x  + 16x x x x x x x  -
+        1 3 4 5 6 8 9     1 2 4 5 6 8 9      2 3 4 7 8 9      1 2 3 4 7 8 9  
+      -----------------------------------------------------------------------
+           2 3   3 3        2 4   3 3        2   4 3 3          5 4     2  
+      16x x x x x x x  - 16x x x x x x  + 16x x x x x x  - 16x x x x x x  -
+         1 2 3 4 7 8 9      1 3 4 7 8 9      1 4 6 7 8 9      1 2 3 4 7 9  
+      -----------------------------------------------------------------------
+         2 3 5     2      3   6     2      3 3 2 2     2          4 2 2     2
+      32x x x x x x  - 16x x x x x x  + 16x x x x x x x  + 16x x x x x x x x 
+         1 2 3 4 7 9      1 2 3 4 7 9      2 3 4 5 6 7 9      1 2 3 4 5 6 7 9
+      -----------------------------------------------------------------------
+             5   4   2      3   2   4   2     2 4 4     2     3 2 5     2  
+      - 16x x x x x x  + 16x x x x x x x  - 8x x x x x x  - 8x x x x x x  +
+           1 2 4 6 7 9      1 2 3 4 6 7 9     1 2 3 4 8 9     1 2 3 4 8 9  
+      -----------------------------------------------------------------------
+        3 3 4     2     4   5     2      3 3 3 2   2     2 4 2 2     2  
+      8x x x x x x  + 8x x x x x x  - 16x x x x x x  + 8x x x x x x x  -
+        1 2 3 5 8 9     1 2 3 5 8 9      1 3 4 5 8 9     1 3 4 5 6 8 9  
+      -----------------------------------------------------------------------
+        2   3   3     2      4 2 2 3   2     3 3   4   2     4       4   2  
+      8x x x x x x x x  + 16x x x x x x  + 8x x x x x x  - 8x x x x x x x  +
+        1 2 3 4 5 6 8 9      1 2 4 6 8 9     1 2 5 6 8 9     1 2 3 5 6 8 9  
+      -----------------------------------------------------------------------
+        2 4   2 3 2       5   2 3 2     3 3   2 3 2         4   2 3 2  
+      8x x x x x x  + 8x x x x x x  + 8x x x x x x  + 8x x x x x x x  -
+        2 3 4 7 8 9     1 3 4 7 8 9     2 3 5 7 8 9     1 2 3 5 7 8 9  
+      -----------------------------------------------------------------------
+         2 2 3 2 3 2       2 3     4 2     2 4     4 2     2   4   4 2  
+      16x x x x x x  - 8x x x x x x x  - 8x x x x x x  + 8x x x x x x  +
+         1 4 6 7 8 9     1 2 3 5 7 8 9     1 3 5 7 8 9     1 5 6 7 8 9  
+      -----------------------------------------------------------------------
+         3 3 4   3      4   5   3      2   3 2 2   3      3 3   4 3  
+      16x x x x x  + 16x x x x x  - 16x x x x x x x  + 16x x x x x  -
+         1 2 3 4 9      1 2 3 4 9      1 2 3 4 5 6 9      1 2 4 6 9  
+      -----------------------------------------------------------------------
+         4       4 3        2 3     3 3      2 4     3 3      2   4   3 3  
+      16x x x x x x  - 16x x x x x x x  - 16x x x x x x  + 16x x x x x x  +
+         1 2 3 4 6 9      1 2 3 4 7 8 9      1 3 4 7 8 9      1 4 6 7 8 9  
+      -----------------------------------------------------------------------
+        2 4   4 3       5   4 3     2     3 4 3        5   3 4  
+      4x x x x x  + 4x x x x x  - 8x x x x x x  - 16x x x x x  +
+        2 3 5 8 9     1 3 5 8 9     1 4 5 6 8 9      1 2 4 7 9  
+      -----------------------------------------------------------------------
+         3   2   3 4      2 4   2   4      3 2     2   4      2 2 2   2   4  
+      16x x x x x x  + 16x x x x x x  + 16x x x x x x x  - 16x x x x x x x  +
+         1 2 3 4 7 9      1 2 4 7 8 9      1 2 3 4 7 8 9      1 4 5 6 7 8 9  
+      -----------------------------------------------------------------------
+        2 4   3 4       5   3 4     3 3   3 4         4   3 4      2 2 3 3 4
+      8x x x x x  + 8x x x x x  - 8x x x x x  - 8x x x x x x  - 16x x x x x 
+        2 3 4 8 9     1 3 4 8 9     2 3 5 8 9     1 2 3 5 8 9      1 4 6 8 9
+      -----------------------------------------------------------------------
+           2 3 2     5      3 3   2 5          4   2 5        5     6  
+      + 16x x x x x x  - 16x x x x x  - 16x x x x x x  + 16x x x x x  -
+           1 4 5 7 8 9      2 3 4 8 9      1 2 3 4 8 9      1 2 4 7 9  
+      -----------------------------------------------------------------------
+         3   2     6
+      16x x x x x x )
+         1 2 3 4 7 9
+
+o20 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : chooseGoodMinors(1, 6, M, J, Strategy=>LexSmallest)
+
+                 6      5        3 2        2 3        4 2      3   2
+o21 = ideal(- x x  + x x x  + x x x x  - x x x x  + x x x  - x x x x )
+               2 4    1 4 5    2 4 5 6    1 4 5 6    2 4 6    1 4 5 6
+
+o21 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : chooseGoodMinors(1, 6, M, J, Strategy=>LexSmallestTerm)
+
+              8     5 2       6 2    3 2 3    4 4
+o22 = ideal(3x  - 3x x x  - 4x x  + x x x  + x x )
+              7     7 8 9     7 9    7 8 9    7 9
+
+o22 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : chooseGoodMinors(1, 6, M, J, Strategy=>LexLargest)
+
+                3 2 9     4 10     4 10       2 11     2 12        2 7 2 2  
+o23 = ideal(- 4x x x  - 4x x   + 4x x   + 8x x x   + 4x x   + 24x x x x x  +
+                1 2 3     1 3      2 3      1 2 3      1 3       1 2 3 4 6  
+      -----------------------------------------------------------------------
+         2 8 2 2     2 2 6   3     3 7   3      2 8   3        9   3  
+      24x x x x  - 8x x x x x  - 8x x x x  - 12x x x x  - 12x x x x  -
+         1 3 4 6     1 2 3 4 6     1 3 4 6      2 3 4 6      1 3 4 6  
+      -----------------------------------------------------------------------
+         3 7   3          8   3      3 2 5 4      4 6 4      4 6 4  
+      24x x x x  - 24x x x x x  - 12x x x x  - 12x x x  + 28x x x  +
+         2 3 5 6      1 2 3 5 6      1 2 3 6      1 3 6      2 3 6  
+      -----------------------------------------------------------------------
+           2 7 4     2 8 4       2 3 2 6     2 4 2 6     2 4   7       5   7
+      36x x x x  + 8x x x  + 8x x x x x  + 8x x x x  - 4x x x x  - 4x x x x 
+         1 2 3 6     1 3 6     1 2 3 4 6     1 3 4 6     2 3 4 6     1 3 4 6
+      -----------------------------------------------------------------------
+           3 3   7          4   7      4 2 8        2 3 8     2 4 8  
+      - 24x x x x  - 24x x x x x  + 24x x x  + 20x x x x  - 4x x x  +
+           2 3 5 6      1 2 3 5 6      2 3 6      1 2 3 6     1 3 6  
+      -----------------------------------------------------------------------
+         4 6 2 2        2 7 2 2      2 8 2 2      3 3   3 2 2  
+      24x x x x  - 24x x x x x  - 24x x x x  + 24x x x x x x  +
+         1 3 7 9      1 2 3 7 9      1 3 7 9      1 3 4 6 7 9  
+      -----------------------------------------------------------------------
+             4   3 2 2        2 3 4 2 2      2 4 4 2 2          4   3     2  
+      41x x x x x x x  - 41x x x x x x  + 24x x x x x  - 41x x x x x x x x  -
+         1 2 3 5 6 7 9      1 2 3 6 7 9      1 3 6 7 9      1 2 3 4 6 7 8 9  
+      -----------------------------------------------------------------------
+        2   3 4     2            7     2      5 5   3      2 2 6   3  
+      7x x x x x x x  - 48x x x x x x x  - 24x x x x  + 24x x x x x  +
+        1 2 3 6 7 8 9      1 2 4 6 7 8 9      1 3 7 9      1 2 3 7 9  
+      -----------------------------------------------------------------------
+         3 7   3      2 8   3        9   3      3 3 2 2   3  
+      12x x x x  + 12x x x x  + 12x x x x  - 24x x x x x x  -
+         1 3 7 9      2 3 7 9      1 3 7 9      1 3 4 6 7 9  
+      -----------------------------------------------------------------------
+             4     2   3        2 3   3   3      2 4   3   3  
+      41x x x x x x x x  - 29x x x x x x x  + 35x x x x x x  -
+         1 2 3 4 5 6 7 9      1 2 3 4 6 7 9      1 3 4 6 7 9  
+      -----------------------------------------------------------------------
+         2   3   3   3      2 2 2 4   3      3 3 4   3              6   3  
+      10x x x x x x x  + 17x x x x x x  - 20x x x x x  + 48x x x x x x x  -
+         1 2 3 5 6 7 9      1 2 3 6 7 9      1 3 6 7 9      1 2 4 5 6 7 9  
+      -----------------------------------------------------------------------
+         3   6   3      3 7   3          8   3          4 2 2   3  
+      24x x x x x  + 24x x x x  + 24x x x x x  + 41x x x x x x x  -
+         1 2 3 8 9      2 3 8 9      1 2 3 8 9      1 2 3 4 6 8 9  
+      -----------------------------------------------------------------------
+         2   3   3   3      3   2 4   3      3 3 4   3          4 4   3  
+      48x x x x x x x  + 31x x x x x x  + 24x x x x x  + 24x x x x x x  +
+         1 2 3 4 6 8 9      1 2 3 6 8 9      2 3 6 8 9      1 2 3 6 8 9  
+      -----------------------------------------------------------------------
+             2 6   3      3 2 5 4     4 6 4      4 6 4        2 7 4     2 8 4
+      48x x x x x x  + 24x x x x  + 8x x x  - 24x x x  - 32x x x x  - 8x x x 
+         1 2 4 6 8 9      1 2 3 9     1 3 9      2 3 9      1 2 3 9     1 3 9
+      -----------------------------------------------------------------------
+             2 3 2 2 4      2 4 2 2 4      2   3     2 4      2 2 2   3 4  
+      - 41x x x x x x  + 36x x x x x  - 38x x x x x x x  - 17x x x x x x  +
+           1 2 3 4 6 9      1 3 4 6 9      1 2 3 4 5 6 9      1 2 3 4 6 9  
+      -----------------------------------------------------------------------
+         3 3   3 4     2 4   3 4       5   3 4      3   2   3 4      4 2 4 4
+      20x x x x x  + 4x x x x x  + 4x x x x x  - 31x x x x x x  - 24x x x x 
+         1 3 4 6 9     2 3 4 6 9     1 3 4 6 9      1 2 3 5 6 9      2 3 6 9
+      -----------------------------------------------------------------------
+             2 3 4 4     2 4 4 4          2   5 4
+      - 20x x x x x  + 4x x x x  - 48x x x x x x )
+           1 2 3 6 9     1 3 6 9      1 2 4 5 6 9
+
+o23 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i24 : chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexSmallest)
+
+             4 2       3        2 2 2
+o24 = ideal(x x  - 2x x x x  + x x x )
+             3 5     2 3 5 6    2 3 6
+
+o24 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i25 : chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexSmallestTerm)
+
+               4 2       3        2 2 2
+o25 = ideal(- x x  + 2x x x x  - x x x )
+               2 4     1 2 4 5    1 2 5
+
+o25 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i26 : chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexLargest)
+
+               9 5 4        8 4 5      2 7 3 6      3 6 2 7      4 5   8  
+o26 = ideal(16x x x  + 23x x x x  - 46x x x x  + 46x x x x  - 23x x x x  -
+               3 8 9      2 3 8 9      2 3 8 9      2 3 8 9      2 3 8 9  
+      -----------------------------------------------------------------------
+         5 4 9
+      16x x x )
+         2 3 9
+
+o26 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i27 : chooseGoodMinors(1, 6, M, J, Strategy=>Points)
+
+               3 2 4     3 6
+o27 = ideal(12x x x  - 4x x )
+               3 7 9     3 9
+
+o27 : Ideal of S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Here the $1$ passed to the function says how many minors to compute.  For instance, let's compute 8 minors for each of these strategies and see if that was enough to verify that the ring is regular in codimension 1.  In other words, if the dimension of $J$ plus the ideal of partial minors is $\leq 1$ (since $S/J$ has dimension 3).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i28 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>Random))
+     -- used 0.0460402 seconds
+
+o28 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i29 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexSmallest))
+     -- used 0.242585 seconds
+
+o29 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i30 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexSmallestTerm))
+     -- used 0.314794 seconds
+
+o30 = 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i31 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexLargest))
+     -- used 0.425506 seconds
+
+o31 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i32 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexSmallest))
+     -- used 0.187949 seconds
+
+o32 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i33 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexSmallestTerm))
+     -- used 0.22083 seconds
+
+o33 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i34 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexLargest))
+     -- used 0.141989 seconds
+
+o34 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i35 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>Points))
+     -- used 12.0797 seconds
+
+o35 = 1</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Indeed, in this example, even computing determinants of 1,000 random submatrices is not typically enough to verify that $V(J)$ is regular in codimension 1.  On the other hand, <tt>Points</tt> is almost always quite effective at finding valuable submatrices, but can be quite slow.  In this particular example, we can see that <tt>LexSmallestTerm</tt> also performs very well (and does it quickly). Since different strategies work better or worse on different examples, the default strategy actually mixes and matches various strategies.  The default strategy, which we now elucidate,</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i36 : peek StrategyDefault
+
+o36 = OptionTable{GRevLexLargest => 0      }
+                  GRevLexSmallest => 16
+                  GRevLexSmallestTerm => 16
+                  LexLargest => 0
+                  LexSmallest => 16
+                  LexSmallestTerm => 16
+                  Points => 0
+                  Random => 16
+                  RandomNonzero => 16</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>says that we should use <tt>GRevLexSmallest, GRevLexSmallestTerm, LexSmallest, LexSmallestTerm, Random, RandomNonzero</tt> all with equal probability (note <tt>RandomNonzero</tt>, which we have not yet discussed chooses random submatrices where no row or column is zero, which is good for working in sparse matrices).  For instance, if we run:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i37 : time chooseGoodMinors(20, 6, M, J, Strategy=>StrategyDefault, Verbose=>true);
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing LexSmallest
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing Random
+internalChooseMinor: Choosing RandomNonZero
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing Random
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing Random
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing GRevLexSmallest
+chooseGoodMinors: found =20, attempted = 21
+     -- used 0.400545 seconds
+
+o37 : Ideal of S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>we can see different minors being chosen via different strategies.</p>
+        </div>
+        <div>
+          <p>Note, if one asks <tt>chooseGoodMinors</tt> for more than one minor, then any time a <tt>Points</tt> strategy is selected, the point is found on $J$ plus the ideal of all minors computed thus far.</p>
+        </div>
+        <div>
+          <p>Let us take a look at some other built-in strategies.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i38 : peek StrategyDefaultNonRandom
+
+o38 = OptionTable{GRevLexLargest => 0      }
+                  GRevLexSmallest => 25
+                  GRevLexSmallestTerm => 25
+                  LexLargest => 0
+                  LexSmallest => 25
+                  LexSmallestTerm => 25
+                  Points => 0
+                  Random => 0
+                  RandomNonzero => 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i39 : peek StrategyDefaultWithPoints
+
+o39 = OptionTable{GRevLexLargest => 0      }
+                  GRevLexSmallest => 16
+                  GRevLexSmallestTerm => 16
+                  LexLargest => 0
+                  LexSmallest => 16
+                  LexSmallestTerm => 16
+                  Points => 32
+                  Random => 0
+                  RandomNonzero => 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i40 : peek StrategyPoints
+
+o40 = OptionTable{GRevLexLargest => 0     }
+                  GRevLexSmallest => 0
+                  GRevLexSmallestTerm => 0
+                  LexLargest => 0
+                  LexSmallest => 0
+                  LexSmallestTerm => 0
+                  Points => 100
+                  Random => 0
+                  RandomNonzero => 0</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><tt>StrategyDefaultNonRandom</tt> is like <tt>StrategyDefault</tt> but removes random submatrices (which can be surprisingly beneficial in some cases).  <tt>StrategyDefaultWithPoints</tt> removes randomness but adds in points instead.</p>
+        </div>
+        <div>
+          <p><i>A warning on chooseGoodMinors:</i>  The strategies <tt>LexSmallest</tt> and <tt>LexSmallestTerm</tt> will very frequently <b>repeatedly</b> choose the same submatrix of the given matrix.  Hence if one tries to run <tt>chooseGoodMinors</tt> and choose too many minors with such a strategy, one can get into a long loop (the function give up eventually, but only after doing way too much work).  The <tt>GRevLex</tt> strategies periodically temporarily change the underlying matrix to avoid this sort of loop.</p>
+        </div>
+        <div>
+          <p><b>Points:</b> Notice that <tt>Strategy => StrategyPoints</tt> and <tt>Strategy => Points</tt> do the same thing. We briefly describe how <tt>chooseGoodMinors</tt> interacts with <tt>Points</tt>.  Indeed <tt>Points</tt> forms the ideal of minors computed so far (plus $J$), finds a point where that ideal vanishes (which can be slow), evaluates the matrix $M$ at that point, and then finally computes the corresponding determinant of the submatrix.  This submatrix will always produce a minor which shrinks our vanishing locus.</p>
+        </div>
+        <div>
+          <p>By default, the <tt>Points</tt> strategy actually finds geometric points.  Which can be sometimes slower (but which are almost certain to exist, and are less likely to hang if the function has trouble finding a point).  For instance, we can control that as follows.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i41 : ptsStratGeometric = new OptionTable from (options chooseGoodMinors)#PointOptions;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i42 : ptsStratGeometric#ExtendField --look at the default value
+
+o42 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i43 : time dim (J + chooseGoodMinors(1, 6, M, J, Strategy=>Points, PointOptions=>ptsStratGeometric))
+     -- used 0.899519 seconds
+
+o43 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i44 : ptsStratRational = ptsStratGeometric++{ExtendField=>false} --change that value
+
+o44 = OptionTable{DecompositionStrategy => Decompose}
+                  DimensionFunction => dim
+                  ExtendField => false
+                  Homogeneous => false
+                  NumThreadsToUse => 1
+                  PointCheckAttempts => 0
+                  Replacement => Binomial
+                  Strategy => Default
+                  Verbose => false
+
+o44 : OptionTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i45 : ptsStratRational.ExtendField --look at our changed value
+
+o45 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i46 : time dim (J + chooseGoodMinors(1, 6, M, J, Strategy=>Points, PointOptions=>ptsStratRational))
+     -- used 3.39123 seconds
+
+o46 = 2</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Other options may also be passed to the <a title="Obtain random points in a variety" href="../../RandomPoints/html/index.html">RandomPoints</a> package via the <a title="options to pass to functions in the package RandomPoints" href="___Point__Options.html">PointOptions</a> option.</p>
+        </div>
+        <div>
+          <p><b>regularInCodimension:</b>  It is reasonable to think that you should find a few minors (with one strategy or another), and see if perhaps the minors you have computed so far are enough to verify our ring is regular in codimension 1.  This is exactly what <tt>regularInCodimension</tt> does.  One can control at a fine level how frequently new minors are computed, and how frequently the dimension of what we have computed so far is checked, by the option <tt>codimCheckFunction</tt>.  For more on that, see <a title="A tutorial for how to use the advanced options of the regularInCodimension function" href="___Regular__In__Codimension__Tutorial.html">RegularInCodimensionTutorial</a> and <a title="attempts to show that the ring is regular in codimension n" href="_regular__In__Codimension.html">regularInCodimension</a>.  Let us finish running <tt>regularInCodimension</tt> on our example with several different strategies.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i47 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefault)
+     -- used 1.99798 seconds
+
+o47 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i48 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefaultNonRandom)
+     -- used 0.577181 seconds
+
+o48 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i49 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>Random)
+     -- used 3.29686 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i50 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>LexSmallest)
+     -- used 2.26566 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i51 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>LexSmallestTerm)
+     -- used 0.36724 seconds
+
+o51 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i52 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>GRevLexSmallest)
+     -- used 2.56458 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i53 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>GRevLexSmallestTerm)
+     -- used 3.29896 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i54 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>Points)
+     -- used 9.94088 seconds
+
+o54 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i55 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefaultWithPoints)
+     -- used 11.0363 seconds
+
+o55 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If <tt>regularInCodimension</tt> outputs nothing, then it couldn't verify that the ring was regular in that codimension.  We set <tt>MaxMinors => 100</tt> to keep it from running too long with an ineffective strategy.  Again, even though <tt>GRevLexSmallest</tt> and <tt>GRevLexSmallestTerm</tt> are not effective in this particular example, in others they perform better than other strategies.  Note similar considerations also apply to <a title="finds an upper bound for the projective dimension of a module" href="_proj__Dim.html">projDim</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="strategies for choosing submatrices" href="___Strategy__Default.html">chooseGoodMinors(...,Strategy=>...)</a> -- strategies for choosing submatrices</span>          </li>
+          <li>
+<span><a title="A tutorial for how to use the advanced options of the regularInCodimension function" href="___Regular__In__Codimension__Tutorial.html">RegularInCodimensionTutorial</a> -- A tutorial for how to use the advanced options of the regularInCodimension function</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="How to use and construct strategies for selecting submatrices in various functions" href="___Fast__Minors__Strategy__Tutorial.html">FastMinorsStrategyTutorial</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,43 @@
+-- -*- M2-comint -*- hash: -1316319349
+
+i1 : kk=ZZ/101;
+
+i2 : g=1;
+
+i3 : rNP=randNicePencil(kk,g);
+
+i4 : S=rNP.qqRing;
+
+i5 : qq=rNP.quadraticForm
+
+              2      2                           2                       
+o5 = x y s - z s - 5x t + 12x z t - 18y z t - 30z t - 12x z t + 10y z t +
+      0 0     1      0       0 1       0 1       1       0 2       0 2   
+     ------------------------------------------------------------------------
+                 2
+     6z z t - 48z t
+       1 2       2
+
+o5 : S
+
+i6 : q1=diff(S_(2*g+2), qq)
+
+             2
+o6 = x y  - z
+      0 0    1
+
+o6 : S
+
+i7 : q2=diff(S_(2*g+3), qq)
+
+         2                        2                                2
+o7 = - 5x  + 12x z  - 18y z  - 30z  - 12x z  + 10y z  + 6z z  - 48z
+         0      0 1      0 1      1      0 2      0 2     1 2      2
+
+o7 : S
+
+i8 : qq==S_(2*g+2)*q1+S_(2*g+3)*q2
+
+o8 = true
+
+i9 : 

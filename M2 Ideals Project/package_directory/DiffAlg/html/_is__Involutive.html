@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isInvolutive -- tests if a distribution is involutive</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_linear__Comb.html">next</a> | <a href="_is__Homogeneous_lp__Diff__Alg__Element_rp.html">previous</a> | <a href="_linear__Comb.html">forward</a> | <a href="_is__Homogeneous_lp__Diff__Alg__Element_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="differential algebra" href="index.html">DiffAlg</a> :: <a title="tests if a distribution is involutive" href="_is__Involutive.html">isInvolutive</a>    </div>
+    <hr/>
+    <div>
+      <h1>isInvolutive -- tests if a distribution is involutive</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isInvolutive(L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>an instance of the type <a title="the class of distributions of vector fields" href="___Diff__Alg__Distribution.html">DiffAlgDistribution</a></span>, as given by the output of <a title="produces a DiffAlgDistribution from a list" href="_dist.html">dist</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, true if the distribution L is involutive</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>If <tt>L</tt> is a list of vector fields, this routine tests the involutivity of <tt>L</tt>.</p>
+<br/>        <p>In this example we test the involutivity of two vector fields.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = newField(&quot;3*x_0*ax_0+x_1*ax_1&quot;)
+
+o1 = 3x ax  + x ax
+       0  0    1  1
+
+o1 : DiffAlgField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Y = radial 3
+
+o2 = x ax  + x ax  + x ax  + x ax
+      0  0    1  1    2  2    3  3
+
+o2 : DiffAlgField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isInvolutive dist {X,Y}
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+        <p>In this example we compute a basis of the annihilator of a random projective logarithmic differential 1-form. Then we verify that it is an involutive distribution.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : w = random logarithmicForm(2,{1,2},&quot;a&quot;,Projective => true)
+
+                    2                           2              2            
+o4 = (120x x  + 144x  + 306x x  + 108x x  + 108x )dx  + (- 120x  - 144x x  -
+          0 1       1       0 2       1 2       2   0          0       0 1  
+     ------------------------------------------------------------------------
+                            2              2       2
+     108x x  - 264x x  - 72x )dx  + (- 306x  + 264x  - 108x x  + 72x x )dx
+         0 2       1 2      2   1          0       1       0 2      1 2   2
+
+o4 : DiffAlgForm</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : X = newField(2,2,&quot;a&quot;)
+
+         2               2                          2           2           
+o5 = (a x  + a x x  + a x  + a x x  + a  x x  + a  x )ax  + (a x  + a x x  +
+       0 0    3 0 1    9 1    6 0 2    12 1 2    15 2   0     1 0    4 0 1  
+     ------------------------------------------------------------------------
+         2                          2           2                2           
+     a  x  + a x x  + a  x x  + a  x )ax  + (a x  + a x x  + a  x  + a x x  +
+      10 1    7 0 2    13 1 2    16 2   1     2 0    5 0 1    11 1    8 0 2  
+     ------------------------------------------------------------------------
+                   2
+     a  x x  + a  x )ax
+      14 1 2    17 2   2
+
+o5 : DiffAlgField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : D = genKer(X_w,X);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : #D
+
+o7 = 6</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isInvolutive dist D
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="constructor of a vector field" href="_new__Field.html">newField</a> -- constructor of a vector field</span>          </li>
+          <li>
+<span><a title="defines the radial vector field" href="_radial.html">radial</a> -- defines the radial vector field</span>          </li>
+          <li>
+<span><a title="rank of the given distribution" href="_rank_lp__Diff__Alg__Distribution_rp.html">rank(DiffAlgDistribution)</a> -- rank of the given distribution</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isInvolutive</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isInvolutive(DiffAlgDistribution)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="tests if a distribution is involutive" href="_is__Involutive.html">isInvolutive</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

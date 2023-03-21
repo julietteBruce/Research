@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanInterface -- a Macaulay2 interface to gfan</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Conventions_spfor_spcalling_spmethods_spwith_spoptions.html">next</a> | previous | <a href="___Conventions_spfor_spcalling_spmethods_spwith_spoptions.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanInterface -- a Macaulay2 interface to gfan</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><em>gfanInterface</em> is an interface to Anders Jensen's Gfan software (available at <a href="http://home.imf.au.dk/jensen/software/gfan/gfan.html">http://home.imf.au.dk/jensen/software/gfan/gfan.html</a>), which is a C++ program to compute the Groebner fan (i.e. all the initial ideals) of an ideal.</p>
+          <p>The main function in this package is <a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a> which computes all of the Groebner bases and initial ideals of a given ideal.  A useful feature of this function is that it can handle symmetries in the ideal. If you want the geometric information of this list of Groebner basis, see <a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a>.</p>
+          <p>Most of the functions in gfanInterface require <a href="___Marked__Polynomial__List.html">MarkedPolynomialList</a> marked polynomial lists as input. In a marked polynomial list, the leading term of each polynomial is distinguished. New users should read the guide <a href="___Conventions_spfor_spcalling_spmethods_spwith_spoptions.html">Conventions for calling methods with options</a>. Since <tt>gfan</tt> is distributed with <em>Macaulay2</em>, one rarely needs to consult the guide for <a href="___Installation_spand_sp__Configuration_spof_spgfan__Interface.html">Installation and Configuration of gfanInterface</a>.</p>
+          <p>Most of functions in the gfan package are accessible through this interface. If you wish to use one whose interface is not included here send a message to the package author. Also, please feel free to suggest changes to the parameter types and return types of each method.</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="../../../../../../">Mike Stillman</a><span> &lt;<a href="mailto:mike@math.cornell.edu">mike@math.cornell.edu</a>></span>            </li>
+            <li>
+<a href="http://www.mast.queensu.ca/~ahhoefel/">Andrew Hoefel</a><span> &lt;<a href="mailto:andrew.hoefel@gmail.com">andrew.hoefel@gmail.com</a>></span>            </li>
+            <li>
+<a href="http://homepages.warwick.ac.uk/staff/D.Maclagan/">Diane Maclagan (current maintainer)</a><span> &lt;<a href="mailto:D.Maclagan@warwick.ac.uk">D.Maclagan@warwick.ac.uk</a>></span>            </li>
+            <li>
+<a href="http://people.math.gatech.edu/~jyu67/">Josephine Yu</a><span> &lt;<a href="mailto:jyu@math.gatech.edu">jyu@math.gatech.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.5</b> of gfanInterface.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/gfanInterface.m2">gfanInterface.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a href="___Marked__Polynomial__List.html">MarkedPolynomialList</a></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a> -- all reduced Groebner bases of a polynomial ideal</span>                  </li>
+                  <li>
+<span><a title="reduced Groebner basis with respect to some monomial order" href="_gfan__Buchberger.html">gfanBuchberger</a> -- reduced Groebner basis with respect to some monomial order</span>                  </li>
+                  <li>
+<span><a title="check ideal membership by the division algorithm" href="_gfan__Does__Ideal__Contain.html">gfanDoesIdealContain</a> -- check ideal membership by the division algorithm</span>                  </li>
+                  <li>
+<span><a title="find the common refinement of two polyhedral fans" href="_gfan__Fan__Common__Refinement.html">gfanFanCommonRefinement</a> -- find the common refinement of two polyhedral fans</span>                  </li>
+                  <li>
+<span><a title="the link of a vertex in a polyhedral fan" href="_gfan__Fan__Link.html">gfanFanLink</a> -- the link of a vertex in a polyhedral fan</span>                  </li>
+                  <li>
+<span><a title="computes the product of polyhedral fans" href="_gfan__Fan__Product.html">gfanFanProduct</a> -- computes the product of polyhedral fans</span>                  </li>
+                  <li>
+<span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span>                  </li>
+                  <li>
+<span><a title="homogeneity space of a list of polynomials" href="_gfan__Homogeneity__Space.html">gfanHomogeneitySpace</a> -- homogeneity space of a list of polynomials</span>                  </li>
+                  <li>
+<span><a title="homogenize a list of polynomials with respect to a weight vector" href="_gfan__Homogenize.html">gfanHomogenize</a> -- homogenize a list of polynomials with respect to a weight vector</span>                  </li>
+                  <li>
+<span><a title="initial forms of polynomials with respect to a weight vector" href="_gfan__Initial__Forms.html">gfanInitialForms</a> -- initial forms of polynomials with respect to a weight vector</span>                  </li>
+                  <li>
+<span><a title="not implemented" href="_gfan__Interactive.html">gfanInteractive</a> -- not implemented</span>                  </li>
+                  <li>
+<span><a title="checks if a list of polynomials are a Groebner basis" href="_gfan__Is__Marked__Groebner__Basis.html">gfanIsMarkedGroebnerBasis</a> -- checks if a list of polynomials are a Groebner basis</span>                  </li>
+                  <li>
+<span><a title="krull dimension" href="_gfan__Krull__Dimension.html">gfanKrullDimension</a> -- krull dimension</span>                  </li>
+                  <li>
+<span><a title="computes the lattice ideal of a lattice" href="_gfan__Lattice__Ideal.html">gfanLatticeIdeal</a> -- computes the lattice ideal of a lattice</span>                  </li>
+                  <li>
+<span><a title="leading terms of a list (or list of lists) of marked polynomials" href="_gfan__Leading__Terms.html">gfanLeadingTerms</a> -- leading terms of a list (or list of lists) of marked polynomials</span>                  </li>
+                  <li>
+<span><a title="mark the initial terms of a list of polynomials with respect to a weight vector" href="_gfan__Mark__Polynomial__Set.html">gfanMarkPolynomialSet</a> -- mark the initial terms of a list of polynomials with respect to a weight vector</span>                  </li>
+                  <li>
+<span><a title="the Minkowski sum of Newton polytopes" href="_gfan__Minkowski__Sum.html">gfanMinkowskiSum</a> -- the Minkowski sum of Newton polytopes</span>                  </li>
+                  <li>
+<span><a title="minors of a matrix of indeterminates" href="_gfan__Minors.html">gfanMinors</a> -- minors of a matrix of indeterminates</span>                  </li>
+                  <li>
+<span><a title="mixed volume of a list of polynomials" href="_gfan__Mixed__Volume.html">gfanMixedVolume</a> -- mixed volume of a list of polynomials</span>                  </li>
+                  <li>
+<span><a title="all reduced Groebner bases of a polynomial ideal with coefficients in ZZ" href="_gfan__Over__Integers.html">gfanOverIntegers</a> -- all reduced Groebner bases of a polynomial ideal with coefficients in ZZ</span>                  </li>
+                  <li>
+<span><tt>gfanParsePolyhedralFan</tt> (missing documentation)<!--tag: gfanParsePolyhedralFan-->
+</span>                  </li>
+                  <li>
+<span><a title="union of two lists of polynomials" href="_gfan__Polynomial__Set__Union.html">gfanPolynomialSetUnion</a> -- union of two lists of polynomials</span>                  </li>
+                  <li>
+<span><a title="render an image of a Groebner fan" href="_gfan__Render.html">gfanRender</a> -- render an image of a Groebner fan</span>                  </li>
+                  <li>
+<span><a title="render the staircase of a monomial initial ideal" href="_gfan__Render__Staircase.html">gfanRenderStaircase</a> -- render the staircase of a monomial initial ideal</span>                  </li>
+                  <li>
+<span><a title="Tropical variety of the sparse (toric) resultant variety." href="_gfan__Resultant__Fan.html">gfanResultantFan</a> -- Tropical variety of the sparse (toric) resultant variety.</span>                  </li>
+                  <li>
+<span><a title="saturation of an ideal" href="_gfan__Saturation.html">gfanSaturation</a> -- saturation of an ideal</span>                  </li>
+                  <li>
+<span><a title="computes the secondary fan of a vector configuration" href="_gfan__Secondary__Fan.html">gfanSecondaryFan</a> -- computes the secondary fan of a vector configuration</span>                  </li>
+                  <li>
+<span><a title="computes the stable intersection of two balanced fans" href="_gfan__Stable__Intersection.html">gfanStableIntersection</a> -- computes the stable intersection of two balanced fans</span>                  </li>
+                  <li>
+<span><a title="display certain properties of a list of polynomials" href="_gfan__Stats.html">gfanStats</a> -- display certain properties of a list of polynomials</span>                  </li>
+                  <li>
+<span><a title="rename the variables of a list of polynomials" href="_gfan__Substitute.html">gfanSubstitute</a> -- rename the variables of a list of polynomials</span>                  </li>
+                  <li>
+<span><a title="convert a list of polynomials to LaTeX" href="_gfan__To__Latex.html">gfanToLatex</a> -- convert a list of polynomials to LaTeX</span>                  </li>
+                  <li>
+<span><a title="polyhedral data about the fan of a list of Groebner bases" href="_gfan__To__Polyhedral__Fan.html">gfanToPolyhedralFan</a> -- polyhedral data about the fan of a list of Groebner bases</span>                  </li>
+                  <li>
+<span><a title="tropical basis of an ideal" href="_gfan__Tropical__Basis.html">gfanTropicalBasis</a> -- tropical basis of an ideal</span>                  </li>
+                  <li>
+<span><a title="computes the tropical variety of an ideal" href="_gfan__Tropical__Brute__Force.html">gfanTropicalBruteForce</a> -- computes the tropical variety of an ideal</span>                  </li>
+                  <li>
+<span><a title="evaluates a tropical polynomial function" href="_gfan__Tropical__Evaluation.html">gfanTropicalEvaluation</a> -- evaluates a tropical polynomial function</span>                  </li>
+                  <li>
+<span><a title="tropicalizes a polynomial" href="_gfan__Tropical__Function.html">gfanTropicalFunction</a> -- tropicalizes a polynomial</span>                  </li>
+                  <li>
+<span><a title="the tropical hypersurface of a principal ideal" href="_gfan__Tropical__Hyper__Surface.html">gfanTropicalHyperSurface</a> -- the tropical hypersurface of a principal ideal</span>                  </li>
+                  <li>
+<span><tt>gfanTropicalHyperSurfaceReconstruction</tt> (missing documentation)<!--tag: gfanTropicalHyperSurfaceReconstruction-->
+</span>                  </li>
+                  <li>
+<span><a title="polyhedral data describing intersection of tropical hypersurfaces" href="_gfan__Tropical__Intersection.html">gfanTropicalIntersection</a> -- polyhedral data describing intersection of tropical hypersurfaces</span>                  </li>
+                  <li>
+<span><a title="not implemented" href="_gfan__Tropical__Lifting.html">gfanTropicalLifting</a> -- not implemented</span>                  </li>
+                  <li>
+<span><a title="equations of a tropical linear space from Plücker coordinates" href="_gfan__Tropical__Linear__Space.html">gfanTropicalLinearSpace</a> -- equations of a tropical linear space from Plücker coordinates</span>                  </li>
+                  <li>
+<span><a title="multiplicity of a tropical cone" href="_gfan__Tropical__Multiplicity.html">gfanTropicalMultiplicity</a> -- multiplicity of a tropical cone</span>                  </li>
+                  <li>
+<span><a title="the tropical rank of a matrix" href="_gfan__Tropical__Rank.html">gfanTropicalRank</a> -- the tropical rank of a matrix</span>                  </li>
+                  <li>
+<span><a title="a pair of Groebner bases for use with gfanTropicalTraverse" href="_gfan__Tropical__Starting__Cone.html">gfanTropicalStartingCone</a> -- a pair of Groebner bases for use with gfanTropicalTraverse</span>                  </li>
+                  <li>
+<span><a title="polyhedral data describing a tropical variety" href="_gfan__Tropical__Traverse.html">gfanTropicalTraverse</a> -- polyhedral data describing a tropical variety</span>                  </li>
+                  <li>
+<span><a title="the tropical Weil divisor of a piecewise linear function" href="_gfan__Tropical__Weil__Divisor.html">gfanTropicalWeilDivisor</a> -- the tropical Weil divisor of a piecewise linear function</span>                  </li>
+                  <li>
+<span><tt>gfanVersion</tt> (missing documentation)<!--tag: gfanVersion-->
+</span>                  </li>
+                  <li>
+<span><a title="constructs a MarkedPolynomialList" href="_marked__Polynomial__List.html">markedPolynomialList</a> -- constructs a MarkedPolynomialList</span>                  </li>
+                  <li>
+<span><a title="Converts lists or ideals into markedPolynomialLists" href="___M__P__L__Converter.html">MPLConverter</a> -- Converts lists or ideals into markedPolynomialLists</span>                  </li>
+                  <li>
+<span><tt>multiplicitiesReorder</tt> (missing documentation)<!--tag: multiplicitiesReorder-->
+</span>                  </li>
+                  <li>
+<span><tt>toPolymakeFormat</tt> (missing documentation)<!--tag: toPolymakeFormat-->
+</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;gfan(Ideal)&quot;</tt> -- see <span><a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a> -- all reduced Groebner bases of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfan(List)&quot;</tt> -- see <span><a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a> -- all reduced Groebner bases of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfan(MarkedPolynomialList)&quot;</tt> -- see <span><a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a> -- all reduced Groebner bases of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanBuchberger(Ideal)&quot;</tt> -- see <span><a title="reduced Groebner basis with respect to some monomial order" href="_gfan__Buchberger.html">gfanBuchberger</a> -- reduced Groebner basis with respect to some monomial order</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanBuchberger(List)&quot;</tt> -- see <span><a title="reduced Groebner basis with respect to some monomial order" href="_gfan__Buchberger.html">gfanBuchberger</a> -- reduced Groebner basis with respect to some monomial order</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanBuchberger(MarkedPolynomialList)&quot;</tt> -- see <span><a title="reduced Groebner basis with respect to some monomial order" href="_gfan__Buchberger.html">gfanBuchberger</a> -- reduced Groebner basis with respect to some monomial order</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanDoesIdealContain(Ideal,List)&quot;</tt> -- see <span><a title="check ideal membership by the division algorithm" href="_gfan__Does__Ideal__Contain.html">gfanDoesIdealContain</a> -- check ideal membership by the division algorithm</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanDoesIdealContain(List,List)&quot;</tt> -- see <span><a title="check ideal membership by the division algorithm" href="_gfan__Does__Ideal__Contain.html">gfanDoesIdealContain</a> -- check ideal membership by the division algorithm</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanDoesIdealContain(MarkedPolynomialList,List)&quot;</tt> -- see <span><a title="check ideal membership by the division algorithm" href="_gfan__Does__Ideal__Contain.html">gfanDoesIdealContain</a> -- check ideal membership by the division algorithm</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanFanCommonRefinement(Fan,Fan)&quot;</tt> -- see <span><a title="find the common refinement of two polyhedral fans" href="_gfan__Fan__Common__Refinement.html">gfanFanCommonRefinement</a> -- find the common refinement of two polyhedral fans</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanFanLink(Fan,List)&quot;</tt> -- see <span><a title="the link of a vertex in a polyhedral fan" href="_gfan__Fan__Link.html">gfanFanLink</a> -- the link of a vertex in a polyhedral fan</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanFanProduct(Fan,Fan)&quot;</tt> -- see <span><a title="computes the product of polyhedral fans" href="_gfan__Fan__Product.html">gfanFanProduct</a> -- computes the product of polyhedral fans</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(Ideal)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(Ideal,Ideal)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(Ideal,List)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(Ideal,MarkedPolynomialList)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(List)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(List,Ideal)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(List,List)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(List,MarkedPolynomialList)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(MarkedPolynomialList)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(MarkedPolynomialList,Ideal)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(MarkedPolynomialList,List)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanGroebnerCone(MarkedPolynomialList,MarkedPolynomialList)&quot;</tt> -- see <span><a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> -- polyhedral information about a Groebner cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanHomogeneitySpace(Ideal)&quot;</tt> -- see <span><a title="homogeneity space of a list of polynomials" href="_gfan__Homogeneity__Space.html">gfanHomogeneitySpace</a> -- homogeneity space of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanHomogeneitySpace(List)&quot;</tt> -- see <span><a title="homogeneity space of a list of polynomials" href="_gfan__Homogeneity__Space.html">gfanHomogeneitySpace</a> -- homogeneity space of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanHomogeneitySpace(MarkedPolynomialList)&quot;</tt> -- see <span><a title="homogeneity space of a list of polynomials" href="_gfan__Homogeneity__Space.html">gfanHomogeneitySpace</a> -- homogeneity space of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanHomogenize(Ideal,Symbol)&quot;</tt> -- see <span><a title="homogenize a list of polynomials with respect to a weight vector" href="_gfan__Homogenize.html">gfanHomogenize</a> -- homogenize a list of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanHomogenize(List,Symbol)&quot;</tt> -- see <span><a title="homogenize a list of polynomials with respect to a weight vector" href="_gfan__Homogenize.html">gfanHomogenize</a> -- homogenize a list of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanHomogenize(MarkedPolynomialList,Symbol)&quot;</tt> -- see <span><a title="homogenize a list of polynomials with respect to a weight vector" href="_gfan__Homogenize.html">gfanHomogenize</a> -- homogenize a list of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanInitialForms(Ideal,List)&quot;</tt> -- see <span><a title="initial forms of polynomials with respect to a weight vector" href="_gfan__Initial__Forms.html">gfanInitialForms</a> -- initial forms of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanInitialForms(List,List)&quot;</tt> -- see <span><a title="initial forms of polynomials with respect to a weight vector" href="_gfan__Initial__Forms.html">gfanInitialForms</a> -- initial forms of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanInitialForms(MarkedPolynomialList,List)&quot;</tt> -- see <span><a title="initial forms of polynomials with respect to a weight vector" href="_gfan__Initial__Forms.html">gfanInitialForms</a> -- initial forms of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanIsMarkedGroebnerBasis(Ideal)&quot;</tt> -- see <span><a title="checks if a list of polynomials are a Groebner basis" href="_gfan__Is__Marked__Groebner__Basis.html">gfanIsMarkedGroebnerBasis</a> -- checks if a list of polynomials are a Groebner basis</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanIsMarkedGroebnerBasis(List)&quot;</tt> -- see <span><a title="checks if a list of polynomials are a Groebner basis" href="_gfan__Is__Marked__Groebner__Basis.html">gfanIsMarkedGroebnerBasis</a> -- checks if a list of polynomials are a Groebner basis</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanIsMarkedGroebnerBasis(MarkedPolynomialList)&quot;</tt> -- see <span><a title="checks if a list of polynomials are a Groebner basis" href="_gfan__Is__Marked__Groebner__Basis.html">gfanIsMarkedGroebnerBasis</a> -- checks if a list of polynomials are a Groebner basis</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanKrullDimension(Ideal)&quot;</tt> -- see <span><a title="krull dimension" href="_gfan__Krull__Dimension.html">gfanKrullDimension</a> -- krull dimension</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanKrullDimension(List)&quot;</tt> -- see <span><a title="krull dimension" href="_gfan__Krull__Dimension.html">gfanKrullDimension</a> -- krull dimension</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanKrullDimension(MarkedPolynomialList)&quot;</tt> -- see <span><a title="krull dimension" href="_gfan__Krull__Dimension.html">gfanKrullDimension</a> -- krull dimension</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanLatticeIdeal(List)&quot;</tt> -- see <span><a title="computes the lattice ideal of a lattice" href="_gfan__Lattice__Ideal.html">gfanLatticeIdeal</a> -- computes the lattice ideal of a lattice</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanLeadingTerms(List)&quot;</tt> -- see <span><a title="leading terms of a list (or list of lists) of marked polynomials" href="_gfan__Leading__Terms.html">gfanLeadingTerms</a> -- leading terms of a list (or list of lists) of marked polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanLeadingTerms(MarkedPolynomialList)&quot;</tt> -- see <span><a title="leading terms of a list (or list of lists) of marked polynomials" href="_gfan__Leading__Terms.html">gfanLeadingTerms</a> -- leading terms of a list (or list of lists) of marked polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanMarkPolynomialSet(List,List)&quot;</tt> -- see <span><a title="mark the initial terms of a list of polynomials with respect to a weight vector" href="_gfan__Mark__Polynomial__Set.html">gfanMarkPolynomialSet</a> -- mark the initial terms of a list of polynomials with respect to a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanMinkowskiSum(Ideal)&quot;</tt> -- see <span><a title="the Minkowski sum of Newton polytopes" href="_gfan__Minkowski__Sum.html">gfanMinkowskiSum</a> -- the Minkowski sum of Newton polytopes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanMinkowskiSum(List)&quot;</tt> -- see <span><a title="the Minkowski sum of Newton polytopes" href="_gfan__Minkowski__Sum.html">gfanMinkowskiSum</a> -- the Minkowski sum of Newton polytopes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanMinors(ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="minors of a matrix of indeterminates" href="_gfan__Minors.html">gfanMinors</a> -- minors of a matrix of indeterminates</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanMixedVolume(List)&quot;</tt> -- see <span><a title="mixed volume of a list of polynomials" href="_gfan__Mixed__Volume.html">gfanMixedVolume</a> -- mixed volume of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanOverIntegers(Ideal)&quot;</tt> -- see <span><a title="all reduced Groebner bases of a polynomial ideal with coefficients in ZZ" href="_gfan__Over__Integers.html">gfanOverIntegers</a> -- all reduced Groebner bases of a polynomial ideal with coefficients in ZZ</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanOverIntegers(Ideal,List)&quot;</tt> -- see <span><a title="all reduced Groebner bases of a polynomial ideal with coefficients in ZZ" href="_gfan__Over__Integers.html">gfanOverIntegers</a> -- all reduced Groebner bases of a polynomial ideal with coefficients in ZZ</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanPolynomialSetUnion(List,List)&quot;</tt> -- see <span><a title="union of two lists of polynomials" href="_gfan__Polynomial__Set__Union.html">gfanPolynomialSetUnion</a> -- union of two lists of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanPolynomialSetUnion(List,MarkedPolynomialList)&quot;</tt> -- see <span><a title="union of two lists of polynomials" href="_gfan__Polynomial__Set__Union.html">gfanPolynomialSetUnion</a> -- union of two lists of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanPolynomialSetUnion(MarkedPolynomialList,List)&quot;</tt> -- see <span><a title="union of two lists of polynomials" href="_gfan__Polynomial__Set__Union.html">gfanPolynomialSetUnion</a> -- union of two lists of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanPolynomialSetUnion(MarkedPolynomialList,MarkedPolynomialList)&quot;</tt> -- see <span><a title="union of two lists of polynomials" href="_gfan__Polynomial__Set__Union.html">gfanPolynomialSetUnion</a> -- union of two lists of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanRender(List)&quot;</tt> -- see <span><a title="render an image of a Groebner fan" href="_gfan__Render.html">gfanRender</a> -- render an image of a Groebner fan</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanRender(String,List)&quot;</tt> -- see <span><a title="render an image of a Groebner fan" href="_gfan__Render.html">gfanRender</a> -- render an image of a Groebner fan</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanRenderStaircase(List)&quot;</tt> -- see <span><a title="render the staircase of a monomial initial ideal" href="_gfan__Render__Staircase.html">gfanRenderStaircase</a> -- render the staircase of a monomial initial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanRenderStaircase(String,List)&quot;</tt> -- see <span><a title="render the staircase of a monomial initial ideal" href="_gfan__Render__Staircase.html">gfanRenderStaircase</a> -- render the staircase of a monomial initial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanResultantFan(List)&quot;</tt> -- see <span><a title="Tropical variety of the sparse (toric) resultant variety." href="_gfan__Resultant__Fan.html">gfanResultantFan</a> -- Tropical variety of the sparse (toric) resultant variety.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanSaturation(Ideal)&quot;</tt> -- see <span><a title="saturation of an ideal" href="_gfan__Saturation.html">gfanSaturation</a> -- saturation of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanSecondaryFan(List)&quot;</tt> -- see <span><a title="computes the secondary fan of a vector configuration" href="_gfan__Secondary__Fan.html">gfanSecondaryFan</a> -- computes the secondary fan of a vector configuration</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanStats(List)&quot;</tt> -- see <span><a title="display certain properties of a list of polynomials" href="_gfan__Stats.html">gfanStats</a> -- display certain properties of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanSubstitute(Ideal,PolynomialRing)&quot;</tt> -- see <span><a title="rename the variables of a list of polynomials" href="_gfan__Substitute.html">gfanSubstitute</a> -- rename the variables of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanSubstitute(List,PolynomialRing)&quot;</tt> -- see <span><a title="rename the variables of a list of polynomials" href="_gfan__Substitute.html">gfanSubstitute</a> -- rename the variables of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanSubstitute(MarkedPolynomialList,PolynomialRing)&quot;</tt> -- see <span><a title="rename the variables of a list of polynomials" href="_gfan__Substitute.html">gfanSubstitute</a> -- rename the variables of a list of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanToLatex(List)&quot;</tt> -- see <span><a title="convert a list of polynomials to LaTeX" href="_gfan__To__Latex.html">gfanToLatex</a> -- convert a list of polynomials to LaTeX</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanToLatex(MarkedPolynomialList)&quot;</tt> -- see <span><a title="convert a list of polynomials to LaTeX" href="_gfan__To__Latex.html">gfanToLatex</a> -- convert a list of polynomials to LaTeX</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanToPolyhedralFan(List)&quot;</tt> -- see <span><a title="polyhedral data about the fan of a list of Groebner bases" href="_gfan__To__Polyhedral__Fan.html">gfanToPolyhedralFan</a> -- polyhedral data about the fan of a list of Groebner bases</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalBasis(Ideal)&quot;</tt> -- see <span><a title="tropical basis of an ideal" href="_gfan__Tropical__Basis.html">gfanTropicalBasis</a> -- tropical basis of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalBruteForce(List)&quot;</tt> -- see <span><a title="computes the tropical variety of an ideal" href="_gfan__Tropical__Brute__Force.html">gfanTropicalBruteForce</a> -- computes the tropical variety of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalEvaluation(RingElement,List)&quot;</tt> -- see <span><a title="evaluates a tropical polynomial function" href="_gfan__Tropical__Evaluation.html">gfanTropicalEvaluation</a> -- evaluates a tropical polynomial function</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalFunction(RingElement)&quot;</tt> -- see <span><a title="tropicalizes a polynomial" href="_gfan__Tropical__Function.html">gfanTropicalFunction</a> -- tropicalizes a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalHyperSurface(RingElement)&quot;</tt> -- see <span><a title="the tropical hypersurface of a principal ideal" href="_gfan__Tropical__Hyper__Surface.html">gfanTropicalHyperSurface</a> -- the tropical hypersurface of a principal ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalIntersection(List)&quot;</tt> -- see <span><a title="polyhedral data describing intersection of tropical hypersurfaces" href="_gfan__Tropical__Intersection.html">gfanTropicalIntersection</a> -- polyhedral data describing intersection of tropical hypersurfaces</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalLinearSpace(List,ZZ,ZZ)&quot;</tt> -- see <span><a title="equations of a tropical linear space from Plücker coordinates" href="_gfan__Tropical__Linear__Space.html">gfanTropicalLinearSpace</a> -- equations of a tropical linear space from Plücker coordinates</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalMultiplicity(List)&quot;</tt> -- see <span><a title="multiplicity of a tropical cone" href="_gfan__Tropical__Multiplicity.html">gfanTropicalMultiplicity</a> -- multiplicity of a tropical cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalRank(Matrix)&quot;</tt> -- see <span><a title="the tropical rank of a matrix" href="_gfan__Tropical__Rank.html">gfanTropicalRank</a> -- the tropical rank of a matrix</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalStartingCone(Ideal)&quot;</tt> -- see <span><a title="a pair of Groebner bases for use with gfanTropicalTraverse" href="_gfan__Tropical__Starting__Cone.html">gfanTropicalStartingCone</a> -- a pair of Groebner bases for use with gfanTropicalTraverse</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalStartingCone(List)&quot;</tt> -- see <span><a title="a pair of Groebner bases for use with gfanTropicalTraverse" href="_gfan__Tropical__Starting__Cone.html">gfanTropicalStartingCone</a> -- a pair of Groebner bases for use with gfanTropicalTraverse</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalTraverse(List)&quot;</tt> -- see <span><a title="polyhedral data describing a tropical variety" href="_gfan__Tropical__Traverse.html">gfanTropicalTraverse</a> -- polyhedral data describing a tropical variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gfanTropicalWeilDivisor(Fan,Fan)&quot;</tt> -- see <span><a title="the tropical Weil divisor of a piecewise linear function" href="_gfan__Tropical__Weil__Divisor.html">gfanTropicalWeilDivisor</a> -- the tropical Weil divisor of a piecewise linear function</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MPLConverter(Ideal)&quot;</tt> -- see <span><a title="Converts lists or ideals into markedPolynomialLists" href="___M__P__L__Converter.html">MPLConverter</a> -- Converts lists or ideals into markedPolynomialLists</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MPLConverter(List)&quot;</tt> -- see <span><a title="Converts lists or ideals into markedPolynomialLists" href="___M__P__L__Converter.html">MPLConverter</a> -- Converts lists or ideals into markedPolynomialLists</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><tt>polymakeConeToCone</tt> (missing documentation)<!--tag: polymakeConeToCone-->
+</span>                  </li>
+                  <li>
+<span><tt>polymakeFanToFan</tt> (missing documentation)<!--tag: polymakeFanToFan-->
+</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Other things                <ul>
+                  <li>
+<span><tt>gfanFunctions</tt> (missing documentation)<!--tag: gfanFunctions-->
+</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

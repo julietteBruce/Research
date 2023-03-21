@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>SegreClass -- Segre class of a closed subscheme of a projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_source_lp__Rational__Map_rp.html">next</a> | <a href="_segre.html">previous</a> | <a href="_source_lp__Rational__Map_rp.html">forward</a> | <a href="_segre.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a>    </div>
+    <hr/>
+    <div>
+      <h1>SegreClass -- Segre class of a closed subscheme of a projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">SegreClass I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a homogeneous ideal of a graded quotient ring $K[x_0,\ldots,x_n]/J$ defining a subscheme $X=V(I)$ of $Y=Proj(K[x_0,\ldots,x_n]/J)\subseteq \mathbb{P}^n=Proj(K[x_0,\ldots,x_n])$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="___Blow__Up__Strategy.html">BlowUpStrategy</a><tt> => </tt><tt>...</tt>, <span>default value &quot;Eliminate&quot;</span>, </span>              </li>
+              <li>
+<span><a title="whether to ensure correctness of output" href="___Certify.html">Certify</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, whether to ensure correctness of output</span>              </li>
+              <li>
+<span><a href="_inverse__Map_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the push-forward to the Chow ring of $\mathbb{P}^n$ of the Segre class $s(X,Y)$ of $X$ in $Y$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is an example of application of the method <a title="projective degrees of a rational map between projective varieties" href="_projective__Degrees.html">projectiveDegrees</a>; see Proposition 4.4 in <a href="http://link.springer.com/book/10.1007%2F978-3-662-02421-8">Intersection theory</a>, by W. Fulton, and Subsection 2.3 in <a href="http://www.math.lsa.umich.edu/~idolga/cremonalect.pdf">Lectures on Cremona transformations</a>, by I. Dolgachev. See also the corresponding methods in the packages <a href="http://www.math.fsu.edu/~aluffi/CSM/CSM.html">CSM-A</a>, by P. Aluffi, and <a href="http://www.math.uiuc.edu/Macaulay2/doc/Macaulay2-1.16/share/doc/Macaulay2/CharacteristicClasses/html/">CharacteristicClasses</a>, by M. Helmer and C. Jost.</p>
+        <p>In the example below, we take $Y\subset\mathbb{P}^7$ to be the dual hypersurface of $\mathbb{P}^1\times\mathbb{P}^1\times\mathbb{P}^1\subset{\mathbb{P}^7}^*$ and $X\subset Y$ its singular locus. We compute the push-forward to the Chow ring of $\mathbb{P}^7$ of the Segre class both of $X$ in $Y$ and of $X$ in $\mathbb{P}^7$, using both a probabilistic and a non-probabilistic approach.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P7 = ZZ/100003[x_0..x_7]
+
+o1 = P7
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Y = ideal(x_3^2*x_4^2-2*x_2*x_3*x_4*x_5+x_2^2*x_5^2-2*x_1*x_3*x_4*x_6-2*x_1*x_2*x_5*x_6+4*x_0*x_3*x_5*x_6+x_1^2*x_6^2+4*x_1*x_2*x_4*x_7-2*x_0*x_3*x_4*x_7-2*x_0*x_2*x_5*x_7-2*x_0*x_1*x_6*x_7+x_0^2*x_7^2)
+
+            2 2                2 2                                        2 2
+o2 = ideal(x x  - 2x x x x  + x x  - 2x x x x  - 2x x x x  + 4x x x x  + x x 
+            3 4     2 3 4 5    2 5     1 3 4 6     1 2 5 6     0 3 5 6    1 6
+     ------------------------------------------------------------------------
+                                                        2 2
+     + 4x x x x  - 2x x x x  - 2x x x x  - 2x x x x  + x x )
+         1 2 4 7     0 3 4 7     0 2 5 7     0 1 6 7    0 7
+
+o2 : Ideal of P7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : X = sub(ideal jacobian Y,P7/Y)
+
+                                                        2             
+o3 = ideal (4x x x  - 2x x x  - 2x x x  - 2x x x  + 2x x , - 2x x x  -
+              3 5 6     3 4 7     2 5 7     1 6 7     0 7      3 4 6  
+     ------------------------------------------------------------------------
+                   2                                      2            
+     2x x x  + 2x x  + 4x x x  - 2x x x , - 2x x x  + 2x x  - 2x x x  +
+       2 5 6     1 6     2 4 7     0 6 7      3 4 5     2 5     1 5 6  
+     ------------------------------------------------------------------------
+                            2                                            2  
+     4x x x  - 2x x x , 2x x  - 2x x x  - 2x x x  + 4x x x  - 2x x x , 2x x 
+       1 4 7     0 5 7    3 4     2 4 5     1 4 6     0 5 6     0 4 7    3 4
+     ------------------------------------------------------------------------
+                                                            2              
+     - 2x x x  - 2x x x  + 4x x x  - 2x x x , - 2x x x  + 2x x  - 2x x x  +
+         2 3 5     1 3 6     1 2 7     0 3 7      2 3 4     2 5     1 2 6  
+     ------------------------------------------------------------------------
+                                                          2             
+     4x x x  - 2x x x , - 2x x x  - 2x x x  + 4x x x  + 2x x  - 2x x x ,
+       0 3 6     0 2 7      1 3 4     1 2 5     0 3 5     1 6     0 1 7 
+     ------------------------------------------------------------------------
+                                               2
+     4x x x  - 2x x x  - 2x x x  - 2x x x  + 2x x )
+       1 2 4     0 3 4     0 2 5     0 1 6     0 7
+
+                                                                          P7
+o3 : Ideal of -------------------------------------------------------------------------------------------------------------------------
+               2 2                2 2                                        2 2                                                    2 2
+              x x  - 2x x x x  + x x  - 2x x x x  - 2x x x x  + 4x x x x  + x x  + 4x x x x  - 2x x x x  - 2x x x x  - 2x x x x  + x x
+               3 4     2 3 4 5    2 5     1 3 4 6     1 2 5 6     0 3 5 6    1 6     1 2 4 7     0 3 4 7     0 2 5 7     0 1 6 7    0 7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time SegreClass X
+     -- used 0.603923 seconds
+
+          7        6       5       4      3
+o4 = 3240H  - 1188H  + 396H  - 114H  + 24H
+
+     ZZ[H]
+o4 : -----
+        8
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time SegreClass lift(X,P7)
+     -- used 0.460314 seconds
+
+          7        6       5      4      3
+o5 = 2816H  - 1056H  + 324H  - 78H  + 12H
+
+     ZZ[H]
+o5 : -----
+        8
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time SegreClass(X,Certify=>true)
+Certify: output certified!
+     -- used 0.0357792 seconds
+
+          7        6       5       4      3
+o6 = 3240H  - 1188H  + 396H  - 114H  + 24H
+
+     ZZ[H]
+o6 : -----
+        8
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : time SegreClass(lift(X,P7),Certify=>true)
+Certify: output certified!
+     -- used 0.148013 seconds
+
+          7        6       5      4      3
+o7 = 2816H  - 1056H  + 324H  - 78H  + 12H
+
+     ZZ[H]
+o7 : -----
+        8
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : o4 == o6 and o5 == o7
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+        <p>The method also accepts as input a ring map <tt>phi</tt> representing a rational map $\Phi:X\dashrightarrow Y$ between projective varieties. In this case, the method returns the push-forward to the Chow ring of the ambient projective space of $X$ of the Segre class of the base locus of $\Phi$ in $X$, i.e., it basically computes <tt>SegreClass ideal matrix phi</tt>. In the next example, we compute the Segre class of the base locus of a birational map $\mathbb{G}(1,4)\subset\mathbb{P}^9 \dashrightarrow \mathbb{P}^6$.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : use ZZ/100003[x_0..x_6]
+
+       ZZ
+o9 = ------[x ..x ]
+     100003  0   6
+
+o9 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : time phi = inverseMap toMap(minors(2,matrix{{x_0,x_1,x_3,x_4,x_5},{x_1,x_2,x_4,x_5,x_6}}),Dominant=>2)
+     -- used 0.0904899 seconds
+
+                                                        ZZ
+                                                      ------[y ..y ]
+                                                      100003  0   9                                                ZZ              2                              2
+o10 = map (----------------------------------------------------------------------------------------------------, ------[x ..x ], {y  - y y  - y y , y y  - y y , y  - y y  - y y , y y  + y y  - y y , y y  - y y , y y  - y y  - y y , y y  - y y  - y y })
+           (y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y )  100003  0   6     3    0 5    1 6   3 4    1 7   4    2 7    0 9   2 5    3 5    1 8   4 5    1 9   4 8    2 9    3 9   7 8    4 9    6 9
+             5 7    4 8    2 9   5 6    3 8    1 9   4 6    3 7    0 9   2 6    1 7    0 8   2 3    1 4    0 5
+
+                                                           ZZ
+                                                         ------[y ..y ]
+                                                         100003  0   9                                                    ZZ
+o10 : RingMap ---------------------------------------------------------------------------------------------------- &lt;--- ------[x ..x ]
+              (y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y )      100003  0   6
+                5 7    4 8    2 9   5 6    3 8    1 9   4 6    3 7    0 9   2 6    1 7    0 8   2 3    1 4    0 5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : time SegreClass phi
+     -- used 0.326876 seconds
+
+         9      8      7      6     5
+o11 = 23H  - 42H  + 36H  - 22H  + 9H
+
+      ZZ[H]
+o11 : -----
+        10
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : B = ideal matrix phi
+
+              2                              2
+o12 = ideal (y  - y y  - y y , y y  - y y , y  - y y  - y y , y y  + y y  -
+              3    0 5    1 6   3 4    1 7   4    2 7    0 9   2 5    3 5  
+      -----------------------------------------------------------------------
+      y y , y y  - y y , y y  - y y  - y y , y y  - y y  - y y )
+       1 8   4 5    1 9   4 8    2 9    3 9   7 8    4 9    6 9
+
+                                                            ZZ
+                                                          ------[y ..y ]
+                                                          100003  0   9
+o12 : Ideal of ----------------------------------------------------------------------------------------------------
+               (y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y , y y  - y y  + y y )
+                 5 7    4 8    2 9   5 6    3 8    1 9   4 6    3 7    0 9   2 6    1 7    0 8   2 3    1 4    0 5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : -- Segre class of B in G(1,4)
+      time SegreClass B
+     -- used 0.385618 seconds
+
+         9      8      7      6     5
+o13 = 23H  - 42H  + 36H  - 22H  + 9H
+
+      ZZ[H]
+o13 : -----
+        10
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : -- Segre class of B in P^9
+      time SegreClass lift(B,ambient ring B)
+     -- used 1.15589 seconds
+
+           9       8       7      6     5
+o14 = 2764H  - 984H  + 294H  - 67H  + 9H
+
+      ZZ[H]
+o14 : -----
+        10
+       H</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="projective degrees of a rational map between projective varieties" href="_projective__Degrees.html">projectiveDegrees</a> -- projective degrees of a rational map between projective varieties</span>          </li>
+          <li>
+<span><a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a> -- Chern-Schwartz-MacPherson class of a projective scheme</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>SegreClass</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;SegreClass(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;SegreClass(RationalMap)&quot;</tt>          </li>
+          <li>
+<tt>&quot;SegreClass(RingMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

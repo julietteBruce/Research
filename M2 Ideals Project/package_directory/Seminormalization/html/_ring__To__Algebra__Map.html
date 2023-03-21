@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ringToAlgebraMap -- presents the target of a map of rings as an algebra over the source</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_seminormalize.html">next</a> | <a href="_ring__Product.html">previous</a> | <a href="_seminormalize.html">forward</a> | <a href="_ring__Product.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package used to seminormalize rings" href="index.html">Seminormalization</a> :: <a title="presents the target of a map of rings as an algebra over the source" href="_ring__To__Algebra__Map.html">ringToAlgebraMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>ringToAlgebraMap -- presents the target of a map of rings as an algebra over the source</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L = ringToAlgebraMap(f)</code></dd>
+              <dd><code class="language-macaulay2">L = ringToAlgebraMap(f, n)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, </span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the first entry is the target of f as an algebra over the source</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a ringmap map $f: A \to B$, this writes $B$ as $A[...]/J$.  It returns the ring $A[...]/J$ as well as the isomorphism $B \to A[...]/J$.  Consider the first example, a normalization of a cusp.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ[a,b]/ideal(a^2-b^3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : B = QQ[t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = map(B, A, {t^3, t^2});
+
+o3 : RingMap B &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (ringToAlgebraMap(f))#0
+
+                     A[tRE1]
+o4 = --------------------------------------
+          2                              2
+     (tRE1  - b, b*tRE1 - a, - a*tRE1 + b )
+
+o4 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : (ringToAlgebraMap(f))#1
+
+                          A[tRE1]
+o5 = map (--------------------------------------, B, {tRE1})
+               2                              2
+          (tRE1  - b, b*tRE1 - a, - a*tRE1 + b )
+
+                             A[tRE1]
+o5 : RingMap -------------------------------------- &lt;--- B
+                  2                              2
+             (tRE1  - b, b*tRE1 - a, - a*tRE1 + b )</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The second input is used to specify an integer used for new variable enumeration and labeling.  Here is another example where we consider the Frobenius map.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = ZZ/5[x,y,z]/ideal(x^2-y*z);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : B = ZZ/5[X,Y,Z]/ideal(X^2-Y*Z);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : f = map(B, A, {X^5, Y^5, Z^5});
+
+o8 : RingMap B &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : (ringToAlgebraMap(f))#0
+
+                                                                                     A[XRE1, YRE1, ZRE1]
+o9 = -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+          2                    3              2        3              2             2         3             2         3      5               2    2          5          3    3
+     (XRE1  - YRE1*ZRE1, z*YRE1  - x*XRE1*ZRE1 , x*YRE1  - y*XRE1*ZRE1 , z*XRE1*YRE1  - x*ZRE1 , x*XRE1*YRE1  - y*ZRE1 , ZRE1  - z, XRE1*YRE1 ZRE1  - x, YRE1  - y, YRE1 ZRE1  - x*XRE1)
+
+o9 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : (ringToAlgebraMap(f, 5))#0
+
+                                                                                      A[XRE5, YRE5, ZRE5]
+o10 = -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+           2                    3              2        3              2             2         3             2         3      5               2    2          5          3    3
+      (XRE5  - YRE5*ZRE5, z*YRE5  - x*XRE5*ZRE5 , x*YRE5  - y*XRE5*ZRE5 , z*XRE5*YRE5  - x*ZRE5 , x*XRE5*YRE5  - y*ZRE5 , ZRE5  - z, XRE5*YRE5 ZRE5  - x, YRE5  - y, YRE5 ZRE5  - x*XRE5)
+
+o10 : QuotientRing</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>ringToAlgebraMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;ringToAlgebraMap(RingMap)&quot;</tt>          </li>
+          <li>
+<tt>&quot;ringToAlgebraMap(RingMap,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="presents the target of a map of rings as an algebra over the source" href="_ring__To__Algebra__Map.html">ringToAlgebraMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

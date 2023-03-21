@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>projDim -- finds an upper bound for the projective dimension of a module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_recursive__Minors.html">next</a> | <a href="___Point__Options.html">previous</a> | <a href="_recursive__Minors.html">forward</a> | <a href="___Point__Options.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="faster linear algebra, especially for computation of minors" href="index.html">FastMinors</a> :: <a title="finds an upper bound for the projective dimension of a module" href="_proj__Dim.html">projDim</a>    </div>
+    <hr/>
+    <div>
+      <h1>projDim -- finds an upper bound for the projective dimension of a module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">n = projDim(N, MinDimension=>d)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, a module over a polynomial ring</span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the minimum projective dimension of the module</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>MinDimension</tt><tt> => </tt><span>a <a title="the class of all numbers" href="../../Macaulay2Doc/html/___Number.html">number</a></span>, <span>default value 0</span>, stop after verifying the module has at most a certain projective dimension</span>              </li>
+              <li>
+<span><a title="options to pass to functions in the package RandomPoints" href="___Point__Options.html">PointOptions</a><tt> => </tt><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, <span>default value {Strategy => Default, Homogeneous => false, Replacement => Binomial, ExtendField => true, PointCheckAttempts => 0, DecompositionStrategy => Decompose, NumThreadsToUse => 1, DimensionFunction => dim, Verbose => false}</span>, options to be passed to the RandomPoints package</span>              </li>
+              <li>
+<span><a title="an option to control depth of search" href="___Max__Minors.html">MaxMinors</a><tt> => </tt><tt>...</tt>, <span>default value -*Function*-</span>, used to control how many minors are computed of the matrices in a projective resolution</span>              </li>
+              <li>
+<span><a title="DetStrategy is a strategy for allowing the user to choose how determinants (or rank), is computed" href="___Det__Strategy.html">DetStrategy</a><tt> => </tt><tt>...</tt>, <span>default value Cofactor</span>, DetStrategy is a strategy for allowing the user to choose how determinants (or rank), is computed</span>              </li>
+              <li>
+<span><a title="strategies for choosing submatrices" href="___Strategy__Default.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value new OptionTable from {Points => 0, Random => 16, GRevLexLargest => 0, LexSmallestTerm => 16, LexLargest => 0, LexSmallest => 16, GRevLexSmallestTerm => 16, RandomNonzero => 16, GRevLexSmallest => 16}</span>, strategies for choosing submatrices</span>              </li>
+              <li>
+<span><tt>Verbose</tt><tt> => </tt><tt>...</tt>, <span>default value false</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, an upper bound for the projective dimension of N</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The function <tt>pdim</tt> returns the length of a projective resolution. If the module passed is not homogeneous, then the projective resolution may not be minimal and so <tt>pdim</tt> can give the wrong answer.  This function <tt>projDim</tt> tries to improve this bound by considering ideals of appropriately sized minors of the resolution (starting from the end of the resolution and working backwards). Using the option <tt>MinDimension</tt> (default value 0) gives a lower bound on the projective dimension, increasing it can thus improve the speed of computation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal((x^3+y)^2, (x^2+y^2)^2, (x+y^3)^2, (x*y)^2);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : pdim(module I)
+
+o3 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time projDim(module I, Strategy=>StrategyRandom)
+     -- used 0.205469 seconds
+
+o4 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time projDim(module I, Strategy=>StrategyRandom, MinDimension => 1)
+     -- used 0.0182144 seconds
+
+o5 = 1</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The option <tt>MaxMinors</tt> can be used to control how many minors are computed at each step. If this is not specified, the number of minors is a function of the dimension $d$ of the polynomial ring and the possible minors $c$. Specifically it is <tt>10 * d + 2 * log_1.3(c)</tt>. Otherwise the user can set the option <tt>MaxMinors => ZZ</tt> to specify that a fixed integer is used for each step.  Alternatively, the user can control the number of minors computed at each step by setting the option <tt>MaxMinors => List</tt>.  In this case, the list specifies how many minors to be computed at each step, (working backwards). Finally, you can also set <tt>MaxMinors</tt> to be a custom function of the dimension $d$ of the polynomial ring and the maximum number of minors.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="calculate the projective dimension" href="../../Macaulay2Doc/html/_pdim.html">pdim</a> -- calculate the projective dimension</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>projDim</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;projDim(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="finds an upper bound for the projective dimension of a module" href="_proj__Dim.html">projDim</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

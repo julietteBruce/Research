@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Cremona -- package for some computations on rational maps between projective varieties</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_abstract__Rational__Map.html">next</a> | previous | <a href="_abstract__Rational__Map.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a>    </div>
+    <hr/>
+    <div>
+      <h1>Cremona -- package for some computations on rational maps between projective varieties</h1>
+      <div>
+        <h2>Description</h2>
+<em>Cremona</em> is a package to perform some basic computations on rational and birational maps between absolutely irreducible projective varieties over a field $K$. For instance, it provides general methods to compute degrees and projective degrees of rational maps (see <a title="degree of a rational map between projective varieties" href="_degree__Map.html">degreeMap</a> and <a title="projective degrees of a rational map between projective varieties" href="_projective__Degrees.html">projectiveDegrees</a>) and a general method to compute the push-forward to projective space of Segre classes (see <a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a>). Moreover, all the main methods are available both in version probabilistic and in version deterministic, and one can switch from one to the other with the boolean option <a title="whether to ensure correctness of output" href="___Certify.html">Certify</a>.        <p>Let $\Phi:X \dashrightarrow Y$ be a rational map from a subvariety $X=V(I)\subseteq\mathbb{P}^n=Proj(K[x_0,\ldots,x_n])$ to a subvariety $Y=V(J)\subseteq\mathbb{P}^m=Proj(K[y_0,\ldots,y_m])$. Then the map $\Phi $ can be represented, although not uniquely, by a homogeneous ring map $\phi:K[y_0,\ldots,y_m]/J \to K[x_0,\ldots,x_n]/I$ of quotients of polynomial rings by homogeneous ideals. These kinds of ring maps, together with the objects of the <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">RationalMap</a> class, are the typical inputs for the methods in this package. The method <a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> (resp. <a title="makes a rational map" href="_rational__Map.html">rationalMap</a>) constructs such a ring map (resp. rational map) from a list of $m+1$ homogeneous elements of the same degree in $K[x_0,...,x_n]/I$.</p>
+        <p>Below is an example using the methods provided by this package, dealing with a birational transformation $\Phi:\mathbb{P}^6 \dashrightarrow \mathbb{G}(2,4)\subset\mathbb{P}^9$ of bidegree $(3,3)$.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : ZZ/300007[t_0..t_6];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : time phi = toMap minors(3,matrix{{t_0..t_4},{t_1..t_5},{t_2..t_6}})
+     -- used 0.00528222 seconds
+
+            ZZ              ZZ                3                2    2                2        2                      2                  2    2                 2                       3                2    2                2                                 2                           2    2                                  2        2                      2                  2                        2                         2    2                 2                       3                2    2
+o2 = map (------[t ..t ], ------[x ..x ], {- t  + 2t t t  - t t  - t t  + t t t , - t t  + t t  + t t t  - t t t  - t t  + t t t , - t t  + t t  + t t t  - t t  - t t t  + t t t , - t  + 2t t t  - t t  - t t  + t t t , - t t  + t t t  + t t t  - t t t  - t t  + t t t , - t t t  + t t  + t t  - t t t  - t t t  + t t t , - t t  + t t  + t t t  - t t t  - t t  + t t t , - t t  + t t t  + t t t  - t t  - t t t  + t t t , - t t  + t t  + t t t  - t t  - t t t  + t t t , - t  + 2t t t  - t t  - t t  + t t t })
+          300007  0   6   300007  0   9       2     1 2 3    0 3    1 4    0 2 4     2 3    1 3    1 2 4    0 3 4    1 5    0 2 5     2 3    2 4    1 3 4    0 4    1 2 5    0 3 5     3     2 3 4    1 4    2 5    1 3 5     2 4    1 3 4    1 2 5    0 3 5    1 6    0 2 6     2 3 4    1 4    2 5    0 4 5    1 2 6    0 3 6     3 4    2 4    2 3 5    1 4 5    2 6    1 3 6     2 4    2 3 5    1 4 5    0 5    1 3 6    0 4 6     3 4    3 5    2 4 5    1 5    2 3 6    1 4 6     4     3 4 5    2 5    3 6    2 4 6
+
+               ZZ                  ZZ
+o2 : RingMap ------[t ..t ] &lt;--- ------[x ..x ]
+             300007  0   6       300007  0   9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time J = kernel(phi,2)
+     -- used 0.0968906 seconds
+
+o3 = ideal (x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x 
+             6 7    5 8    4 9   3 7    2 8    1 9   3 5    2 6    0 9   3 4
+     ------------------------------------------------------------------------
+     - x x  + x x , x x  - x x  + x x )
+        1 6    0 8   2 4    1 5    0 7
+
+                ZZ
+o3 : Ideal of ------[x ..x ]
+              300007  0   9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time degreeMap phi
+     -- used 0.0414753 seconds
+
+o4 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time projectiveDegrees phi
+     -- used 0.685298 seconds
+
+o5 = {1, 3, 9, 17, 21, 15, 5}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time projectiveDegrees(phi,NumDegrees=>0)
+     -- used 0.0862399 seconds
+
+o6 = {5}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : time phi = toMap(phi,Dominant=>J)
+     -- used 0.00311838 seconds
+
+                                                                       ZZ
+                                                                     ------[x ..x ]
+            ZZ                                                       300007  0   9                                                  3                2    2                2        2                      2                  2    2                 2                       3                2    2                2                                 2                           2    2                                  2        2                      2                  2                        2                         2    2                 2                       3                2    2
+o7 = map (------[t ..t ], ----------------------------------------------------------------------------------------------------, {- t  + 2t t t  - t t  - t t  + t t t , - t t  + t t  + t t t  - t t t  - t t  + t t t , - t t  + t t  + t t t  - t t  - t t t  + t t t , - t  + 2t t t  - t t  - t t  + t t t , - t t  + t t t  + t t t  - t t t  - t t  + t t t , - t t t  + t t  + t t  - t t t  - t t t  + t t t , - t t  + t t  + t t t  - t t t  - t t  + t t t , - t t  + t t t  + t t t  - t t  - t t t  + t t t , - t t  + t t  + t t t  - t t  - t t t  + t t t , - t  + 2t t t  - t t  - t t  + t t t })
+          300007  0   6   (x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x )      2     1 2 3    0 3    1 4    0 2 4     2 3    1 3    1 2 4    0 3 4    1 5    0 2 5     2 3    2 4    1 3 4    0 4    1 2 5    0 3 5     3     2 3 4    1 4    2 5    1 3 5     2 4    1 3 4    1 2 5    0 3 5    1 6    0 2 6     2 3 4    1 4    2 5    0 4 5    1 2 6    0 3 6     3 4    2 4    2 3 5    1 4 5    2 6    1 3 6     2 4    2 3 5    1 4 5    0 5    1 3 6    0 4 6     3 4    3 5    2 4 5    1 5    2 3 6    1 4 6     4     3 4 5    2 5    3 6    2 4 6
+                            6 7    5 8    4 9   3 7    2 8    1 9   3 5    2 6    0 9   3 4    1 6    0 8   2 4    1 5    0 7
+
+                                                                              ZZ
+                                                                            ------[x ..x ]
+               ZZ                                                           300007  0   9
+o7 : RingMap ------[t ..t ] &lt;--- ----------------------------------------------------------------------------------------------------
+             300007  0   6       (x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x )
+                                   6 7    5 8    4 9   3 7    2 8    1 9   3 5    2 6    0 9   3 4    1 6    0 8   2 4    1 5    0 7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : time psi = inverseMap phi
+     -- used 0.784057 seconds
+
+                                                       ZZ
+                                                     ------[x ..x ]
+                                                     300007  0   9                                                ZZ              3                2               2    2                        2                          2     2        2                               2                                   2               2             2                       3                                                 2                 2    2                                  2    2                 2                                                 3                         2      2    2      2                                              2
+o8 = map (----------------------------------------------------------------------------------------------------, ------[t ..t ], {x  - 2x x x  + x x  - x x x  + x x  + x x  + x x x  - x x x  + x x  - 2x x x  - x x x  - 2x x , x x  - x x  - x x x  + x x x  + x x x  + x x  - 2x x x  - x x x  + x x x , x x  - x x x  + x x  - x x x  + x x  - x x x  - x x x , x  - x x x  + x x x  + x x x  - 2x x x  - x x x , x x  - x x x  + x x  + x x  - x x x  - x x x  - x x x , x x  - x x  - x x x  + x x  + x x x  + x x x  - 2x x x  - x x x  + x x x , x  - 2x x x  - x x x  + x x  + x x  + x x  + x x  + x x x  - 2x x x  - x x x  - x x x  - 2x x })
+          (x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x )  300007  0   6     2     1 2 3    0 3    1 2 5    0 5    1 6    0 2 6    0 4 6    1 7     0 2 7    0 4 7     0 9   2 3    1 3    1 2 6    0 3 6    0 5 6    1 8     0 2 8    0 4 8    0 1 9   2 3    1 3 6    0 6    0 3 8    1 9    0 2 9    0 4 9   3    1 3 8    0 6 8    1 2 9     0 3 9    0 5 9   3 6    2 3 8    0 8    2 9    1 3 9    0 6 9    0 7 9   3 6    3 8    2 6 8    1 8    2 3 9    2 5 9     1 6 9    1 7 9    0 8 9   6     3 6 8    5 6 8    2 8    4 8    3 9    5 9    2 6 9     4 6 9    2 7 9    4 7 9     0 9
+            6 7    5 8    4 9   3 7    2 8    1 9   3 5    2 6    0 9   3 4    1 6    0 8   2 4    1 5    0 7
+
+                                                          ZZ
+                                                        ------[x ..x ]
+                                                        300007  0   9                                                    ZZ
+o8 : RingMap ---------------------------------------------------------------------------------------------------- &lt;--- ------[t ..t ]
+             (x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x , x x  - x x  + x x )      300007  0   6
+               6 7    5 8    4 9   3 7    2 8    1 9   3 5    2 6    0 9   3 4    1 6    0 8   2 4    1 5    0 7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : time isInverseMap(phi,psi)
+     -- used 0.00878404 seconds
+
+o9 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : time degreeMap psi
+     -- used 0.269884 seconds
+
+o10 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : time projectiveDegrees psi
+     -- used 13.3799 seconds
+
+o11 = {5, 15, 21, 17, 9, 3, 1}
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p>We repeat the example using the type <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">RationalMap</a> and using deterministic methods.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : time phi = rationalMap minors(3,matrix{{t_0..t_4},{t_1..t_5},{t_2..t_6}})
+     -- used 0.00247663 seconds
+
+o12 = -- rational map --
+                     ZZ
+      source: Proj(------[t , t , t , t , t , t , t ])
+                   300007  0   1   2   3   4   5   6
+                     ZZ
+      target: Proj(------[x , x , x , x , x , x , x , x , x , x ])
+                   300007  0   1   2   3   4   5   6   7   8   9
+      defining forms: {
+                          3                2    2
+                       - t  + 2t t t  - t t  - t t  + t t t ,
+                          2     1 2 3    0 3    1 4    0 2 4
+                       
+                          2        2                      2
+                       - t t  + t t  + t t t  - t t t  - t t  + t t t ,
+                          2 3    1 3    1 2 4    0 3 4    1 5    0 2 5
+                       
+                            2    2                 2
+                       - t t  + t t  + t t t  - t t  - t t t  + t t t ,
+                          2 3    2 4    1 3 4    0 4    1 2 5    0 3 5
+                       
+                          3                2    2
+                       - t  + 2t t t  - t t  - t t  + t t t ,
+                          3     2 3 4    1 4    2 5    1 3 5
+                       
+                          2                                 2
+                       - t t  + t t t  + t t t  - t t t  - t t  + t t t ,
+                          2 4    1 3 4    1 2 5    0 3 5    1 6    0 2 6
+                       
+                                     2    2
+                       - t t t  + t t  + t t  - t t t  - t t t  + t t t ,
+                          2 3 4    1 4    2 5    0 4 5    1 2 6    0 3 6
+                       
+                          2        2                      2
+                       - t t  + t t  + t t t  - t t t  - t t  + t t t ,
+                          3 4    2 4    2 3 5    1 4 5    2 6    1 3 6
+                       
+                            2                        2
+                       - t t  + t t t  + t t t  - t t  - t t t  + t t t ,
+                          2 4    2 3 5    1 4 5    0 5    1 3 6    0 4 6
+                       
+                            2    2                 2
+                       - t t  + t t  + t t t  - t t  - t t t  + t t t ,
+                          3 4    3 5    2 4 5    1 5    2 3 6    1 4 6
+                       
+                          3                2    2
+                       - t  + 2t t t  - t t  - t t  + t t t
+                          4     3 4 5    2 5    3 6    2 4 6
+                      }
+
+o12 : RationalMap (cubic rational map from PP^6 to PP^9)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : time phi = rationalMap(phi,Dominant=>2)
+     -- used 0.101719 seconds
+
+o13 = -- rational map --
+                     ZZ
+      source: Proj(------[t , t , t , t , t , t , t ])
+                   300007  0   1   2   3   4   5   6
+                                   ZZ
+      target: subvariety of Proj(------[x , x , x , x , x , x , x , x , x , x ]) defined by
+                                 300007  0   1   2   3   4   5   6   7   8   9
+              {
+               x x  - x x  + x x ,
+                6 7    5 8    4 9
+               
+               x x  - x x  + x x ,
+                3 7    2 8    1 9
+               
+               x x  - x x  + x x ,
+                3 5    2 6    0 9
+               
+               x x  - x x  + x x ,
+                3 4    1 6    0 8
+               
+               x x  - x x  + x x
+                2 4    1 5    0 7
+              }
+      defining forms: {
+                          3                2    2
+                       - t  + 2t t t  - t t  - t t  + t t t ,
+                          2     1 2 3    0 3    1 4    0 2 4
+                       
+                          2        2                      2
+                       - t t  + t t  + t t t  - t t t  - t t  + t t t ,
+                          2 3    1 3    1 2 4    0 3 4    1 5    0 2 5
+                       
+                            2    2                 2
+                       - t t  + t t  + t t t  - t t  - t t t  + t t t ,
+                          2 3    2 4    1 3 4    0 4    1 2 5    0 3 5
+                       
+                          3                2    2
+                       - t  + 2t t t  - t t  - t t  + t t t ,
+                          3     2 3 4    1 4    2 5    1 3 5
+                       
+                          2                                 2
+                       - t t  + t t t  + t t t  - t t t  - t t  + t t t ,
+                          2 4    1 3 4    1 2 5    0 3 5    1 6    0 2 6
+                       
+                                     2    2
+                       - t t t  + t t  + t t  - t t t  - t t t  + t t t ,
+                          2 3 4    1 4    2 5    0 4 5    1 2 6    0 3 6
+                       
+                          2        2                      2
+                       - t t  + t t  + t t t  - t t t  - t t  + t t t ,
+                          3 4    2 4    2 3 5    1 4 5    2 6    1 3 6
+                       
+                            2                        2
+                       - t t  + t t t  + t t t  - t t  - t t t  + t t t ,
+                          2 4    2 3 5    1 4 5    0 5    1 3 6    0 4 6
+                       
+                            2    2                 2
+                       - t t  + t t  + t t t  - t t  - t t t  + t t t ,
+                          3 4    3 5    2 4 5    1 5    2 3 6    1 4 6
+                       
+                          3                2    2
+                       - t  + 2t t t  - t t  - t t  + t t t
+                          4     3 4 5    2 5    3 6    2 4 6
+                      }
+
+o13 : RationalMap (cubic rational map from PP^6 to 6-dimensional subvariety of PP^9)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : time phi^(-1)
+     -- used 0.79155 seconds
+
+o14 = -- rational map --
+                                   ZZ
+      source: subvariety of Proj(------[x , x , x , x , x , x , x , x , x , x ]) defined by
+                                 300007  0   1   2   3   4   5   6   7   8   9
+              {
+               x x  - x x  + x x ,
+                6 7    5 8    4 9
+               
+               x x  - x x  + x x ,
+                3 7    2 8    1 9
+               
+               x x  - x x  + x x ,
+                3 5    2 6    0 9
+               
+               x x  - x x  + x x ,
+                3 4    1 6    0 8
+               
+               x x  - x x  + x x
+                2 4    1 5    0 7
+              }
+                     ZZ
+      target: Proj(------[t , t , t , t , t , t , t ])
+                   300007  0   1   2   3   4   5   6
+      defining forms: {
+                        3                2               2    2                        2                          2
+                       x  - 2x x x  + x x  - x x x  + x x  + x x  + x x x  - x x x  + x x  - 2x x x  - x x x  - 2x x ,
+                        2     1 2 3    0 3    1 2 5    0 5    1 6    0 2 6    0 4 6    1 7     0 2 7    0 4 7     0 9
+                       
+                        2        2                               2
+                       x x  - x x  - x x x  + x x x  + x x x  + x x  - 2x x x  - x x x  + x x x ,
+                        2 3    1 3    1 2 6    0 3 6    0 5 6    1 8     0 2 8    0 4 8    0 1 9
+                       
+                          2               2             2
+                       x x  - x x x  + x x  - x x x  + x x  - x x x  - x x x ,
+                        2 3    1 3 6    0 6    0 3 8    1 9    0 2 9    0 4 9
+                       
+                        3
+                       x  - x x x  + x x x  + x x x  - 2x x x  - x x x ,
+                        3    1 3 8    0 6 8    1 2 9     0 3 9    0 5 9
+                       
+                        2                 2    2
+                       x x  - x x x  + x x  + x x  - x x x  - x x x  - x x x ,
+                        3 6    2 3 8    0 8    2 9    1 3 9    0 6 9    0 7 9
+                       
+                          2    2                 2
+                       x x  - x x  - x x x  + x x  + x x x  + x x x  - 2x x x  - x x x  + x x x ,
+                        3 6    3 8    2 6 8    1 8    2 3 9    2 5 9     1 6 9    1 7 9    0 8 9
+                       
+                        3                         2      2    2      2                                              2
+                       x  - 2x x x  - x x x  + x x  + x x  + x x  + x x  + x x x  - 2x x x  - x x x  - x x x  - 2x x
+                        6     3 6 8    5 6 8    2 8    4 8    3 9    5 9    2 6 9     4 6 9    2 7 9    4 7 9     0 9
+                      }
+
+o14 : RationalMap (cubic birational map from 6-dimensional subvariety of PP^9 to PP^6)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : time degrees phi^(-1)
+     -- used 0.302315 seconds
+
+o15 = {5, 15, 21, 17, 9, 3, 1}
+
+o15 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : time degrees phi
+     -- used 0.0246862 seconds
+
+o16 = {1, 3, 9, 17, 21, 15, 5}
+
+o16 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : time describe phi
+     -- used 0.0043676 seconds
+
+o17 = rational map defined by forms of degree 3
+      source variety: PP^6
+      target variety: 6-dimensional variety of degree 5 in PP^9 cut out by 5 hypersurfaces of degree 2
+      dominance: true
+      birationality: true (the inverse map is already calculated)
+      projective degrees: {1, 3, 9, 17, 21, 15, 5}
+      coefficient ring: ZZ/300007</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : time describe phi^(-1)
+     -- used 0.0129419 seconds
+
+o18 = rational map defined by forms of degree 3
+      source variety: 6-dimensional variety of degree 5 in PP^9 cut out by 5 hypersurfaces of degree 2
+      target variety: PP^6
+      dominance: true
+      birationality: true (the inverse map is already calculated)
+      projective degrees: {5, 15, 21, 17, 9, 3, 1}
+      number of minimal representatives: 1
+      dimension base locus: 4
+      degree base locus: 24
+      coefficient ring: ZZ/300007</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : time (f,g) = graph phi^-1; f;
+     -- used 0.0433222 seconds
+
+o20 : MultihomogeneousRationalMap (birational map from 6-dimensional subvariety of PP^9 x PP^6 to 6-dimensional subvariety of PP^9)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : time degrees f
+     -- used 1.46779 seconds
+
+o21 = {904, 508, 268, 130, 56, 20, 5}
+
+o21 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : time degree f
+     -- used 0.000015505 seconds
+
+o22 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : time describe f
+     -- used 0.00104965 seconds
+
+o23 = rational map defined by multiforms of degree {1, 0}
+      source variety: 6-dimensional subvariety of PP^9 x PP^6 cut out by 20 hypersurfaces of degrees ({1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{1, 1},{2, 0},{2, 0},{2, 0},{2, 0},{2, 0})
+      target variety: 6-dimensional variety of degree 5 in PP^9 cut out by 5 hypersurfaces of degree 2
+      dominance: true
+      birationality: true
+      projective degrees: {904, 508, 268, 130, 56, 20, 5}
+      coefficient ring: ZZ/300007</code></pre>
+</td>          </tr>
+        </table>
+        <p>A rudimentary version of <em>Cremona</em> has been already used in an essential way in the paper <a href="http://dx.doi.org/10.1016/j.jsc.2015.11.004">doi:10.1016/j.jsc.2015.11.004</a> (it was originally named <a href="http://goo.gl/eT4rCR">bir.m2</a>).</p>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+Giovanni Staglianò<span> &lt;<a href="mailto:giovannistagliano@gmail.com">giovannistagliano@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>4.2.2</b> of this package was accepted for publication in <a href="https://msp.org/jsag/2018/8-1/">volume 8</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 11 June 2018, in the article <a href="https://msp.org/jsag/2018/8-1/p06.xhtml">A Macaulay2 package for computations with rational maps</a>. That version can be obtained from <a href="https://msp.org/jsag/2018/8-1/jsag-v8-n1-x06-Cremona.zip">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/2e87a29e4b5b68af1bd8917a9c76d4008ff9fc5b/M2/Macaulay2/packages/Cremona.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>5.2</b> of Cremona.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/Cremona.m2">Cremona.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/Cremona/">Cremona/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">RationalMap</a> -- the class of all rational maps between absolutely irreducible projective varieties over a field</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="make an abstract rational map" href="_abstract__Rational__Map.html">abstractRationalMap</a> -- make an abstract rational map</span>                  </li>
+                  <li>
+<span><a title="random map related to the inverse of a birational map" href="_approximate__Inverse__Map.html">approximateInverseMap</a> -- random map related to the inverse of a birational map</span>                  </li>
+                  <li>
+<span><a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a> -- Chern-Schwartz-MacPherson class of a projective scheme</span>                  </li>
+                  <li>
+<span><a title="degree of a rational map between projective varieties" href="_degree__Map.html">degreeMap</a> -- degree of a rational map between projective varieties</span>                  </li>
+                  <li>
+<span><a title="topological Euler characteristic of a (smooth) projective variety" href="___Euler__Characteristic.html">EulerCharacteristic</a> -- topological Euler characteristic of a (smooth) projective variety</span>                  </li>
+                  <li>
+<span><a title="exceptional locus of a birational map" href="_exceptional__Locus.html">exceptionalLocus</a> -- exceptional locus of a birational map</span>                  </li>
+                  <li>
+<span><a title="declare which is the image of a rational map" href="_force__Image.html">forceImage</a> -- declare which is the image of a rational map</span>                  </li>
+                  <li>
+<span><a title="declare that two rational maps are one the inverse of the other" href="_force__Inverse__Map.html">forceInverseMap</a> -- declare that two rational maps are one the inverse of the other</span>                  </li>
+                  <li>
+<span><a title="closure of the graph of a rational map" href="_graph.html">graph</a> -- closure of the graph of a rational map</span>                  </li>
+                  <li>
+<span><a title="inverse of a birational map" href="_inverse__Map.html">inverseMap</a> -- inverse of a birational map</span>                  </li>
+                  <li>
+<span><a title="whether a rational map is birational" href="_is__Birational.html">isBirational</a> -- whether a rational map is birational</span>                  </li>
+                  <li>
+<span><a title="whether a rational map is dominant" href="_is__Dominant.html">isDominant</a> -- whether a rational map is dominant</span>                  </li>
+                  <li>
+<span><a title="checks whether a rational map is the inverse of another" href="_is__Inverse__Map.html">isInverseMap</a> -- checks whether a rational map is the inverse of another</span>                  </li>
+                  <li>
+<span><a title="whether a rational map is a morphism" href="_is__Morphism.html">isMorphism</a> -- whether a rational map is a morphism</span>                  </li>
+                  <li>
+<span><a title="parametrization of a rational projective variety" href="_parametrize.html">parametrize</a> -- parametrization of a rational projective variety</span>                  </li>
+                  <li>
+<span><a title="pick a random rational point on a projective variety" href="_point.html">point</a> -- pick a random rational point on a projective variety</span>                  </li>
+                  <li>
+<span><a title="projective degrees of a rational map between projective varieties" href="_projective__Degrees.html">projectiveDegrees</a> -- projective degrees of a rational map between projective varieties</span>                  </li>
+                  <li>
+<span><a title="quadro-quadric Cremona transformations" href="_quadro__Quadric__Cremona__Transformation.html">quadroQuadricCremonaTransformation</a> -- quadro-quadric Cremona transformations</span>                  </li>
+                  <li>
+<span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span>                  </li>
+                  <li>
+<span><a title="Segre embedding" href="_segre.html">segre</a> -- Segre embedding</span>                  </li>
+                  <li>
+<span><a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> -- Segre class of a closed subscheme of a projective variety</span>                  </li>
+                  <li>
+<span><a title="special Cremona transformations whose base locus has dimension at most three" href="_special__Cremona__Transformation.html">specialCremonaTransformation</a> -- special Cremona transformations whose base locus has dimension at most three</span>                  </li>
+                  <li>
+<span><a title="special cubic transformations whose base locus has dimension at most three" href="_special__Cubic__Transformation.html">specialCubicTransformation</a> -- special cubic transformations whose base locus has dimension at most three</span>                  </li>
+                  <li>
+<span><a title="special quadratic transformations whose base locus has dimension three" href="_special__Quadratic__Transformation.html">specialQuadraticTransformation</a> -- special quadratic transformations whose base locus has dimension three</span>                  </li>
+                  <li>
+<span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;abstractRationalMap(PolynomialRing,PolynomialRing,FunctionClosure)&quot;</tt> -- see <span><a title="make an abstract rational map" href="_abstract__Rational__Map.html">abstractRationalMap</a> -- make an abstract rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;abstractRationalMap(PolynomialRing,PolynomialRing,FunctionClosure,ZZ)&quot;</tt> -- see <span><a title="make an abstract rational map" href="_abstract__Rational__Map.html">abstractRationalMap</a> -- make an abstract rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;abstractRationalMap(RationalMap)&quot;</tt> -- see <span><a title="make an abstract rational map" href="_abstract__Rational__Map.html">abstractRationalMap</a> -- make an abstract rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;approximateInverseMap(RationalMap)&quot;</tt> -- see <span><a title="random map related to the inverse of a birational map" href="_approximate__Inverse__Map.html">approximateInverseMap</a> -- random map related to the inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;approximateInverseMap(RationalMap,ZZ)&quot;</tt> -- see <span><a title="random map related to the inverse of a birational map" href="_approximate__Inverse__Map.html">approximateInverseMap</a> -- random map related to the inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;approximateInverseMap(RingMap)&quot;</tt> -- see <span><a title="random map related to the inverse of a birational map" href="_approximate__Inverse__Map.html">approximateInverseMap</a> -- random map related to the inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;approximateInverseMap(RingMap,ZZ)&quot;</tt> -- see <span><a title="random map related to the inverse of a birational map" href="_approximate__Inverse__Map.html">approximateInverseMap</a> -- random map related to the inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ChernSchwartzMacPherson(Ideal)&quot;</tt> -- see <span><a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a> -- Chern-Schwartz-MacPherson class of a projective scheme</span></span>                  </li>
+                  <li>
+<span><a title="coefficient ring of a rational map" href="_coefficient__Ring_lp__Rational__Map_rp.html">coefficientRing(RationalMap)</a> -- coefficient ring of a rational map</span>                  </li>
+                  <li>
+<span><a title="coefficient matrix of a rational map" href="_coefficients_lp__Rational__Map_rp.html">coefficients(RationalMap)</a> -- coefficient matrix of a rational map</span>                  </li>
+                  <li>
+<span><a title="degree of a rational map" href="_degree_lp__Rational__Map_rp.html">degree(RationalMap)</a> -- degree of a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;degreeMap(RingMap)&quot;</tt> -- see <span><a title="degree of a rational map between projective varieties" href="_degree__Map.html">degreeMap</a> -- degree of a rational map between projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="degree of a rational map" href="_degree__Map_lp__Rational__Map_rp.html">degreeMap(RationalMap)</a> -- degree of a rational map</span>                  </li>
+                  <li>
+<span><a title="projective degrees of a rational map" href="_degrees_lp__Rational__Map_rp.html">degrees(RationalMap)</a> -- projective degrees of a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;multidegree(RationalMap)&quot;</tt> -- see <span><a title="projective degrees of a rational map" href="_degrees_lp__Rational__Map_rp.html">degrees(RationalMap)</a> -- projective degrees of a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;? Ideal&quot;</tt> -- see <span><a title="describe a rational map" href="_describe_lp__Rational__Map_rp.html">describe(RationalMap)</a> -- describe a rational map</span></span>                  </li>
+                  <li>
+<span><a title="describe a rational map" href="_describe_lp__Rational__Map_rp.html">describe(RationalMap)</a> -- describe a rational map</span>                  </li>
+                  <li>
+<span><a title="the entries of the matrix associated to a rational map" href="_entries_lp__Rational__Map_rp.html">entries(RationalMap)</a> -- the entries of the matrix associated to a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;EulerCharacteristic(Ideal)&quot;</tt> -- see <span><a title="topological Euler characteristic of a (smooth) projective variety" href="___Euler__Characteristic.html">EulerCharacteristic</a> -- topological Euler characteristic of a (smooth) projective variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;exceptionalLocus(RationalMap)&quot;</tt> -- see <span><a title="exceptional locus of a birational map" href="_exceptional__Locus.html">exceptionalLocus</a> -- exceptional locus of a birational map</span></span>                  </li>
+                  <li>
+<span><a title="write source and target as nondegenerate varieties" href="_flatten_lp__Rational__Map_rp.html">flatten(RationalMap)</a> -- write source and target as nondegenerate varieties</span>                  </li>
+                  <li>
+<span><tt>&quot;forceImage(RationalMap,Ideal)&quot;</tt> -- see <span><a title="declare which is the image of a rational map" href="_force__Image.html">forceImage</a> -- declare which is the image of a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;forceInverseMap(RationalMap,RationalMap)&quot;</tt> -- see <span><a title="declare that two rational maps are one the inverse of the other" href="_force__Inverse__Map.html">forceInverseMap</a> -- declare that two rational maps are one the inverse of the other</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph(RationalMap)&quot;</tt> -- see <span><a title="closure of the graph of a rational map" href="_graph.html">graph</a> -- closure of the graph of a rational map</span></span>                  </li>
+                  <li>
+<span><a title="closure of the graph of a rational map" href="_graph_lp__Ring__Map_rp.html">graph(RingMap)</a> -- closure of the graph of a rational map</span>                  </li>
+                  <li>
+<span><a title="base locus of a rational map" href="_ideal_lp__Rational__Map_rp.html">ideal(RationalMap)</a> -- base locus of a rational map</span>                  </li>
+                  <li>
+<span><a title="closure of the image of a rational map using the F4 algorithm (experimental)" href="_image_lp__Rational__Map_cm__String_rp.html">image(RationalMap,String)</a> -- closure of the image of a rational map using the F4 algorithm (experimental)</span>                  </li>
+                  <li>
+<span><tt>&quot;image(RationalMap)&quot;</tt> -- see <span><a title="closure of the image of a rational map" href="_image_lp__Rational__Map_cm__Z__Z_rp.html">image(RationalMap,ZZ)</a> -- closure of the image of a rational map</span></span>                  </li>
+                  <li>
+<span><a title="closure of the image of a rational map" href="_image_lp__Rational__Map_cm__Z__Z_rp.html">image(RationalMap,ZZ)</a> -- closure of the image of a rational map</span>                  </li>
+                  <li>
+<span><a title="inverse of a birational map" href="_inverse_lp__Rational__Map_rp.html">inverse(RationalMap)</a> -- inverse of a birational map</span>                  </li>
+                  <li>
+<span><tt>&quot;inverse(RationalMap,Option)&quot;</tt> -- see <span><a title="inverse of a birational map" href="_inverse_lp__Rational__Map_rp.html">inverse(RationalMap)</a> -- inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inverseMap(RationalMap)&quot;</tt> -- see <span><a title="inverse of a birational map" href="_inverse__Map.html">inverseMap</a> -- inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inverseMap(RingMap)&quot;</tt> -- see <span><a title="inverse of a birational map" href="_inverse__Map.html">inverseMap</a> -- inverse of a birational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBirational(RationalMap)&quot;</tt> -- see <span><a title="whether a rational map is birational" href="_is__Birational.html">isBirational</a> -- whether a rational map is birational</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBirational(RingMap)&quot;</tt> -- see <span><a title="whether a rational map is birational" href="_is__Birational.html">isBirational</a> -- whether a rational map is birational</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isDominant(RationalMap)&quot;</tt> -- see <span><a title="whether a rational map is dominant" href="_is__Dominant.html">isDominant</a> -- whether a rational map is dominant</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isDominant(RingMap)&quot;</tt> -- see <span><a title="whether a rational map is dominant" href="_is__Dominant.html">isDominant</a> -- whether a rational map is dominant</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isInverseMap(RingMap,RingMap)&quot;</tt> -- see <span><a title="checks whether a rational map is the inverse of another" href="_is__Inverse__Map.html">isInverseMap</a> -- checks whether a rational map is the inverse of another</span></span>                  </li>
+                  <li>
+<span><a title="checks whether two rational maps are one the inverse of the other" href="_is__Inverse__Map_lp__Rational__Map_cm__Rational__Map_rp.html">isInverseMap(RationalMap,RationalMap)</a> -- checks whether two rational maps are one the inverse of the other</span>                  </li>
+                  <li>
+<span><a title="whether a birational map is an isomorphism" href="_is__Isomorphism_lp__Rational__Map_rp.html">isIsomorphism(RationalMap)</a> -- whether a birational map is an isomorphism</span>                  </li>
+                  <li>
+<span><tt>&quot;isMorphism(RationalMap)&quot;</tt> -- see <span><a title="whether a rational map is a morphism" href="_is__Morphism.html">isMorphism</a> -- whether a rational map is a morphism</span></span>                  </li>
+                  <li>
+<span><a title="homogeneous components of the kernel of a homogeneous ring map" href="_kernel_lp__Ring__Map_cm__Z__Z_rp.html">kernel(RingMap,ZZ)</a> -- homogeneous components of the kernel of a homogeneous ring map</span>                  </li>
+                  <li>
+<span><a title="get the ring map defining a rational map" href="_map_lp__Rational__Map_rp.html">map(RationalMap)</a> -- get the ring map defining a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;map(ZZ,RationalMap)&quot;</tt> -- see <span><a title="get the ring map defining a rational map" href="_map_lp__Rational__Map_rp.html">map(RationalMap)</a> -- get the ring map defining a rational map</span></span>                  </li>
+                  <li>
+<span><a title="the matrix associated to a rational map" href="_matrix_lp__Rational__Map_rp.html">matrix(RationalMap)</a> -- the matrix associated to a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;matrix(ZZ,RationalMap)&quot;</tt> -- see <span><a title="the matrix associated to a rational map" href="_matrix_lp__Rational__Map_rp.html">matrix(RationalMap)</a> -- the matrix associated to a rational map</span></span>                  </li>
+                  <li>
+<span><a title="parametrization of linear varieties and hyperquadrics" href="_parametrize_lp__Ideal_rp.html">parametrize(Ideal)</a> -- parametrization of linear varieties and hyperquadrics</span>                  </li>
+                  <li>
+<span><tt>&quot;parametrize(PolynomialRing)&quot;</tt> -- see <span><a title="parametrization of linear varieties and hyperquadrics" href="_parametrize_lp__Ideal_rp.html">parametrize(Ideal)</a> -- parametrization of linear varieties and hyperquadrics</span></span>                  </li>
+                  <li>
+<span><tt>&quot;parametrize(QuotientRing)&quot;</tt> -- see <span><a title="parametrization of linear varieties and hyperquadrics" href="_parametrize_lp__Ideal_rp.html">parametrize(Ideal)</a> -- parametrization of linear varieties and hyperquadrics</span></span>                  </li>
+                  <li>
+<span><tt>&quot;point(PolynomialRing)&quot;</tt> -- see <span><a title="pick a random rational point on a projective variety" href="_point_lp__Quotient__Ring_rp.html">point(QuotientRing)</a> -- pick a random rational point on a projective variety</span></span>                  </li>
+                  <li>
+<span><a title="pick a random rational point on a projective variety" href="_point_lp__Quotient__Ring_rp.html">point(QuotientRing)</a> -- pick a random rational point on a projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveDegrees(RingMap)&quot;</tt> -- see <span><a title="projective degrees of a rational map between projective varieties" href="_projective__Degrees.html">projectiveDegrees</a> -- projective degrees of a rational map between projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="projective degrees of a rational map" href="_projective__Degrees_lp__Rational__Map_rp.html">projectiveDegrees(RationalMap)</a> -- projective degrees of a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;quadroQuadricCremonaTransformation(Ring,ZZ,ZZ)&quot;</tt> -- see <span><a title="quadro-quadric Cremona transformations" href="_quadro__Quadric__Cremona__Transformation.html">quadroQuadricCremonaTransformation</a> -- quadro-quadric Cremona transformations</span></span>                  </li>
+                  <li>
+<span><tt>&quot;quadroQuadricCremonaTransformation(ZZ,ZZ)&quot;</tt> -- see <span><a title="quadro-quadric Cremona transformations" href="_quadro__Quadric__Cremona__Transformation.html">quadroQuadricCremonaTransformation</a> -- quadro-quadric Cremona transformations</span></span>                  </li>
+                  <li>
+<span><tt>&quot;quadroQuadricCremonaTransformation(ZZ,ZZ,Ring)&quot;</tt> -- see <span><a title="quadro-quadric Cremona transformations" href="_quadro__Quadric__Cremona__Transformation.html">quadroQuadricCremonaTransformation</a> -- quadro-quadric Cremona transformations</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(List)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Matrix)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ring)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ring,Ring)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ring,Ring,List)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ring,Ring,Matrix)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(RingMap)&quot;</tt> -- see <span><a title="makes a rational map" href="_rational__Map.html">rationalMap</a> -- makes a rational map</span></span>                  </li>
+                  <li>
+<span><a title="calculates every possible thing" href="___Rational__Map_sp!.html">RationalMap !</a> -- calculates every possible thing</span>                  </li>
+                  <li>
+<span><tt>&quot;compose(RationalMap,RationalMap)&quot;</tt> -- see <span><a title="composition of rational maps" href="___Rational__Map_sp_st_sp__Rational__Map.html">RationalMap * RationalMap</a> -- composition of rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;compose(RingMap,RingMap)&quot;</tt> -- see <span><a title="composition of rational maps" href="___Rational__Map_sp_st_sp__Rational__Map.html">RationalMap * RationalMap</a> -- composition of rational maps</span></span>                  </li>
+                  <li>
+<span><a title="composition of rational maps" href="___Rational__Map_sp_st_sp__Rational__Map.html">RationalMap * RationalMap</a> -- composition of rational maps</span>                  </li>
+                  <li>
+<span><a title="change the coefficient ring of a rational map" href="___Rational__Map_sp_st_st_sp__Ring.html">RationalMap ** Ring</a> -- change the coefficient ring of a rational map</span>                  </li>
+                  <li>
+<span><a title="equality of rational maps" href="___Rational__Map_sp_eq_eq_sp__Rational__Map.html">RationalMap == RationalMap</a> -- equality of rational maps</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap == ZZ&quot;</tt> -- see <span><a title="equality of rational maps" href="___Rational__Map_sp_eq_eq_sp__Rational__Map.html">RationalMap == RationalMap</a> -- equality of rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ZZ == RationalMap&quot;</tt> -- see <span><a title="equality of rational maps" href="___Rational__Map_sp_eq_eq_sp__Rational__Map.html">RationalMap == RationalMap</a> -- equality of rational maps</span></span>                  </li>
+                  <li>
+<span><a title="power" href="___Rational__Map_sp^_sp__Z__Z.html">RationalMap ^ ZZ</a> -- power</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap ^*&quot;</tt> -- see <span><a title="inverse image via a rational map" href="___Rational__Map_sp^_st_st_sp__Ideal.html">RationalMap ^** Ideal</a> -- inverse image via a rational map</span></span>                  </li>
+                  <li>
+<span><a title="inverse image via a rational map" href="___Rational__Map_sp^_st_st_sp__Ideal.html">RationalMap ^** Ideal</a> -- inverse image via a rational map</span>                  </li>
+                  <li>
+<span><a title="direct image via a rational map" href="___Rational__Map_sp_us_st.html">RationalMap _*</a> -- direct image via a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap Ideal&quot;</tt> -- see <span><a title="direct image via a rational map" href="___Rational__Map_sp_us_st.html">RationalMap _*</a> -- direct image via a rational map</span></span>                  </li>
+                  <li>
+<span><a title="restriction of a rational map" href="___Rational__Map_sp_vb_sp__Ideal.html">RationalMap | Ideal</a> -- restriction of a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap | Ring&quot;</tt> -- see <span><a title="restriction of a rational map" href="___Rational__Map_sp_vb_sp__Ideal.html">RationalMap | Ideal</a> -- restriction of a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap | RingElement&quot;</tt> -- see <span><a title="restriction of a rational map" href="___Rational__Map_sp_vb_sp__Ideal.html">RationalMap | Ideal</a> -- restriction of a rational map</span></span>                  </li>
+                  <li>
+<span><a title="restriction of a rational map" href="___Rational__Map_sp_vb_vb_sp__Ideal.html">RationalMap || Ideal</a> -- restriction of a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap || Ring&quot;</tt> -- see <span><a title="restriction of a rational map" href="___Rational__Map_sp_vb_vb_sp__Ideal.html">RationalMap || Ideal</a> -- restriction of a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap || RingElement&quot;</tt> -- see <span><a title="restriction of a rational map" href="___Rational__Map_sp_vb_vb_sp__Ideal.html">RationalMap || Ideal</a> -- restriction of a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ideal)&quot;</tt> -- see <span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ideal,List)&quot;</tt> -- see <span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Ideal,ZZ)&quot;</tt> -- see <span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span></span>                  </li>
+                  <li>
+<span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span>                  </li>
+                  <li>
+<span><a title="rational map defined by the linear system of hypersurfaces passing through random points with multiplicity" href="_rational__Map_lp__Polynomial__Ring_cm__List_rp.html">rationalMap(PolynomialRing,List)</a> -- rational map defined by the linear system of hypersurfaces passing through random points with multiplicity</span>                  </li>
+                  <li>
+<span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Ring_cm__Tally_rp.html">rationalMap(Ring,Tally)</a> -- rational map defined by an effective divisor</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(Tally)&quot;</tt> -- see <span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Ring_cm__Tally_rp.html">rationalMap(Ring,Tally)</a> -- rational map defined by an effective divisor</span></span>                  </li>
+                  <li>
+<span><tt>&quot;segre(PolynomialRing)&quot;</tt> -- see <span><a title="Segre embedding" href="_segre.html">segre</a> -- Segre embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;segre(QuotientRing)&quot;</tt> -- see <span><a title="Segre embedding" href="_segre.html">segre</a> -- Segre embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;segre(RationalMap)&quot;</tt> -- see <span><a title="Segre embedding" href="_segre.html">segre</a> -- Segre embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;SegreClass(Ideal)&quot;</tt> -- see <span><a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> -- Segre class of a closed subscheme of a projective variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;SegreClass(RationalMap)&quot;</tt> -- see <span><a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> -- Segre class of a closed subscheme of a projective variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;SegreClass(RingMap)&quot;</tt> -- see <span><a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> -- Segre class of a closed subscheme of a projective variety</span></span>                  </li>
+                  <li>
+<span><a title="coordinate ring of the source for a rational map" href="_source_lp__Rational__Map_rp.html">source(RationalMap)</a> -- coordinate ring of the source for a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;specialCremonaTransformation(Ring,ZZ)&quot;</tt> -- see <span><a title="special Cremona transformations whose base locus has dimension at most three" href="_special__Cremona__Transformation.html">specialCremonaTransformation</a> -- special Cremona transformations whose base locus has dimension at most three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialCremonaTransformation(ZZ)&quot;</tt> -- see <span><a title="special Cremona transformations whose base locus has dimension at most three" href="_special__Cremona__Transformation.html">specialCremonaTransformation</a> -- special Cremona transformations whose base locus has dimension at most three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialCremonaTransformation(ZZ,Ring)&quot;</tt> -- see <span><a title="special Cremona transformations whose base locus has dimension at most three" href="_special__Cremona__Transformation.html">specialCremonaTransformation</a> -- special Cremona transformations whose base locus has dimension at most three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialCubicTransformation(Ring,ZZ)&quot;</tt> -- see <span><a title="special cubic transformations whose base locus has dimension at most three" href="_special__Cubic__Transformation.html">specialCubicTransformation</a> -- special cubic transformations whose base locus has dimension at most three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialCubicTransformation(ZZ)&quot;</tt> -- see <span><a title="special cubic transformations whose base locus has dimension at most three" href="_special__Cubic__Transformation.html">specialCubicTransformation</a> -- special cubic transformations whose base locus has dimension at most three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialCubicTransformation(ZZ,Ring)&quot;</tt> -- see <span><a title="special cubic transformations whose base locus has dimension at most three" href="_special__Cubic__Transformation.html">specialCubicTransformation</a> -- special cubic transformations whose base locus has dimension at most three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialQuadraticTransformation(Ring,ZZ)&quot;</tt> -- see <span><a title="special quadratic transformations whose base locus has dimension three" href="_special__Quadratic__Transformation.html">specialQuadraticTransformation</a> -- special quadratic transformations whose base locus has dimension three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialQuadraticTransformation(ZZ)&quot;</tt> -- see <span><a title="special quadratic transformations whose base locus has dimension three" href="_special__Quadratic__Transformation.html">specialQuadraticTransformation</a> -- special quadratic transformations whose base locus has dimension three</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialQuadraticTransformation(ZZ,Ring)&quot;</tt> -- see <span><a title="special quadratic transformations whose base locus has dimension three" href="_special__Quadratic__Transformation.html">specialQuadraticTransformation</a> -- special quadratic transformations whose base locus has dimension three</span></span>                  </li>
+                  <li>
+<span><a title="substitute the ambient projective spaces of source and target" href="_substitute_lp__Rational__Map_cm__Polynomial__Ring_cm__Polynomial__Ring_rp.html">substitute(RationalMap,PolynomialRing,PolynomialRing)</a> -- substitute the ambient projective spaces of source and target</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(RationalMap)&quot;</tt> -- see <span><a title="get the rational map whose target is a projective space" href="_super_lp__Rational__Map_rp.html">super(RationalMap)</a> -- get the rational map whose target is a projective space</span></span>                  </li>
+                  <li>
+<span><a title="get the rational map whose target is a projective space" href="_super_lp__Rational__Map_rp.html">super(RationalMap)</a> -- get the rational map whose target is a projective space</span>                  </li>
+                  <li>
+<span><a title="coordinate ring of the target for a rational map" href="_target_lp__Rational__Map_rp.html">target(RationalMap)</a> -- coordinate ring of the target for a rational map</span>                  </li>
+                  <li>
+<span><a title="convert to a readable string" href="_to__External__String_lp__Rational__Map_rp.html">toExternalString(RationalMap)</a> -- convert to a readable string</span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(Ideal)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(Ideal,List)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(Ideal,ZZ)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(Ideal,ZZ,ZZ)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(List)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(Matrix)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMap(RingMap)&quot;</tt> -- see <span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a href="___Blow__Up__Strategy.html">BlowUpStrategy</a></span>                  </li>
+                  <li>
+<span><a title="whether to ensure correctness of output" href="___Certify.html">Certify</a> -- whether to ensure correctness of output</span>                  </li>
+                  <li>
+<span><a href="___Codim__Bs__Inv.html">CodimBsInv</a></span>                  </li>
+                  <li>
+<span><a href="___Dominant.html">Dominant</a></span>                  </li>
+                  <li>
+<span><a href="___Num__Degrees.html">NumDegrees</a></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

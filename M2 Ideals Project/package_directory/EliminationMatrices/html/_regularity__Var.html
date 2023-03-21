@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>regularityVar -- computes the Castelnuovo-Mumford regularity of homogeneous ideals in terms of Betti numbers, with respect to some of the variables of the ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Sylvester.html">next</a> | <a href="___Numeric.html">previous</a> | <a href="___Sylvester.html">forward</a> | <a href="___Numeric.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants" href="index.html">EliminationMatrices</a> :: <a title="computes the Castelnuovo-Mumford regularity of homogeneous ideals in terms of Betti numbers, with respect to some of the variables of the ring" href="_regularity__Var.html">regularityVar</a>    </div>
+    <hr/>
+    <div>
+      <h1>regularityVar -- computes the Castelnuovo-Mumford regularity of homogeneous ideals in terms of Betti numbers, with respect to some of the variables of the ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">regularityVar(l,I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>l</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, list of variables of the polynomial ring R to take into account for computing the Castelnuovo-Mumford regularity</span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, ideal of a polynomial ring</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+<tt>regularityVar</tt> computes the Castelnuovo-Mumford regularity of homogeneous ideals in a polynomial ring by computing the shifts and degrees of generators in a minimal free resolution of the homogeneous ideal.        <p/>
+The list of variables <tt>l</tt> contains the variables of the ring having degree 1. Those variables on the ring not in <tt>l</tt> have automatically degree 0, as well as the elements on the coefficient ring        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[a..i,x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f1 = a*x+b*y+c*z
+
+o2 = a*x + b*y + c*z
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f2 = d*x+e*y+f*z
+
+o3 = d*x + e*y + f*z
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f3 = g*x+h*y+i*z
+
+o4 = g*x + h*y + i*z
+
+o4 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : I = ideal(f1,f2,f3)
+
+o5 = ideal (a*x + b*y + c*z, d*x + e*y + f*z, g*x + h*y + i*z)
+
+o5 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : l = {x,y,z}
+
+o6 = {x, y, z}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : regularityVar (l,I)
+
+o7 = 1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="get the coefficient ring" href="../../Macaulay2Doc/html/_coefficient__Ring.html">coefficientRing</a> -- get the coefficient ring</span>          </li>
+          <li>
+<span><a title="projective resolution" href="../../Macaulay2Doc/html/_resolution.html">resolution</a> -- projective resolution</span>          </li>
+          <li>
+<span><a title="projective resolution" href="../../Macaulay2Doc/html/_resolution.html">resolution</a> -- projective resolution</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>regularityVar</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;regularityVar(List,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the Castelnuovo-Mumford regularity of homogeneous ideals in terms of Betti numbers, with respect to some of the variables of the ring" href="_regularity__Var.html">regularityVar</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

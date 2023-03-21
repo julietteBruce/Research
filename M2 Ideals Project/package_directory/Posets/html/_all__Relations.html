@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>allRelations -- computes all relations of a poset</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_antichains.html">next</a> | <a href="_adjoin__Min.html">previous</a> | <a href="_antichains.html">forward</a> | <a href="_adjoin__Min.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with partially ordered sets" href="index.html">Posets</a> :: <a title="computes all relations of a poset" href="_all__Relations.html">allRelations</a>    </div>
+    <hr/>
+    <div>
+      <h1>allRelations -- computes all relations of a poset</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">R = allRelations P</code></dd>
+              <dd><code class="language-macaulay2">R = allRelations(P, NoLoops)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>an instance of the type <a title="a class for partially ordered sets (posets)" href="___Poset.html">Poset</a></span>, </span>              </li>
+              <li>
+<span><tt>NoLoops</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether loops, i.e., relations of the form $\{a,a\}$, should be returned</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing all relations between elements of $P$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method returns all relations of a poset, though loops may be suppressed with the input <tt>NoLoops</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = divisorPoset 12;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : allRelations P
+
+o2 = {{1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 6}, {1, 12}, {2, 2}, {2, 4}, {2,
+     ------------------------------------------------------------------------
+     6}, {2, 12}, {3, 3}, {3, 6}, {3, 12}, {4, 4}, {4, 12}, {6, 6}, {6, 12},
+     ------------------------------------------------------------------------
+     {12, 12}}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : allRelations(P, true)
+
+o3 = {{1, 2}, {1, 3}, {1, 4}, {1, 6}, {1, 12}, {2, 4}, {2, 6}, {2, 12}, {3,
+     ------------------------------------------------------------------------
+     6}, {3, 12}, {4, 12}, {6, 12}}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compares two elements in a poset" href="_compare.html">compare</a> -- compares two elements in a poset</span>          </li>
+          <li>
+<span><a title="computes the minimal list of generating relations of a poset" href="_covering__Relations.html">coveringRelations</a> -- computes the minimal list of generating relations of a poset</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>allRelations</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;allRelations(Poset)&quot;</tt>          </li>
+          <li>
+<tt>&quot;allRelations(Poset,Boolean)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes all relations of a poset" href="_all__Relations.html">allRelations</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>flattenedESTensor -- make a flattened tensor from elementary symmetric functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_flattened__Generic__Tensor.html">next</a> | <a href="_exterior__Power_lp__Z__Z_cm__Labeled__Module_rp.html">previous</a> | <a href="_flattened__Generic__Tensor.html">forward</a> | <a href="_exterior__Power_lp__Z__Z_cm__Labeled__Module_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="multilinear algebra for the construction of tensor complexes" href="index.html">TensorComplexes</a> :: <a title="make a flattened tensor from elementary symmetric functions" href="_flattened__E__S__Tensor.html">flattenedESTensor</a>    </div>
+    <hr/>
+    <div>
+      <h1>flattenedESTensor -- make a flattened tensor from elementary symmetric functions</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">flattenedESTensor(L,kk)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of positive ZZ</span>              </li>
+              <li>
+<span><tt>kk</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, Name of ground field (or ring)</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>MonSize</tt> (missing documentation)<!--tag: [flattenedESTensor, MonSize]-->
+<tt> => </tt><tt>...</tt>, <span>default value 32</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of maps between LabeledModules" href="___Labeled__Module__Map.html">map of labeled modules</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a list $L = \{a, b_1,\dots, b_n\}$ of positive integers with $ a= sum_i b_i, $ and a field (or ring of integers) kk, the script creates a ring $S = kk[x_1,\dots,x_n]$ and a map $$ f: A \to B_1\otimes\cdots \otimes B_n $$ of <a title="the class of free modules with a labeled basis" href="___Labeled__Module.html">LabeledModule</a>s over $S$, where $A$ is a free LabeledModule of rank $a$ and $B_i$ is a free LabeledModule of rank $b_i$. The map $f$ is constructed from symmetric functions, and corresponds to collection of linear forms on $P^{b_1-1}\times\cdots\timesß P^{b_n-1}$ as used in the construction of pure resolutions in the paper ``Betti numbers of graded modules and cohomology of vector bundles'' of Eisenbud and Schreyer.</p>
+          <p>The format of $F$ is the one required by <a title="computes the first map of the tensor complex" href="_tensor__Complex1.html">tensorComplex1</a>, namely $f: A \to B_1\otimes \cdots \otimes B_n$, with $a = rank A, b_i = rank B_i$.</p>
+          <p>There is an OPTION, MonSize => n (where n is 8,16, or 32). This sets the <a title="an optional argument" href="../../Macaulay2Doc/html/___Monomial__Size.html">MonomialSize</a> option when the base ring of flattenedESTensor is created.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = flattenedESTensor({5,2,1,2},kk)
+
+o2 = | x_0 x_1 x_2 0   0   |
+     | 0   x_0 x_1 x_2 0   |
+     | 0   x_0 x_1 x_2 0   |
+     | 0   0   x_0 x_1 x_2 |
+
+                        4                  5
+o2 : Matrix (kk[x ..x ])  &lt;--- (kk[x ..x ])
+                 0   2              0   2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : numgens ring f
+
+o3 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : betti matrix f
+
+            0 1
+o4 = total: 4 5
+        -1: . 5
+         0: 4 .
+
+o4 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S = ring f
+
+o5 = S
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : g = tensorComplex1 f
+
+o6 = | x_0^2 0     x_0x_1 0      x_1^2-x_0x_2 0            x_0x_2 0      x_1x_2 0      x_2^2        0            0      0      0      0      0      0      0     0     |
+     | 0     x_0^2 x_0^2  x_0x_1 x_0x_1       x_1^2-x_0x_2 x_0x_1 x_0x_2 x_1^2  x_1x_2 x_1x_2       x_2^2        x_0x_2 0      x_1x_2 0      x_2^2  0      0     0     |
+     | 0     0     0      x_0^2  x_0^2        x_0x_1       0      x_0x_1 x_0x_1 x_1^2  x_1^2-x_0x_2 x_1x_2       0      x_0x_2 x_0x_2 x_1x_2 x_1x_2 x_2^2  x_2^2 0     |
+     | 0     0     0      0      0            x_0^2        0      0      0      x_0x_1 0            x_1^2-x_0x_2 0      0      0      x_0x_2 0      x_1x_2 0     x_2^2 |
+
+             4       20
+o6 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti res coker g
+
+            0  1  2 3
+o7 = total: 4 20 20 4
+         0: 4  .  . .
+         1: . 20 20 .
+         2: .  .  . 4
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Make a generic tensor of given format" href="_flattened__Generic__Tensor.html">flattenedGenericTensor</a> -- Make a generic tensor of given format</span>          </li>
+          <li>
+<span><a title="computes the first map of the tensor complex" href="_tensor__Complex1.html">tensorComplex1</a> -- computes the first map of the tensor complex</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>flattenedESTensor</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>flattenedESTensor(List,Ring)</tt> (missing documentation)<!--tag: (flattenedESTensor,List,Ring)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="make a flattened tensor from elementary symmetric functions" href="_flattened__E__S__Tensor.html">flattenedESTensor</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

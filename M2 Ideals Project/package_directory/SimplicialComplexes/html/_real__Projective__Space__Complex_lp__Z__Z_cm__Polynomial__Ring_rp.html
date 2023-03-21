@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>realProjectiveSpaceComplex(ZZ,PolynomialRing) -- make a small triangulation of real projective space</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ring_lp__Simplicial__Complex_rp.html">next</a> | <a href="_prune_lp__Simplicial__Complex_rp.html">previous</a> | <a href="_ring_lp__Simplicial__Complex_rp.html">forward</a> | <a href="_prune_lp__Simplicial__Complex_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="exploring abstract simplicial complexes within commutative algebra" href="index.html">SimplicialComplexes</a> :: <a title="make a small triangulation of real projective space" href="_real__Projective__Space__Complex_lp__Z__Z_cm__Polynomial__Ring_rp.html">realProjectiveSpaceComplex(ZZ,PolynomialRing)</a>    </div>
+    <hr/>
+    <div>
+      <h1>realProjectiveSpaceComplex(ZZ,PolynomialRing) -- make a small triangulation of real projective space</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="make a small triangulation of real projective space" href="_real__Projective__Space__Complex_lp__Z__Z_cm__Polynomial__Ring_rp.html">realProjectiveSpaceComplex</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">realProjectiveSpaceComplex(n, S)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, that specifies the dimension of real projective space</span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, that specifies the polynomial ring containing the Stanley–Reisner ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all abstract simplicial complexes" href="___Simplicial__Complex.html">abstract simplicial complex</a></span>, corresponding to a triangulation of real projective space</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method implements some of the minimal triangulations of real projective space found in the literature. For $n = 0, 1$, these are just the obvious point and 1-sphere. For $n = 2$, the minimal triangulation is provided by <a href="http://page.math.tu-berlin.de/~lutz/">Frank H. Lutz's</a> <a href="http://page.math.tu-berlin.de/~lutz/stellar/">small manifold database</a>. Frank Lutz has also provided minimal triangulations for $n = 3$ and $4$, in &quot;Triangulated Manifolds with Few Vertices: Combinatorial Manifolds&quot;, <a href="https://arxiv.org/abs/math/0506372">arXiv:math/0506372v1</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ[x_0..x_10]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Δ = realProjectiveSpaceComplex(3, S)
+
+o2 = simplicialComplex | x_3x_4x_5x_10 x_0x_4x_5x_10 x_1x_3x_5x_10 x_0x_1x_5x_10 x_2x_3x_4x_10 x_0x_2x_4x_10 x_1x_2x_3x_10 x_0x_1x_2x_10 x_2x_5x_8x_9 x_1x_5x_8x_9 x_2x_4x_8x_9 x_1x_4x_8x_9 x_1x_4x_7x_9 x_0x_4x_7x_9 x_1x_3x_7x_9 x_0x_3x_7x_9 x_3x_5x_6x_9 x_2x_5x_6x_9 x_0x_3x_6x_9 x_0x_2x_6x_9 x_1x_3x_5x_9 x_0x_2x_4x_9 x_2x_5x_7x_8 x_0x_5x_7x_8 x_2x_3x_7x_8 x_0x_3x_7x_8 x_3x_4x_6x_8 x_1x_4x_6x_8 x_0x_3x_6x_8 x_0x_1x_6x_8 x_0x_1x_5x_8 x_2x_3x_4x_8 x_4x_5x_6x_7 x_2x_5x_6x_7 x_1x_4x_6x_7 x_1x_2x_6x_7 x_0x_4x_5x_7 x_1x_2x_3x_7 x_3x_4x_5x_6 x_0x_1x_2x_6 |
+
+o2 : SimplicialComplex</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Since no minimal or small triangulations of real projective space have been constructed for $n > 4$, we haven't implemented the triangulations for higher projective space yet. Due to the exponential growth of the number of vertices, computations quickly become intractable.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="information about the basic constructors" href="___Making_span_spabstract_spsimplicial_spcomplex.html">Making an abstract simplicial complex</a> -- information about the basic constructors</span>          </li>
+          <li>
+<span><a title="get a small manifold from the Frank Lutz database" href="_small__Manifold_lp__Z__Z_cm__Z__Z_cm__Z__Z_cm__Polynomial__Ring_rp.html">smallManifold(ZZ,ZZ,ZZ,PolynomialRing)</a> -- get a small manifold from the Frank Lutz database</span>          </li>
+          <li>
+<span><a title="get a small manifold from the Frank Lutz database" href="_small__Manifold_lp__Z__Z_cm__Z__Z_cm__Z__Z_cm__Polynomial__Ring_rp.html">smallManifold</a> -- get a small manifold from the Frank Lutz database</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="make a small triangulation of real projective space" href="_real__Projective__Space__Complex_lp__Z__Z_cm__Polynomial__Ring_rp.html">realProjectiveSpaceComplex(ZZ,PolynomialRing)</a> -- make a small triangulation of real projective space</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

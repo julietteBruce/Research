@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>projectiveWitnessSet -- construct a ProjectiveWitnessSet</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random_lp__Poly__Space_rp.html">next</a> | <a href="___Projective__Witness__Set.html">previous</a> | <a href="_random_lp__Poly__Space_rp.html">forward</a> | <a href="___Projective__Witness__Set.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> :: <a title="construct a ProjectiveWitnessSet" href="_projective__Witness__Set.html">projectiveWitnessSet</a>    </div>
+    <hr/>
+    <div>
+      <h1>projectiveWitnessSet -- construct a ProjectiveWitnessSet</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">w = projectiveWitnessSet(E,C,S,P)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, in a polynomial ring over <a title="the class of all complex numbers" href="../../Macaulay2Doc/html/___C__C.html">CC</a></span>              </li>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, in a polynomial ring over <a title="the class of all complex numbers" href="../../Macaulay2Doc/html/___C__C.html">CC</a></span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>,  complex coefficients of a linear system</span>              </li>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, contains witness points (of type <a title="a type used to store a point in complex space" href="___Abstract__Point.html">AbstractPoint</a>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>w</tt>, <span>an instance of the type <a title="a projective witness set" href="___Projective__Witness__Set.html">ProjectiveWitnessSet</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>Used to construct a witness set for a component of the variety <tt>V(E)</tt>.  An affine chart is specified by the matrix of the coefficients of the (normalized) linear equation defining the chart: e.g., <tt>ax+by+cz=1</tt> is encoded as <tt>[a,b,c]</tt>.</p>
+        <p>It is expected that the, <tt>V(E)</tt> and the plane <tt>V(S)</tt> defined by <tt>S</tt> are of complementary dimensions and that <tt>P</tt> is contained in the intersection of <tt>V(E+C)</tt> and <tt>V(S)</tt>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y,z]	
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : w = projectiveWitnessSet( ideal(x^2+y^2+2*z^2), matrix{{0,0,1}}, matrix{{1,-1,0}}, {point {{0.999999*ii,0.999999*ii,1.}}, point {{ -1.000001*ii,-1.000001*ii,1.}}} )
+
+o2 = w
+
+o2 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : peek w
+
+o3 = WitnessSet{AffineChart => | 0 0 1 |               }
+                cache => CacheTable{...1...}
+                Points => {{.999999*ii, .999999*ii, 1}}
+                          {{-ii, -ii, 1}              }
+                Slice => | 1 -1 0 |
+                                    2    2     2
+                Equations => ideal(x  + y  + 2z )</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>projectiveWitnessSet</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;projectiveWitnessSet(Ideal,Matrix,Matrix,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="construct a ProjectiveWitnessSet" href="_projective__Witness__Set.html">projectiveWitnessSet</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

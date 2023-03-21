@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ncGroebnerBasis -- Compute a noncommutative Groebner basis.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___N__C__Ideal.html">next</a> | <a href="___N__C__Groebner__Basis.html">previous</a> | <a href="___N__C__Ideal.html">forward</a> | <a href="___N__C__Groebner__Basis.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">NCAlgebra</a> :: <a title="Compute a noncommutative Groebner basis." href="_nc__Groebner__Basis.html">ncGroebnerBasis</a>    </div>
+    <hr/>
+    <div>
+      <h1>ncGroebnerBasis -- Compute a noncommutative Groebner basis.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Igb = ncGroebnerBasis I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an instance of the type <a title="Type of a two-sided ideal in a noncommutative ring" href="___N__C__Ideal.html">NCIdeal</a></span>, or a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> of NCRingElements</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>DegreeLimit</tt> (missing documentation)<!--tag: [ncGroebnerBasis, DegreeLimit]-->
+<tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 100</span>, the maximum degree for the calculation of a Groebner basis</span>              </li>
+              <li>
+<span><tt>InstallGB</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, set this to true to install a NCGroebnerBasis without verifying that it is one</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Igb</tt>, <span>an instance of the type <a title="Type of a Groebner basis for an NCIdeal in an NCRing." href="___N__C__Groebner__Basis.html">NCGroebnerBasis</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c,d]/ideal{a*b+c*d}
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : A = R {x,y,z}
+
+o2 = A
+
+o2 : NCPolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : I = ncIdeal {a*x*y,b*z^2}
+
+                             2
+o3 = Two-sided ideal {axy, bz }
+
+o3 : NCIdeal</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Igb = ncGroebnerBasis(I, InstallGB=>true)
+
+       2                2
+o4 = bz ; Lead Term = (z , b)
+     axy; Lead Term = (xy, a)
+
+o4 : NCGroebnerBasis</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : c*z^2 % Igb
+
+       2
+o5 = cz
+
+o5 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : b*z^2 % Igb
+
+o6 = 0
+
+o6 : A</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that after the InstallGB flag is set, no checking is done to ensure that the input is in fact a Groebner basis.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : A = QQ{x,y,z}
+
+o7 = A
+
+o7 : NCPolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : p = y*z + z*y - x^2
+
+            2
+o8 = zy+yz-x
+
+o8 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : q = x*z + z*x - y^2
+
+         2
+o9 = zx-y +xz
+
+o9 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : r = z^2 - x*y - y*x
+
+       2
+o10 = z -yx-xy
+
+o10 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : I = ncIdeal {p,q,r}
+
+                              2      2      2
+o11 = Two-sided ideal {zy+yz-x , zx-y +xz, z -yx-xy}
+
+o11 : NCIdeal</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : Igb = ncGroebnerBasis I
+--Calling Bergman for NCGB calculation.
+Complete!
+
+       2    2                2
+o12 = y x-xy ; Lead Term = (y x, 1)
+        2  2                  2
+      yx -x y; Lead Term = (yx , 1)
+          2
+      zx-y +xz; Lead Term = (zx, 1)
+             2
+      zy+yz-x ; Lead Term = (zy, 1)
+       2                      2
+      z -yx-xy; Lead Term = (z , 1)
+
+o12 : NCGroebnerBasis</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If the InstallGB flag is not set, then a call to Bergman is made, if the base ring is <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a> or a finite field of characteristic p.  Otherwise, an error is raised.</p>
+          <p>Now we can do things with an ncgb, like compute normal forms (using the Bergman interface).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : normalFormBergman(z^17,Igb)
+--Calling Bergman for NF calculation for 1 elements.
+Complete!
+Writing bergman input file.
+Writing bergman init file.
+
+                                            2             2    3           3     4         4     5       5     6     6     7   7     8 8
+o13 = yxyxyxyxyxyxyxyxz+xyxyxyxyxyxyxyxyz+8x yxyxyxyxyxyxy z+8x yxyxyxyxyxy z+28x yxyxyxyxy z+28x yxyxyxy z+56x yxyxy z+56x yxy z+70x y z
+
+o13 : A</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Or using the built in reduction code:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : z^17 % Igb
+
+                                            2             2    3           3     4         4     5       5     6     6     7   7     8 8
+o14 = yxyxyxyxyxyxyxyxz+xyxyxyxyxyxyxyxyz+8x yxyxyxyxyxyxy z+8x yxyxyxyxyxy z+28x yxyxyxyxy z+28x yxyxyxy z+56x yxyxy z+56x yxy z+70x y z
+
+o14 : A</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Calls to Bergman are usually faster, except for when the polynomial is small.  See the documentation for <a title="Reduces a NCRingElement by a NCGroebnerBasis" href="___N__C__Ring__Element_sp_pc_sp__N__C__Groebner__Basis.html">NCRingElement % NCGroebnerBasis</a> for details on controlling when Bergman is called.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>ncGroebnerBasis</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;ncGroebnerBasis(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;ncGroebnerBasis(NCIdeal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute a noncommutative Groebner basis." href="_nc__Groebner__Basis.html">ncGroebnerBasis</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

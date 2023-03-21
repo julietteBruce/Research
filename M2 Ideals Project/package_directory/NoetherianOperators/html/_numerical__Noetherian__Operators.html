@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>numericalNoetherianOperators -- Noetherian operators via numerical interpolation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_orthogonal__In__Subspace.html">next</a> | <a href="_normalize.html">previous</a> | <a href="_orthogonal__In__Subspace.html">forward</a> | <a href="_normalize.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a> :: <a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a>    </div>
+    <hr/>
+    <div>
+      <h1>numericalNoetherianOperators -- Noetherian operators via numerical interpolation</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">numericalNoetherianOperators(I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, unmixed</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of <a title="the class of all expressions" href="../../Macaulay2Doc/html/___Expression.html">expressions</a></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The method computes specialized Noetherian operators from many sampled points, and attempts to find fitting rational functions using rational function interpolation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y,t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x^2, y^2 - x*t);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : numericalNoetherianOperators(I, DependentSet => {x,y})
+
+                 2    1      t   3
+o3 = {1, 1*dy, dy  + ---*dx, -*dy  + 1*dx*dy}
+                     .5t     6
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The behavior of the function can be adjusted using options. Currently only the option <a title="option for computing Noetherian operators" href="___Dependent__Set.html">DependentSet</a> is required. The following are supported:</p>
+          <p></p>
+          <p><tt>TrustedPoint =></tt> a <a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">point</a>. The function does not compute specialized Noetherian operators from scratch for each point. Instead, it computes it for a &quot;trusted&quot; point on the variety, and uses the obtained Noetherian operators as a template for the rest of the computation. If <tt>TrustedPoint</tt> is unset, the first point returned by the sampler will be used as the trusted point.</p>
+          <p><tt>NoetherianDegreeLimit =></tt> a non-negative <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a>. Limits the degrees of the Noetherian operators (with respect to the variables $dx_i$). If unset, will compute the full Noetherian operators of the &quot;trusted&quot; point. Can introduce speed-ups when the maximal degree of the Noetherian operators is known in advance.</p>
+          <p><tt>Tolerance =></tt> a positive real number. This specifies the numerical precision when computing the specialized Noetherian operators. The default value is <tt>1e-6</tt>. See <a title="optional argument for numerical tolerance" href="___Tolerance_sp_lp__Noetherian__Operators_rp.html">Tolerance (NoetherianOperators)</a>.</p>
+          <p><tt>Sampler =></tt> a function, taking inputs <tt>(n,I)</tt>, where <tt>I</tt> is an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a>, and <tt>n</tt> is an integer. The sampler function returns a list of <tt>n</tt> <a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">points</a> on the component of interest of <tt>I</tt>. If unset, the default sampler uses <a title="software for numerical algebraic geometry" href="../../Bertini/html/index.html">Bertini</a>, and assumes that <tt>I</tt> is primary.</p>
+          <p><tt>DependentSet =></tt> a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a> of variables that are algebraically dependent. See <a title="option for computing Noetherian operators" href="___Dependent__Set.html">DependentSet</a> for details.</p>
+          <p><tt>InterpolationTolerance =></tt> a positive real number. This specifies the numerical precision for the interpolation routines. The default value is <tt>1e-6</tt>. See <a title="optional argument for numerical tolerance" href="___Tolerance_sp_lp__Noetherian__Operators_rp.html">Tolerance (NoetherianOperators)</a>.</p>
+          <p><tt>InterpolationDegreeLimit =></tt> a non-negative <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a>. Limits the degree of the interpolated rational function coefficients. If no rational functions are found within the degree limit, outputs an incomplete differential operator</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y,t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x^2, y^2 - x*t);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : numericalNoetherianOperators(I, DependentSet => {x,y}, InterpolationDegreeLimit => 0)
+
+                   2   ?     ?   3
+o3 = {1, 1*dy, 1*dy  + -*dx, -*dy  + 1*dx*dy}
+                       ?     ?
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="numerically interpolate rational functions" href="_rational__Interpolation.html">rationalInterpolation</a> -- numerically interpolate rational functions</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>numericalNoetherianOperators</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;numericalNoetherianOperators(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

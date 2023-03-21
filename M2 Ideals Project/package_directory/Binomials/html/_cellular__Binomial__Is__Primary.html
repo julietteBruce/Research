@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>cellularBinomialIsPrimary -- test for primaryness of a binomial ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_cellular__Binomial__Primary__Decomposition.html">next</a> | <a href="_cellular__Binomial__Associated__Primes.html">previous</a> | <a href="_cellular__Binomial__Primary__Decomposition.html">forward</a> | <a href="_cellular__Binomial__Associated__Primes.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for binomial ideals" href="index.html">Binomials</a> :: <a title="test for primaryness of a binomial ideal" href="_cellular__Binomial__Is__Primary.html">cellularBinomialIsPrimary</a>    </div>
+    <hr/>
+    <div>
+      <h1>cellularBinomialIsPrimary -- test for primaryness of a binomial ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">cellularBinomialIsPrimary I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, a binomial ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="cellular variables" href="___Cell__Variables.html">CellVariables</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, cellular variables</span>              </li>
+              <li>
+<span><a title="return two partial characters" href="___Return__P__Chars.html">ReturnPChars</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, return two partial characters</span>              </li>
+              <li>
+<span><a title="return two associated primes" href="___Return__Primes.html">ReturnPrimes</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, return two associated primes</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span>true or false, depending on whether I is a binomial primary ideal</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+A binomial ideal is primary only if it is cellular. If the cellular variables are known they can be given via the <a title="cellular variables" href="___Cell__Variables.html">CellVariables</a> option. If the ideal is not primary, either 'false' or two distinct associated primes can be returned. The behaviour can be changed using the options <a title="return two associated primes" href="___Return__Primes.html">ReturnPrimes</a> and <a title="return two partial characters" href="___Return__P__Chars.html">ReturnPChars</a>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x^2-1)
+
+            2
+o2 = ideal(x  - 1)
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : cellularBinomialIsPrimary (I,ReturnPrimes=>true)
+The radical is not prime, as the character is not saturated
+
+o3 = {ideal (x - 1, x - 1), ideal(x + 1)}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="test for primaryness of a binomial ideal" href="_cellular__Binomial__Is__Primary.html">cellularBinomialIsPrimary</a> -- test for primaryness of a binomial ideal</span>          </li>
+          <li>
+<span><a title="cellular variables" href="___Cell__Variables.html">CellVariables</a> -- cellular variables</span>          </li>
+          <li>
+<span><a title="return two associated primes" href="___Return__Primes.html">ReturnPrimes</a> -- return two associated primes</span>          </li>
+          <li>
+<span><a title="return two partial characters" href="___Return__P__Chars.html">ReturnPChars</a> -- return two partial characters</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>cellularBinomialIsPrimary</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;cellularBinomialIsPrimary(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="test for primaryness of a binomial ideal" href="_cellular__Binomial__Is__Primary.html">cellularBinomialIsPrimary</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

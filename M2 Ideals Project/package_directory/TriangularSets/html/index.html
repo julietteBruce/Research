@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>TriangularSets -- triangular decompositions of polynomial ideals</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_check__Interface.html">next</a> | previous | <a href="_check__Interface.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="triangular decompositions of polynomial ideals" href="index.html">TriangularSets</a> :: <a title="triangular decompositions of polynomial ideals" href="index.html">TriangularSets</a>    </div>
+    <hr/>
+    <div>
+      <h1>TriangularSets -- triangular decompositions of polynomial ideals</h1>
+      <div>
+        <h2>Description</h2>
+This package allows to decompose polynomial ideals into <a title="a triangular system" href="___Tria__System.html">triangular sets</a>        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a..h, MonomialOrder=>Lex];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal {a*d - b*c, c*f - d*e, e*h - f*g};
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : triangularize I
+
+o3 = {{c, d, e, f}, {a*d - b*c, c*f - d*e, g, h} / {d, f}, {b, d, f, h}, {c,
+     ------------------------------------------------------------------------
+     d, g, h}, {a*d - b*c, e, f} / d, {a*d - b*c, c*f - d*e, e*h - f*g} / {d,
+     ------------------------------------------------------------------------
+     f, h}, {c, d, e*h - f*g} / h, {c, d, f, h}, {b, d, e, f}}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+<br/>The method <a title="triangular decomposition of polynomial systems" href="_triangularize.html">triangularize</a> is implemented in M2 only for monomial and binomial ideals. For the general case we interface to Maple.<br/><br/>This package also provides methods for manipulating triangular sets:         <ul>
+          <li>
+<span><a title="dimension of a triangular set" href="_dim_lp__Tria__System_rp.html">dim(TriaSystem)</a> -- dimension of a triangular set</span>          </li>
+          <li>
+<span><a title="saturated ideal of a triangular system" href="_saturate_lp__Tria__System_rp.html">saturate(TriaSystem)</a> -- saturated ideal of a triangular system</span>          </li>
+          <li>
+<span><a title="whether a triangular set is a regular chain" href="_is__Regular__Chain.html">isRegularChain(TriaSystem)</a> -- whether a triangular set is a regular chain</span>          </li>
+          <li>
+<span><a title="whether a triangular set is strongly normalized" href="_is__Strongly__Normalized.html">isStronglyNormalized(TriaSystem)</a> -- whether a triangular set is strongly normalized</span>          </li>
+          <li>
+<span><a title="pseudo-remainder by a triangular set" href="___Ring__Element_sp_pc_sp__Tria__System.html">RingElement % TriaSystem</a> -- pseudo-remainder by a triangular set</span>          </li>
+          <li>
+<span><a title="iterated resultant by a triangular set" href="_resultant_lp__Ring__Element_cm__Tria__System_rp.html">resultant(RingElement,TriaSystem)</a></span>          </li>
+        </ul>
+        <h2>References</h2>
+        <ul>
+          <li>
+P. Aubry, D. Lazard, M. Moreno Maza (1999), &quot;On the theories of triangular sets&quot;, in &quot;Journal of Symbolic Computation&quot;, 28(1):105-–124          </li>
+          <li>
+E. Hubert (2003), &quot;Notes on triangular sets and triangulation-decomposition algorithms I: Polynomial systems&quot;, in &quot;Springer&quot;           </li>
+          <li>
+M. Kalkbrener (1993), &quot;A generalized Euclidean algorithm for computing triangular representations of algebraic varieties&quot;, in &quot;Journal of Symbolic Computation&quot;, 15(2):143-–167          </li>
+          <li>
+D. Lazard (1992), &quot;Solving zero-dimensional algebraic systems&quot;, in &quot;Journal of Symbolic Computation&quot;, 13(2):117-–131          </li>
+          <li>
+D. Wang (2001), &quot;Elimination methods&quot;, in &quot;Springer Science &amp; Business Media&quot;           </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://www.mit.edu/~diegcif">Diego Cifuentes</a><span> &lt;<a href="mailto:diegcif@mit.edu">diegcif@mit.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.1</b> of TriangularSets.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/TriangularSets.m2">TriangularSets.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/TriangularSets/">TriangularSets/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a triangular system" href="___Tria__System.html">TriaSystem</a> -- a triangular system</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="whether the Maple interface is working (for developers)" href="_check__Interface.html">checkInterface</a> -- whether the Maple interface is working (for developers)</span>                  </li>
+                  <li>
+<span><a title="tests method &quot;triangularize&quot; (for developers)" href="_check__Triangularize.html">checkTriangularize</a> -- tests method &quot;triangularize&quot; (for developers)</span>                  </li>
+                  <li>
+<span><a title="free variables of a triangular set" href="_free__Variables.html">freeVariables</a> -- free variables of a triangular set</span>                  </li>
+                  <li>
+<span><a title="list of generators of a Groebner basis" href="_gb__List.html">gbList</a> -- list of generators of a Groebner basis</span>                  </li>
+                  <li>
+<span><a title="inequations of a triangular system" href="_ineqs.html">ineqs</a> -- inequations of a triangular system</span>                  </li>
+                  <li>
+<span><a title="initial of a polynomial" href="_initial.html">initial</a> -- initial of a polynomial</span>                  </li>
+                  <li>
+<span><a title="simple primality test of triangular systems" href="_is__Prime__Simple.html">isPrimeSimple</a> -- simple primality test of triangular systems</span>                  </li>
+                  <li>
+<span><a title="whether a triangular set is a regular chain" href="_is__Regular__Chain.html">isRegularChain</a> -- whether a triangular set is a regular chain</span>                  </li>
+                  <li>
+<span><a title="whether a triangular set is strongly normalized" href="_is__Strongly__Normalized.html">isStronglyNormalized</a> -- whether a triangular set is strongly normalized</span>                  </li>
+                  <li>
+<span><a title="minimal elements in a partial order" href="_minimal__Objects.html">minimalObjects</a> -- minimal elements in a partial order</span>                  </li>
+                  <li>
+<span><a title="main variable of a polynomial" href="_mvar.html">mvar</a> -- main variable of a polynomial</span>                  </li>
+                  <li>
+<span><a title="triangular decomposition of polynomial systems" href="_triangularize.html">triangularize</a> -- triangular decomposition of polynomial systems</span>                  </li>
+                  <li>
+<span><a title="triangularize a batch of polynomial systems" href="_triangularize__Batch.html">triangularizeBatch</a> -- triangularize a batch of polynomial systems</span>                  </li>
+                  <li>
+<span><a title="a triangular system" href="_tria__System.html">triaSystem</a> -- a triangular system</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><a title="product of the degrees in a triangular set" href="_degree_lp__Tria__System_rp.html">degree(TriaSystem)</a> -- product of the degrees in a triangular set</span>                  </li>
+                  <li>
+<span><tt>&quot;codim(TriaSystem)&quot;</tt> -- see <span><a title="dimension of a triangular set" href="_dim_lp__Tria__System_rp.html">dim(TriaSystem)</a> -- dimension of a triangular set</span></span>                  </li>
+                  <li>
+<span><a title="dimension of a triangular set" href="_dim_lp__Tria__System_rp.html">dim(TriaSystem)</a> -- dimension of a triangular set</span>                  </li>
+                  <li>
+<span><tt>&quot;freeVariables(TriaSystem)&quot;</tt> -- see <span><a title="free variables of a triangular set" href="_free__Variables.html">freeVariables</a> -- free variables of a triangular set</span></span>                  </li>
+                  <li>
+<span><a title="equations of a triangular system" href="_generators_lp__Tria__System_rp.html">generators(TriaSystem)</a> -- equations of a triangular system</span>                  </li>
+                  <li>
+<span><tt>&quot;ineqs(TriaSystem)&quot;</tt> -- see <span><a title="inequations of a triangular system" href="_ineqs.html">ineqs</a> -- inequations of a triangular system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;initial(RingElement)&quot;</tt> -- see <span><a title="initial of a polynomial" href="_initial.html">initial</a> -- initial of a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;initial(TriaSystem)&quot;</tt> -- see <span><a title="initial of a polynomial" href="_initial.html">initial</a> -- initial of a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPrimeSimple(TriaSystem)&quot;</tt> -- see <span><a title="simple primality test of triangular systems" href="_is__Prime__Simple.html">isPrimeSimple</a> -- simple primality test of triangular systems</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isRegularChain(TriaSystem)&quot;</tt> -- see <span><a title="whether a triangular set is a regular chain" href="_is__Regular__Chain.html">isRegularChain</a> -- whether a triangular set is a regular chain</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isStronglyNormalized(TriaSystem)&quot;</tt> -- see <span><a title="whether a triangular set is strongly normalized" href="_is__Strongly__Normalized.html">isStronglyNormalized</a> -- whether a triangular set is strongly normalized</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mvar(RingElement)&quot;</tt> -- see <span><a title="main variable of a polynomial" href="_mvar.html">mvar</a> -- main variable of a polynomial</span></span>                  </li>
+                  <li>
+<span><a title="pseudo-remainder" href="_pseudo__Remainder_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">pseudoRemainder(RingElement,RingElement,RingElement)</a> -- pseudo-remainder</span>                  </li>
+                  <li>
+<span><a title="iterated resultant by a triangular set" href="_resultant_lp__Ring__Element_cm__Tria__System_rp.html">resultant(RingElement,TriaSystem)</a> -- iterated resultant by a triangular set</span>                  </li>
+                  <li>
+<span><tt>&quot;pseudoRemainder(RingElement,TriaSystem)&quot;</tt> -- see <span><a title="pseudo-remainder by a triangular set" href="___Ring__Element_sp_pc_sp__Tria__System.html">RingElement % TriaSystem</a> -- pseudo-remainder by a triangular set</span></span>                  </li>
+                  <li>
+<span><a title="pseudo-remainder by a triangular set" href="___Ring__Element_sp_pc_sp__Tria__System.html">RingElement % TriaSystem</a> -- pseudo-remainder by a triangular set</span>                  </li>
+                  <li>
+<span><a title="apply ring map to a triangular system" href="___Ring__Map_sp__Tria__System.html">RingMap TriaSystem</a> -- apply ring map to a triangular system</span>                  </li>
+                  <li>
+<span><a title="saturated ideal of a triangular system" href="_saturate_lp__Tria__System_rp.html">saturate(TriaSystem)</a> -- saturated ideal of a triangular system</span>                  </li>
+                  <li>
+<span><tt>&quot;triangularize(Ideal)&quot;</tt> -- see <span><a title="triangular decomposition of polynomial systems" href="_triangularize.html">triangularize</a> -- triangular decomposition of polynomial systems</span></span>                  </li>
+                  <li>
+<span><tt>&quot;triangularize(MonomialIdeal)&quot;</tt> -- see <span><a title="triangular decomposition of polynomial systems" href="_triangularize.html">triangularize</a> -- triangular decomposition of polynomial systems</span></span>                  </li>
+                  <li>
+<span><tt>&quot;triangularize(Ring,List)&quot;</tt> -- see <span><a title="triangular decomposition of polynomial systems" href="_triangularize.html">triangularize</a> -- triangular decomposition of polynomial systems</span></span>                  </li>
+                  <li>
+<span><tt>&quot;triangularize(Ring,List,List)&quot;</tt> -- see <span><a title="triangular decomposition of polynomial systems" href="_triangularize.html">triangularize</a> -- triangular decomposition of polynomial systems</span></span>                  </li>
+                  <li>
+<span><tt>&quot;net(TriaSystem)&quot;</tt> -- see <span><a title="a triangular system" href="___Tria__System.html">TriaSystem</a> -- a triangular system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;triaSystem(Ring,List)&quot;</tt> -- see <span><a title="a triangular system" href="_tria__System.html">triaSystem</a> -- a triangular system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;triaSystem(Ring,List,List)&quot;</tt> -- see <span><a title="a triangular system" href="_tria__System.html">triaSystem</a> -- a triangular system</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="possible values: &quot;Monomial&quot;, &quot;Binomial&quot;, &quot;Maple&quot;, &quot;Epsilon&quot;" href="___Triangular__Decomp__Algorithm.html">TriangularDecompAlgorithm</a> -- possible values: &quot;Monomial&quot;, &quot;Binomial&quot;, &quot;Maple&quot;, &quot;Epsilon&quot;</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="triangular decompositions of polynomial ideals" href="index.html">TriangularSets</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

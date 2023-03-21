@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>dualVariety -- projective dual variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_from__Plucker__To__Stiefel.html">next</a> | <a href="_dualize.html">previous</a> | <a href="_from__Plucker__To__Stiefel.html">forward</a> | <a href="_dualize.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants, discriminants, and Chow forms" href="index.html">Resultants</a> :: <a title="projective dual variety" href="_dual__Variety.html">dualVariety</a>    </div>
+    <hr/>
+    <div>
+      <h1>dualVariety -- projective dual variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">dualVariety I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a homogeneous ideal defining a projective variety $X=V(I)\subset\mathbb{P}^n$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="whether the expected codimension is 1" href="___Assume__Ordinary.html">AssumeOrdinary</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, whether the expected codimension is 1</span>              </li>
+              <li>
+<span><a title="pass the singular locus of the variety" href="___Singular__Locus.html">SingularLocus</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, pass the singular locus of the variety</span>              </li>
+              <li>
+<span><a href="_conormal__Variety_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span>the <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a> of the projective dual variety $X^{*}\subset{\mathbb{P}^n}^{*}$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This can be considered a shortcut for <tt>dualize tangentialChowForm(I,dim I -1)</tt>.</p>
+        <p>Note that in characteristic 0 (or sufficiently large characteristic), the reflexivity theorem implies that if <tt>I' == dualVariety I</tt> then <tt>dualVariety I' == I</tt>. Below, we verify the reflexivity theorem for the Veronese surface.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : V = kernel veronese(2,2)
+
+             2                                    2                       2
+o1 = ideal (x  - x x , x x  - x x , x x  - x x , x  - x x , x x  - x x , x  -
+             4    3 5   2 4    1 5   2 3    1 4   2    0 5   1 2    0 4   1  
+     ------------------------------------------------------------------------
+     x x )
+      0 3
+
+o1 : Ideal of QQ[x ..x ]
+                  0   5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : time V' = dualVariety V
+     -- used 0.225036 seconds
+
+            2                 2    2
+o2 = ideal(x x  - x x x  + x x  + x x  - 4x x x )
+            2 3    1 2 4    0 4    1 5     0 3 5
+
+o2 : Ideal of QQ[x ..x ]
+                  0   5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time V == dualVariety V'
+     -- used 0.187578 seconds
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+        <p>In the next example, we verify that the discriminant of a generic ternary cubic form coincides with the dual variety of the 3-th Veronese embedding of the plane, which is a hypersurface of degree 12 in $\mathbb{P}^9$</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = first genericPolynomials({3,-1,-1},ZZ/3331)
+
+        3      2          2      3      2                   2          2  
+o4 = a x  + a x x  + a x x  + a x  + a x x  + a x x x  + a x x  + a x x  +
+      0 0    1 0 1    3 0 1    6 1    2 0 2    4 0 1 2    7 1 2    5 0 2  
+     ------------------------------------------------------------------------
+          2      3
+     a x x  + a x
+      8 1 2    9 2
+
+      ZZ
+o4 : ----[a ..a ][x ..x ]
+     3331  0   9   0   2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time discF = ideal discriminant F;
+     -- used 0.0746455 seconds
+
+               ZZ
+o5 : Ideal of ----[a ..a ]
+              3331  0   9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time Z = dualVariety(veronese(2,3,ZZ/3331),AssumeOrdinary=>true);
+     -- used 1.50115 seconds
+
+               ZZ
+o6 : Ideal of ----[x ..x ]
+              3331  0   9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : discF == sub(Z,vars ring discF) and Z == sub(discF,vars ring Z)
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="conormal variety" href="_conormal__Variety.html">conormalVariety</a> -- conormal variety</span>          </li>
+          <li>
+<span><a title="resultant of the partial derivatives" href="_discriminant.html">discriminant</a> -- resultant of the partial derivatives</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>dualVariety</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;dualVariety(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;dualVariety(RingMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="projective dual variety" href="_dual__Variety.html">dualVariety</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,73 @@
+-- -*- M2-comint -*- hash: -462458501
+
+i1 : n = 0
+
+o1 = 0
+
+i2 : t = schedule(() -> while true do n = n+1)
+
+o2 = <<task, running>>
+
+o2 : Task
+
+i3 : sleep 1
+
+o3 = 0
+
+i4 : t
+
+o4 = <<task, running>>
+
+o4 : Task
+
+i5 : n
+
+o5 = 1597499
+
+i6 : sleep 1
+
+o6 = 0
+
+i7 : t
+
+o7 = <<task, running>>
+
+o7 : Task
+
+i8 : n
+
+o8 = 3170037
+
+i9 : isReady t
+
+o9 = false
+
+i10 : cancelTask t
+
+i11 : sleep 2
+
+i11 : sleep 2
+stdio:2:26:(3):[1]: error: interrupted
+ t
+
+o12 = <<task, canceled>>
+
+o12 : Task
+
+i13 : n
+
+o13 = 3170401
+
+i14 : sleep 1
+
+o14 = 0
+
+i15 : n
+
+o15 = 3170401
+
+i16 : isReady t
+
+o16 = false
+
+i17 : 

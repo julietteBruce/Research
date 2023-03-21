@@ -1,0 +1,24 @@
+-- -*- M2-comint -*- hash: 1729082668
+
+i1 : R = QQ[x,y];
+
+i2 : M = random(R^{5,5,5,5,5,5}, R^7);
+
+             6       7
+o2 : Matrix R  <--- R
+
+i3 : time I2 = recursiveMinors(4, M, Threads=>0);
+     -- used 1.19946 seconds
+
+o3 : Ideal of R
+
+i4 : time I1 = minors(4, M, Strategy=>Cofactor);
+     -- used 4.44329 seconds
+
+o4 : Ideal of R
+
+i5 : I1 == I2
+
+o5 = true
+
+i6 : 

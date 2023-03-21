@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>stratifyByRank -- compute ideals describing where the vector fields have a particular rank</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="___Stratification__By__Rank.html">previous</a> | forward | <a href="___Stratification__By__Rank.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for manipulating polynomial vector fields" href="index.html">VectorFields</a> :: <a title="compute ideals describing where the vector fields have a particular rank" href="_stratify__By__Rank.html">stratifyByRank</a>    </div>
+    <hr/>
+    <div>
+      <h1>stratifyByRank -- compute ideals describing where the vector fields have a particular rank</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">H=stratifyByRank(M)</code></dd>
+              <dd><code class="language-macaulay2">H=stratifyByRank(m)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of vector fields</span>              </li>
+              <li>
+<span><tt>m</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, of vector fields</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>an instance of the type <a title="a type to hold a rank computation" href="___Stratification__By__Rank.html">StratificationByRank</a></span>, a type of <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> with integer keys: <tt>i</tt> maps to the radical ideal defining the set where the vector fields have rank less than <tt>i</tt>.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Computes ideals describing where the provided vector fields have a particular rank. For $1\leq i\leq n$, where $n$ is the dimension of the space, <tt>(stratifyByRank(M))#i</tt> will be an ideal defining the set of points $p$ such that the generators of $M$ evaluated at $p$ span a subspace of dimension less than $i$. If the vector fields generate a Lie algebra, then this gives some information about their 'orbits' or their maximal integral submanifolds.</p>
+          <p>For details on the parts of the calculation, make <a title="current level debugging" href="../../Macaulay2Doc/html/_debug__Level.html">debugLevel</a> positive.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f=a*b*(a-b)*(a-c*b)
+
+        2 2       3     3     2 2
+o2 = - a b c + a*b c + a b - a b
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D=derlog(ideal (f))
+
+o3 = image | a 0    0     |
+           | b 0    ab-b2 |
+           | 0 bc-a -ac+a |
+
+                             3
+o3 : R-module, submodule of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S=stratifyByRank(D);</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><tt>D</tt> has rank 0 on $a=b=0$, that is, the vector fields all vanish there:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S#1
+
+o5 = ideal (a, b)
+
+o5 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><tt>D</tt> has rank &lt;3 precisely on the hypersurface $f=0$, and hence rank 3 off the hypersurface:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S#3
+
+            2 2       3     3     2 2
+o6 = ideal(a b c - a*b c - a b + a b )
+
+o6 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This submodule of <tt>D</tt> has rank $&lt;3$ everywhere since it only has 2 generators:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : Df=derlogH(f)
+
+o7 = image | ab      a2          |
+           | b2      -3ab+4b2    |
+           | -4bc+4a 4ac-12bc+8a |
+
+                             3
+o7 : R-module, submodule of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isSubset(Df,D)
+
+o8 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : S=stratifyByRank(Df);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : S#3
+
+o10 = ideal 0
+
+o10 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a package for manipulating polynomial vector fields" href="index.html">VectorFields</a> -- a package for manipulating polynomial vector fields</span>          </li>
+          <li>
+<span><a title="a type to hold a rank computation" href="___Stratification__By__Rank.html">StratificationByRank</a> -- a type to hold a rank computation</span>          </li>
+          <li>
+<span><a title="checks if a stratification by integral submanifolds is finite" href="_is__Finite__Stratification.html">isFiniteStratification</a> -- checks if a stratification by integral submanifolds is finite</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>stratifyByRank</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;stratifyByRank(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;stratifyByRank(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute ideals describing where the vector fields have a particular rank" href="_stratify__By__Rank.html">stratifyByRank</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

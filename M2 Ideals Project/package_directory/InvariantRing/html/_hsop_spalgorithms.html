@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hsop algorithms -- an overview of the algorithms used in primaryInvariants</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_invariant__Ring.html">next</a> | <a href="_hironaka__Decomposition.html">previous</a> | <a href="_invariant__Ring.html">forward</a> | <a href="_hironaka__Decomposition.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="invariants of group actions" href="index.html">InvariantRing</a> :: <a title="an overview of the algorithms used in primaryInvariants" href="_hsop_spalgorithms.html">hsop algorithms</a>    </div>
+    <hr/>
+    <div>
+      <h1>hsop algorithms -- an overview of the algorithms used in primaryInvariants</h1>
+      <div>
+        <p>This page contains a discussion on the two algorithms that are used in the function <a title="computes a list of primary invariants for the invariant ring of a finite group" href="_primary__Invariants.html">primaryInvariants</a>, which computes a homogeneous system of parameters (hsop) for the invariant ring <tt>R:=K[x</tt><sub><tt>1</tt></sub><tt>,...,x</tt><sub><tt>n</tt></sub><tt>]</tt><sup><tt>G</tt></sup> of a finite group <tt>G</tt>. Which algorithm is used depends on the <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean</a> value the optional argument <a title="an optional argument for primaryInvariants determining whether to use the Dade algorithm" href="_primary__Invariants_lp..._cm__Dade_eq_gt..._rp.html">Dade</a> takes. In the case where it is set to <a href="../../Macaulay2Doc/html/_false.html">false</a> it uses what shall be referred to as the 'default' algorithm. If it is set to <a href="../../Macaulay2Doc/html/_true.html">true</a> then it uses what shall be called the 'Dade' algorithm.</p>
+        <p>The default algorithm is an implementation of the 'optimal' algorithm given in [K]. It is optimal in the sense that it finds a hsop <tt>f</tt><sub><tt>1</tt></sub><tt>,...,</tt><tt>f</tt><sub><tt>n</tt></sub> such that the number of secondary invariants required to make <tt>R</tt> into a free <tt>K[f</tt><sub><tt>1</tt></sub><tt>,...,f</tt><sub><tt>n</tt></sub><tt>]</tt>-module is minimal. The first step in the default algorithm is to cycle through the <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> s<tt>={d</tt><sub><tt>1</tt></sub><tt>,...,</tt><tt>d</tt><sub><tt>n</tt></sub><tt>}</tt> of possible degrees for the hsop. It tests the degrees against two restrictions that are known to hold for any hsop of <tt>R</tt>: firstly, the order of <tt>G</tt> must divide the product <tt>d</tt><sub><tt>1</tt></sub><tt>*...*</tt><tt>d</tt><sub><tt>n</tt></sub> and secondly, the polynomial <tt><em>H</em></tt><tt>(R,T)*(1-T</tt><sup><tt>d1</tt></sup><tt>)*...*(1-T</tt><sup><tt>dn</tt></sup><tt>)</tt> must lie in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a>[<tt>T</tt>], where <tt><em>H</em></tt><tt>(R,T)</tt> is the Molien (Hilbert) series of <tt>R</tt> [DK, p83]. Once a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> of suitable degrees is found, the algorithm uses a Krull-dimension based test that holds for algebras over infinite fields to determine the existence of a hsop with the candidate degrees; see [K, Theorem 2]. It then finds such a hsop if one exists, or tries a new <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> of degrees if such a hsop does not exist. Note: if one knows a priori that a hsop exists for some <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> of degrees, this can be assigned to the optional argument <a title="an optional argument for primaryInvariants that finds invariants of certain degrees" href="_primary__Invariants_lp..._cm__Degree__Vector_eq_gt..._rp.html">DegreeVector</a> and the default algorithm will compute a hsop with degrees corresponding to this <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a>. Finally, users should be aware that the default algorithm currently only works in the case where <tt>R</tt> is defined over a field of characteristic zero.</p>
+        <p>The Dade algorithm is simpler than the default algorithm. It first constructs a Dade basis <tt>v</tt><sub><tt>1</tt></sub><tt>,...,v</tt><sub><tt>n</tt></sub> for the dual space <tt>V</tt><sup><tt>*</tt></sup> spanned by <tt>x</tt><sub><tt>1</tt></sub><tt>,...,x</tt><sub><tt>n</tt></sub>. Then for each <tt>i</tt>, it computes the polynomial <tt>f</tt><sub><tt>i</tt></sub> defined as the product over the <tt>G</tt>-orbit of <tt>v</tt><sub><tt>i</tt></sub>. The resulting collection <tt>f</tt><sub><tt>1</tt></sub><tt>,...,</tt><tt>f</tt><sub><tt>n</tt></sub> is a hsop for <tt>R</tt>; see [DK, pp80,81]. In the implemented Dade algorithm, a Dade basis is constructed iteratively by choosing <a title="get a random object" href="../../Macaulay2Doc/html/_random.html">random</a> linear forms such that <tt>v</tt><sub><tt>i</tt></sub> is not contained in any of the vector subspaces <tt>span</tt><sub><tt>K</tt></sub><tt>{</tt><tt>w</tt><sub><tt>1</tt></sub><tt>,...,w</tt><sub><tt>i-1</tt></sub><tt>}</tt>, where <tt>w</tt><sub><tt>j</tt></sub> is in the <tt>G</tt>-orbit of <tt>v</tt><sub><tt>j</tt></sub>. The Dade algorithm can work with the case of finite fields, provided that the field is large enough to ensure <tt>K</tt><sup><tt>n</tt></sup> cannot be filled by the union of the subspaces mentioned in the construction of the Dade basis. A sufficient, though not necessarily optimal, requirement is that <tt>|K|>|G|</tt><sup><tt>n-1</tt></sup>. Because of the random generation involved in the construction of a Dade basis, the Dade algorithm will generally output <tt>n</tt> primary invariants of degrees equalling the order of <tt>G</tt> that have ugly coefficients.</p>
+        <p>The example below provides a good comparison of the two different algorithms and their relative merits.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A=matrix{{0,-1,0},{1,0,0},{0,0,-1}}
+
+o1 = | 0 -1 0  |
+     | 1 0  0  |
+     | 0 0  -1 |
+
+              3        3
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : B=matrix{{0,-1,0},{1,0,0},{0,0,1}}
+
+o2 = | 0 -1 0 |
+     | 1 0  0 |
+     | 0 0  1 |
+
+              3        3
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C4xC2=finiteAction({A,B},QQ[x,y,z])
+
+o3 = QQ[x..z] &lt;- {| 0 -1 0  |, | 0 -1 0 |}
+                  | 1 0  0  |  | 1 0  0 |
+                  | 0 0  -1 |  | 0 0  1 |
+
+o3 : FiniteGroupAction</code></pre>
+</td>          </tr>
+        </table>
+        <p>The two algorithms used in <a title="computes a list of primary invariants for the invariant ring of a finite group" href="_primary__Invariants.html">primaryInvariants</a> are timed. One sees that the Dade algorithm is faster, however the primary invariants output are all of degree 8 and have ugly coefficients.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time P1=primaryInvariants C4xC2
+     -- used 2.09933 seconds
+
+       2    2   2   4    4
+o4 = {x  + y , z , x  + y }
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time P2=primaryInvariants(C4xC2,Dade=>true)
+     -- used 0.482951 seconds
+
+           8         7          6 2         5 3         4 4         3 5  
+o5 = {4096x  + 24576x y + 38912x y  - 18432x y  - 65280x y  + 18432x y  +
+     ------------------------------------------------------------------------
+           2 6           7        8         6 2         5   2         4 2 2  
+     38912x y  - 24576x*y  + 4096y  - 23040x z  - 69120x y*z  - 28800x y z  -
+     ------------------------------------------------------------------------
+           2 4 2           5 2         6 2         4 4         3   4  
+     28800x y z  + 69120x*y z  - 23040y z  + 42768x z  + 31104x y*z  +
+     ------------------------------------------------------------------------
+           2 2 4           3 4         4 4         2 6         2 6        8 
+     67392x y z  - 31104x*y z  + 42768y z  - 29160x z  - 29160y z  + 6561z ,
+     ------------------------------------------------------------------------
+            8          7           6 2          5 3           4 4  
+     104976x  - 629856x y + 997272x y  + 472392x y  - 1673055x y  -
+     ------------------------------------------------------------------------
+            3 5          2 6            7          8           6 2  
+     472392x y  + 997272x y  + 629856x*y  + 104976y  - 1428840x z  +
+     ------------------------------------------------------------------------
+             5   2           4 2 2           2 4 2             5 2  
+     4286520x y*z  - 1786050x y z  - 1786050x y z  - 4286520x*y z  -
+     ------------------------------------------------------------------------
+             6 2           4 4           3   4            2 2 4  
+     1428840y z  + 6417873x z  - 4667544x y*z  + 10113012x y z  +
+     ------------------------------------------------------------------------
+               3 4           4 4            2 6            2 6           8 
+     4667544x*y z  + 6417873y z  - 10588410x z  - 10588410y z  + 5764801z ,
+     ------------------------------------------------------------------------
+             8            7              6 2              5 3  
+     1679616x  - 59719680x y + 789543936x y  - 4539432960x y  +
+     ------------------------------------------------------------------------
+                4 4              3 5             2 6              7  
+     8903312896x y  + 4539432960x y  + 789543936x y  + 59719680x*y  +
+     ------------------------------------------------------------------------
+             8            6 2              5   2              4 2 2  
+     1679616y  - 68864256x z  + 1224253440x y*z  - 5372262144x y z  -
+     ------------------------------------------------------------------------
+                2 4 2                5 2            6 2             4 4  
+     5372262144x y z  - 1224253440x*y z  - 68864256y z  + 722864736x z  -
+     ------------------------------------------------------------------------
+               3   4              2 2 4               3 4             4 4  
+     302330880x y*z  + 2721397824x y z  + 302330880x*y z  + 722864736y z  -
+     ------------------------------------------------------------------------
+               2 6             2 6            8
+     348625296x z  - 348625296y z  + 43046721z }
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p>The extra work done by the default algorithm to ensure an optimal hsop is rewarded by needing to calculate a smaller collection of corresponding secondary invariants.  In fact, it has proved quicker overall to calculate the invariant ring based on the optimal algorithm rather than the Dade algorithm.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time secondaryInvariants(P1,C4xC2)
+     -- used 0.0882416 seconds
+
+          3       3
+o6 = {1, x y - x*y }
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : time secondaryInvariants(P2,C4xC2)
+     -- used 3.87651 seconds
+
+          2   2    2   4   2 2    2 2   2 2   3       3   4    4   6   2 4  
+o7 = {1, z , x  + y , z , x z  + y z , x y , x y - x*y , x  + y , z , x z  +
+     ------------------------------------------------------------------------
+      2 4   2 2 2   3   2      3 2   4 2    4 2   4 2    2 4   5       5   6
+     y z , x y z , x y*z  - x*y z , x z  + y z , x y  + x y , x y - x*y , x 
+     ------------------------------------------------------------------------
+        6   3   4      3 4   4 4    4 4   4 2 2    2 4 2   5   2      5 2 
+     + y , x y*z  - x*y z , x z  + y z , x y z  + x y z , x y*z  - x*y z ,
+     ------------------------------------------------------------------------
+      6 2    6 2   4 4   5 3    3 5   6 2    2 6   7       7   8    8   5   4
+     x z  + y z , x y , x y  - x y , x y  + x y , x y - x*y , x  + y , x y*z 
+     ------------------------------------------------------------------------
+          5 4   6 4    6 4   4 4 2   5 3 2    3 5 2   6 2 2    2 6 2   7   2
+     - x*y z , x z  + y z , x y z , x y z  - x y z , x y z  + x y z , x y*z 
+     ------------------------------------------------------------------------
+          7 2   8 2    8 2   6 4    4 6   7 3    3 7   8 2    2 8   9   
+     - x*y z , x z  + y z , x y  + x y , x y  - x y , x y  + x y , x y -
+     ------------------------------------------------------------------------
+        9   10    10   8 4    8 4   8 2 2    2 8 2   9   2      9 2   10 2  
+     x*y , x   + y  , x z  + y z , x y z  + x y z , x y*z  - x*y z , x  z  +
+     ------------------------------------------------------------------------
+      10 2   7 5    5 7   8 4    4 8   9 3    3 9   10 2    2 10   11   
+     y  z , x y  - x y , x y  + x y , x y  - x y , x  y  + x y  , x  y -
+     ------------------------------------------------------------------------
+        11   12    12   10 2 2    2 10 2   11   2      11 2   12 2    12 2 
+     x*y  , x   + y  , x  y z  + x y  z , x  y*z  - x*y  z , x  z  + y  z ,
+     ------------------------------------------------------------------------
+      10 4    4 10   11 3    3 11   12 2    2 12   13       13   14    14 
+     x  y  + x y  , x  y  - x y  , x  y  + x y  , x  y - x*y  , x   + y  ,
+     ------------------------------------------------------------------------
+      14 2    14 2   13 3    3 13   14 2    2 14   15       15   16    16 
+     x  z  + y  z , x  y  - x y  , x  y  + x y  , x  y - x*y  , x   + y  ,
+     ------------------------------------------------------------------------
+      17       17   18    18   20    20
+     x  y - x*y  , x   + y  , x   + y  }
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : #oo
+
+o8 = 64</code></pre>
+</td>          </tr>
+        </table>
+        <p>Of course, currently one advantage of the Dade algorithm is that it can calculate a hsop for the invariant ring when considering a finite field. Since <tt>|C4xC2|</tt><sup><tt>2</tt></sup>=64, it is safe to consider the finite field with 101 elements.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : K=GF(101);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : C4xC2=finiteAction({A,B},K[x,y,z])
+
+o10 = K[x..z] &lt;- {| 0 -1 0  |, | 0 -1 0 |}
+                  | 1 0  0  |  | 1 0  0 |
+                  | 0 0  -1 |  | 0 0  1 |
+
+o10 : FiniteGroupAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : primaryInvariants(C4xC2,Dade=>true)
+
+           8      7       6 2      5 3      4 4      3 5      2 6        7  
+o11 = {- 6x  + 13x y + 45x y  + 46x y  + 42x y  - 46x y  + 45x y  - 13x*y  -
+      -----------------------------------------------------------------------
+        8      6 2      5   2      4 2 2      2 4 2        5 2      6 2  
+      6y  - 34x z  + 20x y*z  + 37x y z  + 37x y z  - 20x*y z  - 34y z  -
+      -----------------------------------------------------------------------
+         4 4      3   4      2 2 4        3 4      4 4      2 6      2 6  
+      39x z  - 45x y*z  - 12x y z  + 45x*y z  - 39y z  + 40x z  + 40y z  -
+      -----------------------------------------------------------------------
+         8       8      7      6 2      5 3      4 4      3 5     2 6  
+      45z , - 33x  - 33x y + 6x y  - 23x y  - 42x y  + 23x y  + 6x y  +
+      -----------------------------------------------------------------------
+           7      8      6 2     5   2      4 2 2      2 4 2       5 2  
+      33x*y  - 33y  + 16x z  + 8x y*z  - 15x y z  - 15x y z  - 8x*y z  +
+      -----------------------------------------------------------------------
+         6 2      4 4     3   4      2 2 4       3 4      4 4      2 6  
+      16y z  - 23x z  - 9x y*z  - 13x y z  + 9x*y z  - 23y z  - 14x z  -
+      -----------------------------------------------------------------------
+         2 6      8       8      7       6 2      5 3      4 4      3 5  
+      14y z  - 30z , - 20x  - 24x y + 49x y  - 15x y  + 39x y  + 15x y  +
+      -----------------------------------------------------------------------
+         2 6        7      8      6 2      5   2      4 2 2      2 4 2  
+      49x y  + 24x*y  - 20y  - 18x z  - 31x y*z  - 22x y z  - 22x y z  +
+      -----------------------------------------------------------------------
+           5 2      6 2      4 4      3   4      2 2 4        3 4      4 4  
+      31x*y z  - 18y z  + 41x z  + 24x y*z  - 34x y z  - 24x*y z  + 41y z  +
+      -----------------------------------------------------------------------
+         2 6      2 6      8
+      18x z  + 18y z  - 20z }
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p><em>References</em></p>
+        <p>[DK] Derksen, H., Kemper, G. <em>Computational Invariant Theory</em>. Berlin Heidelberg New York: Springer-Verlag, 2002</p>
+        <p>[K] Kemper, G. <em>An Algorithm to Calculate Optimal Homogeneous Systems of Parameters</em>. J. Symbolic Computation <em>27</em> (1999), 171-184</p>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes a list of primary invariants for the invariant ring of a finite group" href="_primary__Invariants.html">primaryInvariants</a> -- computes a list of primary invariants for the invariant ring of a finite group</span>          </li>
+          <li>
+<span><a title="an optional argument for primaryInvariants determining whether to use the Dade algorithm" href="_primary__Invariants_lp..._cm__Dade_eq_gt..._rp.html">Dade</a> -- an optional argument for primaryInvariants determining whether to use the Dade algorithm</span>          </li>
+          <li>
+<span><a title="an optional argument for primaryInvariants that finds invariants of certain degrees" href="_primary__Invariants_lp..._cm__Degree__Vector_eq_gt..._rp.html">DegreeVector</a> -- an optional argument for primaryInvariants that finds invariants of certain degrees</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

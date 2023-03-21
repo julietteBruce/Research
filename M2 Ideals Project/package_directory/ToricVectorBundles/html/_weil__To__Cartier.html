@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>weilToCartier --  the line bundle given by a Cartier divisor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_twist.html">previous</a> | forward | <a href="_twist.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="cohomology computations of equivariant vector bundles on toric varieties" href="index.html">ToricVectorBundles</a> :: <a title=" the line bundle given by a Cartier divisor" href="_weil__To__Cartier.html">weilToCartier</a>    </div>
+    <hr/>
+    <div>
+      <h1>weilToCartier --  the line bundle given by a Cartier divisor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">E = weilToCartier(L,F)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>              </li>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="../../Polyhedra/html/___Fan.html">Fan</a></span>, a pure and full dimensional fan</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Type</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>E</tt>, <span>a <a title="the class of all toric vector bundles in Kaneyama's description" href="___Toric__Vector__Bundle__Kaneyama.html">vector bundle on a toric variety (Kaneyama's description)</a></span> or <span>a <a title="the class of all toric vector bundles in Klyachko's description" href="___Toric__Vector__Bundle__Klyachko.html">vector bundle on a toric variety (Klyachko's description)</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+<tt>L</tt> must a list of weights, exactly one for each ray of the fan. Then the list of weights for each ray describes a Weil divisor on the toric variety. If the Weil divisor defined by these weights defines in fact a Cartier divisor, then <tt>weilToCartier</tt> computes the toric vector bundle associated to the Cartier divisor.        <p/>
+If no further options are given then the resulting bundle will be in Klyachko's description:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F = hirzebruchFan 3
+
+o1 = F
+
+o1 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : E =weilToCartier({1,-3,4,-2},F)
+
+o2 = {dimension of the variety => 2 }
+      number of affine charts => 4
+      number of rays => 4
+      rank of the vector bundle => 1
+
+o2 : ToricVectorBundleKlyachko</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : details E
+
+o3 = HashTable{| -1 | => (| 1 |, | -4 |)}
+               | 3  |
+               | 0  | => (| 1 |, | -1 |)
+               | -1 |
+               | 0 | => (| 1 |, | 3 |)
+               | 1 |
+               | 1 | => (| 1 |, | 2 |)
+               | 0 |
+
+o3 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+If the option <tt>&quot;Type&quot; => &quot;Kaneyama&quot;</tt> is given then the resulting bundle will be in Kaneyama's description:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = hirzebruchFan 3
+
+o4 = F
+
+o4 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : E =weilToCartier({1,-3,4,-2},F,&quot;Type&quot; => &quot;Kaneyama&quot;)
+
+o5 = {dimension of the variety => 2 }
+      number of affine charts => 4
+      rank of the vector bundle => 1
+
+o5 : ToricVectorBundleKaneyama</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : details E
+
+o6 = (HashTable{0 => (| 0 -1 |, | 13 |)}, HashTable{(0, 1) => | 1 |})
+                      | 1 3  |  | 3  |              (0, 2) => | 1 |
+                1 => (| 0  -1 |, | 7 |)             (1, 3) => | 1 |
+                      | -1 3  |  | 1 |              (2, 3) => | 1 |
+                2 => (| 1 0 |, | 2 |)
+                      | 0 1 |  | 3 |
+                3 => (| 1 0  |, | 2 |)
+                      | 0 -1 |  | 1 |
+
+o6 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title=" the Cartier index of a Weil divisor" href="_cartier__Index.html">cartierIndex</a> --  the Cartier index of a Weil divisor</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>weilToCartier</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;weilToCartier(List,Fan)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title=" the line bundle given by a Cartier divisor" href="_weil__To__Cartier.html">weilToCartier</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

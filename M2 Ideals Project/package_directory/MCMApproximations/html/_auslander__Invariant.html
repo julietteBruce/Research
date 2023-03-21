@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>auslanderInvariant -- measures failure of surjectivity of the essential MCM approximation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Characteristic.html">next</a> | <a href="_approximation__Sequence.html">previous</a> | <a href="___Characteristic.html">forward</a> | <a href="_approximation__Sequence.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Maximal Cohen-Macaulay Approximations and Complete Intersections" href="index.html">MCMApproximations</a> :: <a title="measures failure of surjectivity of the essential MCM approximation" href="_auslander__Invariant.html">auslanderInvariant</a>    </div>
+    <hr/>
+    <div>
+      <h1>auslanderInvariant -- measures failure of surjectivity of the essential MCM approximation</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">a = auslanderInvariant M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>CoDepth</tt><tt> => </tt><tt>...</tt>, <span>default value -1</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>a</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If R is a Gorenstein local ring and M is an R-module, then the essential MCM approximation is a map phi: M'-->M, where M' is an MCM R-module, obtained as the k-th cosyzygy of the k-th syzygy of M, where k >= the co-depth of M. The Auslander invariant is the number of generators of coker phi. Thus if R is regular the Auslander invariant is just the minimal number of generators of M, and if M is already an MCM module with no free summands then the Auslander invariant is 0.</p>
+          <p>Ding showed that if R is a hypersurface ring, then auslanderInvariant (R^1)/((ideal vars R)^i) is zero precisely for i&lt;multiplicity R.</p>
+          <p>Experimentally, it looks as if for a complete intersection the power is the a-invariant plus 1, but NOT for the codim 3 Pfaffian example.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[a..d]/ideal&quot;a3&quot;
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : apply(5, i -> auslanderInvariant ((R^1)/(ideal(vars R))^(i+1)))
+
+o2 = {0, 0, 1, 1, 1}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : R = ZZ/101[a..d]/ideal&quot;a3,b4&quot;
+
+o3 = R
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : apply(6, i -> auslanderInvariant ((R^1)/(ideal(vars R))^(i+1)))
+
+o4 = {0, 0, 0, 0, 0, 1}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S = ZZ/101[a,b,c]
+
+o5 = S
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : N = matrix{{0,a,0,0,c},
+                {0,0,b,c,0},
+                {0,0,0,a,0},
+                {0,0,0,0,b},
+                {0,0,0,0,0}}
+
+o6 = | 0 a 0 0 c |
+     | 0 0 b c 0 |
+     | 0 0 0 a 0 |
+     | 0 0 0 0 b |
+     | 0 0 0 0 0 |
+
+             5       5
+o6 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : M = N-transpose N
+
+o7 = | 0  a  0  0  c |
+     | -a 0  b  c  0 |
+     | 0  -b 0  a  0 |
+     | 0  -c -a 0  b |
+     | -c 0  0  -b 0 |
+
+             5       5
+o7 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : J = pfaffians(4,M)
+
+             2              2        2
+o8 = ideal (a , b*c, a*b + c , a*c, b )
+
+o8 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : R = S/J
+
+o9 = R
+
+o9 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : I = ideal vars R
+
+o10 = ideal (a, b, c)
+
+o10 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : scan(5, i->print auslanderInvariant ((R^1)/(I^i)))
+0
+0
+0
+1
+1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="returns pair of components of the map from the MCM approximation" href="_approximation.html">approximation</a> -- returns pair of components of the map from the MCM approximation</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>auslanderInvariant</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;auslanderInvariant(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="measures failure of surjectivity of the essential MCM approximation" href="_auslander__Invariant.html">auslanderInvariant</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

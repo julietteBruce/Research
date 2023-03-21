@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>tLastMon -- give the last t-spread monomial of the Borel shadow a given t-spread monomial</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_t__Pascal__Ideal.html">next</a> | previous | <a href="_t__Pascal__Ideal.html">forward</a> | <a href="index.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with t-spread ideals of polynomial rings" href="index.html">TSpreadIdeals</a> > <a title="give the last t-spread monomial of the Borel shadow a given t-spread monomial" href="_t__Last__Mon.html">tLastMon</a>    </div>
+    <hr/>
+    <div>
+      <h1>tLastMon -- give the last t-spread monomial of the Borel shadow a given t-spread monomial</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">tLastMon(u,gap,t)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>u</tt>, a t-spread monomial of a polynomial ring</span>              </li>
+              <li>
+<span><tt>gap</tt>, a positive integer representing the difference between the degrees</span>              </li>
+              <li>
+<span><tt>t</tt>, a positive integer that idenfies the t-spread contest</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="optional integer argument for tLastMon" href="___Max__Ind.html">MaxInd</a><tt> => </tt><tt>...</tt>, <span>default value -1</span>, optional integer argument for tLastMon</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the smallest <tt>t</tt>-spread monomial of the Borel shadow of <tt>u</tt>, with respect to lexcografic order</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+the function <tt>tLastMon(u,gap,t)</tt> gives the smallest <tt>t</tt>-spread monomials of the Borel shadow iterated <tt>gap</tt>times of <tt>u</tt>, that is, the smallest monomial of $B_\texttt{t}\{\texttt{u}\}$, with respect to $>_\mathrm{slex}.$<br/>If <tt>MaxInd</tt> is greater than -1 the function <tt>tLastMon(u,gap,t,MaxInd=>m)</tt> gives the smallest <tt>t</tt>-spread monomial for which the maximum of the support is <tt>m</tt><br/>The Borel shadow of a <tt>t</tt>-spread monomial <tt>u</tt>, is defined as the shadow of the strongly stable set generated by <tt>u</tt>. To work in a <tt>t</tt>-spread contest, the Borel shadow of <tt>u</tt> is the <tt>t</tt>-shadow of $B_\texttt{t}\{u\}$.        <p>Examples:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S=QQ[x_1..x_16]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : tLastMon(x_2*x_6*x_10*x_13,1,3)
+
+o2 = x x x  x  x
+      2 6 10 13 16
+
+o2 : S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : tLastMon(x_2*x_6*x_10*x_13,1,3,MaxInd=>14)
+
+o3 = x x x x  x
+      2 5 8 11 14
+
+o3 : S</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="optional boolean argument for tNextMon" href="___Fixed__Max.html">FixedMax</a> -- optional boolean argument for tNextMon</span>          </li>
+          <li>
+<span><a title="give the t-spread shadow of a given t-spread monomial or a given list of t-spread monomials" href="_t__Shadow.html">tShadow</a> -- give the t-spread shadow of a given t-spread monomial or a given list of t-spread monomials</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>tLastMon</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;tLastMon(RingElement,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="give the last t-spread monomial of the Borel shadow a given t-spread monomial" href="_t__Last__Mon.html">tLastMon</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

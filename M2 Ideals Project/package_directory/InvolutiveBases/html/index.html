@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>InvolutiveBases -- Methods for Janet bases and Pommaret bases in Macaulay 2</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_basis__Elements.html">next</a> | previous | <a href="_basis__Elements.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Methods for Janet bases and Pommaret bases in Macaulay 2" href="index.html">InvolutiveBases</a> :: <a title="Methods for Janet bases and Pommaret bases in Macaulay 2" href="index.html">InvolutiveBases</a>    </div>
+    <hr/>
+    <div>
+      <h1>InvolutiveBases -- Methods for Janet bases and Pommaret bases in Macaulay 2</h1>
+      <div>
+        <h2>Description</h2>
+<em>InvolutiveBases</em> is a package which provides routines for dealing with Janet and Pommaret bases.        <p>Janet bases can be constructed from given Gr\&quot;obner bases. It can be checked whether a Janet basis is a Pommaret basis. Involutive reduction modulo a Janet basis can be performed. Syzygies and free resolutions can be computed using Janet bases. A convenient way to use this strategy is to use an optional argument for <a title="projective resolution" href="../../Macaulay2Doc/html/_resolution.html">resolution</a>, see <a title="compute a (usually non-minimal) resolution using involutive bases" href="___Involutive.html">Involutive</a>.</p>
+        <p>Some references:</p>
+        <ul>
+          <li>
+J. Apel, The theory of involutive divisions and an application to Hilbert function computations. J. Symb. Comp. 25(6), 1998, pp. 683-704.          </li>
+          <li>
+V. P. Gerdt, Involutive Algorithms for Computing Gr\&quot;obner Bases. In: Cojocaru, S. and Pfister, G. and Ufnarovski, V. (eds.), Computational Commutative and Non-Commutative Algebraic Geometry, NATO Science Series, IOS Press, pp. 199-225.          </li>
+          <li>
+V. P. Gerdt and Y. A. Blinkov, Involutive bases of polynomial ideals. Minimal involutive bases. Mathematics and Computers in Simulation 45, 1998, pp. 519-541 resp. 543-560.          </li>
+          <li>
+M. Janet, Leçons sur les systèmes des équations aux dérivées partielles. Cahiers Scientifiques IV. Gauthiers-Villars, Paris, 1929.          </li>
+          <li>
+J.-F. Pommaret, Partial Differential Equations and Group Theory. Kluwer Academic Publishers, 1994.          </li>
+          <li>
+W. Plesken and D. Robertz, Janet's approach to presentations and resolutions for polynomials and linear pdes. Archiv der Mathematik 84(1), 2005, pp. 22-37.          </li>
+          <li>
+D. Robertz, Janet Bases and Applications. In: Rosenkranz, M. and Wang, D. (eds.), Gr\&quot;obner Bases in Symbolic Analysis, Radon Series on Computational and Applied Mathematics 2, de Gruyter, 2007, pp. 139-168.          </li>
+          <li>
+W. M. Seiler, A Combinatorial Approach to Involution and delta-Regularity: I. Involutive Bases in Polynomial Algebras of Solvable Type. II. Structure Analysis of Polynomial Modules with Pommaret Bases. Preprints, arXiv:math/0208247 and arXiv:math/0208250.          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://wwwb.math.rwth-aachen.de/~daniel/">Daniel Robertz</a><span> &lt;<a href="mailto:daniel@momo.math.rwth-aachen.de">daniel@momo.math.rwth-aachen.de</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.10</b> of InvolutiveBases.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/InvolutiveBases.m2">InvolutiveBases.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="the class of all factor module bases" href="___Factor__Module__Basis.html">FactorModuleBasis</a> -- the class of all factor module bases</span>                  </li>
+                  <li>
+<span><a title="the class of all involutive bases" href="___Involutive__Basis.html">InvolutiveBasis</a> -- the class of all involutive bases</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="extract the matrix of generators from an involutive basis or factor module basis" href="_basis__Elements.html">basisElements</a> -- extract the matrix of generators from an involutive basis or factor module basis</span>                  </li>
+                  <li>
+<span><a title="enumerate standard monomials" href="_factor__Module__Basis.html">factorModuleBasis</a> -- enumerate standard monomials</span>                  </li>
+                  <li>
+<span><a title="Noether normalization" href="_inv__Noether__Normalization.html">invNoetherNormalization</a> -- Noether normalization</span>                  </li>
+                  <li>
+<span><a title="compute normal form modulo involutive basis by involutive reduction" href="_inv__Reduce.html">invReduce</a> -- compute normal form modulo involutive basis by involutive reduction</span>                  </li>
+                  <li>
+<span><a title="compute involutive basis of syzygies" href="_inv__Syzygies.html">invSyzygies</a> -- compute involutive basis of syzygies</span>                  </li>
+                  <li>
+<span><a title="check whether or not a given Janet basis is also a Pommaret basis" href="_is__Pommaret__Basis.html">isPommaretBasis</a> -- check whether or not a given Janet basis is also a Pommaret basis</span>                  </li>
+                  <li>
+<span><a title="compute Janet basis for an ideal or a submodule of a free module" href="_janet__Basis.html">janetBasis</a> -- compute Janet basis for an ideal or a submodule of a free module</span>                  </li>
+                  <li>
+<span><a title="return table of multiplicative variables for given module elements as determined by Janet division" href="_janet__Mult__Var.html">janetMultVar</a> -- return table of multiplicative variables for given module elements as determined by Janet division</span>                  </li>
+                  <li>
+<span><a title="construct a free resolution for a given ideal or module using Janet bases" href="_janet__Resolution.html">janetResolution</a> -- construct a free resolution for a given ideal or module using Janet bases</span>                  </li>
+                  <li>
+<span><a title="extract the sets of multiplicative variables for each generator (in several contexts)" href="_mult__Var.html">multVar</a> -- extract the sets of multiplicative variables for each generator (in several contexts)</span>                  </li>
+                  <li>
+<span><a title="return table of multiplicative variables for given module elements as determined by Pommaret division" href="_pommaret__Mult__Var.html">pommaretMultVar</a> -- return table of multiplicative variables for given module elements as determined by Pommaret division</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;basisElements(FactorModuleBasis)&quot;</tt> -- see <span><a title="extract the matrix of generators from an involutive basis or factor module basis" href="_basis__Elements.html">basisElements</a> -- extract the matrix of generators from an involutive basis or factor module basis</span></span>                  </li>
+                  <li>
+<span><tt>&quot;basisElements(InvolutiveBasis)&quot;</tt> -- see <span><a title="extract the matrix of generators from an involutive basis or factor module basis" href="_basis__Elements.html">basisElements</a> -- extract the matrix of generators from an involutive basis or factor module basis</span></span>                  </li>
+                  <li>
+<span><tt>&quot;factorModuleBasis(InvolutiveBasis)&quot;</tt> -- see <span><a title="enumerate standard monomials" href="_factor__Module__Basis.html">factorModuleBasis</a> -- enumerate standard monomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invNoetherNormalization(GroebnerBasis)&quot;</tt> -- see <span><a title="Noether normalization" href="_inv__Noether__Normalization.html">invNoetherNormalization</a> -- Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invNoetherNormalization(Ideal)&quot;</tt> -- see <span><a title="Noether normalization" href="_inv__Noether__Normalization.html">invNoetherNormalization</a> -- Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invNoetherNormalization(InvolutiveBasis)&quot;</tt> -- see <span><a title="Noether normalization" href="_inv__Noether__Normalization.html">invNoetherNormalization</a> -- Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invNoetherNormalization(Matrix)&quot;</tt> -- see <span><a title="Noether normalization" href="_inv__Noether__Normalization.html">invNoetherNormalization</a> -- Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invNoetherNormalization(Module)&quot;</tt> -- see <span><a title="Noether normalization" href="_inv__Noether__Normalization.html">invNoetherNormalization</a> -- Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invReduce(Matrix,InvolutiveBasis)&quot;</tt> -- see <span><a title="compute normal form modulo involutive basis by involutive reduction" href="_inv__Reduce.html">invReduce</a> -- compute normal form modulo involutive basis by involutive reduction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invReduce(RingElement,InvolutiveBasis)&quot;</tt> -- see <span><a title="compute normal form modulo involutive basis by involutive reduction" href="_inv__Reduce.html">invReduce</a> -- compute normal form modulo involutive basis by involutive reduction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;invSyzygies(InvolutiveBasis)&quot;</tt> -- see <span><a title="compute involutive basis of syzygies" href="_inv__Syzygies.html">invSyzygies</a> -- compute involutive basis of syzygies</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPommaretBasis(InvolutiveBasis)&quot;</tt> -- see <span><a title="check whether or not a given Janet basis is also a Pommaret basis" href="_is__Pommaret__Basis.html">isPommaretBasis</a> -- check whether or not a given Janet basis is also a Pommaret basis</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetBasis(ChainComplex,ZZ)&quot;</tt> -- see <span><a title="compute Janet basis for an ideal or a submodule of a free module" href="_janet__Basis.html">janetBasis</a> -- compute Janet basis for an ideal or a submodule of a free module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetBasis(GroebnerBasis)&quot;</tt> -- see <span><a title="compute Janet basis for an ideal or a submodule of a free module" href="_janet__Basis.html">janetBasis</a> -- compute Janet basis for an ideal or a submodule of a free module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetBasis(Ideal)&quot;</tt> -- see <span><a title="compute Janet basis for an ideal or a submodule of a free module" href="_janet__Basis.html">janetBasis</a> -- compute Janet basis for an ideal or a submodule of a free module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetBasis(Matrix)&quot;</tt> -- see <span><a title="compute Janet basis for an ideal or a submodule of a free module" href="_janet__Basis.html">janetBasis</a> -- compute Janet basis for an ideal or a submodule of a free module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetMultVar(List)&quot;</tt> -- see <span><a title="return table of multiplicative variables for given module elements as determined by Janet division" href="_janet__Mult__Var.html">janetMultVar</a> -- return table of multiplicative variables for given module elements as determined by Janet division</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetMultVar(Matrix)&quot;</tt> -- see <span><a title="return table of multiplicative variables for given module elements as determined by Janet division" href="_janet__Mult__Var.html">janetMultVar</a> -- return table of multiplicative variables for given module elements as determined by Janet division</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetResolution(Ideal)&quot;</tt> -- see <span><a title="construct a free resolution for a given ideal or module using Janet bases" href="_janet__Resolution.html">janetResolution</a> -- construct a free resolution for a given ideal or module using Janet bases</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetResolution(InvolutiveBasis)&quot;</tt> -- see <span><a title="construct a free resolution for a given ideal or module using Janet bases" href="_janet__Resolution.html">janetResolution</a> -- construct a free resolution for a given ideal or module using Janet bases</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetResolution(Matrix)&quot;</tt> -- see <span><a title="construct a free resolution for a given ideal or module using Janet bases" href="_janet__Resolution.html">janetResolution</a> -- construct a free resolution for a given ideal or module using Janet bases</span></span>                  </li>
+                  <li>
+<span><tt>&quot;janetResolution(Module)&quot;</tt> -- see <span><a title="construct a free resolution for a given ideal or module using Janet bases" href="_janet__Resolution.html">janetResolution</a> -- construct a free resolution for a given ideal or module using Janet bases</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multVar(ChainComplex,ZZ)&quot;</tt> -- see <span><a title="extract the sets of multiplicative variables for each generator (in several contexts)" href="_mult__Var.html">multVar</a> -- extract the sets of multiplicative variables for each generator (in several contexts)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multVar(FactorModuleBasis)&quot;</tt> -- see <span><a title="extract the sets of multiplicative variables for each generator (in several contexts)" href="_mult__Var.html">multVar</a> -- extract the sets of multiplicative variables for each generator (in several contexts)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multVar(InvolutiveBasis)&quot;</tt> -- see <span><a title="extract the sets of multiplicative variables for each generator (in several contexts)" href="_mult__Var.html">multVar</a> -- extract the sets of multiplicative variables for each generator (in several contexts)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pommaretMultVar(List)&quot;</tt> -- see <span><a title="return table of multiplicative variables for given module elements as determined by Pommaret division" href="_pommaret__Mult__Var.html">pommaretMultVar</a> -- return table of multiplicative variables for given module elements as determined by Pommaret division</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pommaretMultVar(Matrix)&quot;</tt> -- see <span><a title="return table of multiplicative variables for given module elements as determined by Pommaret division" href="_pommaret__Mult__Var.html">pommaretMultVar</a> -- return table of multiplicative variables for given module elements as determined by Pommaret division</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="compute a (usually non-minimal) resolution using involutive bases" href="___Involutive.html">Involutive</a> -- compute a (usually non-minimal) resolution using involutive bases</span>                  </li>
+                  <li>
+<span><a title="key in the cache table of a differential in a Janet resolution" href="_mult__Vars.html">multVars</a> -- key in the cache table of a differential in a Janet resolution</span>                  </li>
+                  <li>
+<span><a title="ensure that the last dim(I) var's are algebraically independent modulo I" href="___Permute__Variables.html">PermuteVariables</a> -- ensure that the last dim(I) var's are algebraically independent modulo I</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Methods for Janet bases and Pommaret bases in Macaulay 2" href="index.html">InvolutiveBases</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

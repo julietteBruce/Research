@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>NoetherianOperators -- algorithms for computing local dual spaces and sets of Noetherian operators</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_amult.html">next</a> | previous | <a href="_amult.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a> :: <a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a>    </div>
+    <hr/>
+    <div>
+      <h1>NoetherianOperators -- algorithms for computing local dual spaces and sets of Noetherian operators</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The <em>NoetherianOperators</em> package includes algorithms for computing Noetherian operators and local dual spaces of polynomial ideals, and related local combinatorial data about its scheme structure. In addition, the package provides symbolic methods for computing Noetherian operators and Noetherian multipliers of polynomial modules.</p>
+          <p>The problem of characterizing ideal membership with differential conditions was first addressed by Gröbner (&quot;Uber eine neue idealtheoretische Grundlegung der algebraischen Geometrie&quot;, Math. Ann. 115 (1938), no. 1, 333–358). Despite this early algebraic interest by Gröbner, a complete description of primary ideals and modules in terms of differential operators was first obtained by analysts in the Fundamental Principle of Ehrenpreis and Palamodov. At the core of the Fundamental Principle, one has the notion of Noetherian operators to describe a primary module.</p>
+          <p>In case of an ideal supported at one point a set of Noetherian operators forms a Macaulay inverse system that spans the dual space of the ideal. These notions relate to the work of Macaulay (&quot;The algebraic theory of modular systems&quot;, Cambridge Press, (1916)).</p>
+          <p>In this package, we implement several (exact symbolic and approximate numerical) algorithms for the computation of sets of Noetherian operators.</p>
+          <p>Methods and types for computing and manipulating Noetherian operators:</p>
+          <ul>
+            <li>
+<a title="differential operator" href="___Diff__Op.html">DiffOp</a>            </li>
+            <li>
+<a title="Noetherian operators" href="_noetherian__Operators.html">noetherianOperators</a>              <ul>
+                <li>
+<a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Punctual__Quot_dq.html">Strategy => &quot;PunctualQuot&quot;</a>                </li>
+                <li>
+<a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Macaulay__Matrix_dq.html">Strategy => &quot;MacaulayMatrix&quot;</a>                </li>
+                <li>
+<a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Hybrid_dq.html">Strategy => &quot;Hybrid&quot;</a>                </li>
+              </ul>
+            </li>
+            <li>
+<a title="Noetherian operators evaluated at a point" href="_specialized__Noetherian__Operators.html">specializedNoetherianOperators</a>            </li>
+            <li>
+<a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a>            </li>
+            <li>
+<a title="Computes a primary ideal corresponding to a list of Noetherian operators and a prime ideal" href="_get__Ideal__From__Noetherian__Operators.html">getIdealFromNoetherianOperators</a>            </li>
+            <li>
+<a title="Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal" href="_get__Module__From__Noetherian__Operators.html">getModuleFromNoetherianOperators</a>            </li>
+            <li>
+<a title="induced Noetherian operators under coordinate change" href="_coordinate__Change__Ops.html">coordinateChangeOps</a>            </li>
+            <li>
+<a title="merge Noetherian operators for non-primary ideals" href="_noeth__Ops__From__Components.html">noethOpsFromComponents</a>            </li>
+            <li>
+<a title="solve linear systems of PDE with constant coefficients" href="_solve__P__D__E_lp__Module_rp.html">solvePDE</a>            </li>
+            <li>
+<a title="compute a differential primary decomposition" href="_differential__Primary__Decomposition.html">differentialPrimaryDecomposition</a>            </li>
+          </ul>
+          <p>Methods for numerically computing and manipulating local dual spaces:</p>
+          <ul>
+            <li>
+<a title="truncated dual space of a polynomial ideal" href="_truncated__Dual.html">truncatedDual</a>            </li>
+            <li>
+<a title="dual space of a zero-dimensional polynomial ideal" href="_zero__Dimensional__Dual.html">zeroDimensionalDual</a>            </li>
+            <li>
+<a title="eliminating dual space of a polynomial ideal" href="_eliminating__Dual.html">eliminatingDual</a>            </li>
+            <li>
+<a title="regularity of the local Hilbert function of a polynomial ideal" href="_local__Hilbert__Regularity.html">localHilbertRegularity</a>            </li>
+            <li>
+<a title="generators of the initial ideal of a polynomial ideal" href="_g__Corners.html">gCorners</a>            </li>
+            <li>
+<a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a>            </li>
+            <li>
+<a title="numerically determine if the point is an embedded component of the scheme" href="_is__Point__Embedded_lp__Abstract__Point_cm__Ideal_cm__List_rp.html">isPointEmbedded</a>            </li>
+            <li>
+<a title="numerically determine if the point is an embedded component of a 1-dimensional scheme" href="_is__Point__Embedded__In__Curve_lp__Abstract__Point_cm__Ideal_rp.html">isPointEmbeddedInCurve</a>            </li>
+            <li>
+<a title="colon of a (truncated) dual space" href="_colon.html">colon</a>            </li>
+          </ul>
+          <p>Auxiliary numerical linear algebra methods:</p>
+          <ul>
+            <li>
+<a title="numerically interpolate rational functions" href="_rational__Interpolation.html">rationalInterpolation</a>            </li>
+          </ul>
+          <p>For the task of computing Noetherian operators, here we implement the algorithms developed in the papers <a href="https://arxiv.org/abs/2006.13881">Noetherian Operators and Primary Decomposition</a>, <a href="https://arxiv.org/abs/2001.04700">Primary ideals and their differential equations</a>, and <a href="https://arxiv.org/abs/2104.03385">Primary decomposition of modules: a computational differential approach</a>. These include both symbolic and numerical algorithms, and a hybrid algorithm, where numerical data is used to speed up the symbolic algorithm.</p>
+          <p>To compute the initial ideal and Hilbert regularity of positive dimensional ideals we use the algorithm of R. Krone (&quot;Numerical algorithms for dual bases of positive-dimensional ideals.&quot; Journal of Algebra and Its Applications, 12(06):1350018, 2013.). These techniques are numerically stable, and can be used with floating point arithmetic over the complex numbers. They provide a viable alternative in this setting to purely symbolic methods such as standard bases.</p>
+          <p></p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+Robert Krone<span> &lt;<a href="mailto:krone@math.gatech.edu">krone@math.gatech.edu</a>></span>            </li>
+            <li>
+Justin Chen<span> &lt;<a href="mailto:justin.chen@math.gatech.edu">justin.chen@math.gatech.edu</a>></span>            </li>
+            <li>
+Marc Harkonen<span> &lt;<a href="mailto:harkonen@gatech.edu">harkonen@gatech.edu</a>></span>            </li>
+            <li>
+Yairon Cid-Ruiz<span> &lt;<a href="mailto:Yairon.CidRuiz@UGent.be">Yairon.CidRuiz@UGent.be</a>></span>            </li>
+            <li>
+Anton Leykin<span> &lt;<a href="mailto:anton.leykin@gmail.com">anton.leykin@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>2.2.1</b> of NoetherianOperators.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/NoetherianOperators.m2">NoetherianOperators.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="differential operator" href="___Diff__Op.html">DiffOp</a> -- differential operator</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="Computes the arithmetic multiplicity of a module" href="_amult.html">amult</a> -- Computes the arithmetic multiplicity of a module</span>                  </li>
+                  <li>
+<span><a title="induced Noetherian operators under coordinate change" href="_coordinate__Change__Ops.html">coordinateChangeOps</a> -- induced Noetherian operators under coordinate change</span>                  </li>
+                  <li>
+<span><a title="compute a differential primary decomposition" href="_differential__Primary__Decomposition.html">differentialPrimaryDecomposition</a> -- compute a differential primary decomposition</span>                  </li>
+                  <li>
+<span><a title="create a differential operator" href="_diff__Op.html">diffOp</a> -- create a differential operator</span>                  </li>
+                  <li>
+<span><a title="create and cache the ring of differential operators" href="_diff__Op__Ring.html">diffOpRing</a> -- create and cache the ring of differential operators</span>                  </li>
+                  <li>
+<span><a title="eliminating dual space of a polynomial ideal" href="_eliminating__Dual.html">eliminatingDual</a> -- eliminating dual space of a polynomial ideal</span>                  </li>
+                  <li>
+<span><a title="generators of the initial ideal of a polynomial ideal" href="_g__Corners.html">gCorners</a> -- generators of the initial ideal of a polynomial ideal</span>                  </li>
+                  <li>
+<span><a title="Computes a primary ideal corresponding to a list of Noetherian operators and a prime ideal" href="_get__Ideal__From__Noetherian__Operators.html">getIdealFromNoetherianOperators</a> -- Computes a primary ideal corresponding to a list of Noetherian operators and a prime ideal</span>                  </li>
+                  <li>
+<span><a title="Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal" href="_get__Module__From__Noetherian__Operators.html">getModuleFromNoetherianOperators</a> -- Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal</span>                  </li>
+                  <li>
+<span><tt>&quot;isPointEmbedded&quot;</tt> -- see <span><a title="numerically determine if the point is an embedded component of the scheme" href="_is__Point__Embedded_lp__Abstract__Point_cm__Ideal_cm__List_rp.html">isPointEmbedded(AbstractPoint,Ideal,List)</a> -- numerically determine if the point is an embedded component of the scheme</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPointEmbeddedInCurve&quot;</tt> -- see <span><a title="numerically determine if the point is an embedded component of a 1-dimensional scheme" href="_is__Point__Embedded__In__Curve_lp__Abstract__Point_cm__Ideal_rp.html">isPointEmbeddedInCurve(AbstractPoint,Ideal)</a> -- numerically determine if the point is an embedded component of a 1-dimensional scheme</span></span>                  </li>
+                  <li>
+<span><a title="Computes the join of two ideals" href="_join__Ideals.html">joinIdeals</a> -- Computes the join of two ideals</span>                  </li>
+                  <li>
+<span><a title="regularity of the local Hilbert function of a polynomial ideal" href="_local__Hilbert__Regularity.html">localHilbertRegularity</a> -- regularity of the local Hilbert function of a polynomial ideal</span>                  </li>
+                  <li>
+<span><a title="maps an ideal into a point in a certain punctual Hilbert scheme" href="_map__To__Punctual__Hilbert__Scheme.html">mapToPunctualHilbertScheme</a> -- maps an ideal into a point in a certain punctual Hilbert scheme</span>                  </li>
+                  <li>
+<span><a title="Noetherian operators" href="_noetherian__Operators.html">noetherianOperators</a> -- Noetherian operators</span>                  </li>
+                  <li>
+<span><a title="merge Noetherian operators for non-primary ideals" href="_noeth__Ops__From__Components.html">noethOpsFromComponents</a> -- merge Noetherian operators for non-primary ideals</span>                  </li>
+                  <li>
+<span><a title="rescale a differential operator" href="_normalize.html">normalize</a> -- rescale a differential operator</span>                  </li>
+                  <li>
+<span><a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> -- Noetherian operators via numerical interpolation</span>                  </li>
+                  <li>
+<span><a title="Orthogonal of a space" href="_orthogonal__In__Subspace.html">orthogonalInSubspace</a> -- Orthogonal of a space</span>                  </li>
+                  <li>
+<span><a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a> -- Applies dual space functionals to polynomials</span>                  </li>
+                  <li>
+<span><a title="numerically interpolate rational functions" href="_rational__Interpolation.html">rationalInterpolation</a> -- numerically interpolate rational functions</span>                  </li>
+                  <li>
+<span><tt>&quot;solvePDE&quot;</tt> -- see <span><a title="solve linear systems of PDE with constant coefficients" href="_solve__P__D__E_lp__Module_rp.html">solvePDE(Module)</a> -- solve linear systems of PDE with constant coefficients</span></span>                  </li>
+                  <li>
+<span><a title="Noetherian operators evaluated at a point" href="_specialized__Noetherian__Operators.html">specializedNoetherianOperators</a> -- Noetherian operators evaluated at a point</span>                  </li>
+                  <li>
+<span><a title="truncated dual space of a polynomial ideal" href="_truncated__Dual.html">truncatedDual</a> -- truncated dual space of a polynomial ideal</span>                  </li>
+                  <li>
+<span><a title="dual space of a zero-dimensional polynomial ideal" href="_zero__Dimensional__Dual.html">zeroDimensionalDual</a> -- dual space of a zero-dimensional polynomial ideal</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;amult(Ideal)&quot;</tt> -- see <span><a title="Computes the arithmetic multiplicity of a module" href="_amult.html">amult</a> -- Computes the arithmetic multiplicity of a module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;amult(Module)&quot;</tt> -- see <span><a title="Computes the arithmetic multiplicity of a module" href="_amult.html">amult</a> -- Computes the arithmetic multiplicity of a module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coordinateChangeOps(Matrix,DiffOp)&quot;</tt> -- see <span><a title="induced Noetherian operators under coordinate change" href="_coordinate__Change__Ops.html">coordinateChangeOps</a> -- induced Noetherian operators under coordinate change</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coordinateChangeOps(Matrix,List)&quot;</tt> -- see <span><a title="induced Noetherian operators under coordinate change" href="_coordinate__Change__Ops.html">coordinateChangeOps</a> -- induced Noetherian operators under coordinate change</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coordinateChangeOps(RingMap,DiffOp)&quot;</tt> -- see <span><a title="induced Noetherian operators under coordinate change" href="_coordinate__Change__Ops.html">coordinateChangeOps</a> -- induced Noetherian operators under coordinate change</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coordinateChangeOps(RingMap,List)&quot;</tt> -- see <span><a title="induced Noetherian operators under coordinate change" href="_coordinate__Change__Ops.html">coordinateChangeOps</a> -- induced Noetherian operators under coordinate change</span></span>                  </li>
+                  <li>
+<span><tt>&quot;differentialPrimaryDecomposition(Ideal)&quot;</tt> -- see <span><a title="compute a differential primary decomposition" href="_differential__Primary__Decomposition.html">differentialPrimaryDecomposition</a> -- compute a differential primary decomposition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;differentialPrimaryDecomposition(Module)&quot;</tt> -- see <span><a title="compute a differential primary decomposition" href="_differential__Primary__Decomposition.html">differentialPrimaryDecomposition</a> -- compute a differential primary decomposition</span></span>                  </li>
+                  <li>
+<span><a title="apply a differential operator" href="___Diff__Op_sp__Matrix.html">DiffOp Matrix</a> -- apply a differential operator</span>                  </li>
+                  <li>
+<span><tt>&quot;DiffOp RingElement&quot;</tt> -- see <span><a title="apply a differential operator" href="___Diff__Op_sp__Matrix.html">DiffOp Matrix</a> -- apply a differential operator</span></span>                  </li>
+                  <li>
+<span><a title="create a differential operator" href="_diff__Op_lp__Matrix_rp.html">diffOp(Matrix)</a> -- create a differential operator</span>                  </li>
+                  <li>
+<span><tt>&quot;diffOp(RingElement)&quot;</tt> -- see <span><a title="create a differential operator" href="_diff__Op_lp__Matrix_rp.html">diffOp(Matrix)</a> -- create a differential operator</span></span>                  </li>
+                  <li>
+<span><tt>&quot;eliminatingDual(AbstractPoint,Ideal,List,ZZ)&quot;</tt> -- see <span><a title="eliminating dual space of a polynomial ideal" href="_eliminating__Dual.html">eliminatingDual</a> -- eliminating dual space of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;eliminatingDual(AbstractPoint,Matrix,List,ZZ)&quot;</tt> -- see <span><a title="eliminating dual space of a polynomial ideal" href="_eliminating__Dual.html">eliminatingDual</a> -- eliminating dual space of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><a title="evaluate coefficients of a differential operator" href="_evaluate_lp__Diff__Op_cm__Abstract__Point_rp.html">evaluate(DiffOp,AbstractPoint)</a> -- evaluate coefficients of a differential operator</span>                  </li>
+                  <li>
+<span><tt>&quot;evaluate(DiffOp,Matrix)&quot;</tt> -- see <span><a title="evaluate coefficients of a differential operator" href="_evaluate_lp__Diff__Op_cm__Abstract__Point_rp.html">evaluate(DiffOp,AbstractPoint)</a> -- evaluate coefficients of a differential operator</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gCorners(AbstractPoint,Ideal)&quot;</tt> -- see <span><a title="generators of the initial ideal of a polynomial ideal" href="_g__Corners.html">gCorners</a> -- generators of the initial ideal of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gCorners(AbstractPoint,Matrix)&quot;</tt> -- see <span><a title="generators of the initial ideal of a polynomial ideal" href="_g__Corners.html">gCorners</a> -- generators of the initial ideal of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getIdealFromNoetherianOperators(List,Ideal)&quot;</tt> -- see <span><a title="Computes a primary ideal corresponding to a list of Noetherian operators and a prime ideal" href="_get__Ideal__From__Noetherian__Operators.html">getIdealFromNoetherianOperators</a> -- Computes a primary ideal corresponding to a list of Noetherian operators and a prime ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getModuleFromNoetherianOperators(Ideal,List)&quot;</tt> -- see <span><a title="Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal" href="_get__Module__From__Noetherian__Operators.html">getModuleFromNoetherianOperators</a> -- Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hilbertFunction(DualSpace)&quot;</tt> -- see <span><a href="_hilbert__Function_lp__Z__Z_cm__Dual__Space_rp.html">hilbertFunction(ZZ,DualSpace)</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;hilbertFunction(List,DualSpace)&quot;</tt> -- see <span><a href="_hilbert__Function_lp__Z__Z_cm__Dual__Space_rp.html">hilbertFunction(ZZ,DualSpace)</a></span></span>                  </li>
+                  <li>
+<span><a href="_hilbert__Function_lp__Z__Z_cm__Dual__Space_rp.html">hilbertFunction(ZZ,DualSpace)</a></span>                  </li>
+                  <li>
+<span><a title="numerically determine if the point is an embedded component of the scheme" href="_is__Point__Embedded_lp__Abstract__Point_cm__Ideal_cm__List_rp.html">isPointEmbedded(AbstractPoint,Ideal,List)</a> -- numerically determine if the point is an embedded component of the scheme</span>                  </li>
+                  <li>
+<span><a title="numerically determine if the point is an embedded component of a 1-dimensional scheme" href="_is__Point__Embedded__In__Curve_lp__Abstract__Point_cm__Ideal_rp.html">isPointEmbeddedInCurve(AbstractPoint,Ideal)</a> -- numerically determine if the point is an embedded component of a 1-dimensional scheme</span>                  </li>
+                  <li>
+<span><tt>&quot;joinIdeals(Ideal,Ideal)&quot;</tt> -- see <span><a title="Computes the join of two ideals" href="_join__Ideals.html">joinIdeals</a> -- Computes the join of two ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;localHilbertRegularity(AbstractPoint,Ideal)&quot;</tt> -- see <span><a title="regularity of the local Hilbert function of a polynomial ideal" href="_local__Hilbert__Regularity.html">localHilbertRegularity</a> -- regularity of the local Hilbert function of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;localHilbertRegularity(AbstractPoint,Matrix)&quot;</tt> -- see <span><a title="regularity of the local Hilbert function of a polynomial ideal" href="_local__Hilbert__Regularity.html">localHilbertRegularity</a> -- regularity of the local Hilbert function of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mapToPunctualHilbertScheme(Ideal)&quot;</tt> -- see <span><a title="maps an ideal into a point in a certain punctual Hilbert scheme" href="_map__To__Punctual__Hilbert__Scheme.html">mapToPunctualHilbertScheme</a> -- maps an ideal into a point in a certain punctual Hilbert scheme</span></span>                  </li>
+                  <li>
+<span><a title="Noetherian operators of a primary ideal" href="_noetherian__Operators_lp__Ideal_rp.html">noetherianOperators(Ideal)</a> -- Noetherian operators of a primary ideal</span>                  </li>
+                  <li>
+<span><a title="Noetherian operators of a primary component" href="_noetherian__Operators_lp__Ideal_cm__Ideal_rp.html">noetherianOperators(Ideal,Ideal)</a> -- Noetherian operators of a primary component</span>                  </li>
+                  <li>
+<span><a title="Noetherian operators of a primary submodule" href="_noetherian__Operators_lp__Module_rp.html">noetherianOperators(Module)</a> -- Noetherian operators of a primary submodule</span>                  </li>
+                  <li>
+<span><a title="Noetherian operators of a primary component" href="_noetherian__Operators_lp__Module_cm__Ideal_rp.html">noetherianOperators(Module,Ideal)</a> -- Noetherian operators of a primary component</span>                  </li>
+                  <li>
+<span><tt>&quot;noethOpsFromComponents(List)&quot;</tt> -- see <span><a title="merge Noetherian operators for non-primary ideals" href="_noeth__Ops__From__Components.html">noethOpsFromComponents</a> -- merge Noetherian operators for non-primary ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;normalize(DiffOp)&quot;</tt> -- see <span><a title="rescale a differential operator" href="_normalize.html">normalize</a> -- rescale a differential operator</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numericalNoetherianOperators(Ideal)&quot;</tt> -- see <span><a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> -- Noetherian operators via numerical interpolation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;orthogonalInSubspace(DualSpace,PolySpace,Number)&quot;</tt> -- see <span><a title="Orthogonal of a space" href="_orthogonal__In__Subspace.html">orthogonalInSubspace</a> -- Orthogonal of a space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;orthogonalInSubspace(PolySpace,PolySpace,Number)&quot;</tt> -- see <span><a title="Orthogonal of a space" href="_orthogonal__In__Subspace.html">orthogonalInSubspace</a> -- Orthogonal of a space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pairingMatrix(PolySpace,DualSpace)&quot;</tt> -- see <span><a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a> -- Applies dual space functionals to polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pairingMatrix(PolySpace,PolySpace)&quot;</tt> -- see <span><a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a> -- Applies dual space functionals to polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pairingMatrix(PolySpace,RingElement)&quot;</tt> -- see <span><a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a> -- Applies dual space functionals to polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pairingMatrix(RingElement,DualSpace)&quot;</tt> -- see <span><a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a> -- Applies dual space functionals to polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pairingMatrix(RingElement,RingElement)&quot;</tt> -- see <span><a title="Applies dual space functionals to polynomials" href="_pairing__Matrix.html">pairingMatrix</a> -- Applies dual space functionals to polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalInterpolation(List,List,Matrix)&quot;</tt> -- see <span><a title="numerically interpolate rational functions" href="_rational__Interpolation.html">rationalInterpolation</a> -- numerically interpolate rational functions</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalInterpolation(List,List,Matrix,Matrix)&quot;</tt> -- see <span><a title="numerically interpolate rational functions" href="_rational__Interpolation.html">rationalInterpolation</a> -- numerically interpolate rational functions</span></span>                  </li>
+                  <li>
+<span><a title="numerically interpolate rational functions" href="_rational__Interpolation_lp__List_cm__List_cm__Ring_rp.html">rationalInterpolation(List,List,Ring)</a> -- numerically interpolate rational functions</span>                  </li>
+                  <li>
+<span><tt>&quot;solvePDE(Ideal)&quot;</tt> -- see <span><a title="solve linear systems of PDE with constant coefficients" href="_solve__P__D__E_lp__Module_rp.html">solvePDE(Module)</a> -- solve linear systems of PDE with constant coefficients</span></span>                  </li>
+                  <li>
+<span><tt>&quot;solvePDE(Matrix)&quot;</tt> -- see <span><a title="solve linear systems of PDE with constant coefficients" href="_solve__P__D__E_lp__Module_rp.html">solvePDE(Module)</a> -- solve linear systems of PDE with constant coefficients</span></span>                  </li>
+                  <li>
+<span><a title="solve linear systems of PDE with constant coefficients" href="_solve__P__D__E_lp__Module_rp.html">solvePDE(Module)</a> -- solve linear systems of PDE with constant coefficients</span>                  </li>
+                  <li>
+<span><tt>&quot;specializedNoetherianOperators(Ideal,AbstractPoint)&quot;</tt> -- see <span><a title="Noetherian operators evaluated at a point" href="_specialized__Noetherian__Operators.html">specializedNoetherianOperators</a> -- Noetherian operators evaluated at a point</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specializedNoetherianOperators(Ideal,Matrix)&quot;</tt> -- see <span><a title="Noetherian operators evaluated at a point" href="_specialized__Noetherian__Operators.html">specializedNoetherianOperators</a> -- Noetherian operators evaluated at a point</span></span>                  </li>
+                  <li>
+<span><a title="truncate a polynomial space or dual space" href="_truncate_lp__Dual__Space_cm__List_cm__Z__Z_rp.html">truncate(DualSpace,List,ZZ)</a> -- truncate a polynomial space or dual space</span>                  </li>
+                  <li>
+<span><tt>&quot;truncate(PolySpace,List,ZZ)&quot;</tt> -- see <span><a title="truncate a polynomial space or dual space" href="_truncate_lp__Dual__Space_cm__List_cm__Z__Z_rp.html">truncate(DualSpace,List,ZZ)</a> -- truncate a polynomial space or dual space</span></span>                  </li>
+                  <li>
+<span><a title="truncate a polynomial space or dual space" href="_truncate_lp__Dual__Space_cm__Z__Z_rp.html">truncate(DualSpace,ZZ)</a> -- truncate a polynomial space or dual space</span>                  </li>
+                  <li>
+<span><tt>&quot;truncate(PolySpace,ZZ)&quot;</tt> -- see <span><a title="truncate a polynomial space or dual space" href="_truncate_lp__Dual__Space_cm__Z__Z_rp.html">truncate(DualSpace,ZZ)</a> -- truncate a polynomial space or dual space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;truncatedDual(AbstractPoint,Ideal,ZZ)&quot;</tt> -- see <span><a title="truncated dual space of a polynomial ideal" href="_truncated__Dual.html">truncatedDual</a> -- truncated dual space of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;truncatedDual(AbstractPoint,Matrix,ZZ)&quot;</tt> -- see <span><a title="truncated dual space of a polynomial ideal" href="_truncated__Dual.html">truncatedDual</a> -- truncated dual space of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;truncatedDual(Matrix,Ideal,ZZ)&quot;</tt> -- see <span><a title="truncated dual space of a polynomial ideal" href="_truncated__Dual.html">truncatedDual</a> -- truncated dual space of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;truncatedDual(Matrix,Matrix,ZZ)&quot;</tt> -- see <span><a title="truncated dual space of a polynomial ideal" href="_truncated__Dual.html">truncatedDual</a> -- truncated dual space of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;zeroDimensionalDual(AbstractPoint,Ideal)&quot;</tt> -- see <span><a title="dual space of a zero-dimensional polynomial ideal" href="_zero__Dimensional__Dual.html">zeroDimensionalDual</a> -- dual space of a zero-dimensional polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;zeroDimensionalDual(AbstractPoint,Matrix)&quot;</tt> -- see <span><a title="dual space of a zero-dimensional polynomial ideal" href="_zero__Dimensional__Dual.html">zeroDimensionalDual</a> -- dual space of a zero-dimensional polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;zeroDimensionalDual(Matrix,Ideal)&quot;</tt> -- see <span><a title="dual space of a zero-dimensional polynomial ideal" href="_zero__Dimensional__Dual.html">zeroDimensionalDual</a> -- dual space of a zero-dimensional polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;zeroDimensionalDual(Matrix,Matrix)&quot;</tt> -- see <span><a title="dual space of a zero-dimensional polynomial ideal" href="_zero__Dimensional__Dual.html">zeroDimensionalDual</a> -- dual space of a zero-dimensional polynomial ideal</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="option for computing Noetherian operators" href="___Dependent__Set.html">DependentSet</a> -- option for computing Noetherian operators</span>                  </li>
+                  <li>
+<span><tt>&quot;StandardBasis&quot;</tt> -- see <span><a title="generators of the initial ideal of a polynomial ideal" href="_g__Corners.html">gCorners</a> -- generators of the initial ideal of a polynomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;AllVisible&quot;</tt> -- see <span><a title="numerically determine if the point is an embedded component of the scheme" href="_is__Point__Embedded_lp__Abstract__Point_cm__Ideal_cm__List_rp.html">isPointEmbedded(AbstractPoint,Ideal,List)</a> -- numerically determine if the point is an embedded component of the scheme</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Regularity&quot;</tt> -- see <span><a title="numerically determine if the point is an embedded component of a 1-dimensional scheme" href="_is__Point__Embedded__In__Curve_lp__Abstract__Point_cm__Ideal_rp.html">isPointEmbeddedInCurve(AbstractPoint,Ideal)</a> -- numerically determine if the point is an embedded component of a 1-dimensional scheme</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Rational&quot;</tt> -- see <span><a title="Noetherian operators of a primary component" href="_noetherian__Operators_lp__Ideal_cm__Ideal_rp.html">noetherianOperators(Ideal,Ideal)</a> -- Noetherian operators of a primary component</span></span>                  </li>
+                  <li>
+<span><tt>&quot;InterpolationDegreeLimit&quot;</tt> -- see <span><a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> -- Noetherian operators via numerical interpolation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;InterpolationTolerance&quot;</tt> -- see <span><a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> -- Noetherian operators via numerical interpolation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;NoetherianDegreeLimit&quot;</tt> -- see <span><a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> -- Noetherian operators via numerical interpolation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;TrustedPoint&quot;</tt> -- see <span><a title="Noetherian operators via numerical interpolation" href="_numerical__Noetherian__Operators.html">numericalNoetherianOperators</a> -- Noetherian operators via numerical interpolation</span></span>                  </li>
+                  <li>
+<span><a title="optional sampler function" href="___Sampler.html">Sampler</a> -- optional sampler function</span>                  </li>
+                  <li>
+<span><tt>&quot;IntegralStrategy&quot;</tt> -- see <span><a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Macaulay__Matrix_dq.html">Strategy => &quot;MacaulayMatrix&quot;</a> -- strategy for computing Noetherian operators</span></span>                  </li>
+                  <li>
+<span><tt>&quot;KernelStrategy&quot;</tt> -- see <span><a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Macaulay__Matrix_dq.html">Strategy => &quot;MacaulayMatrix&quot;</a> -- strategy for computing Noetherian operators</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

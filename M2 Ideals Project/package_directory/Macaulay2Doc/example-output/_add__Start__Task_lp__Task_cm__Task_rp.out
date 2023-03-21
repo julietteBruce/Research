@@ -1,0 +1,39 @@
+-- -*- M2-comint -*- hash: -545045267
+
+i1 : f = () -> "f value";
+
+i2 : g = () -> "g value";
+
+i3 : F = createTask f
+
+o3 = <<task, created>>
+
+o3 : Task
+
+i4 : G = createTask g
+
+o4 = <<task, created>>
+
+o4 : Task
+
+i5 : addStartTask(F,G)
+
+i6 : schedule F
+
+o6 = <<task, result available, task done>>
+
+o6 : Task
+
+i7 : while not isReady F do sleep 1
+
+i8 : taskResult F
+
+o8 = f value
+
+i9 : while not isReady G do sleep 1
+
+i10 : taskResult G
+
+o10 = g value
+
+i11 : 

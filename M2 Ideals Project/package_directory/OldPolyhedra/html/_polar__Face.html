@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>polarFace --  computes the dual face of the polar polyhedron</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_polyhedra.html">next</a> | <a href="_polar.html">previous</a> | <a href="_polyhedra.html">forward</a> | <a href="_polar.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title=" computes the dual face of the polar polyhedron" href="_polar__Face.html">polarFace</a>    </div>
+    <hr/>
+    <div>
+      <h1>polarFace --  computes the dual face of the polar polyhedron</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">fv = polarFace f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>fv</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+When computing a face <tt>f</tt> of a polyhedron <tt>P</tt> with the function <a title="computes all faces of a certain codimension of a Cone or Polyhedron" href="_faces.html">faces</a>, it is stored in the cache that <tt>f</tt> is a face of <tt>P</tt>. Then the function <tt>polarFace</tt> computes the <a title=" computes the polar of a polyhedron" href="_polar.html">polar</a> <tt>P'</tt> of <tt>P</tt> and the corresponding face of <tt>P'</tt> on which all points of <tt>f</tt> attain their minimum. Note that this function only works correctly for polyhedra with the origin in its relative interior.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = hypercube 3
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 3
+      number of facets => 6
+      number of rays => 0
+      number of vertices => 8
+
+o1 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = first faces(1,P)
+
+o2 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o2 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : fv = polarFace f
+
+o3 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => -1
+      number of facets => 0
+      number of rays => 0
+      number of vertices => 0
+
+o3 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : vertices fv
+
+o4 = 0
+
+              3
+o4 : Matrix QQ  &lt;--- 0</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+If <tt>f</tt> is not a face of another polytope, then it considers <tt>f</tt> as a face of itself. Thus, it computes the polar of <tt>f</tt>, and returns the empty polyhedron as a face of the polar of <tt>f</tt>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : P = hypercube 3
+
+o5 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 3
+      number of facets => 6
+      number of rays => 0
+      number of vertices => 8
+
+o5 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : polarFace P
+
+o6 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => -1
+      number of facets => 0
+      number of rays => 0
+      number of vertices => 0
+
+o6 : Polyhedron</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>polarFace</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;polarFace(Polyhedron)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title=" computes the dual face of the polar polyhedron" href="_polar__Face.html">polarFace</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

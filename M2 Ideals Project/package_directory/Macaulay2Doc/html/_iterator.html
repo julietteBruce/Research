@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>iterator -- get an iterator</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Jacobian.html">next</a> | <a href="___Iterator.html">previous</a> | <a href="___Jacobian.html">forward</a> | <a href="___Iterator.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> :: <a title="get an iterator" href="_iterator.html">iterator</a>    </div>
+    <hr/>
+    <div>
+      <h1>iterator -- get an iterator</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">iterator x</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all things" href="___Thing.html">thing</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all things" href="___Thing.html">thing</a></span>, likely an <a title="class for iterators" href="___Iterator.html">Iterator</a>; </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>An iterator is an object that is used to traverse through <tt>x</tt>. Usually, but not necessarily, this will be an instance of the <a title="class for iterators" href="___Iterator.html">Iterator</a> class.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : iter = iterator {1, 2, 3}
+
+o1 = iterator {1, 2, 3}
+
+o1 : Iterator</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The class of an iterator should have a <a title="get the next object from an iterator" href="_next.html">next</a> method installed that gets the next element of <tt>x</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : next iter
+
+o2 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : next iter
+
+o3 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : next iter
+
+o4 = 3</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If <tt>x</tt> contains only a finite number of elements, then <a title="get the next object from an iterator" href="_next.html">next</a> should return the symbol <a title="stop iteration" href="___Stop__Iteration.html">StopIteration</a> after exhausting them all.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : next iter
+
+o5 = StopIteration
+
+o5 : Symbol</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Instances of classes with this method installed can be used like lists in <a title="for loops" href="_for.html">for</a> loops and <a title="apply a function to each element in a list or sequence" href="_scan.html">scan</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : lookup(iterator, String)
+
+o6 = -*Function[../../../../Macaulay2/m2/iterators.m2:16:27-23:13]*-
+
+o6 : FunctionClosure</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : for i in &quot;foo&quot; list i
+
+o7 = {f, o, o}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : scan(&quot;foo&quot;, print)
+f
+o
+o</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>They can also be passed to <a title="apply a function to each element" href="_apply.html">apply</a> and <a title="select from a list, hash table, or string" href="_select.html">select</a>.  In each case, an <a title="class for iterators" href="___Iterator.html">Iterator</a> object will be returned that is an iterator for itself.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : apply(&quot;foo&quot;, toUpper)
+
+o9 = (F, O, O)
+
+o9 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : for i in oo list i
+
+o10 = {F, O, O}
+
+o10 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : select(&quot;foo&quot;, i -> i == &quot;o&quot;)
+
+o11 = iterator &quot;foo&quot;
+
+o11 : Iterator</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : for i in oo list i
+
+o12 = {o, o}
+
+o12 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="class for iterators" href="___Iterator.html">Iterator</a> -- class for iterators</span>          </li>
+          <li>
+<span><a title="get the next object from an iterator" href="_next.html">next</a> -- get the next object from an iterator</span>          </li>
+          <li>
+<span><a title="stop iteration" href="___Stop__Iteration.html">StopIteration</a> -- stop iteration</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>iterator</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;iterator(Iterator)&quot;</tt>          </li>
+          <li>
+<tt>&quot;iterator(String)&quot;</tt>          </li>
+          <li>
+<tt>&quot;iterator(VisibleList)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="get an iterator" href="_iterator.html">iterator</a> is <span>a <a title="a type of method function" href="___Method__Function__Single.html">method function with a single argument</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

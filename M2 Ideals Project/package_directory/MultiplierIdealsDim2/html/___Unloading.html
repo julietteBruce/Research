@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Unloading -- Computes the antinef closure of a divisor.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Unloading__Value.html">next</a> | <a href="___Smallest__J__N.html">previous</a> | <a href="___Unloading__Value.html">forward</a> | <a href="___Smallest__J__N.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for Multiplier Ideals" href="index.html">MultiplierIdealsDim2</a> :: <a title="Computes the antinef closure of a divisor." href="___Unloading.html">Unloading</a>    </div>
+    <hr/>
+    <div>
+      <h1>Unloading -- Computes the antinef closure of a divisor.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Unloading(D,E)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E</tt>, Intersection matrix.</span>              </li>
+              <li>
+<span><tt>D</tt>, Matrix</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Limits the number of iterations of the Unloading algorithm." href="___Max__Iterations.html">MaxIterations</a><tt> => </tt><tt>...</tt>, <span>default value 10000</span>, Limits the number of iterations of the Unloading algorithm.</span>              </li>
+              <li>
+<span><a title="Show the maximum of the unloaded values" href="___Unloading__Value.html">UnloadingValue</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Show the maximum of the unloaded values</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Starting form the divisor encoded as a matrix of dimensions 1 x m, and the intersection matrix as presented in [AAD14], it returns the antinef closure of the divisor.</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : E = matrix({{ -5,  0,  1,  0,  1},
+                     {  0, -2,  1,  0,  0},
+                     {  1,  1, -1,  0,  0},
+                     {  0,  0,  0, -2,  1},
+                     {  1,  0,  0,  1, -1}})
+
+o1 = | -5 0  1  0  1  |
+     | 0  -2 1  0  0  |
+     | 1  1  -1 0  0  |
+     | 0  0  0  -2 1  |
+     | 1  0  0  1  -1 |
+
+              5        5
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D = matrix({{1,9,8,8,5}})
+
+o2 = | 1 9 8 8 5 |
+
+              1        5
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Unloading(D,E)
+
+o3 = | 6 9 15 8 14 |
+
+o3 : MutableMatrix</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes the antinef closure of a divisor." href="___Unloading.html">Unloading</a> is <span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>arePseudoInverses -- check the Penrose relations for the pseudo inverse</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_check__S__V__D__Complex.html">next</a> | <a href="index.html">previous</a> | <a href="_check__S__V__D__Complex.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="support for computing homology, ranks and SVD complexes, for a chain complex over the real numbers" href="index.html">SVDComplexes</a> :: <a title="check the Penrose relations for the pseudo inverse" href="_are__Pseudo__Inverses.html">arePseudoInverses</a>    </div>
+    <hr/>
+    <div>
+      <h1>arePseudoInverses -- check the Penrose relations for the pseudo inverse</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">arePseudoInverses(A,B)</code></dd>
+              <dd><code class="language-macaulay2">arePseudoInverses(C,Cplus)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, or</span>              </li>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, </span>              </li>
+              <li>
+<span><tt>Cplus</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Threshold</tt> (missing documentation)<!--tag: [arePseudoInverses, Threshold]-->
+<tt> => </tt><span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, <span>default value 1e-10</span>, an absolute error up to which the identities should hold</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The functions returns true, if the Penrose relations A*B*A == A, B*A*B == B, A*B==transpose(A*B) and B*A=transpose(B*A)) are satisfied. In case of an inexact field the relation should hold up to a threshold. In case of two chain complexes, these relation should hold for each pair of pseudo inverse differentials.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : needsPackage &quot;RandomComplexes&quot;
+
+o1 = RandomComplexes
+
+o1 : Package</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : setRandomSeed &quot;a pretty good example&quot;;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : h={2,2}
+
+o3 = {2, 2}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : r={3}
+
+o4 = {3}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C=randomChainComplex(h,r,Height=>100,ZeroMean=>true)
+
+       5       5
+o5 = ZZ  &lt;-- ZZ
+              
+     0       1
+
+o5 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C.dd
+
+           5                                         5
+o6 = 0 : ZZ  &lt;------------------------------------ ZZ  : 1
+                | 1546  30    2470  -4255 -821 |
+                | 632   1576  -1296 3098  826  |
+                | -377  -983  -815  1588  -889 |
+                | 602   130   2096  -4119 57   |
+                | -2313 -1407 -307  -830  521  |
+
+o6 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : CQ=C**QQ
+
+       5       5
+o7 = QQ  &lt;-- QQ
+              
+     0       1
+
+o7 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : CR=C**RR
+
+         5         5
+o8 = RR    &lt;-- RR
+       53        53
+                
+     0         1
+
+o8 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : CRplus = pseudoInverse CR
+
+         5         5
+o9 = RR    &lt;-- RR
+       53        53
+                
+     -1        0
+
+o9 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : arePseudoInverses(CR,CRplus,Threshold=>1e-10)
+
+o10 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : arePseudoInverses(CR,CRplus,Threshold=>1e-1000)
+
+o11 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : CQplus = pseudoInverse CQ
+
+        5       5
+o12 = QQ  &lt;-- QQ  &lt;-- 0
+                       
+      -1      0       1
+
+o12 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : CRplus.dd
+
+               5                                                                               5
+o13 = -1 : RR    &lt;------------------------------------------------------------------------ RR    : 0
+             53     | .000118165   .0000277114 .0000837524   -.0000345714 -.000242182  |     53
+                    | -.0000350254 .000195274  -.000230323   .0000878808  -.0000398381 |
+                    | .0000551618  -.000013564 -.00000307303 .0000283795  -.0000409136 |
+                    | -.000032967  .000030606  .0000868877   -.0000937862 -.0000779539 |
+                    | -.000132106  .000180547  -.000322462   .000131406   .000167433   |
+
+o13 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : CQplus.dd
+
+             5                                                                                                                                                                                                                        5
+o14 = -1 : QQ  &lt;------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- QQ  : 0
+                  | 71151349234648083/602134959628339728532  8343005942002339/301067479814169864266  12607564180912259/150533739907084932133  -20816677525577215/602134959628339728532 -72913216530598587/301067479814169864266 |
+                  | -21090035137352797/602134959628339728532 58790772469889187/301067479814169864266 -34671448552663381/150533739907084932133 52916093372716489/602134959628339728532  -11993947552589491/301067479814169864266 |
+                  | 8303709139666510/150533739907084932133   -2041838116725840/150533739907084932133 -462595206106534/150533739907084932133   4272072990580713/150533739907084932133   -6158878614523632/150533739907084932133  |
+                  | -134125646514711/4068479456948241409     124519948928892/4068479456948241409     707001894857497/8136958913896482818      -381567233960404/4068479456948241409     -634307450213339/8136958913896482818     |
+                  | -70269839740806/531921342427861951       96036713556510/531921342427861951       -343048951382053/1063842684855723902     69897643597768/531921342427861951        178122214661423/1063842684855723902      |
+
+            5
+      0 : QQ  &lt;----- 0 : 1
+                 0
+
+o14 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : (CQplus**RR_53).dd
+
+               5                                                                               5
+o15 = -1 : RR    &lt;------------------------------------------------------------------------ RR    : 0
+             53     | .000118165   .0000277114 .0000837524   -.0000345714 -.000242182  |     53
+                    | -.0000350254 .000195274  -.000230323   .0000878808  -.0000398381 |
+                    | .0000551618  -.000013564 -.00000307303 .0000283795  -.0000409136 |
+                    | -.000032967  .000030606  .0000868877   -.0000937862 -.0000779539 |
+                    | -.000132106  .000180547  -.000322462   .000131406   .000167433   |
+
+              5
+      0 : RR    &lt;----- 0 : 1
+            53     0
+
+o15 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : arePseudoInverses(CQ,CQplus)
+
+o16 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : Fp=ZZ/nextPrime 10^3
+
+o17 = Fp
+
+o17 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : Cp=C**Fp
+
+        5       5
+o18 = Fp  &lt;-- Fp
+               
+      0       1
+
+o18 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : Cpplus=pseudoInverse Cp
+
+        5       5
+o19 = Fp  &lt;-- Fp  &lt;-- 0
+                       
+      -1      0       1
+
+o19 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : Cpplus.dd
+
+             5                                    5
+o20 = -1 : Fp  &lt;------------------------------- Fp  : 0
+                  | -59  120  -141 286  361 |
+                  | -385 -144 400  -165 484 |
+                  | -217 115  -269 348  55  |
+                  | 134  449  -241 -226 222 |
+                  | 423  491  311  -354 442 |
+
+            5
+      0 : Fp  &lt;----- 0 : 1
+                 0
+
+o20 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : arePseudoInverses(CQ,CQplus)
+
+o21 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : arePseudoInverses(Cp,Cpplus)
+
+o22 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Over finite fields our algorithm to compute the pseudo inverse might fail. Hence we need this test to check the assertion.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the pseudoInverse of a chainComplex" href="_pseudo__Inverse.html">pseudoInverse</a> -- compute the pseudoInverse of a chainComplex</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>arePseudoInverses</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;arePseudoInverses(ChainComplex,ChainComplex)&quot;</tt>          </li>
+          <li>
+<tt>&quot;arePseudoInverses(Matrix,Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="check the Penrose relations for the pseudo inverse" href="_are__Pseudo__Inverses.html">arePseudoInverses</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

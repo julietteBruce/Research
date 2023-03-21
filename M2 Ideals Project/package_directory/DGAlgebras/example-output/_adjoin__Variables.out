@@ -1,0 +1,63 @@
+-- -*- M2-comint -*- hash: 1515851651
+
+i1 : R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3-d^4}
+
+o1 = R
+
+o1 : QuotientRing
+
+i2 : A = koszulComplexDGA(R)
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => {a, b, c, d}
+
+o2 : DGAlgebra
+
+i3 : A.diff
+
+o3 = map (R[T ..T ], R[T ..T ], {a, b, c, d, a, b, c, d})
+             1   4      1   4
+
+o3 : RingMap R[T ..T ] <--- R[T ..T ]
+                1   4          1   4
+
+i4 : prune homology(1,A)
+
+o4 = cokernel | d c b a 0 0 0 0 0 0 0 0 |
+              | 0 0 0 0 d c b a 0 0 0 0 |
+              | 0 0 0 0 0 0 0 0 d c b a |
+
+                            3
+o4 : R-module, quotient of R
+
+i5 : B = adjoinVariables(A,{a^2*T_1})
+
+o5 = {Ring => R                         }
+      Underlying algebra => R[T ..T ]
+                               1   5
+                                    2
+      Differential => {a, b, c, d, a T }
+                                      1
+
+o5 : DGAlgebra
+
+i6 : B.diff
+
+                                              2
+o6 = map (R[T ..T ], R[T ..T ], {a, b, c, d, a T , a, b, c, d})
+             1   5      1   5                   1
+
+o6 : RingMap R[T ..T ] <--- R[T ..T ]
+                1   5          1   5
+
+i7 : prune homology(1,B)
+
+o7 = cokernel | d c b a 0 0 0 0 |
+              | 0 0 0 0 d c b a |
+
+                            2
+o7 : R-module, quotient of R
+
+i8 : 

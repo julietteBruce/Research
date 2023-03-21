@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>MonodromySolverOptions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_net_lp__Point__Array_rp.html">next</a> | <a href="_monodromy__Solve_lp__System_cm__Abstract__Point_cm__List_rp.html">previous</a> | <a href="_net_lp__Point__Array_rp.html">forward</a> | <a href="_monodromy__Solve_lp__System_cm__Abstract__Point_cm__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="solve polynomial systems via homotopy continuation and monodromy" href="index.html">MonodromySolver</a> :: <a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a>    </div>
+    <hr/>
+    <div>
+      <h1>MonodromySolverOptions</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Here are some options for the solvers. The current defaults for a given solver may be accessed like so:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : options monodromySolve
+
+o1 = OptionTable{AugmentEdgeCount => 0                                }
+                 AugmentGraphFunction => null
+                 AugmentNodeCount => 0
+                 AugmentNumberOfRepeats => null
+                 BatchSize => infinity
+                 EdgesSaturated => false
+                 Equivalencer => null
+                 FilterCondition => null
+                 GraphInitFunction => completeGraphInit
+                 new tracking routine => true
+                 NumberOfEdges => null
+                 NumberOfNodes => null
+                 NumberOfRepeats => 10
+                 PointArrayTol => .0001
+                 Potential => null
+                 Randomizer => null
+                 SelectEdgeAndDirection => selectFirstEdgeAndDirection
+                 StoppingCriterion => null
+                 TargetSolutionCount => null
+                 Verbose => false
+
+o1 : OptionTable</code></pre>
+</td>          </tr>
+        </table>
+        <h3>List of Options</h3>
+        <ul>
+          <li>
+<b>Augmentation Options (trigger dynamic strategies)</b>            <ul>
+              <li>
+AugmentEdgeCount: number of edges added in augmentation step              </li>
+              <li>
+AugmentGraphFunction: see <a title="augment graph with the flower graph structure" href="_flower__Graph__Augment.html">flowerGraphAugment</a> and <a title="augment graph with the complete graph structure" href="_complete__Graph__Augment.html">completeGraphAugment</a>              </li>
+              <li>
+AugmentNodeCount: number of nodes in augmentation step (dynamic strategy triggered if >0)              </li>
+              <li>
+AugmentNumberOfRepeats: max number of augmentation steps should be set to ensure termination              </li>
+            </ul>
+          </li>
+          <li>
+BatchSize: maximum number of solutions tracked across an edge          </li>
+          <li>
+EdgesSaturated: fills correspondence tables after stopping criteria satisfied          </li>
+          <li>
+Equivalencer: a numeric function of solutions (default (x -> x) that divides partial solutions into equivalence classes          </li>
+          <li>
+FilterCondition: boolean function (default (p, x) -> false)) that evaluates true when we don't want to collect x (useful when x is an extraneous solution produced by path-jumping)          </li>
+          <li>
+GraphInitFunction: the underlying graph topology, see <a title="initialize the topology of a complete graph" href="_complete__Graph__Init.html">completeGraphInit</a> and <a title="solve via monodromy by using flower shaped graph" href="_flower__Graph__Init.html">flowerGraphInit</a>          </li>
+          <li>
+NumberOfEdges: number of edges in underlying graph          </li>
+          <li>
+NumberOfNodes: number of nodes in underlying graph          </li>
+          <li>
+NumberOfRepeats: argument for StoppingCriterion          </li>
+          <li>
+PointArrayTol: tolerance used for comparing elements contained in<span>an instance of the type <a title="a container for solutions" href="___Point__Array.html">PointArray</a></span>          </li>
+          <li>
+Potential: a function that assigns a number to each edge in each iteration, indicating its potential for producing new solutions. Current supported potential functions are <a title="the &quot;expected&quot; potential of an edge" href="_potential__E.html">potentialE</a> and <a title="the potential which is equal to the minimal number of new points guaranteed to be discovered" href="_potential__Lower__Bound.html">potentialLowerBound</a>          </li>
+          <li>
+Randomizer: a function of the parameters that randomizes the homotopies' endpoints. Defaults to the          </li>
+          <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="../../NumericalAlgebraicGeometry/html/_numerical_sphomotopy_sptracking_spoptions.html">gamma</a> -- options for core functions of Numerical Algebraic Geometry</span>          </li>
+          <li>
+ trick when linear in parameters, otherwise no randomization (p -> p)          </li>
+          <li>
+SelectEdgeAndDirection: accepts either <a title="selects edge and direction based on highest potential for obtaining new information" href="_select__Best__Edge__And__Direction.html">selectBestEdgeAndDirection</a> or <a title="random selection of edge and direction for homotopy" href="_select__Random__Edge__And__Direction.html">selectRandomEdgeAndDirection</a>. The former also requires setting a potential. Default is an internal function that selects the first available edge.          </li>
+          <li>
+StoppingCriterion: eg. stop if no progress has been made          </li>
+          <li>
+TargetSolutionCount: expected/desired number of solutions (overrides StoppingCriterion)          </li>
+          <li>
+Verbose: reports progress in each iteration          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

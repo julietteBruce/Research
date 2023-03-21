@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>changeBase -- change integer base</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_char.html">next</a> | <a href="___Chain__Complex__Map_sp__Array.html">previous</a> | <a href="_char.html">forward</a> | <a href="___Chain__Complex__Map_sp__Array.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> :: <a title="change integer base" href="_change__Base.html">changeBase</a>    </div>
+    <hr/>
+    <div>
+      <h1>changeBase -- change integer base</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">changeBase(n, newbase)</code></dd>
+              <dd><code class="language-macaulay2">changeBase(str, oldbase)</code></dd>
+              <dd><code class="language-macaulay2">changeBase(str, oldbase, newbase)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>str</tt>, <span>a <a title="the class of all strings" href="___String.html">string</a></span>, </span>              </li>
+              <li>
+<span><tt>oldbase</tt>, <span>an <a title="the class of all integers" href="___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>newbase</tt>, <span>an <a title="the class of all integers" href="___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="___Z__Z.html">integer</a></span> or <span>a <a title="the class of all strings" href="___String.html">string</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>When both arguments are integers, the return value is a string representation of the first argument in the base given by the second argument.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : changeBase(255, 16)
+
+o1 = ff</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Bases from 2 to 62 are supported.  If <tt>newbase</tt> is between 11 and 36, then the digits representing 10 through <tt>newbase - 1</tt> are the lowercase letters.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : for n from 10 to 35 list changeBase(n, 36)
+
+o2 = {a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x,
+     ------------------------------------------------------------------------
+     y, z}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If <tt>newbase</tt> is between 37 and 62, then the digits representing 10 through 35 are uppercase letters and the digits representing 36 through <tt>newbase - 1</tt> are lowercase letters.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : for n from 10 to 61 list changeBase(n, 62)
+
+o3 = {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X,
+     ------------------------------------------------------------------------
+     Y, Z, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v,
+     ------------------------------------------------------------------------
+     w, x, y, z}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If the first argument is a string, then we get the inverse operation, i.e., the <a title="the class of all integers" href="___Z__Z.html">ZZ</a> object that the string represents in the given base.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : changeBase(&quot;ff&quot;, 16)
+
+o4 = 255</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Uppercase letters are also allowed when <tt>oldbase</tt> is between 11 and 36, as there is no ambiguity.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : changeBase(&quot;FF&quot;, 16)
+
+o5 = 255</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If <tt>oldbase</tt> is 0, then the base is determined by the standard C prefix, i.e., <tt>0b</tt> or <tt>0B</tt> for binary, <tt>0</tt> for octal, <tt>0x</tt> or <tt>0X</tt> for hexadecimal, and no prefix for decimal.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : apply({&quot;0b10&quot;, &quot;0B10&quot;, &quot;010&quot;, &quot;0x10&quot;, &quot;0X10&quot;, &quot;10&quot;}, s -> changeBase(s, 0))
+
+o6 = {2, 2, 8, 16, 16, 10}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If a string and two integer arguments are given, then the integer represented by the string is converted from one base to another, returning a string.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : changeBase(&quot;ff&quot;, 16, 2)
+
+o7 = 11111111</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>changeBase</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;changeBase(String,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;changeBase(String,ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;changeBase(ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="change integer base" href="_change__Base.html">changeBase</a> is <span>a <a title="a type of method function" href="___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

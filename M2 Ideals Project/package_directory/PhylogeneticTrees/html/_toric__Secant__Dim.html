@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toricSecantDim -- dimension of a secant of a toric variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_unlabeled__Trees.html">next</a> | <a href="_toric__Join__Dim.html">previous</a> | <a href="_unlabeled__Trees.html">forward</a> | <a href="_toric__Join__Dim.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a> :: <a title="dimension of a secant of a toric variety" href="_toric__Secant__Dim.html">toricSecantDim</a>    </div>
+    <hr/>
+    <div>
+      <h1>toricSecantDim -- dimension of a secant of a toric variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toricSecantDim(A,k)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the A-matrix of a toric variety</span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, order of the secant</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the dimension of the <tt>k</tt>th secant of variety defined by matrix <tt>A</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A randomized algorithm for computing the affine dimension of a secant of a toric variety using Terracini's Lemma.</p>
+          <p>Here the <tt>k</tt>th secant means the join of <tt>k</tt> copies of <tt>I</tt>. Setting <tt>k</tt> to 1 gives the dimension of the ideal, while 2 is the usual secant, and higher values correspond to higher order secants.</p>
+          <p>The matrix <tt>A</tt> defines a parameterization of the variety.  The algorithm chooses <tt>k</tt> vectors of parameter values at random from a large finite field.  The dimension of the sum of the tangent spaces at those points is computed.</p>
+          <p>This algorithm is much much faster than computing the secant variety.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = matrix{{4,3,2,1,0},{0,1,2,3,4}}
+
+o1 = | 4 3 2 1 0 |
+     | 0 1 2 3 4 |
+
+              2        5
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : toricSecantDim(A,1)
+
+o2 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : toricSecantDim(A,2)
+
+o3 = 4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : toricSecantDim(A,3)
+
+o4 = 5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : toricSecantDim(A,4)
+
+o5 = 5</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="dimension of a join of toric varieties" href="_toric__Join__Dim.html">toricJoinDim</a> -- dimension of a join of toric varieties</span>          </li>
+          <li>
+<span><a title="compute the secant of an ideal" href="_secant.html">secant</a> -- compute the secant of an ideal</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toricSecantDim</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toricSecantDim(Matrix,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="dimension of a secant of a toric variety" href="_toric__Secant__Dim.html">toricSecantDim</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Strat -- Specify the algorithm used to perform a minimum weight computation.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_choose__Strat.html">previous</a> | <a href="_syndrome__Decode.html">forward</a> | <a href="_choose__Strat.html">backward</a> | <a href="_minimum__Weight.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a> > <a title="Hamming weight of a list" href="_weight.html">weight</a> > <a title="computes the minimum weight of a linear code" href="_minimum__Weight.html">minimumWeight</a> > <a title="Specify the algorithm used to perform a minimum weight computation." href="___Strat.html">Strat</a>    </div>
+    <hr/>
+    <div>
+      <h1>Strat -- Specify the algorithm used to perform a minimum weight computation.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">minimumWeight(C, Strat=>StratName)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, </span>              </li>
+              <li>
+<span><tt>StratName</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><tt>StratName</tt> is the name of the desired algorithm to use. By default, the function <a title="computes the minimum weight of a linear code" href="_minimum__Weight.html">minimumWeight</a> uses the function <a title="Estimate the optimal strategy to compute the minimum weight of a linear code." href="_choose__Strat.html">chooseStrat</a> to estimate the optimal strategy for a given linear code. Specifying a strategy manually is not recommended in the majority of cases because <a title="Estimate the optimal strategy to compute the minimum weight of a linear code." href="_choose__Strat.html">chooseStrat</a> reliably chooses the best strategy based on approximations of performance.</p>
+          <p>The valid options of the argument <tt>StratName</tt> are:</p>
+          <ul>
+            <li>
+<b>MatroidPartition</b>: The most advanced algorithm, but requires a longer up-front computation.            </li>
+            <li>
+<b>OneInfoSet</b>: An algorithm that is always faster than <tt>BruteForce</tt>.            </li>
+            <li>
+<b>BruteForce</b>: (Not recommended) Determine the minimum weight by enumerating all codewords.            </li>
+          </ul>
+          <p><tt>MatroidPartition</tt> is the most advanced strategy, but requires a longer up-front computation. Specifically, it has to compute the matroid associated with the given linear code's generator matrix and then compute a partition of it into independent sets. If such a partition exists, this algorithm will be strictly faster than <tt>OneInfoSet</tt> after the matroid partition has been computed.</p>
+          <p><tt>OneInfoSet</tt> can be viewed as a direct improvement over the <tt>BruteForce</tt> strategy. The properties of this algorithm imply that it is always as fast or faster than <tt>BruteForce</tt>.</p>
+          <p><tt>BruteForce</tt> is the simplest and most reliable strategy, but also almost always the slowest. It is intended mainly for internal purposes such as debugging and testing the other strategies.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C=hammingCode(2,3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : minimumWeight(C, Strat=>&quot;BruteForce&quot;)
+
+o2 = 3</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Estimate the optimal strategy to compute the minimum weight of a linear code." href="_choose__Strat.html">chooseStrat</a> -- Estimate the optimal strategy to compute the minimum weight of a linear code.</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Strat</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;minimumWeight(...,Strat=>...)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Specify the algorithm used to perform a minimum weight computation." href="___Strat.html">Strat</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

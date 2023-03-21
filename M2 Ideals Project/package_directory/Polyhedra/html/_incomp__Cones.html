@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>incompCones -- returns the pairs of incompatible cones</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_incomp__Polyhedra.html">next</a> | <a href="_image__Fan.html">previous</a> | <a href="_incomp__Polyhedra.html">forward</a> | <a href="_image__Fan.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">Polyhedra</a> :: <a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a>    </div>
+    <hr/>
+    <div>
+      <h1>incompCones -- returns the pairs of incompatible cones</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Lpairs = incompCones L </code></dd>
+              <dd><code class="language-macaulay2">Lpairs = incompCones(X,F) </code></dd>
+              <dd><code class="language-macaulay2">Lpairs = incompCones(F,X)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>              </li>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span></span>              </li>
+              <li>
+<span><tt>X</tt>, <a title="the class of all rational convex polyhedral cones" href="___Cone.html">Cone</a> or <a title="the class of all fans" href="___Fan.html">Fan</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Lpairs</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+If <tt>incompCones</tt> is applied to a list of cones and fans, then it returns the pairs of elements whose intersection is not a face of each. For a cone <tt>C</tt> and a fan <tt>F</tt> in the list this means there is at least one generating cone of <tt>F</tt> whose intersection with <tt>C</tt> is not a face of each. For two fans in the list this means there is at least one generating cone each such that their intersection is not a face of each. If applied to a pair consisting of a cone and a fan or two fans, then it returns the pairs of cones that do not share a common face.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C1 = coneFromVData matrix{{1,0},{1,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C2 = coneFromVData matrix{{1,0},{0,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C3 = coneFromVData matrix{{-1,0},{0,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : C4 = coneFromVData matrix{{1,1},{0,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C5 = coneFromVData matrix {{1,2},{2,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : L = {C1,C2,C3,C4,C5};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : Lpairs = incompCones L
+
+o7 = {(C1, C5), (C4, C5)}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : Lpairs == {(C1,C4),(C1,C5)}
+
+o8 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>incompCones</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;incompCones(Cone,Fan)&quot;</tt>          </li>
+          <li>
+<tt>&quot;incompCones(Fan,Cone)&quot;</tt>          </li>
+          <li>
+<tt>&quot;incompCones(Fan,Fan)&quot;</tt>          </li>
+          <li>
+<tt>&quot;incompCones(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

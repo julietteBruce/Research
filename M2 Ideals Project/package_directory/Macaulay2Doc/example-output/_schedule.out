@@ -1,0 +1,39 @@
+-- -*- M2-comint -*- hash: -874390777
+
+i1 : f = x -> 2^x
+
+o1 = f
+
+o1 : FunctionClosure
+
+i2 : t = createTask(f,3)
+
+o2 = <<task, created>>
+
+o2 : Task
+
+i3 : schedule t
+
+o3 = <<task, running>>
+
+o3 : Task
+
+i4 : while not isReady t do sleep 1
+
+i5 : taskResult t
+
+o5 = 8
+
+i6 : u = schedule(f,4)
+
+o6 = <<task, result available, task done>>
+
+o6 : Task
+
+i7 : while not isReady u do sleep 1
+
+i8 : taskResult u
+
+o8 = 16
+
+i9 : 

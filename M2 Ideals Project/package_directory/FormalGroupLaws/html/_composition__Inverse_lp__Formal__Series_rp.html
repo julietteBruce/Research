@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>compositionInverse(FormalSeries) -- inverse for composition of formal series</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___F__G__L.html">next</a> | <a href="_composition__Inverse.html">previous</a> | <a href="___F__G__L.html">forward</a> | <a href="_composition__Inverse.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="commutative formal group laws" href="index.html">FormalGroupLaws</a> :: <a title="inverse for composition of formal series" href="_composition__Inverse_lp__Formal__Series_rp.html">compositionInverse(FormalSeries)</a>    </div>
+    <hr/>
+    <div>
+      <h1>compositionInverse(FormalSeries) -- inverse for composition of formal series</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="inverse for composition" href="_composition__Inverse.html">compositionInverse</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">compositionInverse(s)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>s</tt>, <span>an instance of the type <a title="the class of all formal series" href="___Formal__Series.html">FormalSeries</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all formal series" href="___Formal__Series.html">FormalSeries</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The <tt>FormalSeries</tt> <tt>s</tt> must be in one variable and have a zero constant coefficient and a coefficient +1 or -1 in degree 1. Then, <tt>compositionInverse</tt> computes the inverse of <tt>s</tt> for the composition of formal series, up to the precision of <tt>s</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : ZZ[x]
+
+o1 = ZZ[x]
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : s = series(x+x^2+2*x^3-5*x^4,4)
+
+                      4     3    2
+o2 = FormalSeries{- 5x  + 2x  + x  + x, 4}
+
+o2 : FormalSeries</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : t = compositionInverse(s)
+
+                     4    2
+o3 = FormalSeries{10x  - x  + x, 4}
+
+o3 : FormalSeries</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : substitute(s,{t})
+
+o4 = FormalSeries{x, 4}
+
+o4 : FormalSeries</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : substitute(t,{s})
+
+o5 = FormalSeries{x, 4}
+
+o5 : FormalSeries</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="inverse for composition of formal series" href="_composition__Inverse_lp__Formal__Series_rp.html">compositionInverse(FormalSeries)</a> -- inverse for composition of formal series</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

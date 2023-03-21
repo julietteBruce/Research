@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>coincidentRootLocus -- makes a coincident root locus</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Coincident__Root__Locus_sp_st_sp__Coincident__Root__Locus.html">next</a> | <a href="___Coincident__Root__Locus.html">previous</a> | <a href="___Coincident__Root__Locus_sp_st_sp__Coincident__Root__Locus.html">forward</a> | <a href="___Coincident__Root__Locus.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for computations with coincident root loci" href="index.html">CoincidentRootLoci</a> :: <a title="makes a coincident root locus" href="_coincident__Root__Locus.html">coincidentRootLocus</a>    </div>
+    <hr/>
+    <div>
+      <h1>coincidentRootLocus -- makes a coincident root locus</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">coincidentRootLocus(l,K) </code></dd>
+              <dd><code class="language-macaulay2">coincidentRootLocus l</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>l</tt>, <span>a <a title="the class of all visible lists" href="../../Macaulay2Doc/html/___Visible__List.html">visible list</a></span>, a partition of a number $n$, i.e., a list of $d$ positive integers $l_1,\ldots,l_d$ satisfying ${\sum}_{i} l_i = n$</span>              </li>
+              <li>
+<span><tt>K</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the coefficient ring (optional with default value <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="specify a name for a variable" href="_coincident__Root__Locus_lp..._cm__Variable_eq_gt..._rp.html">Variable</a><tt> => </tt><tt>...</tt>, <span>default value &quot;t&quot;</span>, specify a name for a variable</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all coincident root loci" href="___Coincident__Root__Locus.html">coincident root locus</a></span>, the coincident root locus associated with the partition $l$ over $K$, i.e., the subvariety of the projective $n$-space $\mathbb{P}(Sym^n(K^2))$ of all binary forms whose linear factors are distributed according to $l$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = coincidentRootLocus {6,4,3,3,2}
+
+o1 = CRL(6,4,3,3,2)
+
+o1 : Coincident root locus</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : describe X
+
+o2 = Coincident root locus associated with the partition {6, 4, 3, 3, 2} defined over QQ
+     ambient: P^18 = Proj(QQ[t_0..t_18])
+     dim    = 5
+     codim  = 13
+     degree = 25920
+     The singular locus is the union of the coincident root loci associated with the partitions: 
+     ({6, 6, 4, 2},{10, 3, 3, 2},{9, 4, 3, 2},{7, 6, 3, 2},{8, 4, 3, 3},{6, 6, 3, 3},{6, 5, 4, 3})</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : describe dual X
+
+o3 = Dual of the coincident root locus associated with the partition {6, 4, 3, 3, 2} defined over QQ
+     which coincides with the join of the coincident root loci associated with the partitions:
+     ({14, 1, 1, 1, 1},{16, 1, 1},{17, 1},{17, 1},{18})
+     ambient: P^18 = Proj(QQ[t_0..t_18])
+     dim    = 17
+     codim  = 1
+     degree = 21600</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>coincidentRootLocus</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;coincidentRootLocus(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;coincidentRootLocus(VisibleList,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="makes a coincident root locus" href="_coincident__Root__Locus.html">coincidentRootLocus</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__Single.html">method function with a single argument</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

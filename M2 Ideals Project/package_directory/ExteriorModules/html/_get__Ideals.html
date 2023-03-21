@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>getIdeals -- get component ideals from a monomial module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_hilbert__Sequence_lp__Module_rp.html">next</a> | <a href="_create__Module.html">previous</a> | <a href="_hilbert__Sequence_lp__Module_rp.html">forward</a> | <a href="_create__Module.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with modules over exterior algebra" href="index.html">ExteriorModules</a> :: <a title="get component ideals from a monomial module" href="_get__Ideals.html">getIdeals</a>    </div>
+    <hr/>
+    <div>
+      <h1>getIdeals -- get component ideals from a monomial module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">getIdeals M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, a monomial submodule of the ambient module over an exterior algebra</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, list of ideals that determine the submodules whose direct sum is <tt>M</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Let <tt>M</tt> be a submodule of <tt>F</tt> and let $\{g_1,g_2,\ldots,g_r\}$ be a graded basis of <tt>F</tt>. This method returns a list $L=\{I_1,I_2,\ldots,I_r\}$ such that $M=I_i g_i \oplus I_2 g_2 \oplus \cdots \oplus I_r g_r$.        <p>Example:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : E = QQ[e_1..e_4, SkewCommutative => true]
+
+o1 = E
+
+o1 : PolynomialRing, 4 skew commutative variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : m=matrix {{e_1*e_2,e_3*e_4,0,0,0},{0,0,e_1*e_2,e_2*e_3*e_4,0},{0,0,0,0,e_2*e_3*e_4}}
+
+o2 = | e_1e_2 e_3e_4 0      0         0         |
+     | 0      0      e_1e_2 e_2e_3e_4 0         |
+     | 0      0      0      0         e_2e_3e_4 |
+
+             3       5
+o2 : Matrix E  &lt;--- E</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M=image m
+
+o3 = image | e_1e_2 e_3e_4 0      0         0         |
+           | 0      0      e_1e_2 e_2e_3e_4 0         |
+           | 0      0      0      0         e_2e_3e_4 |
+
+                             3
+o3 : E-module, submodule of E</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : getIdeals M
+
+o4 = {ideal (e e , e e ), ideal (e e , e e e ), ideal(e e e )}
+              3 4   1 2           1 2   2 3 4          2 3 4
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="create a module over an exterior algebra from a list of ideals in input" href="_create__Module.html">createModule</a> -- create a module over an exterior algebra from a list of ideals in input</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>getIdeals</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;getIdeals(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="get component ideals from a monomial module" href="_get__Ideals.html">getIdeals</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

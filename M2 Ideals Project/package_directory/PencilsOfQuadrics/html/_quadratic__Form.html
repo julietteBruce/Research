@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>quadraticForm -- part of a RandomNicePencil</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_rand__Nice__Pencil.html">next</a> | <a href="_qq__Ring.html">previous</a> | <a href="_rand__Nice__Pencil.html">forward</a> | <a href="_qq__Ring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Clifford Algebra of a Pencil of quadratic forms on PP^(2g+1)" href="index.html">PencilsOfQuadrics</a> :: <a title="part of a RandomNicePencil" href="_quadratic__Form.html">quadraticForm</a>    </div>
+    <hr/>
+    <div>
+      <h1>quadraticForm -- part of a RandomNicePencil</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">qq = rNP.quadraticForm</code></dd>
+            </dl>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>qq</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, an element of S, quadratic in x_0..z_2 and linear in s, t.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>the polynomial that represents a pencil of quadrics qq=s*q1+t*q2 with a fixed isotropic subspace and a fixed corank one quadric in normal form q1.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk=ZZ/101;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : g=1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : rNP=randNicePencil(kk,g);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S=rNP.qqRing;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : qq=rNP.quadraticForm
+
+              2      2                           2                       
+o5 = x y s - z s - 5x t + 12x z t - 18y z t - 30z t - 12x z t + 10y z t +
+      0 0     1      0       0 1       0 1       1       0 2       0 2   
+     ------------------------------------------------------------------------
+                 2
+     6z z t - 48z t
+       1 2       2
+
+o5 : S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : q1=diff(S_(2*g+2), qq)
+
+             2
+o6 = x y  - z
+      0 0    1
+
+o6 : S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : q2=diff(S_(2*g+3), qq)
+
+         2                        2                                2
+o7 = - 5x  + 12x z  - 18y z  - 30z  - 12x z  + 10y z  + 6z z  - 48z
+         0      0 1      0 1      1      0 2      0 2     1 2      2
+
+o7 : S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : qq==S_(2*g+2)*q1+S_(2*g+3)*q2
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_qq__Ring.html">qqRing</a> -- part of a RandomNicePencil</span>          </li>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_base__Ring.html">baseRing</a> -- part of a RandomNicePencil</span>          </li>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_mat__Fact1.html">matFact1</a> -- part of a RandomNicePencil</span>          </li>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_mat__Fact2.html">matFact2</a> -- part of a RandomNicePencil</span>          </li>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_mat__Factu1.html">matFactu1</a> -- part of a RandomNicePencil</span>          </li>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_mat__Factu2.html">matFactu2</a> -- part of a RandomNicePencil</span>          </li>
+          <li>
+<span><a title="part of a RandomNicePencil" href="_isotropic__Space.html">isotropicSpace</a> -- part of a RandomNicePencil</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="part of a RandomNicePencil" href="_quadratic__Form.html">quadraticForm</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

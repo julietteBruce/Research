@@ -1,0 +1,78 @@
+-- -*- M2-comint -*- hash: 1744356348
+
+i1 : kk=ZZ/101; d=1;
+
+i3 : n=2*d
+
+o3 = 2
+
+i4 : R=kk[a_0..a_(binomial(n+2,2)-1)]
+
+o4 = R
+
+o4 : PolynomialRing
+
+i5 : S=kk[x_0..x_(n-1),a_0..a_(binomial(n+2,2)-1)]
+
+o5 = S
+
+o5 : PolynomialRing
+
+i6 : M=genericSymmetricMatrix(S,a_0,n)
+
+o6 = | a_0 a_1 |
+     | a_1 a_2 |
+
+             2       2
+o6 : Matrix S  <--- S
+
+i7 : X=(vars S)_{0..n-1}
+
+o7 = | x_0 x_1 |
+
+             1       2
+o7 : Matrix S  <--- S
+
+i8 : Y=X*M
+
+o8 = | x_0a_0+x_1a_1 x_0a_1+x_1a_2 |
+
+             1       2
+o8 : Matrix S  <--- S
+
+i9 : (M1,M2)=matrixFactorizationK(X,Y);
+
+i10 : (eOdd,eEv)=cliffordOperators(M1,M2,R);
+
+i11 : sM = symMatrix(eOdd,eEv)
+
+o11 = | a_0 a_1 |
+      | a_1 a_2 |
+
+              2       2
+o11 : Matrix R  <--- R
+
+i12 : f = det sM
+
+         2
+o12 = - a  + a a
+         1    0 2
+
+o12 : R
+
+i13 : f == (cliffordModule(eOdd,eEv)).hyperellipticBranchEquation
+
+o13 = true
+
+i14 : (c0,c1)=centers(eOdd,eEv)
+
+o14 = ({-3} | 0  -a_1^2+a_0a_2 |, {-1} | -a_1 -a_2 |)
+       {-2} | -1 0             |  {-1} | a_0  a_1  |
+
+o14 : Sequence
+
+i15 : assert(c0^2-(-1)^d*f*id_(source c0)==0)
+
+i16 : assert(c1^2-(-1)^d*f*id_(source c1)==0)
+
+i17 : 

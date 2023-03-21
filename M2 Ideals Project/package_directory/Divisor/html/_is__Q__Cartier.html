@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isQCartier -- whether m times a divisor is Cartier for any m from 1 to a fixed positive integer n1.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Q__Linear__Equivalent.html">next</a> | <a href="_is__Principal.html">previous</a> | <a href="_is__Q__Linear__Equivalent.html">forward</a> | <a href="_is__Principal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="whether m times a divisor is Cartier for any m from 1 to a fixed positive integer n1." href="_is__Q__Cartier.html">isQCartier</a>    </div>
+    <hr/>
+    <div>
+      <h1>isQCartier -- whether m times a divisor is Cartier for any m from 1 to a fixed positive integer n1.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isQCartier(n1, D1 )</code></dd>
+              <dd><code class="language-macaulay2">isQCartier(n1, D2 )</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>D1</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">WeilDivisor</a></span>, </span>              </li>
+              <li>
+<span><tt>D2</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">QWeilDivisor</a></span>, </span>              </li>
+              <li>
+<span><tt>n1</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>IsGraded</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, specify that we should do this computation on a projective algebraic variety</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Check whether $m$ times a Weil or Q-divisor $D$ is Cartier for each $m$ from <tt>1</tt> to a fixed positive integer <tt>n1</tt> (if the divisor is a <tt>QWeilDivisor</tt>, it can search slightly higher than n1).  If <tt>m * D1</tt> is Cartier, it returns <tt>m</tt>.  If it fails to find an <tt>m</tt>, it returns <tt>0</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x, y, z] / ideal(x * y - z^2 );</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D1 = divisor({1, 2}, {ideal(x, z), ideal(y, z)})
+
+o2 = Div(x, z) + 2*Div(y, z)
+
+o2 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D2 = divisor({1/2, 3/4}, {ideal(y, z), ideal(x, z)}, CoefficientType => QQ)
+
+o3 = 3/4*Div(x, z) + 1/2*Div(y, z)
+
+o3 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isQCartier(10, D1)
+
+o4 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isQCartier(10, D2)
+
+o5 = 8</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R = QQ[x, y, u, v] / ideal(x * y - u * v);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : D1 = divisor({1, 2}, {ideal(x, u), ideal(y, v)})
+
+o7 = Div(x, u) + 2*Div(y, v)
+
+o7 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : D2 = divisor({1/2, -3/4}, {ideal(y, u), ideal(x, v)}, CoefficientType => QQ)
+
+o8 = 1/2*Div(y, u) + -3/4*Div(x, v)
+
+o8 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : isQCartier(10, D1)
+
+o9 = 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : isQCartier(10, D2)
+
+o10 = 0</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If the option <tt>IsGraded</tt> is set to <tt>true</tt> (by default it is <tt>false</tt>), then it treats the divisor as a divisor on the $Proj$ of their ambient ring.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : R = QQ[x, y, z] / ideal(x * y - z^2 );</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : D1 = divisor({1, 2}, {ideal(x, z), ideal(y, z)})
+
+o12 = Div(x, z) + 2*Div(y, z)
+
+o12 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : D2 = divisor({1/2, 3/4}, {ideal(y, z), ideal(x, z)}, CoefficientType => QQ)
+
+o13 = 3/4*Div(x, z) + 1/2*Div(y, z)
+
+o13 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : isQCartier(10, D1, IsGraded => true)
+
+o14 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : isQCartier(10, D2, IsGraded => true)
+
+o15 = 4</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The output value of this function is stored in the divisor's cache with the value of the last <tt>IsGraded</tt> option.  If you change the <tt>IsGraded</tt> option, the value will be recomputed.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether a Weil divisor is Cartier" href="_is__Cartier.html">isCartier</a> -- whether a Weil divisor is Cartier</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isQCartier</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isQCartier(ZZ,QWeilDivisor)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isQCartier(ZZ,WeilDivisor)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether m times a divisor is Cartier for any m from 1 to a fixed positive integer n1." href="_is__Q__Cartier.html">isQCartier</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

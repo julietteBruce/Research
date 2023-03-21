@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RationalMap ** Ring -- change the coefficient ring of a rational map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Rational__Map_sp_eq_eq_sp__Rational__Map.html">next</a> | <a href="___Rational__Map_sp_st_sp__Rational__Map.html">previous</a> | <a href="___Rational__Map_sp_eq_eq_sp__Rational__Map.html">forward</a> | <a href="___Rational__Map_sp_st_sp__Rational__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="change the coefficient ring of a rational map" href="___Rational__Map_sp_st_st_sp__Ring.html">RationalMap ** Ring</a>    </div>
+    <hr/>
+    <div>
+      <h1>RationalMap ** Ring -- change the coefficient ring of a rational map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for tensor product or Cartesian product" href="../../Macaulay2Doc/html/__st_st.html">**</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">phi ** K</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>phi</tt>, <span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>, defined over a coefficient ring <tt>F</tt></span>              </li>
+              <li>
+<span><tt>K</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the new coefficient ring (which must be a field)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>, a rational map defined over <tt>K</tt>, obtained by coercing the coefficients of the forms defining <tt>phi</tt> into <tt>K</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>It is necessary that all forms in the old coefficient ring <tt>F</tt> can be automatically coerced into the new coefficient ring <tt>K</tt>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[vars(0..5)]
+
+o1 = QQ[a..f]
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : phi = rationalMap {e^2-d*f, c*e-b*f, c*d-b*e, c^2-a*f, b*c-a*e, b^2-a*d}
+
+o2 = -- rational map --
+     source: Proj(QQ[a, b, c, d, e, f])
+     target: Proj(QQ[a, b, c, d, e, f])
+     defining forms: {
+                       2
+                      e  - d*f,
+                      
+                      c*e - b*f,
+                      
+                      c*d - b*e,
+                      
+                       2
+                      c  - a*f,
+                      
+                      b*c - a*e,
+                      
+                       2
+                      b  - a*d
+                     }
+
+o2 : RationalMap (quadratic rational map from PP^5 to PP^5)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : K = ZZ/65521;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : phi ** K
+
+o4 = -- rational map --
+     source: Proj(K[a, b, c, d, e, f])
+     target: Proj(K[a, b, c, d, e, f])
+     defining forms: {
+                       2
+                      e  - d*f,
+                      
+                      c*e - b*f,
+                      
+                      c*d - b*e,
+                      
+                       2
+                      c  - a*f,
+                      
+                      b*c - a*e,
+                      
+                       2
+                      b  - a*d
+                     }
+
+o4 : RationalMap (quadratic rational map from PP^5 to PP^5)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : phi ** frac(K[t])
+
+o5 = -- rational map --
+     source: Proj(frac(K[t])[a, b, c, d, e, f])
+     target: Proj(frac(K[t])[a, b, c, d, e, f])
+     defining forms: {
+                       2
+                      e  - d*f,
+                      
+                      c*e - b*f,
+                      
+                      c*d - b*e,
+                      
+                       2
+                      c  - a*f,
+                      
+                      b*c - a*e,
+                      
+                       2
+                      b  - a*d
+                     }
+
+o5 : RationalMap (quadratic rational map from PP^5 to PP^5)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="coefficient ring of a rational map" href="_coefficient__Ring_lp__Rational__Map_rp.html">coefficientRing(RationalMap)</a> -- coefficient ring of a rational map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="change the coefficient ring of a rational map" href="___Rational__Map_sp_st_st_sp__Ring.html">RationalMap ** Ring</a> -- change the coefficient ring of a rational map</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

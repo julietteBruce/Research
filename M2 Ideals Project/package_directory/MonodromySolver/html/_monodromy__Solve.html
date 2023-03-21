@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>monodromySolve -- the main function of the MonodromySolver package</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_monodromy__Solve_lp__System_rp.html">next</a> | <a href="_monodromy__Group.html">previous</a> | <a href="_monodromy__Solve_lp__System_rp.html">forward</a> | <a href="_monodromy__Group.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="solve polynomial systems via homotopy continuation and monodromy" href="index.html">MonodromySolver</a> :: <a title="the main function of the MonodromySolver package" href="_monodromy__Solve.html">monodromySolve</a>    </div>
+    <hr/>
+    <div>
+      <h1>monodromySolve -- the main function of the MonodromySolver package</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">AugmentEdgeCount</a><tt> => </tt><tt>...</tt>, <span>default value 0</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">AugmentGraphFunction</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">AugmentNodeCount</a><tt> => </tt><tt>...</tt>, <span>default value 0</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">AugmentNumberOfRepeats</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">BatchSize</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">EdgesSaturated</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, </span>              </li>
+              <li>
+<span><tt>Equivalencer</tt> (missing documentation)<!--tag: [monodromySolve, Equivalencer]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><tt>FilterCondition</tt> (missing documentation)<!--tag: [monodromySolve, FilterCondition]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">GraphInitFunction</a><tt> => </tt><tt>...</tt>, <span>default value completeGraphInit</span>, </span>              </li>
+              <li>
+<span>new tracking routine</span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">NumberOfEdges</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">NumberOfNodes</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">NumberOfRepeats</a><tt> => </tt><tt>...</tt>, <span>default value 10</span>, </span>              </li>
+              <li>
+<span><tt>PointArrayTol</tt> (missing documentation)<!--tag: [monodromySolve, PointArrayTol]-->
+<tt> => </tt><tt>...</tt>, <span>default value .0001</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">Potential</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><tt>Randomizer</tt> (missing documentation)<!--tag: [monodromySolve, Randomizer]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">SelectEdgeAndDirection</a><tt> => </tt><tt>...</tt>, <span>default value selectFirstEdgeAndDirection</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">StoppingCriterion</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">TargetSolutionCount</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="___Monodromy__Solver__Options.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <h3>Ways to use:</h3>
+        <ul>
+          <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_cm__Abstract__Point_cm__List_rp.html">monodromySolve(System,AbstractPoint,List)</a> -- the main function of the MonodromySolver package</span>          </li>
+          <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_rp.html">monodromySolve(System)</a> -- the main function of the MonodromySolver package</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>monodromySolve</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_rp.html">monodromySolve(System)</a> -- the main function of the MonodromySolver package</span>          </li>
+          <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_cm__Abstract__Point_cm__List_rp.html">monodromySolve(System,AbstractPoint,List)</a> -- the main function of the MonodromySolver package</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the main function of the MonodromySolver package" href="_monodromy__Solve.html">monodromySolve</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

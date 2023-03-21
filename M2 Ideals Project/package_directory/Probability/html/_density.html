@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>density -- probability density (or mass) function</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Density__Function.html">next</a> | <a href="_continuous__Probability__Distribution.html">previous</a> | <a href="___Density__Function.html">forward</a> | <a href="_continuous__Probability__Distribution.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="basic probability functions" href="index.html">Probability</a> :: <a title="probability density (or mass) function" href="_density.html">density</a>    </div>
+    <hr/>
+    <div>
+      <h1>density -- probability density (or mass) function</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">density_X x</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="probability distribution class" href="___Probability__Distribution.html">probability distribution</a></span>, </span>              </li>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>For a discrete probability distribution, this returns values of of the <a href="https://en.wikipedia.org/wiki/probability_mass_function">probability mass function</a> of the distribution, i.e., \(f_X(x) = P(X = x)\).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = binomialDistribution(5, 0.25)
+
+o1 = B(5,.25)
+
+o1 : DiscreteProbabilityDistribution</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : density_X 2
+
+o2 = .263671875
+
+o2 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : binomial(5, 2) * 0.25^2 * 0.75^3
+
+o3 = .263671875
+
+o3 : RR (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>For a continuous probability distribution, this returns values of the <a href="https://en.wikipedia.org/wiki/probability_density_function">probability density function</a> of the distribution, i.e., the integrand in \(\int_a^b f_X(x)\,dx = P(a\leq X \leq b)\).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Z = normalDistribution()
+
+o4 = N(0,1)
+
+o4 : ContinuousProbabilityDistribution</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : density_Z 0
+
+o5 = .398942280401433
+
+o5 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : 1/sqrt(2 * pi)
+
+o6 = .398942280401433
+
+o6 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : integrate(density_Z, -1, 1)
+
+o7 = .682689492137086
+
+o7 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : integrate(density_Z, -2, 2)
+
+o8 = .95449973610347
+
+o8 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : integrate(density_Z, -3, 3)
+
+o9 = .997300204130616
+
+o9 : RR (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>density</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;density(DiscreteProbabilityDistribution,Constant)&quot;</tt>          </li>
+          <li>
+<tt>&quot;density(DiscreteProbabilityDistribution,Number)&quot;</tt>          </li>
+          <li>
+<tt>&quot;density(ProbabilityDistribution,Constant)&quot;</tt>          </li>
+          <li>
+<tt>&quot;density(ProbabilityDistribution,Number)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="probability density (or mass) function" href="_density.html">density</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>subquivers -- return all possible subquivers of a given quiver</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_theta.html">next</a> | <a href="_subquiver_sprepresentation.html">previous</a> | <a href="_theta.html">forward</a> | <a href="_subquiver_sprepresentation.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="creating and manipulating Toric Quivers" href="index.html">ThinSincereQuivers</a> :: <a title="return all possible subquivers of a given quiver" href="_subquivers.html">subquivers</a>    </div>
+    <hr/>
+    <div>
+      <h1>subquivers -- return all possible subquivers of a given quiver</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">subquivers Q</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>Q</tt>, <span>an instance of the type <a title="the ToricQuiver datatype" href="___Toric__Quiver.html">ToricQuiver</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Format</tt> (missing documentation)<!--tag: [subquivers, Format]-->
+<tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value &quot;quiver&quot;</span>, options include <tt>quiver</tt>, which returns a list of quivers, and <tt>list</tt>, which returns a list of arrows for each subquiver</span>              </li>
+              <li>
+<span><tt>AsSubquiver</tt> (missing documentation)<!--tag: [subquivers, AsSubquiver]-->
+<tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, if Format is specified as <tt>quiver</tt>, then applying <tt>AsSubquiver = true</tt> insures that the matrix representation of the subquiver is the same size as the matrix original quiver</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of either quiver objects, or arrow indices</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>this returns the subquivers of a given quiver. There are 3 main ways to represent a subquiver:</p>
+        </div>
+        <div>
+          <ul>
+            <li>
+as a list of arrow indices,            </li>
+            <li>
+as a subset of rows and columns of the original incidence matrix, and            </li>
+            <li>
+as a copy of the original incidence matrix with certain rows and columns zeroed out.             </li>
+          </ul>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = chainQuiver {2}
+
+o1 = ToricQuiver{flow => {1, 1}              }
+                 IncidenceMatrix => | -1 -1 |
+                                    | 1  1  |
+                 Q0 => {0, 1}
+                 Q1 => {{0, 1}, {0, 1}}
+                 weights => {-2, 2}
+
+o1 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : subquivers Q
+
+o2 = {ToricQuiver{flow => {1}              }, ToricQuiver{flow => {1}       
+                  IncidenceMatrix => | -1 |               IncidenceMatrix =>
+                                     | 1  |                                 
+                  Q0 => {0, 1}                            Q0 => {0, 1}
+                  Q1 => {{0, 1}}                          Q1 => {{0, 1}}
+                  weights => {-1, 1}                      weights => {-1, 1}
+     ------------------------------------------------------------------------
+           }}
+     | -1 |
+     | 1  |
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : subquivers(Q, Format=>&quot;list&quot;)
+
+o3 = {{0}, {1}}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : subquivers bipartiteQuiver(2, 2)
+
+o4 = {ToricQuiver{flow => {1}              }, ToricQuiver{flow => {1}       
+                  IncidenceMatrix => | -1 |               IncidenceMatrix =>
+                                     | 1  |                                 
+                  Q0 => {0, 1}                            Q0 => {0, 1}      
+                  Q1 => {{0, 1}}                          Q1 => {{0, 1}}    
+                  weights => {-1, 1}                      weights => {-1, 1}
+                                                                            
+                                                                            
+     ------------------------------------------------------------------------
+           }, ToricQuiver{flow => {1}              },
+     | -1 |               IncidenceMatrix => | -1 |  
+     | 1  |                                  | 1  |  
+                          Q0 => {0, 1}               
+                          Q1 => {{0, 1}}             
+                          weights => {-1, 1}         
+                                                     
+                                                     
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1}              }, ToricQuiver{flow => {1, 1}    
+                 IncidenceMatrix => | -1 |               IncidenceMatrix =>
+                                    | 1  |                                 
+                 Q0 => {0, 1}                                              
+                 Q1 => {{0, 1}}                          Q0 => {0, 1, 2}   
+                 weights => {-1, 1}                      Q1 => {{0, 1}, {0,
+                                                         weights => {-2, 1,
+                                                                           
+     ------------------------------------------------------------------------
+              }, ToricQuiver{flow => {1, 1}              },
+     | -1 -1 |               IncidenceMatrix => | -1 0  |  
+     | 1  0  |                                  | 0  -1 |  
+     | 0  1  |                                  | 1  1  |  
+                             Q0 => {0, 1, 2}               
+     2}}                     Q1 => {{0, 2}, {1, 2}}        
+     1}                      weights => {-1, -1, 2}        
+                                                           
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1}              },
+                 IncidenceMatrix => | -1 0  |  
+                                    | 0  -1 |  
+                                    | 0  1  |  
+                                    | 1  0  |  
+                 Q0 => {0, 1, 2, 3}            
+                 Q1 => {{0, 3}, {1, 2}}        
+                 weights => {-1, -1, 1, 1}     
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1}              },
+                 IncidenceMatrix => | -1 0  |  
+                                    | 0  -1 |  
+                                    | 1  0  |  
+                                    | 0  1  |  
+                 Q0 => {0, 1, 2, 3}            
+                 Q1 => {{0, 2}, {1, 3}}        
+                 weights => {-1, -1, 1, 1}     
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1}              },
+                 IncidenceMatrix => | -1 0  |  
+                                    | 0  -1 |  
+                                    | 1  1  |  
+                 Q0 => {0, 1, 2}               
+                 Q1 => {{0, 2}, {1, 2}}        
+                 weights => {-1, -1, 2}        
+                                               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1}              },
+                 IncidenceMatrix => | -1 -1 |  
+                                    | 1  0  |  
+                                    | 0  1  |  
+                 Q0 => {0, 1, 2}               
+                 Q1 => {{0, 1}, {0, 2}}        
+                 weights => {-2, 1, 1}         
+                                               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 1}              },
+                 IncidenceMatrix => | -1 -1 0  |  
+                                    | 0  0  -1 |  
+                                    | 1  0  1  |  
+                                    | 0  1  0  |  
+                 Q0 => {0, 1, 2, 3}               
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}}   
+                 weights => {-2, -1, 2, 1}        
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 1}              },
+                 IncidenceMatrix => | -1 -1 0  |  
+                                    | 0  0  -1 |  
+                                    | 1  0  0  |  
+                                    | 0  1  1  |  
+                 Q0 => {0, 1, 2, 3}               
+                 Q1 => {{0, 2}, {0, 3}, {1, 3}}   
+                 weights => {-2, -1, 1, 2}        
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 1}              },
+                 IncidenceMatrix => | -1 0  0  |  
+                                    | 0  -1 -1 |  
+                                    | 1  1  0  |  
+                                    | 0  0  1  |  
+                 Q0 => {0, 1, 2, 3}               
+                 Q1 => {{0, 2}, {1, 2}, {1, 3}}   
+                 weights => {-1, -2, 2, 1}        
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 1}              }}
+                 IncidenceMatrix => | -1 0  0  |
+                                    | 0  -1 -1 |
+                                    | 0  1  0  |
+                                    | 1  0  1  |
+                 Q0 => {0, 1, 2, 3}
+                 Q1 => {{0, 3}, {1, 2}, {1, 3}}
+                 weights => {-1, -2, 1, 2}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : subquivers(bipartiteQuiver(2, 2), Format=>&quot;list&quot;)
+
+o5 = {{0}, {1}, {2}, {3}, {0, 1}, {0, 2}, {1, 2}, {0, 3}, {1, 3}, {2, 3}, {0,
+     ------------------------------------------------------------------------
+     1, 2}, {0, 1, 3}, {0, 2, 3}, {1, 2, 3}}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : subquivers(bipartiteQuiver(2, 2), Format=>&quot;quiver&quot;, AsSubquiver=>true)
+
+o6 = {ToricQuiver{flow => {1, 0, 0, 0}                  },
+                  IncidenceMatrix => | -1 -1 0  0  |      
+                                     | 0  0  -1 -1 |      
+                                     | 1  0  1  0  |      
+                                     | 0  1  0  1  |      
+                  Q0 => {0, 1, 2, 3}                      
+                  Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                  weights => {-1, 0, 1, 0}                
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 1, 0, 0}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-1, 0, 0, 1}                
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 0, 1, 0}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {0, -1, 1, 0}                
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 0, 0, 1}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {0, -1, 0, 1}                
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 0, 0}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-2, 0, 1, 1}                
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 0, 1, 0}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-1, -1, 2, 0}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 1, 1, 0}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-1, -1, 1, 1}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 0, 0, 1}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-1, -1, 1, 1}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 1, 0, 1}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-1, -1, 0, 2}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 0, 1, 1}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {0, -2, 1, 1}                
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 1, 0}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-2, -1, 2, 1}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 1, 0, 1}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-2, -1, 1, 2}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {1, 0, 1, 1}                  },
+                 IncidenceMatrix => | -1 -1 0  0  |      
+                                    | 0  0  -1 -1 |      
+                                    | 1  0  1  0  |      
+                                    | 0  1  0  1  |      
+                 Q0 => {0, 1, 2, 3}                      
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}  
+                 weights => {-1, -2, 2, 1}               
+     ------------------------------------------------------------------------
+     ToricQuiver{flow => {0, 1, 1, 1}                  }}
+                 IncidenceMatrix => | -1 -1 0  0  |
+                                    | 0  0  -1 -1 |
+                                    | 1  0  1  0  |
+                                    | 0  1  0  1  |
+                 Q0 => {0, 1, 2, 3}
+                 Q1 => {{0, 2}, {0, 3}, {1, 2}, {1, 3}}
+                 weights => {-1, -2, 1, 2}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>subquivers</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;subquivers(ToricQuiver)&quot;</tt>          </li>
+          <li>
+<span><tt>subquivers(Matrix)</tt> (missing documentation)<!--tag: (subquivers,Matrix)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="return all possible subquivers of a given quiver" href="_subquivers.html">subquivers</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>topWitnessSet -- returns a witness set and nonsolutions for the top dimensional solution set</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_top__Witness__Set_lp..._cm__Verbose_eq_gt..._rp.html">next</a> | <a href="_to__Laurent__Polynomial.html">previous</a> | <a href="_top__Witness__Set_lp..._cm__Verbose_eq_gt..._rp.html">forward</a> | <a href="_to__Laurent__Polynomial.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a> :: <a title="returns a witness set and nonsolutions for the top dimensional solution set" href="_top__Witness__Set.html">topWitnessSet</a>    </div>
+    <hr/>
+    <div>
+      <h1>topWitnessSet -- returns a witness set and nonsolutions for the top dimensional solution set</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(w,ns) = topWitnessSet(f,k)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials expected to have a component of dimension k</span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the expected (top) dimension of the solution set of f</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="option to specify whether additional output is wanted" href="_top__Witness__Set_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to specify whether additional output is wanted</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>w</tt>, <span>a <a title="a witness set" href="../../NAGtypes/html/___Witness__Set.html">witness set</a></span>, for the k-dimensional solution set of f</span>              </li>
+              <li>
+<span><tt>ns</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, solutions with nonzero value for the slack variable (the nonsolutions)</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+Constructs an embedding using <a title="constructs an embedding of a polynomial system" href="_construct__Embedding.html">constructEmbedding</a>, which calls <tt>phc -c</tt>                </li>
+                <li>
+Solves the system using <a title="a numerical blackbox solver" href="_solve__System.html">solveSystem</a>, which calls <tt>phc -b</tt>                </li>
+                <li>
+Filters the solutions                </li>
+                <li>
+Constructs the witness set of appropriate dimension.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The method <tt>topWitnessSet</tt> constructs an embedding for the given polynomial system with the given dimension, and then computes generic points on the solution set.</p>
+          <p>The computation of a witness set for the twisted cubic is illustrated below.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = { x^2 - y, x^3 - z };</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (w,ns) = topWitnessSet(f,1)
+
+o3 = (w, {})
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : dim(w)
+
+o4 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : degree(w)
+
+o5 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : toString equations(w)
+
+o6 = {x^2-y+(.380139-.924929*ii)*zz1, x^3-z+(-.45571+.890128*ii)*zz1, zz1}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : toString slice(w)
+
+o7 = {(-.205377-.978683*ii)*x+(.943327-.331864*ii)*y+(.673112+.739541*ii)*z
+     +(-.911067-.412259*ii)*zz1-.883724+.468009*ii}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : toString points(w)
+
+o8 = VerticalList{new Point from {Coordinates => {-.064406+1.00899*ii,
+     -1.0139-.129969*ii, .196438-1.01464*ii, -1.03558e-33-7.18097e-33*ii},
+     cache => CacheTable{...3...}}, new Point from {Coordinates =>
+     {-1.16558-.143085*ii, 1.3381+.333554*ii, -1.51194-.580247*ii,
+     -2.36625e-32+2.72991e-32*ii}, cache => CacheTable{...3...}}, new Point
+     from {Coordinates => {.840447+.055110*ii, .703315+.092635*ii,
+     .585994+.116614*ii, -1.00052e-32-9.34768e-33*ii}, cache =>
+     CacheTable{...3...}}}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>A witness set for the twisted cubic consists of the embedded system, a random linear hyperplane to slice the space curve, and three generic points.  Observe that the value for the last coordinate of all points equals (or is close to) zero. This last coordinate corresponds to the added slack variable zzk. Solutions with a nonzero value for the slack variable are called nonsolutions.  In the example above, the list of nonsolutions returned in ns by <tt>topWitnessSet</tt> was empty.</p>
+          <p>Often the solution of the embedded system leads to solutions with nonzero slack variables, as illustrated in the next example.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : R = CC[x,y,z]; f = { (x^2-y)*(x-2), (x^3 - z)*(y-2), (x*y - z)*(z-2) }
+
+        3     2              3      3                             2
+o10 = {x  - 2x  - x*y + 2y, x y - 2x  - y*z + 2z, x*y*z - 2x*y - z  + 2z}
+
+o10 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : (w,ns) = topWitnessSet(f,1);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : dim(w)
+
+o12 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : degree(w)
+
+o13 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : #ns
+
+o14 = 10</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The example is constructed to contain not only the twisted cubic, but also at least one isolated point (2,2,2). This is reflected in the list of nonsolutions.</p>
+          <p>The nonsolutions may be used as start solutions in a cascade of homotopies to find generic points on lower dimensional components.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="constructs an embedding of a polynomial system" href="_construct__Embedding.html">constructEmbedding</a> -- constructs an embedding of a polynomial system</span>          </li>
+          <li>
+<span><a title="a numerical blackbox solver" href="_solve__System.html">solveSystem</a> -- a numerical blackbox solver</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>topWitnessSet</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;topWitnessSet(List,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns a witness set and nonsolutions for the top dimensional solution set" href="_top__Witness__Set.html">topWitnessSet</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

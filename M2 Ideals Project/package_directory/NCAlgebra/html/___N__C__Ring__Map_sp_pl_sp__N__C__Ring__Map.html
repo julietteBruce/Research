@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>NCRingMap + NCRingMap -- Basic operations with NCRingMaps</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___N__C__Ring__Map_sp_at_at_sp__N__C__Ring__Map.html">next</a> | <a href="___N__C__Ring__Map.html">previous</a> | <a href="___N__C__Ring__Map_sp_at_at_sp__N__C__Ring__Map.html">forward</a> | <a href="___N__C__Ring__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">NCAlgebra</a> :: <a title="Basic operations with NCRingMaps" href="___N__C__Ring__Map_sp_pl_sp__N__C__Ring__Map.html">NCRingMap + NCRingMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>NCRingMap + NCRingMap -- Basic operations with NCRingMaps</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a unary or binary operator, usually used for addition" href="../../Macaulay2Doc/html/__pl.html">+</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">h = f + g or r*f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>an instance of the type <a title="Type of a map to or from a noncommutative ring." href="___N__C__Ring__Map.html">NCRingMap</a></span>, </span>              </li>
+              <li>
+<span><tt>g</tt>, <span>an instance of the type <a title="Type of a map to or from a noncommutative ring." href="___N__C__Ring__Map.html">NCRingMap</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>h</tt>, <span>an instance of the type <a title="Type of a map to or from a noncommutative ring." href="___N__C__Ring__Map.html">NCRingMap</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Defines the sum of NCRingMaps.  Though a linear combination of ring maps is not a ring map in general, this routine is useful in constructing ring maps programmatically.  The sum is defined only on generators of the common source of f and g, while for higher degree monomials m, one no longer has f(m) + g(m) = h(m) (so it is only the sum on words of length 1).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ{x,y}
+
+o1 = A
+
+o1 : NCPolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = ncMap(A,A,{x,y})
+
+o2 = NCRingMap A &lt;--- A
+
+o2 : NCRingMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : g = ncMap(A,A,{y,x})
+
+o3 = NCRingMap A &lt;--- A
+
+o3 : NCRingMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : h = 3*f + 4*g
+
+o4 = NCRingMap A &lt;--- A
+
+o4 : NCRingMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : matrix h
+
+o5 = | 4*y+3*x 3*y+4*x |
+
+o5 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : k = h^3
+
+o6 = NCRingMap A &lt;--- A
+
+o6 : NCRingMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : matrix k
+
+o7 = | 172*y+171*x 171*y+172*x |
+
+o7 : NCMatrix</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Basic operations with NCRingMaps" href="___N__C__Ring__Map_sp_pl_sp__N__C__Ring__Map.html">NCRingMap + NCRingMap</a> -- Basic operations with NCRingMaps</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

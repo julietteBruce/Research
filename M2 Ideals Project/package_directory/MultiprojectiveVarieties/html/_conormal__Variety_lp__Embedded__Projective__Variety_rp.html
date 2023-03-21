@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>conormalVariety(EmbeddedProjectiveVariety) -- the conormal variety of a projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_cycle__Class.html">next</a> | <a href="_cone__Of__Lines.html">previous</a> | <a href="_cycle__Class.html">forward</a> | <a href="_cone__Of__Lines.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="the conormal variety of a projective variety" href="_conormal__Variety_lp__Embedded__Projective__Variety_rp.html">conormalVariety(EmbeddedProjectiveVariety)</a>    </div>
+    <hr/>
+    <div>
+      <h1>conormalVariety(EmbeddedProjectiveVariety) -- the conormal variety of a projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="conormal variety" href="../../Resultants/html/_conormal__Variety.html">conormalVariety</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">conormalVariety X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>an <a title="the class of all embedded projective varieties" href="___Embedded__Projective__Variety.html">embedded projective variety</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="pass the singular locus of the variety" href="../../Resultants/html/___Singular__Locus.html">SingularLocus</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a href="../../Resultants/html/_conormal__Variety_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value &quot;Saturate&quot;</span>, </span>              </li>
+              <li>
+<span><a title="specify a name for a variable" href="../../Resultants/html/___Grass_lp..._cm__Variable_eq_gt..._rp.html">Variable</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">multi-projective variety</a></span>, the conormal variety of $X$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = PP_QQ^(2,2);
+
+o1 : ProjectiveVariety, surface in PP^5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C = conormalVariety X;
+
+o2 : ProjectiveVariety, 4-dimensional subvariety of PP^5 x PP^5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : p2 = multirationalMap last projections C;
+
+o3 : MultirationalMap (rational map from C to PP^5)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : image p2 == dual X
+
+o4 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the variety projectively dual to an embedded projective variety" href="_dual_lp__Embedded__Projective__Variety_rp.html">dual(EmbeddedProjectiveVariety)</a> -- the variety projectively dual to an embedded projective variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="the conormal variety of a projective variety" href="_conormal__Variety_lp__Embedded__Projective__Variety_rp.html">conormalVariety(EmbeddedProjectiveVariety)</a> -- the conormal variety of a projective variety</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

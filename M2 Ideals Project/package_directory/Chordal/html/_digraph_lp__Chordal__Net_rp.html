@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>digraph(ChordalNet) -- digraph associated to a chordal network</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_dim_lp__Chordal__Net_rp.html">next</a> | <a href="_constraint__Graph.html">previous</a> | <a href="_dim_lp__Chordal__Net_rp.html">forward</a> | <a href="_constraint__Graph.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="exploiting chordal structure in polynomial ideals" href="index.html">Chordal</a> :: <a title="digraph associated to a chordal network" href="_digraph_lp__Chordal__Net_rp.html">digraph(ChordalNet)</a>    </div>
+    <hr/>
+    <div>
+      <h1>digraph(ChordalNet) -- digraph associated to a chordal network</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="Constructs a digraph" href="../../Graphs/html/_digraph.html">digraph</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">digraph N</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>an instance of the type <a title="a chordal network" href="___Chordal__Net.html">ChordalNet</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>EntryMode</tt> (missing documentation)<!--tag: [digraph, EntryMode]-->
+<tt> => </tt><tt>...</tt>, <span>default value &quot;auto&quot;</span>, </span>              </li>
+              <li>
+<span><tt>Singletons</tt> (missing documentation)<!--tag: [digraph, Singletons]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a href="../../Graphs/html/___Digraph.html">digraph</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Returns the digraph associated to a chordal network. The vertices of this digraph are given by the <a title="a node of a chordal network" href="___Chordal__Net__Node.html">labels</a> of the nodes.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c,d,MonomialOrder=>Lex];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal {a*b, a*c, b*c, c*d};
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : N = chordalNet I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : chordalTria N;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : reduceNet N;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : N
+
+o6 = ChordalNet{ a => {a,  }    }
+                 b => {b,  , b}
+                 c => {c,  }
+                 d => { , d}
+
+o6 : ChordalNet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : nodes N / (Ni -> label Ni)
+
+o7 = {a_0, a_1, b_0, b_1, b_2, c_0, c_1, d_0, d_1}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : digraph N
+
+o8 = Digraph{a_0 => {b_0, b_1}}
+             a_1 => {b_2}
+             b_0 => {c_1}
+             b_1 => {c_0}
+             b_2 => {c_0}
+             c_0 => {d_0}
+             c_1 => {d_1}
+             d_0 => {}
+             d_1 => {}
+
+o8 : Digraph</code></pre>
+</td>          </tr>
+        </table>
+        <pre></pre>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="displays a chordal network using Graphivz" href="_display__Net.html">displayNet</a> -- displays a chordal network using Graphivz</span>          </li>
+          <li>
+<span><a title="construct chordal network from a digraph" href="_chordal__Net_lp__Hash__Table_cm__Hash__Table_cm__Elim__Tree_cm__Digraph_rp.html">chordalNet(HashTable,HashTable,ElimTree,Digraph)</a> -- construct chordal network from a digraph</span>          </li>
+          <li>
+<span><a title="Constructs a digraph" href="../../Graphs/html/_digraph.html">digraph</a> -- Constructs a digraph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="digraph associated to a chordal network" href="_digraph_lp__Chordal__Net_rp.html">digraph(ChordalNet)</a> -- digraph associated to a chordal network</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

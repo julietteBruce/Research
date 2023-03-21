@@ -1,0 +1,59 @@
+-- -*- M2-comint -*- hash: 604517444
+
+i1 : C = posHull matrix {{1,0,0},{0,1,0},{0,0,1}}
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o1 : Cone
+
+i2 : v = posHull matrix {{-1},{-1},{-1}}
+
+o2 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 1
+      number of facets => 1
+      number of rays => 1
+
+o2 : Cone
+
+i3 : F = fan {C,v}
+
+o3 = {ambient dimension => 3         }
+      number of generating cones => 2
+      number of rays => 4
+      top dimension of the cones => 3
+
+o3 : Fan
+
+i4 : isPure F
+
+o4 = false
+
+i5 : C1 = posHull{(faces(1,C))#0,v}
+
+o5 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o5 : Cone
+
+i6 : F = addCone(C1,F)
+
+o6 = {ambient dimension => 3         }
+      number of generating cones => 2
+      number of rays => 4
+      top dimension of the cones => 3
+
+o6 : Fan
+
+i7 : isPure F
+
+o7 = true
+
+i8 : 

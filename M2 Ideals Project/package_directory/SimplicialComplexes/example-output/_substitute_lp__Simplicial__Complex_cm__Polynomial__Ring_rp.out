@@ -1,0 +1,35 @@
+-- -*- M2-comint -*- hash: 1780438313
+
+i1 : S = ZZ/23[x,y,z,w];
+
+i2 : Δ = simplexComplex(3,S)
+
+o2 = simplicialComplex | xyzw |
+
+o2 : SimplicialComplex
+
+i3 : R = ZZ/101[a,b,c,d,e];
+
+i4 : Γ = substitute(Δ, R)
+
+o4 = simplicialComplex | abcd |
+
+o4 : SimplicialComplex
+
+i5 : code(substitute, SimplicialComplex, PolynomialRing)
+
+o5 = -- code for method: substitute(SimplicialComplex,PolynomialRing)
+     ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/SimplicialComplexes/Code.m2:671:78-681:72: --source code:
+     substitute(SimplicialComplex, PolynomialRing) := SimplicialComplex => (D, R) -> (
+         if ideal D === ideal(1_(ring D))
+         then (
+             I := sub(ideal D, R);
+             simplicialComplex monomialIdeal I
+             )
+         else (
+             n := numgens ring D;
+             simplicialComplex for F in facets D list sub(F, (vars R)_{0..n-1})
+             )
+         )
+
+i6 : 

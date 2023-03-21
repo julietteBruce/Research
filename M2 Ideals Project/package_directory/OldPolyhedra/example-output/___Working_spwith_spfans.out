@@ -1,0 +1,169 @@
+-- -*- M2-comint -*- hash: 1957317117
+
+i1 : C = posHull matrix {{1,0,0},{0,1,0},{0,0,1}}
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o1 : Cone
+
+i2 : F = fan C
+
+o2 = {ambient dimension => 3         }
+      number of generating cones => 1
+      number of rays => 3
+      top dimension of the cones => 3
+
+o2 : Fan
+
+i3 : maxCones F
+
+o3 = {{ambient dimension => 3           }}
+       dimension of lineality space => 0
+       dimension of the cone => 3
+       number of facets => 3
+       number of rays => 3
+
+o3 : List
+
+i4 : C1 = posHull matrix {{1,0,0},{1,1,0},{0,0,-1}}
+
+o4 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o4 : Cone
+
+i5 : commonFace(C,C1)
+
+o5 = false
+
+i6 : (b,C2) = areCompatible(C,C1)
+
+o6 = (false, {ambient dimension => 3           })
+              dimension of lineality space => 0
+              dimension of the cone => 2
+              number of facets => 2
+              number of rays => 2
+
+o6 : Sequence
+
+i7 : rays C2
+
+o7 = | 0 1 |
+     | 1 1 |
+     | 0 0 |
+
+              3        2
+o7 : Matrix ZZ  <--- ZZ
+
+i8 : C1 = posHull matrix {{1,0,0},{0,1,0},{0,0,-1}}
+
+o8 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o8 : Cone
+
+i9 : F = addCone(C1,F)
+
+o9 = {ambient dimension => 3         }
+      number of generating cones => 2
+      number of rays => 4
+      top dimension of the cones => 3
+
+o9 : Fan
+
+i10 : C2 = posHull matrix {{-1,0,0},{0,1,0},{0,0,1}};
+
+i11 : C3 = posHull matrix {{-1,0,0},{0,1,0},{0,0,-1}};
+
+i12 : C4 = posHull matrix {{-1,0,0},{0,-1,0},{0,0,1}};
+
+i13 : C5 = posHull matrix {{-1,0,0},{0,-1,0},{0,0,-1}};
+
+i14 : F1 = fan {C2,C3,C4,C5}
+
+o14 = {ambient dimension => 3         }
+       number of generating cones => 4
+       number of rays => 5
+       top dimension of the cones => 3
+
+o14 : Fan
+
+i15 : C6 = posHull matrix {{1,0,0},{0,-1,0},{0,0,1}};
+
+i16 : C7 = posHull matrix {{1,0,0},{0,-1,0},{0,0,-1}};
+
+i17 : F1 = addCone( {C6,C7}, F1)
+
+o17 = {ambient dimension => 3         }
+       number of generating cones => 6
+       number of rays => 6
+       top dimension of the cones => 3
+
+o17 : Fan
+
+i18 : F1 = addCone(F,F1)
+
+o18 = {ambient dimension => 3         }
+       number of generating cones => 8
+       number of rays => 6
+       top dimension of the cones => 3
+
+o18 : Fan
+
+i19 : P = hypercube 4
+
+o19 = {ambient dimension => 4           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 4
+       number of facets => 8
+       number of rays => 0
+       number of vertices => 16
+
+o19 : Polyhedron
+
+i20 : F2 = normalFan P
+
+o20 = {ambient dimension => 4          }
+       number of generating cones => 16
+       number of rays => 8
+       top dimension of the cones => 4
+
+o20 : Fan
+
+i21 : F3 = fan {posHull matrix {{1}},posHull matrix {{-1}}}
+
+o21 = {ambient dimension => 1         }
+       number of generating cones => 2
+       number of rays => 2
+       top dimension of the cones => 1
+
+o21 : Fan
+
+i22 : F1 = F3 * F1
+
+o22 = {ambient dimension => 4          }
+       number of generating cones => 16
+       number of rays => 8
+       top dimension of the cones => 4
+
+o22 : Fan
+
+i23 : ambDim F1
+
+o23 = 4
+
+i24 : F1 == F2
+
+o24 = true
+
+i25 : 

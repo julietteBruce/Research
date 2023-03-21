@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>createDpairs(PolynomialRing) -- pairs up the variables in Weyl algebra </title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_css__Expts.html">next</a> | <a href="___Cohomology__Groups.html">previous</a> | <a href="_css__Expts.html">forward</a> | <a href="___Cohomology__Groups.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="pairs up the variables in Weyl algebra " href="_create__Dpairs_lp__Polynomial__Ring_rp.html">createDpairs(PolynomialRing)</a>    </div>
+    <hr/>
+    <div>
+      <h1>createDpairs(PolynomialRing) -- pairs up the variables in Weyl algebra </h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="pairs up the variables in Weyl algebra " href="_create__Dpairs_lp__Polynomial__Ring_rp.html">createDpairs</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">createDpairs A</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, the Weyl algebra</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+attaches to <tt>A</tt> a pair of keys to help distinguish the coordinate variables from the derivation variables.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Since the Weyl algebra has commutation rules, this routine attaches to the Weyl algebra two keys to organize the variables.  The first key 'dpairVars' contains 3 lists: a list of the coordinate variables, a list of the derivative variables, and a list of the central variables.  The second key 'dpairInds' also contains 3 lists of the corresponding indices to 'dpairVars'.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : W = QQ[x,y,Dx,Dy, WeylAlgebra => {x=>Dx,y=>Dy}]
+
+o1 = W
+
+o1 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : createDpairs W </code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : W.dpairVars
+
+o3 = {{x, y}, {Dx, Dy}, {}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : W.dpairInds
+
+o4 = {{0, 1}, {2, 3}, {}}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="an optional argument" href="../../Macaulay2Doc/html/___Weyl__Algebra.html">WeylAlgebra</a> -- an optional argument</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="pairs up the variables in Weyl algebra " href="_create__Dpairs_lp__Polynomial__Ring_rp.html">createDpairs(PolynomialRing)</a> -- pairs up the variables in Weyl algebra </span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

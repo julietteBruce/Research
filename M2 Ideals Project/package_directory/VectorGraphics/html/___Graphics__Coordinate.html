@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>GraphicsCoordinate -- A type for coordinates</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Graphics__Html.html">next</a> | <a href="___Graphics__Ancestor.html">previous</a> | <a href="___Graphics__Html.html">forward</a> | <a href="___Graphics__Ancestor.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package to produce SVG graphics" href="index.html">VectorGraphics</a> :: <a title="A type for coordinates" href="___Graphics__Coordinate.html">GraphicsCoordinate</a>    </div>
+    <hr/>
+    <div>
+      <h1>GraphicsCoordinate -- A type for coordinates</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A type that is used to describe (possibly dynamic) coordinates. Internally all coordinates are in $\RR^4$ (projective coordinates). Any <a title="The ancestor class of all VectorGraphics graphical objects" href="___Graphics__Object.html">GraphicsObject</a> can be turned into a <b>GraphicsCoordinate</b> corresponding to the reference point $(0,0,0,1)$ in its local coordinate system. <b>GraphicsCoodinate</b>s can also be manipulated using various operations such as addition, multiplication by scalar, etc. Though you can perform the conversion from <a title="The ancestor class of all VectorGraphics graphical objects" href="___Graphics__Object.html">GraphicsObject</a> to <b>GraphicsCoodinate</b>s explicitly using &quot;new... from...&quot;, you do not ever need to do so since this conversion is performed automatically if you use a <a title="The ancestor class of all VectorGraphics graphical objects" href="___Graphics__Object.html">GraphicsObject</a> as coordinate inside another object, or apply arithmetic operations to it. A convenient way to define <b>GraphicsCoodinate</b>s is via <a title="VectorGraphics object(s) with a preferred reference origin" href="_g__Node.html">gNode</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : a=gNode([0,0],Circle{Radius=>1}); b=gNode([1,1],Circle{Radius=>1}); mid=a+b
+
+o3 = mid
+
+o3 : GraphicsCoordinate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gList(a,b,Circle{mid,Radius=>1-1/sqrt 2})
+
+o4 = GraphicsList{cache => CacheTable{}                                  }
+                  Contents => {a, b, Circle{cache => CacheTable{}      }}
+                                            Center => mid
+                                            Radius => .292893
+                                            style => MutableHashTable{}
+                  style => MutableHashTable{}
+
+o4 : GraphicsList</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that any object that the <b>GraphicsCoodinate</b> depends on must be provided explicitly as part of the picture, even if that object happens to be &quot;invisible&quot;. In the example that follows, <tt>a</tt> is an empty graphical object, yet it must be included in the <a title="Group together VectorGraphics objects" href="_g__List.html">gList</a> for the animation to work correctly.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : a=gNode([0,1],AnimMatrix=>rotation 0.1);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : gList(a,Circle{Radius=>1},Polygon{{a,[-1,0],[1,0]}})
+
+o6 = GraphicsList{cache => CacheTable{}                                                                         }
+                  Contents => {a, Circle{cache => CacheTable{}      }, Polygon{cache => CacheTable{}          }}
+                                         Center => | 0 |                       PointList => {a, | -1 |, | 1 |}
+                                                   | 0 |                                        |  0 |  | 0 |
+                                                   | 0 |                                        |  0 |  | 0 |
+                                                   | 1 |                                        |  1 |  | 1 |
+                                         Radius => 1                           style => MutableHashTable{}
+                                         style => MutableHashTable{}
+                  style => MutableHashTable{}
+
+o6 : GraphicsList</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse"/>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="A type for coordinates" href="___Graphics__Coordinate.html">GraphicsCoordinate</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="The ancestor class of all VectorGraphics objects" href="___Graphics__Ancestor.html">GraphicsAncestor</a> &lt; <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

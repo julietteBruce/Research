@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ShowTally -- optional input to choose if the tally is to be returned</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_statistics.html">next</a> | <a href="___Save__Bettis.html">previous</a> | <a href="_statistics.html">forward</a> | <a href="___Save__Bettis.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a> :: <a title="optional input to choose if the tally is to be returned" href="___Show__Tally.html">ShowTally</a>    </div>
+    <hr/>
+    <div>
+      <h1>ShowTally -- optional input to choose if the tally is to be returned</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If <tt>ShowTally => false</tt> (the default value), then only the 2 basic statistics - mean and standard deviation - of the function will be returned. If <tt>ShowTally => true</tt>, then both the statistics and the tally will be returned.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=ZZ/101[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 :       ideals = {monomialIdeal&quot;a3,b,c2&quot;, monomialIdeal&quot;a3,b,ac&quot;}
+
+                      3      2                   3
+o2 = {monomialIdeal (a , b, c ), monomialIdeal (a , b, a*c)}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 :       dimStats(ideals)
+
+o3 = (.5, .5)
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : mingenStats(ideals)
+
+o4 = (3, 0, 3, 0)
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In order to view the tally, ShowTally must be set to true (<tt>ShowTally => true</tt>) when the function is called:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : degStats(ideals)
+
+o5 = (3.5, 2.5)
+
+o5 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : pdimStats(ideals)
+
+o6 = (3, 0)
+
+o6 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : dimStats(ideals,ShowTally=>true)
+
+o7 = (.5, .5, Tally{0 => 1})
+                    1 => 1
+
+o7 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : mingenStats(ideals,ShowTally=>true)
+
+o8 = (3, 0, Tally{3 => 2}, 3, 0, Tally{3 => 2})
+
+o8 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : degStats(ideals,ShowTally=>true)
+
+o9 = (3.5, 2.5, Tally{1 => 1})
+                      6 => 1
+
+o9 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="statistics on the Krull dimension of a list of objects" href="_dim__Stats.html">dimStats</a> -- statistics on the Krull dimension of a list of objects</span>          </li>
+          <li>
+<span><a title="statistics on the minimal generators of a list of ideals: number and degree complexity" href="_mingen__Stats.html">mingenStats</a> -- statistics on the minimal generators of a list of ideals: number and degree complexity</span>          </li>
+          <li>
+<span><a title="statistics on the degrees of a list of objects" href="_deg__Stats.html">degStats</a> -- statistics on the degrees of a list of objects</span>          </li>
+          <li>
+<span><a title="statistics on the regularities of a list of objects" href="_reg__Stats.html">regStats</a> -- statistics on the regularities of a list of objects</span>          </li>
+          <li>
+<span><a title="statistics on projective dimension of a list of objects" href="_pdim__Stats.html">pdimStats</a> -- statistics on projective dimension of a list of objects</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>ShowTally</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;degStats(...,ShowTally=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;dimStats(...,ShowTally=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;mingenStats(...,ShowTally=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;pdimStats(...,ShowTally=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;regStats(...,ShowTally=>...)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="optional input to choose if the tally is to be returned" href="___Show__Tally.html">ShowTally</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

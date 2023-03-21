@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>LLL(...,Strategy=>...) -- choose among different algorithms</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___N__T__L.html">next</a> | <a href="___L__L__L_lp..._cm__Change__Matrix_eq_gt..._rp.html">previous</a> | <a href="___N__T__L.html">forward</a> | <a href="___L__L__L_lp..._cm__Change__Matrix_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="lattice reduction (Lenstra-Lenstra-Lovasz bases)" href="index.html">LLLBases</a> :: <a title="choose among different algorithms" href="___L__L__L_lp..._cm__Strategy_eq_gt..._rp.html">LLL(...,Strategy=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>LLL(...,Strategy=>...) -- choose among different algorithms</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">LLL(...,Strategy=>n)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span>The strategy n can be one of the symbols or lists given below.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+There are several variants of the LLL reduction algorithm implemented.  There are three all integer versions: <tt>NTL</tt>, <tt>CohenEngine</tt>, and <tt>CohenTopLevel</tt>. The NTL version (NTL is an excellent package written by Victor shoup) is generally the best, however, the top level version is written in the Macaulay2 language, and so is easily modifiable and can be used to understand the algorithm better.  There are also a number of approximate LLL variants implemented in NTL.  These use real numbers instead of exact integer arithmetic, and so are often much faster, but only provide approximate answers (i.e. the result might not be an LLL basis, only close to one).  Much of the information here about NTL's algorithms comes directly from the NTL documentation (translated to be relevant here).        <p/>
+Here is the complete list of possible strategies:        <ul>
+          <li>
+LLL(m, Strategy => NTL)          </li>
+          <li>
+LLL(m, Strategy => CohenEngine)          </li>
+          <li>
+LLL(m, Strategy => CohenTopLevel)          </li>
+          <li>
+            <hr/>
+          </li>
+          <li>
+LLL(m, Strategy => RealFP)          </li>
+          <li>
+LLL(m, Strategy => RealQP)          </li>
+          <li>
+LLL(m, Strategy => RealXD)          </li>
+          <li>
+LLL(m, Strategy => RealRR)          </li>
+          <li>
+            <hr/>
+          </li>
+          <li>
+LLL(m, Strategy => {Givens,RealFP})          </li>
+          <li>
+LLL(m, Strategy => {Givens,RealQP})          </li>
+          <li>
+LLL(m, Strategy => {Givens,RealXD})          </li>
+          <li>
+LLL(m, Strategy => {Givens,RealRR})          </li>
+          <li>
+            <hr/>
+          </li>
+          <li>
+LLL(m, Strategy => {BKZ,RealFP})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,RealQP})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,RealQP1})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,RealXD})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,RealRR})          </li>
+          <li>
+            <hr/>
+          </li>
+          <li>
+LLL(m, Strategy => {BKZ,Givens,RealFP})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,Givens,RealQP})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,Givens,RealQP1})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,Givens,RealXD})          </li>
+          <li>
+LLL(m, Strategy => {BKZ,Givens,RealRR})          </li>
+        </ul>
+The first three are similar all-integer algorithms, basically the one which appears in H. Cohen's book.  The rest of the algorithms are approximate variants, provided by Victor Shoup's NTL package. For these, there are three choices to be made: (1) the reduction condition, (2) the choice of orthogonalization strategy, and (3) the choice of precision.        <h2>Reduction condition</h2>
+        <ul>
+          <li>
+default -- the classical LLL reduction condition          </li>
+          <li>
+BKZ -- Block Korkin-Zolotarev reduction.This is slower, but yields a higher-quality basis, i.e., one with shorter vectors. For a description, see [C. P. Schnorr and M. Euchner, Proc. Fundamentals of Computation Theory, LNCS 529, pp. 68-85, 1991]. This basically generalizes the LLL reduction condition from blocks of size 2 to blocks of larger size.          </li>
+        </ul>
+        <h2>Orthogonalization Strategy</h2>
+        <ul>
+          <li>
+default -- Classical Gramm-Schmidt Orthogonalization, This choice uses classical methods for computing the Gramm-Schmidt othogonalization. It is fast but prone to stability problems. This strategy was first proposed by Schnorr and Euchner in the paper mentioned above. The version implemented here is substantially different, improving both stability and performance.          </li>
+          <li>
+Givens -- Givens Orthogonalization, This is a bit slower, but generally much more stable, and is really the preferred orthogonalization strategy. For a nice description of this, see Chapter 5 of [G. Golub and C. van Loan, Matrix Computations, 3rd edition, Johns Hopkins Univ. Press, 1996].          </li>
+        </ul>
+        <h2>Precision</h2>
+        <ul>
+          <li>
+RealFP -- double          </li>
+          <li>
+RealQP -- quad_float (quasi quadruple precision) useful when roundoff errors can cause problems          </li>
+          <li>
+RealQP1 -- only available in the BKZ variant, uses double precision for the search phase of the BKZ reduction, and quad_float for the orthogonalization          </li>
+          <li>
+RealXD -- xdouble (extended exponent doubles) useful when numbers get too big          </li>
+          <li>
+RealRR -- RR (arbitrary precision floating point) useful for large precision and magnitudes          </li>
+        </ul>
+Generally speaking, the choice RealFP will be the fastest, but may be prone to roundoff errors and/or overflow.        <h2>Putting it all together</h2>
+This subsection comes directly from Victor Shoup's LLL documentation        <p/>
+I think it is safe to say that nobody really understands how the LLL algorithm works.  The theoretical analyses are a long way from describing what &quot;really&quot; happens in practice.  Choosing the best variant for a certain application ultimately is a matter of trial and error.        <p/>
+The first thing to try is <tt>Strategy => RealFP</tt>. It is the fastest of the routines, and is adequate for many applications.        <p/>
+If there are precision problems, you will most likely get a warning message, something like &quot;warning--relaxing reduction&quot;. If there are overflow problems, you should get an error message saying that the numbers are too big.        <p/>
+If either of these happens, the next thing to try is <tt>Strategy=>{Givens,RealFP}</tt>, which uses the somewhat slower, but more stable, Givens rotations. This approach also has the nice property that the numbers remain smaller, so there is less chance of an overflow.        <p/>
+If you are still having precision problems try <tt>Strategy=>RealQP</tt> or <tt>Strategy=>{Givens,RealQP}</tt>, which use quadratic precision.        <p/>
+If you are still having overflow problems, try <tt>Strategy=>RealXD</tt> or <tt>Strategy=>{Givens,RealXD}</tt>        <p/>
+I haven't yet come across a case where one *really* needs the extra precision available in the RealRR variants.        <p/>
+All of the above discussion applies to the <tt>BKZ</tt> variants as well. In addition, if you have a matrix with really big entries, you might try using <tt>Strategy=>{Givens,RealFP}</tt> or <tt>Strategy=>RealXD</tt> first to reduce the sizes of the numbers, before running one of the <tt>BKZ</tt> variants.        <p/>
+Also, one shouldn't rule out using the &quot;all integer&quot; LLL routines. For some highly structured matrices, this is not necessarily much worse than some of the floating point versions, and can under certain circumstances even be better.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : m1 = map(ZZ^50, ZZ^50, (j,i) -> (i+1)^8 * (j+1)^4 + i + j + 2);
+
+              50        50
+o1 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : m = syz m1;
+
+              50        47
+o2 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time LLL m;
+     -- used 0.00932726 seconds
+
+              50        47
+o3 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time LLL(m, Strategy=>CohenEngine);
+     -- used 0.0510229 seconds
+
+              50        47
+o4 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time LLL(m, Strategy=>CohenTopLevel);
+     -- used 0.164491 seconds
+
+              50        47
+o5 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time LLL(m, Strategy=>{Givens,RealFP});
+     -- used 0.0113406 seconds
+
+              50        47
+o6 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : time LLL(m, Strategy=>{Givens,RealQP});
+     -- used 0.071228 seconds
+
+              50        47
+o7 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : time LLL(m, Strategy=>{Givens,RealXD});
+     -- used 0.0544708 seconds
+
+              50        47
+o8 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : time LLL(m, Strategy=>{Givens,RealRR});
+     -- used 0.329338 seconds
+
+              50        47
+o9 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : time LLL(m, Strategy=>{BKZ,Givens,RealQP});
+     -- used 0.184791 seconds
+
+               50        47
+o10 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <a title="use the all-integer LLL strategy from NTL library" href="___N__T__L.html">NTL</a></span>          </li>
+          <li>
+<span>Function: <span><a title="compute an LLL basis" href="___L__L__L.html">LLL</a> -- compute an LLL basis</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="an optional argument" href="../../Macaulay2Doc/html/___Strategy.html">Strategy</a> -- an optional argument</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+For most of the options, the columns do not need to be linearly independent.  The strategies CohenEngine and CohenTopLevel currently require the columns to be linearly independent.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="lattice reduction (Lenstra-Lenstra-Lovasz bases)" href="index.html">LLLBases</a> -- lattice reduction (Lenstra-Lenstra-Lovasz bases)</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Strategy</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;addHook(...,Strategy=>...)&quot;</tt> -- see <span><a title="add a hook function to an object for later processing" href="../../Macaulay2Doc/html/_add__Hook.html">addHook</a> -- add a hook function to an object for later processing</span></span>          </li>
+          <li>
+<span><tt>&quot;annihilator(...,Strategy=>...)&quot;</tt> -- see <span><a title="the annihilator ideal" href="../../Saturation/html/_annihilator.html">annihilator</a> -- the annihilator ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;associatedPrimes(...,Strategy=>...)&quot;</tt> -- see <span><a title="find associated primes" href="../../PrimaryDecomposition/html/_associated__Primes.html">associatedPrimes</a> -- find associated primes</span></span>          </li>
+          <li>
+<span><tt>&quot;basis(...,Strategy=>...)&quot;</tt> -- see <span><a title="basis or generating set of all or part of a ring, ideal or module" href="../../Macaulay2Doc/html/_basis.html">basis</a> -- basis or generating set of all or part of a ring, ideal or module</span></span>          </li>
+          <li>
+<span><tt>&quot;mingens(...,Strategy=>...)&quot;</tt> -- see <span><a title="a Strategy option value" href="../../Macaulay2Doc/html/___Complement.html">Complement</a> -- a Strategy option value</span></span>          </li>
+          <li>
+<span><tt>&quot;trim(...,Strategy=>...)&quot;</tt> -- see <span><a title="a Strategy option value" href="../../Macaulay2Doc/html/___Complement.html">Complement</a> -- a Strategy option value</span></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_determinant_lp..._cm__Strategy_eq_gt..._rp.html">determinant(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;dual(MonomialIdeal,List,Strategy=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span></span>          </li>
+          <li>
+<span><tt>&quot;dual(MonomialIdeal,RingElement,Strategy=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span></span>          </li>
+          <li>
+<span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_exterior__Power_lp..._cm__Strategy_eq_gt..._rp.html">exteriorPower(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;gb(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute a Gröbner basis" href="../../Macaulay2Doc/html/_gb.html">gb</a> -- compute a Gröbner basis</span></span>          </li>
+          <li>
+<span><tt>gcdLLL(...,Strategy=>...)</tt> (missing documentation)<!--tag: [gcdLLL, Strategy]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;GF(...,Strategy=>...)&quot;</tt> -- see <span><a title="make a finite field" href="../../Macaulay2Doc/html/___G__F.html">GF</a> -- make a finite field</span></span>          </li>
+          <li>
+<span><tt>&quot;groebnerBasis(...,Strategy=>...)&quot;</tt> -- see <span><a title="Gröbner basis, as a matrix" href="../../Macaulay2Doc/html/_groebner__Basis.html">groebnerBasis</a> -- Gröbner basis, as a matrix</span></span>          </li>
+          <li>
+<span><tt>hermite(...,Strategy=>...)</tt> (missing documentation)<!--tag: [hermite, Strategy]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;hooks(...,Strategy=>...)&quot;</tt> -- see <span><a title="list hooks attached to a key" href="../../Macaulay2Doc/html/_hooks.html">hooks</a> -- list hooks attached to a key</span></span>          </li>
+          <li>
+<span><tt>&quot;idealizer(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute Hom(I,I) as a quotient ring" href="../../IntegralClosure/html/_idealizer.html">idealizer</a> -- compute Hom(I,I) as a quotient ring</span></span>          </li>
+          <li>
+<span><a title="control the algorithm used" href="../../IntegralClosure/html/_integral__Closure_lp..._cm__Strategy_eq_gt..._rp.html">integralClosure(...,Strategy=>...)</a> -- control the algorithm used</span>          </li>
+          <li>
+<span><tt>&quot;intersect(Ideal,Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="compute an intersection of a sequence of ideals or modules" href="../../Macaulay2Doc/html/_intersect_lp__Ideal_cm__Ideal_rp.html">intersect(Ideal,Ideal)</a> -- compute an intersection of a sequence of ideals or modules</span></span>          </li>
+          <li>
+<span><tt>&quot;intersect(Module,Module,Strategy=>...)&quot;</tt> -- see <span><a title="compute an intersection of a sequence of ideals or modules" href="../../Macaulay2Doc/html/_intersect_lp__Ideal_cm__Ideal_rp.html">intersect(Ideal,Ideal)</a> -- compute an intersection of a sequence of ideals or modules</span></span>          </li>
+          <li>
+<span><tt>&quot;intersectInP(...,Strategy=>...)&quot;</tt> -- see <span><a title="Option for intersectInP" href="../../ReesAlgebra/html/_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">intersectInP(...,BasisElementLimit=>...)</a> -- Option for intersectInP</span></span>          </li>
+          <li>
+<span><tt>&quot;isPrimary(...,Strategy=>...)&quot;</tt> -- see <span><a title="determine whether a submodule is primary" href="../../PrimaryDecomposition/html/_is__Primary.html">isPrimary</a> -- determine whether a submodule is primary</span></span>          </li>
+          <li>
+<span><tt>&quot;isPrime(Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="whether an ideal is prime" href="../../MinimalPrimes/html/_is__Prime_lp__Ideal_rp.html">isPrime(Ideal)</a> -- whether an ideal is prime</span></span>          </li>
+          <li>
+<span><a title="choose among different algorithms" href="___L__L__L_lp..._cm__Strategy_eq_gt..._rp.html">LLL(...,Strategy=>...)</a> -- choose among different algorithms</span>          </li>
+          <li>
+<span><tt>&quot;localize(...,Strategy=>...)&quot;</tt> -- see <span><a title="localize an ideal at a prime ideal" href="../../PrimaryDecomposition/html/_localize.html">localize</a> -- localize an ideal at a prime ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;match(...,Strategy=>...)&quot;</tt> -- see <span><a title="regular expression matching" href="../../Macaulay2Doc/html/_match.html">match</a> -- regular expression matching</span></span>          </li>
+          <li>
+<span><tt>&quot;decompose(Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;minimalPrimes(...,Strategy=>...)&quot;</tt> -- see <span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_minors_lp..._cm__Strategy_eq_gt..._rp.html">minors(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;primaryComponent(...,Strategy=>...)&quot;</tt> -- see <span><a title="find a primary component corresponding to an associated prime" href="../../PrimaryDecomposition/html/_primary__Component.html">primaryComponent</a> -- find a primary component corresponding to an associated prime</span></span>          </li>
+          <li>
+<span><tt>pushForward(...,Strategy=>...)</tt> (missing documentation)<!--tag: [pushForward, Strategy]-->
+</span>          </li>
+          <li>
+<span><a href="../../Saturation/html/_quotient_lp..._cm__Strategy_eq_gt..._rp.html">quotient(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><tt>&quot;radical(...,Strategy=>...)&quot;</tt> -- see <span><a title="the radical of an ideal" href="../../MinimalPrimes/html/_radical.html">radical</a> -- the radical of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;radicalContainment(...,Strategy=>...)&quot;</tt> -- see <span><a title="whether an element is contained in the radical of an ideal" href="../../MinimalPrimes/html/_radical__Containment.html">radicalContainment</a> -- whether an element is contained in the radical of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;analyticSpread(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;distinguished(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;isLinearType(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;isReduction(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;minimalReduction(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;multiplicity(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;normalCone(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;reesAlgebra(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span>          </li>
+          <li>
+<span><tt>&quot;specialFiber(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;specialFiberIdeal(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;regSeqInIdeal(...,Strategy=>...)&quot;</tt> -- see <span><a title="a regular sequence contained in an ideal" href="../../PrimaryDecomposition/html/_reg__Seq__In__Ideal.html">regSeqInIdeal</a> -- a regular sequence contained in an ideal</span></span>          </li>
+          <li>
+<span><a href="../../Macaulay2Doc/html/_resolution_lp..._cm__Strategy_eq_gt..._rp.html">resolution(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><a href="../../Saturation/html/_saturate_lp..._cm__Strategy_eq_gt..._rp.html">saturate(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><tt>&quot;primaryDecomposition(...,Strategy=>...)&quot;</tt> -- see <span><a href="../../PrimaryDecomposition/html/_strategies_spfor_spcomputing_spprimary_spdecomposition.html">strategies for computing primary decomposition</a></span></span>          </li>
+          <li>
+<span><tt>&quot;syz(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute the syzygy matrix" href="../../Macaulay2Doc/html/_syz_lp__Matrix_rp.html">syz(Matrix)</a> -- compute the syzygy matrix</span></span>          </li>
+          <li>
+<span><tt>&quot;tangentCone(...,Strategy=>...)&quot;</tt> -- see <span><a href="../../TangentCone/html/_tangent__Cone_lp__Ideal_rp.html">tangentCone(Ideal)</a></span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

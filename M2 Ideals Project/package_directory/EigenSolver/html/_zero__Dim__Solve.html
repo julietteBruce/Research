@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>zeroDimSolve -- zero-dimensional polynomial system solver</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="index.html">previous</a> | forward | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="polynomial system solver via eigen-computations" href="index.html">EigenSolver</a> :: <a title="zero-dimensional polynomial system solver" href="_zero__Dim__Solve.html">zeroDimSolve</a>    </div>
+    <hr/>
+    <div>
+      <h1>zeroDimSolve -- zero-dimensional polynomial system solver</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">zeroDimSolve(I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a zero-dimensional ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Basis</tt> (missing documentation)<!--tag: [zeroDimSolve, Basis]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><tt>Multiplier</tt> (missing documentation)<!--tag: [zeroDimSolve, Multiplier]-->
+<tt> => </tt><tt>...</tt>, <span>default value 0</span>, </span>              </li>
+              <li>
+<span><tt>Strategy</tt> (missing documentation)<!--tag: [zeroDimSolve, Strategy]-->
+<tt> => </tt><tt>...</tt>, <span>default value &quot;Stickelberger&quot;</span>, </span>              </li>
+              <li>
+<span><tt>Tolerance</tt> (missing documentation)<!--tag: [zeroDimSolve, Tolerance]-->
+<tt> => </tt><tt>...</tt>, <span>default value .000001</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of points on V(I)</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function is a general-purpose solver for zero-dimensional polynomial systems. The default <tt>Strategy</tt> is <tt>&quot;Stickelberger&quot;</tt>, which leverages Stickelberger's theorem to compute the coordinates of solution points as (joint) eigenvalues of multiplication matrices corresponding to the variables of the ring.</p>
+          <p>The option <tt>Multiplier</tt> allows the user to specify the linear form used to construct the multiplication matrix. For example, if the ambient polynomial ring is $QQ[x,y,z]$ and only the $y$-coordinates of solutions are needed, then one can specify <tt>Multiplier => y</tt> (and ignore the coordinates of other solution points). By default, a random linear form is used: due to this, it may be helpful to run this function a couple of times to minimize the likelihood of a &quot;bad&quot; linear form being chosen.</p>
+          <p>The option <tt>Basis</tt> allows the user to specify a basis of the quotient $R/I$, if one is known. The default value is null, in which case a basis for $R/I$ will be computed via a Grobner basis computation.</p>
+          <p>In general, <tt>Strategy => &quot;Stickelberger&quot;</tt> does not require the input ideal I to be radical, so solutions may appear with multiplicity:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal&quot;x2,xy,y3&quot;
+
+             2        3
+o2 = ideal (x , x*y, y )
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : sols = zeroDimSolve I
+
+o3 = {{0, 0}, {-8.90741e-293, 0}, {0, -8.01667e-292}, {0, -8.01667e-292}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : #sols == 4 and all(sols, p -> clean(1e-16, matrix p) == 0)
+
+o4 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><tt>solveSystem</tt> (missing documentation)<!--tag: solveSystem-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>zeroDimSolve</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;zeroDimSolve(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="zero-dimensional polynomial system solver" href="_zero__Dim__Solve.html">zeroDimSolve</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>tMacaulayExpansion -- compute the t-Macaulay expansion of a positive integer</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_f__T__Vector.html">next</a> | <a href="_is__T__Strongly__Stable__Ideal.html">previous</a> | <a href="_f__T__Vector.html">forward</a> | <a href="_is__T__Strongly__Stable__Ideal.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with t-spread ideals of polynomial rings" href="index.html">TSpreadIdeals</a> > <a title="compute the t-Macaulay expansion of a positive integer" href="_t__Macaulay__Expansion.html">tMacaulayExpansion</a>    </div>
+    <hr/>
+    <div>
+      <h1>tMacaulayExpansion -- compute the t-Macaulay expansion of a positive integer</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">tMacaulayExpansion(a,n,d,t)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>a</tt>, a positive integer to be expanded</span>              </li>
+              <li>
+<span><tt>n</tt>, a positive integer that identifies the number of indeterminates</span>              </li>
+              <li>
+<span><tt>d</tt>, a positive integer that identifies the degree</span>              </li>
+              <li>
+<span><tt>t</tt>, a positive integer that idenfies the t-spread contest</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="optional boolean argument for tMacaulayExpansion" href="___Shift.html">Shift</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, optional boolean argument for tMacaulayExpansion</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, pairs of positive integers representing the <tt>d</tt>-th (shifted) t-Macaulay expansion of <tt>a</tt> with a given <tt>n</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Given four positive integers <tt>(a,n,d,t)</tt> there is a unique expression of <tt>a</tt> as a sum of binomials $a=\binom{a_d}{d} + \binom{a_{d-1}}{d-1} + \cdots + \binom{a_j}{j}.$ where $a_i > a_{i-1} > \cdots > a_j > j >= 1.$<br/>If the optional parameter <tt>Shift</tt> is <tt>true</tt>, then the method <tt>tMacaulayExpansion(a,n,d,t,Shift=>true)</tt> returns the shifted t-Macaulay expansion of <tt>a</tt>, that is, $a^{(d)}=\binom{a_d}{d+1} + \binom{a_{d-1}}{d} + \cdots + \binom{a_j}{j+1}.$To obtain the sum of the binomial coefficients represented in the output list, one can use the method <tt>solveBinomialExpansion.</tt>        <p>Examples:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : tMacaulayExpansion(50,12,2,1)
+
+o1 = {{10, 2}, {5, 1}}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : tMacaulayExpansion(50,12,2,1,Shift=>true)
+
+o2 = {{10, 3}, {5, 2}}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : tMacaulayExpansion(50,12,2,2,Shift=>true)
+
+o3 = {{9, 3}, {4, 2}}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the sum of a binomial expansion" href="_solve__Binomial__Expansion.html">solveBinomialExpansion</a> -- compute the sum of a binomial expansion</span>          </li>
+          <li>
+<span><a title="whether a given list of nonnegative integers is the ft-vector of a t-strongly stable ideal of a given polynomial ring" href="_is__F__T__Vector.html">isFTVector</a> -- whether a given list of nonnegative integers is the ft-vector of a t-strongly stable ideal of a given polynomial ring</span>          </li>
+          <li>
+<span><a title="optional boolean argument for tMacaulayExpansion" href="___Shift.html">Shift</a> -- optional boolean argument for tMacaulayExpansion</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>tMacaulayExpansion</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;tMacaulayExpansion(ZZ,ZZ,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute the t-Macaulay expansion of a positive integer" href="_t__Macaulay__Expansion.html">tMacaulayExpansion</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

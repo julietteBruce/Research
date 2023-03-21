@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>saturate(...,Strategy=>...)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_quotient_lp..._cm__Strategy_eq_gt..._rp.html">previous</a> | forward | <a href="_quotient_lp..._cm__Strategy_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="ideal and submodule quotient, saturation, and annihilator routines" href="index.html">Saturation</a> :: <a href="_saturate_lp..._cm__Strategy_eq_gt..._rp.html">saturate(...,Strategy=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>saturate(...,Strategy=>...)</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>There are four strategy values:</p>
+        </div>
+        <h2>Iterate</h2>
+<tt>saturate(I,J,Strategy => Iterate)</tt> -- indicates that successive ideal or module quotients should be used.        <p/>
+This value is the default.        <h2>Linear</h2>
+<tt>saturate(I,J,Strategy => Linear)</tt><tt>Strategy => Linear</tt> -- indicates that the reverse lex order should be used to compute the saturation.        <p/>
+This presumes that <tt>J</tt> is a single, linear polynomial, and that <tt>I</tt> is homogeneous.        <h2>Bayer</h2>
+<tt>saturate(I,f,Strategy => Bayer)</tt> -- indicates that the method of Bayer's thesis should be used.        <p/>
+The method is to compute <tt>(I:f)</tt> for <tt>I</tt> and <tt>f</tt> homogeneous, add a new variable <tt>z</tt>, compute a Gröbner basis of <tt>(I,f-z)</tt> in reverse lex order, divide by <tt>z</tt>, and finally replace <tt>z</tt> by <tt>f</tt>.        <h2>Eliminate</h2>
+<tt>saturate(I,f,Strategy => Eliminate)</tt> -- indicates that the saturation <tt>(I:f)</tt> should be computed by eliminating f<tt>z</tt> from <tt>(I,f*z-1)</tt>, where <tt>z</tt> is a new variable.      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <tt>null</tt></span>          </li>
+          <li>
+<span>Function: <span><a title="saturation of ideal or submodule" href="_saturate.html">saturate</a> -- saturation of ideal or submodule</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="an optional argument" href="../../Macaulay2Doc/html/___Strategy.html">Strategy</a> -- an optional argument</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Strategy</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;addHook(...,Strategy=>...)&quot;</tt> -- see <span><a title="add a hook function to an object for later processing" href="../../Macaulay2Doc/html/_add__Hook.html">addHook</a> -- add a hook function to an object for later processing</span></span>          </li>
+          <li>
+<span><tt>&quot;annihilator(...,Strategy=>...)&quot;</tt> -- see <span><a title="the annihilator ideal" href="_annihilator.html">annihilator</a> -- the annihilator ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;basis(...,Strategy=>...)&quot;</tt> -- see <span><a title="basis or generating set of all or part of a ring, ideal or module" href="../../Macaulay2Doc/html/_basis.html">basis</a> -- basis or generating set of all or part of a ring, ideal or module</span></span>          </li>
+          <li>
+<span><tt>&quot;mingens(...,Strategy=>...)&quot;</tt> -- see <span><a title="a Strategy option value" href="../../Macaulay2Doc/html/___Complement.html">Complement</a> -- a Strategy option value</span></span>          </li>
+          <li>
+<span><tt>&quot;trim(...,Strategy=>...)&quot;</tt> -- see <span><a title="a Strategy option value" href="../../Macaulay2Doc/html/___Complement.html">Complement</a> -- a Strategy option value</span></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_determinant_lp..._cm__Strategy_eq_gt..._rp.html">determinant(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;dual(MonomialIdeal,List,Strategy=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span></span>          </li>
+          <li>
+<span><tt>&quot;dual(MonomialIdeal,RingElement,Strategy=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span></span>          </li>
+          <li>
+<span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_exterior__Power_lp..._cm__Strategy_eq_gt..._rp.html">exteriorPower(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;gb(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute a Gröbner basis" href="../../Macaulay2Doc/html/_gb.html">gb</a> -- compute a Gröbner basis</span></span>          </li>
+          <li>
+<span><tt>&quot;GF(...,Strategy=>...)&quot;</tt> -- see <span><a title="make a finite field" href="../../Macaulay2Doc/html/___G__F.html">GF</a> -- make a finite field</span></span>          </li>
+          <li>
+<span><tt>&quot;groebnerBasis(...,Strategy=>...)&quot;</tt> -- see <span><a title="Gröbner basis, as a matrix" href="../../Macaulay2Doc/html/_groebner__Basis.html">groebnerBasis</a> -- Gröbner basis, as a matrix</span></span>          </li>
+          <li>
+<span><tt>&quot;hooks(...,Strategy=>...)&quot;</tt> -- see <span><a title="list hooks attached to a key" href="../../Macaulay2Doc/html/_hooks.html">hooks</a> -- list hooks attached to a key</span></span>          </li>
+          <li>
+<span><tt>&quot;intersect(Ideal,Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="compute an intersection of a sequence of ideals or modules" href="../../Macaulay2Doc/html/_intersect_lp__Ideal_cm__Ideal_rp.html">intersect(Ideal,Ideal)</a> -- compute an intersection of a sequence of ideals or modules</span></span>          </li>
+          <li>
+<span><tt>&quot;intersect(Module,Module,Strategy=>...)&quot;</tt> -- see <span><a title="compute an intersection of a sequence of ideals or modules" href="../../Macaulay2Doc/html/_intersect_lp__Ideal_cm__Ideal_rp.html">intersect(Ideal,Ideal)</a> -- compute an intersection of a sequence of ideals or modules</span></span>          </li>
+          <li>
+<span><tt>&quot;match(...,Strategy=>...)&quot;</tt> -- see <span><a title="regular expression matching" href="../../Macaulay2Doc/html/_match.html">match</a> -- regular expression matching</span></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_minors_lp..._cm__Strategy_eq_gt..._rp.html">minors(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>pushForward(...,Strategy=>...)</tt> (missing documentation)<!--tag: [pushForward, Strategy]-->
+</span>          </li>
+          <li>
+<span><a href="_quotient_lp..._cm__Strategy_eq_gt..._rp.html">quotient(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><a href="../../Macaulay2Doc/html/_resolution_lp..._cm__Strategy_eq_gt..._rp.html">resolution(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><a href="_saturate_lp..._cm__Strategy_eq_gt..._rp.html">saturate(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><tt>&quot;syz(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute the syzygy matrix" href="../../Macaulay2Doc/html/_syz_lp__Matrix_rp.html">syz(Matrix)</a> -- compute the syzygy matrix</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

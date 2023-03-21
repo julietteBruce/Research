@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>skewPolynomialRing -- Defines a skew polynomial ring via a skewing matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_skew__Polynomial__Ring_lp__Ring_cm__Ring__Element_cm__List_rp.html">next</a> | <a href="_size_lp__N__C__Ring__Element_rp.html">previous</a> | <a href="_skew__Polynomial__Ring_lp__Ring_cm__Ring__Element_cm__List_rp.html">forward</a> | <a href="_size_lp__N__C__Ring__Element_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">NCAlgebra</a> :: <a title="Defines a skew polynomial ring via a skewing matrix" href="_skew__Polynomial__Ring.html">skewPolynomialRing</a>    </div>
+    <hr/>
+    <div>
+      <h1>skewPolynomialRing -- Defines a skew polynomial ring via a skewing matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">B = skewPolynomialRing(R,M,L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>B</tt>, <span>an instance of the type <a title="Type of a noncommutative ring" href="___N__C__Ring.html">NCRing</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method constructs a skew polynomial ring with coefficients in the ring R and generators from the list L. A valid input matrix is a square matrix over R with at least #L rows such that M_{ij} = M_{ji}^{(-1)} and M_{ii}=1. The relations of the resulting ring have the form g_i*g_j - M_{ij}*g_j*g_i. If R is a Bergman coefficient ring, an NCGroebnerBasis is computed for B.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = matrix{{1,q,q},{q^4,1,1},{q^4,1,1}}
+
+o2 = | 1          q q |
+     | -q3-q2-q-1 1 1 |
+     | -q3-q2-q-1 1 1 |
+
+             3       3
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = skewPolynomialRing(R,M,{x,y,z})
+
+o3 = B
+
+o3 : NCQuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : x*y == q^4*y*x
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : N = matrix{{1,1,1,1},{1,1,1,1},{1,1,1,1},{1,1,1,1}}
+
+o5 = | 1 1 1 1 |
+     | 1 1 1 1 |
+     | 1 1 1 1 |
+     | 1 1 1 1 |
+
+              4        4
+o5 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C = skewPolynomialRing(QQ,promote(N,QQ), {a,b,c,d})
+--Calling Bergman for NCGB calculation.
+Complete!
+
+o6 = C
+
+o6 : NCQuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isCommutative C
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isCommutative B
+
+o8 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : Bop = oppositeRing B
+
+o9 = Bop
+
+o9 : NCQuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : y*x == q^4*x*y
+
+o10 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Creates the opposite ring of a noncommutative ring" href="_opposite__Ring.html">oppositeRing</a> -- Creates the opposite ring of a noncommutative ring</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>skewPolynomialRing</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;skewPolynomialRing(Ring,Matrix,List)&quot;</tt>          </li>
+          <li>
+<span><tt>&quot;skewPolynomialRing(Ring,QQ,List)&quot;</tt> -- see <span><a title="Defines a skew polynomial ring via a scaling factor" href="_skew__Polynomial__Ring_lp__Ring_cm__Ring__Element_cm__List_rp.html">skewPolynomialRing(Ring,RingElement,List)</a> -- Defines a skew polynomial ring via a scaling factor</span></span>          </li>
+          <li>
+<span><a title="Defines a skew polynomial ring via a scaling factor" href="_skew__Polynomial__Ring_lp__Ring_cm__Ring__Element_cm__List_rp.html">skewPolynomialRing(Ring,RingElement,List)</a> -- Defines a skew polynomial ring via a scaling factor</span>          </li>
+          <li>
+<span><tt>&quot;skewPolynomialRing(Ring,ZZ,List)&quot;</tt> -- see <span><a title="Defines a skew polynomial ring via a scaling factor" href="_skew__Polynomial__Ring_lp__Ring_cm__Ring__Element_cm__List_rp.html">skewPolynomialRing(Ring,RingElement,List)</a> -- Defines a skew polynomial ring via a scaling factor</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Defines a skew polynomial ring via a skewing matrix" href="_skew__Polynomial__Ring.html">skewPolynomialRing</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>multUpperHF -- test a sufficient condition for the upper bound of the multiplicity conjecture</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Print__Ideals.html">next</a> | <a href="_mult__Upper__Bound.html">previous</a> | <a href="___Print__Ideals.html">forward</a> | <a href="_mult__Upper__Bound.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with lex ideals" href="index.html">LexIdeals</a> :: <a title="test a sufficient condition for the upper bound of the multiplicity conjecture" href="_mult__Upper__H__F.html">multUpperHF</a>    </div>
+    <hr/>
+    <div>
+      <h1>multUpperHF -- test a sufficient condition for the upper bound of the multiplicity conjecture</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">B=multUpperHF(R,hilb)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, the polynomial ring in which one wants to work</span>              </li>
+              <li>
+<span><tt>hilb</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a Hilbert function for <tt>R</tt> modulo a homogeneous ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <tt>true</tt> if the sufficient condition holds and <tt>false</tt> otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function uses <a title="make all potentially possible cancellations in the graded free resolution of an ideal" href="_cancel__All.html">cancelAll</a> to test a sufficient condition for the upper bound of the Herzog-Huneke-Srinivasan conjecture to hold for all quotients of polynomial rings with Hilbert function <tt>hilb</tt>. The conjecture, proven in 2008 work of Eisenbud-Schreyer and Boij-Soderberg, asserts that if <tt>R</tt> is a polynomial ring, and <tt>I</tt> is a homogeneous ideal in <tt>R</tt>, then</p>
+          <p><tt>e(R/I) &lt;= M_1 ... M_c / c!</tt>,</p>
+          <p>where <tt>M_i</tt> is the largest shift at step <tt>i</tt> of the minimal graded free resolution of <tt>R/I</tt>, <tt>c</tt> is the codimension of <tt>I</tt>, and <tt>e(R/I)</tt> is the multiplicity of <tt>R/I</tt>.</p>
+          <p><tt>multUpperHF</tt> forms the lex ideal corresponding to the Hilbert function the user inputs. Then it calls <a title="make all potentially possible cancellations in the graded free resolution of an ideal" href="_cancel__All.html">cancelAll</a> to make all potentially possible cancellations in the resolution of the lex ideal (as described in the <a title="make all potentially possible cancellations in the graded free resolution of an ideal" href="_cancel__All.html">cancelAll</a> documentation). <a title="make all potentially possible cancellations in the graded free resolution of an ideal" href="_cancel__All.html">cancelAll</a> prints the diagram with the cancellations. In addition, <tt>multUpperHF</tt> compares the multiplicity associated to the given Hilbert function to the conjectured upper bound from the Betti diagram with the cancellations. If the conjectured inequality holds, the function returns <tt>true</tt>, and the conjectured upper bound is true for all modules <tt>R/I</tt> with the given Hilbert function. If the inequality fails, then the function returns <tt>false</tt>, and the sufficient condition does not hold. (However, this of course does not mean that the conjecture is false for the given Hilbert function; it may be that the Betti diagram with the cancellations cannot exist.) Note that since <tt>hilb</tt> is a finite list, all modules with that Hilbert function are Artinian and hence Cohen-Macaulay.</p>
+          <p>See C. Francisco, New approaches to bounding the multiplicity of an ideal, <em>J. Algebra</em> <b>299</b> (2006), no. 1, 309-328.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S=ZZ/32003[a..c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : betti res lexIdeal(S,{1,3,4,2,1}) --just to see the resolution of the lex ideal
+
+            0 1  2 3
+o2 = total: 1 7 10 4
+         0: 1 .  . .
+         1: . 2  1 .
+         2: . 3  5 2
+         3: . 1  2 1
+         4: . 1  2 1
+
+o2 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : multUpperHF(S,{1,3,4,2,1})
+
+total: 1 4 5 2
+    0: 1 . . .
+    1: . 2 . .
+    2: . 2 4 1
+    3: . . . .
+    4: . . 1 1
+
+degree = 11  upper bound = 21
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make all potentially possible cancellations in the graded free resolution of an ideal" href="_cancel__All.html">cancelAll</a> -- make all potentially possible cancellations in the graded free resolution of an ideal</span>          </li>
+          <li>
+<span><a title="determine whether an ideal satisfies the upper bound of the multiplicity conjecture" href="_mult__Upper__Bound.html">multUpperBound</a> -- determine whether an ideal satisfies the upper bound of the multiplicity conjecture</span>          </li>
+          <li>
+<span><a title="determine whether an ideal satisfies the lower bound of the multiplicity conjecture" href="_mult__Lower__Bound.html">multLowerBound</a> -- determine whether an ideal satisfies the lower bound of the multiplicity conjecture</span>          </li>
+          <li>
+<span><a title="determine whether an ideal satisfies the upper and lower bounds of the multiplicity conjecture" href="_mult__Bounds.html">multBounds</a> -- determine whether an ideal satisfies the upper and lower bounds of the multiplicity conjecture</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>multUpperHF</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;multUpperHF(PolynomialRing,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="test a sufficient condition for the upper bound of the multiplicity conjecture" href="_mult__Upper__H__F.html">multUpperHF</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

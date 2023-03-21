@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>segreDimX -- This method computes the dimension X part of the Segre class of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_segre.html">previous</a> | forward | <a href="_segre.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Tests containment of varieties and computes algebraic multiplicity of subvarieties and Fulton-MacPherson intersection products - via a very general Segre class computation" href="index.html">SegreClasses</a> :: <a title="This method computes the dimension X part of the Segre class of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces" href="_segre__Dim__X.html">segreDimX</a>    </div>
+    <hr/>
+    <div>
+      <h1>segreDimX -- This method computes the dimension X part of the Segre class of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">segreDimX(IX,IY,A)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>IX</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a multi-homogeneous ideal defining a closed subscheme of \PP^{n_1}x...x\PP^{n_m}; <a title="Makes the coordinate ring of a product of projective spaces." href="_make__Product__Ring.html">makeProductRing</a> builds the graded coordinate ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+              <li>
+<span><tt>IY</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a multi-homogeneous ideal defining a closed subscheme of \PP^{n_1}x...x\PP^{n_m}; <a title="Makes the coordinate ring of a product of projective spaces." href="_make__Product__Ring.html">makeProductRing</a> builds the graded coordinate ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">quotient ring</a></span>, the Chow ring of \PP^{n_1}x...x\PP^{n_m}. This ring can be built by applying <a title="Makes the Chow ring of a product of projective spaces." href="_make__Chow__Ring.html">makeChowRing</a> to the coordinate ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Verbose</tt> (missing documentation)<!--tag: [segreDimX, Verbose]-->
+<tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>s</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the dimension X part of the Segre class of the subscheme X defined by IX in the subscheme Y defined by IY as a class in the Chow ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>For subschemes X,Y of \PP^{n_1}x...x\PP^{n_m} this command computes the dimension X part of the Segre class s(X,Y) of X in Y as a class in the Chow ring of \PP^{n_1}x...x\PP^{n_m}. This is faster than computing the entire Segre class.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = makeProductRing({2,2})
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : x = gens(R)
+
+o2 = {a, b, c, d, e, f}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Y = ideal(random({2,2},R));
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : X = Y+ideal(x_0*x_3+x_1*x_4);
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : A = makeChowRing(R)
+
+o5 = A
+
+o5 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time s = segreDimX(X,Y,A)
+     -- used 0.176234 seconds
+
+       2             2
+o6 = 2H  + 4H H  + 2H
+       1     1 2     2
+
+o6 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : time segre(X,Y,A)
+     -- used 0.119244 seconds
+
+        2 2     2         2     2             2
+o7 = 12H H  - 6H H  - 6H H  + 2H  + 4H H  + 2H
+        1 2     1 2     1 2     1     1 2     2
+
+o7 : A</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>segreDimX</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;segreDimX(Ideal,Ideal,QuotientRing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="This method computes the dimension X part of the Segre class of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces" href="_segre__Dim__X.html">segreDimX</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

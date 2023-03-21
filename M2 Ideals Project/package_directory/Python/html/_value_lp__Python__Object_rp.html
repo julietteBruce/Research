@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>value(PythonObject) -- convert python objects to Macaulay2 things</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_truncate_lp__Python__Object_rp.html">previous</a> | forward | <a href="_truncate_lp__Python__Object_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="interface to Python" href="index.html">Python</a> :: <a title="convert python objects to Macaulay2 things" href="_value_lp__Python__Object_rp.html">value(PythonObject)</a>    </div>
+    <hr/>
+    <div>
+      <h1>value(PythonObject) -- convert python objects to Macaulay2 things</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="evaluate" href="../../Macaulay2Doc/html/_value.html">value</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">value x</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>x</tt>, <span>an instance of the type <a title="a python object" href="___Python__Object.html">PythonObject</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">thing</a></span>, the Macaulay2 equivalent of <tt>x</tt>; </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function attempts to convert <tt>x</tt> to its corresponding Macaulay2 equivalent.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : value pythonValue &quot;[1, 3.14159, 'foo', (1,2,3), {'foo':'bar'}]&quot;
+
+o1 = {1, 3.14159, foo, (1, 2, 3), HashTable{foo => bar}}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : class \ oo
+
+o2 = {ZZ, RR, String, Sequence, HashTable}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Since the type of <tt>x</tt> is not initially known, a sequence of <a href="../../Macaulay2Doc/html/_using_sphooks.html">hooks</a> are used to determine its type and then convert it.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : hooks value
+
+o3 = {0 => (value, PythonObject, Strategy => unknown -> PythonObject)    }
+     {1 => (value, PythonObject, Strategy => function -> FunctionClosure)}
+     {2 => (value, PythonObject, Strategy => Counter -> Tally)           }
+     {3 => (value, PythonObject, Strategy => dict -> HashTable)          }
+     {4 => (value, PythonObject, Strategy => set -> Set)                 }
+     {5 => (value, PythonObject, Strategy => list -> List)               }
+     {6 => (value, PythonObject, Strategy => tuple -> Sequence)          }
+     {7 => (value, PythonObject, Strategy => str -> String)              }
+     {8 => (value, PythonObject, Strategy => complex -> CC)              }
+     {9 => (value, PythonObject, Strategy => float -> RR)                }
+     {10 => (value, PythonObject, Strategy => int -> ZZ)                 }
+     {11 => (value, PythonObject, Strategy => bool -> Boolean)           }
+
+o3 : NumberedVerticalList</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If no conversion can be done, then <tt>x</tt> is returned.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : pythonValue &quot;int&quot;
+
+o4 = &lt;class 'int'>
+
+o4 : PythonObject of class type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : value oo
+
+o5 = &lt;class 'int'>
+
+o5 : PythonObject of class type</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Users may add additional hooks using <a title="add a hook function to an object for later processing" href="../../Macaulay2Doc/html/_add__Hook.html">addHook</a> or the convenience function <a title="convenience function for adding value hooks" href="_add__Py__To__M2__Function.html">addPyToM2Function</a>.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="convert python objects to Macaulay2 things" href="_value_lp__Python__Object_rp.html">value(PythonObject)</a> -- convert python objects to Macaulay2 things</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

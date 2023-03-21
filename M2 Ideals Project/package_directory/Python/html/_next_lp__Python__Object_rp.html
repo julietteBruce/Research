@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>next(PythonObject) -- retrieve the next item from a python iterator</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_object__Type.html">next</a> | <a href="_member_lp__Thing_cm__Python__Object_rp.html">previous</a> | <a href="_object__Type.html">forward</a> | <a href="_member_lp__Thing_cm__Python__Object_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="interface to Python" href="index.html">Python</a> :: <a title="retrieve the next item from a python iterator" href="_next_lp__Python__Object_rp.html">next(PythonObject)</a>    </div>
+    <hr/>
+    <div>
+      <h1>next(PythonObject) -- retrieve the next item from a python iterator</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="get the next object from an iterator" href="../../Macaulay2Doc/html/_next.html">next</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">next i</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>i</tt>, <span>an instance of the type <a title="a python object" href="___Python__Object.html">PythonObject</a></span>, an iterator; </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function works just like its <a href="https://docs.python.org/3/library/functions.html#next">Python counterpart</a>.  In particular, it retrieves the next item from an iterator.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : x = pythonValue &quot;range(3)&quot;
+
+o1 = range(0, 3)
+
+o1 : PythonObject of class range</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : i = iterator x
+
+o2 = &lt;range_iterator object at 0x7f582ec15650>
+
+o2 : PythonObject of class range_iterator</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : next i
+
+o3 = 0
+
+o3 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : next i
+
+o4 = 1
+
+o4 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : next i
+
+o5 = 2
+
+o5 : PythonObject of class int</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>When the iterator is exhausted, <a title="stop iteration" href="../../Macaulay2Doc/html/___Stop__Iteration.html">StopIteration</a> is returned.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : next i
+
+o6 = StopIteration
+
+o6 : Symbol</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="get iterator of iterable python object" href="_iterator_lp__Python__Object_rp.html">iterator(PythonObject)</a> -- get iterator of iterable python object</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="retrieve the next item from a python iterator" href="_next_lp__Python__Object_rp.html">next(PythonObject)</a> -- retrieve the next item from a python iterator</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>extAlgebra -- Compute the Ext algebra of a ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_four__Dim__Sklyanin.html">next</a> | <a href="_endomorphism__Ring__Ideal.html">previous</a> | <a href="_four__Dim__Sklyanin.html">forward</a> | <a href="_endomorphism__Ring__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Noncommutative algebra computations" href="index.html">AssociativeAlgebras</a> :: <a title="Compute the Ext algebra of a ring" href="_ext__Algebra.html">extAlgebra</a>    </div>
+    <hr/>
+    <div>
+      <h1>extAlgebra -- Compute the Ext algebra of a ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">extAlgebra(R,z)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+              <li>
+<span><tt>z</tt>, <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>DegreeLimit</tt><tt> => </tt><tt>...</tt>, <span>default value (5,10)</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="Type of a noncommutative ring" href="___Free__Algebra_sp_sl_sp__Ideal.html">quotient of a free algebra</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This command uses the functions <a title="creates a chain complex map representing an extension of modules" href="../../Complexes/html/_yoneda__Map_lp__Matrix_rp.html">yonedaMap</a> and <a title="identifies the element of Ext corresponding to a map of free resolutions" href="../../Complexes/html/_yoneda__Map_sq_lp__Complex__Map_rp.html">yonedaMap'</a> to compute a presentation of the Yoneda Ext algebra of the residue field of a commutative graded ring R.  Since this algebra is not finitely generated or finitely presented in general, one may (and should) provide degree bound information as an optional input.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y]/ideal(x^4,x^3*y,x*y^3)
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : ER = extAlgebra(R,z,DegreeLimit=>(5,10));
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : degrees ER
+
+o3 = {{1}, {1}, {2}, {2}, {2}, {3}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : ideal ER
+
+             2                2
+o4 = ideal (z , z z  + z z , z , - z z  + z z , - z z  - z z  + z z  + z z ,
+             1   1 2    2 1   2     1 3    3 1     1 4    2 3    3 2    4 1 
+     ------------------------------------------------------------------------
+     - z z  + z z , - z z  + z z , - z z  + z z , z z  + z z , z z  + z z )
+        2 4    4 2     1 5    5 1     2 5    5 2   1 6    6 1   2 6    6 2
+
+o4 : Ideal of QQ &lt;|z , z , z , z , z , z |>
+                    1   2   3   4   5   6</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Notice that the optional argument DegreeLimit is a pair $(m,n)$ where $m$ is the maximum degree of a generator or relation of the Ext algebra, and $n$ is the maximum degree that the Groebner basis of the defining ideal of the Ext algebra is computed.</p>
+        </div>
+        <div>
+          <p>The chain maps representing those elements of Ext chosen as generators are stored in the cache of the returned algebra:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : ER.cache#&quot;extMaps&quot;#(z_4)
+
+          1                   4
+o5 = 0 : R  &lt;--------------- R  : 2
+               | 0 0 1 0 |
+
+          2                               8
+     1 : R  &lt;--------------------------- R  : 3
+               {1} | 0 0 0 1 0 0 0 0 |
+               {1} | 0 0 1 0 0 0 0 0 |
+
+          4                                                  16
+     2 : R  &lt;---------------------------------------------- R   : 4
+               {2} | 0 -1 0 0 0 0 0 0 y2 0 0 x2 0 0 0 0 |
+               {4} | 0 0  0 0 0 0 0 0 1  0 0 0  0 0 0 0 |
+               {4} | 0 0  0 0 0 0 0 0 0  0 0 1  0 0 0 0 |
+               {4} | 0 0  0 0 0 0 0 0 0  0 0 0  0 0 1 0 |
+
+          8                                                                                 32
+     3 : R  &lt;----------------------------------------------------------------------------- R   : 5
+               {5} | 0 0 0 0 0 0 0 1 0 0 0  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  0 |
+               {5} | 0 0 0 1 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  0 |
+               {5} | 0 0 0 0 0 0 0 0 0 0 0  0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  0 |
+               {5} | 0 0 0 0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0  0 |
+               {5} | 0 0 0 0 0 0 0 0 0 0 0  0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0  0 |
+               {5} | 0 0 0 0 0 0 0 0 0 0 -1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0  0 |
+               {5} | 0 0 0 0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0  0 |
+               {6} | 0 0 0 0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 |
+
+o5 : ComplexMap</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If $R$ is a complete intersection, for any pair of finitely generated modules $M$ and $N$ over $R$, the total Ext module $\text{Ext}_R(M,N)$ is a finitely generated module over the central polynomial subalgebra of elements of homological degree two. The existing function <a title="total Ext module" href="../../Macaulay2Doc/html/___Ext_lp__Module_cm__Module_rp.html">Ext(Module,Module)</a> computes this module structure, but not the algebra structure.  Currently, the method used in this package does not use this functionality, as it is not clear how to extract the algebra structure from the current implementation (but this may change in the future).</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>extAlgebra</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;extAlgebra(Ring,Symbol)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute the Ext algebra of a ring" href="_ext__Algebra.html">extAlgebra</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

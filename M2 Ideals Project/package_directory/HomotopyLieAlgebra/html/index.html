@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>HomotopyLieAlgebra -- Homotopy Lie Algebra of a surjective ring homomorphism</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ad.html">next</a> | previous | <a href="_ad.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Homotopy Lie Algebra of a surjective ring homomorphism" href="index.html">HomotopyLieAlgebra</a> :: <a title="Homotopy Lie Algebra of a surjective ring homomorphism" href="index.html">HomotopyLieAlgebra</a>    </div>
+    <hr/>
+    <div>
+      <h1>HomotopyLieAlgebra -- Homotopy Lie Algebra of a surjective ring homomorphism</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If R = S/I, K is the Koszul complex on the generators of I, and A is the DGAlgebra that is the acyclic closure of K, then the homotopy Lie algebra Pi of the map S -->> R is defined as in Briggs ****, with underlying vector space the graded dual of the space spanned by a given set of generators of A.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[x,y]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = S/ideal(x^2,y^2,x*y)
+
+o2 = R
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : KR = koszulComplexDGA(ideal R)
+
+o3 = {Ring => S                      }
+      Underlying algebra => S[T ..T ]
+                               1   3
+                        2   2
+      Differential => {x , y , x*y}
+
+o3 : DGAlgebra</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Since the acyclic closure is infinitely generated, we must specify the maximum homological degree in which cycles will be killed</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : lastCyclesDegree = 4
+
+o4 = 4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : A = acyclicClosure(KR, EndDegree => lastCyclesDegree)
+
+o5 = {Ring => S                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
+      Underlying algebra => S[T ..T  ]
+                               1   25
+                        2   2                                                                                                                                                                                                                 2                                   2                                                                           2                                                                          2
+      Differential => {x , y , x*y, x*T  - y*T , - y*T  + x*T , T T  + y*T , - T T  + x*T  + y*T , - T T  + x*T , - T T  + y*T , - T T  + x*T , - T T  - T T  + y*T , - T T  - T T  + x*T , - T T  + y*T , - T T  + x*T , - T T  + y*T , - 50T  - T T  + x*T , - T T  + y*T  , 50T  - T T  + y*T  , T T  + x*T   - y*T  , - T T  - T T  + x*T   + y*T  , - 50T  - T T  + x*T  , - T T  - T T  - T T  + y*T   + y*T  , - T T  + x*T  , 50T  - T T  + y*T  , - T T  + x*T  }
+                                       2      3       1      3   2 3      4     1 2      4      5     1 3      5     2 4      6     3 4      6     3 4    2 5      7     1 4    3 5      7     3 5      8     1 5      8     2 6      9       4    3 6      9     3 6      10     4    2 7      11   4 5      11      12     1 6    3 7      10      12       5    1 7      12     4 5    3 7    2 8      12      13     3 8      13     5    3 8      14     1 8      14
+
+o5 : DGAlgebra</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The evaluation of bracketMatrix(A,d,e) gives the matrix of values of [Pi^d,Pi^e]. Here we are identifying the vector space spanned by the generators of A with its graded dual by taking the generators produced by the algorithm in the DGAlgebras package to be self-dual.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : bracketMatrix(A,1,1)
+
+o6 = | 2T_1 T_3  |
+     | T_3  2T_2 |
+
+                        2                  2
+o6 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                1   25             1   25</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : bracketMatrix(A,2,1)
+
+o7 = | 0   -T_5 |
+     | T_4 0    |
+     | T_5 -T_4 |
+
+                        3                  2
+o7 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                1   25             1   25</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : bracketMatrix(A,2,2)
+
+o8 = | 0   -T_7 -T_8 |
+     | T_7 0    T_6  |
+     | T_8 -T_6 0    |
+
+                        3                  3
+o8 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                1   25             1   25</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that bracketMatrix(A,d,e) is antisymmetric in d,e if one of them is even, and symmetric in d,e if both are odd</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : bracketMatrix(A,1,1) - transpose bracketMatrix(A,1,1)
+
+o9 = 0
+
+                        2                  2
+o9 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                1   25             1   25</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : bracketMatrix(A,2,1) + transpose bracketMatrix(A,1,2)
+
+o10 = 0
+
+                         3                  2
+o10 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                 1   25             1   25</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>References</h2>
+        <div>
+          <p>Briggs, Avramov</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="https://www.msri.org/~de">David Eisenbud</a><span> &lt;<a href="mailto:de@msri.org">de@msri.org</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.9</b> of HomotopyLieAlgebra.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/HomotopyLieAlgebra.m2">HomotopyLieAlgebra.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="matrix of the adjoint action" href="_ad.html">ad</a> -- matrix of the adjoint action</span>                  </li>
+                  <li>
+<span><a title="List the generators of a given degree" href="_allgens.html">allgens</a> -- List the generators of a given degree</span>                  </li>
+                  <li>
+<span><a title="Computes the Lie product" href="_bracket.html">bracket</a> -- Computes the Lie product</span>                  </li>
+                  <li>
+<span><a title="Multiplication matrix of the homotopy Lie algebra" href="_bracket__Matrix.html">bracketMatrix</a> -- Multiplication matrix of the homotopy Lie algebra</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;ad(DGAlgebra,RingElement,ZZ)&quot;</tt> -- see <span><a title="matrix of the adjoint action" href="_ad.html">ad</a> -- matrix of the adjoint action</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allgens(DGAlgebra)&quot;</tt> -- see <span><a title="List the generators of a given degree" href="_allgens.html">allgens</a> -- List the generators of a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allgens(DGAlgebra,ZZ)&quot;</tt> -- see <span><a title="List the generators of a given degree" href="_allgens.html">allgens</a> -- List the generators of a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bracket(DGAlgebra,List)&quot;</tt> -- see <span><a title="Computes the Lie product" href="_bracket.html">bracket</a> -- Computes the Lie product</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bracket(DGAlgebra,List,RingElement)&quot;</tt> -- see <span><a title="Computes the Lie product" href="_bracket.html">bracket</a> -- Computes the Lie product</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bracket(DGAlgebra,ZZ,ZZ)&quot;</tt> -- see <span><a title="Computes the Lie product" href="_bracket.html">bracket</a> -- Computes the Lie product</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bracketMatrix(DGAlgebra,ZZ,ZZ)&quot;</tt> -- see <span><a title="Multiplication matrix of the homotopy Lie algebra" href="_bracket__Matrix.html">bracketMatrix</a> -- Multiplication matrix of the homotopy Lie algebra</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Homotopy Lie Algebra of a surjective ring homomorphism" href="index.html">HomotopyLieAlgebra</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

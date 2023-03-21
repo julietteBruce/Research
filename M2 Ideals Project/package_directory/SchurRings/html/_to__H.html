@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toH -- Complete symmetric (h-) basis representation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_to__P.html">next</a> | <a href="_to__E.html">previous</a> | <a href="_to__P.html">forward</a> | <a href="_to__E.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Rings representing irreducible representations of general linear or symmetric groups" href="index.html">SchurRings</a> :: <a title="Complete symmetric (h-) basis representation" href="_to__H.html">toH</a>    </div>
+    <hr/>
+    <div>
+      <h1>toH -- Complete symmetric (h-) basis representation</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">fh = toH f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, element of a Symmetric or Schur ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>fh</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, element of a Symmetric ring</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p></p>
+          <p>Given a symmetric function <tt>f</tt>, the function <tt>toH</tt> yields a representation of <tt>f</tt> as a polynomial in the complete symmetric functions.</p>
+          <p>If <tt>f</tt> is an element of a Schur ring <tt>S</tt> then the output <tt>fh</tt> is an element of the Symmetric ring associated to <tt>S</tt> (see <a title="Make a Symmetric ring" href="_symmetric__Ring.html">symmetricRing</a>).</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = symmetricRing 7;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : toH(h_3*e_3)
+
+      3                2
+o2 = h h  - 2h h h  + h
+      1 3     1 2 3    3
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = schurRing(s,4)
+
+o3 = S
+
+o3 : SchurRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : toH S_{3,2,1}
+
+        6     4       2 2     3                2    2
+o4 = - h  + 4h h  - 3h h  - 3h h  + 3h h h  - h  + h h
+        1     1 2     1 2     1 3     1 2 3    3    1 4
+
+o4 : QQ[e ..e , p ..p , h ..h ]
+         1   4   1   4   1   4</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>This also works over tensor products of Symmetric/Schur rings.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = schurRing(r, 4, EHPVariables => (a,b,c));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S = schurRing(R, s, 2, EHPVariables => (x,y,z));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : T = schurRing(S, t, 3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : A = symmetricRing T;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : f = (r_1+s_1+t_1)^2
+
+o9 = t  + t    + (2r  s  + 2r s  )t  + (s  + s    + 2r s  + (r  +
+      2    1,1      () 1     1 ()  1     2    1,1     1 1     2  
+     ------------------------------------------------------------------------
+     r   )s  )t
+      1,1  ()  ()
+
+o9 : T</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : toH f
+
+       2                    2            2
+o10 = h  + (2y  + 2b )h  + y  + 2b y  + b
+       1      1     1  1    1     1 1    1
+
+o10 : A</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Elementary symmetric (e-) basis representation" href="_to__E.html">toE</a> -- Elementary symmetric (e-) basis representation</span>          </li>
+          <li>
+<span><a title="Schur (s-) basis representation" href="_to__S.html">toS</a> -- Schur (s-) basis representation</span>          </li>
+          <li>
+<span><a title="Power-sum (p-) basis representation" href="_to__P.html">toP</a> -- Power-sum (p-) basis representation</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toH</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toH(RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Complete symmetric (h-) basis representation" href="_to__H.html">toH</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>beilinsonContraction -- compute a Beilinson contraction</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_beilinson__Window.html">next</a> | <a href="_beilinson__Bundle.html">previous</a> | <a href="_beilinson__Window.html">forward</a> | <a href="_beilinson__Bundle.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computation of parts of the Tate resolution on products" href="index.html">TateOnProducts</a> :: <a title="compute a Beilinson contraction" href="_beilinson__Contraction.html">beilinsonContraction</a>    </div>
+    <hr/>
+    <div>
+      <h1>beilinsonContraction -- compute a Beilinson contraction</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">beilinsonContraction(e, rowdeg, coldeg)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>e</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, an element of the exterior algebra E</span>              </li>
+              <li>
+<span><tt>rowdeg</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>coldeg</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, two multidegrees</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>BundleType</tt><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value PrunedQuotient</span>, with values PrunedQuotient or SubBundle</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a map between modules over the symmetric algebra S</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Returns a map between two Beilinson generators (i.e. the beilinson generators beilinsonBundle(a, E) of the derived category). Note:</p>
+          <p>(1) (S,E) is the result of productOfProjectiveSpaces</p>
+          <p>(2) e is a homogeneous element of E giving a map from E(-coldeg) --> E(-rowdeg).</p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : (S,E) = productOfProjectiveSpaces {2,1}
+
+o1 = (S, E)
+
+o1 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : gens S, gens E
+
+o2 = ({x   , x   , x   , x   , x   }, {e   , e   , e   , e   , e   })
+        0,0   0,1   0,2   1,0   1,1     0,0   0,1   0,2   1,0   1,1
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f=e_(0,0)*e_(0,1)*e_(1,0)
+
+o3 = e   e   e
+      0,0 0,1 1,0
+
+o3 : E</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : beilinsonContraction(f,{0,0},{2,1})
+
+o4 = | x_(0,2)x_(1,1) |
+
+             1       1
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : m=beilinsonContraction(e_(0,0)*e_(1,0),{0,0},{1,1})
+
+o5 = | x_(0,1)x_(1,1) x_(0,2)x_(1,1) 0 |
+
+             1       3
+o5 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>E is positively graded, in contrast to the paper!</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="apply the beilinson functor" href="_beilinson.html">beilinson</a> -- apply the beilinson functor</span>          </li>
+          <li>
+<span><a title="compute a basic Beilinson bundle" href="_beilinson__Bundle.html">beilinsonBundle</a> -- compute a basic Beilinson bundle</span>          </li>
+          <li>
+<span><a title="Option in beilinson with values PrunedQuotient, QuotientBundle, DummyQuotientBundle, SubBundle, FreeBundle, or MapsBetweenFreeBundles" href="___Bundle__Type.html">BundleType</a> -- Option in beilinson with values PrunedQuotient, QuotientBundle, DummyQuotientBundle, SubBundle, FreeBundle, or MapsBetweenFreeBundles</span>          </li>
+          <li>
+<span><a title="value for the option BundleType in beilinson" href="___Sub__Bundle.html">SubBundle</a> -- value for the option BundleType in beilinson</span>          </li>
+          <li>
+<span><a title="value for the option BundleType in beilinson" href="___Pruned__Quotient.html">PrunedQuotient</a> -- value for the option BundleType in beilinson</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>beilinsonContraction</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;beilinsonContraction(RingElement,List,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute a Beilinson contraction" href="_beilinson__Contraction.html">beilinsonContraction</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

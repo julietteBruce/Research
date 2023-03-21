@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>generateGraphs -- generates the graphs on a given number of vertices</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_generate__Random__Graphs.html">next</a> | <a href="_generate__Bipartite__Graphs.html">previous</a> | <a href="_generate__Random__Graphs.html">forward</a> | <a href="_generate__Bipartite__Graphs.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Interface to nauty" href="index.html">Nauty</a> :: <a title="generates the graphs on a given number of vertices" href="_generate__Graphs.html">generateGraphs</a>    </div>
+    <hr/>
+    <div>
+      <h1>generateGraphs -- generates the graphs on a given number of vertices</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = generateGraphs n</code></dd>
+              <dd><code class="language-macaulay2">G = generateGraphs(n, e)</code></dd>
+              <dd><code class="language-macaulay2">G = generateGraphs(n, le, ue)</code></dd>
+              <dd><code class="language-macaulay2">G = generateGraphs R</code></dd>
+              <dd><code class="language-macaulay2">G = generateGraphs(R, e)</code></dd>
+              <dd><code class="language-macaulay2">G = generateGraphs(R, le, ue)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, the ring in which the graphs will be created</span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the number of vertices of the graphs, must be positive (see caveat)</span>              </li>
+              <li>
+<span><tt>e</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the number of edges in the graphs</span>              </li>
+              <li>
+<span><tt>le</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, a lower bound on the number of edges in the graphs</span>              </li>
+              <li>
+<span><tt>ue</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, an upper bound on the number of edges in the graphs</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>MaxDegree</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value null</span>, an upper bound on the degrees of the vertices</span>              </li>
+              <li>
+<span><tt>MinDegree</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value null</span>, a lower bound on the degrees of the vertices</span>              </li>
+              <li>
+<span><tt>Only4CycleFree</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to only allow graphs without 4-cycles</span>              </li>
+              <li>
+<span><tt>OnlyBiconnected</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to only allow biconnected graphs</span>              </li>
+              <li>
+<span><tt>OnlyBipartite</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to only allow bipartite graphs</span>              </li>
+              <li>
+<span><tt>OnlyConnected</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to only allow connected graphs</span>              </li>
+              <li>
+<span><tt>OnlyTriangleFree</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to only allow graphs without triangles (3-cycles)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the graphs satisfying the input conditions</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method generates all graphs on $n$ vertices subject to the constraints on the number of edges.  It uses numerous options to allow further constraining of the output.</p>
+        </div>
+        <div>
+          <p>If a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">PolynomialRing</a> $R$ is supplied instead, then the number of vertices is the number of generators.  Moreover, the nauty-derived strings are automatically converted to instances of the class <a title="a class for graphs" href="../../EdgeIdeals/html/___Graph.html">Graph</a> in $R$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a..e];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : generateGraphs(R, 4, 6, OnlyConnected => true)
+
+o2 = {Graph{edges => {{a, e}, {b, e}, {c, e}, {d, e}}},
+            ring => R                                  
+            vertices => {a, b, c, d, e}                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, d}, {a, e}, {b, e}, {c, e}}},
+           ring => R                                  
+           vertices => {a, b, c, d, e}                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, d}, {a, e}, {b, e}, {c, e}, {d, e}}},
+           ring => R                                          
+           vertices => {a, b, c, d, e}                        
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, d}, {b, d}, {a, e}, {b, e}, {c, e}}},
+           ring => R                                          
+           vertices => {a, b, c, d, e}                        
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, d}, {b, d}, {a, e}, {c, e}, {d, e}}},
+           ring => R                                          
+           vertices => {a, b, c, d, e}                        
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, d}, {b, d}, {a, e}, {b, e}, {c, e}, {d, e}}},
+           ring => R                                                  
+           vertices => {a, b, c, d, e}                                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, d}, {b, d}, {c, d}, {a, e}, {b, e}, {c, e}}},
+           ring => R                                                  
+           vertices => {a, b, c, d, e}                                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, c}, {b, d}, {a, e}, {b, e}}},
+           ring => R                                  
+           vertices => {a, b, c, d, e}                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, c}, {b, d}, {a, e}, {b, e}, {c, e}}},
+           ring => R                                          
+           vertices => {a, b, c, d, e}                        
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, c}, {b, d}, {a, e}, {b, e}, {c, e}, {d, e}}},
+           ring => R                                                  
+           vertices => {a, b, c, d, e}                                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, c}, {a, d}, {b, d}, {b, e}, {c, e}}},
+           ring => R                                          
+           vertices => {a, b, c, d, e}                        
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, c}, {a, d}, {b, d}, {a, e}, {b, e}, {c, e}}},
+           ring => R                                                  
+           vertices => {a, b, c, d, e}                                
+     ------------------------------------------------------------------------
+     Graph{edges => {{a, c}, {a, d}, {c, d}, {a, e}, {b, e}, {c, e}}}}
+           ring => R
+           vertices => {a, b, c, d, e}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The number of vertices $n$ must be positive as nauty cannot handle graphs with zero vertices.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a href="___Example_co_sp__Generating_spand_spfiltering_spgraphs.html">Example: Generating and filtering graphs</a></span>          </li>
+          <li>
+<span><a title="generates the bipartite graphs with a given bipartition" href="_generate__Bipartite__Graphs.html">generateBipartiteGraphs</a> -- generates the bipartite graphs with a given bipartition</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>generateGraphs</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;generateGraphs(PolynomialRing)&quot;</tt>          </li>
+          <li>
+<tt>&quot;generateGraphs(PolynomialRing,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;generateGraphs(PolynomialRing,ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;generateGraphs(ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;generateGraphs(ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;generateGraphs(ZZ,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="generates the graphs on a given number of vertices" href="_generate__Graphs.html">generateGraphs</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>The generators of the integral closure of the Rees algebra of a monomial ideal.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___The_sp__Hilbert_spbasis_spand_spthe_spsupport_sphyperplanes_spof_spa_sprational_spcone..html">next</a> | <a href="_show__Nmz__Options.html">previous</a> | <a href="___The_sp__Hilbert_spbasis_spand_spthe_spsupport_sphyperplanes_spof_spa_sprational_spcone..html">forward</a> | <a href="_show__Nmz__Options.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a href="___The_spgenerators_spof_spthe_spintegral_spclosure_spof_spthe_sp__Rees_spalgebra_spof_spa_spmonomial_spideal..html">The generators of the integral closure of the Rees algebra of a monomial ideal.</a>    </div>
+    <hr/>
+    <div>
+      <h1>The generators of the integral closure of the Rees algebra of a monomial ideal.</h1>
+      <div>
+        <p/>
+We use <a title="normalization of Rees algebra" href="_intcl__Mon__Ideal.html">intclMonIdeal</a> to compute the integral closure of a monomial ideal and of its Rees algebra.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=ZZ/37[x_1..x_7];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I=ideal(x_1..x_6, x_1*x_2*x_3*x_7, x_1*x_2*x_4*x_7, x_1*x_3*x_5*x_7, x_1*x_4*x_6*x_7, x_1*x_5*x_6*x_7, x_2*x_3*x_6*x_7, x_2*x_4*x_5*x_7, x_2*x_5*x_6*x_7,x_3*x_4*x_5*x_7,x_3*x_4*x_6*x_7);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (intcl,rees)=intclMonIdeal I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : intcl
+
+o4 = ideal (x , x , x , x , x , x )
+             6   5   4   3   2   1
+
+              ZZ
+o4 : Ideal of --[x ..x , a]
+              37  1   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : rees
+
+     ZZ
+o5 = --[x , x , x a, x , x a, x , x a, x , x a, x , x a, x , x a]
+     37  7   6   6    5   5    4   4    3   3    2   2    1   1
+
+                            ZZ
+o5 : monomial subalgebra of --[x ..x , a]
+                            37  1   7</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+The first entry is an ideal, the integral closure of the original ideal, the second one a monomial subalgebra. Each variable in the example appears in a generator of the ideal. Therefore an auxiliary variable <em>a</em> is added to the ring. If there were a free variable in the ring, say x_8, then one can give this variable as a second argument to the function, which then is used as auxiliary variable.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R=ZZ/37[x_1..x_8];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : I=ideal(x_1..x_6, x_1*x_2*x_3*x_7, x_1*x_2*x_4*x_7, x_1*x_3*x_5*x_7, x_1*x_4*x_6*x_7, x_1*x_5*x_6*x_7, x_2*x_3*x_6*x_7, x_2*x_4*x_5*x_7, x_2*x_5*x_6*x_7,x_3*x_4*x_5*x_7,x_3*x_4*x_6*x_7);
+
+o7 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : (intcl,rees)=intclMonIdeal(I,x_8);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : intcl
+
+o9 = ideal (x , x , x , x , x , x )
+             6   5   4   3   2   1
+
+o9 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : rees
+
+      ZZ
+o10 = --[x , x , x x , x , x x , x , x x , x , x x , x , x x , x , x x ]
+      37  7   6   6 8   5   5 8   4   4 8   3   3 8   2   2 8   1   1 8
+
+o10 : monomial subalgebra of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+
+</html>

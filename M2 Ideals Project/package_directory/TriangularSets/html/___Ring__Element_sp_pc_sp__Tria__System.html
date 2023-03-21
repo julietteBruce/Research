@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RingElement % TriaSystem -- pseudo-remainder by a triangular set</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Ring__Map_sp__Tria__System.html">next</a> | <a href="_resultant_lp__Ring__Element_cm__Tria__System_rp.html">previous</a> | <a href="___Ring__Map_sp__Tria__System.html">forward</a> | <a href="_resultant_lp__Ring__Element_cm__Tria__System_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="triangular decompositions of polynomial ideals" href="index.html">TriangularSets</a> :: <a title="pseudo-remainder by a triangular set" href="___Ring__Element_sp_pc_sp__Tria__System.html">RingElement % TriaSystem</a>    </div>
+    <hr/>
+    <div>
+      <h1>RingElement % TriaSystem -- pseudo-remainder by a triangular set</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for remainder and reduction" href="../../Macaulay2Doc/html/__pc.html">%</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">f % T</code></dd>
+              <dd><code class="language-macaulay2">pseudoRemainder(f,T)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, </span>              </li>
+              <li>
+<span><tt>T</tt>, <span>an instance of the type <a title="a triangular system" href="___Tria__System.html">TriaSystem</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, pseudo-remainder of f by T</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Returns the pseudo-remainder, $prem(f,T)$, of $f$ by a triangular set $T$.</p>
+          <p>Let $T = (t_1,t_2,\cdots,t_k)$ where $mvar(t_1)>\cdots>mvar(t_k)$. The pseudo-remainder of $f$ by $T$ is $$prem(f,T) = prem(\cdots(prem(prem(f,t_1),t_2)\cdots,t_k)$$</p>
+          <p><em>Remark: </em> If $T$ is a <a title="whether a triangular set is a regular chain" href="_is__Regular__Chain.html">regular chain</a>, then $f$ lies in its <a title="saturated ideal of a triangular system" href="_saturate_lp__Tria__System_rp.html">saturated ideal</a> iff $prem(f,T)=0$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c,d,e,f,g,h, MonomialOrder=>Lex];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = {a*d - b*c, c*f - d*e, e*h - f*g};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : H = {d, f, h};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : T = triaSystem(R,F,H)
+
+o4 = {a*d - b*c, c*f - d*e, e*h - f*g} / {d, f, h}
+
+o4 : TriaSystem</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : (a*h - b*g) % T
+
+o5 = 0
+
+o5 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : saturate T
+
+o6 = ideal (e*h - f*g, c*h - d*g, c*f - d*e, a*h - b*g, a*f - b*e, a*d - b*c)
+
+o6 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <pre></pre>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="pseudo-remainder" href="_pseudo__Remainder_lp__Ring__Element_cm__Ring__Element_cm__Ring__Element_rp.html">pseudoRemainder(RingElement,RingElement,RingElement)</a></span>          </li>
+          <li>
+<span><a title="saturated ideal of a triangular system" href="_saturate_lp__Tria__System_rp.html">saturate(TriaSystem)</a> -- saturated ideal of a triangular system</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="pseudo-remainder by a triangular set" href="___Ring__Element_sp_pc_sp__Tria__System.html">RingElement % TriaSystem</a> -- pseudo-remainder by a triangular set</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

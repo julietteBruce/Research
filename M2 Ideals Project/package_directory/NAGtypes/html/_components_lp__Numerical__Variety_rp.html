@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>components(NumericalVariety) -- list components of a numerical variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Dual__Space.html">next</a> | <a href="_are__Equal_lp__Poly__Space_cm__Poly__Space_rp.html">previous</a> | <a href="___Dual__Space.html">forward</a> | <a href="_are__Equal_lp__Poly__Space_cm__Poly__Space_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> :: <a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a>    </div>
+    <hr/>
+    <div>
+      <h1>components(NumericalVariety) -- list components of a numerical variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="list the components of a direct sum" href="../../Macaulay2Doc/html/_components.html">components</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">components(V)</code></dd>
+              <dd><code class="language-macaulay2">components(V,a)</code></dd>
+              <dd><code class="language-macaulay2">components(V,a,b)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>V</tt>, <span>a <a title="a numerical variety" href="___Numerical__Variety.html">numerical variety</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> of <a title="a witness set" href="___Witness__Set.html">witness sets</a></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>Returns a list of components of a numerical variety. If <tt>a</tt> (<span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>) and/or <tt>b</tt> (<span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span> or <a title="infinity" href="../../Macaulay2Doc/html/_infinity.html">infinity</a>) are specified, then components of dimension <tt>a</tt> (respectively, components of dimension at least <tt>a</tt> and at most <tt>b</tt>) are returned.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y]; I = ideal((x^2+y^2+2)*x,(x^2+y^2+2)*y);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : w1 := witnessSet(I , ideal(x-y), {point {{0.999999*ii,0.999999*ii}}, point {{-1.000001*ii,-1.000001*ii}}} )
+
+o3 = [dim=1,deg=2]-*may be reducible*-
+
+o3 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : w0 := witnessSet(I, ideal R, {point {{0.,0.}}})
+
+o4 = [dim=0,deg=1]-*may be reducible*-
+
+o4 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : V := numericalVariety {w0,w1}
+
+o5 = a &quot;numerical variety&quot; with components in
+     dim 0:  [dim=0,deg=1]-*may be reducible*-
+     dim 1:  [dim=1,deg=2]-*may be reducible*-
+
+o5 : NumericalVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : components V    
+
+o6 = {[dim=0,deg=1]-*may be reducible*-, [dim=1,deg=2]-*may be reducible*-}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span>          </li>
+          <li>
+<tt>&quot;components(NumericalVariety,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;components(NumericalVariety,ZZ,InfiniteNumber)&quot;</tt>          </li>
+          <li>
+<tt>&quot;components(NumericalVariety,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

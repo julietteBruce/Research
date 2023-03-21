@@ -1,0 +1,47 @@
+-- -*- M2-comint -*- hash: -1191030433
+
+i1 : Q = bipartiteQuiver(2, 3);
+
+i2 : P = Q^{0,1,4,5};
+
+i3 : isStable(P, Q)
+
+o3 = true
+
+i4 : isStable ({0, 1}, bipartiteQuiver(2, 3))
+
+o4 = false
+
+i5 : Q = bipartiteQuiver(2, 3)
+
+o5 = ToricQuiver{flow => {1, 1, 1, 1, 1, 1}                            }
+                 IncidenceMatrix => | -1 -1 -1 0  0  0  |
+                                    | 0  0  0  -1 -1 -1 |
+                                    | 1  0  0  1  0  0  |
+                                    | 0  1  0  0  1  0  |
+                                    | 0  0  1  0  0  1  |
+                 Q0 => {0, 1, 2, 3, 4}
+                 Q1 => {{0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}}
+                 weights => {-3, -3, 2, 2, 2}
+
+o5 : ToricQuiver
+
+i6 : S = first(subquivers(Q, Format=>"quiver", AsSubquiver=>true))
+
+o6 = ToricQuiver{flow => {1, 0, 0, 0, 0, 0}                            }
+                 IncidenceMatrix => | -1 -1 -1 0  0  0  |
+                                    | 0  0  0  -1 -1 -1 |
+                                    | 1  0  0  1  0  0  |
+                                    | 0  1  0  0  1  0  |
+                                    | 0  0  1  0  0  1  |
+                 Q0 => {0, 1, 2, 3, 4}
+                 Q1 => {{0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}}
+                 weights => {-1, 0, 1, 0, 0}
+
+o6 : ToricQuiver
+
+i7 : isStable (S, Q)
+
+o7 = false
+
+i8 : 

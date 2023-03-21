@@ -1,0 +1,63 @@
+-- -*- M2-comint -*- hash: 888256554
+
+i1 : G = flagBundle({2,2}, VariableNames => {,c})
+
+o1 = G
+
+o1 : a flag bundle with subquotient ranks {2:2}
+
+i2 : (S,Q) = bundles G
+
+o2 = (S, Q)
+
+o2 : Sequence
+
+i3 : B = symmetricPower(3,Q)
+
+o3 = B
+
+o3 : an abstract sheaf of rank 4 on G
+
+i4 : c = chern(rank B,B)
+
+        2
+o4 = 27c
+        2
+
+                         QQ[][H   ..H   , c ..c ]
+                               1,1   1,2   1   2
+o4 : ---------------------------------------------------------------
+     (- H    - c , - H    - H   c  - c , - H   c  - H   c , -H   c )
+         1,1    1     1,2    1,1 1    2     1,2 1    1,1 2    1,2 2
+
+i5 : integral c
+
+o5 = 27
+
+i6 : f = n -> (
+          G := flagBundle({n-1,2});
+          integral chern symmetricPower_(2*n-3) last bundles G
+          )
+
+o6 = f
+
+o6 : FunctionClosure
+
+i7 : for n from 2 to 10 list time f n
+     -- used 0.00688937 seconds
+     -- used 0.0100829 seconds
+     -- used 0.018845 seconds
+     -- used 0.0854074 seconds
+     -- used 0.0702073 seconds
+     -- used 0.133453 seconds
+     -- used 0.253633 seconds
+     -- used 0.404922 seconds
+     -- used 0.814693 seconds
+
+o7 = {1, 27, 2875, 698005, 305093061, 210480374951, 210776836330775,
+     ------------------------------------------------------------------------
+     289139638632755625, 520764738758073845321}
+
+o7 : List
+
+i8 : 

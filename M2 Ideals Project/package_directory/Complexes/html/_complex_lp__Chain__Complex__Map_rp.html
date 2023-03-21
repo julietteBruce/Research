@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>complex(ChainComplexMap) -- translate between data types for chain complex maps</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_complex_lp__Complex_rp.html">next</a> | <a href="_complex_lp__Chain__Complex_rp.html">previous</a> | <a href="_complex_lp__Complex_rp.html">forward</a> | <a href="_complex_lp__Chain__Complex_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="development package for beta testing new version of chain complexes" href="index.html">Complexes</a> :: <a title="translate between data types for chain complex maps" href="_complex_lp__Chain__Complex__Map_rp.html">complex(ChainComplexMap)</a>    </div>
+    <hr/>
+    <div>
+      <h1>complex(ChainComplexMap) -- translate between data types for chain complex maps</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="make a chain complex" href="_complex.html">complex</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">g = complex f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all maps between chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex__Map.html">chain complex map</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="make a chain complex" href="_complex.html">Base</a><tt> => </tt><tt>...</tt>, <span>default value 0</span>, make a chain complex</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>g</tt>, <span>a <a title="the class of all maps between chain complexes" href="___Complex__Map.html">map of complexes</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Both ChainComplexMap and ComplexMap are Macaulay2 types that implement maps between chain complexes. The plan is to replace ChainComplexMap with this new type. Before this happens, this function allows interoperability between these types.</p>
+        </div>
+        <div>
+          <p>The first example is the minimal free resolution of the twisted cubic curve.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/32003[a..d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = monomialCurveIdeal(R, {1,2,3})
+
+             2                    2
+o2 = ideal (c  - b*d, b*c - a*d, b  - a*c)
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = R^1/I
+
+o3 = cokernel | c2-bd bc-ad b2-ac |
+
+                            1
+o3 : R-module, quotient of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : C = resolution M
+
+      1      3      2
+o4 = R  &lt;-- R  &lt;-- R  &lt;-- 0
+                           
+     0      1      2      3
+
+o4 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : f = C.dd
+
+          1                             3
+o5 = 0 : R  &lt;------------------------- R  : 1
+               | b2-ac bc-ad c2-bd |
+
+          3                     2
+     1 : R  &lt;----------------- R  : 2
+               {2} | -c d  |
+               {2} | b  -c |
+               {2} | -a b  |
+
+          2
+     2 : R  &lt;----- 0 : 3
+               0
+
+o5 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : g = complex f
+
+          1                             3
+o6 = 0 : R  &lt;------------------------- R  : 1
+               | b2-ac bc-ad c2-bd |
+
+          3                     2
+     1 : R  &lt;----------------- R  : 2
+               {2} | -c d  |
+               {2} | b  -c |
+               {2} | -a b  |
+
+o6 : ComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isWellDefined g
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : D = freeResolution M
+
+      1      3      2
+o8 = R  &lt;-- R  &lt;-- R
+                    
+     0      1      2
+
+o8 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : assert(D.dd == g)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The following two extension of maps between modules to maps between chain complexes agree.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : J = ideal vars R
+
+o10 = ideal (a, b, c, d)
+
+o10 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : C1 = resolution(R^1/J)
+
+       1      4      6      4      1
+o11 = R  &lt;-- R  &lt;-- R  &lt;-- R  &lt;-- R  &lt;-- 0
+                                          
+      0      1      2      3      4      5
+
+o11 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : D1 = freeResolution(R^1/J)
+
+       1      4      6      4      1
+o12 = R  &lt;-- R  &lt;-- R  &lt;-- R  &lt;-- R
+                                   
+      0      1      2      3      4
+
+o12 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : f = extend(C1, C, matrix{{1_R}})
+
+           1             1
+o13 = 0 : R  &lt;--------- R  : 0
+                | 1 |
+
+           4                        3
+      1 : R  &lt;-------------------- R  : 1
+                {1} | 0  0  0  |
+                {1} | b  0  0  |
+                {1} | -a b  c  |
+                {1} | 0  -a -b |
+
+           6                    2
+      2 : R  &lt;---------------- R  : 2
+                {2} | 0 0  |
+                {2} | 0 0  |
+                {2} | b 0  |
+                {2} | 0 0  |
+                {2} | 0 -b |
+                {2} | 0 a  |
+
+           4
+      3 : R  &lt;----- 0 : 3
+                0
+
+o13 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : g = complex f
+
+           1             1
+o14 = 0 : R  &lt;--------- R  : 0
+                | 1 |
+
+           4                        3
+      1 : R  &lt;-------------------- R  : 1
+                {1} | 0  0  0  |
+                {1} | b  0  0  |
+                {1} | -a b  c  |
+                {1} | 0  -a -b |
+
+           6                    2
+      2 : R  &lt;---------------- R  : 2
+                {2} | 0 0  |
+                {2} | 0 0  |
+                {2} | b 0  |
+                {2} | 0 0  |
+                {2} | 0 -b |
+                {2} | 0 a  |
+
+o14 : ComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : g1 = extend(D1, D, matrix{{1_R}})
+
+           1             1
+o15 = 0 : R  &lt;--------- R  : 0
+                | 1 |
+
+           4                        3
+      1 : R  &lt;-------------------- R  : 1
+                {1} | 0  0  0  |
+                {1} | b  0  0  |
+                {1} | -a b  c  |
+                {1} | 0  -a -b |
+
+           6                    2
+      2 : R  &lt;---------------- R  : 2
+                {2} | 0 0  |
+                {2} | 0 0  |
+                {2} | b 0  |
+                {2} | 0 0  |
+                {2} | 0 -b |
+                {2} | 0 a  |
+
+o15 : ComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : assert(g == g1)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This is a temporary method to allow comparisons among the data types, and will be removed once the older data structure is replaced</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="translate between data types for chain complexes" href="_chain__Complex_lp__Complex__Map_rp.html">chainComplex(ComplexMap)</a> -- translate between data types for chain complexes</span>          </li>
+          <li>
+<span><a title="translate between data types for chain complexes" href="_complex_lp__Chain__Complex_rp.html">complex(ChainComplex)</a> -- translate between data types for chain complexes</span>          </li>
+          <li>
+<span><a title="translate between data types for chain complexes" href="_chain__Complex_lp__Complex_rp.html">chainComplex(Complex)</a> -- translate between data types for chain complexes</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="translate between data types for chain complex maps" href="_complex_lp__Chain__Complex__Map_rp.html">complex(ChainComplexMap)</a> -- translate between data types for chain complex maps</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

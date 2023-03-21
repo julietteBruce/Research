@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>smallestCycleSize -- returns the size of the smallest induced cycle of a graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_spanning__Tree.html">next</a> | <a href="_simplicial__Complex__To__Hyper__Graph.html">previous</a> | <a href="_spanning__Tree.html">forward</a> | <a href="_simplicial__Complex__To__Hyper__Graph.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="returns the size of the smallest induced cycle of a graph" href="_smallest__Cycle__Size.html">smallestCycleSize</a>    </div>
+    <hr/>
+    <div>
+      <h1>smallestCycleSize -- returns the size of the smallest induced cycle of a graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">s = smallestCycleSize(G)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="a class for graphs" href="___Graph.html">graph</a></span>, the input</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>s</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the size of the smallest induced cycle</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns the size of the smallest induced cycle of a graph. It is based upon Theorem 2.1 in the paper &quot;Restricting linear syzygies: algebra and geometry&quot; by Eisenbud, Green, Hulek, and Popsecu.  This theorem states that if G is graph, then the edge ideal of the complement of G satisfies property N_{2,p}, that is, the resolution of I(G^c) is linear up to the p-th step, if and only if the smallest induced cycle of G has length p+3.  The algorithm looks at the resolution of the edge ideal of the complement to determine the size of the smallest cycle.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : T = QQ[x_1..x_9];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : g = graph {x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_6,x_6*x_7,x_7*x_8,x_8*x_9,x_9*x_1} -- a 9-cycle
+
+o2 = Graph{edges => {{x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }}}
+                       1   2     2   3     3   4     4   5     5   6     6   7     7   8     1   9     8   9
+           ring => T
+           vertices => {x , x , x , x , x , x , x , x , x }
+                         1   2   3   4   5   6   7   8   9
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : smallestCycleSize g
+
+o3 = 9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : h = graph {x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_6,x_6*x_7,x_7*x_8,x_8*x_9} -- a tree (no cycles)
+
+o4 = Graph{edges => {{x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }}}
+                       1   2     2   3     3   4     4   5     5   6     6   7     7   8     8   9
+           ring => T
+           vertices => {x , x , x , x , x , x , x , x , x }
+                         1   2   3   4   5   6   7   8   9
+
+o4 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : smallestCycleSize h
+
+o5 = infinity
+
+o5 : InfiniteNumber</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : l =  graph {x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_6,x_6*x_7,x_7*x_8,x_8*x_9,x_9*x_1,x_1*x_4}
+
+o6 = Graph{edges => {{x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }, {x , x }}}
+                       1   2     2   3     1   4     3   4     4   5     5   6     6   7     7   8     1   9     8   9
+           ring => T
+           vertices => {x , x , x , x , x , x , x , x , x }
+                         1   2   3   4   5   6   7   8   9
+
+o6 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : smallestCycleSize l
+
+o7 = 4</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that <tt>G</tt> is a tree if and only if <tt>smallestCycleSize G</tt> is <tt>infinity</tt>.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>smallestCycleSize</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;smallestCycleSize(Graph)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns the size of the smallest induced cycle of a graph" href="_smallest__Cycle__Size.html">smallestCycleSize</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

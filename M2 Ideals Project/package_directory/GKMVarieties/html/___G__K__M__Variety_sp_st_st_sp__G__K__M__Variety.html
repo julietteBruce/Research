@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>GKMVariety ** GKMVariety -- product of GKM varieties</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Well__Defined_lp__Flag__Matroid_rp.html">next</a> | <a href="___G__K__M__Variety.html">previous</a> | <a href="_is__Well__Defined_lp__Flag__Matroid_rp.html">forward</a> | <a href="___G__K__M__Variety.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computations with GKM varieties and moment graphs" href="index.html">GKMVarieties</a> :: <a title="product of GKM varieties" href="___G__K__M__Variety_sp_st_st_sp__G__K__M__Variety.html">GKMVariety ** GKMVariety</a>    </div>
+    <hr/>
+    <div>
+      <h1>GKMVariety ** GKMVariety -- product of GKM varieties</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for tensor product or Cartesian product" href="../../Macaulay2Doc/html/__st_st.html">**</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">X ** Y</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all GKM varieties" href="___G__K__M__Variety.html">GKM variety</a></span>, </span>              </li>
+              <li>
+<span><tt>Y</tt>, <span>a <a title="the class of all GKM varieties" href="___G__K__M__Variety.html">GKM variety</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all GKM varieties" href="___G__K__M__Variety.html">GKM variety</a></span>, product of X and Y</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given two GKM varieties $X$ and $Y$ with an action of a common torus $T$, the product is $X \times Y$ with the structure of a GKM variety given by the diagonal action of $T$. This method constructs $X \times Y$ as a <a title="the class of all GKM varieties" href="___G__K__M__Variety.html">GKMVariety</a>. To speed up computation, this method does not automatically cache the moment graph of $X \times Y$. The user can cache this using the method <a title="the product of two moment graphs" href="___Moment__Graph_sp_st_st_sp__Moment__Graph.html">MomentGraph ** MomentGraph</a>.</p>
+        </div>
+        <div>
+          <p>The following example exhibits the product of $\mathbb P^1$ with the Lagrangian Grassmannian SpGr(2,4).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = makeCharacterRing 2;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X = projectiveSpace(1,R);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Y = generalizedFlagVariety(&quot;C&quot;,2,{2},R);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Z = X ** Y;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : peek Z
+
+o5 = GKMVariety{cache => CacheTable{}                                                                                                                                                                                                     }
+                characterRing => R
+                charts => HashTable{(set {0}, {set {0*, 1*}}) => {{-1, 1}, {1, 1}, {2, 0}, {0, 2}}  }
+                                    (set {0}, {set {0*, 1}}) => {{-1, 1}, {2, 0}, {1, -1}, {0, -2}}
+                                    (set {0}, {set {0, 1*}}) => {{-1, 1}, {0, 2}, {-1, 1}, {-2, 0}}
+                                    (set {0}, {set {0, 1}}) => {{-1, 1}, {0, -2}, {-2, 0}, {-1, -1}}
+                                    (set {1}, {set {0*, 1*}}) => {{1, -1}, {1, 1}, {2, 0}, {0, 2}}
+                                    (set {1}, {set {0*, 1}}) => {{1, -1}, {2, 0}, {1, -1}, {0, -2}}
+                                    (set {1}, {set {0, 1*}}) => {{1, -1}, {0, 2}, {-1, 1}, {-2, 0}}
+                                    (set {1}, {set {0, 1}}) => {{1, -1}, {0, -2}, {-2, 0}, {-1, -1}}
+                points => {(set {0}, {set {0, 1*}}), (set {0}, {set {0, 1}}), (set {1}, {set {0*, 1*}}), (set {1}, {set {0*, 1}}), (set {0}, {set {0*, 1}}), (set {0}, {set {0*, 1*}}), (set {1}, {set {0, 1*}}), (set {1}, {set {0, 1}})}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We can cache the moment graph of $Z$ as follows:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : G = momentGraph X;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : H = momentGraph Y;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : momentGraph(Z, G** H);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : peek Z
+
+o9 = GKMVariety{cache => CacheTable{}                                                                                                                                                                                                     }
+                characterRing => R
+                charts => HashTable{(set {0}, {set {0*, 1*}}) => {{-1, 1}, {1, 1}, {2, 0}, {0, 2}}  }
+                                    (set {0}, {set {0*, 1}}) => {{-1, 1}, {2, 0}, {1, -1}, {0, -2}}
+                                    (set {0}, {set {0, 1*}}) => {{-1, 1}, {0, 2}, {-1, 1}, {-2, 0}}
+                                    (set {0}, {set {0, 1}}) => {{-1, 1}, {0, -2}, {-2, 0}, {-1, -1}}
+                                    (set {1}, {set {0*, 1*}}) => {{1, -1}, {1, 1}, {2, 0}, {0, 2}}
+                                    (set {1}, {set {0*, 1}}) => {{1, -1}, {2, 0}, {1, -1}, {0, -2}}
+                                    (set {1}, {set {0, 1*}}) => {{1, -1}, {0, 2}, {-1, 1}, {-2, 0}}
+                                    (set {1}, {set {0, 1}}) => {{1, -1}, {0, -2}, {-2, 0}, {-1, -1}}
+                momentGraph => a &quot;moment graph&quot; on 8 vertices with 17 edges 
+                points => {(set {0}, {set {0, 1*}}), (set {0}, {set {0, 1}}), (set {1}, {set {0*, 1*}}), (set {1}, {set {0*, 1}}), (set {0}, {set {0*, 1}}), (set {0}, {set {0*, 1*}}), (set {1}, {set {0, 1*}}), (set {1}, {set {0, 1}})}</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="constructs a GKM variety" href="_make__G__K__M__Variety.html">makeGKMVariety</a> -- constructs a GKM variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="product of GKM varieties" href="___G__K__M__Variety_sp_st_st_sp__G__K__M__Variety.html">GKMVariety ** GKMVariety</a> -- product of GKM varieties</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

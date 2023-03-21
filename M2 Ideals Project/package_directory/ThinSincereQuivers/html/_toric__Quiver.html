@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toricQuiver -- the toricQuiver constructor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Toric__Quiver_sp_eq_eq_sp__Toric__Quiver.html">next</a> | <a href="___Toric__Quiver.html">previous</a> | <a href="___Toric__Quiver_sp_eq_eq_sp__Toric__Quiver.html">forward</a> | <a href="___Toric__Quiver.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="creating and manipulating Toric Quivers" href="index.html">ThinSincereQuivers</a> :: <a title="the toricQuiver constructor" href="_toric__Quiver.html">toricQuiver</a>    </div>
+    <hr/>
+    <div>
+      <h1>toricQuiver -- the toricQuiver constructor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Q = toricQuiver E</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver (E, F)</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver M</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver (M, F)</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver G</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver (G, F)</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver T</code></dd>
+              <dd><code class="language-macaulay2">Q = toricQuiver (T, F)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of pairs <tt>(V1, V2)</tt> giving the edges of the quiver in terms of the vertices</span>              </li>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the flow on the quiver given as a list of integers</span>              </li>
+              <li>
+<span><tt>G</tt>, <span>a <a href="../../Graphs/html/___Graph.html">graph</a></span>, </span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of integers giving the connectivity structure of the quiver</span>              </li>
+              <li>
+<span><tt>T</tt>, <span>an instance of the type <a title="the ToricQuiver datatype" href="___Toric__Quiver.html">ToricQuiver</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Flow</tt> (missing documentation)<!--tag: [toricQuiver, Flow]-->
+<tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value &quot;Default&quot;</span>, that specifies the flow for the polytope. options are <tt>Default</tt>, which takes the flow from values in the matrix, <tt>Canonical</tt>, which sets the flow to 1 for each edge, and <tt>Random</tt>, which assigns a random integer between 0 and 100 to each edge</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Q</tt>, <span>an instance of the type <a title="the ToricQuiver datatype" href="___Toric__Quiver.html">ToricQuiver</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A toric quiver is a directed graph <tt>Q=(Q_0, Q_1) </tt> where <tt>Q_0</tt> is the set of vertices associated to <tt>Q</tt> and <tt>Q_1</tt> is the set of arrows. Also included in $Q$ is a flow, which associates an integer value to each edge. The canonical flow gives a weight of 1 to each edge.</p>
+        </div>
+        <div>
+          <p>the ToricQuiver data type is stored as a hash table with the following keys:</p>
+        </div>
+        <div>
+          <ul>
+            <li>
+<tt>IncidenceMatrix:</tt>matrix representation of the connected graph underlying the quiver            </li>
+            <li>
+<tt>flow:              </tt>list of integers representing the flow associated to each edge of the quiver            </li>
+            <li>
+<tt>Q0:                </tt>the list of vertices            </li>
+            <li>
+<tt>Q1:                </tt>the list of edges             </li>
+            <li>
+<tt>weights:           </tt>the values on each vertex induced by the flow            </li>
+          </ul>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = toricQuiver matrix({{-1,-1,-1,-1},{1,1,0,0},{0,0,1,1}})
+
+o1 = ToricQuiver{flow => {1, 1, 1, 1}                  }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 1  1  0  0  |
+                                    | 0  0  1  1  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 1}, {0, 1}, {0, 2}, {0, 2}}
+                 weights => {-4, 2, 2}
+
+o1 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Q = toricQuiver(matrix({{-1,-1,-1,-1},{1,1,0,0},{0,0,1,1}}), {3, 1, 0, 5})
+
+o2 = ToricQuiver{flow => {3, 1, 0, 5}                  }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 1  1  0  0  |
+                                    | 0  0  1  1  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 1}, {0, 1}, {0, 2}, {0, 2}}
+                 weights => {-9, 4, 5}
+
+o2 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Q = toricQuiver {{0,1},{0,1},{0,2},{0,2}}
+
+o3 = ToricQuiver{flow => {1, 1, 1, 1}                  }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 1  1  0  0  |
+                                    | 0  0  1  1  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 1}, {0, 1}, {0, 2}, {0, 2}}
+                 weights => {-4, 2, 2}
+
+o3 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Q = toricQuiver ({{0,1},{0,1},{0,2},{0,2}}, {1,2,3,4})
+
+o4 = ToricQuiver{flow => {1, 2, 3, 4}                  }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 1  1  0  0  |
+                                    | 0  0  1  1  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 1}, {0, 1}, {0, 2}, {0, 2}}
+                 weights => {-10, 3, 7}
+
+o4 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Q = toricQuiver(matrix({{-1,-1,-1,-1},{1,1,0,0},{0,0,1,1}}), Flow=>&quot;Canonical&quot;)
+
+o5 = ToricQuiver{flow => {1, 1, 1, 1}                  }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 1  1  0  0  |
+                                    | 0  0  1  1  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 1}, {0, 1}, {0, 2}, {0, 2}}
+                 weights => {-4, 2, 2}
+
+o5 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : Q = toricQuiver(matrix({{-1,-1,-1,-1},{0,0,1,1},{1,1,0,0}}), Flow=>&quot;Random&quot;)
+
+o6 = ToricQuiver{flow => {24, 65, 71, 72}              }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 0  0  1  1  |
+                                    | 1  1  0  0  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 2}, {0, 2}, {0, 1}, {0, 1}}
+                 weights => {-232, 143, 89}
+
+o6 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : R = toricQuiver(Q)
+
+o7 = ToricQuiver{flow => {24, 65, 71, 72}              }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 0  0  1  1  |
+                                    | 1  1  0  0  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 2}, {0, 2}, {0, 1}, {0, 1}}
+                 weights => {-232, 143, 89}
+
+o7 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R = toricQuiver(Q, {1,2,3,4})
+
+o8 = ToricQuiver{flow => {1, 2, 3, 4}                  }
+                 IncidenceMatrix => | -1 -1 -1 -1 |
+                                    | 0  0  1  1  |
+                                    | 1  1  0  0  |
+                 Q0 => {0, 1, 2}
+                 Q1 => {{0, 2}, {0, 2}, {0, 1}, {0, 1}}
+                 weights => {-10, 7, 3}
+
+o8 : ToricQuiver</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make a toric quiver on underlying bipartite graph" href="_bipartite__Quiver.html">bipartiteQuiver</a> -- make a toric quiver on underlying bipartite graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toricQuiver</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toricQuiver(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toricQuiver(List,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toricQuiver(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toricQuiver(Matrix,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toricQuiver(ToricQuiver)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toricQuiver(ToricQuiver,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the toricQuiver constructor" href="_toric__Quiver.html">toricQuiver</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

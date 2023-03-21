@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomNicePencil -- sets up a random example to construct Clifford algebra and representation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_search__Ulrich.html">next</a> | <a href="___Random__Nice__Pencil.html">previous</a> | <a href="_search__Ulrich.html">forward</a> | <a href="___Random__Nice__Pencil.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Clifford Algebra of a Pencil of quadratic forms on PP^(2g+1)" href="index.html">PencilsOfQuadrics</a> :: <a title="sets up a random example to construct Clifford algebra and representation" href="_random__Nice__Pencil.html">randomNicePencil</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomNicePencil -- sets up a random example to construct Clifford algebra and representation</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(S, qq, R,  u, M1, M2, Mu1, Mu2)=randomNicePencil(kk,g)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>kk</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the ground field, not char 2, please!</span>              </li>
+              <li>
+<span><tt>g</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, genus of the associated hyperelliptic curve.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, polynomial ring in g x's, g y's z_1,z_2 and s, t</span>              </li>
+              <li>
+<span><tt>qq</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, Element of S, quadratic in x_0..z_2 and linear in s,t</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, polynomial ring kk[s,t]</span>              </li>
+              <li>
+<span><tt>u</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, 1 x g+2 row matrix with entries x_0..x_{(g-1)}, z_1,z_2; generators of the ideal of an isotropic subspace for qq</span>              </li>
+              <li>
+<span><tt>M1</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>M2</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, Matrices over S such that M1*M2 = qq times an identity of size 2^{2g+1}</span>              </li>
+              <li>
+<span><tt>Mu1</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>Mu2</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, Matrices over S such that Mu1*Mu2 = qq times an identity of size 2^{g+1}</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Chooses a random example of a pencil of quadrics qq = s*q1+t*q2 with a fixed isotropic subspace (defined by ideal u) and a fixed corank one quadric in normal form q1.</p>
+          <p>When called with no arguments it prints a usage message.</p>
+          <p>The variables of S that are entries of X:= matrix \{\{x_0..y_{(g-1)},z_1,z_2\}\} \, represent coordinates on PP_R^{2g+1}.</p>
+          <p>M1, M2 are consecutive high syzygy matrices in the minimal (periodic) resolution of kk[s,t] = S/(ideal X) as a module over S/qq. These are used to construct the Clifford algebra of qq.</p>
+          <p>Mu1, Mu2 are consecutive high syzygy matrices in the minimal (periodic) resolution of S/(ideal u) as a module over S/qq. These are used to construct a Morita bundle between the even Clifford algebra of qq and the hyperelliptic curve branched over the degeneracy locus of the pencil,</p>
+          <p>\{(s,t) | s*q1+t*q2 is singular\} \subset PP^1.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk=ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : g=1
+
+o2 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (S, qq, R,  u, M1, M2, Mu1, Mu2)=randomNicePencil(kk,g);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gens S
+
+o4 = {x , y , z , z , s, t}
+       0   0   1   2
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : q1 = diff(S_(2*g+2),qq)
+
+             2
+o5 = x y  - z
+      0 0    1
+
+o5 : S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>a quadratic form of corank 1 (corresponding to a branch point of E-->PP^1 in normal form.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : ideal u -- an isotropic space for q1 and q2
+
+o6 = ideal (x , z , z )
+             0   1   2
+
+o6 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti Mu1, betti Mu2
+
+             0 1         0 1
+o7 = (total: 4 4, total: 4 4)
+          1: 3 1      2: 1 .
+          2: 1 3      3: 3 3
+                      4: . 1
+
+o7 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : Mu1*Mu2- qq*id_(target Mu1) == 0
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="hash table holding details of a Clifford module" href="___Clifford__Module.html">CliffordModule</a> -- hash table holding details of a Clifford module</span>          </li>
+          <li>
+<span><a title="makes a clifford Module" href="_clifford__Module.html">cliffordModule</a> -- makes a clifford Module</span>          </li>
+          <li>
+<span><a title="Generators for a Clifford Algebra" href="_clifford__Operators.html">cliffordOperators</a> -- Generators for a Clifford Algebra</span>          </li>
+          <li>
+<span><a title="even and odd action of the center of the even Clifford algebra" href="_centers.html">centers</a> -- even and odd action of the center of the even Clifford algebra</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>randomNicePencil</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;randomNicePencil(Ring,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="sets up a random example to construct Clifford algebra and representation" href="_random__Nice__Pencil.html">randomNicePencil</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>SmartLift -- chooses lifting to avoid obstructions at next order</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_versal__Deformation.html">next</a> | <a href="___Sanity__Check.html">previous</a> | <a href="_versal__Deformation.html">forward</a> | <a href="___Sanity__Check.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="calculating versal deformations and local Hilbert schemes" href="index.html">VersalDeformations</a> :: <a title="chooses lifting to avoid obstructions at next order" href="___Smart__Lift.html">SmartLift</a>    </div>
+    <hr/>
+    <div>
+      <h1>SmartLift -- chooses lifting to avoid obstructions at next order</h1>
+      <div>
+        <h2>Description</h2>
+        <p><tt>SmartLift</tt> is the name of an optional argument whose value is <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>. If set to <a href="../../Macaulay2Doc/html/_true.html">true</a>, <a title="computes a power series representation of a versal deformation" href="_versal__Deformation.html">versalDeformation</a> or <a title="computes a power series representation of the local Hilbert scheme" href="_local__Hilbert__Scheme.html">localHilbertScheme</a> will utilize the function <a title="correct lifting to avoid obstructions at next order" href="_correct__Deformation.html">correctDeformation</a> in order to choose liftings of the deformation equation at each step which, if possible, introduce no higher order terms to the obstruction equations. This may increase the time of calculation, but will hopefully result in nicer equations for the base space. Default value is <a href="../../Macaulay2Doc/html/_true.html">true</a></p>
+        <p>For example, consider a degenerate twisted cubic curve, see<a title="calculating versal deformations and local Hilbert schemes" href="index.html">[PS85]</a>:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S=QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F0=matrix {{x*z,y*z,z^2,x^3}}
+
+o2 = | xz yz z2 x3 |
+
+             1       4
+o2 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+        <p>With the default setting <tt>SmartLift=>true</tt> we get very nice equations for the base space:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time (F,R,G,C)=localHilbertScheme(F0);
+     -- used 0.893902 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : T=ring first G;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : sum G
+
+o5 = | t_1t_16             |
+     | t_9t_16             |
+     | -t_4t_16            |
+     | -2t_14t_16+t_15t_16 |
+
+             4       1
+o5 : Matrix T  &lt;--- T</code></pre>
+</td>          </tr>
+        </table>
+        <p>With the setting <tt>SmartLift=>false</tt> the calculation is faster, but the equations are no longer homogeneous:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time (F,R,G,C)=localHilbertScheme(F0,SmartLift=>false);
+     -- used 0.557079 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : sum G
+
+o7 = | t_1t_16                                                             
+     | 2t_5t_10t_11t_16+t_7t_11^2t_16-2t_6t_10t_16+3t_10^2t_16-t_8t_11t_16+
+     | -t_5t_10^2t_16-2t_7t_10t_11t_16-3t_2t_11^2t_16+t_8t_10t_16+2t_3t_11t
+     | 2t_5t_10t_16^2+2t_7t_11t_16^2+4t_10t_12t_16+2t_11t_13t_16-t_8t_16^2-
+     ------------------------------------------------------------------------
+                        |
+     t_9t_16            |
+     _16-t_4t_16        |
+     2t_14t_16+t_15t_16 |
+
+                        4                  1
+o7 : Matrix (S[t ..t  ])  &lt;--- (S[t ..t  ])
+                1   16             1   16</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>SmartLift</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;localHilbertScheme(...,SmartLift=>...)&quot;</tt> -- see <span><a title="computes a power series representation of the local Hilbert scheme" href="_local__Hilbert__Scheme.html">localHilbertScheme</a> -- computes a power series representation of the local Hilbert scheme</span></span>          </li>
+          <li>
+<span><tt>&quot;versalDeformation(...,SmartLift=>...)&quot;</tt> -- see <span><a title="computes a power series representation of a versal deformation" href="_versal__Deformation_lp__Matrix_rp.html">versalDeformation(Matrix)</a> -- computes a power series representation of a versal deformation</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="chooses lifting to avoid obstructions at next order" href="___Smart__Lift.html">SmartLift</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>findWeightVector -- returns a weight vector</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_groebner__Family.html">next</a> | <a href="_find__Weight__Constraints.html">previous</a> | <a href="_groebner__Family.html">forward</a> | <a href="_find__Weight__Constraints.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for creating families of ideals with the same initial ideal" href="index.html">GroebnerStrata</a> :: <a title="returns a weight vector" href="_find__Weight__Vector.html">findWeightVector</a>    </div>
+    <hr/>
+    <div>
+      <h1>findWeightVector -- returns a weight vector</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(w, h) = findWeightVector (M, L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, M should be a monomial ideal</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of lists of standard monomials</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, w is a weight vector that places the specified generators of M greater than the corresponding standard monomials, if possible.  If not possible, null is returned instead of (w,h)</span>              </li>
+              <li>
+<span><tt>h</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, h is a list of values for w dotted with the difference of the exponent of the each standard monomial for each generator and the corresponding generator, in the order they are listed in L</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>In the first entry, this command returns a weight vector associated to a monomial order that places the generators of a monomial ideal $M$ ahead of standard monomials of the same degree.  The second entry is a list of values for the weight vector dotted with the difference of the exponent of each standard monomial for each generator and the corresponding generator.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/32003[a,b,c, d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = ideal (a^2, a*b, b^2);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : L = smallerMonomials M;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : findWeightVector(M,L)
+
+o4 = ({2, 2, 1, 1}, {1, 1, 2, 1, 1, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 2, 1, 1,
+     ------------------------------------------------------------------------
+     2, 2})
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that the first generator listed for $M$ is $a^2$, and the first corresponding standard monomial is $a*c$.  The difference of these two monomials exponent vectors is $(1,0,-1,0)$.  This vector dotted with the weight vector $(2,2,1,1)$ gives the value $1$, which is the first value in the second list.</p>
+          <p>Note that the desired term ordering, and hence weight vector, may not exist. In this case, null is returned.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : M = ideal&quot;ab&quot;
+
+o5 = ideal(a*b)
+
+o5 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : L1 = standardMonomials M
+
+        2   2             2                  2
+o6 = {{a , b , a*c, b*c, c , a*d, b*d, c*d, d }}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : findWeightVector(M,L1)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This command is used in the <a title="computes families of ideals with a specified initial ideal" href="_groebner__Family.html">groebnerFamily</a> routine.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the ideal where a given is a Groebner basis" href="_groebner__Stratum.html">groebnerStratum</a> -- compute the ideal where a given is a Groebner basis</span>          </li>
+          <li>
+<span><a title="computes families of ideals with a specified initial ideal" href="_groebner__Family.html">groebnerFamily</a> -- computes families of ideals with a specified initial ideal</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>findWeightVector</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;findWeightVector(Ideal,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns a weight vector" href="_find__Weight__Vector.html">findWeightVector</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

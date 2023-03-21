@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomOrthogonal -- constructs a random special orthogonal matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__P__S__D.html">next</a> | <a href="_random__Integer__Symmetric.html">previous</a> | <a href="_random__P__S__D.html">forward</a> | <a href="_random__Integer__Symmetric.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computing determinantal representations of polynomials" href="index.html">DeterminantalRepresentations</a> :: <a title="constructs a random special orthogonal matrix" href="_random__Orthogonal.html">randomOrthogonal</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomOrthogonal -- constructs a random special orthogonal matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">randomOrthogonal n</code></dd>
+              <dd><code class="language-macaulay2">randomOrthogonal(n, R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, or <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">RR</a> or <a title="the class of all complex numbers" href="../../Macaulay2Doc/html/___C__C.html">CC</a> (of type <a title="the class of all families of inexact fields" href="../../Macaulay2Doc/html/___Inexact__Field__Family.html">InexactFieldFamily</a>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a random $n\times n$ special orthogonal matrix, over the ring $R$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method returns a random orthogonal matrix of a given size $n$. The orthogonal matrix is constructed via Cayley's correspondence, which gives a bijection between skew-symmetric matrices, and orthogonal matrices $O$ which do not have $1$ as an eigenvalue (i.e., $O - I$ is invertible). Up to changing signs of rows, any orthogonal matrix can be obtained this way: if $G\cong (\ZZ/2\ZZ)^n$ is the group of diagonal matrices with diagonal entries equal to &amp;plusmn;1, acting on $n\times n$ matrices by left multiplication, then (as one may check) every $G$-orbit contains a matrix that does not have $1$ as an eigenvalue (if the characteristic is not 2).</p>
+          <p>Note that the matrices which feature in the Cayley correspondence have determinant $(-1)^n$, so this method scales by $-1$ to return a special orthogonal matrix. Thus the matrices returned by this method do not have $-1$ as an eigenvalue.</p>
+          <p>By default a matrix over <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">RR</a> is returned. This method also accepts a ring as an (optional) argument, in which case a special orthogonal matrix over the ring is returned, with entries in the <a title="get the coefficient ring" href="../../Macaulay2Doc/html/_coefficient__Ring.html">base coefficient ring</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : O1 = randomOrthogonal 5
+
+o1 = | .442386  -.0306554 .751799   -.317548 .370563  |
+     | .133864  .768167   -.0944111 -.513838 -.345046 |
+     | -.60855  -.385718  .234815   -.587034 -.284854 |
+     | -.42001  .39448    .591227   .519553  -.220209 |
+     | -.489525 .323399   -.145593  -.143489 .783576  |
+
+                5          5
+o1 : Matrix RR    &lt;--- RR
+              53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : isOrthogonal O1
+
+o2 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : eigenvalues O1
+
+o3 = {.070857+.997486*ii}
+     {.070857-.997486*ii}
+     {.803392+.595451*ii}
+     {.803392-.595451*ii}
+     {1                 }
+
+o3 : VerticalList</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : det O1
+
+o4 = 1
+
+o4 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = QQ[x,y]
+
+o5 = R
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : O2 = randomOrthogonal(5, R)
+
+o6 = | -22142569999/27593776175 90555408/788393605   -5532008344/27593776175
+     | 193172688/788393605      145827307/157678721  24042978/788393605     
+     | 591854008/5518755235     -5780466/157678721   -5151709442/5518755235 
+     | -598559432/27593776175   -200993706/788393605 7495643483/27593776175 
+     | -84039992/157678721      40244400/157678721   18443792/157678721     
+     ------------------------------------------------------------------------
+     -5025793592/27593776175  2046480376/3941968025 |
+     -216954846/788393605     70436016/788393605    |
+     -1194249041/5518755235   -206975072/788393605  |
+     -25053509506/27593776175 -751964432/3941968025 |
+     22251808/157678721       -123874657/157678721  |
+
+             5       5
+o6 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isOrthogonal O2
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : det(O2), det(O2+id_(R^5))
+
+          5225472
+o8 = (1, ---------)
+         157678721
+
+o8 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether a matrix is orthogonal" href="_is__Orthogonal.html">isOrthogonal</a> -- whether a matrix is orthogonal</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>randomOrthogonal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;randomOrthogonal(ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;randomOrthogonal(ZZ,Thing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="constructs a random special orthogonal matrix" href="_random__Orthogonal.html">randomOrthogonal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

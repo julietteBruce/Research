@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>bases -- bases of matroid</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_basis__Indicator__Matrix.html">next</a> | <a href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">previous</a> | <a href="_basis__Indicator__Matrix.html">forward</a> | <a href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="bases of matroid" href="_bases.html">bases</a>    </div>
+    <hr/>
+    <div>
+      <h1>bases -- bases of matroid</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">bases M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of bases</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Returns a list of bases of the matroid. The basis elements are represented as sets of nonnegative integers, which are the indices of the elements in the ground set that make up a basis element. To get the subset of the ground set corresponding to a set of indices, use <a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">subscripts</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = matroid({a,b,c,d},{{a,b},{a,c}})
+
+o1 = a &quot;matroid&quot; of rank 2 on 4 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : bases M
+
+o2 = {set {0, 1}, set {0, 2}}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M_((bases M)#0)
+
+o3 = set {a, b}
+
+o3 : Set</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>In this package, bases are the only structure that is always computed upon creation of a matroid. Additional invariants (such as the <a title="Stanley-Reisner (circuit) ideal of matroid" href="_ideal_lp__Matroid_rp.html">ideal</a> or <a title="circuits of matroid" href="_circuits.html">circuits</a>) are not precomputed, but are cached after being computed once. This allows for maximum speed in methods that need to call the <a title="constructs a matroid" href="_matroid.html">constructor function</a> many, many times: e.g. <a title="Tutte polynomial of a matroid" href="_tutte__Polynomial_lp__Matroid_rp.html">tuttePolynomial</a> and <a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="nonbases of matroid" href="_nonbases.html">nonbases</a> -- nonbases of matroid</span>          </li>
+          <li>
+<span><a title="independent subsets of a matroid" href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">independentSets(Matroid)</a> -- independent subsets of a matroid</span>          </li>
+          <li>
+<span><a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">Matroid _ List</a> -- elements of matroid</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>bases</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;bases(Matroid)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="bases of matroid" href="_bases.html">bases</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

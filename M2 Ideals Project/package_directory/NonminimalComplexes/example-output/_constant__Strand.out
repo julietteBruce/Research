@@ -1,0 +1,158 @@
+-- -*- M2-comint -*- hash: 1901864511
+
+i1 : R = QQ[a..d]
+
+o1 = R
+
+o1 : PolynomialRing
+
+i2 : I = ideal(a^3, b^3, c^3, d^3, (a+3*b+7*c-4*d)^3)
+
+             3   3   3   3   3     2         2      3      2              
+o2 = ideal (a , b , c , d , a  + 9a b + 27a*b  + 27b  + 21a c + 126a*b*c +
+     ------------------------------------------------------------------------
+         2          2         2       3      2                  2            
+     189b c + 147a*c  + 441b*c  + 343c  - 12a d - 72a*b*d - 108b d - 168a*c*d
+     ------------------------------------------------------------------------
+                      2         2         2         2      3
+     - 504b*c*d - 588c d + 48a*d  + 144b*d  + 336c*d  - 64d )
+
+o2 : Ideal of R
+
+i3 : C = res(ideal gens gb I, Strategy=>4.1)
+
+      1      9      25      31      18      4
+o3 = R  <-- R  <-- R   <-- R   <-- R   <-- R
+                                            
+     0      1      2       3       4       5
+
+o3 : ChainComplex
+
+i4 : betti C
+
+            0 1  2  3  4 5
+o4 = total: 1 9 25 31 18 4
+         0: 1 .  .  .  . .
+         1: . .  .  .  . .
+         2: . 5  1  .  . .
+         3: . 1  3  1  . .
+         4: . 3 17 13  4 .
+         5: . .  4 13 10 3
+         6: . .  .  4  3 1
+         7: . .  .  .  1 .
+
+o4 : BettiTally
+
+i5 : CR = constantStrand(C, RR_53, 3)
+
+               5
+o5 = 0 <-- RR    <-- 0 <-- 0 <-- 0 <-- 0
+             53                         
+     0               2     3     4     5
+           1
+
+o5 : ChainComplex
+
+i6 : CR.dd_2
+
+o6 = 0
+
+                5
+o6 : Matrix RR    <--- 0
+              53
+
+i7 : CR2 = constantStrand(C, RR_1000, 3)
+
+                 5
+o7 = 0 <-- RR      <-- 0 <-- 0 <-- 0 <-- 0
+             1000                         
+     0                 2     3     4     5
+           1
+
+o7 : ChainComplex
+
+i8 : CR2.dd_2
+
+o8 = 0
+
+                  5
+o8 : Matrix RR      <--- 0
+              1000
+
+i9 : kk1 = ZZ/32003
+
+o9 = kk1
+
+o9 : QuotientRing
+
+i10 : kk2 = ZZ/1073741909
+
+o10 = kk2
+
+o10 : QuotientRing
+
+i11 : Cp1 = constantStrand(C, kk1, 3)
+
+               5
+o11 = 0 <-- kk1  <-- 0 <-- 0 <-- 0 <-- 0
+                                        
+      0     1        2     3     4     5
+
+o11 : ChainComplex
+
+i12 : Cp2 = constantStrand(C, kk2, 3)
+
+               5
+o12 = 0 <-- kk2  <-- 0 <-- 0 <-- 0 <-- 0
+                                        
+      0     1        2     3     4     5
+
+o12 : ChainComplex
+
+i13 : netList {{CR.dd_4, CR2.dd_4}, {Cp1.dd_4, Cp2.dd_4}}
+
+      +-+-+
+o13 = |0|0|
+      +-+-+
+      |0|0|
+      +-+-+
+
+i14 : (clean(1e-14,CR)).dd_4
+
+o14 = 0
+
+o14 : Matrix 0 <--- 0
+
+i15 : netList {(clean(1e-14,CR)).dd_4}==netList {(clean(1e-299,CR2)).dd_4}
+
+o15 = true
+
+i16 : CZ = constantStrand(C, ZZ, 8)
+
+                          13       4
+o16 = 0 <-- 0 <-- 0 <-- ZZ   <-- ZZ  <-- 0
+                                          
+      0     1     2     3        4       5
+
+o16 : ChainComplex
+
+i17 : CZ.dd_4
+
+o17 = | 0 0 0 0 |
+      | 3 0 0 0 |
+      | 4 3 2 0 |
+      | 5 0 3 2 |
+      | 0 3 0 0 |
+      | 5 2 3 0 |
+      | 6 5 4 0 |
+      | 5 4 3 0 |
+      | 6 0 4 3 |
+      | 7 6 5 4 |
+      | 5 4 3 2 |
+      | 6 0 4 3 |
+      | 7 6 5 4 |
+
+               13        4
+o17 : Matrix ZZ   <--- ZZ
+
+i18 : 

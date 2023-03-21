@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>monoid(...,WeylAlgebra=>...) -- specify differential operators in the ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_monoid_lp..._cm__Skew__Commutative_eq_gt..._rp.html">previous</a> | <a href="_monomial_sporderings.html">forward</a> | <a href="_monoid_lp..._cm__Skew__Commutative_eq_gt..._rp.html">backward</a> | <a href="_monoid.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> > <a href="_rings.html">rings</a> > <a title="make or retrieve a monoid" href="_monoid.html">monoid</a> > <a title="specify differential operators in the ring" href="_monoid_lp..._cm__Weyl__Algebra_eq_gt..._rp.html">monoid(...,WeylAlgebra=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>monoid(...,WeylAlgebra=>...) -- specify differential operators in the ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">monoid[x,dx,y,dy,   WeylAlgebra => {x => dx, y => dy}]</code></dd>
+              <dd><code class="language-macaulay2">monoid[x,dx,y,dy,h, WeylAlgebra => {x => dx, y => dy, h}]</code></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The <tt>WeylAlgebra</tt> option may be used to provide a list of variables and their corresponding differential operators in a Weyl algebra. For instance, an option of the form <tt>x => dx</tt> specifies that <tt>dx</tt> plays the role of the derivative with respect to <tt>x</tt> in the resulting Weyl algebra.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[x,dx,y,dy, WeylAlgebra => {x => dx, y => dy}]
+
+o1 = R
+
+o1 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : dx*x
+
+o2 = x*dx + 1
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : dx*x^10
+
+      10        9
+o3 = x  dx + 10x
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : dx*y^10
+
+         10
+o4 = dx*y
+
+o4 : R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that only when the monoid is used to create a polynomial ring the Weyl algebra variables take effect. There are multiple acceptable ways to populate this option, but the differential variable always has to come to the right of the corresponding algebra variable.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : QQ[a,b,x,dx,y,dy, WeylAlgebra => {  x => dx,  y => dy }]
+
+o5 = QQ[a..b, x, dx, y, dy]
+
+o5 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : QQ[a,b,x,dx,y,dy, WeylAlgebra => { (x, y) => (dx, dy) }]
+
+o6 = QQ[a..b, x, dx, y, dy]
+
+o6 : PolynomialRing, 1 differential variables</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Lastly, if a single variable is provided at the end, it is used as a homogenizing variable.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : QQ[x,dx,y,dy,h, WeylAlgebra => { x => dx, y => dy, h }]
+
+o7 = QQ[x, dx, y, dy, h]
+
+o7 : PolynomialRing, 3 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : dx*x^2
+
+      2         2
+o8 = x dx + 2x*h
+
+o8 : QQ[x, dx, y, dy, h]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : dx*x*y
+
+                 2
+o9 = x*dx*y + y*h
+
+o9 : QQ[x, dx, y, dy, h]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : dx*h^2
+
+          2
+o10 = dx*h
+
+o10 : QQ[x, dx, y, dy, h]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : isHomogeneous(dx*(x^2+x*y+h^2))
+
+o11 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This option may also be used when creating a new ring from an existing ring, creating a tensor product ring, or symmetric algebra.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <tt>{}</tt></span>          </li>
+          <li>
+<span>Function: <span><a title="make or retrieve a monoid" href="_monoid.html">monoid</a> -- make or retrieve a monoid</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="an optional argument" href="___Weyl__Algebra.html">WeylAlgebra</a> -- an optional argument</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make or retrieve a monoid" href="_monoid.html">monoid</a> -- make or retrieve a monoid</span>          </li>
+          <li>
+<span><a title="make a copy of a ring, with some features changed" href="_new__Ring.html">newRing</a> -- make a copy of a ring, with some features changed</span>          </li>
+          <li>
+<span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Ring,Ring)</a> -- tensor product of monoids</span>          </li>
+          <li>
+<span><a title="the symmetric algebra of a module" href="_symmetric__Algebra.html">symmetricAlgebra</a> -- the symmetric algebra of a module</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>WeylAlgebra</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="specify differential operators in the ring" href="_monoid_lp..._cm__Weyl__Algebra_eq_gt..._rp.html">monoid(...,WeylAlgebra=>...)</a> -- specify differential operators in the ring</span>          </li>
+          <li>
+<span><tt>&quot;newRing(...,WeylAlgebra=>...)&quot;</tt> -- see <span><a title="make a copy of a ring, with some features changed" href="_new__Ring.html">newRing</a> -- make a copy of a ring, with some features changed</span></span>          </li>
+          <li>
+<span><tt>&quot;symmetricAlgebra(...,WeylAlgebra=>...)&quot;</tt> -- see <span><a title="the symmetric algebra of a module" href="_symmetric__Algebra.html">symmetricAlgebra</a> -- the symmetric algebra of a module</span></span>          </li>
+          <li>
+<span><tt>&quot;tensor(Monoid,Monoid,WeylAlgebra=>...)&quot;</tt> -- see <span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Monoid,Monoid)</a> -- tensor product of monoids</span></span>          </li>
+          <li>
+<span><tt>&quot;tensor(Ring,Ring,WeylAlgebra=>...)&quot;</tt> -- see <span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Monoid,Monoid)</a> -- tensor product of monoids</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

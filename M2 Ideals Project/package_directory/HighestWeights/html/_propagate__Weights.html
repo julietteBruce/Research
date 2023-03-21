@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>propagateWeights -- propagate (Lie theoretic) weights along equivariant maps</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_propagate__Weights_lp..._cm__Forward_eq_gt..._rp.html">next</a> | <a href="___Minimality__Test.html">previous</a> | <a href="_propagate__Weights_lp..._cm__Forward_eq_gt..._rp.html">forward</a> | <a href="___Minimality__Test.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="decompose free resolutions and graded modules with a semisimple Lie group action" href="index.html">HighestWeights</a> :: <a title="propagate (Lie theoretic) weights along equivariant maps" href="_propagate__Weights.html">propagateWeights</a>    </div>
+    <hr/>
+    <div>
+      <h1>propagateWeights -- propagate (Lie theoretic) weights along equivariant maps</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="propagate weights from domain to codomain" href="_propagate__Weights_lp..._cm__Forward_eq_gt..._rp.html">Forward</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, propagate weights from domain to codomain</span>              </li>
+              <li>
+<span><a title="check the columns of the input matrix for repeated leading terms" href="_propagate__Weights_lp..._cm__Leading__Term__Test_eq_gt..._rp.html">LeadingTermTest</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, check the columns of the input matrix for repeated leading terms</span>              </li>
+              <li>
+<span><a title="check that the input map is minimal" href="_propagate__Weights_lp..._cm__Minimality__Test_eq_gt..._rp.html">MinimalityTest</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, check that the input map is minimal</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let $T$ be a torus which acts on a polynomial ring compatibly with the grading. Assume the variables in the ring are weight vectors for the action of $T$.</p>
+          <p>Use this method on a $T$-equivariant map of graded free modules, to obtain the weights of the domain from the weights of the codomain (or vice-versa).</p>
+          <p>The weights of the variables in the ring must be set a priori, using the method <a title="attach (Lie theoretic) weights to the variables of a ring" href="_set__Weights.html">setWeights</a>.</p>
+          <p>This method is called by other methods in this package. The only reason for using this method directly is that it returns a complete list of weights for the domain (resp. codomain) of an equivariant map, instead of the highest weights decomposition.</p>
+          <p>This method implements an algorithm introduced in <a href="http://dx.doi.org/10.1016/j.jsc.2015.05.004">Galetto - Propagating weights of tori along free resolutions</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="attach (Lie theoretic) weights to the variables of a ring" href="_set__Weights.html">setWeights</a> -- attach (Lie theoretic) weights to the variables of a ring</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>propagateWeights</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="propagate (Lie theoretic) weights along an equivariant map of graded free modules" href="_propagate__Weights_lp__Matrix_cm__List_rp.html">propagateWeights(Matrix,List)</a> -- propagate (Lie theoretic) weights along an equivariant map of graded free modules</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="propagate (Lie theoretic) weights along equivariant maps" href="_propagate__Weights.html">propagateWeights</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

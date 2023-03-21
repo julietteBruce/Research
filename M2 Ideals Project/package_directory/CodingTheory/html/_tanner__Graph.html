@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>tannerGraph -- outputs the tanner graph associated with the given parity check matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_rand__L__D__P__C.html">previous</a> | <a href="_random__Code.html">forward</a> | <a href="_rand__L__D__P__C.html">backward</a> | <a href="___Parity__Check.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a> > <a title="functions to construct linear codes over Galois fields" href="_linear__Code.html">linearCode</a> > <a title="an optional input for the linearCode constructor" href="___Parity__Check.html">ParityCheck</a> > <a title="outputs the tanner graph associated with the given parity check matrix" href="_tanner__Graph.html">tannerGraph</a>    </div>
+    <hr/>
+    <div>
+      <h1>tannerGraph -- outputs the tanner graph associated with the given parity check matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">tannerGraph(H)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a href="../../Graphs/html/___Graph.html">graph</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a linear code $C$ with parity-check matrix <tt>H</tt>, the function returns the Tanner graph associated to <tt>H</tt>. This is a bipartite graph with one set of vertices indexed by the rows of  <tt>H</tt> and the other by the columns of <tt>H</tt>. The vertex corresponding to the $i$-th row is connected to the vertex corresponding to the $j$-th column if and only if the $(i,j)$-th entry of <tt>H</tt> is nonzero.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : H := matrix(GF(2), {{1,1,0,0,0,0,0},{0,1,1,0,0,0,0}, {0,1,1,1,1,0,0},{0,0,0,1,1,0,0},{0,0,0,0,1,1,0},{0,0,0,0,1,0,1}});
+
+                  6            7
+o1 : Matrix (GF 2)  &lt;--- (GF 2)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : tannerGraph(H)
+
+o2 = Graph{c  => {r }            }
+            0      0
+           c  => {r , r , r }
+            1      0   1   2
+           c  => {r , r }
+            2      1   2
+           c  => {r , r }
+            3      2   3
+           c  => {r , r , r , r }
+            4      2   3   4   5
+           c  => {r }
+            5      4
+           c  => {r }
+            6      5
+           r  => {c , c }
+            0      0   1
+           r  => {c , c }
+            1      1   2
+           r  => {c , c , c , c }
+            2      1   2   3   4
+           r  => {c , c }
+            3      3   4
+           r  => {c , c }
+            4      4   5
+           r  => {c , c }
+            5      4   6
+
+o2 : Graph</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>tannerGraph</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;tannerGraph(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="outputs the tanner graph associated with the given parity check matrix" href="_tanner__Graph.html">tannerGraph</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,87 @@
+-- -*- M2-comint -*- hash: 738578534
+
+i1 : load "Macaulay2Doc/demo1.m2"
+
+i2 : listUserSymbols
+
+o2 = symbol   class              value
+     ------   -----              -----
+     g      : FunctionClosure -- g    
+     ------------------------------------------------------------------------
+     location of symbol
+     ------------------                                                 
+     ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/
+     ------------------------------------------------------------------------
+                                             
+     packages/Macaulay2Doc/demo1.m2:11:1-11:2
+
+i3 : code g
+
+o3 = ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:11:7-14:8: --source code:
+     g = y -> (
+          c := f(y-1);
+          d := f(y-2);
+          c+d)
+
+i4 : g 4
+
+     17
+o4 = --
+      6
+
+o4 : QQ
+
+i5 : g 3
+
+     7
+o5 = -
+     2
+
+o5 : QQ
+
+i6 : g 2
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:12:(3):[2]: error: division by zero
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:12:(3):[2]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:11-8:13: --source code:
+     b := 1/x;
+
+ii7 : listLocalSymbols
+
+oo7 = symbol   class              value      location of symbol
+      ------   -----              -----      ------------------                                                                                       
+      a      : String          -- "hi there" ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:7:6-7:7
+      b      : Nothing         -- null       ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:6-8:7
+      x      : ZZ              -- 0          ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:6:6-6:7
+      f      : FunctionClosure -- ...        ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:6:1-6:2
+
+ii8 : code f
+
+oo8 = ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:6:8-9:8: --source code:
+      f := x -> (
+           a := "hi there";
+           b := 1/x;
+           b+1)
+
+ii9 : step 0
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:12:(3):[2]: --stepping limit reached
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:12:(3):[2]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:8:11-8:13: --source code:
+     b := 1/x;
+
+ii10 : end
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:13:11:(3):[1]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:13:11-13:15: --source code:
+     d := f(y-2);
+
+ii11 : listLocalSymbols
+
+oo11 = symbol   class              value location of symbol
+       ------   -----              ----- ------------------                                                                                         
+       c      : QQ              -- 2     ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:12:6-12:7
+       d      : Nothing         -- null  ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:13:6-13:7
+       y      : ZZ              -- 2     ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:11:5-11:6
+       f      : FunctionClosure -- ...   ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo1.m2:6:1-6:2  
+
+ii12 : break
+
+i13 : 

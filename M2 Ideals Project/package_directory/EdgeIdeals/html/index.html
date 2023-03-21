@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>EdgeIdeals -- A package for working with the edge ideals of (hyper)graphs</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_adjacency__Matrix.html">next</a> | previous | <a href="_adjacency__Matrix.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a>    </div>
+    <hr/>
+    <div>
+      <h1>EdgeIdeals -- A package for working with the edge ideals of (hyper)graphs</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><em>EdgeIdeals</em> is a package to work with the edge ideals of (hyper)graphs.</p>
+          <p>An edge ideal is a square-free monomial ideal where the generators of the monomial ideal correspond to the edges of the (hyper)graph.  An edge ideal complements the Stanley-Reisner correspondence (see <a title="exploring abstract simplicial complexes within commutative algebra" href="../../SimplicialComplexes/html/index.html">SimplicialComplexes</a>) by providing an alternative combinatorial interpretation of the monomial generators.</p>
+          <p>This package exploits the correspondence between square-free monomial ideals and the combinatorial objects, by using commutative algebra routines to derive information about (hyper)graphs. For some of the mathematical background on this material, see Chapter 6 of the textbook <i>Monomial Algebras</i> by R. Villarreal and the survey paper of T. Ha and A. Van Tuyl (&quot;Resolutions of square-free monomial ideals via facet ideals: a survey,&quot; Contemporary Mathematics. 448 (2007) 91-117).</p>
+          <p>See the <a title="a summary of the many ways of making graphs and hypergraphs" href="___Constructor_sp__Overview.html">Constructor Overview</a> and the <a title="an extended example using EdgeIdeals" href="___Extended_sp__Example.html">Extended Example</a> for some illustrations of ways to use this package.</p>
+          <p><b>Note:</b> We require all hypergraphs to be clutters, which are hypergraphs in which no edge is a subset of another. If $H$ is a hypergraph that is not a clutter, then the edge ideal of $H$ is indistinguishable from the edge ideal of the clutter of minimal edges in $H$. (Edges of $H$ that are supersets of other edges would not appear as minimal generators of the edge ideal of $H$.) The edge ideal of a hypergraph is similar to the facet ideal of a simplicial complex, as defined by S. Faridi in  &quot;The facet ideal of a simplicial complex,&quot; Manuscripta Mathematica 109, 159-174 (2002).</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://www.math.okstate.edu/~chris/">Chris Francisco</a><span> &lt;<a href="mailto:chris@math.okstate.edu">chris@math.okstate.edu</a>></span>            </li>
+            <li>
+<a href="http://www.mathstat.dal.ca/~handrew/">Andrew Hoefel</a><span> &lt;<a href="mailto:handrew@mathstat.dal.ca">handrew@mathstat.dal.ca</a>></span>            </li>
+            <li>
+<a href="http://flash.lakeheadu.ca/~avantuyl/">Adam Van Tuyl</a><span> &lt;<a href="mailto:avantuyl@lakeheadu.ca">avantuyl@lakeheadu.ca</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>1.0.0</b> of this package was accepted for publication in <a href="http://j-sag.org/Volume1/">volume 1</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry: Macaulay2</a> on 2009-06-27, in the article <a href="http://j-sag.org/Volume1/jsag-1-2009.pdf">EdgeIdeals: a package for (hyper)graphs</a>. That version can be obtained from <a href="http://j-sag.org/Volume1/EdgeIdeals.m2">the journal</a> or from <a href="https://github.com/Macaulay2/M2/blob/38e96fec660168d488ad0449f8632e6608cc9ede/M2/Macaulay2/packages/EdgeIdeals.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.0.2</b> of EdgeIdeals.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/EdgeIdeals.m2">EdgeIdeals.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a class for graphs" href="___Graph.html">Graph</a> -- a class for graphs</span>                  </li>
+                  <li>
+<span><a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a> -- a class for hypergraphs</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="returns the adjacency Matrix of a graph" href="_adjacency__Matrix.html">adjacencyMatrix</a> -- returns the adjacency Matrix of a graph</span>                  </li>
+                  <li>
+<span><a title="returns all even holes in a graph" href="_all__Even__Holes.html">allEvenHoles</a> -- returns all even holes in a graph</span>                  </li>
+                  <li>
+<span><a title="returns all odd holes in a graph" href="_all__Odd__Holes.html">allOddHoles</a> -- returns all odd holes in a graph</span>                  </li>
+                  <li>
+<span><a title="returns a graph of an anticycle" href="_anti__Cycle.html">antiCycle</a> -- returns a graph of an anticycle</span>                  </li>
+                  <li>
+<span><a title="replaces vertices with variables of a different ring" href="_change__Ring.html">changeRing</a> -- replaces vertices with variables of a different ring</span>                  </li>
+                  <li>
+<span><a title="computes the chromatic number of a hypergraph" href="_chromatic__Number.html">chromaticNumber</a> -- computes the chromatic number of a hypergraph</span>                  </li>
+                  <li>
+<span><a title="returns the clique complex of a graph" href="_clique__Complex.html">cliqueComplex</a> -- returns the clique complex of a graph</span>                  </li>
+                  <li>
+<span><a title="computes the clique number of a graph" href="_clique__Number.html">cliqueNumber</a> -- computes the clique number of a graph</span>                  </li>
+                  <li>
+<span><a title="returns the complement of a graph or hypergraph" href="_complement__Graph.html">complementGraph</a> -- returns the complement of a graph or hypergraph</span>                  </li>
+                  <li>
+<span><a title="returns a complete graph" href="_complete__Graph.html">completeGraph</a> -- returns a complete graph</span>                  </li>
+                  <li>
+<span><a title="returns a complete multipartite graph" href="_complete__Multi__Partite.html">completeMultiPartite</a> -- returns a complete multipartite graph</span>                  </li>
+                  <li>
+<span><a title="returns the connected components of a graph" href="_connected__Graph__Components.html">connectedGraphComponents</a> -- returns the connected components of a graph</span>                  </li>
+                  <li>
+<span><a title="creates the cover ideal of a (hyper)graph" href="_cover__Ideal.html">coverIdeal</a> -- creates the cover ideal of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="returns a graph cycle" href="_cycle.html">cycle</a> -- returns a graph cycle</span>                  </li>
+                  <li>
+<span><a title="returns the degree of a vertex" href="_degree__Vertex.html">degreeVertex</a> -- returns the degree of a vertex</span>                  </li>
+                  <li>
+<span><a title="returns the (hyper)graph with specified edges removed" href="_delete__Edges.html">deleteEdges</a> -- returns the (hyper)graph with specified edges removed</span>                  </li>
+                  <li>
+<span><a title="creates the edge ideal of a (hyper)graph" href="_edge__Ideal.html">edgeIdeal</a> -- creates the edge ideal of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="gets the edges of a (hyper)graph" href="_edges.html">edges</a> -- gets the edges of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="returns cliques in a graph" href="_get__Cliques.html">getCliques</a> -- returns cliques in a graph</span>                  </li>
+                  <li>
+<span><a title="gets the n-th edge in a (hyper)graph" href="_get__Edge.html">getEdge</a> -- gets the n-th edge in a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="finds the index of an edge in a HyperGraph" href="_get__Edge__Index.html">getEdgeIndex</a> -- finds the index of an edge in a HyperGraph</span>                  </li>
+                  <li>
+<span><a title="returns an edge that is a good leaf" href="_get__Good__Leaf.html">getGoodLeaf</a> -- returns an edge that is a good leaf</span>                  </li>
+                  <li>
+<span><a title="returns the index of an edge that is a good leaf" href="_get__Good__Leaf__Index.html">getGoodLeafIndex</a> -- returns the index of an edge that is a good leaf</span>                  </li>
+                  <li>
+<span><a title="returns maximal cliques in a graph" href="_get__Max__Cliques.html">getMaxCliques</a> -- returns maximal cliques in a graph</span>                  </li>
+                  <li>
+<span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span>                  </li>
+                  <li>
+<span><a title="determines if a HyperGraph contains a good leaf" href="_has__Good__Leaf.html">hasGoodLeaf</a> -- determines if a HyperGraph contains a good leaf</span>                  </li>
+                  <li>
+<span><a title="tells whether a graph contains an odd hole" href="_has__Odd__Hole.html">hasOddHole</a> -- tells whether a graph contains an odd hole</span>                  </li>
+                  <li>
+<span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span>                  </li>
+                  <li>
+<span><a title="makes a simplicial complex from a (hyper)graph" href="_hyper__Graph__To__Simplicial__Complex.html">hyperGraphToSimplicialComplex</a> -- makes a simplicial complex from a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="returns the incidence matrix of a hypergraph" href="_incidence__Matrix.html">incidenceMatrix</a> -- returns the incidence matrix of a hypergraph</span>                  </li>
+                  <li>
+<span><a title="returns the independence complex of a (hyper)graph" href="_independence__Complex.html">independenceComplex</a> -- returns the independence complex of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="determines the independence number of a graph" href="_independence__Number.html">independenceNumber</a> -- determines the independence number of a graph</span>                  </li>
+                  <li>
+<span><a title="returns the induced subgraph of a graph" href="_induced__Graph.html">inducedGraph</a> -- returns the induced subgraph of a graph</span>                  </li>
+                  <li>
+<span><a title="returns the induced subgraph of a (hyper)graph" href="_induced__Hyper__Graph.html">inducedHyperGraph</a> -- returns the induced subgraph of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="determines if a graph is bipartite" href="_is__Bipartite.html">isBipartite</a> -- determines if a graph is bipartite</span>                  </li>
+                  <li>
+<span><a title="determines if a graph is chordal" href="_is__Chordal.html">isChordal</a> -- determines if a graph is chordal</span>                  </li>
+                  <li>
+<span><a title="determines if a (hyper)graph is Cohen-Macaulay" href="_is__C__M.html">isCM</a> -- determines if a (hyper)graph is Cohen-Macaulay</span>                  </li>
+                  <li>
+<span><a title="determines if a (hyper)graph is connected" href="_is__Connected.html">isConnected</a> -- determines if a (hyper)graph is connected</span>                  </li>
+                  <li>
+<span><a title="determines if a graph is connected" href="_is__Connected__Graph.html">isConnectedGraph</a> -- determines if a graph is connected</span>                  </li>
+                  <li>
+<span><a title="determines if an edge is in a (hyper)graph" href="_is__Edge.html">isEdge</a> -- determines if an edge is in a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="determines whether a (hyper)graph is a forest" href="_is__Forest.html">isForest</a> -- determines whether a (hyper)graph is a forest</span>                  </li>
+                  <li>
+<span><a title="determines if an edge is a good leaf" href="_is__Good__Leaf.html">isGoodLeaf</a> -- determines if an edge is a good leaf</span>                  </li>
+                  <li>
+<span><a title="determines if a hypergraph is a graph" href="_is__Graph.html">isGraph</a> -- determines if a hypergraph is a graph</span>                  </li>
+                  <li>
+<span><a title="determines if an edge (or vertex) is a leaf of a (hyper)graph" href="_is__Leaf.html">isLeaf</a> -- determines if an edge (or vertex) is a leaf of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="returns all vertices not contained in any edge" href="_isolated__Vertices.html">isolatedVertices</a> -- returns all vertices not contained in any edge</span>                  </li>
+                  <li>
+<span><a title="determines whether a graph is perfect" href="_is__Perfect.html">isPerfect</a> -- determines whether a graph is perfect</span>                  </li>
+                  <li>
+<span><a title="determines if a (hyper)graph is sequentially Cohen-Macaulay" href="_is__S__C__M.html">isSCM</a> -- determines if a (hyper)graph is sequentially Cohen-Macaulay</span>                  </li>
+                  <li>
+<span><a title="returns the line graph of a (hyper)graph" href="_line__Graph.html">lineGraph</a> -- returns the line graph of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="returns the neighbors of a vertex or list of vertices" href="_neighbors.html">neighbors</a> -- returns the neighbors of a vertex or list of vertices</span>                  </li>
+                  <li>
+<span><a title="returns the number of connected components in a (hyper)graph" href="_num__Connected__Components.html">numConnectedComponents</a> -- returns the number of connected components in a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="returns the number of connected components in a graph" href="_num__Connected__Graph__Components.html">numConnectedGraphComponents</a> -- returns the number of connected components in a graph</span>                  </li>
+                  <li>
+<span><a title="returns the number of triangles in a graph" href="_num__Triangles.html">numTriangles</a> -- returns the number of triangles in a graph</span>                  </li>
+                  <li>
+<span><a title="returns a random graph" href="_random__Graph.html">randomGraph</a> -- returns a random graph</span>                  </li>
+                  <li>
+<span><a title="returns a random hypergraph" href="_random__Hyper__Graph.html">randomHyperGraph</a> -- returns a random hypergraph</span>                  </li>
+                  <li>
+<span><a title="returns a random uniform hypergraph" href="_random__Uniform__Hyper__Graph.html">randomUniformHyperGraph</a> -- returns a random uniform hypergraph</span>                  </li>
+                  <li>
+<span><a title="makes a (hyper)graph from a simplicial complex" href="_simplicial__Complex__To__Hyper__Graph.html">simplicialComplexToHyperGraph</a> -- makes a (hyper)graph from a simplicial complex</span>                  </li>
+                  <li>
+<span><a title="returns the size of the smallest induced cycle of a graph" href="_smallest__Cycle__Size.html">smallestCycleSize</a> -- returns the size of the smallest induced cycle of a graph</span>                  </li>
+                  <li>
+<span><a title="returns a spanning tree of a graph" href="_spanning__Tree.html">spanningTree</a> -- returns a spanning tree of a graph</span>                  </li>
+                  <li>
+<span><a title="find the vertex covering number of a (hyper)graph" href="_vertex__Cover__Number.html">vertexCoverNumber</a> -- find the vertex covering number of a (hyper)graph</span>                  </li>
+                  <li>
+<span><a title="list the minimal vertex covers of a (hyper)graph" href="_vertex__Covers.html">vertexCovers</a> -- list the minimal vertex covers of a (hyper)graph</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;adjacencyMatrix(Graph)&quot;</tt> -- see <span><a title="returns the adjacency Matrix of a graph" href="_adjacency__Matrix.html">adjacencyMatrix</a> -- returns the adjacency Matrix of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allEvenHoles(Graph)&quot;</tt> -- see <span><a title="returns all even holes in a graph" href="_all__Even__Holes.html">allEvenHoles</a> -- returns all even holes in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allOddHoles(Graph)&quot;</tt> -- see <span><a title="returns all odd holes in a graph" href="_all__Odd__Holes.html">allOddHoles</a> -- returns all odd holes in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;antiCycle(List)&quot;</tt> -- see <span><a title="returns a graph of an anticycle" href="_anti__Cycle.html">antiCycle</a> -- returns a graph of an anticycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;antiCycle(Ring)&quot;</tt> -- see <span><a title="returns a graph of an anticycle" href="_anti__Cycle.html">antiCycle</a> -- returns a graph of an anticycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;antiCycle(Ring,ZZ)&quot;</tt> -- see <span><a title="returns a graph of an anticycle" href="_anti__Cycle.html">antiCycle</a> -- returns a graph of an anticycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;changeRing(HyperGraph,PolynomialRing,List)&quot;</tt> -- see <span><a title="replaces vertices with variables of a different ring" href="_change__Ring.html">changeRing</a> -- replaces vertices with variables of a different ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;chromaticNumber(HyperGraph)&quot;</tt> -- see <span><a title="computes the chromatic number of a hypergraph" href="_chromatic__Number.html">chromaticNumber</a> -- computes the chromatic number of a hypergraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cliqueComplex(Graph)&quot;</tt> -- see <span><a title="returns the clique complex of a graph" href="_clique__Complex.html">cliqueComplex</a> -- returns the clique complex of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cliqueNumber(Graph)&quot;</tt> -- see <span><a title="computes the clique number of a graph" href="_clique__Number.html">cliqueNumber</a> -- computes the clique number of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;complementGraph(Graph)&quot;</tt> -- see <span><a title="returns the complement of a graph or hypergraph" href="_complement__Graph.html">complementGraph</a> -- returns the complement of a graph or hypergraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;complementGraph(HyperGraph)&quot;</tt> -- see <span><a title="returns the complement of a graph or hypergraph" href="_complement__Graph.html">complementGraph</a> -- returns the complement of a graph or hypergraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;completeGraph(List)&quot;</tt> -- see <span><a title="returns a complete graph" href="_complete__Graph.html">completeGraph</a> -- returns a complete graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;completeGraph(Ring)&quot;</tt> -- see <span><a title="returns a complete graph" href="_complete__Graph.html">completeGraph</a> -- returns a complete graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;completeGraph(Ring,ZZ)&quot;</tt> -- see <span><a title="returns a complete graph" href="_complete__Graph.html">completeGraph</a> -- returns a complete graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;completeMultiPartite(Ring,List)&quot;</tt> -- see <span><a title="returns a complete multipartite graph" href="_complete__Multi__Partite.html">completeMultiPartite</a> -- returns a complete multipartite graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;completeMultiPartite(Ring,ZZ,ZZ)&quot;</tt> -- see <span><a title="returns a complete multipartite graph" href="_complete__Multi__Partite.html">completeMultiPartite</a> -- returns a complete multipartite graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;connectedComponents(HyperGraph)&quot;</tt> -- see <span><a title="returns the connected components of a hypergraph" href="_connected__Components.html">connectedComponents</a> -- returns the connected components of a hypergraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;connectedGraphComponents(HyperGraph)&quot;</tt> -- see <span><a title="returns the connected components of a graph" href="_connected__Graph__Components.html">connectedGraphComponents</a> -- returns the connected components of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coverIdeal(HyperGraph)&quot;</tt> -- see <span><a title="creates the cover ideal of a (hyper)graph" href="_cover__Ideal.html">coverIdeal</a> -- creates the cover ideal of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cycle(List)&quot;</tt> -- see <span><a title="returns a graph cycle" href="_cycle.html">cycle</a> -- returns a graph cycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cycle(Ring)&quot;</tt> -- see <span><a title="returns a graph cycle" href="_cycle.html">cycle</a> -- returns a graph cycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cycle(Ring,ZZ)&quot;</tt> -- see <span><a title="returns a graph cycle" href="_cycle.html">cycle</a> -- returns a graph cycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degreeVertex(HyperGraph,RingElement)&quot;</tt> -- see <span><a title="returns the degree of a vertex" href="_degree__Vertex.html">degreeVertex</a> -- returns the degree of a vertex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degreeVertex(HyperGraph,ZZ)&quot;</tt> -- see <span><a title="returns the degree of a vertex" href="_degree__Vertex.html">degreeVertex</a> -- returns the degree of a vertex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;deleteEdges(HyperGraph,List)&quot;</tt> -- see <span><a title="returns the (hyper)graph with specified edges removed" href="_delete__Edges.html">deleteEdges</a> -- returns the (hyper)graph with specified edges removed</span></span>                  </li>
+                  <li>
+<span><tt>&quot;edgeIdeal(HyperGraph)&quot;</tt> -- see <span><a title="creates the edge ideal of a (hyper)graph" href="_edge__Ideal.html">edgeIdeal</a> -- creates the edge ideal of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;edges(HyperGraph)&quot;</tt> -- see <span><a title="gets the edges of a (hyper)graph" href="_edges.html">edges</a> -- gets the edges of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getCliques(Graph)&quot;</tt> -- see <span><a title="returns cliques in a graph" href="_get__Cliques.html">getCliques</a> -- returns cliques in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getCliques(Graph,ZZ)&quot;</tt> -- see <span><a title="returns cliques in a graph" href="_get__Cliques.html">getCliques</a> -- returns cliques in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getEdge(HyperGraph,ZZ)&quot;</tt> -- see <span><a title="gets the n-th edge in a (hyper)graph" href="_get__Edge.html">getEdge</a> -- gets the n-th edge in a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getEdgeIndex(HyperGraph,List)&quot;</tt> -- see <span><a title="finds the index of an edge in a HyperGraph" href="_get__Edge__Index.html">getEdgeIndex</a> -- finds the index of an edge in a HyperGraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getEdgeIndex(HyperGraph,RingElement)&quot;</tt> -- see <span><a title="finds the index of an edge in a HyperGraph" href="_get__Edge__Index.html">getEdgeIndex</a> -- finds the index of an edge in a HyperGraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getGoodLeaf(HyperGraph)&quot;</tt> -- see <span><a title="returns an edge that is a good leaf" href="_get__Good__Leaf.html">getGoodLeaf</a> -- returns an edge that is a good leaf</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getGoodLeafIndex(HyperGraph)&quot;</tt> -- see <span><a title="returns the index of an edge that is a good leaf" href="_get__Good__Leaf__Index.html">getGoodLeafIndex</a> -- returns the index of an edge that is a good leaf</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getMaxCliques(Graph)&quot;</tt> -- see <span><a title="returns maximal cliques in a graph" href="_get__Max__Cliques.html">getMaxCliques</a> -- returns maximal cliques in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph(HyperGraph)&quot;</tt> -- see <span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph(Ideal)&quot;</tt> -- see <span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph(List)&quot;</tt> -- see <span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph(MonomialIdeal)&quot;</tt> -- see <span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph(PolynomialRing,List)&quot;</tt> -- see <span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hasGoodLeaf(HyperGraph)&quot;</tt> -- see <span><a title="determines if a HyperGraph contains a good leaf" href="_has__Good__Leaf.html">hasGoodLeaf</a> -- determines if a HyperGraph contains a good leaf</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hasOddHole(Graph)&quot;</tt> -- see <span><a title="tells whether a graph contains an odd hole" href="_has__Odd__Hole.html">hasOddHole</a> -- tells whether a graph contains an odd hole</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hyperGraph(Graph)&quot;</tt> -- see <span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hyperGraph(Ideal)&quot;</tt> -- see <span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hyperGraph(List)&quot;</tt> -- see <span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hyperGraph(MonomialIdeal)&quot;</tt> -- see <span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hyperGraph(PolynomialRing,List)&quot;</tt> -- see <span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span></span>                  </li>
+                  <li>
+<span><a title="equality" href="___Hyper__Graph_sp_eq_eq_sp__Hyper__Graph.html">HyperGraph == HyperGraph</a> -- equality</span>                  </li>
+                  <li>
+<span><tt>&quot;hyperGraphToSimplicialComplex(HyperGraph)&quot;</tt> -- see <span><a title="makes a simplicial complex from a (hyper)graph" href="_hyper__Graph__To__Simplicial__Complex.html">hyperGraphToSimplicialComplex</a> -- makes a simplicial complex from a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;incidenceMatrix(HyperGraph)&quot;</tt> -- see <span><a title="returns the incidence matrix of a hypergraph" href="_incidence__Matrix.html">incidenceMatrix</a> -- returns the incidence matrix of a hypergraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;independenceComplex(HyperGraph)&quot;</tt> -- see <span><a title="returns the independence complex of a (hyper)graph" href="_independence__Complex.html">independenceComplex</a> -- returns the independence complex of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;independenceNumber(Graph)&quot;</tt> -- see <span><a title="determines the independence number of a graph" href="_independence__Number.html">independenceNumber</a> -- determines the independence number of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inducedGraph(Graph,List)&quot;</tt> -- see <span><a title="returns the induced subgraph of a graph" href="_induced__Graph.html">inducedGraph</a> -- returns the induced subgraph of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inducedHyperGraph(HyperGraph,List)&quot;</tt> -- see <span><a title="returns the induced subgraph of a (hyper)graph" href="_induced__Hyper__Graph.html">inducedHyperGraph</a> -- returns the induced subgraph of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBipartite(Graph)&quot;</tt> -- see <span><a title="determines if a graph is bipartite" href="_is__Bipartite.html">isBipartite</a> -- determines if a graph is bipartite</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isChordal(Graph)&quot;</tt> -- see <span><a title="determines if a graph is chordal" href="_is__Chordal.html">isChordal</a> -- determines if a graph is chordal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isCM(HyperGraph)&quot;</tt> -- see <span><a title="determines if a (hyper)graph is Cohen-Macaulay" href="_is__C__M.html">isCM</a> -- determines if a (hyper)graph is Cohen-Macaulay</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isConnected(HyperGraph)&quot;</tt> -- see <span><a title="determines if a (hyper)graph is connected" href="_is__Connected.html">isConnected</a> -- determines if a (hyper)graph is connected</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isConnectedGraph(HyperGraph)&quot;</tt> -- see <span><a title="determines if a graph is connected" href="_is__Connected__Graph.html">isConnectedGraph</a> -- determines if a graph is connected</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isEdge(HyperGraph,List)&quot;</tt> -- see <span><a title="determines if an edge is in a (hyper)graph" href="_is__Edge.html">isEdge</a> -- determines if an edge is in a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isEdge(HyperGraph,RingElement)&quot;</tt> -- see <span><a title="determines if an edge is in a (hyper)graph" href="_is__Edge.html">isEdge</a> -- determines if an edge is in a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isForest(Graph)&quot;</tt> -- see <span><a title="determines whether a (hyper)graph is a forest" href="_is__Forest.html">isForest</a> -- determines whether a (hyper)graph is a forest</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isForest(HyperGraph)&quot;</tt> -- see <span><a title="determines whether a (hyper)graph is a forest" href="_is__Forest.html">isForest</a> -- determines whether a (hyper)graph is a forest</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isGoodLeaf(HyperGraph,ZZ)&quot;</tt> -- see <span><a title="determines if an edge is a good leaf" href="_is__Good__Leaf.html">isGoodLeaf</a> -- determines if an edge is a good leaf</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isGraph(HyperGraph)&quot;</tt> -- see <span><a title="determines if a hypergraph is a graph" href="_is__Graph.html">isGraph</a> -- determines if a hypergraph is a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLeaf(Graph,ZZ)&quot;</tt> -- see <span><a title="determines if an edge (or vertex) is a leaf of a (hyper)graph" href="_is__Leaf.html">isLeaf</a> -- determines if an edge (or vertex) is a leaf of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLeaf(HyperGraph,RingElement)&quot;</tt> -- see <span><a title="determines if an edge (or vertex) is a leaf of a (hyper)graph" href="_is__Leaf.html">isLeaf</a> -- determines if an edge (or vertex) is a leaf of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLeaf(HyperGraph,ZZ)&quot;</tt> -- see <span><a title="determines if an edge (or vertex) is a leaf of a (hyper)graph" href="_is__Leaf.html">isLeaf</a> -- determines if an edge (or vertex) is a leaf of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isolatedVertices(HyperGraph)&quot;</tt> -- see <span><a title="returns all vertices not contained in any edge" href="_isolated__Vertices.html">isolatedVertices</a> -- returns all vertices not contained in any edge</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPerfect(Graph)&quot;</tt> -- see <span><a title="determines whether a graph is perfect" href="_is__Perfect.html">isPerfect</a> -- determines whether a graph is perfect</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isSCM(HyperGraph)&quot;</tt> -- see <span><a title="determines if a (hyper)graph is sequentially Cohen-Macaulay" href="_is__S__C__M.html">isSCM</a> -- determines if a (hyper)graph is sequentially Cohen-Macaulay</span></span>                  </li>
+                  <li>
+<span><tt>&quot;lineGraph(HyperGraph)&quot;</tt> -- see <span><a title="returns the line graph of a (hyper)graph" href="_line__Graph.html">lineGraph</a> -- returns the line graph of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;neighbors(HyperGraph,List)&quot;</tt> -- see <span><a title="returns the neighbors of a vertex or list of vertices" href="_neighbors.html">neighbors</a> -- returns the neighbors of a vertex or list of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;neighbors(HyperGraph,RingElement)&quot;</tt> -- see <span><a title="returns the neighbors of a vertex or list of vertices" href="_neighbors.html">neighbors</a> -- returns the neighbors of a vertex or list of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;neighbors(HyperGraph,ZZ)&quot;</tt> -- see <span><a title="returns the neighbors of a vertex or list of vertices" href="_neighbors.html">neighbors</a> -- returns the neighbors of a vertex or list of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numConnectedComponents(HyperGraph)&quot;</tt> -- see <span><a title="returns the number of connected components in a (hyper)graph" href="_num__Connected__Components.html">numConnectedComponents</a> -- returns the number of connected components in a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numConnectedGraphComponents(HyperGraph)&quot;</tt> -- see <span><a title="returns the number of connected components in a graph" href="_num__Connected__Graph__Components.html">numConnectedGraphComponents</a> -- returns the number of connected components in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numTriangles(Graph)&quot;</tt> -- see <span><a title="returns the number of triangles in a graph" href="_num__Triangles.html">numTriangles</a> -- returns the number of triangles in a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomGraph(PolynomialRing,ZZ)&quot;</tt> -- see <span><a title="returns a random graph" href="_random__Graph.html">randomGraph</a> -- returns a random graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomHyperGraph(PolynomialRing,List)&quot;</tt> -- see <span><a title="returns a random hypergraph" href="_random__Hyper__Graph.html">randomHyperGraph</a> -- returns a random hypergraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomUniformHyperGraph(PolynomialRing,ZZ,ZZ)&quot;</tt> -- see <span><a title="returns a random uniform hypergraph" href="_random__Uniform__Hyper__Graph.html">randomUniformHyperGraph</a> -- returns a random uniform hypergraph</span></span>                  </li>
+                  <li>
+<span><a title="gives the ring of a (hyper)graph" href="_ring_lp__Hyper__Graph_rp.html">ring(HyperGraph)</a> -- gives the ring of a (hyper)graph</span>                  </li>
+                  <li>
+<span><tt>&quot;simplicialComplexToHyperGraph(SimplicialComplex)&quot;</tt> -- see <span><a title="makes a (hyper)graph from a simplicial complex" href="_simplicial__Complex__To__Hyper__Graph.html">simplicialComplexToHyperGraph</a> -- makes a (hyper)graph from a simplicial complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;smallestCycleSize(Graph)&quot;</tt> -- see <span><a title="returns the size of the smallest induced cycle of a graph" href="_smallest__Cycle__Size.html">smallestCycleSize</a> -- returns the size of the smallest induced cycle of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;spanningTree(Graph)&quot;</tt> -- see <span><a title="returns a spanning tree of a graph" href="_spanning__Tree.html">spanningTree</a> -- returns a spanning tree of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vertexCoverNumber(HyperGraph)&quot;</tt> -- see <span><a title="find the vertex covering number of a (hyper)graph" href="_vertex__Cover__Number.html">vertexCoverNumber</a> -- find the vertex covering number of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vertexCovers(HyperGraph)&quot;</tt> -- see <span><a title="list the minimal vertex covers of a (hyper)graph" href="_vertex__Covers.html">vertexCovers</a> -- list the minimal vertex covers of a (hyper)graph</span></span>                  </li>
+                  <li>
+<span><a title="gets the vertices of a (hyper)graph" href="_vertices_lp__Hyper__Graph_rp.html">vertices(HyperGraph)</a> -- gets the vertices of a (hyper)graph</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="optional argument for randomHyperGraph" href="___Branch__Limit.html">BranchLimit</a> -- optional argument for randomHyperGraph</span>                  </li>
+                  <li>
+<span><a title="optional argument for isSCM" href="___Gins.html">Gins</a> -- optional argument for isSCM</span>                  </li>
+                  <li>
+<span><a title="optional argument for changeRing" href="___Maximal__Edges.html">MaximalEdges</a> -- optional argument for changeRing</span>                  </li>
+                  <li>
+<span><a title="optional argument for inducedHyperGraph" href="___Original__Ring.html">OriginalRing</a> -- optional argument for inducedHyperGraph</span>                  </li>
+                  <li>
+<span><a title="optional argument for randomHyperGraph" href="___Time__Limit.html">TimeLimit</a> -- optional argument for randomHyperGraph</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

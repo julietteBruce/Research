@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>locallyRecoverableCode -- constructs a locally recoverable code (LRC)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Parity__Check.html">next</a> | <a href="_hamming__Code.html">previous</a> | <a href="_get__L__R__Cencoding__Polynomial.html">forward</a> | <a href="_hamming__Code.html">backward</a> | <a href="_linear__Code.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a> > <a title="functions to construct linear codes over Galois fields" href="_linear__Code.html">linearCode</a> > <a title="constructs a locally recoverable code (LRC)" href="_locally__Recoverable__Code.html">locallyRecoverableCode</a>    </div>
+    <hr/>
+    <div>
+      <h1>locallyRecoverableCode -- constructs a locally recoverable code (LRC)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">locallyRecoverableCode(L,A,g)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>g</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, $C$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><tt>L</tt> is the list $\{q,n,k,r\},$ where $q$ is a prime power, and $n$, $k$ and $r$ are positive integers. <tt>A</tt> is a list that contains lists of elements of the field <tt>GF(q)</tt>. Every sublist contains different elements of <tt>GF(q)</tt>. The intersection between every two sublists is empty. The polynomial <tt>g</tt> is &quot;good&quot;, which means that is constant on every sublist of <tt>A</tt>. This function generates an LRC code $C$ of length $n$, dimension $k$, and locality $r$, over <tt>GF(q)</tt>. This code $C$ has the property that for every $1\leq i \leq n$, there exist $i_1,\ldots,i_r$ such that for every codeword $c$ in $C$, the entry $c_i$ can be recovered from the entries $c_{i_1},...,c_{i_r}$. This construction was introduced by Tamo and Barg in the paper <i>A family of optimal locally recoverable codes</i>: <a href="https://arxiv.org/pdf/1311.3284v2.pdf">https://arxiv.org/pdf/1311.3284v2.pdf</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A={{1,3,9},{2,6,5},{4,12,10}}
+
+o1 = {{1, 3, 9}, {2, 6, 5}, {4, 12, 10}}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R=(ZZ/13)[x]
+
+o2 = R
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : g=x^3
+
+      3
+o3 = x
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : locallyRecoverableCode({13,9,4,2},A,g)
+
+                                        9
+o4 = LinearCode{AmbientModule => (GF 13)                                                                                                                                                    }
+                BaseField => GF 13
+                cache => CacheTable{}
+                Code => image | 1 1  1  1  |
+                              | 1 1  3  3  |
+                              | 1 1  -4 -4 |
+                              | 1 -5 2  3  |
+                              | 1 -5 6  -4 |
+                              | 1 -5 5  1  |
+                              | 1 -1 4  -4 |
+                              | 1 -1 -1 1  |
+                              | 1 -1 -3 3  |
+                GeneratorMatrix => | 1 1 1  1  1  1  1  1  1  |
+                                   | 1 1 1  -5 -5 -5 -1 -1 -1 |
+                                   | 1 3 -4 2  6  5  4  -1 -3 |
+                                   | 1 3 -4 3  -4 1  -4 1  3  |
+                Generators => {{1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, -5, -5, -5, -1, -1, -1}, {1, 3, -4, 2, 6, 5, 4, -1, -3}, {1, 3, -4, 3, -4, 1, -4, 1, 3}}
+                ParityCheckMatrix => | 1 0 0 0 -2 -4 0 -3 -5 |
+                                     | 0 1 0 0 -1 -5 0 2  3  |
+                                     | 0 0 1 0 2  5  0 4  1  |
+                                     | 0 0 0 1 3  -4 0 0  0  |
+                                     | 0 0 0 0 0  0  1 3  -4 |
+                ParityCheckRows => {{1, 0, 0, 0, -2, -4, 0, -3, -5}, {0, 1, 0, 0, -1, -5, 0, 2, 3}, {0, 0, 1, 0, 2, 5, 0, 4, 1}, {0, 0, 0, 1, 3, -4, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 3, -4}}
+
+o4 : LinearCode</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>locallyRecoverableCode</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;locallyRecoverableCode(List,List,RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="constructs a locally recoverable code (LRC)" href="_locally__Recoverable__Code.html">locallyRecoverableCode</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+      <div>
+        <h3>Menu</h3>
+        <h4>Related function:</h4>
+        <ul>
+          <li>
+<span><a title="encoding polynomial for an LRC code" href="_get__L__R__Cencoding__Polynomial.html">getLRCencodingPolynomial</a> -- encoding polynomial for an LRC code</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

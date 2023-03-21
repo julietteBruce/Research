@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RatAnn -- annihilator of a rational function in Weyl algebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Rat__Ext.html">next</a> | <a href="_put__Weyl__Algebra_lp__Hash__Table_rp.html">previous</a> | <a href="___Rat__Ext.html">forward</a> | <a href="_put__Weyl__Algebra_lp__Hash__Table_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="annihilator of a rational function in Weyl algebra" href="___Rat__Ann.html">RatAnn</a>    </div>
+    <hr/>
+    <div>
+      <h1>RatAnn -- annihilator of a rational function in Weyl algebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">RatAnn f</code></dd>
+              <dd><code class="language-macaulay2">RatAnn(g,f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, polynomial</span>              </li>
+              <li>
+<span><tt>g</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, polynomial</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, left ideal of the Weyl algebra</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><tt>RatAnn f</tt> computes the annihilator ideal in the Weyl algebra of the rational function $1/f$. <br/> <tt>RatAnn(g,f)</tt> computes the annihilator ideal in the Weyl algebra of the rational function $g/f$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : makeWA(QQ[x,y])
+
+o1 = QQ[x..y, dx, dy]
+
+o1 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = x^2-y^3
+
+        3    2
+o2 = - y  + x
+
+o2 : QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : g = 2*x*y
+
+o3 = 2x*y
+
+o3 : QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : I = RatAnn (g,f)
+
+                                3  2    2  2     2           2  2          3
+o4 = ideal (3x*dx + 2y*dy + 1, y dy  - x dy  + 6y dy + 6y, 9y dx dy - 4y*dy 
+     ------------------------------------------------------------------------
+             2      2    3  2     2  2
+     + 27y*dx  + 2dy , 9y dx  - 4y dy  + 10y*dy - 10)
+
+o4 : Ideal of QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The inputs f and g should be elements of a Weyl algebra, and not elements of a commutative polynomial ring. However, f and g should only use the commutative variables.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="annihilator of a polynomial in the Weyl algebra" href="___Poly__Ann.html">PolyAnn</a> -- annihilator of a polynomial in the Weyl algebra</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>RatAnn</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;RatAnn(RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;RatAnn(RingElement,RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="annihilator of a rational function in Weyl algebra" href="___Rat__Ann.html">RatAnn</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

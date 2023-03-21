@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>setVerboseLevel -- set different levels of information printed on screen</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_solutions__To__Affine__Coords.html">next</a> | <a href="___Random__Seed.html">previous</a> | <a href="_solutions__To__Affine__Coords.html">forward</a> | <a href="___Random__Seed.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Numerical Algorithms for Schubert Calculus" href="index.html">NumericalSchubertCalculus</a> :: <a title="set different levels of information printed on screen" href="_set__Verbose__Level.html">setVerboseLevel</a>    </div>
+    <hr/>
+    <div>
+      <h1>setVerboseLevel -- set different levels of information printed on screen</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">setVerboseLevel n</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> takes values 0,1,2, or greater</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+Prints information on the screen depending on the value of n                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>The function displays different levels of information on the screen:</p>
+        <ul>
+          <li>
+0 = no extra information displayed [default]          </li>
+          <li>
+1 = print the progress information and time the main process          </li>
+          <li>
+2 = besides the information of level 1, it also displays the checkerboard steps          </li>
+        </ul>
+        <p>Consider the problem of four lines with respect to random flags</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : SchPblm = randomSchubertProblemInstance ({{1},{1},{1},{1}},2,4)
+
+o1 = {({1}, | .781262-.624203ii  -.462954-.886382ii -.272832+.962062ii
+            | .9868+.161945ii    -.219207-.975678ii .778029-.628229ii 
+            | -.971549+.236839ii .157598-.987503ii  .841103-.540875ii 
+            | .893324+.449414ii  .360485-.932765ii  -.651048+.759036ii
+     ------------------------------------------------------------------------
+     -.670948-.741504ii |), ({1}, | .696205+.717843ii  -.0281556+.999604ii
+     .118767+.992922ii  |         | -.58234+.812945ii  -.924052-.382267ii 
+     -.396553+.918012ii |         | .486335-.873772ii  -.970803-.23988ii  
+     -.272372-.962192ii |         | -.783999-.620762ii .577597-.816322ii  
+     ------------------------------------------------------------------------
+     -.0562287-.998418ii .776937+.629579ii  |), ({1}, | -.746312-.665596ii
+     .023444+.999725ii   .570649+.821194ii  |         | -.936289-.351232ii
+     .701149-.713015ii   -.863646+.504099ii |         | -.164243+.98642ii 
+     .357971+.933733ii   -.820726+.571321ii |         | .85817-.513365ii  
+     ------------------------------------------------------------------------
+     .995687+.092774ii .168661+.985674ii  -.765803+.643076ii |), ({1}, |
+     .701342-.712825ii -.286823-.957983ii -.415126-.909764ii |         |
+     -.78761-.616174ii .976163-.21704ii   -.416188-.909278ii |         |
+     .759918-.650019ii .482783+.87574ii   .975922-.218119ii  |         |
+     ------------------------------------------------------------------------
+     .918399+.395655ii  .719639-.694348ii  .9772+.212322ii   
+     .58629+.810101ii   -.554833-.831962ii .454813+.890587ii 
+     -.590887+.806754ii -.726792+.686857ii .0800129+.996794ii
+     -.939129+.343564ii -.616052-.787706ii .339065+.940763ii 
+     ------------------------------------------------------------------------
+     -.998741-.0501734ii |)}
+     -.698649-.715464ii  |
+     .742918+.669382ii   |
+     -.99319-.116506ii   |
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : setVerboseLevel 0;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = solveSchubertProblem(SchPblm,2,4)
+
+o3 = {| -1.65573-.600637ii .0201935+.0437095ii   |, | -.154703+.175591ii 
+      | -1.23037-1.66989ii -.0308057-.00120618ii |  | -.801221-.0354303ii
+      | 1.35971-.743988ii  -.0713133-.049047ii   |  | .325581-2.08048ii  
+      | -.397038-1.8974ii  .0102261-.024397ii    |  | -.475895-.209388ii 
+     ------------------------------------------------------------------------
+     .0376857+.0683239ii   |}
+     -.00368075+.0317504ii |
+     -.0350432-.250817ii   |
+     -.0336427+.0141017ii  |
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : assert all(S,s->checkIncidenceSolution(s,SchPblm))</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : setVerboseLevel 1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S = solveSchubertProblem(SchPblm,2,4)
+-- playCheckers
+-- cpu time = .00494953
+-- making a recursive call to resolveNode
+-- playCheckers
+-- cpu time = .00228437
+-- making a recursive call to resolveNode
+-- playCheckers
+-- cpu time = .000274343
+resolveNode reached node of no remaining conditions
+-- time to make equations: .00390117
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .0136096 sec. for [{0, 1, 2, 3}, {0, infinity, 2, infinity}]
+-- time of performing one checker move: .0196087
+-- time of performing one checker move: .0010252
+-- time of performing one checker move: .00101623
+-- time to make equations: .00493436
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00615856 sec. for [{1, 2, 3, 0}, {1, infinity, infinity, 2}]
+-- time of performing one checker move: .0152368
+-- time to make equations: .00436537
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00607117 sec. for [{1, 3, 2, 0}, {1, infinity, infinity, 2}]
+-- time of performing one checker move: .0145254
+-- time to make equations: .0044331
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .0143777 sec. for [{2, 3, 1, 0}, {2, infinity, infinity, 1}]
+-- time of performing one checker move: .0221031
+-- time to make equations: .0105845
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00788359 sec. for [{0, 1, 2, 3}, {infinity, 1, 2, infinity}]
+-- time of performing one checker move: .0230352
+-- time to make equations: .0101357
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00744606 sec. for [{0, 1, 3, 2}, {infinity, 1, infinity, 2}]
+-- time of performing one checker move: .0221374
+-- time of performing one checker move: .000947422
+-- time of performing one checker move: .000955539
+-- time to make equations: .0102118
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00708272 sec. for [{1, 3, 2, 0}, {infinity, 3, infinity, 1}]
+-- time of performing one checker move: .0291536
+-- making a recursive call to resolveNode
+-- playCheckers
+-- cpu time = .00277507
+-- making a recursive call to resolveNode
+-- playCheckers
+-- cpu time = .000321946
+resolveNode reached node of no remaining conditions
+-- time to make equations: .00393774
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00502202 sec. for [{0, 1, 2, 3}, {0, infinity, 2, infinity}]
+-- time of performing one checker move: .0123765
+-- time of performing one checker move: .000840275
+-- time to make equations: .0113042
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00574352 sec. for [{0, 2, 3, 1}, {0, infinity, infinity, 2}]
+-- time of performing one checker move: .021032
+-- time of performing one checker move: .000887347
+-- time of performing one checker move: .000689267
+-- time of performing one checker move: .000872269
+-- time of performing one checker move: .000953705
+-- time of performing one checker move: .000664042
+-- time of performing one checker move: .000883894
+-- time of performing one checker move: .000898403
+-- time to make equations: .0085071
+Setup time: 0
+Computing time:0
+ -- trackHomotopy time = .00610873 sec. for [{1, 3, 2, 0}, {1, infinity, infinity, 3}]
+-- time of performing one checker move: .0182445
+-- time of performing one checker move: .00130729
+
+o6 = {| -1.65573-.600637ii .0201935+.0437095ii   |, | -.154703+.175591ii 
+      | -1.23037-1.66989ii -.0308057-.00120618ii |  | -.801221-.0354303ii
+      | 1.35971-.743988ii  -.0713133-.049047ii   |  | .325581-2.08048ii  
+      | -.397038-1.8974ii  .0102261-.024397ii    |  | -.475895-.209388ii 
+     ------------------------------------------------------------------------
+     .0376857+.0683239ii   |}
+     -.00368075+.0317504ii |
+     -.0350432-.250817ii   |
+     -.0336427+.0141017ii  |
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : assert all(S,s->checkIncidenceSolution(s,SchPblm))</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="check if a solution satisfies an instance of a Schubert problem" href="_check__Incidence__Solution.html">checkIncidenceSolution</a> -- check if a solution satisfies an instance of a Schubert problem</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>setVerboseLevel</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;setVerboseLevel(ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="set different levels of information printed on screen" href="_set__Verbose__Level.html">setVerboseLevel</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

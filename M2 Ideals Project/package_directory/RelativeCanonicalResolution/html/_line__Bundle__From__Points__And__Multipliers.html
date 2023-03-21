@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>lineBundleFromPointsAndMultipliers -- Computes basis of a line bundle from the 2g points P_i, Q_i and the multipliers</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_res__Curve__On__Scroll.html">next</a> | <a href="_lift__Matrix__To__E__N.html">previous</a> | <a href="_res__Curve__On__Scroll.html">forward</a> | <a href="_lift__Matrix__To__E__N.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="construction of relative canonical resolutions and Eagon-Northcott type complexes" href="index.html">RelativeCanonicalResolution</a> :: <a title="Computes basis of a line bundle from the 2g points P_i, Q_i and the multipliers" href="_line__Bundle__From__Points__And__Multipliers.html">lineBundleFromPointsAndMultipliers</a>    </div>
+    <hr/>
+    <div>
+      <h1>lineBundleFromPointsAndMultipliers -- Computes basis of a line bundle from the 2g points P_i, Q_i and the multipliers</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">lineBundleFromPointsAndMultipliers(multL,P,Q,k)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>multL</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing the normalized multipliers a_i (normalized means that b_i=1)</span>              </li>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the coordinate matrix of g points in P^1</span>              </li>
+              <li>
+<span><tt>Q</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the coordinate matrix of g points in P^1</span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, defining the degree of the line bundle</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a basis of sections of the line bundle defined by the points P_i, Q_i and the multipliers</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If C is a g-nodal canonical curve with normalization $\nu:\  P^1 \to P^{g-1}$ then a line bundle L of degree k on C is given by $\nu^*(O_{P^1}(k))\cong L$ and gluing data $\frac{b_j}{a_j}:O_{P^1}\otimes kk(P_j)\to O_{P^1}\otimes kk(Q_j)$. Given 2g points P_i, Q_i and the multipliers (a_i,b_i) we can compute a basis of sections of L as a kernel of the matrix $A=(A)_{ij}$ with $A_{ij}=b_iB_j(P_i)-a_iB_j(Q_i)$ where $B_j:P^1\to kk,\  (p_0:p_1)\to p_0^{k-j}p_1^j$.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Computes the canonical multipliers of a rational curves with nodes" href="_canonical__Multipliers.html">canonicalMultipliers</a> -- Computes the canonical multipliers of a rational curves with nodes</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>lineBundleFromPointsAndMultipliers</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;lineBundleFromPointsAndMultipliers(List,Matrix,Matrix,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes basis of a line bundle from the 2g points P_i, Q_i and the multipliers" href="_line__Bundle__From__Points__And__Multipliers.html">lineBundleFromPointsAndMultipliers</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

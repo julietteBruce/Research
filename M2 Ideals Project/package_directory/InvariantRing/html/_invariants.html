@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>invariants -- computes the generating invariants of a group action</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_invariants_lp..._cm__Degree__Bound_eq_gt..._rp.html">next</a> | <a href="_invariant__Ring.html">previous</a> | <a href="_invariants_lp..._cm__Degree__Bound_eq_gt..._rp.html">forward</a> | <a href="_invariant__Ring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="invariants of group actions" href="index.html">InvariantRing</a> :: <a title="computes the generating invariants of a group action" href="_invariants.html">invariants</a>    </div>
+    <hr/>
+    <div>
+      <h1>invariants -- computes the generating invariants of a group action</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">invariants G</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>an instance of the type <a title="the class of all group actions" href="___Group__Action.html">GroupAction</a></span>, a specific type of group action on a polynomial ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt> (missing documentation)<!--tag: [invariants, Strategy]-->
+<tt> => </tt><tt>...</tt>, <span>default value UseNormaliz</span>, the strategy used to compute diagonal invariants, options are UsePolyhedra or UseNormaliz.</span>              </li>
+              <li>
+<span><a title="degree bound for invariants of finite groups" href="_invariants_lp..._cm__Degree__Bound_eq_gt..._rp.html">DegreeBound</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, degree bound for invariants of finite groups</span>              </li>
+              <li>
+<span><a title="GB option for invariants" href="_invariants_lp..._cm__Degree__Limit_eq_gt..._rp.html">DegreeLimit</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, GB option for invariants</span>              </li>
+              <li>
+<span><a title="GB option for invariants" href="_invariants_lp..._cm__Subring__Limit_eq_gt..._rp.html">SubringLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, GB option for invariants</span>              </li>
+              <li>
+<span><a title="option to compute invariants over the given coefficient ring" href="_invariants_lp..._cm__Use__Coefficient__Ring_eq_gt..._rp.html">UseCoefficientRing</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to compute invariants over the given coefficient ring</span>              </li>
+              <li>
+<span><a title="strategy for computing invariants of finite groups" href="_invariants_lp..._cm__Use__Linear__Algebra_eq_gt..._rp.html">UseLinearAlgebra</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, strategy for computing invariants of finite groups</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a minimal set of generating invariants for the group action</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This function is provided by the package <a title="invariants of group actions" href="index.html">InvariantRing</a>. This function can be used to compute the generating invariants of a diagonal group action, finite group action or linearly reductive group action. It can also be used to compute a basis of a graded component of the invariant ring. Below is a list of the many ways to use this function:</p>
+        <ul>
+          <li>
+<a title="computes the generating invariants of a group action" href="_invariants_lp__Finite__Group__Action_rp.html">invariants(FiniteGroupAction)</a>: computes the generating invariants of a finite group action          </li>
+          <li>
+<a title="computes the generating invariants of a group action" href="_invariants_lp__Diagonal__Action_rp.html">invariants(DiagonalAction)</a>: computes the generating invariants of a diagonal group action          </li>
+          <li>
+<a title="invariant generators of Hilbert ideal" href="_invariants_lp__Linearly__Reductive__Action_rp.html">invariants(LinearlyReductiveAction)</a>: computes the generating invariants of a linearly reductive action          </li>
+          <li>
+<a title="basis for graded component of invariant ring" href="_invariants_lp__Finite__Group__Action_cm__Z__Z_rp.html">invariants(FiniteGroupAction,ZZ)</a> or <a title="basis for graded component of invariant ring" href="_invariants_lp__Finite__Group__Action_cm__Z__Z_rp.html">invariants(FiniteGroupAction,List)</a>: computes a basis for graded component of the invariant ring of a finite group action          </li>
+          <li>
+<a title="basis for graded component of invariant ring" href="_invariants_lp__Linearly__Reductive__Action_cm__Z__Z_rp.html">invariants(LinearlyReductiveAction,ZZ)</a> or <a title="basis for graded component of invariant ring" href="_invariants_lp__Linearly__Reductive__Action_cm__Z__Z_rp.html">invariants(LinearlyReductiveAction,List)</a>: computes a basis for graded component of the invariant ring of a linearly reductive group action          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+Some optional inputs are only relevant to certain use cases of this method. Please consult the documentation pages for the different cases to learn which optional inputs are used.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the ring of invariants of a group action" href="_invariant__Ring.html">invariantRing</a> -- the ring of invariants of a group action</span>          </li>
+          <li>
+<span><a title="check whether a polynomial is invariant under a group action" href="_is__Invariant.html">isInvariant</a> -- check whether a polynomial is invariant under a group action</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>invariants</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="computes the generating invariants of a group action" href="_invariants_lp__Diagonal__Action_rp.html">invariants(DiagonalAction)</a> -- computes the generating invariants of a group action</span>          </li>
+          <li>
+<span><a title="computes the generating invariants of a group action" href="_invariants_lp__Finite__Group__Action_rp.html">invariants(FiniteGroupAction)</a> -- computes the generating invariants of a group action</span>          </li>
+          <li>
+<span><tt>&quot;invariants(FiniteGroupAction,List)&quot;</tt> -- see <span><a title="basis for graded component of invariant ring" href="_invariants_lp__Finite__Group__Action_cm__Z__Z_rp.html">invariants(FiniteGroupAction,ZZ)</a> -- basis for graded component of invariant ring</span></span>          </li>
+          <li>
+<span><a title="basis for graded component of invariant ring" href="_invariants_lp__Finite__Group__Action_cm__Z__Z_rp.html">invariants(FiniteGroupAction,ZZ)</a> -- basis for graded component of invariant ring</span>          </li>
+          <li>
+<span><a title="invariant generators of Hilbert ideal" href="_invariants_lp__Linearly__Reductive__Action_rp.html">invariants(LinearlyReductiveAction)</a> -- invariant generators of Hilbert ideal</span>          </li>
+          <li>
+<span><tt>&quot;invariants(LinearlyReductiveAction,List)&quot;</tt> -- see <span><a title="basis for graded component of invariant ring" href="_invariants_lp__Linearly__Reductive__Action_cm__Z__Z_rp.html">invariants(LinearlyReductiveAction,ZZ)</a> -- basis for graded component of invariant ring</span></span>          </li>
+          <li>
+<span><a title="basis for graded component of invariant ring" href="_invariants_lp__Linearly__Reductive__Action_cm__Z__Z_rp.html">invariants(LinearlyReductiveAction,ZZ)</a> -- basis for graded component of invariant ring</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the generating invariants of a group action" href="_invariants.html">invariants</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

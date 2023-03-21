@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>primaryDecomposition(Module) -- irredundant primary decomposition of a module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_reg__Seq__In__Ideal.html">next</a> | <a href="_kernel__Of__Localization.html">previous</a> | <a href="_reg__Seq__In__Ideal.html">forward</a> | <a href="_kernel__Of__Localization.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="primary decomposition and associated primes routines for ideals and modules" href="index.html">PrimaryDecomposition</a> :: <a title="irredundant primary decomposition of a module" href="_primary__Decomposition_lp__Module_rp.html">primaryDecomposition(Module)</a>    </div>
+    <hr/>
+    <div>
+      <h1>primaryDecomposition(Module) -- irredundant primary decomposition of a module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="irredundant primary decomposition of an ideal" href="_primary__Decomposition.html">primaryDecomposition</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">primaryDecomposition M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, in a (quotient of a) polynomial ring <tt>R</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="irredundant primary decomposition of an ideal" href="_primary__Decomposition.html">MinimalGenerators</a><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, if false, the components will not be minimalized</span>              </li>
+              <li>
+<span><a href="_strategies_spfor_spcomputing_spprimary_spdecomposition.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing a minimal list of primary submodules of <tt>M</tt> whose intersection is <tt>0</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This routine returns a minimal primary decomposition for the zero submodule of <tt>M</tt>, i.e. a minimal list of submodules <tt>Q_i</tt> of <tt>M</tt> such that the intersection of all the <tt>Q_i</tt> is <tt>0</tt> and <tt>Ass(M/Q_i) = {p_i}</tt> for some associated prime <tt>p_i</tt> of <tt>M</tt>.</p>
+          <p>Here minimality means that the associated primes of the submodules are pairwise distinct, and that the decomposition is irredundant, i.e. no submodule contains the intersection of the others. The <tt>i</tt>-th element of this output is primary to the <tt>i</tt>-th element of <tt>associatedPrimes M</tt>. The algorithm used is inspired by the Eisenbud-Huneke-Vasconcelos algorithm, modified to work for modules.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_0..x_3]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (I1,I2,I3) = ({1,2,3},{2,3},{4,5}) / monomialCurveIdeal_R
+
+              2                       2                 3      2          5  
+o2 = (ideal (x  - x x , x x  - x x , x  - x x ), ideal(x  - x x ), ideal(x  -
+              2    1 3   1 2    0 3   1    0 2          1    0 2          1  
+     ------------------------------------------------------------------------
+        4
+     x x ))
+      0 2
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = comodule I1 ++ comodule I2 ++ comodule I3
+
+o3 = cokernel | x_2^2-x_1x_3 x_1x_2-x_0x_3 x_1^2-x_0x_2 0              0              |
+              | 0            0             0            x_1^3-x_0x_2^2 0              |
+              | 0            0             0            0              x_1^5-x_0x_2^4 |
+
+                            3
+o3 : R-module, quotient of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : associatedPrimes M
+
+             3      2          5      4           2                       2
+o4 = {ideal(x  - x x ), ideal(x  - x x ), ideal (x  - x x , x x  - x x , x  -
+             1    0 2          1    0 2           2    1 3   1 2    0 3   1  
+     ------------------------------------------------------------------------
+     x x )}
+      0 2
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C = primaryDecomposition M;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : netList C
+
+     +------------------------------------------------------------------------------------------------+
+o6 = |subquotient (| 1 0 |, | x_2^2-x_1x_3 x_1x_2-x_0x_3 x_1^2-x_0x_2 0              0              |)|
+     |             | 0 0 |  | 0            0             0            x_1^3-x_0x_2^2 0              | |
+     |             | 0 1 |  | 0            0             0            0              x_1^5-x_0x_2^4 | |
+     +------------------------------------------------------------------------------------------------+
+     |subquotient (| 1 0 |, | x_2^2-x_1x_3 x_1x_2-x_0x_3 x_1^2-x_0x_2 0              0              |)|
+     |             | 0 1 |  | 0            0             0            x_1^3-x_0x_2^2 0              | |
+     |             | 0 0 |  | 0            0             0            0              x_1^5-x_0x_2^4 | |
+     +------------------------------------------------------------------------------------------------+
+     |subquotient (| 0 0 |, | x_2^2-x_1x_3 x_1x_2-x_0x_3 x_1^2-x_0x_2 0              0              |)|
+     |             | 1 0 |  | 0            0             0            x_1^3-x_0x_2^2 0              | |
+     |             | 0 1 |  | 0            0             0            0              x_1^5-x_0x_2^4 | |
+     +------------------------------------------------------------------------------------------------+</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : intersect C == 0 and all(C, isPrimary_M)
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : C / degree
+
+o8 = {5, 3, 8}
+
+o8 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Recall that in Macaulay2, a module is commonly represented as a <a title="make a subquotient module" href="../../Macaulay2Doc/html/_subquotient.html">subquotient</a>, which is an ordered pair consisting of <a title="provide matrix or list of generators" href="../../Macaulay2Doc/html/_generators.html">generators</a> and <a title="the defining relations" href="../../Macaulay2Doc/html/_relations.html">relations</a> represented as column matrices. As submodules of <tt>M</tt>, each module in the output list has the same relations as <tt>M</tt>, and has generators which are <tt>R</tt>-linear combinations of generators of <tt>M</tt>, where <tt>R = ring M</tt>.</p>
+          <p>To obtain a primary decomposition of a submodule <tt>N</tt>, run this function on the quotient <tt>M/N</tt>. Note that the <tt>/</tt> command does not check whether <tt>N</tt> is actually a submodule of <tt>M</tt>, and a non-sensible result may be returned if this is not the case.</p>
+        </div>
+        <div>
+          <p>This function generalizes primary decomposition of ideals (more precisely, cyclic modules), as can be seen by calling <tt>primaryDecomposition comodule I</tt> for an ideal <tt>I</tt>. For convenience, one can also call <tt>primaryDecomposition R</tt> for a ring <tt>R</tt> (which is most useful when <tt>R</tt> is a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">QuotientRing</a>). When computing primary decompositions of ideals with this function, remember to add back the original ideal to obtain the desired primary ideals, as in the following example.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : I = intersect((ideal(x_0..x_3))^5, (ideal(x_0..x_2))^4, (ideal(x_0..x_1))^3)
+
+             3         2       2         3       4       3     2 2     3     
+o9 = ideal (x x x , x x x x , x x x x , x x x , x x , x x x , x x x , x x x ,
+             1 2 3   0 1 2 3   0 1 2 3   0 2 3   1 3   0 1 3   0 1 3   0 1 3 
+     ------------------------------------------------------------------------
+      4     3 2     2 2   2   2   3 2   4       3     2 2     3       4   
+     x x , x x , x x x , x x x , x x , x x , x x x , x x x , x x x , x x ,
+      0 3   1 2   0 1 2   0 1 2   0 2   1 2   0 1 2   0 1 2   0 1 2   0 2 
+     ------------------------------------------------------------------------
+      5     4   2 3   3 2   4     5
+     x , x x , x x , x x , x x , x )
+      1   0 1   0 1   0 1   0 1   0
+
+o9 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : S = R/I
+
+o10 = S
+
+o10 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : associatedPrimes S
+
+o11 = {ideal (x , x ), ideal (x , x , x ), ideal (x , x , x , x )}
+               1   0           2   1   0           3   2   1   0
+
+o11 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : comps = primaryDecomposition S
+
+o12 = {subquotient (| x_1^3 x_0x_1^2 x_0^2x_1 x_0^3 |, | x_1^3x_2x_3
+      -----------------------------------------------------------------------
+      x_0x_1^2x_2x_3 x_0^2x_1x_2x_3 x_0^3x_2x_3 x_1^4x_3 x_0x_1^3x_3
+      -----------------------------------------------------------------------
+      x_0^2x_1^2x_3 x_0^3x_1x_3 x_0^4x_3 x_1^3x_2^2 x_0x_1^2x_2^2
+      -----------------------------------------------------------------------
+      x_0^2x_1x_2^2 x_0^3x_2^2 x_1^4x_2 x_0x_1^3x_2 x_0^2x_1^2x_2 x_0^3x_1x_2
+      -----------------------------------------------------------------------
+      x_0^4x_2 x_1^5 x_0x_1^4 x_0^2x_1^3 x_0^3x_1^2 x_0^4x_1 x_0^5 |),
+      -----------------------------------------------------------------------
+      subquotient (| x_1^3x_2 x_0x_1^2x_2 x_0^2x_1x_2 x_0^3x_2 x_1^4 x_0x_1^3
+      -----------------------------------------------------------------------
+      x_0^2x_1^2 x_0^3x_1 x_0^4 x_2^5 |, | x_1^3x_2x_3 x_0x_1^2x_2x_3
+      -----------------------------------------------------------------------
+      x_0^2x_1x_2x_3 x_0^3x_2x_3 x_1^4x_3 x_0x_1^3x_3 x_0^2x_1^2x_3
+      -----------------------------------------------------------------------
+      x_0^3x_1x_3 x_0^4x_3 x_1^3x_2^2 x_0x_1^2x_2^2 x_0^2x_1x_2^2 x_0^3x_2^2
+      -----------------------------------------------------------------------
+      x_1^4x_2 x_0x_1^3x_2 x_0^2x_1^2x_2 x_0^3x_1x_2 x_0^4x_2 x_1^5 x_0x_1^4
+      -----------------------------------------------------------------------
+      x_0^2x_1^3 x_0^3x_1^2 x_0^4x_1 x_0^5 |), subquotient (| x_3^5 x_2^5 |,
+      -----------------------------------------------------------------------
+      | x_1^3x_2x_3 x_0x_1^2x_2x_3 x_0^2x_1x_2x_3 x_0^3x_2x_3 x_1^4x_3
+      -----------------------------------------------------------------------
+      x_0x_1^3x_3 x_0^2x_1^2x_3 x_0^3x_1x_3 x_0^4x_3 x_1^3x_2^2 x_0x_1^2x_2^2
+      -----------------------------------------------------------------------
+      x_0^2x_1x_2^2 x_0^3x_2^2 x_1^4x_2 x_0x_1^3x_2 x_0^2x_1^2x_2 x_0^3x_1x_2
+      -----------------------------------------------------------------------
+      x_0^4x_2 x_1^5 x_0x_1^4 x_0^2x_1^3 x_0^3x_1^2 x_0^4x_1 x_0^5 |)}
+
+o12 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : apply(comps, Q -> ideal mingens(I + ideal gens Q))
+
+               3     2   2     3           3       2     2       3     4 
+o13 = {ideal (x , x x , x x , x ), ideal (x x , x x x , x x x , x x , x ,
+               1   0 1   0 1   0           1 2   0 1 2   0 1 2   0 2   1 
+      -----------------------------------------------------------------------
+         3   2 2   3     4   5           5   3         2       2       
+      x x , x x , x x , x , x ), ideal (x , x x x , x x x x , x x x x ,
+       0 1   0 1   0 1   0   2           3   1 2 3   0 1 2 3   0 1 2 3 
+      -----------------------------------------------------------------------
+       3       4       3     2 2     3       4     5   3 2     2 2   2   2 
+      x x x , x x , x x x , x x x , x x x , x x , x , x x , x x x , x x x ,
+       0 2 3   1 3   0 1 3   0 1 3   0 1 3   0 3   2   1 2   0 1 2   0 1 2 
+      -----------------------------------------------------------------------
+       3 2   4       3     2 2     3       4     5     4   2 3   3 2   4   
+      x x , x x , x x x , x x x , x x x , x x , x , x x , x x , x x , x x ,
+       0 2   1 2   0 1 2   0 1 2   0 1 2   0 2   1   0 1   0 1   0 1   0 1 
+      -----------------------------------------------------------------------
+       5
+      x )}
+       0
+
+o13 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : I == intersect oo
+
+o14 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The results of the computation are stored inside <tt>M.cache</tt>, as a <a title="the class of all mutable hash tables" href="../../Macaulay2Doc/html/___Mutable__Hash__Table.html">MutableHashTable</a> whose keys are associated primes and values are the corresponding primary components. The list of all associated prime ideals is also cached, and can be obtained with <tt>associatedPrimes M</tt>. The computation may be interrupted at any point, and can be resumed later without recomputing already known primary components. To display detailed information throughout the computation, set the global variable <a title="current level debugging" href="../../Macaulay2Doc/html/_debug__Level.html">debugLevel</a> to a value greater than 0, e.g. <tt>debugLevel=1</tt> (or <tt>debugLevel=2</tt> for even more detail).</p>
+          <p>This function has one optional input <tt>Strategy</tt>, which accepts 3 possible values that determine the algorithm for finding embedded components.</p>
+          <ul>
+            <li>
+<tt>Res</tt>              <p>This strategy is closest to the original Eisenbud-Huneke-Vasconcelos method.</p>
+            </li>
+            <li>
+<tt>Hom</tt>            </li>
+            <li>
+<tt>Sat</tt>            </li>
+          </ul>
+          <p>While the default (and typically fastest) strategy is <tt>Sat</tt>, it is recommended to try different <tt>Strategy</tt> values if the computation of a particular embedded component is taking too long. One can start the computation with one strategy, and interrupt and resume with a different strategy (even multiple times) if desired.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Note that although isolated components (i.e. those corresponding to minimal primes) are unique, embedded components are never unique, and thus specifying generators of an embedded component requires non-canonical choices. For speed purposes, this algorithm searches for embedded components obtained by adding a bracket power of the embedded prime, with exponent determined by the degrees of generators of the embedded prime and <tt>ann M</tt>. In particular, the generators of an embedded component may not be of minimal possible degree.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="irredundant primary decomposition of an ideal" href="_primary__Decomposition.html">primaryDecomposition(Ideal)</a> -- irredundant primary decomposition of an ideal</span>          </li>
+          <li>
+<span><a title="find associated primes" href="_associated__Primes.html">associatedPrimes(Module)</a> -- find associated primes</span>          </li>
+          <li>
+<span><a title="determine whether a submodule is primary" href="_is__Primary.html">isPrimary</a> -- determine whether a submodule is primary</span>          </li>
+          <li>
+<span><a title="compute top dimensional component of an ideal or module" href="_top__Components.html">topComponents</a> -- compute top dimensional component of an ideal or module</span>          </li>
+          <li>
+<span><a href="_strategies_spfor_spcomputing_spprimary_spdecomposition.html">primaryDecomposition(...,Strategy=>...)</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="irredundant primary decomposition of a module" href="_primary__Decomposition_lp__Module_rp.html">primaryDecomposition(Module)</a> -- irredundant primary decomposition of a module</span>          </li>
+          <li>
+<tt>&quot;primaryDecomposition(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

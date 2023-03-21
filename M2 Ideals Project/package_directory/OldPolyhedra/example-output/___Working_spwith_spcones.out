@@ -1,0 +1,388 @@
+-- -*- M2-comint -*- hash: 1300917517
+
+i1 : R = matrix {{1,1,2},{2,1,1}}
+
+o1 = | 1 1 2 |
+     | 2 1 1 |
+
+              2        3
+o1 : Matrix ZZ  <--- ZZ
+
+i2 : C = posHull R
+
+o2 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of the cone => 2
+      number of facets => 2
+      number of rays => 2
+
+o2 : Cone
+
+i3 : ambDim C
+
+o3 = 2
+
+i4 : rays C
+
+o4 = | 2 1 |
+     | 1 2 |
+
+              2        2
+o4 : Matrix ZZ  <--- ZZ
+
+i5 : HS = halfspaces C
+
+o5 = | -1 2  |
+     | 2  -1 |
+
+              2        2
+o5 : Matrix ZZ  <--- ZZ
+
+i6 : R1 = R || matrix {{0,0,0}}
+
+o6 = | 1 1 2 |
+     | 2 1 1 |
+     | 0 0 0 |
+
+              3        3
+o6 : Matrix ZZ  <--- ZZ
+
+i7 : LS = matrix {{1},{1},{1}}
+
+o7 = | 1 |
+     | 1 |
+     | 1 |
+
+              3        1
+o7 : Matrix ZZ  <--- ZZ
+
+i8 : C1 = posHull(R1,LS)
+
+o8 = {ambient dimension => 3           }
+      dimension of lineality space => 1
+      dimension of the cone => 3
+      number of facets => 2
+      number of rays => 2
+
+o8 : Cone
+
+i9 : rays C1
+
+o9 = | 1  0  |
+     | 0  1  |
+     | -1 -1 |
+
+              3        2
+o9 : Matrix ZZ  <--- ZZ
+
+i10 : HS = transpose R1
+
+o10 = | 1 2 0 |
+      | 1 1 0 |
+      | 2 1 0 |
+
+               3        3
+o10 : Matrix ZZ  <--- ZZ
+
+i11 : HP = matrix {{1,1,1}}
+
+o11 = | 1 1 1 |
+
+               1        3
+o11 : Matrix ZZ  <--- ZZ
+
+i12 : C2 = intersection(HS,HP)
+
+o12 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of the cone => 2
+       number of facets => 2
+       number of rays => 2
+
+o12 : Cone
+
+i13 : rays C2
+
+o13 = | 2  -1 |
+      | -1 2  |
+      | -1 -1 |
+
+               3        2
+o13 : Matrix ZZ  <--- ZZ
+
+i14 : C3 = intersection HS
+
+o14 = {ambient dimension => 3           }
+       dimension of lineality space => 1
+       dimension of the cone => 3
+       number of facets => 2
+       number of rays => 2
+
+o14 : Cone
+
+i15 : rays C3
+
+o15 = | 2  -1 |
+      | -1 2  |
+      | 0  0  |
+
+               3        2
+o15 : Matrix ZZ  <--- ZZ
+
+i16 : linSpace C3
+
+o16 = | 0 |
+      | 0 |
+      | 1 |
+
+               3        1
+o16 : Matrix ZZ  <--- ZZ
+
+i17 : C4 = posOrthant 3
+
+o17 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of the cone => 3
+       number of facets => 3
+       number of rays => 3
+
+o17 : Cone
+
+i18 : rays C4
+
+o18 = | 1 0 0 |
+      | 0 1 0 |
+      | 0 0 1 |
+
+               3        3
+o18 : Matrix ZZ  <--- ZZ
+
+i19 : C5 = intersection(C1,C2)
+
+o19 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of the cone => 2
+       number of facets => 2
+       number of rays => 2
+
+o19 : Cone
+
+i20 : rays C5
+
+o20 = | 1  0  |
+      | 0  1  |
+      | -1 -1 |
+
+               3        2
+o20 : Matrix ZZ  <--- ZZ
+
+i21 : C6 = posHull(C1,C2)
+
+o21 = {ambient dimension => 3           }
+       dimension of lineality space => 1
+       dimension of the cone => 3
+       number of facets => 2
+       number of rays => 2
+
+o21 : Cone
+
+i22 : rays C6
+
+o22 = | 2  -1 |
+      | -1 2  |
+      | -1 -1 |
+
+               3        2
+o22 : Matrix ZZ  <--- ZZ
+
+i23 : linSpace C6
+
+o23 = | 1 |
+      | 1 |
+      | 1 |
+
+               3        1
+o23 : Matrix ZZ  <--- ZZ
+
+i24 : R2 = matrix {{2,-1},{-1,2},{-1,-1}}
+
+o24 = | 2  -1 |
+      | -1 2  |
+      | -1 -1 |
+
+               3        2
+o24 : Matrix ZZ  <--- ZZ
+
+i25 : C7 = posHull {R2,C3,C4}
+
+o25 = {ambient dimension => 3           }
+       dimension of lineality space => 1
+       dimension of the cone => 3
+       number of facets => 2
+       number of rays => 2
+
+o25 : Cone
+
+i26 : rays C7
+
+o26 = | 2  -1 |
+      | -1 2  |
+      | 0  0  |
+
+               3        2
+o26 : Matrix ZZ  <--- ZZ
+
+i27 : linSpace C7
+
+o27 = | 0 |
+      | 0 |
+      | 1 |
+
+               3        1
+o27 : Matrix ZZ  <--- ZZ
+
+i28 : C6 == C1 + C2
+
+o28 = true
+
+i29 : P = crossPolytope 3
+
+o29 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 8
+       number of rays => 0
+       number of vertices => 6
+
+o29 : Polyhedron
+
+i30 : P1 = C6 + P
+
+o30 = {ambient dimension => 3           }
+       dimension of lineality space => 1
+       dimension of polyhedron => 3
+       number of facets => 2
+       number of rays => 2
+       number of vertices => 1
+
+o30 : Polyhedron
+
+i31 : (vertices P1,rays P1)
+
+o31 = (| -1/3 |, | 2  -1 |)
+       | -1/3 |  | -1 2  |
+       | 2/3  |  | -1 -1 |
+
+o31 : Sequence
+
+i32 : C8 = C * C1
+
+o32 = {ambient dimension => 5           }
+       dimension of lineality space => 1
+       dimension of the cone => 5
+       number of facets => 4
+       number of rays => 4
+
+o32 : Cone
+
+i33 : rays C8
+
+o33 = | 2 1 0  0  |
+      | 1 2 0  0  |
+      | 0 0 1  0  |
+      | 0 0 0  1  |
+      | 0 0 -1 -1 |
+
+               5        4
+o33 : Matrix ZZ  <--- ZZ
+
+i34 : linSpace C8
+
+o34 = | 0 |
+      | 0 |
+      | 1 |
+      | 1 |
+      | 1 |
+
+               5        1
+o34 : Matrix ZZ  <--- ZZ
+
+i35 : ambDim C8
+
+o35 = 5
+
+i36 : fVector C8
+
+o36 = {0, 1, 4, 6, 4, 1}
+
+o36 : List
+
+i37 : L = faces(1,C8)
+
+o37 = {{ambient dimension => 5           }, {ambient dimension => 5         
+        dimension of lineality space => 1    dimension of lineality space =>
+        dimension of the cone => 4           dimension of the cone => 4     
+        number of facets => 3                number of facets => 3          
+        number of rays => 3                  number of rays => 3            
+      -----------------------------------------------------------------------
+       }, {ambient dimension => 5           }, {ambient dimension => 5      
+      1    dimension of lineality space => 1    dimension of lineality space
+           dimension of the cone => 4           dimension of the cone => 4
+           number of facets => 3                number of facets => 3
+           number of rays => 3                  number of rays => 3
+      -----------------------------------------------------------------------
+          }}
+      => 1
+
+o37 : List
+
+i38 : apply(L,rays)
+
+o38 = {| 2 0  0  |, | 1 0  0  |, | 2 1 0  |, | 2 1 0  |}
+       | 1 0  0  |  | 2 0  0  |  | 1 2 0  |  | 1 2 0  |
+       | 0 1  0  |  | 0 1  0  |  | 0 0 1  |  | 0 0 0  |
+       | 0 0  1  |  | 0 0  1  |  | 0 0 0  |  | 0 0 1  |
+       | 0 -1 -1 |  | 0 -1 -1 |  | 0 0 -1 |  | 0 0 -1 |
+
+o38 : List
+
+i39 : isSmooth C8
+
+o39 = false
+
+i40 : L = hilbertBasis C8
+
+o40 = {| 0 |, | 0 |, | 0 |, | -1 |, | 0  |, | -1 |}
+       | 0 |  | 0 |  | 0 |  | -1 |  | -1 |  | 0  |
+       | 0 |  | 0 |  | 0 |  | -2 |  | -2 |  | -2 |
+       | 1 |  | 2 |  | 1 |  | 0  |  | 0  |  | 0  |
+       | 1 |  | 1 |  | 2 |  | 0  |  | 0  |  | 0  |
+
+o40 : List
+
+i41 : #L
+
+o41 = 6
+
+i42 : C9 = dualCone C8
+
+o42 = {ambient dimension => 5           }
+       dimension of lineality space => 0
+       dimension of the cone => 4
+       number of facets => 4
+       number of rays => 4
+
+o42 : Cone
+
+i43 : rays C9
+
+o43 = | 2  -1 0  0  |
+      | -1 2  0  0  |
+      | 0  0  2  -1 |
+      | 0  0  -1 2  |
+      | 0  0  -1 -1 |
+
+               5        4
+o43 : Matrix ZZ  <--- ZZ
+
+i44 : 

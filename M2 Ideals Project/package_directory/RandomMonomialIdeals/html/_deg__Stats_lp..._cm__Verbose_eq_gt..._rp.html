@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>degStats(...,Verbose=>...) -- optional input to request verbose feedback</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_dim__Stats.html">next</a> | <a href="_deg__Stats.html">previous</a> | <a href="_dim__Stats.html">forward</a> | <a href="_deg__Stats.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a> :: <a title="optional input to request verbose feedback" href="_deg__Stats_lp..._cm__Verbose_eq_gt..._rp.html">degStats(...,Verbose=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>degStats(...,Verbose=>...) -- optional input to request verbose feedback</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Some of the functions that use this option by default exclude zero ideals when computing statistics on a set of ideals, while others do not. If <tt>Verbose => true</tt>, then the functions will display this type of additional informational. The default value is false.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : n=3;D=3;p=0.0;N=3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : ideals = randomMonomialIdeals(n,D,p,N)
+
+o5 = {monomialIdeal (), monomialIdeal (), monomialIdeal ()}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : regStats(ideals)
+
+o6 = (-infinity, 0)
+
+o6 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : CMStats(ideals)
+
+o7 = 1
+
+o7 : QQ</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In the examples above, one may wonder, for example, why 3 out of 3 ideals in the list are Cohen-Macaulay. In order to view the additional information, set <tt>Verbose => true</tt>:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : regStats(ideals, Verbose => true)
+All ideals in this list are the zero ideal.
+
+o8 = (-infinity, 0)
+
+o8 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : CMStats(ideals, Verbose => true)
+There are 3 ideals in this sample. Of those, 3 are the zero ideal.
+The zero ideals are included in the reported count of Cohen-Macaulay quotient rings.
+3 out of 3 ideals in the given sample are Cohen-Macaulay.
+
+o9 = 1
+
+o9 : QQ</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Other functions that have this option are as follows. Let us look at a list of nontrivial ideals to see more interesting statistics.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : n=3;D=3;p=0.1;N=3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : ideals = randomMonomialIdeals(n,D,p,N)
+
+                           3                                             
+o14 = {monomialIdeal (x , x , x ), monomialIdeal (), monomialIdeal (x x ,
+                       1   2   3                                     2 3 
+      -----------------------------------------------------------------------
+       2
+      x )}
+       3
+
+o14 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : regStats(ideals, Verbose => true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The zero ideals were extracted from the sample before reporting the regularity statistics.
+
+o15 = (2.5, .5)
+
+o15 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : CMStats(ideals, Verbose => true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The zero ideals are included in the reported count of Cohen-Macaulay quotient rings.
+2 out of 3 ideals in the given sample are Cohen-Macaulay.
+
+      2
+o16 = -
+      3
+
+o16 : QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : degStats(ideals, Verbose => true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The degree statistics do include those for the zero ideals.
+
+o17 = (1.66667, .942809)
+
+o17 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : dimStats(ideals, Verbose=>true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The Krull dimension statistics do include those for the zero ideals.
+
+o18 = (1.66667, 1.24722)
+
+o18 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : borelFixedStats(ideals, Verbose => true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The zero ideals are included in the reported count of Borel-fixed monomial ideals.
+1 out of 3 monomial ideals in the given sample are Borel-fixed.
+
+      1
+o19 = -
+      3
+
+o19 : QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : mingenStats(ideals, Verbose=>true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The statistics returned (mean and standard deviation of # of min gens and mean and standard deviation of degree complexity) do NOT include those for the zero ideals.
+
+o20 = (2.5, .5, 2.5, .5)
+
+o20 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : bettiStats(ideals, Verbose => true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+The Betti statistics do include those for the zero ideals.
+
+              0       1       2       3         0       1       2       3 
+o21 = (total: 1       1       1 .333333, total: 1 1.66667 1.33333 .333333,
+           0: 1 .333333 .333333       .      0: 1 .666667 .333333       . 
+           1: . .333333 .333333       .      1: . .666667 .333333       . 
+           2: . .333333 .333333 .333333      2: . .333333 .666667 .333333 
+      -----------------------------------------------------------------------
+                   1       2       3
+      total: 2.35702 1.88562 .471405)
+          0: .942809 .471405       .
+          1: .942809 .471405       .
+          2: .471405 .942809 .471405
+
+o21 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : M = randomMonomialSets(n,D,p,N);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : idealsFromGeneratingSets(M, Verbose => true)
+There are 3 ideals in this sample. Of those, 1 are the zero ideal.
+
+                             2
+o23 = {monomialIdeal (x x , x ), monomialIdeal (), monomialIdeal(x x )}
+                       1 2   3                                    2 3
+
+o23 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <a href="../../Macaulay2Doc/html/_false.html">false</a></span>          </li>
+          <li>
+<span>Function: <span><a title="statistics on the degrees of a list of objects" href="_deg__Stats.html">degStats</a> -- statistics on the degrees of a list of objects</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="request verbose feedback" href="../../Macaulay2Doc/html/___Verbose.html">Verbose</a> -- request verbose feedback</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="statistics on the degrees of a list of objects" href="_deg__Stats.html">degStats</a> -- statistics on the degrees of a list of objects</span>          </li>
+          <li>
+<span><a title="statistics on projective dimension of a list of objects" href="_pdim__Stats.html">pdimStats</a> -- statistics on projective dimension of a list of objects</span>          </li>
+          <li>
+<span><a title="statistics on the Krull dimension of a list of objects" href="_dim__Stats.html">dimStats</a> -- statistics on the Krull dimension of a list of objects</span>          </li>
+          <li>
+<span><a title="creates ideals from sets of monomials" href="_ideals__From__Generating__Sets.html">idealsFromGeneratingSets</a> -- creates ideals from sets of monomials</span>          </li>
+          <li>
+<span><a title="statistics on the regularities of a list of objects" href="_reg__Stats.html">regStats</a> -- statistics on the regularities of a list of objects</span>          </li>
+          <li>
+<span><a title="fraction of monomial ideals (or other objects) in the given list whose quotient ring is Cohen-Macaulay" href="___C__M__Stats.html">CMStats</a> -- fraction of monomial ideals (or other objects) in the given list whose quotient ring is Cohen-Macaulay</span>          </li>
+          <li>
+<span><a title="fraction of Borel-fixed monomial ideals in the given list" href="_borel__Fixed__Stats.html">borelFixedStats</a> -- fraction of Borel-fixed monomial ideals in the given list</span>          </li>
+          <li>
+<span><a title="statistics on the minimal generators of a list of ideals: number and degree complexity" href="_mingen__Stats.html">mingenStats</a> -- statistics on the minimal generators of a list of ideals: number and degree complexity</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Verbose</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;check(...,Verbose=>...)&quot;</tt> -- see <span><a title="perform tests of a package" href="../../Macaulay2Doc/html/_check.html">check</a> -- perform tests of a package</span></span>          </li>
+          <li>
+<span><tt>&quot;checkDegrees(...,Verbose=>...)&quot;</tt> -- see <span><a title="compares the degrees of generators of two modules" href="../../Isomorphism/html/_check__Degrees.html">checkDegrees</a> -- compares the degrees of generators of two modules</span></span>          </li>
+          <li>
+<span><tt>&quot;copyDirectory(...,Verbose=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_copy__Directory_lp__String_cm__String_rp.html">copyDirectory(String,String)</a></span></span>          </li>
+          <li>
+<span><tt>&quot;copyFile(...,Verbose=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_copy__File_lp__String_cm__String_rp.html">copyFile(String,String)</a></span></span>          </li>
+          <li>
+<tt>&quot;bettiStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;borelFixedStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;CMStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<span><a title="optional input to request verbose feedback" href="_deg__Stats_lp..._cm__Verbose_eq_gt..._rp.html">degStats(...,Verbose=>...)</a> -- optional input to request verbose feedback</span>          </li>
+          <li>
+<tt>&quot;dimStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;idealsFromGeneratingSets(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;mingenStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;pdimStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<tt>&quot;regStats(...,Verbose=>...)&quot;</tt>          </li>
+          <li>
+<span><tt>&quot;findProgram(...,Verbose=>...)&quot;</tt> -- see <span><a title="load external program" href="../../Macaulay2Doc/html/_find__Program.html">findProgram</a> -- load external program</span></span>          </li>
+          <li>
+<span><tt>&quot;installPackage(...,Verbose=>...)&quot;</tt> -- see <span><a title="load and install a package and its documentation" href="../../Macaulay2Doc/html/_install__Package.html">installPackage</a> -- load and install a package and its documentation</span></span>          </li>
+          <li>
+<span><tt>&quot;isIsomorphic(...,Verbose=>...)&quot;</tt> -- see <span><a title="Probabilistic test for isomorphism of modules" href="../../Isomorphism/html/_is__Isomorphic.html">isIsomorphic</a> -- Probabilistic test for isomorphism of modules</span></span>          </li>
+          <li>
+<span><tt>&quot;moveFile(...,Verbose=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_move__File_lp__String_cm__String_rp.html">moveFile(String,String)</a></span></span>          </li>
+          <li>
+<span><tt>&quot;runProgram(...,Verbose=>...)&quot;</tt> -- see <span><a title="run an external program" href="../../Macaulay2Doc/html/_run__Program.html">runProgram</a> -- run an external program</span></span>          </li>
+          <li>
+<span><tt>&quot;symlinkDirectory(...,Verbose=>...)&quot;</tt> -- see <span><a title="make symbolic links for all files in a directory tree" href="../../Macaulay2Doc/html/_symlink__Directory_lp__String_cm__String_rp.html">symlinkDirectory(String,String)</a> -- make symbolic links for all files in a directory tree</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

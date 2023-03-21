@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>lieAlgebra(...,Signs=>...) -- optional argument for lieAlgebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_lie__Algebra_lp..._cm__Weights_eq_gt..._rp.html">next</a> | <a href="_lie__Algebra_lp..._cm__Last__Weight__Homological_eq_gt..._rp.html">previous</a> | <a href="_lie__Algebra_lp..._cm__Weights_eq_gt..._rp.html">forward</a> | <a href="_lie__Algebra_lp..._cm__Last__Weight__Homological_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="optional argument for lieAlgebra" href="_lie__Algebra_lp..._cm__Signs_eq_gt..._rp.html">lieAlgebra(...,Signs=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>lieAlgebra(...,Signs=>...) -- optional argument for lieAlgebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L = lieAlgebra(gen,Signs => s)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>gen</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the list of generators</span>              </li>
+              <li>
+<span><tt>s</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of signs (0 or 1), s has the same length as <tt>gen</tt></span>              </li>
+              <li>
+<span><tt>s</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, 0 or 1, the same sign is assigned to each generator</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>an instance of the type <a title="the class of all Lie algebras" href="___Lie__Algebra.html">LieAlgebra</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This is an option to tell <a title="make a free Lie algebra" href="_lie__Algebra.html">lieAlgebra</a> to assign the given &quot;signs&quot; to the generators, which are either 0 (even) or 1 (odd). If the option is given the value 1, then all generators will be odd. The default value is that all generators are even. The signs affect the axioms of a Lie superalgebra, see <a title="the class of all Lie algebras" href="___Lie__Algebra.html">LieAlgebra</a>. Use <a title="get the sign of a homogeneous element  " href="_sign.html">sign</a> to compute the sign of an arbitrary homogeneous Lie expression.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : describe lieAlgebra{a,b}
+
+o1 = generators => {a, b}
+     Weights => {{1, 0}, {1, 0}}
+     Signs => {0, 0}
+     ideal => {}
+     ambient => LieAlgebra{...10...}
+     diff => {}
+     Field => QQ
+     computedDegree => 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : describe lieAlgebra({a,b},Signs=>{1,0})
+
+o2 = generators => {a, b}
+     Weights => {{1, 0}, {1, 0}}
+     Signs => {1, 0}
+     ideal => {}
+     ambient => LieAlgebra{...10...}
+     diff => {}
+     Field => QQ
+     computedDegree => 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : describe lieAlgebra({a,b},Signs=>1)
+
+o3 = generators => {a, b}
+     Weights => {{1, 0}, {1, 0}}
+     Signs => {1, 1}
+     ideal => {}
+     ambient => LieAlgebra{...10...}
+     diff => {}
+     Field => QQ
+     computedDegree => 0</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <tt>0</tt></span>          </li>
+          <li>
+<span>Function: <span><a title="make a free Lie algebra" href="_lie__Algebra.html">lieAlgebra</a> -- make a free Lie algebra</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="name for an optional argument for lieAlgebra" href="___Signs.html">Signs</a> -- name for an optional argument for lieAlgebra</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make a free Lie algebra" href="_lie__Algebra.html">lieAlgebra</a> -- make a free Lie algebra</span>          </li>
+          <li>
+<span><a title="get the sign of a homogeneous element  " href="_sign.html">sign</a> -- get the sign of a homogeneous element  </span>          </li>
+          <li>
+<span><a href="___Second_sp__Lie_spalgebra_sptutorial.html">Second Lie algebra tutorial</a></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Signs</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="optional argument for lieAlgebra" href="_lie__Algebra_lp..._cm__Signs_eq_gt..._rp.html">lieAlgebra(...,Signs=>...)</a> -- optional argument for lieAlgebra</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

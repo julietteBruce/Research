@@ -1,0 +1,59 @@
+-- -*- M2-comint -*- hash: 532444349
+
+i1 : A = QQ<|a,b,c|>
+
+o1 = A
+
+o1 : FreeAlgebra
+
+i2 : I = ideal {a*b+b*a,a*c+c*a,b*c+c*b}
+
+o2 = ideal (a*b + b*a, a*c + c*a, b*c + c*b)
+
+o2 : Ideal of A
+
+i3 : B = A/I
+Using numthreads = 0
+
+o3 = B
+
+o3 : FreeAlgebraQuotient
+
+i4 : sigma = map(B,B,{b,c,a})
+
+o4 = map (B, B, {b, c, a})
+
+o4 : RingMap B <--- B
+
+i5 : C = oreExtension(B,sigma,w)
+Using numthreads = 0
+
+o5 = C
+
+o5 : FreeAlgebraQuotient
+
+i6 : isNormal w^2
+
+o6 = true
+
+i7 : phi = normalAutomorphism w^2
+
+o7 = map (C, C, {a, b, c, w})
+
+o7 : RingMap C <--- C
+
+i8 : matrix phi
+
+o8 = | a b c w |
+
+             1       4
+o8 : Matrix C  <--- C
+
+i9 : matrix (sigma * sigma)
+
+o9 = | c a b |
+
+             1       3
+o9 : Matrix B  <--- B
+
+i10 : 

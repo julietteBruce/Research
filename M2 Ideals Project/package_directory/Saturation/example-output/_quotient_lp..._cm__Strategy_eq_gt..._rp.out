@@ -1,0 +1,69 @@
+-- -*- M2-comint -*- hash: 1584224863
+
+i1 : hooks methods(quotient, Ideal, Ideal)
+
+o1 = {0 => (quotient, Ideal, Ideal, Strategy => Quotient)}
+     {1 => (quotient, Ideal, Ideal, Strategy => Iterate) }
+     {2 => (quotient, Ideal, Ideal, Strategy => Monomial)}
+
+o1 : NumberedVerticalList
+
+i2 : code(quotient, Ideal, Ideal, Strategy => Quotient)
+
+o2 = -- code for method: quotient(Ideal,Ideal)
+     ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Saturation.m2:227:30-239:23: --source code:
+         Quotient => (opts, I, J) -> (
+             R := ring I;
+             -- FIXME: this line computes a gb for I!!!
+             mR := transpose generators J ** (R / I);
+             -- if J is a single element, this is the same as
+             -- computing syz gb(matrix{{f}} | generators I, ...)
+             g := syz gb(mR, opts,
+                 Strategy   => LongPolynomial,
+                 Syzygies   => true,
+                 SyzygyRows => 1);
+             -- The degrees of g are not correct, so we fix that here:
+             -- g = map(R^1, null, g);
+             lift(ideal g, R)),
+
+i3 : n = 6
+
+o3 = 6
+
+i4 : S = ZZ/101[vars(0..n-1)];
+
+i5 : I = monomialCurveIdeal(S, 1..n-1);
+
+o5 : Ideal of S
+
+i6 : J = ideal(map(S^1, S^n, (p, q) -> S_q^5));
+
+o6 : Ideal of S
+
+i7 : time quotient(I^3, J^2, Strategy => Iterate);
+     -- used 0.330475 seconds
+
+o7 : Ideal of S
+
+i8 : time quotient(I^3, J^2, Strategy => Quotient);
+     -- used 0.76507 seconds
+
+o8 : Ideal of S
+
+i9 : S = ZZ/101[vars(0..4)];
+
+i10 : I = ideal vars S;
+
+o10 : Ideal of S
+
+i11 : time quotient(I^5, I^3, Strategy => Iterate);
+     -- used 0.0231153 seconds
+
+o11 : Ideal of S
+
+i12 : time quotient(I^5, I^3, Strategy => Quotient);
+     -- used 0.00896904 seconds
+
+o12 : Ideal of S
+
+i13 : 

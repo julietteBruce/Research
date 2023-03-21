@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RationalMaps -- rational maps between projective varieties</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Assume__Dominant.html">next</a> | previous | <a href="___Assume__Dominant.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="rational maps between projective varieties" href="index.html">RationalMaps</a> :: <a title="rational maps between projective varieties" href="index.html">RationalMaps</a>    </div>
+    <hr/>
+    <div>
+      <h1>RationalMaps -- rational maps between projective varieties</h1>
+      <div>
+        <h2>Description</h2>
+<em>RationalMaps</em> is a package for computing things related to maps between projective varieties.<br/><br/>It focuses on finding where a birational map is undefined, checking whether a map is a closed embedding, checking birationality and computing inverse maps<br/><br/><b>Mathematical background:</b><br/>        <ul>
+          <li>
+A. V. Dória, S. H. Hassanzadeh, A. Simis,  <em>  A characteristic free criterion of birationality</em>, Advances in Mathematics, Volume 230, Issue 1, 1 May 2012, Pages 390-413.          </li>
+          <li>
+A. Simis, <em>  Cremona Transformations and some Related Algebras</em>, Journal of Algebra, Volume 280, Issue 1, 1 October 2004, Pages 162--179          </li>
+        </ul>
+<b>Functionality overlap with other packages:  </b><br/><br/><em><a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/index.html">Parametrization</a></em>:  While the package <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/index.html">Parametrization</a> focuses mostly on curves, it also includes a function <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/_invert__Birational__Map.html">invertBirationalMap</a> that has the same functionality as <a title="inverse of a birational map between projective varieties" href="_inverse__Of__Map.html">inverseOfMap</a>.  On the other hand, these two functions were implemented differently and so sometimes one function can be substantially faster than the other. <br/><br/><em><a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Cremona/html/index.html">Cremona</a></em>:  The package <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Cremona/html/index.html">Cremona</a> focuses on  fast probabilistic computations in general cases and  deterministic computations for special kinds of maps from projective space.  More precisely, <br/>        <ul>
+          <li>
+<a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Cremona/html/_is__Birational.html">isBirational</a> gives a probabilistic answer to the question of whether a map between varieties is birational.  Furthermore, if the source is projective space, then <tt>degreeOfRationalMap</tt> with <tt>MathMode=>true</tt> gives a deterministic correct answer. In some cases, the speed of the latter  is comparable with <a title="whether a map between projective varieties is birational" href="_is__Birational__Map.html">isBirationalMap</a> with <tt>AssumeDominant=>true.</tt>          </li>
+          <li>
+<a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Cremona/html/_inverse__Map.html">inverseMap</a> gives a  fast computation of the inverse of a birational map if the source is projective space <em> and </em>the map has maximal linear rank.   In some cases, even if the map has maximal linear rank, our function <a title="inverse of a birational map between projective varieties" href="_inverse__Of__Map.html">inverseOfMap</a> appears to be competitive however.  If you pass inverseMap a map not from projective space, then it calls a modified and improved version of <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/_invert__Birational__Map.html">invertBirationalMap</a> from <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/index.html">Parametrization</a>.          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://www.math.utah.edu/~schwede">Karl Schwede</a><span> &lt;<a href="mailto:kschwede@gmail.com">kschwede@gmail.com</a>></span>            </li>
+            <li>
+<a href="http://dan.smolk.in">Daniel Smolkin</a><span> &lt;<a href="mailto:smolkind@umich.edu">smolkind@umich.edu</a>></span>            </li>
+            <li>
+<a href="https://www.researchgate.net/profile/Seyed_Hassanzadeh">S. Hamid Hassanzadeh</a><span> &lt;<a href="mailto:hassanzadeh.ufrj@gmail.com">hassanzadeh.ufrj@gmail.com</a>></span>            </li>
+            <li>
+<a href="https://www.math.tamu.edu/directory/formalpg.php?user=cbott2">C.J. Bott</a><span> &lt;<a href="mailto:cjamesbott@gmail.com">cjamesbott@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.0</b> of RationalMaps.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/RationalMaps.m2">RationalMaps.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="the base locus of a map from a projective variety to projective space" href="_base__Locus__Of__Map.html">baseLocusOfMap</a> -- the base locus of a map from a projective variety to projective space</span>                  </li>
+                  <li>
+<span><a title="finds defining equations for the image of a rational map between varieties or schemes" href="_ideal__Of__Image__Of__Map.html">idealOfImageOfMap</a> -- finds defining equations for the image of a rational map between varieties or schemes</span>                  </li>
+                  <li>
+<span><a title="inverse of a birational map between projective varieties" href="_inverse__Of__Map.html">inverseOfMap</a> -- inverse of a birational map between projective varieties</span>                  </li>
+                  <li>
+<span><a title="whether a map between projective varieties is birational" href="_is__Birational__Map.html">isBirationalMap</a> -- whether a map between projective varieties is birational</span>                  </li>
+                  <li>
+<span><a title="whether a map between projective varieties is birational onto its image" href="_is__Birational__Onto__Image.html">isBirationalOntoImage</a> -- whether a map between projective varieties is birational onto its image</span>                  </li>
+                  <li>
+<span><a title="whether a rational map of projective varieties is a closed embedding" href="_is__Embedding.html">isEmbedding</a> -- whether a rational map of projective varieties is a closed embedding</span>                  </li>
+                  <li>
+<span><a title="whether a map to projective space is regular" href="_is__Regular__Map.html">isRegularMap</a> -- whether a map to projective space is regular</span>                  </li>
+                  <li>
+<span><a title="whether two rational maps to between projective varieties are really the same" href="_is__Same__Map.html">isSameMap</a> -- whether two rational maps to between projective varieties are really the same</span>                  </li>
+                  <li>
+<span><a title="computes the Jacobian dual matrix" href="_jacobian__Dual__Matrix.html">jacobianDualMatrix</a> -- computes the Jacobian dual matrix</span>                  </li>
+                  <li>
+<span><a title="the induced map from a variety to the closure of its image under a rational map" href="_map__Onto__Image.html">mapOntoImage</a> -- the induced map from a variety to the closure of its image under a rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMapping&quot;</tt> -- see <span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="computes the common factor among the components of the composition of the inverse map and the original map" href="_source__Inversion__Factor.html">sourceInversionFactor</a> -- computes the common factor among the components of the composition of the inverse map and the original map</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;baseLocusOfMap(RationalMapping)&quot;</tt> -- see <span><a title="the base locus of a map from a projective variety to projective space" href="_base__Locus__Of__Map.html">baseLocusOfMap</a> -- the base locus of a map from a projective variety to projective space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;baseLocusOfMap(RingMap)&quot;</tt> -- see <span><a title="the base locus of a map from a projective variety to projective space" href="_base__Locus__Of__Map.html">baseLocusOfMap</a> -- the base locus of a map from a projective variety to projective space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;idealOfImageOfMap(RationalMapping)&quot;</tt> -- see <span><a title="finds defining equations for the image of a rational map between varieties or schemes" href="_ideal__Of__Image__Of__Map.html">idealOfImageOfMap</a> -- finds defining equations for the image of a rational map between varieties or schemes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;idealOfImageOfMap(RingMap)&quot;</tt> -- see <span><a title="finds defining equations for the image of a rational map between varieties or schemes" href="_ideal__Of__Image__Of__Map.html">idealOfImageOfMap</a> -- finds defining equations for the image of a rational map between varieties or schemes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inverseOfMap(RationalMapping)&quot;</tt> -- see <span><a title="inverse of a birational map between projective varieties" href="_inverse__Of__Map.html">inverseOfMap</a> -- inverse of a birational map between projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inverseOfMap(RingMap)&quot;</tt> -- see <span><a title="inverse of a birational map between projective varieties" href="_inverse__Of__Map.html">inverseOfMap</a> -- inverse of a birational map between projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBirationalMap(RationalMapping)&quot;</tt> -- see <span><a title="whether a map between projective varieties is birational" href="_is__Birational__Map.html">isBirationalMap</a> -- whether a map between projective varieties is birational</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBirationalMap(RingMap)&quot;</tt> -- see <span><a title="whether a map between projective varieties is birational" href="_is__Birational__Map.html">isBirationalMap</a> -- whether a map between projective varieties is birational</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBirationalOntoImage(RationalMapping)&quot;</tt> -- see <span><a title="whether a map between projective varieties is birational onto its image" href="_is__Birational__Onto__Image.html">isBirationalOntoImage</a> -- whether a map between projective varieties is birational onto its image</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBirationalOntoImage(RingMap)&quot;</tt> -- see <span><a title="whether a map between projective varieties is birational onto its image" href="_is__Birational__Onto__Image.html">isBirationalOntoImage</a> -- whether a map between projective varieties is birational onto its image</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isEmbedding(RationalMapping)&quot;</tt> -- see <span><a title="whether a rational map of projective varieties is a closed embedding" href="_is__Embedding.html">isEmbedding</a> -- whether a rational map of projective varieties is a closed embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isEmbedding(RingMap)&quot;</tt> -- see <span><a title="whether a rational map of projective varieties is a closed embedding" href="_is__Embedding.html">isEmbedding</a> -- whether a rational map of projective varieties is a closed embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isRegularMap(RationalMapping)&quot;</tt> -- see <span><a title="whether a map to projective space is regular" href="_is__Regular__Map.html">isRegularMap</a> -- whether a map to projective space is regular</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isRegularMap(RingMap)&quot;</tt> -- see <span><a title="whether a map to projective space is regular" href="_is__Regular__Map.html">isRegularMap</a> -- whether a map to projective space is regular</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isSameMap(RationalMapping,RationalMapping)&quot;</tt> -- see <span><a title="whether two rational maps to between projective varieties are really the same" href="_is__Same__Map.html">isSameMap</a> -- whether two rational maps to between projective varieties are really the same</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isSameMap(RingMap,RingMap)&quot;</tt> -- see <span><a title="whether two rational maps to between projective varieties are really the same" href="_is__Same__Map.html">isSameMap</a> -- whether two rational maps to between projective varieties are really the same</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMapping == RationalMapping&quot;</tt> -- see <span><a title="whether two rational maps to between projective varieties are really the same" href="_is__Same__Map.html">isSameMap</a> -- whether two rational maps to between projective varieties are really the same</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jacobianDualMatrix(RationalMapping)&quot;</tt> -- see <span><a title="computes the Jacobian dual matrix" href="_jacobian__Dual__Matrix.html">jacobianDualMatrix</a> -- computes the Jacobian dual matrix</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jacobianDualMatrix(RingMap)&quot;</tt> -- see <span><a title="computes the Jacobian dual matrix" href="_jacobian__Dual__Matrix.html">jacobianDualMatrix</a> -- computes the Jacobian dual matrix</span></span>                  </li>
+                  <li>
+<span><a title="the ring map associated to a RationalMapping between projective varieties" href="_map_lp__Rational__Mapping_rp.html">map(RationalMapping)</a> -- the ring map associated to a RationalMapping between projective varieties</span>                  </li>
+                  <li>
+<span><tt>&quot;mapOntoImage(RationalMapping)&quot;</tt> -- see <span><a title="the induced map from a variety to the closure of its image under a rational map" href="_map__Onto__Image.html">mapOntoImage</a> -- the induced map from a variety to the closure of its image under a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mapOntoImage(RingMap)&quot;</tt> -- see <span><a title="the induced map from a variety to the closure of its image under a rational map" href="_map__Onto__Image.html">mapOntoImage</a> -- the induced map from a variety to the closure of its image under a rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMapping(ProjectiveVariety,ProjectiveVariety,BasicList)&quot;</tt> -- see <span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMapping(ProjectiveVariety,ProjectiveVariety,Matrix)&quot;</tt> -- see <span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMapping(Ring,Ring,BasicList)&quot;</tt> -- see <span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMapping(Ring,Ring,Matrix)&quot;</tt> -- see <span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMapping(RingMap)&quot;</tt> -- see <span><a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a> -- a rational mapping between projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="compose rational maps between projective varieties" href="___Rational__Mapping_sp_st_sp__Rational__Mapping.html">RationalMapping * RationalMapping</a> -- compose rational maps between projective varieties</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMapping ^ ZZ&quot;</tt> -- see <span><a title="compose rational maps between projective varieties" href="___Rational__Mapping_sp_st_sp__Rational__Mapping.html">RationalMapping * RationalMapping</a> -- compose rational maps between projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="returns the source or target of a RationalMapping between projective varieties." href="_source_lp__Rational__Mapping_rp.html">source(RationalMapping)</a> -- returns the source or target of a RationalMapping between projective varieties.</span>                  </li>
+                  <li>
+<span><tt>&quot;target(RationalMapping)&quot;</tt> -- see <span><a title="returns the source or target of a RationalMapping between projective varieties." href="_source_lp__Rational__Mapping_rp.html">source(RationalMapping)</a> -- returns the source or target of a RationalMapping between projective varieties.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sourceInversionFactor(RingMap)&quot;</tt> -- see <span><a title="computes the common factor among the components of the composition of the inverse map and the original map" href="_source__Inversion__Factor.html">sourceInversionFactor</a> -- computes the common factor among the components of the composition of the inverse map and the original map</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="whether to assume a rational map between projective varieties is dominant" href="___Assume__Dominant.html">AssumeDominant</a> -- whether to assume a rational map between projective varieties is dominant</span>                  </li>
+                  <li>
+<span><a title="whether to check birationality" href="___Check__Birational.html">CheckBirational</a> -- whether to check birationality</span>                  </li>
+                  <li>
+<span><a title="an option to control HybridStrategy" href="___Hybrid__Limit.html">HybridLimit</a> -- an option to control HybridStrategy</span>                  </li>
+                  <li>
+<span><a title="A strategy for determining whether a map is birational and computing its inverse" href="___Hybrid__Strategy.html">HybridStrategy</a> -- A strategy for determining whether a map is birational and computing its inverse</span>                  </li>
+                  <li>
+<span><a title="an option to limit the number of random minors computed" href="___Minors__Limit.html">MinorsLimit</a> -- an option to limit the number of random minors computed</span>                  </li>
+                  <li>
+<span><a title=" an option for controlling how rank is computed" href="___Quick__Rank.html">QuickRank</a> --  an option for controlling how rank is computed</span>                  </li>
+                  <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Rees__Strategy.html">ReesStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>                  </li>
+                  <li>
+<span><a title="whether the value returned should be saturated" href="___Saturate__Output.html">SaturateOutput</a> -- whether the value returned should be saturated</span>                  </li>
+                  <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Saturation__Strategy.html">SaturationStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>                  </li>
+                  <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Simis__Strategy.html">SimisStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="rational maps between projective varieties" href="index.html">RationalMaps</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

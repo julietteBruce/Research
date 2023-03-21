@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>projections -- projections of a multi-projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_projective__Variety_lp..._cm__Minimal__Generators_eq_gt..._rp.html">next</a> | <a href="_point_lp__Multiprojective__Variety_rp.html">previous</a> | <a href="_projective__Variety_lp..._cm__Minimal__Generators_eq_gt..._rp.html">forward</a> | <a href="_point_lp__Multiprojective__Variety_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="projections of a multi-projective variety" href="_projections.html">projections</a>    </div>
+    <hr/>
+    <div>
+      <h1>projections -- projections of a multi-projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">projections X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">multi-projective variety</a></span>, a subvariety of $\mathbb{P}^{k_1}\times\mathbb{P}^{k_2}\times\cdots\times\mathbb{P}^{k_n}$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span>the list of the projections $X\to \mathbb{P}^{k_i}$, for $i=1,\ldots,n$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = projectiveVariety(ZZ/101[x_0..x_3]) ** projectiveVariety(ZZ/101[y_0..y_2]);
+
+o1 : ProjectiveVariety, PP^3 x PP^2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : projections X
+
+o2 = {-- rational map --                                              ,
+                    ZZ                              ZZ                 
+      source: Proj(---[x0 , x0 , x0 , x0 ]) x Proj(---[x1 , x1 , x1 ]) 
+                   101   0    1    2    3          101   0    1    2   
+                    ZZ                                                 
+      target: Proj(---[x , x , x , x ])                                
+                   101  0   1   2   3                                  
+      defining forms: {                                                
+                       x0 ,                                            
+                         0                                             
+                                                                       
+                       x0 ,                                            
+                         1                                             
+                                                                       
+                       x0 ,                                            
+                         2                                             
+                                                                       
+                       x0
+                         3
+                      }
+     ------------------------------------------------------------------------
+     -- rational map --                                              }
+                   ZZ                              ZZ
+     source: Proj(---[x0 , x0 , x0 , x0 ]) x Proj(---[x1 , x1 , x1 ])
+                  101   0    1    2    3          101   0    1    2
+                   ZZ
+     target: Proj(---[y , y , y ])
+                  101  0   1   2
+     defining forms: {
+                      x1 ,
+                        0
+                      
+                      x1 ,
+                        1
+                      
+                      x1
+                        2
+                     }
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>projections</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;projections(MultiprojectiveVariety)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="projections of a multi-projective variety" href="_projections.html">projections</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

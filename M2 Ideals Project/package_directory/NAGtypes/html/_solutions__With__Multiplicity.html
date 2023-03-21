@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>solutionsWithMultiplicity -- replaces clusters of approximately equal points by single points with multiplicity</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_sort__Solutions_lp..._cm__Tolerance_eq_gt..._rp.html">next</a> | <a href="_slice__Equations_lp__Matrix_cm__Ring_rp.html">previous</a> | <a href="_sort__Solutions_lp..._cm__Tolerance_eq_gt..._rp.html">forward</a> | <a href="_slice__Equations_lp__Matrix_cm__Ring_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> :: <a title="replaces clusters of approximately equal points by single points with multiplicity" href="_solutions__With__Multiplicity.html">solutionsWithMultiplicity</a>    </div>
+    <hr/>
+    <div>
+      <h1>solutionsWithMultiplicity -- replaces clusters of approximately equal points by single points with multiplicity</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = solutionsWithMultiplicity S</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>S</tt>, <a title="a type used to store a point in complex space" href="___Abstract__Point.html">points</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="the tolerance of a numerical computation" href="_sort__Solutions_lp..._cm__Tolerance_eq_gt..._rp.html">Tolerance</a><tt> => </tt><tt>...</tt>, <span>default value .000001</span>, the tolerance of a numerical computation</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <a title="a type used to store a point in complex space" href="___Abstract__Point.html">points</a> with a multiplicity field</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>Clusters the points and outputs a list with one point <tt>p</tt> per cluster with <tt>p.</tt><a title="a type used to store a point in complex space" href="___Abstract__Point.html">Multiplicity</a> equal to the size of the cluster. If the multiplicity is not 1, then <tt>p.</tt><a title="a type used to store a point in complex space" href="___Abstract__Point.html">SolutionStatus</a> is set to <a title="a type used to store a point in complex space" href="___Abstract__Point.html">Singular</a>; otherwise, it is inherited from one of the points in the cluster.</p>
+        <p>Whether two points are approximately equal is decided by the function <a title="determine if solutions are equal" href="_are__Equal.html">areEqual</a> that depends on <a title="the tolerance of a numerical computation" href="../../NumericalLinearAlgebra/html/___Tolerance.html">Tolerance</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : a = point {{0,1}}
+
+o1 = a
+
+o1 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : b = point {{0.000000001,1+0.00000000001*ii}}
+
+o2 = b
+
+o2 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : c = point {{0.001*ii,1}}
+
+o3 = c
+
+o3 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : M = solutionsWithMultiplicity {a,b,c}
+
+o4 = {a, c}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : peek M
+
+o5 = {Point{cache => CacheTable{...1...}},
+            Coordinates => {0, 1}         
+     ------------------------------------------------------------------------
+     Point{cache => CacheTable{...1...}}}
+           Coordinates => {.001*ii, 1}</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+A point in a cluster may be farther than <a title="the tolerance of a numerical computation" href="../../NumericalLinearAlgebra/html/___Tolerance.html">Tolerance</a> from another point in the cluster. (In that case there has to be another point in the cluster that is within the <a title="the tolerance of a numerical computation" href="../../NumericalLinearAlgebra/html/___Tolerance.html">Tolerance</a>.)      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>solutionsWithMultiplicity</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;solutionsWithMultiplicity(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="replaces clusters of approximately equal points by single points with multiplicity" href="_solutions__With__Multiplicity.html">solutionsWithMultiplicity</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toWeilDivisor -- create a Weil divisor from a Q or R-divisor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_trim_lp__Basic__Divisor_rp.html">next</a> | <a href="_to__R__Weil__Divisor.html">previous</a> | <a href="_trim_lp__Basic__Divisor_rp.html">forward</a> | <a href="_to__R__Weil__Divisor.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="create a Weil divisor from a Q or R-divisor" href="_to__Weil__Divisor.html">toWeilDivisor</a>    </div>
+    <hr/>
+    <div>
+      <h1>toWeilDivisor -- create a Weil divisor from a Q or R-divisor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toWeilDivisor( E1 )</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E1</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">RWeilDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">WeilDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a divisor with rational or real coefficients, but whose coefficients are actually integers, we first check if all coefficients are integers. If so we make this Weil divisor.  Otherwise, an error is thrown.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D=divisor({3/2}, {ideal(x)}, CoefficientType=>QQ)
+
+o2 = 3/2*Div(x)
+
+o2 : QWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : E=divisor({1.5}, {ideal(x)}, CoefficientType=>RR)
+
+o3 = 1.5*Div(x)
+
+o3 : RWeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : toWeilDivisor(2*D)
+
+o4 = 3*Div(x)
+
+o4 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : toWeilDivisor(2*E)
+
+o5 = 3*Div(x)
+
+o5 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isWeilDivisor(D)
+
+o6 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : try toWeilDivisor(D) then print &quot;converted to a WeilDivisor&quot; else print &quot;can't be converted to a WeilDivisor&quot;
+can't be converted to a WeilDivisor</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Notice in the final computation, <tt>D</tt> cannot be converted into a Weil divisor since $D$ has non-integer coefficients, but <tt>2*D</tt> can be converted into a Weil divisor.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="create a Q-Weil divisor from a Weil divisor" href="_to__Q__Weil__Divisor.html">toQWeilDivisor</a> -- create a Q-Weil divisor from a Weil divisor</span>          </li>
+          <li>
+<span><a title="create a R-divisor from a Q or Weil divisor" href="_to__R__Weil__Divisor.html">toRWeilDivisor</a> -- create a R-divisor from a Q or Weil divisor</span>          </li>
+          <li>
+<span><a title="whether a rational/real divisor is in actuality a Weil divisor" href="_is__Weil__Divisor.html">isWeilDivisor</a> -- whether a rational/real divisor is in actuality a Weil divisor</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toWeilDivisor</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toWeilDivisor(RWeilDivisor)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="create a Weil divisor from a Q or R-divisor" href="_to__Weil__Divisor.html">toWeilDivisor</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

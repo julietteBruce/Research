@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>DlocalizeAll -- localization of a D-module (extended version)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Dlocalize__Map.html">next</a> | <a href="___Dlocalize_lp..._cm__Strategy_eq_gt..._rp.html">previous</a> | <a href="___Dlocalize__Map.html">forward</a> | <a href="___Dlocalize_lp..._cm__Strategy_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="localization of a D-module (extended version)" href="___Dlocalize__All.html">DlocalizeAll</a>    </div>
+    <hr/>
+    <div>
+      <h1>DlocalizeAll -- localization of a D-module (extended version)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">DlocalizeAll(M,f), DlocalizeAll(I,f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, over the Weyl algebra <em>D</em></span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, which represents the module <em>M = D/I</em></span>              </li>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="strategy for computing a localization of a D-module" href="___Dlocalize_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value OTW</span>, strategy for computing a localization of a D-module</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, which contains the localized moduleM_f = M[f^{-1}] and some additional information</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+An extension of <a title="localization of a D-module" href="___Dlocalize.html">Dlocalize</a> that in addition computes the localization map, the b-function, and the power s of the generator f^s.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : W = QQ[x,y,Dx,Dy, WeylAlgebra => {x=>Dx,y=>Dy}]
+
+o1 = W
+
+o1 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = W^1/(ideal(x*Dx+1, Dy))
+
+o2 = cokernel | xDx+1 Dy |
+
+                            1
+o2 : W-module, quotient of W</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = x^2-y^3
+
+        3    2
+o3 = - y  + x
+
+o3 : W</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : DlocalizeAll(M, f)
+
+o4 = HashTable{GeneratorPower => -2                                        }
+                                                    4      5      5      7
+               IntegrateBfunction => (s)(s + 1)(s + -)(s + -)(s + -)(s + -)
+                                                    3      3      6      6
+               LocMap => | y6-2x2y3+x4 |
+               LocModule => cokernel | -3xDx-2yDy-15 -y3Dy+x2Dy-6y2 |
+
+o4 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="localization of a D-module" href="___Dlocalize.html">Dlocalize</a> -- localization of a D-module</span>          </li>
+          <li>
+<span><a title="the annihilating ideal of f^s" href="___Ann__Fs.html">AnnFs</a> -- the annihilating ideal of f^s</span>          </li>
+          <li>
+<span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>DlocalizeAll</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;DlocalizeAll(Ideal,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;DlocalizeAll(Module,RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="localization of a D-module (extended version)" href="___Dlocalize__All.html">DlocalizeAll</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ER(PolynomialRing,ZZ,ZZ) -- Erdos-Renyi type distribution on monomials over (R,D,M)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___E__R_lp__Z__Z_cm__Z__Z_cm__List_rp.html">next</a> | <a href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__R__R_rp.html">previous</a> | <a href="___E__R_lp__Z__Z_cm__Z__Z_cm__List_rp.html">forward</a> | <a href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__R__R_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a> :: <a title="Erdos-Renyi type distribution on monomials over (R,D,M)" href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__Z__Z_rp.html">ER(PolynomialRing,ZZ,ZZ)</a>    </div>
+    <hr/>
+    <div>
+      <h1>ER(PolynomialRing,ZZ,ZZ) -- Erdos-Renyi type distribution on monomials over (R,D,M)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="model for sampling from Erdos-Renyi type distributions on monomials" href="___E__R.html">ER</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">ER(PolynomialRing,ZZ,ZZ)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, the ring in which monomials are chosen from</span>              </li>
+              <li>
+<span><tt>D</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, maximum degree</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, number of monomials in the set</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="a type used to store a statistical model and its parameters" href="___Model.html">Model</a></span>, Erdos-Renyi type model</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Creates an ER-type model for sampling a set of $M$ monomials of degree at most $D$ from the ring $R$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : D=4; M=5;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : myModel = ER(ZZ/101[a..d],4,5)
+
+o3 = Model{Generate => -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/RandomMonomialIdeals.m2:158:23-158:47]*-}
+           Name => Erdos-Renyi
+                           ZZ
+           Parameters => (---[a..d], 4, 5)
+                          101
+
+o3 : Model</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Erdos-Renyi type distribution on monomials over (R,D,M)" href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__Z__Z_rp.html">ER(PolynomialRing,ZZ,ZZ)</a> -- Erdos-Renyi type distribution on monomials over (R,D,M)</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

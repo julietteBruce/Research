@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>firstOrderDeformations -- use tangent space to create first order perturbations and find relations</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Highest__Order.html">next</a> | <a href="_ext__Matrix.html">previous</a> | <a href="___Highest__Order.html">forward</a> | <a href="_ext__Matrix.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="calculating versal deformations and local Hilbert schemes" href="index.html">VersalDeformations</a> :: <a title="use tangent space to create first order perturbations and find relations" href="_first__Order__Deformations.html">firstOrderDeformations</a>    </div>
+    <hr/>
+    <div>
+      <h1>firstOrderDeformations -- use tangent space to create first order perturbations and find relations</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(F,R) = firstOrderDeformations(F0,R0,T1)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F0</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span></span>              </li>
+              <li>
+<span><tt>R0</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span></span>              </li>
+              <li>
+<span><tt>T1</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>DefParam</tt><tt> => </tt><tt>...</tt>, <span>default value &quot;t&quot;</span></span>              </li>
+              <li>
+<span><tt>SanityCheck</tt><tt> => </tt><tt>...</tt>, <span>default value true</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> of matrices</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> of matrices</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p><tt>F0</tt>, <tt>R0</tt>, and <tt>T1</tt> should all be matrices over some common ring. <tt>R0</tt> should be the first syzygy matrix of <tt>F0</tt> and <tt>T1</tt> should have the same number rows as the product of the number of rows and columns of <tt>F0</tt>.</p>
+        <p><tt>F</tt> is a list of length two with <tt>F_0=F0</tt> and <tt>F_1</tt> the first order perturbations corresponding to <tt>T1</tt>. <tt>R</tt> is a list of length two with <tt>R_0=R0</tt> and <tt>R_1</tt> such that <tt>F_0*R_1+F_1*R_0==0</tt>. If <a title="checks if lifting solves deformation equation" href="___Sanity__Check.html">SanityCheck</a> is set to <a href="../../Macaulay2Doc/html/_true.html">true</a>, as is the default, then the algorithm will check that this equation is satisfied, and terminate with an error if this is not the case.</p>
+        <p>The parameters used in the perturbations may be specified by the option <a title="deformation parameter" href="___Def__Param.html">DefParam</a>.</p>
+        <p>For example, consider the cone over the rational normal curve of degree four, see <a title="calculating versal deformations and local Hilbert schemes" href="index.html">[Pi74]</a>:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S=QQ[x_0..x_4];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I=minors(2,matrix {{x_0,x_1,x_2,x_3},{x_1,x_2,x_3,x_4}});
+
+o2 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : F0=gens I
+
+o3 = | -x_1^2+x_0x_2 -x_1x_2+x_0x_3 -x_2^2+x_1x_3 -x_1x_3+x_0x_4
+     ------------------------------------------------------------------------
+     -x_2x_3+x_1x_4 -x_3^2+x_2x_4 |
+
+             1       6
+o3 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : T1=cotangentCohomology1(F0);
+
+             6       4
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R0=gens ker F0;
+
+             6       8
+o5 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : (F,R)=firstOrderDeformations(F0,R0,T1)
+
+o6 = ({| -x_1^2+x_0x_2 -x_1x_2+x_0x_3 -x_2^2+x_1x_3 -x_1x_3+x_0x_4
+                                                                  
+                                                                  
+                                                                  
+                                                                  
+                                                                  
+     ------------------------------------------------------------------------
+     -x_2x_3+x_1x_4 -x_3^2+x_2x_4 |, | x_1t_1+x_0t_2 x_0t_4
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+     ------------------------------------------------------------------------
+     -x_3t_1-x_2t_2+x_1t_4 x_2t_3 -x_4t_1-x_3t_2+x_3t_3 x_4t_3-x_3t_4 |},
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+     ------------------------------------------------------------------------
+     {{2} | x_3  x_2  0    x_4  x_3  0    0    0    |, {2} | t_4  0   0   
+      {2} | -x_2 -x_1 x_4  0    0    0    x_4  x_3  |  {2} | -t_2 t_1 0   
+      {2} | x_1  x_0  -x_3 0    0    x_4  0    0    |  {2} | 0    0   0   
+      {2} | 0    0    -x_3 -x_2 -x_1 0    -x_3 -x_2 |  {2} | 0    0   -t_4
+      {2} | 0    0    x_2  x_1  x_0  -x_3 0    0    |  {2} | 0    0   0   
+      {2} | 0    0    0    0    0    x_2  x_1  x_0  |  {2} | 0    0   t_1 
+     ------------------------------------------------------------------------
+     0    0    0       0    0    |})
+     0    -t_3 0       0    0    |
+     -t_3 0    0       0    -t_3 |
+     -t_2 t_1  0       -t_4 -t_3 |
+     0    0    -t_4    -t_3 0    |
+     0    0    t_2-t_3 0    0    |
+
+o6 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>firstOrderDeformations</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;firstOrderDeformations(Matrix,Matrix,Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="use tangent space to create first order perturbations and find relations" href="_first__Order__Deformations.html">firstOrderDeformations</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>projectivize -- projectivize a differential form or vector field</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_radial.html">next</a> | <a href="_new__Form_lp__String_rp.html">previous</a> | <a href="_radial.html">forward</a> | <a href="_new__Form_lp__String_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="differential algebra" href="index.html">DiffAlg</a> :: <a title="projectivize a differential form or vector field" href="_projectivize.html">projectivize</a>    </div>
+    <hr/>
+    <div>
+      <h1>projectivize -- projectivize a differential form or vector field</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">projectivize e</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>e</tt>, <span>an instance of the type <a title="the class of all differential forms and vector fields" href="___Diff__Alg__Element.html">DiffAlgElement</a></span>, a form or a vector field</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all differential forms and vector fields" href="___Diff__Alg__Element.html">DiffAlgElement</a></span>, the projectivization of <tt>e</tt> with respect to a new variable. The resulting form or vector field descends to projective space.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This returns the unique differential form that extends the given one from affine space to projective space.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : w = newForm(&quot;2*x_0*dx_0+x_1^2*dx_1&quot;)
+
+               2
+o1 = 2x dx  + x dx
+       0  0    1  1
+
+o1 : DiffAlgForm</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : r = radial 2
+
+o2 = x ax  + x ax  + x ax
+      0  0    1  1    2  2
+
+o2 : DiffAlgField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : projectivize w
+
+         2       2            3     2
+o3 = 2x x dx  + x x dx  + (- x  - 2x x )dx
+       0 2  0    1 2  1       1     0 2   2
+
+o3 : DiffAlgForm</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : r_oo
+
+o4 = 0
+
+o4 : DiffAlgForm</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : projectivize newField (&quot;ax_0+x_1*ax_2+a*ax_1&quot;)  
+
+o5 = x ax  + a*x ax  + x ax
+      3  0      3  1    1  2
+
+o5 : DiffAlgField</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+The projectivization process of a form increases the polynomial degree by one if the original element did not descend to projective space.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="homogenize with respect to a variable" href="../../Macaulay2Doc/html/_homogenize.html">homogenize</a> -- homogenize with respect to a variable</span>          </li>
+          <li>
+<span><a title="whether something is homogeneous (graded)" href="../../Macaulay2Doc/html/_is__Homogeneous.html">isHomogeneous</a> -- whether something is homogeneous (graded)</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>projectivize</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;projectivize(DiffAlgElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="projectivize a differential form or vector field" href="_projectivize.html">projectivize</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

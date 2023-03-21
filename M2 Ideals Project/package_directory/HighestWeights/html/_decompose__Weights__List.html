@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>decomposeWeightsList -- decompose a list of weights into highest weights</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Example_sp1.html">next</a> | <a href="index.html">previous</a> | <a href="___Example_sp1.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="decompose free resolutions and graded modules with a semisimple Lie group action" href="index.html">HighestWeights</a> :: <a title="decompose a list of weights into highest weights" href="_decompose__Weights__List.html">decomposeWeightsList</a>    </div>
+    <hr/>
+    <div>
+      <h1>decomposeWeightsList -- decompose a list of weights into highest weights</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">decomposeWeightsList(D,L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>D</tt>, <span>an instance of the type <a title="the class of Dynkin Types" href="../../WeylGroups/html/___Dynkin__Type.html">DynkinType</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>a <a title="the class of all tally results" href="../../Macaulay2Doc/html/___Tally.html">tally</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function takes in the Dynkin type of a root system along with the complete list of weights of a representation and returns the decomposition into highest weight representations. It implements a modified version of Freudenthal's multiplicity formula based on the algorithm discussed in chapter 8.9 of W. A. de Graaf, <i>Lie algebras: theory and algorithms</i>, North-Holland Publishing, and the article <a href="http://dx.doi.org/10.1090/S0273-0979-1982-15021-2">R. V. Moody and J. Patera - Fast recursion formula for weight multiplicities</a>.</p>
+          <p>The only application of this function is to decompose the list of weights obtained with <a title="propagate (Lie theoretic) weights along equivariant maps" href="_propagate__Weights.html">propagateWeights</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : D=dynkinType{{&quot;A&quot;,3}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L={{1,0,0},{-1,1,0},{0,-1,1},{0,0,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : decomposeWeightsList(D,L)
+
+o3 = Tally{{1, 0, 0} => 1}
+
+o3 : Tally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>To speed up the decomposition of the list of weights in the input, this function discards all non dominant weights, then decomposes the dominant character obtained from the remaining dominant weights. If the dominant weights in the list do not form the dominant character of a representation an error is returned. This is typically caused by assigning the wrong weights to the variables of the ring or to the presentation of a module. However, if the non dominant weights in <tt>L</tt> do not belong to the character of a representation, this will go undetected by this function.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="propagate (Lie theoretic) weights along equivariant maps" href="_propagate__Weights.html">propagateWeights</a> -- propagate (Lie theoretic) weights along equivariant maps</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="decompose a list of weights into highest weights" href="_decompose__Weights__List.html">decomposeWeightsList</a> is <span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>infiniteBettiNumbers -- betti numbers of finite resolution computed from a matrix factorization</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Linear.html">next</a> | <a href="___Hom__With__Components.html">previous</a> | <a href="_is__Linear.html">forward</a> | <a href="___Hom__With__Components.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="&quot;Resolution over a Complete Intersection&quot;" href="index.html">CompleteIntersectionResolutions</a> :: <a title="betti numbers of finite resolution computed from a matrix factorization" href="_infinite__Betti__Numbers.html">infiniteBettiNumbers</a>    </div>
+    <hr/>
+    <div>
+      <h1>infiniteBettiNumbers -- betti numbers of finite resolution computed from a matrix factorization</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L = finiteBettiNumbers (MF,len)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>MF</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, List of HashTables as computed by &quot;matrixFactorization&quot;</span>              </li>
+              <li>
+<span><tt>len</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, length of betti number sequence to produce</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, List of betti numbers</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Uses the ranks of the B matrices in a matrix factorization for a module M over S/(f_1,..,f_c) to compute the betti numbers of the minimal resolution of M over R, which is the sum of the divided power algebras on c-j+1 variables tensored with B(j).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setRandomSeed 0
+
+o1 = 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : kk = ZZ/101
+
+o2 = kk
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = kk[a,b,u,v]
+
+o3 = S
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : ff = matrix&quot;au,bv&quot;
+
+o4 = | au bv |
+
+             1       2
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = S/ideal ff
+
+o5 = R
+
+o5 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : M0 = R^1/ideal&quot;a,b&quot;
+
+o6 = cokernel | a b |
+
+                            1
+o6 : R-module, quotient of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : F = res(M0, LengthLimit =>3)
+
+      1      2      3      4
+o7 = R  &lt;-- R  &lt;-- R  &lt;-- R
+                           
+     0      1      2      3
+
+o7 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : M = coker F.dd_3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : MF = matrixFactorization(ff,M);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : betti res pushForward(map(R,S),M)
+
+             0 1 2
+o10 = total: 3 5 2
+          2: 3 4 .
+          3: . 1 2
+
+o10 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : finiteBettiNumbers MF
+
+o11 = {3, 5, 2}
+
+o11 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : infiniteBettiNumbers(MF,5)
+
+o12 = {3, 4, 5, 6, 7, 8}
+
+o12 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : betti res (M, LengthLimit => 5)
+
+             0 1 2 3 4 5
+o13 = total: 3 4 5 6 7 8
+          2: 3 4 5 6 7 8
+
+o13 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Maps in a higher codimension matrix factorization" href="_matrix__Factorization.html">matrixFactorization</a> -- Maps in a higher codimension matrix factorization</span>          </li>
+          <li>
+<span><a title="betti numbers of finite resolution computed from a matrix factorization" href="_finite__Betti__Numbers.html">finiteBettiNumbers</a> -- betti numbers of finite resolution computed from a matrix factorization</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>infiniteBettiNumbers</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;infiniteBettiNumbers(List,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="betti numbers of finite resolution computed from a matrix factorization" href="_infinite__Betti__Numbers.html">infiniteBettiNumbers</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

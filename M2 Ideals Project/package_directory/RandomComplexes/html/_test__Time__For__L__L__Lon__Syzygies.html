@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>testTimeForLLLonSyzygies -- test timing for LLL on syzygies</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___With__L__L__L.html">next</a> | <a href="_random__Simplicial__Complex.html">previous</a> | <a href="___With__L__L__L.html">forward</a> | <a href="_random__Simplicial__Complex.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="support for creating random complexes over the integers" href="index.html">RandomComplexes</a> :: <a title="test timing for LLL on syzygies" href="_test__Time__For__L__L__Lon__Syzygies.html">testTimeForLLLonSyzygies</a>    </div>
+    <hr/>
+    <div>
+      <h1>testTimeForLLLonSyzygies -- test timing for LLL on syzygies</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(m,t1,t2)=testTimeForLLLonSyzygies(r,n,Height=>100)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>r</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Height</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 11</span>, the sizes of the random integers used</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>m</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of maximal absolute values of the entries of A, B and the LLL basis of B</span>              </li>
+              <li>
+<span><tt>t1</tt>, <span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, the time in seconds to compute B = ker A</span>              </li>
+              <li>
+<span><tt>t2</tt>, <span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, the time to compute the LLL basis of B</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>We randomly choose an $r \times\ n$ matrix A over ZZ with entries up to the given Height, and take the time to compute B=ker A and an LLL basis of B.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setRandomSeed &quot;nice example 2&quot;;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : r=10,n=20
+
+o2 = (10, 20)
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (m,t1,t2)=testTimeForLLLonSyzygies(r,n,Height=>11)
+
+o3 = ({5, 2.91596e52, 9}, .00305148, .0010976)
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (m,t1,t2)=testTimeForLLLonSyzygies(15,30,Height=>100)
+
+o4 = ({50, 2.30853e454, 98}, .00713247, .0424186)
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : L=apply(10,c->(testTimeForLLLonSyzygies(15,30))_{1,2})
+
+o5 = {{.0398841, .0139755}, {.00776805, .00479013}, {.0079327, .0076312},
+     ------------------------------------------------------------------------
+     {.0077271, .011425}, {.00802567, .0156523}, {.0262003, .0150943},
+     ------------------------------------------------------------------------
+     {.00749641, .00922819}, {.0101468, .00843707}, {.00681752, .00640523},
+     ------------------------------------------------------------------------
+     {.00972044, .00967297}}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : 1/10*sum(L,t->t_0)
+
+o6 = .0131719017
+
+o6 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : 1/10*sum(L,t->t_1)
+
+o7 = .0102311822
+
+o7 : RR (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>testTimeForLLLonSyzygies</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;testTimeForLLLonSyzygies(ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="test timing for LLL on syzygies" href="_test__Time__For__L__L__Lon__Syzygies.html">testTimeForLLLonSyzygies</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

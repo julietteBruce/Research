@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>yAction -- defines a vector bundle on E</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_vector__Bundle__On__E.html">previous</a> | forward | <a href="_vector__Bundle__On__E.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Clifford Algebra of a Pencil of quadratic forms on PP^(2g+1)" href="index.html">PencilsOfQuadrics</a> :: <a title="defines a vector bundle on E" href="_y__Action.html">yAction</a>    </div>
+    <hr/>
+    <div>
+      <h1>yAction -- defines a vector bundle on E</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = V.yAction</code></dd>
+            </dl>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a square matrix on PP^1, representing the action of y</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A matrix representing the action of y for the hyperelliptic curve E with equation y^2 - (-1)^g * f.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = ZZ/101;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = kk[s,t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = (s+2*t)*(s+t)*(s-t)*(s-2*t);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : L0 = randomLineBundle(0,f)
+
+o4 = VectorBundleOnE{...1...}
+
+o4 : VectorBundleOnE</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : M = L0.yAction
+
+o5 = {-1} | -29s2+19st+19t2 38s2+9st+47t2  |
+     {-1} | 47s2-22st+t2    29s2-19st-19t2 |
+
+             2       2
+o5 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : M^2 - f*id_(source M)
+
+o6 = 0
+
+             2       2
+o6 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a random line bundle on the hyperelliptic curve" href="_random__Line__Bundle.html">randomLineBundle</a> -- a random line bundle on the hyperelliptic curve</span>          </li>
+          <li>
+<span><a title="a random extension of a vector bundle on E by another vector bundle" href="_random__Extension.html">randomExtension</a> -- a random extension of a vector bundle on E by another vector bundle</span>          </li>
+          <li>
+<span><a title="creates a VectorBundleOnE, represented as a matrix factorization" href="_vector__Bundle__On__E.html">vectorBundleOnE</a> -- creates a VectorBundleOnE, represented as a matrix factorization</span>          </li>
+          <li>
+<span><a title="vector bundle on a hyperelliptic curve E" href="___Vector__Bundle__On__E.html">VectorBundleOnE</a> -- vector bundle on a hyperelliptic curve E</span>          </li>
+          <li>
+<span><a title="degree of a vector bundle on E" href="_deg__On__E.html">degOnE</a> -- degree of a vector bundle on E</span>          </li>
+          <li>
+<span><a title="order of a line bundle of degree 0 in Pic(E)" href="_order__In__Pic.html">orderInPic</a> -- order of a line bundle of degree 0 in Pic(E)</span>          </li>
+          <li>
+<span><a title="tensor product of sheaves on the elliptic curve or sheaf times CliffordModule" href="_tensor__Product.html">tensorProduct</a> -- tensor product of sheaves on the elliptic curve or sheaf times CliffordModule</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="defines a vector bundle on E" href="_y__Action.html">yAction</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

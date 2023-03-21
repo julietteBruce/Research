@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>readNmzData -- reads an output file of Normaliz containing one matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ring_lp__Monomial__Subalgebra_rp.html">next</a> | <a href="_read__Multiple__Nmz__Data.html">previous</a> | <a href="_ring_lp__Monomial__Subalgebra_rp.html">forward</a> | <a href="_read__Multiple__Nmz__Data.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a>    </div>
+    <hr/>
+    <div>
+      <h1>readNmzData -- reads an output file of Normaliz containing one matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">readNmzData s</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, the suffix of the file to be read</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>,  the content of the file</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+Reads an output file of <tt>Normaliz</tt> containing an integer matrix and returns it as a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">Matrix</a>, whose rows contains the data computed (in contrast to the convention used in M2). To read the <tt>.inv</tt> file, use <a title="returns the numerical invariants computed" href="_get__Num__Invs.html">getNumInvs</a>. The filename is created from the current filename specified by the user and the suffix given to the function. The possible suffixes depend on the input and the computation mode. The computation mode is controlled via the options, see <a title="sets a command line option for Normaliz" href="_set__Nmz__Option.html">setNmzOption</a>. For the possible output files see <a href="_output_spfiles_spwritten_spby_sp__Normaliz.html">output files written by Normaliz</a>. For more details we refer to the documentation of <tt>Normaliz</tt> available as pdf file at <a href="http://www.math.uos.de/normaliz/">http://www.math.uos.de/normaliz/</a>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : nmzFilename=&quot;example&quot; -- to keep the files
+
+o1 = example</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : setNmzOption(&quot;allf&quot;,true); -- to write all files</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : mat=matrix({{1,2,3},{4,5,6},{7,8,10}});
+
+              3        3
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : normaliz(mat,&quot;integral_closure&quot;)
+
+o4 = RationalCone{gen => | 1 2 3  |                                   }
+                         | 2 3 4  |
+                         | 3 4 5  |
+                         | 4 5 6  |
+                         | 7 8 10 |
+                  inv => HashTable{ => (1, 1, 1)                     }
+                                   class group => (0, 3)
+                                   degree 1 elements => 5
+                                   dim max subspace => 0
+                                   embedding dim => 3
+                                   external index => 1
+                                   graded => true
+                                   grading denom => 1
+                                   grading => (-1, 1, 0)
+                                   hilbert basis elements => 5
+                                   hilbert quasipolynomial denom => 2
+                                   hilbert series denom => (1, 1, 1)
+                                   hilbert series num => (1, 2)
+                                   inhomogeneous => false
+                                   integrally closed => false
+                                   internal index => 3
+                                   multiplicity denom => 1
+                                   multiplicity => 3
+                                   number extreme rays => 3
+                                   number support hyperplanes => 3
+                                   rank => 3
+                                   size triangulation => 1
+                                   sum dets => 3
+
+o4 : RationalCone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : readNmzData &quot;typ&quot;
+
+o5 = | 0 3 0 |
+     | 1 2 0 |
+     | 2 1 0 |
+     | 3 0 0 |
+     | 0 0 1 |
+
+              5        3
+o5 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : rmNmzFiles();</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates an input file for Normaliz" href="_write__Nmz__Data.html">writeNmzData</a> -- creates an input file for Normaliz</span>          </li>
+          <li>
+<span><a title="calls Normaliz" href="_normaliz.html">normaliz</a> -- calls Normaliz</span>          </li>
+          <li>
+<span><a href="_all__Computations.html">allComputations</a></span>          </li>
+          <li>
+<span><a href="___Keeping_spresults_spof_spthe_spcomputation_spby_sp__Normaliz.html">Keeping results of the computation by Normaliz</a></span>          </li>
+          <li>
+<span><a href="_output_spfiles_spwritten_spby_sp__Normaliz.html">output files written by Normaliz</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>readNmzData</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;readNmzData(String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

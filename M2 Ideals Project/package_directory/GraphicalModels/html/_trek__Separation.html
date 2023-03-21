@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>trekSeparation -- trek separation statements of a mixed graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_undirected__Edges__Matrix.html">next</a> | <a href="_trek__Ideal.html">previous</a> | <a href="_undirected__Edges__Matrix.html">forward</a> | <a href="_trek__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for discrete and Gaussian statistical graphical models" href="index.html">GraphicalModels</a> :: <a title="trek separation statements of a mixed graph" href="_trek__Separation.html">trekSeparation</a>    </div>
+    <hr/>
+    <div>
+      <h1>trekSeparation -- trek separation statements of a mixed graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">trekSeparation(G)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>an instance of the type <a title="a graph that has undirected, directed and bidirected edges" href="../../StatGraphs/html/___Mixed__Graph.html">MixedGraph</a></span>, mixed graph with directed and bidirected edges</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of lists \{A,B,CA,CB\}, where (CA,CB) trek-separates A from B</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A trek between vertices $i$ and $j$ in a mixed graph $G$ with directed and bidirected edges is a triple $(P_L,P_R)$ where $P_L$ is a directed path of directed edges with sink $i$ and source $k$, $P_R$ is a directed path of directed edges with sink $j$ and source $l$, and either $k=l$ or there is a bidirected edge between $k$ and $l$. Let $A,B,CA,CB$ be subsets of vertices of $G$.</p>
+          <p>We say that $(CA,CB)$ trek-separates $A$ from $B$ in $G$ if for every trek $(P_L,P_R)$ from a vertex in $A$ to a vertex in $B$, either $P_L$ contains a vertex in $CA$ or $P_R$ contains a vertex in $CB$.</p>
+          <p>The function <a title="trek separation statements of a mixed graph" href="_trek__Separation.html">trekSeparation</a> returns a list of trek separation statements $\{A,B,CA,CB\}$\,where $#CA + #CB &lt; min(#A, #B)$. Each statement is maximal in the ordering where $\{A1,B1,CA,CB\}\,&lt;\,\{A2,B2,CA,CB\}$\,if $A1$ is a subset of $A2$ and $B1$ is a subset of $B2$. Each statement is also unique up to symmetry, since $\{B,A,CB,CA\}$\,is a trek separation statement if and only if $\{A,B,CA,CB\}$.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G = mixedGraph(digraph {{b,{c,d}},{c,{d}}},bigraph {{a,d}})
+
+o1 = MixedGraph{Bigraph => Bigraph{a => {d}}   }
+                                   d => {a}
+                Digraph => Digraph{b => {c, d}}
+                                   c => {d}
+                                   d => {}
+                Graph => Graph{}
+
+o1 : MixedGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = trekSeparation G
+
+o2 = {{{a}, {b, c}, {}, {}}, {{a, b}, {b, c}, {}, {b}}, {{b, c}, {a, b}, {},
+     ------------------------------------------------------------------------
+     {b}}, {{b, c}, {a, c}, {}, {c}}, {{b, c}, {d, a}, {}, {d}}}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p><tt>trekSeparation</tt> $G$ is only implemented for mixedGraphs with directed and bidirected edges.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="trek separation ideal of a mixed graph" href="_trek__Ideal.html">trekIdeal</a> -- trek separation ideal of a mixed graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>trekSeparation</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;trekSeparation(MixedGraph)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="trek separation statements of a mixed graph" href="_trek__Separation.html">trekSeparation</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

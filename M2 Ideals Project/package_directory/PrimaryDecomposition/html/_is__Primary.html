@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isPrimary -- determine whether a submodule is primary</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_kernel__Of__Localization.html">next</a> | <a href="_irreducible__Decomposition.html">previous</a> | <a href="_kernel__Of__Localization.html">forward</a> | <a href="_irreducible__Decomposition.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="primary decomposition and associated primes routines for ideals and modules" href="index.html">PrimaryDecomposition</a> :: <a title="determine whether a submodule is primary" href="_is__Primary.html">isPrimary</a>    </div>
+    <hr/>
+    <div>
+      <h1>isPrimary -- determine whether a submodule is primary</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isPrimary Q</code></dd>
+              <dd><code class="language-macaulay2">isPrimary(Q, P)</code></dd>
+              <dd><code class="language-macaulay2">isPrimary(M, Q)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>Q</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span> or <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, the submodule or ideal to be checked for being primary</span>              </li>
+              <li>
+<span><tt>P</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the <a title="the radical of an ideal" href="../../MinimalPrimes/html/_radical.html">radical</a> of <tt>Q</tt></span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, the ambient module</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">thing</a></span>, <span>default value null</span>, See <a title="find associated primes" href="_associated__Primes.html">associatedPrimes(...,Strategy=>...)</a> and <tt>isPrime(Ideal, Strategy => ...)</tt> (missing documentation)<!--tag: MinimalPrimes::isPrime(Ideal, Strategy => ...)-->
+</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, true if <tt>Q</tt> is primary, false otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Checks to see if a given submodule <tt>Q</tt> of a module <tt>M</tt> is primary, i.e. whether or not <tt>M/Q</tt> has exactly one associated prime (which is equivalent for finitely generated modules over Noetherian rings). If the input is a single ideal, then the ambient module is taken to be the ring (i.e. the free module of rank 1), and does not need to be specified.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = ZZ/101[x,y,z]
+
+o1 = Q
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : isPrimary ideal(y^6)
+
+o2 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isPrimary(ideal(y^6), ideal(y))
+
+o3 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isPrimary ideal(x^4, y^7)
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isPrimary ideal(x*y, y^2)
+
+o5 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="irredundant primary decomposition of an ideal" href="_primary__Decomposition.html">primaryDecomposition(Ideal)</a> -- irredundant primary decomposition of an ideal</span>          </li>
+          <li>
+<span><a title="irredundant primary decomposition of a module" href="_primary__Decomposition_lp__Module_rp.html">primaryDecomposition(Module)</a> -- irredundant primary decomposition of a module</span>          </li>
+          <li>
+<span><a title="find associated primes" href="_associated__Primes.html">associatedPrimes</a> -- find associated primes</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isPrimary</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isPrimary(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isPrimary(Ideal,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isPrimary(Module,Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="determine whether a submodule is primary" href="_is__Primary.html">isPrimary</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

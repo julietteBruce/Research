@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>homology(SimplicialComplex,Ring) -- compute the reduced homology of an abstract simplicial complex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_homology_lp__Simplicial__Complex_cm__Simplicial__Complex_rp.html">next</a> | <a href="___H__H_us__Z__Z_lp__Simplicial__Complex_cm__Ring_rp.html">previous</a> | <a href="_homology_lp__Simplicial__Complex_cm__Simplicial__Complex_rp.html">forward</a> | <a href="___H__H_us__Z__Z_lp__Simplicial__Complex_cm__Ring_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="exploring abstract simplicial complexes within commutative algebra" href="index.html">SimplicialComplexes</a> :: <a title="compute the reduced homology of an abstract simplicial complex" href="_homology_lp__Simplicial__Complex_cm__Ring_rp.html">homology(SimplicialComplex,Ring)</a>    </div>
+    <hr/>
+    <div>
+      <h1>homology(SimplicialComplex,Ring) -- compute the reduced homology of an abstract simplicial complex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="general homology functor" href="../../Macaulay2Doc/html/_homology.html">homology</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">homology(Delta, R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>Delta</tt>, <span>an <a title="the class of all abstract simplicial complexes" href="___Simplicial__Complex.html">abstract simplicial complex</a></span>, </span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all graded modules" href="../../Macaulay2Doc/html/___Graded__Module.html">graded module</a></span>, that is reduced homology group of $\Delta$ with coefficients in $R$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Each abstract simplicial complex $\Delta$ determines a chain complex of free modules over its coefficient ring.  For all integers $i$, the $i$-th term in this chain complex has a basis corresponding to the $i$-th faces in the simplicial complex $\Delta$.  When the optional argument $R$ is include, the chain complex is tensored with the given ring.  The <em>reduced homology</em> of $\Delta$ with coefficients in $R$ is, by definition, the homology of this chain complex.</p>
+        </div>
+        <div>
+          <p>The $2$-sphere has vanishing first homology, but non-trivial second homology.  We obtain a triangulation of the $2$-sphere by taking the $2$-skeleton of the $3$-simplex.  Since homology groups are typically expressed as a <a title="make a subquotient module" href="../../Macaulay2Doc/html/_subquotient.html">subquotient</a>, we <a title="minimal presentation of a module" href="../../Macaulay2Doc/html/_minimal__Presentation_lp__Module_rp.html">prune</a> the output to obtain a minimal presentation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ[a..h];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Δ = skeleton(2, simplexComplex(3, S))
+
+o2 = simplicialComplex | bcd acd abd abc |
+
+o2 : SimplicialComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : prune homology Δ
+
+o3 = -1 : 0  
+
+      0 : 0  
+
+      1 : 0  
+
+            1
+      2 : ZZ
+
+o3 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : prune homology(Δ, QQ)
+
+o4 = -1 : 0  
+
+      0 : 0  
+
+      1 : 0  
+
+            1
+      2 : QQ
+
+o4 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : prune homology(Δ, ZZ/2)
+
+o5 = -1 : 0    
+
+      0 : 0    
+
+      1 : 0    
+
+           ZZ 1
+      2 : (--)
+            2
+
+o5 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : assert(homology Δ == HH Δ)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : assert(prune homology Δ == gradedModule ZZ^1[-2])</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The reduced homology of the <a title="make a minimal triangulation of the Klein bottle" href="_klein__Bottle__Complex_lp__Polynomial__Ring_rp.html">Klein bottle</a> has torsion.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : Γ = kleinBottleComplex S
+
+o8 = simplicialComplex | cgh agh cfh afh efg dfg aeg cdg bef adf bcf cde bde ace abd abc |
+
+o8 : SimplicialComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : prune homology Γ
+
+o9 = -1 : 0             
+
+      0 : 0             
+
+      1 : cokernel | 2 |
+                   | 0 |
+
+      2 : 0             
+
+o9 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : prune homology(Γ, QQ)
+
+o10 = -1 : 0  
+
+       0 : 0  
+
+             1
+       1 : QQ
+
+       2 : 0  
+
+o10 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : prune homology(Γ, ZZ/2)
+
+o11 = -1 : 0    
+
+       0 : 0    
+
+            ZZ 2
+       1 : (--)
+             2
+
+            ZZ 1
+       2 : (--)
+             2
+
+o11 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : assert(prune homology(Γ, ZZ/2) == gradedModule((ZZ/2)^2[-1] ++ (ZZ/2)^1[-2]))</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>There are two &quot;trivial&quot; simplicial complexes: the irrelevant complex has the empty set as a facet whereas the void complex has no faces.  Every abstract simplicial complex other than the void complex has a unique face of dimension $-1$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : irrelevant = simplicialComplex monomialIdeal gens S
+
+o13 = simplicialComplex | 1 |
+
+o13 : SimplicialComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : homology irrelevant
+
+             1
+o14 = -1 : ZZ
+
+o14 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : assert(homology irrelevant == gradedModule ZZ^1[1])</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : void = simplicialComplex monomialIdeal 1_S
+
+o16 = simplicialComplex 0
+
+o16 : SimplicialComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : homology void
+
+o17 = 0 : 0
+
+o17 : GradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : assert(homology void == gradedModule ZZ^0[0])</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="information about the chain complexes and their homogenizations" href="___Working_spwith_spassociated_spchain_spcomplexes.html">Working with associated chain complexes</a> -- information about the chain complexes and their homogenizations</span>          </li>
+          <li>
+<span><a title="compute the reduced homology of an abstract simplicial complex" href="___H__H_us__Z__Z_lp__Simplicial__Complex_cm__Ring_rp.html">HH_ZZ(SimplicialComplex,Ring)</a> -- compute the reduced homology of an abstract simplicial complex</span>          </li>
+          <li>
+<span><a title="create the chain complex associated to a simplicial complex." href="_chain__Complex_lp__Simplicial__Complex_rp.html">chainComplex(SimplicialComplex)</a> -- create the chain complex associated to a simplicial complex.</span>          </li>
+          <li>
+<span><a title="compute the relative homology of two simplicial complexes" href="_homology_lp__Simplicial__Complex_cm__Simplicial__Complex_rp.html">homology(SimplicialComplex,SimplicialComplex)</a> -- compute the relative homology of two simplicial complexes</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<tt>&quot;HH SimplicialComplex&quot;</tt>          </li>
+          <li>
+<tt>&quot;homology(Nothing,SimplicialComplex)&quot;</tt>          </li>
+          <li>
+<tt>&quot;homology(Nothing,SimplicialComplex,Ring)&quot;</tt>          </li>
+          <li>
+<span><a title="compute the reduced homology of an abstract simplicial complex" href="_homology_lp__Simplicial__Complex_cm__Ring_rp.html">homology(SimplicialComplex,Ring)</a> -- compute the reduced homology of an abstract simplicial complex</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

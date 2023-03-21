@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>primaryDecompositionPseudomonomial -- primary decomposition of a square free pseudomonomial ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_is__Squarefree__Pseudomonomial__Ideal.html">previous</a> | forward | <a href="_is__Squarefree__Pseudomonomial__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="primary decomposition of a square free pseudomonomial ideal" href="index.html">PseudomonomialPrimaryDecomposition</a> :: <a title="primary decomposition of a square free pseudomonomial ideal" href="_primary__Decomposition__Pseudomonomial.html">primaryDecompositionPseudomonomial</a>    </div>
+    <hr/>
+    <div>
+      <h1>primaryDecompositionPseudomonomial -- primary decomposition of a square free pseudomonomial ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">primaryDecompositionPseudomonomial(I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a square free pseudomonomial ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, list L={P1,P2,...,Pk} of primary ideals with intersection equal to I</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+The algorithm is implemented bitwise (using Macaulay2 bitwise operations), which makes calculations faster. Examples:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=ZZ/2[x1,x2,x3,x4,x5];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x1*x2,x3*x4,x5);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : primaryDecompositionPseudomonomial(I) 
+
+o3 = {ideal (x5, x1, x3), ideal (x5, x1, x4), ideal (x5, x2, x3), ideal (x5,
+     ------------------------------------------------------------------------
+     x2, x4)}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R=QQ[x1,x2,x3,x4,x5];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : I = ideal(x1*(x2-1),(x3-1)*x4,x5);
+
+o5 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : primaryDecompositionPseudomonomial(I) 
+
+o6 = {ideal (x5, x1, x3 - 1), ideal (x5, x1, x4), ideal (x5, x2 - 1, x3 - 1),
+     ------------------------------------------------------------------------
+     ideal (x5, x2 - 1, x4)}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : R=ZZ/2[x1,x2];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : I = ideal(x1*(x2-1),(x1-1)*(x2-1),x1*x2,(x1-1)*x2);
+
+o8 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : primaryDecompositionPseudomonomial(I) 
+
+o9 = {}
+
+o9 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : R=QQ[x1,x2,x3,x4,x5];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : I = ideal(x5,x1*(x3-1)*(x5-1));
+
+o11 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : primaryDecompositionPseudomonomial(I) 
+
+o12 = {ideal (x5, x1), ideal (x5, x3 - 1)}
+
+o12 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : R=ZZ/3[x1,x2];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : I = ideal(x5,(x3-1));
+
+o14 : Ideal of QQ[x1, x2, x3, x4, x5]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : primaryDecompositionPseudomonomial(I) 
+
+o15 = {ideal (x5, x3 - 1)}
+
+o15 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+The algorithm finds a decomposition even if the base field is not QQ or ZZ/p      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="irredundant primary decomposition of an ideal" href="../../PrimaryDecomposition/html/_primary__Decomposition.html">primaryDecomposition</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>primaryDecompositionPseudomonomial</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;primaryDecompositionPseudomonomial(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="primary decomposition of a square free pseudomonomial ideal" href="_primary__Decomposition__Pseudomonomial.html">primaryDecompositionPseudomonomial</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

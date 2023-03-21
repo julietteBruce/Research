@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Computing symbolic powers of an ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_containment__Problem.html">next</a> | <a href="___C__I__Primes.html">previous</a> | <a href="_containment__Problem.html">forward</a> | <a href="___C__I__Primes.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="symbolic powers of ideals" href="index.html">SymbolicPowers</a> :: <a href="___Computing_spsymbolic_sppowers_spof_span_spideal.html">Computing symbolic powers of an ideal</a>    </div>
+    <hr/>
+    <div>
+      <h1>Computing symbolic powers of an ideal</h1>
+      <div>
+        <div>
+          <p>Given an ideal, symbolicPower computes a given symbolic power.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : B = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x*(y^3-z^3),y*(z^3-y^3),z*(x^3-y^3));
+
+o2 : Ideal of B</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : J = symbolicPower(I,3)
+
+             3 6     9      3 3 4     6 4    3 7    3 7   6 3 2    9 2    6 5
+o3 = ideal (x y z - y z - 2x y z  + 2y z  + x z  - y z , x y z  - y z  - x z 
+     ------------------------------------------------------------------------
+         3 3 5     6 5     3 8     3 8   9 3    9 3     6 6     6 6     3 9  
+     - 2x y z  + 3y z  + 2x z  - 2y z , x z  - y z  - 3x z  + 3y z  + 3x z  -
+     ------------------------------------------------------------------------
+       3 9   12     9 3     6 6    3 9     11       8 3       5 6      2 9 
+     3y z , y   - 3y z  + 3y z  - y z , x*y   - 3x*y z  + 3x*y z  - x*y z ,
+     ------------------------------------------------------------------------
+      2 10     2 7 3     2 4 6    2   9   3 9     9 3     3 3 6     6 6  
+     x y   - 3x y z  + 3x y z  - x y*z , x y  - 3y z  - 3x y z  + 6y z  +
+     ------------------------------------------------------------------------
+       3 9     3 9
+     2x z  - 3y z )
+
+o3 : Ideal of B</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Various algorithms are used, in the following order:</p>
+          <p>1. If $I$ is squarefree monomial ideal, intersects the powers of the associated primes of $I$;</p>
+          <p>2. If $I$ is monomial ideal, but not squarefree, takes an irredundant primary decomposition of $I$ and intersects the powers of those ideals;</p>
+          <p>3. If $I$ is a saturated homogeneous ideal in a polynomial ring whose height is one less than the dimension of the ring, returns the saturation of $I^n$;</p>
+          <p>4. If all the associated primes of $I$ have the same height, computes a primary decomposition of $I^n$ and intersects the components with radical $I$;</p>
+          <p>5. If all else fails, compares the radicals of a primary decomposition of $I^n$ with the associated primes of $I$, and intersects the components corresponding to minimal primes.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

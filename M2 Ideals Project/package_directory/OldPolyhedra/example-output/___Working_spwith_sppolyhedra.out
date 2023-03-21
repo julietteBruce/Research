@@ -1,0 +1,587 @@
+-- -*- M2-comint -*- hash: -577021660
+
+i1 : V = matrix {{0,2,-2,0},{-1,1,1,1}}
+
+o1 = | 0  2 -2 0 |
+     | -1 1 1  1 |
+
+              2        4
+o1 : Matrix ZZ  <--- ZZ
+
+i2 : P = convexHull V
+
+o2 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 3
+      number of rays => 0
+      number of vertices => 3
+
+o2 : Polyhedron
+
+i3 : vertices P
+
+o3 = | 0  -2 2 |
+     | -1 1  1 |
+
+              2        3
+o3 : Matrix QQ  <--- QQ
+
+i4 : (HS,v) = halfspaces P
+
+o4 = (| -1 -1 |, | 1 |)
+      | 1  -1 |  | 1 |
+      | 0  1  |  | 1 |
+
+o4 : Sequence
+
+i5 : hyperplanes P
+
+o5 = (0, 0)
+
+o5 : Sequence
+
+i6 : rays P
+
+o6 = 0
+
+              2
+o6 : Matrix ZZ  <--- 0
+
+i7 : linSpace P
+
+o7 = 0
+
+              2
+o7 : Matrix ZZ  <--- 0
+
+i8 : R = matrix {{1},{0},{0}}
+
+o8 = | 1 |
+     | 0 |
+     | 0 |
+
+              3        1
+o8 : Matrix ZZ  <--- ZZ
+
+i9 : V1 = V || matrix {{1,1,1,1}}
+
+o9 = | 0  2 -2 0 |
+     | -1 1 1  1 |
+     | 1  1 1  1 |
+
+              3        4
+o9 : Matrix ZZ  <--- ZZ
+
+i10 : P1 = convexHull(V1,R)
+
+o10 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 3
+       number of rays => 1
+       number of vertices => 2
+
+o10 : Polyhedron
+
+i11 : vertices P1
+
+o11 = | 0  -2 |
+      | -1 1  |
+      | 1  1  |
+
+               3        2
+o11 : Matrix QQ  <--- QQ
+
+i12 : rays P1
+
+o12 = | 1 |
+      | 0 |
+      | 0 |
+
+               3        1
+o12 : Matrix ZZ  <--- ZZ
+
+i13 : hyperplanes P1
+
+o13 = (| 0 0 1 |, | 1 |)
+
+o13 : Sequence
+
+i14 : HS = transpose (V || matrix {{-1,2,0,1}})
+
+o14 = | 0  -1 -1 |
+      | 2  1  2  |
+      | -2 1  0  |
+      | 0  1  1  |
+
+               4        3
+o14 : Matrix ZZ  <--- ZZ
+
+i15 : v = matrix {{1},{1},{1},{1}}
+
+o15 = | 1 |
+      | 1 |
+      | 1 |
+      | 1 |
+
+               4        1
+o15 : Matrix ZZ  <--- ZZ
+
+i16 : HP = matrix {{1,1,1}}
+
+o16 = | 1 1 1 |
+
+               1        3
+o16 : Matrix ZZ  <--- ZZ
+
+i17 : w = matrix {{3}}
+
+o17 = | 3 |
+
+               1        1
+o17 : Matrix ZZ  <--- ZZ
+
+i18 : P2 = intersection(HS,v,HP,w)
+
+o18 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 3
+       number of rays => 0
+       number of vertices => 3
+
+o18 : Polyhedron
+
+i19 : vertices P2
+
+o19 = | 4   4  2  |
+      | 9   5  5  |
+      | -10 -6 -4 |
+
+               3        3
+o19 : Matrix QQ  <--- QQ
+
+i20 : P3 = intersection(HS,v)
+
+o20 = {ambient dimension => 3           }
+       dimension of lineality space => 1
+       dimension of polyhedron => 3
+       number of facets => 3
+       number of rays => 0
+       number of vertices => 3
+
+o20 : Polyhedron
+
+i21 : vertices P3
+
+o21 = | 10/9 -2/3 -2/9 |
+      | -7/9 -1/3 5/9  |
+      | -2/9 -2/3 4/9  |
+
+               3        3
+o21 : Matrix QQ  <--- QQ
+
+i22 : linSpace P3
+
+o22 = | -1 |
+      | -2 |
+      | 2  |
+
+               3        1
+o22 : Matrix ZZ  <--- ZZ
+
+i23 : P4 = hypercube(3,2)
+
+o23 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 6
+       number of rays => 0
+       number of vertices => 8
+
+o23 : Polyhedron
+
+i24 : vertices P4
+
+o24 = | -2 2  -2 2  -2 2  -2 2 |
+      | -2 -2 2  2  -2 -2 2  2 |
+      | -2 -2 -2 -2 2  2  2  2 |
+
+               3        8
+o24 : Matrix QQ  <--- QQ
+
+i25 : P5 = crossPolytope(3,3)
+
+o25 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 8
+       number of rays => 0
+       number of vertices => 6
+
+o25 : Polyhedron
+
+i26 : vertices P5
+
+o26 = | -3 3 0  0 0  0 |
+      | 0  0 -3 3 0  0 |
+      | 0  0 0  0 -3 3 |
+
+               3        6
+o26 : Matrix QQ  <--- QQ
+
+i27 : P6 = stdSimplex 2
+
+o27 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 3
+       number of rays => 0
+       number of vertices => 3
+
+o27 : Polyhedron
+
+i28 : vertices P6
+
+o28 = | 1 0 0 |
+      | 0 1 0 |
+      | 0 0 1 |
+
+               3        3
+o28 : Matrix QQ  <--- QQ
+
+i29 : P7 = convexHull(P4,P5)
+
+o29 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 24
+       number of rays => 0
+       number of vertices => 14
+
+o29 : Polyhedron
+
+i30 : vertices P7
+
+o30 = | -3 3 0  0 0  -2 2  -2 2  -2 2  -2 2 0 |
+      | 0  0 -3 3 0  -2 -2 2  2  -2 -2 2  2 0 |
+      | 0  0 0  0 -3 -2 -2 -2 -2 2  2  2  2 3 |
+
+               3        14
+o30 : Matrix QQ  <--- QQ
+
+i31 : P8 = intersection(P4,P5)
+
+o31 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 14
+       number of rays => 0
+       number of vertices => 24
+
+o31 : Polyhedron
+
+i32 : vertices P8
+
+o32 = | -1 1  -2 2  -2 2 -1 1 -1 1  0  0  -2 2  0  0  -2 2 0  0 -1 1 0  0 |
+      | -2 -2 -1 -1 1  1 2  2 0  0  -1 1  0  0  -2 2  0  0 -2 2 0  0 -1 1 |
+      | 0  0  0  0  0  0 0  0 -2 -2 -2 -2 -1 -1 -1 -1 1  1 1  1 2  2 2  2 |
+
+               3        24
+o32 : Matrix QQ  <--- QQ
+
+i33 : P9 = convexHull {(V1,R),P2,P6}
+
+o33 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 8
+       number of rays => 1
+       number of vertices => 5
+
+o33 : Polyhedron
+
+i34 : vertices P9
+
+o34 = | 4   4  2  0  -2 |
+      | 9   5  5  -1 1  |
+      | -10 -6 -4 1  1  |
+
+               3        5
+o34 : Matrix QQ  <--- QQ
+
+i35 : Q = convexHull (-V)
+
+o35 = {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 3
+       number of rays => 0
+       number of vertices => 3
+
+o35 : Polyhedron
+
+i36 : P10 = P + Q
+
+o36 = {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 6
+       number of rays => 0
+       number of vertices => 6
+
+o36 : Polyhedron
+
+i37 : vertices P10
+
+o37 = | -4 4 -2 2  -2 2 |
+      | 0  0 -2 -2 2  2 |
+
+               2        6
+o37 : Matrix QQ  <--- QQ
+
+i38 : (C,L,M) = minkSummandCone P10
+
+o38 = ({ambient dimension => 6           }, HashTable{0 =>
+        dimension of lineality space => 0                 
+        dimension of the cone => 4                        
+        number of facets => 6                             
+        number of rays => 5                               
+                                                          
+                                                      1 =>
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                      2 =>
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                      3 =>
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                      4 =>
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+      -----------------------------------------------------------------------
+      {ambient dimension => 2           }}, | 1 0 |)
+       dimension of lineality space => 0    | 0 1 |
+       dimension of polyhedron => 1         | 1 0 |
+       number of facets => 2                | 1 0 |
+       number of rays => 0                  | 0 1 |
+       number of vertices => 2
+      {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 3
+       number of rays => 0
+       number of vertices => 3
+      {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 1
+       number of facets => 2
+       number of rays => 0
+       number of vertices => 2
+      {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 1
+       number of facets => 2
+       number of rays => 0
+       number of vertices => 2
+      {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 3
+       number of rays => 0
+       number of vertices => 3
+
+o38 : Sequence
+
+i39 : apply(values L, vertices)
+
+o39 = {| 0 4 |, | 0 4 2  |, | 0 2 |, | 0 2  |, | 0 4 2 |}
+       | 0 0 |  | 0 0 -2 |  | 0 2 |  | 0 -2 |  | 0 0 2 |
+
+o39 : List
+
+i40 : P11 = P * Q
+
+o40 = {ambient dimension => 4           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 4
+       number of facets => 6
+       number of rays => 0
+       number of vertices => 9
+
+o40 : Polyhedron
+
+i41 : vertices P11
+
+o41 = | 0  -2 2  0  -2 2  0  -2 2 |
+      | -1 1  1  -1 1  1  -1 1  1 |
+      | -2 -2 -2 2  2  2  0  0  0 |
+      | -1 -1 -1 -1 -1 -1 1  1  1 |
+
+               4        9
+o41 : Matrix QQ  <--- QQ
+
+i42 : ambDim P11
+
+o42 = 4
+
+i43 : fVector P11
+
+o43 = {9, 18, 15, 6, 1}
+
+o43 : List
+
+i44 : L = faces(1,P11)
+
+o44 = {{ambient dimension => 4           }, {ambient dimension => 4         
+        dimension of lineality space => 0    dimension of lineality space =>
+        dimension of polyhedron => 3         dimension of polyhedron => 3   
+        number of facets => 5                number of facets => 5          
+        number of rays => 0                  number of rays => 0            
+        number of vertices => 6              number of vertices => 6        
+      -----------------------------------------------------------------------
+       }, {ambient dimension => 4           }, {ambient dimension => 4      
+      0    dimension of lineality space => 0    dimension of lineality space
+           dimension of polyhedron => 3         dimension of polyhedron => 3
+           number of facets => 5                number of facets => 5       
+           number of rays => 0                  number of rays => 0         
+           number of vertices => 6              number of vertices => 6     
+      -----------------------------------------------------------------------
+          }, {ambient dimension => 4           },
+      => 0    dimension of lineality space => 0  
+              dimension of polyhedron => 3       
+              number of facets => 5              
+              number of rays => 0                
+              number of vertices => 6            
+      -----------------------------------------------------------------------
+      {ambient dimension => 4           }}
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 5
+       number of rays => 0
+       number of vertices => 6
+
+o44 : List
+
+i45 : apply(L,vertices)
+
+o45 = {| 0  -2 0  -2 0  -2 |, | 0  2  0  2  0  2 |, | -2 2  -2 2  -2 2 |, |
+       | -1 1  -1 1  -1 1  |  | -1 1  -1 1  -1 1 |  | 1  1  1  1  1  1 |  |
+       | -2 -2 2  2  0  0  |  | -2 -2 2  2  0  0 |  | -2 -2 2  2  0  0 |  |
+       | -1 -1 -1 -1 1  1  |  | -1 -1 -1 -1 1  1 |  | -1 -1 -1 -1 1  1 |  |
+      -----------------------------------------------------------------------
+      0  -2 2  0  -2 2  |, | 0  -2 2  0  -2 2 |, | 0  -2 2  0  -2 2 |}
+      -1 1  1  -1 1  1  |  | -1 1  1  -1 1  1 |  | -1 1  1  -1 1  1 |
+      -2 -2 -2 2  2  2  |  | -2 -2 -2 0  0  0 |  | 2  2  2  0  0  0 |
+      -1 -1 -1 -1 -1 -1 |  | -1 -1 -1 1  1  1 |  | -1 -1 -1 1  1  1 |
+
+o45 : List
+
+i46 : L = latticePoints P11
+
+o46 = {| 0  |, | 0  |, | 0  |, | 0  |, | 0  |, | 0  |, | 0  |, | 0  |, | 0 
+       | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1
+       | -2 |  | -1 |  | 0  |  | 1  |  | 2  |  | -1 |  | 0  |  | 1  |  | 0 
+       | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | 0  |  | 0  |  | 0  |  | 1 
+      -----------------------------------------------------------------------
+      |, | -1 |, | -1 |, | -1 |, | -1 |, | -1 |, | -1 |, | -1 |, | -1 |, | -1
+      |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0 
+      |  | -2 |  | -1 |  | 0  |  | 1  |  | 2  |  | -1 |  | 0  |  | 1  |  | 0 
+      |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | 0  |  | 0  |  | 0  |  | 1 
+      -----------------------------------------------------------------------
+      |, | 0  |, | 0  |, | 0  |, | 0  |, | 0  |, | 0  |, 0, | 0 |, | 0 |, |
+      |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |     | 0 |  | 0 |  |
+      |  | -2 |  | -1 |  | 0  |  | 1  |  | 2  |  | -1 |     | 1 |  | 0 |  |
+      |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | 0  |     | 0 |  | 1 |  |
+      -----------------------------------------------------------------------
+      1  |, | 1  |, | 1  |, | 1  |, | 1  |, | 1  |, | 1 |, | 1 |, | 1 |, | -2
+      0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0  |  | 0 |  | 0 |  | 0 |  | 1 
+      -2 |  | -1 |  | 0  |  | 1  |  | 2  |  | -1 |  | 0 |  | 1 |  | 0 |  | -2
+      -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | 0  |  | 0 |  | 0 |  | 1 |  | -1
+      -----------------------------------------------------------------------
+      |, | -2 |, | -2 |, | -2 |, | -2 |, | -1 |, | -1 |, | -1 |, | -1 |, | -1
+      |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1 
+      |  | -1 |  | 0  |  | 1  |  | 2  |  | -2 |  | -1 |  | 0  |  | 1  |  | 2 
+      |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1
+      -----------------------------------------------------------------------
+      |, | 0  |, | 0  |, | 0  |, | 0  |, | 0  |, | 1  |, | 1  |, | 1  |, | 1 
+      |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1 
+      |  | -2 |  | -1 |  | 0  |  | 1  |  | 2  |  | -2 |  | -1 |  | 0  |  | 1 
+      |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1
+      -----------------------------------------------------------------------
+      |, | 1  |, | 2  |, | 2  |, | 2  |, | 2  |, | 2  |, | -2 |, | -1 |, | 0 
+      |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1  |  | 1 
+      |  | 2  |  | -2 |  | -1 |  | 0  |  | 1  |  | 2  |  | -1 |  | -1 |  | -1
+      |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | -1 |  | 0  |  | 0  |  | 0 
+      -----------------------------------------------------------------------
+      |, | 1  |, | 2  |, | -2 |, | -1 |, | 0 |, | 1 |, | 2 |, | -2 |, | -1 |,
+      |  | 1  |  | 1  |  | 1  |  | 1  |  | 1 |  | 1 |  | 1 |  | 1  |  | 1  | 
+      |  | -1 |  | -1 |  | 0  |  | 0  |  | 0 |  | 0 |  | 0 |  | 1  |  | 1  | 
+      |  | 0  |  | 0  |  | 0  |  | 0  |  | 0 |  | 0 |  | 0 |  | 0  |  | 0  | 
+      -----------------------------------------------------------------------
+      | 0 |, | 1 |, | 2 |, | -2 |, | -1 |, | 0 |, | 1 |, | 2 |}
+      | 1 |  | 1 |  | 1 |  | 1  |  | 1  |  | 1 |  | 1 |  | 1 |
+      | 1 |  | 1 |  | 1 |  | 0  |  | 0  |  | 0 |  | 0 |  | 0 |
+      | 0 |  | 0 |  | 0 |  | 1  |  | 1  |  | 1 |  | 1 |  | 1 |
+
+o46 : List
+
+i47 : #L
+
+o47 = 81
+
+i48 : C = tailCone P1
+
+o48 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of the cone => 1
+       number of facets => 1
+       number of rays => 1
+
+o48 : Cone
+
+i49 : rays C
+
+o49 = | 1 |
+      | 0 |
+      | 0 |
+
+               3        1
+o49 : Matrix ZZ  <--- ZZ
+
+i50 : P12 = polar P11
+
+o50 = {ambient dimension => 4           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 4
+       number of facets => 9
+       number of rays => 0
+       number of vertices => 6
+
+o50 : Polyhedron
+
+i51 : vertices P12
+
+o51 = | 0  -1 1 0  0  0 |
+      | -1 1  1 0  0  0 |
+      | 0  0  0 -1 1  0 |
+      | 0  0  0 -1 -1 1 |
+
+               4        6
+o51 : Matrix QQ  <--- QQ
+
+i52 : 

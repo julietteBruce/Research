@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>setattr -- set an attribute of a python object</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_setitem.html">next</a> | <a href="_run__Simple__String.html">previous</a> | <a href="_setitem.html">forward</a> | <a href="_run__Simple__String.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="interface to Python" href="index.html">Python</a> :: <a title="set an attribute of a python object" href="_setattr.html">setattr</a>    </div>
+    <hr/>
+    <div>
+      <h1>setattr -- set an attribute of a python object</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">setattr(x, y, e)</code></dd>
+              <dd><code class="language-macaulay2">x@@y = e</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>x</tt>, <span>an instance of the type <a title="a python object" href="___Python__Object.html">PythonObject</a></span>, </span>              </li>
+              <li>
+<span><tt>y</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, </span>              </li>
+              <li>
+<span><tt>e</tt>, <span>a <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">thing</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This is equivalent to the Python <a href="https://docs.python.org/3/library/functions.html#setattr">setattr</a> function.  Note that <tt>e</tt> is converted to a Python object using <a title="convert Macaulay2 things to Python objects" href="_to__Python.html">toPython</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : math = import &quot;math&quot;
+
+o1 = &lt;module 'math' (built-in)>
+
+o1 : PythonObject of class module</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : setattr(math, &quot;pi&quot;, 22/7)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : math@@pi
+
+o3 = 3.142857142857143
+
+o3 : PythonObject of class float</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>As with <a title="get an attribute of a python object" href="_getattr.html">getattr</a>, when using the shortcut <tt>@@</tt>, <tt>y</tt> need not be a string.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : math@@e = 19/7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : math@@e
+
+o5 = 2.7142857142857144
+
+o5 : PythonObject of class float</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>setattr</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;setattr(PythonObject,String,Thing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="set an attribute of a python object" href="_setattr.html">setattr</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

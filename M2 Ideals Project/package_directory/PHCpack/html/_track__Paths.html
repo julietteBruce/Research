@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>trackPaths -- tracks paths defined by a typical homotopy between start and end systems</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_track__Paths_lp..._cmgamma_eq_gt..._rp.html">next</a> | <a href="_top__Witness__Set_lp..._cm__Verbose_eq_gt..._rp.html">previous</a> | <a href="_track__Paths_lp..._cmgamma_eq_gt..._rp.html">forward</a> | <a href="_top__Witness__Set_lp..._cm__Verbose_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a> :: <a title="tracks paths defined by a typical homotopy between start and end systems" href="_track__Paths.html">trackPaths</a>    </div>
+    <hr/>
+    <div>
+      <h1>trackPaths -- tracks paths defined by a typical homotopy between start and end systems</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">solsT = trackPaths(T,S,solsS)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials, called the target system</span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials, called the start system</span>              </li>
+              <li>
+<span><tt>solsS</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, solutions of <tt>S</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Option to specify the value of the constant in the gamma trick" href="_track__Paths_lp..._cmgamma_eq_gt..._rp.html">gamma</a><tt> => </tt><tt>...</tt>, <span>default value 0</span>, Option to specify the value of the constant in the gamma trick</span>              </li>
+              <li>
+<span><a title="Option to run phc -p in interactive mode." href="_track__Paths_lp..._cminteractive_eq_gt..._rp.html">interactive</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option to run phc -p in interactive mode.</span>              </li>
+              <li>
+<span><a title="option to get all intermediate solutions on a path" href="_track__Paths_lp..._cmintermediate__Solutions_eq_gt..._rp.html">intermediateSolutions</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to get all intermediate solutions on a path</span>              </li>
+              <li>
+<span><a title="option to load the settings of the path trackers for a reproducible rerun" href="_track__Paths_lp..._cmload__Settings__Path_eq_gt..._rp.html">loadSettingsPath</a><tt> => </tt><tt>...</tt>, <span>default value &quot;&quot;</span>, option to load the settings of the path trackers for a reproducible rerun</span>              </li>
+              <li>
+<span><a title="Option to define the number of threads in the path tracker." href="_track__Paths_lp..._cmnum__Threads_eq_gt..._rp.html">numThreads</a><tt> => </tt><tt>...</tt>, <span>default value 0</span>, Option to define the number of threads in the path tracker.</span>              </li>
+              <li>
+<span><a title="option to save the settings of the path trackers for a reproducible rerun" href="_track__Paths_lp..._cmsave__Settings__Path_eq_gt..._rp.html">saveSettingsPath</a><tt> => </tt><tt>...</tt>, <span>default value &quot;&quot;</span>, option to save the settings of the path trackers for a reproducible rerun</span>              </li>
+              <li>
+<span><a title="Option to follow the progress of the multithreaded path tracker." href="_track__Paths_lp..._cmsee__Progress_eq_gt..._rp.html">seeProgress</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option to follow the progress of the multithreaded path tracker.</span>              </li>
+              <li>
+<span><a title="Option to specify the degree of the continuation parameter" href="_track__Paths_lp..._cmt__Degree_eq_gt..._rp.html">tDegree</a><tt> => </tt><tt>...</tt>, <span>default value 2</span>, Option to specify the degree of the continuation parameter</span>              </li>
+              <li>
+<span><a title="option to specify whether additional output is wanted" href="_track__Paths_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to specify whether additional output is wanted</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>solsT</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing the solutions of <tt>T</tt> that are at the ends of the paths starting at <tt>solsS</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+Writes the start system and its solutions to temporary files                </li>
+                <li>
+Invokes the command <tt>phc -p</tt>                </li>
+                <li>
+After running <tt>phc -z</tt>, stores output of phc in temporary file                </li>
+                <li>
+Parses and outputs the solutions.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A linear homotopy between target T and start S has the form (1-Lambda)*S + Lambda*T = 0.  The method <tt>trackPaths</tt> tracks the solution paths defined by the homotopy for Lambda going from 0 to 1. In the example below, we first construct a start system using polyhedral homotopies using <a title="computes mixed volume of a polynomial system" href="_mixed__Volume.html">mixedVolume</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = { x^3*y^5 + y^2 + x^2*y, x*y + x^2 - 1};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (m,q,qsols) = mixedVolume(f,StartSystem=>true);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : fsols = trackPaths(f,q,qsols)
+
+o4 = {{-.894935-.624334*ii, .143333+1.14868*ii}, {-1.59272, .964857},
+     ------------------------------------------------------------------------
+     {.742585-.425943*ii, .270685+1.00715*ii}, {1.33076+.335184*ii,
+     ------------------------------------------------------------------------
+     -.62414-.513163*ii}, {1.33076-.335184*ii, -.62414+.513163*ii},
+     ------------------------------------------------------------------------
+     {-.764107, -.544612}, {.742585+.425943*ii, .270685-1.00715*ii},
+     ------------------------------------------------------------------------
+     {-.894935+.624334*ii, .143333-1.14868*ii}}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the constant in the gamma trick, optional input for trackPaths" href="_gamma.html">gamma</a> -- the constant in the gamma trick, optional input for trackPaths</span>          </li>
+          <li>
+<span><a title="flag to run phc -p or phc -m in interactive mode" href="_interactive.html">interactive</a> -- flag to run phc -p or phc -m in interactive mode</span>          </li>
+          <li>
+<span><a title="option of trackPaths to get all intermediate solutions on a path" href="_intermediate__Solutions.html">intermediateSolutions</a> -- option of trackPaths to get all intermediate solutions on a path</span>          </li>
+          <li>
+<span><a title="option of trackPaths to load the settings for a reproducible rerun" href="_load__Settings__Path.html">loadSettingsPath</a> -- option of trackPaths to load the settings for a reproducible rerun</span>          </li>
+          <li>
+<span><a title="option of trackPaths to save the settings for a reproducible rerun" href="_save__Settings__Path.html">saveSettingsPath</a> -- option of trackPaths to save the settings for a reproducible rerun</span>          </li>
+          <li>
+<span><a title="the number of threads in the path tracker" href="_num__Threads.html">numThreads</a> -- the number of threads in the path tracker</span>          </li>
+          <li>
+<span><a title="flag to monitor the progress of the multithreaded path tracker" href="_see__Progress.html">seeProgress</a> -- flag to monitor the progress of the multithreaded path tracker</span>          </li>
+          <li>
+<span><a title="the degree of the continuation parameter" href="_t__Degree.html">tDegree</a> -- the degree of the continuation parameter</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>trackPaths</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;trackPaths(List,List,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="tracks paths defined by a typical homotopy between start and end systems" href="_track__Paths.html">trackPaths</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

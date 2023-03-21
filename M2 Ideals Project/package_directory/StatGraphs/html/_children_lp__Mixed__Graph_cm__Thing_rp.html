@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>children(MixedGraph,Thing) -- return the children of a vertex of a mixed graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_collate__Vertices.html">next</a> | <a href="_bigraph_lp__Mixed__Graph_rp.html">previous</a> | <a href="_collate__Vertices.html">forward</a> | <a href="_bigraph_lp__Mixed__Graph_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for graphs used in statistical models" href="index.html">StatGraphs</a> :: <a title="return the children of a vertex of a mixed graph" href="_children_lp__Mixed__Graph_cm__Thing_rp.html">children(MixedGraph,Thing)</a>    </div>
+    <hr/>
+    <div>
+      <h1>children(MixedGraph,Thing) -- return the children of a vertex of a mixed graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="returns the children of a vertex of a digraph" href="../../Graphs/html/_children.html">children</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">children (G,v)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>an instance of the type <a title="a graph that has undirected, directed and bidirected edges" href="___Mixed__Graph.html">MixedGraph</a></span>, </span>              </li>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">thing</a></span>, a vertex of G </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all sets" href="../../Macaulay2Doc/html/___Set.html">set</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The children of v are the all the vertices u such that v,u is in the directed edge set of the <a title="a graph that has undirected, directed and bidirected edges" href="___Mixed__Graph.html">MixedGraph</a> G. So the children of a vertex v are exactly those vertices of the largest digraph component of a  mixed graph that v points to.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G = mixedGraph(graph{{3,1}},digraph {{1,2},{2,3}},bigraph {{3,4},{2,4}})
+
+o1 = MixedGraph{Bigraph => Bigraph{2 => {4}   }}
+                                   3 => {4}
+                                   4 => {3, 2}
+                Digraph => Digraph{1 => {2}}
+                                   2 => {3}
+                                   3 => {}
+                Graph => Graph{1 => {3}}
+                               3 => {1}
+
+o1 : MixedGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : children (G,1)
+
+o2 = set {2}
+
+o2 : Set</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : children (G,2)
+
+o3 = set {3}
+
+o3 : Set</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : children (G,3)
+
+o4 = set {}
+
+o4 : Set</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a graph that has undirected, directed and bidirected edges" href="___Mixed__Graph.html">MixedGraph</a> -- a graph that has undirected, directed and bidirected edges</span>          </li>
+          <li>
+<span><a title="returns the children of a vertex of a digraph" href="../../Graphs/html/_children.html">children</a> -- returns the children of a vertex of a digraph</span>          </li>
+          <li>
+<span><a title="returns the parents of a vertex on a digraph" href="../../Graphs/html/_parents.html">parents</a> -- returns the parents of a vertex on a digraph</span>          </li>
+          <li>
+<span><a title="return the parents of a vertex of a mixed graph" href="_parents_lp__Mixed__Graph_cm__Thing_rp.html">parents(MixedGraph,Thing)</a> -- return the parents of a vertex of a mixed graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="return the children of a vertex of a mixed graph" href="_children_lp__Mixed__Graph_cm__Thing_rp.html">children(MixedGraph,Thing)</a> -- return the children of a vertex of a mixed graph</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

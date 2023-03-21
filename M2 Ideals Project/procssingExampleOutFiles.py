@@ -100,8 +100,33 @@ def process_package_example_out(package_directory: str, output_file_name: str, d
 # input_file_name = 'VirtualResolutions/_multigraded__Regularity.out'
 delimiter_pairs = ['()', '[]', "{}"]
 
-package_directory = 'NormalToricVarieties'
-output_file_name = 'NTV-test.txt'
-# process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
-process_package_example_out(package_directory, output_file_name, delimiter_pairs)
+# package_directory = 'NormalToricVarieties'
+# output_file_name = 'NTV-test.txt'
+# # process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
+# process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 
+# print([file.name for file in os.scandir("package_directory" )])
+
+def process_all_packages(package_directory: str, output_folder: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
+	package_number = 0
+	overview_dictionary = {}
+	os.makedirs(output_folder, exist_ok = True)
+	for package_folder in os.scandir(package_directory):
+		# print(package_folder.name)
+		package_example_folder = os.path.join(package_folder.path, 'example-output')
+		print(package_folder.path)
+		print(package_example_folder)
+		if os.path.exists(package_example_folder):
+			package_output_file_name = os.path.join(output_folder, package_folder.name + '.' + 'txt')
+			print(package_output_file_name)
+			# process_package_example_out(package_example_folder, package_output_file_name, delimiter_pairs)
+			write_line_to_file(f"{package_folder.name}: This is a test",package_output_file_name)
+			overview_dictionary[package_folder.name] = package_number
+			package_number += 1
+	output_overview_name = os.path.join(output_folder, output_file_name + '.' + 'txt')
+	write_line_to_file(overview_dictionary,output_overview_name)
+
+package_directory = 'package_directory'
+output_folder = 'output'
+output_file_name = '00overview'
+process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)

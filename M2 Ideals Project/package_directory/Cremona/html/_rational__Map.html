@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>rationalMap -- makes a rational map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Rational__Map_sp!.html">next</a> | <a href="___Rational__Map.html">previous</a> | <a href="___Rational__Map_sp!.html">forward</a> | <a href="___Rational__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="makes a rational map" href="_rational__Map.html">rationalMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>rationalMap -- makes a rational map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">rationalMap phi </code></dd>
+              <dd><code class="language-macaulay2">rationalMap F</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, or <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span> or <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, etc.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="___Dominant.html">Dominant</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>, the rational map represented by <tt>phi</tt> or by the ring map defined by <tt>F</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is the basic construction for <span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>. The method is quite similar to <a title="rational map defined by a linear system" href="_to__Map.html">toMap</a>, except that it returns a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">RationalMap</a> instead of a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">RingMap</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R := QQ[t_0..t_8]
+
+o1 = QQ[t ..t ]
+         0   8
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = matrix{{t_0*t_3*t_5, t_1*t_3*t_6, t_2*t_4*t_7, t_2*t_4*t_8}}
+
+o2 = | t_0t_3t_5 t_1t_3t_6 t_2t_4t_7 t_2t_4t_8 |
+
+                        1                  4
+o2 : Matrix (QQ[t ..t ])  &lt;--- (QQ[t ..t ])
+                 0   8              0   8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : phi = toMap F
+
+o3 = map (QQ[t ..t ], QQ[x ..x ], {t t t , t t t , t t t , t t t })
+              0   8       0   3     0 3 5   1 3 6   2 4 7   2 4 8
+
+o3 : RingMap QQ[t ..t ] &lt;--- QQ[x ..x ]
+                 0   8           0   3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : rationalMap phi
+
+o4 = -- rational map --
+     source: Proj(QQ[t , t , t , t , t , t , t , t , t ])
+                      0   1   2   3   4   5   6   7   8
+     target: Proj(QQ[x , x , x , x ])
+                      0   1   2   3
+     defining forms: {
+                      t t t ,
+                       0 3 5
+                      
+                      t t t ,
+                       1 3 6
+                      
+                      t t t ,
+                       2 4 7
+                      
+                      t t t
+                       2 4 8
+                     }
+
+o4 : RationalMap (cubic rational map from PP^8 to PP^3)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : rationalMap F
+
+o5 = -- rational map --
+     source: Proj(QQ[t , t , t , t , t , t , t , t , t ])
+                      0   1   2   3   4   5   6   7   8
+     target: Proj(QQ[x , x , x , x ])
+                      0   1   2   3
+     defining forms: {
+                      t t t ,
+                       0 3 5
+                      
+                      t t t ,
+                       1 3 6
+                      
+                      t t t ,
+                       2 4 7
+                      
+                      t t t
+                       2 4 8
+                     }
+
+o5 : RationalMap (cubic rational map from PP^8 to PP^3)</code></pre>
+</td>          </tr>
+        </table>
+        <p>Multigraded rings are also permitted but in this case the method returns an object of the class <tt>MultihomogeneousRationalMap</tt>, which can be considered as an extension of the class <tt>RationalMap</tt>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R' := newRing(R,Degrees=>{3:{1,0,0},2:{0,1,0},4:{0,0,1}})
+
+o6 = QQ[t ..t ]
+         0   8
+
+o6 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : F' = sub(F,R')
+
+o7 = | t_0t_3t_5 t_1t_3t_6 t_2t_4t_7 t_2t_4t_8 |
+
+                        1                  4
+o7 : Matrix (QQ[t ..t ])  &lt;--- (QQ[t ..t ])
+                 0   8              0   8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : phi' = toMap F'
+
+o8 = map (QQ[t ..t ], QQ[x ..x ], {t t t , t t t , t t t , t t t })
+              0   8       0   3     0 3 5   1 3 6   2 4 7   2 4 8
+
+o8 : RingMap QQ[t ..t ] &lt;--- QQ[x ..x ]
+                 0   8           0   3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : rationalMap phi'
+
+o9 = -- rational map --
+     source: Proj(QQ[t , t , t ]) x Proj(QQ[t , t ]) x Proj(QQ[t , t , t , t ])
+                      0   1   2              3   4              5   6   7   8
+     target: Proj(QQ[x , x , x , x ])
+                      0   1   2   3
+     defining forms: {
+                      t t t ,
+                       0 3 5
+                      
+                      t t t ,
+                       1 3 6
+                      
+                      t t t ,
+                       2 4 7
+                      
+                      t t t
+                       2 4 8
+                     }
+
+o9 : MultihomogeneousRationalMap (rational map from PP^2 x PP^1 x PP^3 to PP^3)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : rationalMap F'
+
+o10 = -- rational map --
+      source: Proj(QQ[t , t , t ]) x Proj(QQ[t , t ]) x Proj(QQ[t , t , t , t ])
+                       0   1   2              3   4              5   6   7   8
+      target: Proj(QQ[x , x , x , x ])
+                       0   1   2   3
+      defining forms: {
+                       t t t ,
+                        0 3 5
+                       
+                       t t t ,
+                        1 3 6
+                       
+                       t t t ,
+                        2 4 7
+                       
+                       t t t
+                        2 4 8
+                      }
+
+o10 : MultihomogeneousRationalMap (rational map from PP^2 x PP^1 x PP^3 to PP^3)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="rational map defined by a linear system" href="_to__Map.html">toMap</a> -- rational map defined by a linear system</span>          </li>
+          <li>
+<span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal)</a> -- makes a rational map from an ideal</span>          </li>
+          <li>
+<span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Ring_cm__Tally_rp.html">rationalMap(Tally)</a> -- rational map defined by an effective divisor</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>rationalMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;rationalMap(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rationalMap(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rationalMap(Ring)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rationalMap(Ring,Ring)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rationalMap(Ring,Ring,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rationalMap(Ring,Ring,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rationalMap(RingMap)&quot;</tt>          </li>
+          <li>
+<span><tt>&quot;rationalMap(Ideal)&quot;</tt> -- see <span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;rationalMap(Ideal,List)&quot;</tt> -- see <span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;rationalMap(Ideal,ZZ)&quot;</tt> -- see <span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span></span>          </li>
+          <li>
+<span><a title="makes a rational map from an ideal" href="_rational__Map_lp__Ideal_cm__Z__Z_cm__Z__Z_rp.html">rationalMap(Ideal,ZZ,ZZ)</a> -- makes a rational map from an ideal</span>          </li>
+          <li>
+<span><a title="rational map defined by the linear system of hypersurfaces passing through random points with multiplicity" href="_rational__Map_lp__Polynomial__Ring_cm__List_rp.html">rationalMap(PolynomialRing,List)</a> -- rational map defined by the linear system of hypersurfaces passing through random points with multiplicity</span>          </li>
+          <li>
+<span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Ring_cm__Tally_rp.html">rationalMap(Ring,Tally)</a> -- rational map defined by an effective divisor</span>          </li>
+          <li>
+<span><tt>&quot;rationalMap(Tally)&quot;</tt> -- see <span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Ring_cm__Tally_rp.html">rationalMap(Ring,Tally)</a> -- rational map defined by an effective divisor</span></span>          </li>
+          <li>
+<span><tt>&quot;rationalMap(RationalMap)&quot;</tt> -- see <span><a title="get the rational map whose target is a projective space" href="_super_lp__Rational__Map_rp.html">super(RationalMap)</a> -- get the rational map whose target is a projective space</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="makes a rational map" href="_rational__Map.html">rationalMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

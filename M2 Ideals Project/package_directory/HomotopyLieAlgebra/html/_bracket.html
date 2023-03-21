@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>bracket -- Computes the Lie product</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_bracket__Matrix.html">next</a> | <a href="_allgens.html">previous</a> | <a href="_bracket__Matrix.html">forward</a> | <a href="_allgens.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Homotopy Lie Algebra of a surjective ring homomorphism" href="index.html">HomotopyLieAlgebra</a> :: <a title="Computes the Lie product" href="_bracket.html">bracket</a>    </div>
+    <hr/>
+    <div>
+      <h1>bracket -- Computes the Lie product</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">F = bracket(A,L,T)</code></dd>
+              <dd><code class="language-macaulay2">F = bracket(A,L)</code></dd>
+              <dd><code class="language-macaulay2">H = bracket(A,d,e)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>an instance of the type <a title="The class of all DGAlgebras" href="../../DGAlgebras/html/___D__G__Algebra.html">DGAlgebra</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, list of two generators of A</span>              </li>
+              <li>
+<span><tt>T</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, generator of A</span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>e</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, linear form in A</span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, gives all the products between (dual) elements of degrees d,e</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a factor ring R = S/I, we take A to be the acyclic closure, up to some degree n, of the Koszul complex on the generators of I. The underlying algebra An := A.natural is thus a free algebra over S on generators T_i of various homological and internal degrees.</p>
+          <p>The Homotopy Lie algebra of the map S ->> R is the graded dual of the space of linear forms Lin(A) of A. Since we obtain A together with a set of generators T_i, we identify the Lie algebra with space of linear forms, using the T_i as a self-dual basis. Thus we express the bracket product of two linear forms as another linear form. This inner product on the linear forms of degree d extends naturally to an inner product between Lin(A)**Lin(A) and the quadratic forms of A. This inner product has signs coming from the homological grading, and is the only delicate part of the implementation.</p>
+          <p>The bracket function is the workhorse of this collection of routines. Suppose that f,g are three linear forms in the generators of A homogeneous in the homological grading, of homological degrees d-1, e-1 respectively, which we regard as dual basis elements of Pi^d and Pi^e, graded components of the homotopy Lie algebra Pi. We can compute the bracket product [f,g] as an element of Pi^{d+e}, or its action on a linear form F that is homogeneous of homological degree d+e-1 via the inner product&lt;f**g, d(F)_2>, where d is the differential of A. The calls bracket(A,{f,g}) and bracket(A, {f,g}, F) compute these products</p>
+          <p>In the following example, we use the function allgens(A,d) to list the generators of A of homological degree d:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = kk[x,y,z]
+
+o2 = S
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+o3 = R
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : lastCyclesDegree = 4
+
+o4 = 4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : KR = koszulComplexDGA(ideal R)
+
+o5 = {Ring => S                                     }
+      Underlying algebra => S[T ..T ]
+                               1   5
+                        2   2           2
+      Differential => {x , y , - x*y + z , x*z, y*z}
+
+o5 : DGAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = acyclicClosure(KR, EndDegree => lastCyclesDegree);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : p2 = allgens(A,1) -- dual generators of Pi^2
+
+o7 = {T , T , T , T , T }
+       1   2   3   4   5
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : p3 = allgens(A,2) -- dual generators of Pi^3
+
+o8 = {T , T , T , T , T  }
+       6   7   8   9   10
+
+o8 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : a5 = allgens(A,4) -- generators of A of homological degree 5
+
+o9 = {T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  ,
+       21   22   23   24   25   26   27   28   29   30   31   32   33   34 
+     ------------------------------------------------------------------------
+     T  , T  , T  , T  , T  , T  , T  , T  , T  , T  }
+      35   36   37   38   39   40   41   42   43   44
+
+o9 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : bracket(A, {sum p2, sum p3})
+
+o10 = - 2T   + T   + T   - T   + 2T   - T   - 2T   - 3T   - 2T   - T   - T  
+          21    22    23    24     25    26     27     28     29    30    31
+      -----------------------------------------------------------------------
+      + 2T   + 3T   + T   + T   - 2T   - T   - T   - 2T   - 2T   + 2T
+          32     33    34    35     36    37    38     40     42     43
+
+o10 : S[T ..T  ]
+         1   99</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : bracket(A,{sum p2, sum p3}, sum a5)
+
+o11 = -8
+
+o11 : S[T ..T  ]
+         1   99</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The other invocation of bracket produces a HashTable displaying all the bracket products of elements of Pi^d and Pi^e as functions on the generators of homological degree d+e-1 of A:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : H = bracket(A,2,3);
+(5, 5, 24)
+{T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  , T  }
+  21   22   23   24   25   26   27   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : #keys H
+
+o13 = 600</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : H' = select(keys H, k->H#k != 0);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : H'
+
+o15 = {({T , T }, T T  + x*T   - z*T  ), ({T , T }, - T T  - T T  - T T  +
+          3   8    3 8      15      17      1   8      3 6    5 7    1 8  
+      -----------------------------------------------------------------------
+      z*T   + x*T  ), ({T , T }, T T  - T T   - z*T   + z*T  ), ({T , T }, -
+         12      14      4   9    4 9    5 10      17      19      2   8    
+      -----------------------------------------------------------------------
+      T T  - T T  + y*T  ), ({T , T }, - T T  - T T  - T T  + z*T   + x*T  ),
+       2 8    5 9      15      5   7      3 6    5 7    1 8      12      14  
+      -----------------------------------------------------------------------
+      ({T , T }, T T  + T T  + T T  + y*T   - z*T  ), ({T , T  }, T T  +
+         4   9    2 6    3 8    4 9      14      17      3   10    5 6  
+      -----------------------------------------------------------------------
+      T T   - z*T   + y*T  ), ({T , T }, T T  + T T   - z*T   + y*T  ), ({T ,
+       3 10      18      20      5   6    5 6    3 10      18      20      4 
+      -----------------------------------------------------------------------
+      T  }, - T T  - T T   + z*T   + z*T  ), ({T , T }, - T T  - T T  +
+       10      5 7    4 10      12      20      1   6      1 6    4 7  
+      -----------------------------------------------------------------------
+      x*T  ), ({T , T }, T T  + T T  - z*T   + x*T  ), ({T , T }, T T  + T T 
+         11      3   9    5 8    3 9      15      16      4   6    4 6    3 7
+      -----------------------------------------------------------------------
+      - z*T   + y*T  ), ({T , T  }, - T T   + y*T  ), ({T , T }, T T  - T T  
+           11      13      5   10      5 10      18      4   6    4 6    1 10
+      -----------------------------------------------------------------------
+      + x*T  ), ({T , T }, - T T  - T T  + x*T  ), ({T , T }, T T  + T T  +
+           20      4   7      1 6    4 7      11      2   6    2 6    3 8  
+      -----------------------------------------------------------------------
+      T T  + y*T   - z*T  ), ({T , T  }, T T  - T T   - z*T   + z*T  ), ({T ,
+       4 9      14      17      5   10    4 9    5 10      17      19      3 
+      -----------------------------------------------------------------------
+      T }, T T  + T T  + T T  + y*T   - z*T  ), ({T , T }, T T  + y*T   -
+       8    2 6    3 8    4 9      14      17      3   6    3 6      11  
+      -----------------------------------------------------------------------
+      z*T  ), ({T , T }, - T T  - T T   + z*T   + z*T  ), ({T , T }, T T  +
+         12      5   7      5 7    4 10      12      20      3   7    4 6  
+      -----------------------------------------------------------------------
+      T T  - z*T   + y*T  ), ({T , T }, - T T  + y*T  ), ({T , T }, - T T  -
+       3 7      11      13      2   9      2 9      16      1   9      5 6  
+      -----------------------------------------------------------------------
+      T T  - z*T   + x*T  ), ({T , T }, - T T  + z*T  ), ({T , T  }, T T  -
+       1 9      14      17      4   7      4 7      13      1   10    4 6  
+      -----------------------------------------------------------------------
+      T T   + x*T  ), ({T , T }, - T T  + z*T  ), ({T , T }, T T  - z*T   +
+       1 10      20      5   9      5 9      16      3   7    3 7      11  
+      -----------------------------------------------------------------------
+      x*T  ), ({T , T }, - T T  - T T  - z*T   + x*T  ), ({T , T }, T T  +
+         12      5   6      5 6    1 9      14      17      5   8    5 8  
+      -----------------------------------------------------------------------
+      T T  - z*T   + x*T  ), ({T , T }, - T T  - T T  + y*T   + z*T  ), ({T ,
+       3 9      15      16      4   8      2 7    4 8      12      14      3 
+      -----------------------------------------------------------------------
+      T }, T T  - z*T   + y*T  ), ({T , T }, - T T  - T T  - T T  + z*T   +
+       9    3 9      15      17      3   6      3 6    5 7    1 8      12  
+      -----------------------------------------------------------------------
+      x*T  ), ({T , T }, - T T  + x*T  ), ({T , T }, - T T  - T T  + y*T  ),
+         14      1   7      1 7      13      5   9      2 8    5 9      15  
+      -----------------------------------------------------------------------
+      ({T , T  }, - T T  + T T   - z*T   + x*T  ), ({T , T }, - T T  - T T  +
+         3   10      4 8    3 10      18      19      2   7      2 7    4 8  
+      -----------------------------------------------------------------------
+      y*T   + z*T  ), ({T , T }, - T T  + T T   - z*T   + x*T  ), ({T , T  },
+         12      14      4   8      4 8    3 10      18      19      2   10  
+      -----------------------------------------------------------------------
+      - T T  - T T   + y*T  ), ({T , T  }, - T T   + x*T  ), ({T , T }, -
+         5 8    2 10      19      4   10      4 10      18      5   8    
+      -----------------------------------------------------------------------
+      T T  - T T   + y*T  )}
+       5 8    2 10      19
+
+o15 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : H#(H'_0)
+
+o16 = 1
+
+o16 : S[T ..T  ]
+         1   99</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>From this we see that [T_5, T_6] sends T_37 to -1 in kk.</p>
+          <p>Another, often simpler view of the pairing is given by <a title="Multiplication matrix of the homotopy Lie algebra" href="_bracket__Matrix.html">bracketMatrix</a>, where the rows and columns correspond to the generators of Pi^d and Pi^e, and the entries are the bracket products, interpreted as elements of Pi^{d+e}. Note the anti-symmetry, which holds when d or e are even and the symmetry in the case both are odd.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : bracketMatrix(A,1,2)
+
+o17 = | 0    -T_8 -T_6 -T_7 -T_10 |
+      | -T_6 0    -T_8 T_10 -T_9  |
+      | T_7  T_9  0    T_6  T_8   |
+
+                         3                  5
+o17 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                 1   99             1   99</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : bracketMatrix(A,2,1)
+
+o18 = | 0    T_6   -T_7 |
+      | T_8  0     -T_9 |
+      | T_6  T_8   0    |
+      | T_7  -T_10 -T_6 |
+      | T_10 T_9   -T_8 |
+
+                         5                  3
+o18 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                 1   99             1   99</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : bracketMatrix(A,1,1)
+
+o19 = | 2T_1 -T_3 T_4  |
+      | -T_3 2T_2 T_5  |
+      | T_4  T_5  2T_3 |
+
+                         3                  3
+o19 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                 1   99             1   99</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="List the generators of a given degree" href="_allgens.html">allgens</a> -- List the generators of a given degree</span>          </li>
+          <li>
+<span><a title="Multiplication matrix of the homotopy Lie algebra" href="_bracket__Matrix.html">bracketMatrix</a> -- Multiplication matrix of the homotopy Lie algebra</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>bracket</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;bracket(DGAlgebra,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;bracket(DGAlgebra,List,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;bracket(DGAlgebra,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes the Lie product" href="_bracket.html">bracket</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

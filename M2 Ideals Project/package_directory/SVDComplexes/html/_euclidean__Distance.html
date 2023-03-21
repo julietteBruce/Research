@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>euclideanDistance -- compute the euclidean distance of two chain complexes</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Laplacian.html">next</a> | <a href="_common__Entries.html">previous</a> | <a href="___Laplacian.html">forward</a> | <a href="_common__Entries.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="support for computing homology, ranks and SVD complexes, for a chain complex over the real numbers" href="index.html">SVDComplexes</a> :: <a title="compute the euclidean distance of two chain complexes" href="_euclidean__Distance.html">euclideanDistance</a>    </div>
+    <hr/>
+    <div>
+      <h1>euclideanDistance -- compute the euclidean distance of two chain complexes</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">euclideanDistance(C,D)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, </span>              </li>
+              <li>
+<span><tt>D</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, two chain complexes over RR or QQ</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Compute the distance in the L^2-norm of two complexes viewed as a sequence of matrices</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : needsPackage &quot;RandomComplexes&quot;
+
+o1 = RandomComplexes
+
+o1 : Package</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : setRandomSeed &quot;a good example&quot;;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : h={2,3,5,2}
+
+o3 = {2, 3, 5, 2}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : r={4,3,3}
+
+o4 = {4, 3, 3}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : elapsedTime C=randomChainComplex(h,r,Height=>5,ZeroMean=>true)
+ -- 0.0133776 seconds elapsed
+
+       6       10       11       5
+o5 = ZZ  &lt;-- ZZ   &lt;-- ZZ   &lt;-- ZZ
+                                
+     0       1        2        3
+
+o5 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C.dd^2
+
+           6          11
+o6 = 0 : ZZ  &lt;----- ZZ   : 2
+                0
+
+           10          5
+     1 : ZZ   &lt;----- ZZ  : 3
+                 0
+
+o6 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : CR=(C**RR_53)
+
+         6         10         11         5
+o7 = RR    &lt;-- RR     &lt;-- RR     &lt;-- RR
+       53        53         53         53
+                                      
+     0         1          2          3
+
+o7 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : h=(SVDHomology CR)_0
+
+o8 = HashTable{0 => 2}
+               1 => 3
+               2 => 5
+               3 => 2
+
+o8 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : D=disturb(C,1e-2,Strategy=>Discrete)
+
+         6         10         11         5
+o9 = RR    &lt;-- RR     &lt;-- RR     &lt;-- RR
+       53        53         53         53
+                                      
+     0         1          2          3
+
+o9 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : C.dd_1
+
+o10 = | -3 4  -4 -2 0  2  -4 -1 -1 -2 |
+      | -4 4  -3 -1 -2 1  -2 -1 1  -6 |
+      | -1 -4 2  2  0  -2 0  5  -1 -2 |
+      | 2  -2 3  -1 4  1  -1 -3 7  5  |
+      | -5 2  -3 -3 4  3  -9 0  4  -1 |
+      | 2  4  -3 -3 2  3  -2 -5 -1 6  |
+
+               6        10
+o10 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : D.dd_1
+
+o11 = | -3.03 4.04  -3.96 -2.02 0     2.02  -3.96 -.99  -1.01 -1.98 |
+      | -4.04 4.04  -3.03 -1.01 -1.98 1.01  -1.98 -.99  1.01  -5.94 |
+      | -.99  -4.04 1.98  1.98  0     -2.02 0     4.95  -1.01 -2.02 |
+      | 1.98  -2.02 3.03  -.99  4.04  .99   -1.01 -2.97 6.93  5.05  |
+      | -4.95 2.02  -3.03 -2.97 4.04  2.97  -9.09 0     4.04  -.99  |
+      | 2.02  4.04  -2.97 -3.03 2.02  3.03  -1.98 -4.95 -1.01 5.94  |
+
+                 6          10
+o11 : Matrix RR    &lt;--- RR
+               53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : D.dd^2
+
+              6                                                                                                        11
+o12 = 0 : RR    &lt;------------------------------------------------------------------------------------------------- RR     : 2
+            53     | .404    -1.0068 1.5192  1.1538  1.9168  -.96   .463   -.5122  .6336        -2.0516 1.8312 |     53
+                   | .0646   -1.1216 .8444   1.6532  1.8214  -.2892 .4242  -1.2694 -7.10543e-15 -2.2028 1.676  |
+                   | -.1616  .2424   -1.3062 -.932   -1.1766 .5156  -.524  .4172   -1.12        2.0808  -.198  |
+                   | .4674   -.5608  .3608   -1.2064 -.004   -.7272 .1204  1.2226  1.0408       -.1148  -.3548 |
+                   | -1.0218 -.7936  -.4102  -.2552  -.0934  -.1212 -.1192 1.031   -2.0768      1.2952  -.2756 |
+                   | -.1818  1.23    1.303   1.7906  .596    .1688  .5644  -1.0064 .3944        -1.2468 -.3224 |
+
+              10                                                      5
+      1 : RR     &lt;----------------------------------------------- RR    : 3
+            53      | -.6666  -.2352  -3.0378 .1148   -.2808  |     53
+                    | -4.9212 -3.1936 3.2648  -.5656  -.0446  |
+                    | -.948   -.2004  1.4232  -.4356  -1.6118 |
+                    | .0082   .7928   -.6338  .6336   -3.4756 |
+                    | -.96    -1.0344 -.906   -.5544  1.8058  |
+                    | -2.7814 -.6764  1.3226  .358    -3.0424 |
+                    | -2.8502 -1.7236 1.2766  -.8808  .2148   |
+                    | -1.7776 -.9696  -.6352  -1.2024 1.158   |
+                    | -.5156  -.4808  .1528   -.4008  .7854   |
+                    | -2.7992 -1.0312 2.1204  .2796   -2.8468 |
+
+o12 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : C'=projectToComplex(D,h)
+
+          6         10         11         5
+o13 = RR    &lt;-- RR     &lt;-- RR     &lt;-- RR
+        53        53         53         53
+                                       
+      0         1          2          3
+
+o13 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : C'.dd^2
+
+              6                                                                                                                                                             11
+o14 = 0 : RR    &lt;------------------------------------------------------------------------------------------------------------------------------------------------------ RR     : 2
+            53     | -7.10543e-15 1.77636e-14  -7.10543e-15 -3.55271e-15 -3.55271e-15 7.10543e-15  -3.55271e-15 7.10543e-15  -2.13163e-14 3.19744e-14  -1.42109e-14 |     53
+                   | -7.10543e-15 2.84217e-14  -1.42109e-14 -7.10543e-15 -1.42109e-14 2.13163e-14  -7.99361e-15 0            -2.13163e-14 4.9738e-14   -2.84217e-14 |
+                   | 2.66454e-15  -5.32907e-15 0            -5.32907e-15 -8.88178e-16 -3.55271e-15 5.21805e-15  1.95399e-14  1.06581e-14  -5.32907e-15 4.44089e-15  |
+                   | -5.32907e-15 -2.13163e-14 2.30926e-14  1.77636e-14  1.59872e-14  -3.55271e-15 1.04361e-14  -4.26326e-14 3.19744e-14  -3.90799e-14 3.19744e-14  |
+                   | -2.13163e-14 7.10543e-15  7.10543e-15  2.84217e-14  -7.10543e-15 1.42109e-14  4.44089e-15  -3.55271e-14 -7.10543e-15 2.13163e-14  -7.10543e-15 |
+                   | 5.32907e-15  -1.06581e-14 1.59872e-14  -3.37508e-14 1.95399e-14  -7.10543e-15 1.77636e-15  -2.84217e-14 2.4869e-14   -3.55271e-15 2.4869e-14   |
+
+              10                                                                               5
+      1 : RR     &lt;------------------------------------------------------------------------ RR    : 3
+            53      | -1.80411e-16 -1.66256e-14 7.35384e-14  -3.19744e-14 2.66454e-14  |     53
+                    | 7.03044e-14  5.71125e-14  -8.34064e-14 1.47382e-14  5.09315e-15  |
+                    | 1.59248e-14  3.17801e-15  -4.15709e-14 1.77636e-14  -1.77636e-15 |
+                    | 1.04292e-14  1.24831e-14  -2.71935e-14 8.88178e-16  -1.64313e-14 |
+                    | 3.49235e-14  1.17267e-14  -5.31519e-15 -1.42109e-14 3.01981e-14  |
+                    | -5.11396e-15 -4.66294e-15 -1.59317e-14 3.19744e-14  3.55271e-15  |
+                    | 4.90996e-14  1.77011e-14  -3.15754e-14 5.32907e-15  1.82077e-14  |
+                    | 4.73788e-14  4.20913e-14  -7.70703e-14 8.88178e-15  1.33227e-14  |
+                    | 1.38125e-14  2.01488e-15  3.30454e-15  -1.05471e-15 1.42247e-14  |
+                    | 2.39184e-14  2.10387e-14  -7.65082e-14 3.19744e-14  -3.55271e-15 |
+
+o14 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : euclideanDistance(C',D)
+
+o15 = .448104803679266
+
+o15 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : euclideanDistance(CR,D)
+
+o16 = .320600000000001
+
+o16 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : euclideanDistance(C',CR)
+
+o17 = .476857690728909
+
+o17 : RR (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p></p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute a nearby complex with the projection method" href="_project__To__Complex.html">projectToComplex</a> -- compute a nearby complex with the projection method</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>euclideanDistance</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;euclideanDistance(ChainComplex,ChainComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute the euclidean distance of two chain complexes" href="_euclidean__Distance.html">euclideanDistance</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

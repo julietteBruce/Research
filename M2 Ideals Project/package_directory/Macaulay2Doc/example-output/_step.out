@@ -1,0 +1,59 @@
+-- -*- M2-comint -*- hash: -1388216085
+
+i1 : load "Macaulay2Doc/demo2.m2"
+
+i2 : code f
+
+o2 = ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:6:7-12:13: --source code:
+     f = t -> (
+          x := 1;
+          error "debug me";
+          y := t+1;
+          z := 1/t;
+          w := x+t;
+          )
+
+i3 : f 0
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:8:6:(3):[1]: error: debug me
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:8:6:(3):[1]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:8:6-8:6: --source code:
+     error "debug me";
+
+ii4 : return
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:8:(3):[1]: --stepping limit reached
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:8:(3):[1]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:8-9:13: --source code:
+     y := t+1;
+
+ii5 : disassemble current
+
+oo5 = (local-assign 2 0 (2-OP + (fetch 0 0) 1))
+
+ii6 : step(-3)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:8:(3):[1]: --evaluating: (local-assign 2 0 (2-OP + (fetch 0 0) 1))
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:12:(3):[1]: --evaluating: (2-OP + (fetch 0 0) 1)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:11:(3):[1]: --evaluating: (fetch 0 0)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:13:(3):[1]: --stepping limit reached
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:13:(3):[1]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:9:13-9:13: --source code:
+     y := t+1;
+
+ii7 : step
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:10:8:(3):[1]: --stepping limit reached
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:10:8:(3):[1]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:10:8-10:13: --source code:
+     z := 1/t;
+
+ii8 : step
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:10:12:(3):[1]: error: division by zero
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:10:12:(3):[1]: --entering debugger (type help to see debugger commands)
+../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Macaulay2Doc/demo2.m2:10:11-10:13: --source code:
+     z := 1/t;
+
+ii9 : t
+
+oo9 = 0
+
+ii10 : 
+
+i11 : 

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>GG(ZZ,MultirationalMap) -- induced automorphism of the Grassmannian</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_graph_lp__Multirational__Map_rp.html">next</a> | <a href="___G__G.html">previous</a> | <a href="_graph_lp__Multirational__Map_rp.html">forward</a> | <a href="___G__G.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="induced automorphism of the Grassmannian" href="___G__G_lp__Z__Z_cm__Multirational__Map_rp.html">GG(ZZ,MultirationalMap)</a>    </div>
+    <hr/>
+    <div>
+      <h1>GG(ZZ,MultirationalMap) -- induced automorphism of the Grassmannian</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">GG(k,f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, to indicate the Grassmannian <a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a>$(k,n)$ of $k$-dimensional subspaces of $\mathbb{P}^n$</span>              </li>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all multi-rational maps" href="___Multirational__Map.html">multi-rational map</a></span>, an automorphism of $\mathbb{P}^n$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all multi-rational maps" href="___Multirational__Map.html">multi-rational map</a></span>, the induced automorphism of <a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a>$(k,n)$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : K = ZZ/33331;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = random 1_(PP_K^4);
+
+o2 : MultirationalMap (rational map from PP^4 to PP^4)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : show f
+
+o3 = -- multi-rational map --
+     source: Proj(K[x0 , x0 , x0 , x0 , x0 ])
+                      0    1    2    3    4
+     target: Proj(K[x0 , x0 , x0 , x0 , x0 ])
+                      0    1    2    3    4
+     -- rational map 1/1 -- 
+     map 1/1, one of its representatives:
+     {
+      2077x0  - 13092x0  - 5710x0  + 1541x0  + 4659x0 ,
+            0          1         2         3         4
+      
+      3214x0  + 224x0  - 8173x0  - 8255x0  + 10939x0 ,
+            0        1         2         3          4
+      
+      - 8079x0  + 1983x0  + 2828x0  + 11984x0  + 3141x0 ,
+              0         1         2          3         4
+      
+      - 209x0  - 5685x0  - 5403x0  + 8625x0  + 10589x0 ,
+             0         1         2         3          4
+      
+      - 10931x0  + 12499x0  - 1748x0  + 2880x0  + 11558x0
+               0          1         2         3          4
+     }</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = GG(1,f);
+
+o4 : MultirationalMap (rational map from GG(1,4) to GG(1,4))</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : show F
+
+o5 = -- multi-rational map --
+     source: subvariety of Proj(K[x0   , x0   , x0   , x0   , x0   , x0   , x0   , x0   , x0   , x0   ]) defined by
+                                    0,1    0,2    1,2    0,3    1,3    2,3    0,4    1,4    2,4    3,4
+             {
+              x0   x0    - x0   x0    + x0   x0   ,
+                2,3  1,4     1,3  2,4     1,2  3,4
+              
+              x0   x0    - x0   x0    + x0   x0   ,
+                2,3  0,4     0,3  2,4     0,2  3,4
+              
+              x0   x0    - x0   x0    + x0   x0   ,
+                1,3  0,4     0,3  1,4     0,1  3,4
+              
+              x0   x0    - x0   x0    + x0   x0   ,
+                1,2  0,4     0,2  1,4     0,1  2,4
+              
+              x0   x0    - x0   x0    + x0   x0
+                1,2  0,3     0,2  1,3     0,1  2,3
+             }
+     target: subvariety of Proj(K[x0   , x0   , x0   , x0   , x0   , x0   , x0   , x0   , x0   , x0   ]) defined by
+                                    0,1    0,2    1,2    0,3    1,3    2,3    0,4    1,4    2,4    3,4
+             {
+              x0   x0    - x0   x0    + x0   x0   ,
+                2,3  1,4     1,3  2,4     1,2  3,4
+              
+              x0   x0    - x0   x0    + x0   x0   ,
+                2,3  0,4     0,3  2,4     0,2  3,4
+              
+              x0   x0    - x0   x0    + x0   x0   ,
+                1,3  0,4     0,3  1,4     0,1  3,4
+              
+              x0   x0    - x0   x0    + x0   x0   ,
+                1,2  0,4     0,2  1,4     0,1  2,4
+              
+              x0   x0    - x0   x0    + x0   x0
+                1,2  0,3     0,2  1,3     0,1  2,3
+             }
+     -- rational map 1/1 -- 
+     map 1/1, one of its representatives:
+     {
+      12580x0    + 10048x0    - 12463x0    + 44x0    + 3484x0    + 1491x0    + 13485x0    - 436x0    + 14609x0    - 12416x0   ,
+             0,1          0,2          1,2       0,3         1,3         2,3          0,4        1,4          2,4          3,4
+      
+      7973x0    + 6514x0    - 3045x0    + 9787x0    + 5138x0    + 8316x0    + 343x0    + 2372x0    - 12939x0    + 3255x0   ,
+            0,1         0,2         1,2         0,3         1,3         2,3        0,4         1,4          2,4         3,4
+      
+      - 16368x0    - 11127x0    + 8376x0    - 10874x0    - 11251x0    - 5314x0    + 11581x0    + 10077x0    - 10847x0    + 410x0   ,
+               0,1          0,2         1,2          0,3          1,3         2,3          0,4          1,4          2,4        3,4
+      
+      - 11657x0    - 16289x0    + 10738x0    + 4137x0    + 1460x0    + 7741x0    + 2025x0    + 14042x0    + 6916x0    - 1230x0   ,
+               0,1          0,2          1,2         0,3         1,3         2,3         0,4          1,4         2,4         3,4
+      
+      7283x0    - 8067x0    - 10447x0    - 2725x0    - 825x0    - 1947x0    - 11493x0    - 1996x0    - 9067x0    - 7127x0   ,
+            0,1         0,2          1,2         0,3        1,3         2,3          0,4         1,4         2,4         3,4
+      
+      13472x0    + 11652x0    - 3260x0    - 14754x0    + 5048x0    + 13958x0    + 1995x0    - 9374x0    - 13533x0    + 14437x0   ,
+             0,1          0,2         1,2          0,3         1,3          2,3         0,4         1,4          2,4          3,4
+      
+      10236x0    + 15436x0    - 5962x0    - 5304x0    - 3240x0    + 14571x0    + 5407x0    + 1820x0    + 10368x0    - 6734x0   ,
+             0,1          0,2         1,2         0,3         1,3          2,3         0,4         1,4          2,4         3,4
+      
+      - 10019x0    + 2884x0    + 3232x0    + 15245x0    - 1700x0    - 3971x0    - 741x0    - 13625x0    - 14102x0    + 8838x0   ,
+               0,1         0,2         1,2          0,3         1,3         2,3        0,4          1,4          2,4         3,4
+      
+      - 8799x0    + 4779x0    - 16172x0    + 3792x0    + 12937x0    - 5291x0    - 13610x0    - 7655x0    + 12497x0    + 7388x0   ,
+              0,1         0,2          1,2         0,3          1,3         2,3          0,4         1,4          2,4         3,4
+      
+      7107x0    + 1030x0    + 8233x0    - 15486x0    + 14631x0    + 15825x0    + 7337x0    - 6339x0    - 8044x0    - 3726x0
+            0,1         0,2         1,2          0,3          1,3          2,3         0,4         1,4         2,4         3,4
+     }</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : assert(F^-1 == GG(1,f^-1))</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="induced automorphism of the Grassmannian" href="___G__G_lp__Z__Z_cm__Multirational__Map_rp.html">GG(ZZ,MultirationalMap)</a> -- induced automorphism of the Grassmannian</span>          </li>
+          <li>
+<tt>&quot;GG(ZZ,RationalMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

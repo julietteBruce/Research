@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>displayBlocks -- prints a matrix showing the source and target decomposition</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_extract__Blocks.html">next</a> | <a href="_picture.html">previous</a> | <a href="_extract__Blocks.html">forward</a> | <a href="_picture.html">backward</a> | <a href="_burke__Resolution.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="compute a resolution from A-infinity structures" href="_burke__Resolution.html">burkeResolution</a> > <a title="prints a matrix showing the source and target decomposition" href="_display__Blocks.html">displayBlocks</a>    </div>
+    <hr/>
+    <div>
+      <h1>displayBlocks -- prints a matrix showing the source and target decomposition</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">displayBlocks M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with source and target labeled direct sums of free modules</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The maps produced by <a title="compute a resolution from A-infinity structures" href="_burke__Resolution.html">burkeResolution</a> and <a title="aInfinity algebra and module structures on free resolutions" href="_a__Infinity.html">aInfinity</a> have direct sums of labeled modules as sources and targets; the label corresponds to the tensor factors.</p>
+          <p>displayBlocks M shows this data</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[a,b,c]/(ideal(a,b,c^2))^2
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = burkeResolution (coker vars R, 4)
+
+      1      3      9      27      81
+o2 = R  &lt;-- R  &lt;-- R  &lt;-- R   &lt;-- R
+                                   
+     0      1      2      3       4
+
+o2 : Complex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : picture F
+
+     +---------------------------------------+
+     |+---+---+                              |
+o3 = ||   |{1}|                              |
+     |+---+---+                              |
+     ||{0}| * |                              |
+     |+---+---+                              |
+     +---------------------------------------+
+     |+---+---+------+                       |
+     ||   |{2}|{2, 0}|                       |
+     |+---+---+------+                       |
+     ||{1}| * |   *  |                       |
+     |+---+---+------+                       |
+     +---------------------------------------+
+     |+------+---+------+------+             |
+     ||      |{3}|{3, 0}|{2, 1}|             |
+     |+------+---+------+------+             |
+     ||  {2} | * |   *  |   *  |             |
+     |+------+---+------+------+             |
+     ||{2, 0}| . |   *  |   *  |             |
+     |+------+---+------+------+             |
+     +---------------------------------------+
+     |+------+------+------+------+---------+|
+     ||      |{4, 0}|{3, 1}|{2, 2}|{2, 2, 0}||
+     |+------+------+------+------+---------+|
+     ||  {3} |   *  |   *  |   *  |    *    ||
+     |+------+------+------+------+---------+|
+     ||{3, 0}|   *  |   *  |   .  |    *    ||
+     |+------+------+------+------+---------+|
+     ||{2, 1}|   .  |   *  |   *  |    *    ||
+     |+------+------+------+------+---------+|
+     +---------------------------------------+</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : displayBlocks F.dd_3
+
+     +------+----------+-------------------------------+--------------------------------------------------------+
+o4 = |      |    {3}   |             {3, 0}            |                         {2, 1}                         |
+     +------+----------+-------------------------------+--------------------------------------------------------+
+     |  {2} |{2} | c  ||   {2} | 0 b 0  0  0 0  0 0 |  |{2} | 0 a 0 0 b c -b 0 0 0   c2  0 -c2 0   0 0   0   0 ||
+     |      |{2} | -b ||   {2} | 0 0 ac bc 0 0  0 0 |  |{2} | 0 0 a 0 0 0 0  0 0 -ac -bc 0 0   0   0 -c3 0   0 ||
+     |      |{2} | a  ||   {2} | 0 0 0  0  0 bc 0 0 |  |{2} | 0 0 0 0 0 a 0  0 b 0   0   0 -ac -bc 0 0   -c3 0 ||
+     +------+----------+-------------------------------+--------------------------------------------------------+
+     |{2, 0}|     .    |{2} | b  0  c2 0  0  0  0  0  ||       {2} | a b c 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 |      |
+     |      |          |{2} | -a b  0  c2 0  0  0  0  ||       {2} | 0 0 0 a b c 0 0 0 0 0 0 0 0 0 0 0 0 |      |
+     |      |          |{2} | 0  -a 0  0  0  c2 0  0  ||       {2} | 0 0 0 0 0 0 a b c 0 0 0 0 0 0 0 0 0 |      |
+     |      |          |{3} | 0  0  -a -b b  0  c2 0  ||       {3} | 0 0 0 0 0 0 0 0 0 a b c 0 0 0 0 0 0 |      |
+     |      |          |{3} | 0  0  0  0  -a -b 0  c2 ||       {3} | 0 0 0 0 0 0 0 0 0 0 0 0 a b c 0 0 0 |      |
+     |      |          |{4} | 0  0  0  0  0  0  -a -b ||       {4} | 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 a b c |      |
+     +------+----------+-------------------------------+--------------------------------------------------------+</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="displays information about the blocks of a map or maps between direct sum modules" href="_picture.html">picture</a> -- displays information about the blocks of a map or maps between direct sum modules</span>          </li>
+          <li>
+<span><a title="compute a resolution from A-infinity structures" href="_burke__Resolution.html">burkeResolution</a> -- compute a resolution from A-infinity structures</span>          </li>
+          <li>
+<span><a title="displays components of a map in a labeled complex" href="_extract__Blocks.html">extractBlocks</a> -- displays components of a map in a labeled complex</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>displayBlocks</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;displayBlocks(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="prints a matrix showing the source and target decomposition" href="_display__Blocks.html">displayBlocks</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

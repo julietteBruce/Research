@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>endGameCauchy -- Cauchy end game for getting a better approximation of a singular solution</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_evaluate__H_lp__Gate__Homotopy_cm__Matrix_cm__Number_rp.html">next</a> | <a href="___Double__Precision.html">previous</a> | <a href="_evaluate__H_lp__Gate__Homotopy_cm__Matrix_cm__Number_rp.html">forward</a> | <a href="___Double__Precision.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Numerical Algebraic Geometry" href="index.html">NumericalAlgebraicGeometry</a> :: <a title="Cauchy end game for getting a better approximation of a singular solution" href="_end__Game__Cauchy.html">endGameCauchy</a>    </div>
+    <hr/>
+    <div>
+      <h1>endGameCauchy -- Cauchy end game for getting a better approximation of a singular solution</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">endGameCauchy(H,t'end,p0)</code></dd>
+              <dd><code class="language-macaulay2">endGameCauchy(H,t'end,points)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>an instance of the type <a title="homotopy implemented via straight line programs" href="_gate__Homotopy_lp__Gate__Matrix_cm__Gate__Matrix_cm__Input__Gate_rp.html">GateHomotopy</a></span>, </span>              </li>
+              <li>
+<span><tt>t'end</tt>, <span>a <a title="the class of all numbers" href="../../Macaulay2Doc/html/___Number.html">number</a></span>, </span>              </li>
+              <li>
+<span><tt>p0</tt>, <span>a <a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">point</a></span>, </span>              </li>
+              <li>
+<span><tt>points</tt>, <span>a <a title="the class of all mutable matrices" href="../../Macaulay2Doc/html/___Mutable__Matrix.html">mutable matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span>backtrack factor</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">CorrectorTolerance</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">EndZoneFactor</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">InfinityThreshold</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">maxCorrSteps</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span>number of vertices</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">numberSuccessesBeforeIncrease</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">stepIncreaseFactor</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">tStep</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+              <li>
+<span><a title="options for core functions of Numerical Algebraic Geometry" href="_numerical_sphomotopy_sptracking_spoptions.html">tStepMin</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, options for core functions of Numerical Algebraic Geometry</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Refines an approximation of a (singular) solution to a polynomial system which was obtained via homotopy continuation. This method is used for posprocessing in the blackbox solver implemented in <a title="solve a system of polynomial equations" href="_solve__System_lp__List_rp.html">solveSystem</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : CC[x,y]
+
+o1 = CC  [x..y]
+       53
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : T = {(x-2)^3,y-x+x^2-x^3}
+
+       3     2               3    2
+o2 = {x  - 6x  + 12x - 8, - x  + x  - x + y}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : sols = solveSystem(T,PostProcess=>false);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : p0 = first sols;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : peek p0
+
+o5 = Point{cache => CacheTable{...5...}                          }
+           Coordinates => {2.01079-.011783*ii, 434.14+1247.66*ii}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : t'end = 1
+
+o6 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : p = endGameCauchy(p0.cache#&quot;H&quot;,t'end,p0)
+
+o7 = p
+
+o7 : Point</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="refine numerical solutions to a system of polynomial equations" href="_refine_lp__List_cm__List_rp.html">refine</a> -- refine numerical solutions to a system of polynomial equations</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>endGameCauchy</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;endGameCauchy(GateHomotopy,Number,AbstractPoint)&quot;</tt>          </li>
+          <li>
+<tt>&quot;endGameCauchy(GateHomotopy,Number,MutableMatrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Cauchy end game for getting a better approximation of a singular solution" href="_end__Game__Cauchy.html">endGameCauchy</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

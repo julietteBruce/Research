@@ -1,0 +1,51 @@
+-- -*- M2-comint -*- hash: -1274793355
+
+i1 : kk=ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing
+
+i2 : g=1
+
+o2 = 1
+
+i3 : (S, qq, R,  u, M1, M2, Mu1, Mu2)=randomNicePencil(kk,g);
+
+i4 : gens S
+
+o4 = {x , y , z , z , s, t}
+       0   0   1   2
+
+o4 : List
+
+i5 : q1 = diff(S_(2*g+2),qq)
+
+             2
+o5 = x y  - z
+      0 0    1
+
+o5 : S
+
+i6 : ideal u -- an isotropic space for q1 and q2
+
+o6 = ideal (x , z , z )
+             0   1   2
+
+o6 : Ideal of S
+
+i7 : betti Mu1, betti Mu2
+
+             0 1         0 1
+o7 = (total: 4 4, total: 4 4)
+          1: 3 1      2: 1 .
+          2: 1 3      3: 3 3
+                      4: . 1
+
+o7 : Sequence
+
+i8 : Mu1*Mu2- qq*id_(target Mu1) == 0
+
+o8 = true
+
+i9 : 

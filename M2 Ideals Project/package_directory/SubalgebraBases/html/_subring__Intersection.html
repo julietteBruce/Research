@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>subringIntersection -- Intersection of subrings</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Use__Subring__Gens.html">next</a> | <a href="_subring.html">previous</a> | <a href="___Use__Subring__Gens.html">forward</a> | <a href="_subring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for finding canonical subalgebra bases (Sagbi bases)" href="index.html">SubalgebraBases</a> :: <a title="Intersection of subrings" href="_subring__Intersection.html">subringIntersection</a>    </div>
+    <hr/>
+    <div>
+      <h1>subringIntersection -- Intersection of subrings</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">result = subringIntersection(S1, S2)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>S1</tt>, <span>an instance of the type <a title="The type of all subrings" href="___Subring.html">Subring</a></span>, </span>              </li>
+              <li>
+<span><tt>S2</tt>, <span>an instance of the type <a title="The type of all subrings" href="___Subring.html">Subring</a></span>, </span>              </li>
+              <li>
+<span><tt>SAGBILimitType</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, Either \&quot;Fixed\&quot; or \&quot;Function\&quot;. Determined the stopping criterion for the sagbi computation. If \&quot;Fixed\&quot; then the <a title="an optional argument" href="../../Macaulay2Doc/html/___Limit.html">Limit</a> is used, otherwise if \&quot;Function\&quot; is selected then the maximum degree of the input generators is used as the degree limit.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value &quot;Master&quot;</span>, the update strategy at the beginning of each loop: \&quot;DegreeByDegree\&quot;, \&quot;Incremental\&quot;, and \&quot;Master\&quot;. The strategy \&quot;Master\&quot; is a hybrid that combines the other two; starting with \&quot;DegreeByDegree\&quot; for low degrees and switching to \&quot;Incremental\&quot;. (See: <a title="an optional argument" href="../../Macaulay2Doc/html/___Strategy.html">Strategy</a>)</span>              </li>
+              <li>
+<span><tt>SubductionMethod</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value &quot;Top&quot;</span>, the method used for subduction either: \&quot;Top\&quot; or \&quot;Engine\&quot;. (See: <a title="Subduction method for the Sagbi algorithm" href="___Subduction__Method.html">SubductionMethod</a>)</span>              </li>
+              <li>
+<span><tt>Limit</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 20</span>, a degree limit for the binomial S-pairs that are computed internally.</span>              </li>
+              <li>
+<span><tt>PrintLevel</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 0</span>, When this is greater than zero, information is printed about the progress of the computation (See: <a title="Levels of information displayed during Sagbi algorithm" href="___Print__Level.html">PrintLevel</a>).</span>              </li>
+              <li>
+<span><tt>SAGBILimitType</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>result</tt>, <span>an instance of the type <a title="The type of all subrings" href="___Subring.html">Subring</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Computes the intersection of subrings &quot;S_1&quot; and &quot;S_2&quot;. These subrings must be subrings of the same ambient ring. The ambient ring is allowed to be a polynomial ring or the quotient of a polynomial ring.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x^3 + x*y^2 + y^3);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Q = R/I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S1 = subring {x^2, x*y};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S2 = subring {x, y^2};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S = subringIntersection(S1, S2);
+ -- 0.000103748 seconds elapsed
+ -- 0.000848808 seconds elapsed
+ -- 0.000274054 seconds elapsed
+ -- 0.000108914 seconds elapsed
+ -- 0.00077746 seconds elapsed
+ -- 0.000243818 seconds elapsed
+ -- 0.000081568 seconds elapsed
+ -- 0.000083699 seconds elapsed
+ -- 0.000243902 seconds elapsed
+ -- 0.000109862 seconds elapsed
+ -- 0.000806564 seconds elapsed
+ -- 0.000266545 seconds elapsed
+ -- 0.000086349 seconds elapsed
+ -- 0.00410406 seconds elapsed
+ -- 0.00027144 seconds elapsed
+ -- 0.000095095 seconds elapsed
+ -- 0.000671852 seconds elapsed
+ -- 0.000236963 seconds elapsed
+ -- 0.000106589 seconds elapsed
+ -- 0.000730168 seconds elapsed
+ -- 0.000231871 seconds elapsed
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : gens S
+
+o7 = | x2 x2y2+xy3 y4 xy3 y6 xy5 |
+
+             1       6
+o7 : Matrix Q  &lt;--- Q</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isSAGBI S
+ -- 0.000114381 seconds elapsed
+ -- 0.000843386 seconds elapsed
+ -- 0.00025428 seconds elapsed
+ -- 0.000110673 seconds elapsed
+ -- 0.000768833 seconds elapsed
+ -- 0.000267098 seconds elapsed
+ -- 0.00009831 seconds elapsed
+ -- 0.000689692 seconds elapsed
+ -- 0.000248125 seconds elapsed
+ -- 0.000105179 seconds elapsed
+ -- 0.000709799 seconds elapsed
+ -- 0.00024118 seconds elapsed
+ -- 0.000112199 seconds elapsed
+ -- 0.00067835 seconds elapsed
+ -- 0.000244697 seconds elapsed
+ -- 0.000122816 seconds elapsed
+ -- 0.000732716 seconds elapsed
+ -- 0.000252591 seconds elapsed
+ -- 0.00010567 seconds elapsed
+ -- 0.000803318 seconds elapsed
+ -- 0.000225518 seconds elapsed
+ -- 0.00009929 seconds elapsed
+ -- 0.000742769 seconds elapsed
+ -- 0.000235308 seconds elapsed
+ -- 0.000089866 seconds elapsed
+ -- 0.0107502 seconds elapsed
+ -- 0.00030931 seconds elapsed
+ -- 0.0000857 seconds elapsed
+ -- 0.000687561 seconds elapsed
+ -- 0.000218628 seconds elapsed
+ -- 0.000111043 seconds elapsed
+ -- 0.000666867 seconds elapsed
+ -- 0.00022916 seconds elapsed
+ -- 0.000111774 seconds elapsed
+ -- 0.00075293 seconds elapsed
+ -- 0.000287289 seconds elapsed
+ -- 0.000114225 seconds elapsed
+ -- 0.00109446 seconds elapsed
+ -- 0.00043654 seconds elapsed
+ -- 0.000100631 seconds elapsed
+ -- 0.00381293 seconds elapsed
+ -- 0.000517281 seconds elapsed
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+timing raw subduction
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If the generators of $S$ form a sagbi basis and the degree limit is high enough, then they are a generating set for the intersection.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="The type of all subrings" href="___Subring.html">Subring</a> -- The type of all subrings</span>          </li>
+          <li>
+<span><a title="Compute a subalgebra basis (sagbi basis)" href="_sagbi.html">sagbi</a> -- Compute a subalgebra basis (sagbi basis)</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>subringIntersection</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;subringIntersection(Subring,Subring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Intersection of subrings" href="_subring__Intersection.html">subringIntersection</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

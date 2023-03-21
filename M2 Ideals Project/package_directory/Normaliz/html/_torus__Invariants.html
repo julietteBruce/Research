@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>torusInvariants -- ring of invariants of torus action</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_vars_lp__Monomial__Subalgebra_rp.html">next</a> | <a href="___The_splattice_sppoints_cm_sp__Ehrhart_spseries_spand_spthe_spsupport_sphyperplanes_spof_span_spintegral_sppolytope..html">previous</a> | <a href="_vars_lp__Monomial__Subalgebra_rp.html">forward</a> | <a href="___The_splattice_sppoints_cm_sp__Ehrhart_spseries_spand_spthe_spsupport_sphyperplanes_spof_span_spintegral_sppolytope..html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a>    </div>
+    <hr/>
+    <div>
+      <h1>torusInvariants -- ring of invariants of torus action</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">torusInvariants(T,R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, matrix (a_{ij}) of the action</span>              </li>
+              <li>
+<span><span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>,  the ring on which the action takes place</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="class of monomial subalgebras" href="___Monomial__Subalgebra.html">MonomialSubalgebra</a></span>, the ring of invariants R^T</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+ Let T=(K^*)^r be the r-dimensional torus acting on the polynomial ring R=K[X_1,\ldots,X_n] diagonally. Such an action can be described as follows: there are integers a_{ij}, i=1,\ldots,r, j=1,\ldots,n, such that (\lambda_1,\ldots,\lambda_r)\in T acts by the substitution <br/><br/>X_j\mapsto \lambda_1^{a_{1j}}*\ldots*\lambda_r^{a_{rj}}X_j,    j=1,\ldots,n.<br/><br/>The function takes the matrix (a_{ij}) as input and computes the ring of invariants R^T=\{f\in R: \lambda f=f for all \lambda \in T\}.        <p/>
+This method can be used with the options <a href="_all__Computations.html">allComputations</a> and <a href="_grading.html">grading</a>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : T=matrix({{-1,-1,2,0},{1,1,-2,-1}});
+
+              2        4
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : torusInvariants(T,R)
+
+         2           2
+o3 = QQ[y z, x*y*z, x z]
+
+o3 : monomial subalgebra of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a> -- ring of invariants of a finite group action</span>          </li>
+          <li>
+<span><a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a> -- ring of invariants of a diagonalizable group action</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>torusInvariants</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;torusInvariants(Matrix,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>printHilbertSequence -- prints the Hilbert sequence as a table</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="___N__P.html">previous</a> | forward | <a href="___N__P.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="multiplicity sequence of ideals" href="index.html">MultiplicitySequence</a> :: <a title="prints the Hilbert sequence as a table" href="_print__Hilbert__Sequence.html">printHilbertSequence</a>    </div>
+    <hr/>
+    <div>
+      <h1>printHilbertSequence -- prints the Hilbert sequence as a table</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">printHilbertSequence H</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, the Hilbert sequence of a module</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all nets and strings" href="../../Macaulay2Doc/html/___Net.html">net</a></span>, a table representing H</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function gives a convenient expression of the Hilbert sequence, particularly in terms of the multiplicity sequence. For instance, if I is an ideal, then the multiplicity sequence of I appears as the top row of the table for the Hilbert sequence of <a title="the bigraded ring Gr_m(Gr_I(R))" href="_gr__Gr.html">gr_mGr_I</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_9]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = minors(2, genericMatrix(R, 3, 3))
+
+o2 = ideal (- x x  + x x , - x x  + x x , - x x  + x x , - x x  + x x , -
+               2 4    1 5     3 4    1 6     3 5    2 6     2 7    1 8   
+     ------------------------------------------------------------------------
+     x x  + x x , - x x  + x x , - x x  + x x , - x x  + x x , - x x  + x x )
+      3 7    1 9     3 8    2 9     5 7    4 8     6 7    4 9     6 8    5 9
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : multiplicitySequence I
+
+o3 = HashTable{4 => 6 }
+               5 => 12
+               6 => 12
+               7 => 6
+               8 => 3
+               9 => 2
+
+o3 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : printHilbertSequence hilbertSequence grGr I
+
+o4 =     0 1 2 3 4   5   6   7  8  9  
+       +-----------------------------
+     9 | . . . . 6   12  12  6  3  2 
+     8 | . . . . -18 -30 -21 -9 -4 . 
+     7 | . . . . 19  23  10  3  .  . 
+     6 | . . . . -8  -5  -1  .  .  . 
+     5 | . . . . 1   .   .   .  .  . 
+     4 | . . . . .   .   .   .  .  . 
+     3 | . . . . .   .   .   .  .  . 
+     2 | . . . . .   .   .   .  .  . 
+     1 | . . . . .   .   .   .  .  . 
+     0 | . . . . .   .   .   .  .  . </code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the Hilbert sequence of a multi-graded module" href="_hilbert__Sequence.html">hilbertSequence</a> -- the Hilbert sequence of a multi-graded module</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>printHilbertSequence</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;printHilbertSequence(HashTable)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="prints the Hilbert sequence as a table" href="_print__Hilbert__Sequence.html">printHilbertSequence</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

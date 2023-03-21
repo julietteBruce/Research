@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>NautyGraphs -- Interface to nauty (Graphs fork)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_add__Edges.html">next</a> | previous | <a href="_add__Edges.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Interface to nauty (Graphs fork)" href="index.html">NautyGraphs</a> :: <a title="Interface to nauty (Graphs fork)" href="index.html">NautyGraphs</a>    </div>
+    <hr/>
+    <div>
+      <h1>NautyGraphs -- Interface to nauty (Graphs fork)</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This package provides an interface from Macaulay2 to many of the functions provided in the software nauty by Brendan D. McKay, available at <a href="http://cs.anu.edu.au/~bdm/nauty/">http://cs.anu.edu.au/~bdm/nauty/</a>. The nauty package provides very efficient methods for determining whether given graphs are isomorphic, generating all graphs with particular properties, generating random graphs, and more.</p>
+          <p>Most methods can handle graphs in either the Macaulay2 <a href="../../Graphs/html/___Graph.html">Graph</a> type as provided by the <a href="../../Graphs/html/index.html">Graphs</a> package or as Graph6 and Sparse6 strings as used by nauty. The purpose of this is that graphs stored as strings are greatly more efficient than graphs stored as instances of the class <a href="../../Graphs/html/___Graph.html">Graph</a>. (See <a href="___Comparison_spof_sp__Graph6_spand_sp__Sparse6_spformats.html">Comparison of Graph6 and Sparse6 formats</a>.)</p>
+          <p>It is recommended to work with graphs represented as strings while using nauty-provided methods and then converting the graphs to instances of the class <a href="../../Graphs/html/___Graph.html">Graph</a> for further work.</p>
+          <p>The theoretical underpinnings of nauty are in the paper: B. D. McKay, &quot;Practical graph isomorphism,&quot; Congr. Numer. 30 (1981), 45–87.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a href="___Comparison_spof_sp__Graph6_spand_sp__Sparse6_spformats.html">Comparison of Graph6 and Sparse6 formats</a></span>          </li>
+          <li>
+<span><a href="___Example_co_sp__Checking_spfor_spisomorphic_spgraphs.html">Example: Checking for isomorphic graphs</a></span>          </li>
+          <li>
+<span><a href="___Example_co_sp__Generating_spand_spfiltering_spgraphs.html">Example: Generating and filtering graphs</a></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://www.nd.edu/~dcook8">David Cook II</a><span> &lt;<a href="mailto:dcook8@nd.edu">dcook8@nd.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.4.3.1</b> of NautyGraphs.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/NautyGraphs.m2">NautyGraphs.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="creates a list of graphs obtained by adding one new edge to the given graph in all possible ways" href="_add__Edges.html">addEdges</a> -- creates a list of graphs obtained by adding one new edge to the given graph in all possible ways</span>                  </li>
+                  <li>
+<span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span>                  </li>
+                  <li>
+<span><a title="creates the appropriate filter string for use with filterGraphs and countGraphs" href="_build__Graph__Filter.html">buildGraphFilter</a> -- creates the appropriate filter string for use with filterGraphs and countGraphs</span>                  </li>
+                  <li>
+<span><a title="counts the number of graphs in the list with given properties" href="_count__Graphs.html">countGraphs</a> -- counts the number of graphs in the list with given properties</span>                  </li>
+                  <li>
+<span><a title="filters (i.e., selects) graphs in a list for given properties" href="_filter__Graphs.html">filterGraphs</a> -- filters (i.e., selects) graphs in a list for given properties</span>                  </li>
+                  <li>
+<span><a title="generates the bipartite graphs with a given bipartition" href="_generate__Bipartite__Graphs.html">generateBipartiteGraphs</a> -- generates the bipartite graphs with a given bipartition</span>                  </li>
+                  <li>
+<span><a title="generates the graphs on a given number of vertices" href="_generate__Graphs.html">generateGraphs</a> -- generates the graphs on a given number of vertices</span>                  </li>
+                  <li>
+<span><a title="generates random graphs on a given number of vertices" href="_generate__Random__Graphs.html">generateRandomGraphs</a> -- generates random graphs on a given number of vertices</span>                  </li>
+                  <li>
+<span><a title="generates random regular graphs on a given number of vertices" href="_generate__Random__Regular__Graphs.html">generateRandomRegularGraphs</a> -- generates random regular graphs on a given number of vertices</span>                  </li>
+                  <li>
+<span><a title="converts a Graph6 string to a Sparse6 string" href="_graph6__To__Sparse6.html">graph6ToSparse6</a> -- converts a Graph6 string to a Sparse6 string</span>                  </li>
+                  <li>
+<span><a title="computes the complement of a graph" href="_graph__Complement.html">graphComplement</a> -- computes the complement of a graph</span>                  </li>
+                  <li>
+<span><a title="converts a graph to a string in the Graph6 format" href="_graph__To__String.html">graphToString</a> -- converts a graph to a string in the Graph6 format</span>                  </li>
+                  <li>
+<span><a title="determines if a given graph is planar" href="_is__Planar.html">isPlanar</a> -- determines if a given graph is planar</span>                  </li>
+                  <li>
+<span><a title="complements the neighborhood for each vertex, individually" href="_neighborhood__Complements.html">neighborhoodComplements</a> -- complements the neighborhood for each vertex, individually</span>                  </li>
+                  <li>
+<span><a title="replaces disjoint pairs of edges by disjoint pairs of two-chains" href="_new__Edges.html">newEdges</a> -- replaces disjoint pairs of edges by disjoint pairs of two-chains</span>                  </li>
+                  <li>
+<span><a title="removes non-planar graphs from a list" href="_only__Planar.html">onlyPlanar</a> -- removes non-planar graphs from a list</span>                  </li>
+                  <li>
+<span><a title="relabels a bipartite graph so all vertices of a given class are contiguous" href="_relabel__Bipartite.html">relabelBipartite</a> -- relabels a bipartite graph so all vertices of a given class are contiguous</span>                  </li>
+                  <li>
+<span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span>                  </li>
+                  <li>
+<span><a title="creates a list of graphs obtained by removing one edge from the given graph in all possible ways" href="_remove__Edges.html">removeEdges</a> -- creates a list of graphs obtained by removing one edge from the given graph in all possible ways</span>                  </li>
+                  <li>
+<span><a title="removes all isomorphs from a list of graphs" href="_remove__Isomorphs.html">removeIsomorphs</a> -- removes all isomorphs from a list of graphs</span>                  </li>
+                  <li>
+<span><a title="converts a Sparse6 string to a Graph6 string" href="_sparse6__To__Graph6.html">sparse6ToGraph6</a> -- converts a Sparse6 string to a Graph6 string</span>                  </li>
+                  <li>
+<span><a title="converts a Sparse6 or Graph6 String to an edge ideal in the given polynomial ring" href="_string__To__Edge__Ideal.html">stringToEdgeIdeal</a> -- converts a Sparse6 or Graph6 String to an edge ideal in the given polynomial ring</span>                  </li>
+                  <li>
+<span><a title="converts a Sparse6 or Graph6 String to a Graph" href="_string__To__Graph.html">stringToGraph</a> -- converts a Sparse6 or Graph6 String to a Graph</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;addEdges(Graph)&quot;</tt> -- see <span><a title="creates a list of graphs obtained by adding one new edge to the given graph in all possible ways" href="_add__Edges.html">addEdges</a> -- creates a list of graphs obtained by adding one new edge to the given graph in all possible ways</span></span>                  </li>
+                  <li>
+<span><tt>&quot;addEdges(List)&quot;</tt> -- see <span><a title="creates a list of graphs obtained by adding one new edge to the given graph in all possible ways" href="_add__Edges.html">addEdges</a> -- creates a list of graphs obtained by adding one new edge to the given graph in all possible ways</span></span>                  </li>
+                  <li>
+<span><tt>&quot;addEdges(String)&quot;</tt> -- see <span><a title="creates a list of graphs obtained by adding one new edge to the given graph in all possible ways" href="_add__Edges.html">addEdges</a> -- creates a list of graphs obtained by adding one new edge to the given graph in all possible ways</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areIsomorphic(Graph,Graph)&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areIsomorphic(Graph,String)&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areIsomorphic(String,Graph)&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;areIsomorphic(String,String)&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Graph == Graph&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Graph == String&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;String == Graph&quot;</tt> -- see <span><a title="determines whether two graphs are isomorphic" href="_are__Isomorphic.html">areIsomorphic</a> -- determines whether two graphs are isomorphic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;buildGraphFilter(HashTable)&quot;</tt> -- see <span><a title="creates the appropriate filter string for use with filterGraphs and countGraphs" href="_build__Graph__Filter.html">buildGraphFilter</a> -- creates the appropriate filter string for use with filterGraphs and countGraphs</span></span>                  </li>
+                  <li>
+<span><tt>&quot;buildGraphFilter(List)&quot;</tt> -- see <span><a title="creates the appropriate filter string for use with filterGraphs and countGraphs" href="_build__Graph__Filter.html">buildGraphFilter</a> -- creates the appropriate filter string for use with filterGraphs and countGraphs</span></span>                  </li>
+                  <li>
+<span><tt>&quot;countGraphs(List,HashTable)&quot;</tt> -- see <span><a title="counts the number of graphs in the list with given properties" href="_count__Graphs.html">countGraphs</a> -- counts the number of graphs in the list with given properties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;countGraphs(List,List)&quot;</tt> -- see <span><a title="counts the number of graphs in the list with given properties" href="_count__Graphs.html">countGraphs</a> -- counts the number of graphs in the list with given properties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;countGraphs(List,String)&quot;</tt> -- see <span><a title="counts the number of graphs in the list with given properties" href="_count__Graphs.html">countGraphs</a> -- counts the number of graphs in the list with given properties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;filterGraphs(List,HashTable)&quot;</tt> -- see <span><a title="filters (i.e., selects) graphs in a list for given properties" href="_filter__Graphs.html">filterGraphs</a> -- filters (i.e., selects) graphs in a list for given properties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;filterGraphs(List,List)&quot;</tt> -- see <span><a title="filters (i.e., selects) graphs in a list for given properties" href="_filter__Graphs.html">filterGraphs</a> -- filters (i.e., selects) graphs in a list for given properties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;filterGraphs(List,String)&quot;</tt> -- see <span><a title="filters (i.e., selects) graphs in a list for given properties" href="_filter__Graphs.html">filterGraphs</a> -- filters (i.e., selects) graphs in a list for given properties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateBipartiteGraphs(ZZ)&quot;</tt> -- see <span><a title="generates the bipartite graphs with a given bipartition" href="_generate__Bipartite__Graphs.html">generateBipartiteGraphs</a> -- generates the bipartite graphs with a given bipartition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateBipartiteGraphs(ZZ,ZZ)&quot;</tt> -- see <span><a title="generates the bipartite graphs with a given bipartition" href="_generate__Bipartite__Graphs.html">generateBipartiteGraphs</a> -- generates the bipartite graphs with a given bipartition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateBipartiteGraphs(ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="generates the bipartite graphs with a given bipartition" href="_generate__Bipartite__Graphs.html">generateBipartiteGraphs</a> -- generates the bipartite graphs with a given bipartition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateBipartiteGraphs(ZZ,ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="generates the bipartite graphs with a given bipartition" href="_generate__Bipartite__Graphs.html">generateBipartiteGraphs</a> -- generates the bipartite graphs with a given bipartition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateGraphs(ZZ)&quot;</tt> -- see <span><a title="generates the graphs on a given number of vertices" href="_generate__Graphs.html">generateGraphs</a> -- generates the graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateGraphs(ZZ,ZZ)&quot;</tt> -- see <span><a title="generates the graphs on a given number of vertices" href="_generate__Graphs.html">generateGraphs</a> -- generates the graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateGraphs(ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="generates the graphs on a given number of vertices" href="_generate__Graphs.html">generateGraphs</a> -- generates the graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateRandomGraphs(ZZ,ZZ)&quot;</tt> -- see <span><a title="generates random graphs on a given number of vertices" href="_generate__Random__Graphs.html">generateRandomGraphs</a> -- generates random graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateRandomGraphs(ZZ,ZZ,QQ)&quot;</tt> -- see <span><a title="generates random graphs on a given number of vertices" href="_generate__Random__Graphs.html">generateRandomGraphs</a> -- generates random graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateRandomGraphs(ZZ,ZZ,RR)&quot;</tt> -- see <span><a title="generates random graphs on a given number of vertices" href="_generate__Random__Graphs.html">generateRandomGraphs</a> -- generates random graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateRandomGraphs(ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="generates random graphs on a given number of vertices" href="_generate__Random__Graphs.html">generateRandomGraphs</a> -- generates random graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generateRandomRegularGraphs(ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="generates random regular graphs on a given number of vertices" href="_generate__Random__Regular__Graphs.html">generateRandomRegularGraphs</a> -- generates random regular graphs on a given number of vertices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graph6ToSparse6(String)&quot;</tt> -- see <span><a title="converts a Graph6 string to a Sparse6 string" href="_graph6__To__Sparse6.html">graph6ToSparse6</a> -- converts a Graph6 string to a Sparse6 string</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphComplement(Graph)&quot;</tt> -- see <span><a title="computes the complement of a graph" href="_graph__Complement.html">graphComplement</a> -- computes the complement of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphComplement(List)&quot;</tt> -- see <span><a title="computes the complement of a graph" href="_graph__Complement.html">graphComplement</a> -- computes the complement of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphComplement(String)&quot;</tt> -- see <span><a title="computes the complement of a graph" href="_graph__Complement.html">graphComplement</a> -- computes the complement of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphToString(Graph)&quot;</tt> -- see <span><a title="converts a graph to a string in the Graph6 format" href="_graph__To__String.html">graphToString</a> -- converts a graph to a string in the Graph6 format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphToString(Ideal)&quot;</tt> -- see <span><a title="converts a graph to a string in the Graph6 format" href="_graph__To__String.html">graphToString</a> -- converts a graph to a string in the Graph6 format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphToString(List,ZZ)&quot;</tt> -- see <span><a title="converts a graph to a string in the Graph6 format" href="_graph__To__String.html">graphToString</a> -- converts a graph to a string in the Graph6 format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphToString(MonomialIdeal)&quot;</tt> -- see <span><a title="converts a graph to a string in the Graph6 format" href="_graph__To__String.html">graphToString</a> -- converts a graph to a string in the Graph6 format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;graphToString(String)&quot;</tt> -- see <span><a title="converts a graph to a string in the Graph6 format" href="_graph__To__String.html">graphToString</a> -- converts a graph to a string in the Graph6 format</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPlanar(Graph)&quot;</tt> -- see <span><a title="determines if a given graph is planar" href="_is__Planar.html">isPlanar</a> -- determines if a given graph is planar</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPlanar(String)&quot;</tt> -- see <span><a title="determines if a given graph is planar" href="_is__Planar.html">isPlanar</a> -- determines if a given graph is planar</span></span>                  </li>
+                  <li>
+<span><tt>&quot;neighborhoodComplements(Graph)&quot;</tt> -- see <span><a title="complements the neighborhood for each vertex, individually" href="_neighborhood__Complements.html">neighborhoodComplements</a> -- complements the neighborhood for each vertex, individually</span></span>                  </li>
+                  <li>
+<span><tt>&quot;neighborhoodComplements(List)&quot;</tt> -- see <span><a title="complements the neighborhood for each vertex, individually" href="_neighborhood__Complements.html">neighborhoodComplements</a> -- complements the neighborhood for each vertex, individually</span></span>                  </li>
+                  <li>
+<span><tt>&quot;neighborhoodComplements(String)&quot;</tt> -- see <span><a title="complements the neighborhood for each vertex, individually" href="_neighborhood__Complements.html">neighborhoodComplements</a> -- complements the neighborhood for each vertex, individually</span></span>                  </li>
+                  <li>
+<span><tt>&quot;newEdges(Graph)&quot;</tt> -- see <span><a title="replaces disjoint pairs of edges by disjoint pairs of two-chains" href="_new__Edges.html">newEdges</a> -- replaces disjoint pairs of edges by disjoint pairs of two-chains</span></span>                  </li>
+                  <li>
+<span><tt>&quot;newEdges(List)&quot;</tt> -- see <span><a title="replaces disjoint pairs of edges by disjoint pairs of two-chains" href="_new__Edges.html">newEdges</a> -- replaces disjoint pairs of edges by disjoint pairs of two-chains</span></span>                  </li>
+                  <li>
+<span><tt>&quot;newEdges(String)&quot;</tt> -- see <span><a title="replaces disjoint pairs of edges by disjoint pairs of two-chains" href="_new__Edges.html">newEdges</a> -- replaces disjoint pairs of edges by disjoint pairs of two-chains</span></span>                  </li>
+                  <li>
+<span><tt>&quot;onlyPlanar(List)&quot;</tt> -- see <span><a title="removes non-planar graphs from a list" href="_only__Planar.html">onlyPlanar</a> -- removes non-planar graphs from a list</span></span>                  </li>
+                  <li>
+<span><tt>&quot;onlyPlanar(List,Boolean)&quot;</tt> -- see <span><a title="removes non-planar graphs from a list" href="_only__Planar.html">onlyPlanar</a> -- removes non-planar graphs from a list</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelBipartite(Graph)&quot;</tt> -- see <span><a title="relabels a bipartite graph so all vertices of a given class are contiguous" href="_relabel__Bipartite.html">relabelBipartite</a> -- relabels a bipartite graph so all vertices of a given class are contiguous</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelBipartite(List)&quot;</tt> -- see <span><a title="relabels a bipartite graph so all vertices of a given class are contiguous" href="_relabel__Bipartite.html">relabelBipartite</a> -- relabels a bipartite graph so all vertices of a given class are contiguous</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelBipartite(String)&quot;</tt> -- see <span><a title="relabels a bipartite graph so all vertices of a given class are contiguous" href="_relabel__Bipartite.html">relabelBipartite</a> -- relabels a bipartite graph so all vertices of a given class are contiguous</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(Graph)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(Graph,ZZ)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(Graph,ZZ,ZZ)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(List)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(List,ZZ)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(List,ZZ,ZZ)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(String)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(String,ZZ)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabelGraph(String,ZZ,ZZ)&quot;</tt> -- see <span><a title="applies a vertex invariant based refinement to a graph" href="_relabel__Graph.html">relabelGraph</a> -- applies a vertex invariant based refinement to a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;removeEdges(Graph)&quot;</tt> -- see <span><a title="creates a list of graphs obtained by removing one edge from the given graph in all possible ways" href="_remove__Edges.html">removeEdges</a> -- creates a list of graphs obtained by removing one edge from the given graph in all possible ways</span></span>                  </li>
+                  <li>
+<span><tt>&quot;removeEdges(List)&quot;</tt> -- see <span><a title="creates a list of graphs obtained by removing one edge from the given graph in all possible ways" href="_remove__Edges.html">removeEdges</a> -- creates a list of graphs obtained by removing one edge from the given graph in all possible ways</span></span>                  </li>
+                  <li>
+<span><tt>&quot;removeEdges(String)&quot;</tt> -- see <span><a title="creates a list of graphs obtained by removing one edge from the given graph in all possible ways" href="_remove__Edges.html">removeEdges</a> -- creates a list of graphs obtained by removing one edge from the given graph in all possible ways</span></span>                  </li>
+                  <li>
+<span><tt>&quot;removeIsomorphs(List)&quot;</tt> -- see <span><a title="removes all isomorphs from a list of graphs" href="_remove__Isomorphs.html">removeIsomorphs</a> -- removes all isomorphs from a list of graphs</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sparse6ToGraph6(String)&quot;</tt> -- see <span><a title="converts a Sparse6 string to a Graph6 string" href="_sparse6__To__Graph6.html">sparse6ToGraph6</a> -- converts a Sparse6 string to a Graph6 string</span></span>                  </li>
+                  <li>
+<span><tt>&quot;stringToEdgeIdeal(String,PolynomialRing)&quot;</tt> -- see <span><a title="converts a Sparse6 or Graph6 String to an edge ideal in the given polynomial ring" href="_string__To__Edge__Ideal.html">stringToEdgeIdeal</a> -- converts a Sparse6 or Graph6 String to an edge ideal in the given polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;stringToGraph(String)&quot;</tt> -- see <span><a title="converts a Sparse6 or Graph6 String to a Graph" href="_string__To__Graph.html">stringToGraph</a> -- converts a Sparse6 or Graph6 String to a Graph</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Interface to nauty (Graphs fork)" href="index.html">NautyGraphs</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

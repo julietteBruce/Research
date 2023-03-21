@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>solverMLE(...,ConcentrationMatrix=>...) -- output MLE for concentration matrix instead of MLE for covariance matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_solver__M__L__E_lp..._cm__Options__Eigen__Solver_eq_gt..._rp.html">next</a> | <a href="_solver__M__L__E.html">previous</a> | <a href="_solver__M__L__E_lp..._cm__Options__Eigen__Solver_eq_gt..._rp.html">forward</a> | <a href="_solver__M__L__E.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for MLE of parameters for Gaussian graphical models" href="index.html">GraphicalModelsMLE</a> :: <a title="output MLE for concentration matrix instead of MLE for covariance matrix" href="_solver__M__L__E_lp..._cm__Concentration__Matrix_eq_gt..._rp.html">solverMLE(...,ConcentrationMatrix=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>solverMLE(...,ConcentrationMatrix=>...) -- output MLE for concentration matrix instead of MLE for covariance matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">solverMLE(G,U,ConcentrationMatrix=>b)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, false by default</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>By default, <a title="Maximum likelihood estimate of a loopless mixed graph" href="_solver__M__L__E.html">solverMLE</a> outputs the MLE for the covariance matrix. By providing true as the value for the option <a title="output MLE for concentration matrix instead of MLE for covariance matrix" href="_solver__M__L__E_lp..._cm__Concentration__Matrix_eq_gt..._rp.html">solverMLE(...,ConcentrationMatrix=>...)</a>, <a title="Maximum likelihood estimate of a loopless mixed graph" href="_solver__M__L__E.html">solverMLE</a> provides the MLE for the concentration matrix.</p>
+          <p>Note that both the maximum value attained in the log-likelihood function and the ML-degree remain the same.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G= mixedGraph(graph{{a,b},{b,c}},digraph {{a,d},{c,e},{f,g}},bigraph {{d,e}})
+
+o1 = MixedGraph{Bigraph => Bigraph{d => {e}}}
+                                   e => {d}
+                Digraph => Digraph{a => {d}}
+                                   c => {e}
+                                   d => {}
+                                   e => {}
+                                   f => {g}
+                                   g => {}
+                Graph => Graph{a => {b}   }
+                               b => {a, c}
+                               c => {b}
+
+o1 : MixedGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : solverMLE (G, random(QQ^7,QQ^7))
+
+o2 = (-8.88546, | 1.76276   -.132596  .0588765 1.19122   -.0121464 0       
+                | -.132596  .406406   -.180456 -.0896046 .0372285  0       
+                | .0588765  -.180456  4.53915  .0397869  -.93644   0       
+                | 1.19122   -.0896046 .0397869 4.6897    5.61757   0       
+                | -.0121464 .0372285  -.93644  5.61757   9.69158   0       
+                | 0         0         0        0         0         2.42434 
+                | 0         0         0        0         0         -.115437
+     ------------------------------------------------------------------------
+     0        |, 5)
+     0        |
+     0        |
+     0        |
+     0        |
+     -.115437 |
+     .171669  |
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : solverMLE (G, random(QQ^7,QQ^7), ConcentrationMatrix=>true)
+
+o3 = (-6.95349, | 2.63818  .250925  -.421645 1.01192  .164301  0       
+                | .250925  .493839  .0300089 0        0        0       
+                | -.421645 .0300089 6.42505  -.309127 -.386315 0       
+                | 1.01192  0        -.309127 .741884  .120456  0       
+                | .164301  0        -.386315 .120456  .150534  0       
+                | 0        0        0        0        0        2.54322 
+                | 0        0        0        0        0        -2.42347
+     ------------------------------------------------------------------------
+     0        |, 5)
+     0        |
+     0        |
+     0        |
+     0        |
+     -2.42347 |
+     3.70744  |
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <a href="../../Macaulay2Doc/html/_false.html">false</a></span>          </li>
+          <li>
+<span>Function: <span><a title="Maximum likelihood estimate of a loopless mixed graph" href="_solver__M__L__E.html">solverMLE</a> -- Maximum likelihood estimate of a loopless mixed graph</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="optional input to output MLE for concentration matrix instead of MLE for covariance matrix" href="___Concentration__Matrix.html">ConcentrationMatrix</a> -- optional input to output MLE for concentration matrix instead of MLE for covariance matrix</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Maximum likelihood estimate of a loopless mixed graph" href="_solver__M__L__E.html">solverMLE</a> -- Maximum likelihood estimate of a loopless mixed graph</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>ConcentrationMatrix</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="output MLE for concentration matrix instead of MLE for covariance matrix" href="_solver__M__L__E_lp..._cm__Concentration__Matrix_eq_gt..._rp.html">solverMLE(...,ConcentrationMatrix=>...)</a> -- output MLE for concentration matrix instead of MLE for covariance matrix</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,30 @@
+-- -*- M2-comint -*- hash: 966241825
+
+i1 : f=(D,n,M)->(R=QQ[x_1..x_n];apply(M,i->random(D,R)))
+
+o1 = f
+
+o1 : FunctionClosure
+
+i2 : myModel = model({2,3,4},f,"rand(D,n,M): M random polynomials in n variables of degree D")
+
+o2 = Model{Generate => -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/RandomMonomialIdeals.m2:116:24-116:40]*-}
+           Name => rand(D,n,M): M random polynomials in n variables of degree D
+           Parameters => {2, 3, 4}
+
+o2 : Model
+
+i3 : N=2;
+
+i4 : mySample = sample(myModel,N);
+
+i5 : peek mySample
+
+o5 = Sample{ModelName => rand(D,n,M): M random polynomials in n variables of degree D                                                                                                                                                                                                                                                                             }
+            Parameters => {2, 3, 4}
+            SampleSize => 2
+                      9 2   1       1 2   9              3 2  3 2   3       7 2   7        7       1 2   7 2   7       3 2           5       6 2  2 2            2           5       2 2      2    3       3 2                  10 2  1 2              2           3       4 2  7 2   5       2 2           5       7 2  2 2   6       5 2   5       5       5 2
+            Data => {{-x  + -x x  + -x  + -x x  + x x  + -x , -x  + -x x  + -x  + -x x  + --x x  + -x , --x  + -x x  + -x  + 7x x  + -x x  + -x , -x  + x x  + 6x  + 2x x  + -x x  + -x }, {5x  + --x x  + -x  + x x  + 5x x  + --x , -x  + 10x x  + 3x  + 3x x  + -x x  + -x , -x  + -x x  + -x  + 5x x  + -x x  + -x , -x  + -x x  + -x  + -x x  + -x x  + -x }}
+                      2 1   2 1 2   2 2   4 1 3    2 3   4 3  2 1   4 1 2   9 2   4 1 3   10 2 3   2 3  10 1   3 1 2   7 2     1 3   2 2 3   7 3  3 1    1 2     2     1 3   4 2 3   9 3      1   10 1 2   7 2    1 3     2 3    9 3  2 1      1 2     2     1 3   2 2 3   3 3  8 1   6 1 2   5 2     1 3   3 2 3   2 3  5 1   5 1 2   7 2   4 1 3   9 2 3   3 3
+
+i6 : 

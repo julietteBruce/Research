@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>numConnectedComponents -- returns the number of connected components in a (hyper)graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_num__Connected__Graph__Components.html">next</a> | <a href="_neighbors.html">previous</a> | <a href="_num__Connected__Graph__Components.html">forward</a> | <a href="_neighbors.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="returns the number of connected components in a (hyper)graph" href="_num__Connected__Components.html">numConnectedComponents</a>    </div>
+    <hr/>
+    <div>
+      <h1>numConnectedComponents -- returns the number of connected components in a (hyper)graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">d = numConnectedComponents H</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="a class for hypergraphs" href="___Hyper__Graph.html">hypergraph</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the number of connected components of <tt>H</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns the number of connected components of a hypergraph. A connected component of a hypergraph is any maximal set of vertices which are pairwise connected by a non-trivial path.  Isolated vertices, which are those not appearing in any edge, do not count as connected components. This is in contrast to <a title="returns the number of connected components in a graph" href="_num__Connected__Graph__Components.html">numConnectedGraphComponents</a> in which isolated vertices are counted as connected components. See the <a title="clarifying the difference between graph and hypergraph components" href="___Connected_sp__Components_sp__Tutorial.html">Connected Components Tutorial</a> for more information.</p>
+          <p>The algorithm used by <tt>numConnectedComponents</tt> turns <tt>H</tt> into a simplicial complex, and then computes the rank of the 0^{th} reduced homology group. This number plus 1 gives the number of connected components of <tt>H</tt>.</p>
+          <p>We depart from this method in two cases: We define the hypergraph with only the empty edge (corresponding to the irrelevant simplicial complex) and the hypergraph with empty edge set (corresponding to the void simplicial complex) to have 0 connected components.</p>
+          <p>Although this method can be applied to graphs, its output does not match the most common meaning for the number of connected components of a graph. Instead, one should use <a title="returns the number of connected components in a graph" href="_num__Connected__Graph__Components.html">numConnectedGraphComponents</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = QQ[a..e];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : g = graph {a*b,b*c,c*d,d*e,a*e} -- the 5-cycle (connected)
+
+o2 = Graph{edges => {{a, b}, {b, c}, {c, d}, {a, e}, {d, e}}}
+           ring => S
+           vertices => {a, b, c, d, e}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : h = graph {a*b,b*c,c*a,d*e} -- a 3-cycle and a disjoint edge (not connected)
+
+o3 = Graph{edges => {{a, b}, {a, c}, {b, c}, {d, e}}}
+           ring => S
+           vertices => {a, b, c, d, e}
+
+o3 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : numConnectedComponents g
+
+o4 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : numConnectedComponents h
+
+o5 = 2</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The following example contains a hypergraph with an edge of size one. The vertex in this edge is not considered isolated and does count as a connected component.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S = QQ[a..d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : H = hyperGraph {a*b,c}
+
+o7 = HyperGraph{edges => {{a, b}, {c}}  }
+                ring => S
+                vertices => {a, b, c, d}
+
+o7 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isolatedVertices H
+
+o8 = {d}
+
+o8 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : connectedComponents H
+
+o9 = {{a, b}, {c}}
+
+o9 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : numConnectedComponents H
+
+o10 = 2</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="clarifying the difference between graph and hypergraph components" href="___Connected_sp__Components_sp__Tutorial.html">Connected Components Tutorial</a> -- clarifying the difference between graph and hypergraph components</span>          </li>
+          <li>
+<span><a title="find the connected components of an abstract simplicial complex" href="../../SimplicialComplexes/html/_connected__Components_lp__Simplicial__Complex_rp.html">connectedComponents</a> -- find the connected components of an abstract simplicial complex</span>          </li>
+          <li>
+<span><a title="returns the number of connected components in a graph" href="_num__Connected__Graph__Components.html">numConnectedGraphComponents</a> -- returns the number of connected components in a graph</span>          </li>
+          <li>
+<span><a title="determines if a (hyper)graph is connected" href="_is__Connected.html">isConnected</a> -- determines if a (hyper)graph is connected</span>          </li>
+          <li>
+<span><a title="returns all vertices not contained in any edge" href="_isolated__Vertices.html">isolatedVertices</a> -- returns all vertices not contained in any edge</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>numConnectedComponents</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;numConnectedComponents(HyperGraph)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns the number of connected components in a (hyper)graph" href="_num__Connected__Components.html">numConnectedComponents</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

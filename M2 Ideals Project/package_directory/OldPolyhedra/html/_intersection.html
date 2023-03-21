@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>intersection -- computes the intersection of half-spaces, hyperplanes, cones, and polyhedra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Compact.html">next</a> | <a href="_interior__Vector.html">previous</a> | <a href="_is__Compact.html">forward</a> | <a href="_interior__Vector.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="computes the intersection of half-spaces, hyperplanes, cones, and polyhedra" href="_intersection.html">intersection</a>    </div>
+    <hr/>
+    <div>
+      <h1>intersection -- computes the intersection of half-spaces, hyperplanes, cones, and polyhedra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">P = intersection L </code></dd>
+              <dd><code class="language-macaulay2">C = intersection M </code></dd>
+              <dd><code class="language-macaulay2">C = intersection(M,N) </code></dd>
+              <dd><code class="language-macaulay2">P = intersection(M,v) </code></dd>
+              <dd><code class="language-macaulay2">P = intersection(M,v,N,w) </code></dd>
+              <dd><code class="language-macaulay2">C = intersection(C1,C2) </code></dd>
+              <dd><code class="language-macaulay2">P = intersection(P1,P2)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing any of the inputs below</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with only one column and entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+              <li>
+<span><tt>w</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with only one column and entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+              <li>
+<span><tt>C1</tt>, <span>a <a title="the class of all rational convex polyhedral cones" href="___Cone.html">convex rational cone</a></span></span>              </li>
+              <li>
+<span><tt>C2</tt>, <span>a <a title="the class of all rational convex polyhedral cones" href="___Cone.html">convex rational cone</a></span></span>              </li>
+              <li>
+<span><tt>P1</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+              <li>
+<span><tt>P2</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all rational convex polyhedral cones" href="___Cone.html">convex rational cone</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+When inserting any of the combination of matrices into <tt>intersection</tt>, it considers the given matrices as defining inequalities and equalities. Thus, it either computes the polyhedron <tt>P = {p | M*p &lt;= v and N*p = w }</tt>. Therefore, <tt>M</tt> and <tt>N</tt> must have the same number of columns, which will be the dimension of the ambient space, and <tt>M</tt> and <tt>v</tt> as well as <tt>N</tt> and <tt>w</tt> must have the same number of rows respectively. If <tt>N</tt> and <tt>w</tt> are omitted then the polyhedron is just given by the inequalities. If <tt>v</tt> and <tt>w</tt> are omitted then they are considered to be 0 so that the intersection is a cone and thus the output is of class Cone.        <p/>
+If two polyhedra or two cones are inserted, then the intersection of both arguments is computed if both arguments lie in the same ambient space. If both arguments are cones then the output is again a cone. Otherwise intersection returns a polyhedron.        <p/>
+If <tt>intersection</tt> is called for a list <tt>L</tt>, then the list may contain a combination of the following in any order.        <ul>
+          <li>
+Inequalities, given by a sequence <tt>(M,v)</tt> of matrices over <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a> determining inequalities as above          </li>
+          <li>
+Equalities, given by a list <tt>{N,w}</tt> of matrices over <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a> determining equalities as above          </li>
+          <li>
+<a title="the class of all rational convex polyhedral cones" href="___Cone.html">Cone</a>          </li>
+          <li>
+<a title="the class of all convex polyhedra" href="___Polyhedron.html">Polyhedron</a>          </li>
+        </ul>
+        <p/>
+Then <tt>intersection</tt> computes the intersection of all inserted objects, if they are in the same ambient space, i.e. all matrices must have the same number of rows, which must equal the ambient dimension of all cones and polyhedra.        <p/>
+The first use of <tt>intersection</tt> is to construct a cone:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = matrix {{1,2,3},{2,3,1},{3,1,2}}
+
+o1 = | 1 2 3 |
+     | 2 3 1 |
+     | 3 1 2 |
+
+              3        3
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C = intersection M
+
+o2 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o2 : Cone</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This is the cone of all points that are positive on the rows of the matrix <tt>M</tt>. If we add another row to this matrix and enter a condition vector we get a polyhedron:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = M || matrix {{-1,-1,-1}}
+
+o3 = | 1  2  3  |
+     | 2  3  1  |
+     | 3  1  2  |
+     | -1 -1 -1 |
+
+              4        3
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : v = matrix {{1},{2},{3},{4}}
+
+o4 = | 1 |
+     | 2 |
+     | 3 |
+     | 4 |
+
+              4        1
+o4 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : P = intersection(M,v)
+
+o5 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 3
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o5 : Polyhedron</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+ This polyhedron, a tetrahedron, consists of all points <tt>p</tt> such that <tt>M*p &lt;= v</tt>. If add a another pair of matrices, these conditions are evaluated as equalities. Thus we get a polyhedron which is not of full dimension. It is an intersection with an affine hyperplane.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : N = matrix {{1,2,0}}
+
+o6 = | 1 2 0 |
+
+              1        3
+o6 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : w = matrix {{2}}
+
+o7 = | 2 |
+
+              1        1
+o7 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : Q = intersection (M,v,N,w)
+
+o8 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o8 : Polyhedron</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+If we have another polyhedron or cone, we can also intersect them with the others.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : HC = intersection(matrix {{1,0,0},{-1,0,0},{0,1,0},{0,-1,0},{0,0,1},{0,0,-1}},matrix {{1},{1},{1},{1},{1},{1}})
+
+o9 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 3
+      number of facets => 6
+      number of rays => 0
+      number of vertices => 8
+
+o9 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : C1 = intersection(C,HC)
+
+o10 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 6
+       number of rays => 0
+       number of vertices => 8
+
+o10 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : Q1 = intersection(P,HC)
+
+o11 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 3
+       number of facets => 9
+       number of rays => 0
+       number of vertices => 13
+
+o11 : Polyhedron</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>intersection</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;intersection(Cone,Cone)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(Cone,Polyhedron)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(Matrix,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(Matrix,Matrix,Matrix,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(Polyhedron,Cone)&quot;</tt>          </li>
+          <li>
+<tt>&quot;intersection(Polyhedron,Polyhedron)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the intersection of half-spaces, hyperplanes, cones, and polyhedra" href="_intersection.html">intersection</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>MonodromySolver -- solve polynomial systems via homotopy continuation and monodromy</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_append__Point.html">next</a> | previous | <a href="_append__Point.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="solve polynomial systems via homotopy continuation and monodromy" href="index.html">MonodromySolver</a> :: <a title="solve polynomial systems via homotopy continuation and monodromy" href="index.html">MonodromySolver</a>    </div>
+    <hr/>
+    <div>
+      <h1>MonodromySolver -- solve polynomial systems via homotopy continuation and monodromy</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This packages provides randomized methods for numerically solving polynomial systems of equations that occur in parametric families, by exploiting the transitive action of an associated monodromy group. The package implements the graph-based framework described in the third reference below. There are three main functions that may be used to solve a system of a family of systems:</p>
+        </div>
+        <ul>
+          <li>
+<span><a title="a solver for parametric families with simple output" href="_solve__Family.html">solveFamily</a> -- a solver for parametric families with simple output</span>          </li>
+          <li>
+<span><a title="an &quot;out of the box&quot; polynomial system solver" href="_sparse__Monodromy__Solve.html">sparseMonodromySolve</a> -- an &quot;out of the box&quot; polynomial system solver</span>          </li>
+          <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve.html">monodromySolve</a> -- the main function of the MonodromySolver package</span>          </li>
+        </ul>
+        <div>
+          <p><a title="the main function of the MonodromySolver package" href="_monodromy__Solve.html">monodromySolve</a> is the core function, whose input may be <span>a <a title="a polynomial system" href="../../NAGtypes/html/___Poly__System.html">polynomial system</a></span> or $ofClass GateSystem$. As an additional input, a seed pair consisting of initial parameter and solution values may be provided. <a title="a solver for parametric families with simple output" href="_solve__Family.html">solveFamily</a> is a wrapper function that returns specific solutions and parameter values. <a title="an &quot;out of the box&quot; polynomial system solver" href="_sparse__Monodromy__Solve.html">sparseMonodromySolve</a> is a blackbox solver for systems without parameters, that calls the core function. These functions have many options in common, which are summarized in <a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a>. Here is an example illustrating how to solve a parametric family for specific parameter values.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setRandomSeed 0;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : declareVariable \ {A,B,C,D,X,Y};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : F = gateSystem(matrix{{A,B,C,D}},matrix{{X,Y}},matrix{{A*(X-1)^2-B}, {C*(Y+2)^2+D}});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : p0 = point{{1,1,1,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : sols = solveFamily(p0, F, NumberOfNodes=>3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : for i from 0 to 3 list norm(evaluate(F, p0, sols#i))
+
+o6 = {4.39145e-23, 4.39145e-23, 4.39145e-23, 4.39145e-23}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Each solver works by assembling randomly generated systems within a <a href="___Homotopy__Graph.html">HomotopyGraph</a> and tracking paths between them. They are also equipped with a number of options, which may be useful for speeding up computation or increasing the probability of success.</p>
+        </div>
+        <div>
+          <p>In the example above, the system is linear in parameters, allowing for the seed pair to be computed automatically. The current seeding implementation will report failure in other cases. Depending on the problem of interest, there may still be a natural way to generate the seed pair, as in <a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_cm__Abstract__Point_cm__List_rp.html">monodromySolve(System,AbstractPoint,List)</a>.</p>
+        </div>
+        <div>
+          <p>Some references for numerical monodromy methods:</p>
+          <p>Sommese, Andrew J., Jan Verschelde, and Charles W. Wampler. &quot;Numerical decomposition of the solution sets of polynomial systems into irreducible components.&quot; <i>SIAM Journal on Numerical Analysis</i> 38.6 (2001): 2022-2046.</p>
+          <p>del Campo, Abraham Martin, and Jose Israel Rodriguez. &quot;Critical points via monodromy and local methods.&quot; <i>Journal of Symbolic Computation</i> 79 (2017): 559-574.</p>
+          <p>Duff, Timothy, Cvetelina Hill, Anders Jensen, Kisun Lee, Anton Leykin, and Jeff Sommars. &quot;Solving polynomial systems via homotopy continuation and monodromy.&quot; <i>IMA Journal of Numerical Analysis</i> 39.3 (2019): 1421-1446.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+Timothy Duff<span> &lt;<a href="mailto:tduff3@gatech.edu">tduff3@gatech.edu</a>></span>            </li>
+            <li>
+Cvetelina Hill<span> &lt;<a href="mailto:cvetelina.hill@math.gatech.edu">cvetelina.hill@math.gatech.edu</a>></span>            </li>
+            <li>
+Anders Nedergaard Jensen<span> &lt;<a href="mailto:jensen@math.au.dk">jensen@math.au.dk</a>></span>            </li>
+            <li>
+Kisun Lee<span> &lt;<a href="mailto:klee669@math.gatech.edu">klee669@math.gatech.edu</a>></span>            </li>
+            <li>
+Anton Leykin<span> &lt;<a href="mailto:leykin@math.gatech.edu">leykin@math.gatech.edu</a>></span>            </li>
+            <li>
+Jeff Sommars<span> &lt;<a href="mailto:sommars1@uic.edu">sommars1@uic.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.15</b> of MonodromySolver.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/MonodromySolver.m2">MonodromySolver.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/MonodromySolver/">MonodromySolver/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a href="___Homotopy__Graph.html">HomotopyGraph</a></span>                  </li>
+                  <li>
+<span><a href="___Homotopy__Node.html">HomotopyNode</a></span>                  </li>
+                  <li>
+<span><a title="a container for solutions" href="___Point__Array.html">PointArray</a> -- a container for solutions</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="append a point at the end of a PointArray" href="_append__Point.html">appendPoint</a> -- append a point at the end of a PointArray</span>                  </li>
+                  <li>
+<span><a title="append a list of points at the end of a PointArray" href="_append__Points.html">appendPoints</a> -- append a list of points at the end of a PointArray</span>                  </li>
+                  <li>
+<span><a title="augment graph with the complete graph structure" href="_complete__Graph__Augment.html">completeGraphAugment</a> -- augment graph with the complete graph structure</span>                  </li>
+                  <li>
+<span><a title="initialize the topology of a complete graph" href="_complete__Graph__Init.html">completeGraphInit</a> -- initialize the topology of a complete graph</span>                  </li>
+                  <li>
+<span><a title="compute mixed volume via Gfan" href="_compute__Mixed__Volume.html">computeMixedVolume</a> -- compute mixed volume via Gfan</span>                  </li>
+                  <li>
+<span><a title="create initial seed for the homotopy continuation" href="_create__Seed__Pair.html">createSeedPair</a> -- create initial seed for the homotopy continuation</span>                  </li>
+                  <li>
+<span><a title="a naive dynamic strategy" href="_dynamic__Flower__Solve.html">dynamicFlowerSolve</a> -- a naive dynamic strategy</span>                  </li>
+                  <li>
+<span><a title="augment graph with the flower graph structure" href="_flower__Graph__Augment.html">flowerGraphAugment</a> -- augment graph with the flower graph structure</span>                  </li>
+                  <li>
+<span><a title="solve via monodromy by using flower shaped graph" href="_flower__Graph__Init.html">flowerGraphInit</a> -- solve via monodromy by using flower shaped graph</span>                  </li>
+                  <li>
+<span><a title="elapsed time taken by solver" href="_get__Track__Time.html">getTrackTime</a> -- elapsed time taken by solver</span>                  </li>
+                  <li>
+<span><a title="HomotopyGraph Constructor" href="_homotopy__Graph.html">homotopyGraph</a> -- HomotopyGraph Constructor</span>                  </li>
+                  <li>
+<span><a title="batch sensitive potentialE" href="_make__Batch__Potential.html">makeBatchPotential</a> -- batch sensitive potentialE</span>                  </li>
+                  <li>
+<span><a title="compute the group of permutations implicitly defined by a homotopy graph" href="_monodromy__Group.html">monodromyGroup</a> -- compute the group of permutations implicitly defined by a homotopy graph</span>                  </li>
+                  <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve.html">monodromySolve</a> -- the main function of the MonodromySolver package</span>                  </li>
+                  <li>
+<span><a title="constructor for PointArray" href="_point__Array.html">pointArray</a> -- constructor for PointArray</span>                  </li>
+                  <li>
+<span><a title="the &quot;expected&quot; potential of an edge" href="_potential__E.html">potentialE</a> -- the &quot;expected&quot; potential of an edge</span>                  </li>
+                  <li>
+<span><a title="the potential which is equal to the minimal number of new points guaranteed to be discovered" href="_potential__Lower__Bound.html">potentialLowerBound</a> -- the potential which is equal to the minimal number of new points guaranteed to be discovered</span>                  </li>
+                  <li>
+<span><a title="selects edge and direction based on highest potential for obtaining new information" href="_select__Best__Edge__And__Direction.html">selectBestEdgeAndDirection</a> -- selects edge and direction based on highest potential for obtaining new information</span>                  </li>
+                  <li>
+<span><a title="random selection of edge and direction for homotopy" href="_select__Random__Edge__And__Direction.html">selectRandomEdgeAndDirection</a> -- random selection of edge and direction for homotopy</span>                  </li>
+                  <li>
+<span><a title="a solver for parametric families with simple output" href="_solve__Family.html">solveFamily</a> -- a solver for parametric families with simple output</span>                  </li>
+                  <li>
+<span><a title="an &quot;out of the box&quot; polynomial system solver" href="_sparse__Monodromy__Solve.html">sparseMonodromySolve</a> -- an &quot;out of the box&quot; polynomial system solver</span>                  </li>
+                  <li>
+<span><a title="specialize parametric system at a point in the parameter space." href="_specialize__System.html">specializeSystem</a> -- specialize parametric system at a point in the parameter space.</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;appendPoint(PointArray,AbstractPoint)&quot;</tt> -- see <span><a title="append a point at the end of a PointArray" href="_append__Point.html">appendPoint</a> -- append a point at the end of a PointArray</span></span>                  </li>
+                  <li>
+<span><tt>&quot;appendPoints(PointArray,List)&quot;</tt> -- see <span><a title="append a list of points at the end of a PointArray" href="_append__Points.html">appendPoints</a> -- append a list of points at the end of a PointArray</span></span>                  </li>
+                  <li>
+<span><tt>&quot;computeMixedVolume(List)&quot;</tt> -- see <span><a title="compute mixed volume via Gfan" href="_compute__Mixed__Volume.html">computeMixedVolume</a> -- compute mixed volume via Gfan</span></span>                  </li>
+                  <li>
+<span><tt>&quot;createSeedPair(System)&quot;</tt> -- see <span><a title="create initial seed for the homotopy continuation" href="_create__Seed__Pair.html">createSeedPair</a> -- create initial seed for the homotopy continuation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;createSeedPair(System,AbstractPoint)&quot;</tt> -- see <span><a title="create initial seed for the homotopy continuation" href="_create__Seed__Pair.html">createSeedPair</a> -- create initial seed for the homotopy continuation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getTrackTime(HomotopyGraph)&quot;</tt> -- see <span><a title="elapsed time taken by solver" href="_get__Track__Time.html">getTrackTime</a> -- elapsed time taken by solver</span></span>                  </li>
+                  <li>
+<span><a title="returns indices of a PointArray" href="_indices_lp__Point__Array_rp.html">indices(PointArray)</a> -- returns indices of a PointArray</span>                  </li>
+                  <li>
+<span><a title="number of items stored in a PointArray" href="_length_lp__Point__Array_rp.html">length(PointArray)</a> -- number of items stored in a PointArray</span>                  </li>
+                  <li>
+<span><a title="test point membership in a PointArray" href="_member_lp__Abstract__Point_cm__Point__Array_rp.html">member(AbstractPoint,PointArray)</a> -- test point membership in a PointArray</span>                  </li>
+                  <li>
+<span><tt>&quot;monodromyGroup(System)&quot;</tt> -- see <span><a title="compute the group of permutations implicitly defined by a homotopy graph" href="_monodromy__Group.html">monodromyGroup</a> -- compute the group of permutations implicitly defined by a homotopy graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;monodromyGroup(System,AbstractPoint,List)&quot;</tt> -- see <span><a title="compute the group of permutations implicitly defined by a homotopy graph" href="_monodromy__Group.html">monodromyGroup</a> -- compute the group of permutations implicitly defined by a homotopy graph</span></span>                  </li>
+                  <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_rp.html">monodromySolve(System)</a> -- the main function of the MonodromySolver package</span>                  </li>
+                  <li>
+<span><a title="the main function of the MonodromySolver package" href="_monodromy__Solve_lp__System_cm__Abstract__Point_cm__List_rp.html">monodromySolve(System,AbstractPoint,List)</a> -- the main function of the MonodromySolver package</span>                  </li>
+                  <li>
+<span><a title="pretty printing" href="_net_lp__Point__Array_rp.html">net(PointArray)</a> -- pretty printing</span>                  </li>
+                  <li>
+<span><tt>&quot;solveFamily(AbstractPoint,System)&quot;</tt> -- see <span><a title="a solver for parametric families with simple output" href="_solve__Family.html">solveFamily</a> -- a solver for parametric families with simple output</span></span>                  </li>
+                  <li>
+<span><tt>&quot;solveFamily(System)&quot;</tt> -- see <span><a title="a solver for parametric families with simple output" href="_solve__Family.html">solveFamily</a> -- a solver for parametric families with simple output</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sparseMonodromySolve(PolySystem)&quot;</tt> -- see <span><a title="an &quot;out of the box&quot; polynomial system solver" href="_sparse__Monodromy__Solve.html">sparseMonodromySolve</a> -- an &quot;out of the box&quot; polynomial system solver</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specializeSystem(AbstractPoint,Matrix)&quot;</tt> -- see <span><a title="specialize parametric system at a point in the parameter space." href="_specialize__System.html">specializeSystem</a> -- specialize parametric system at a point in the parameter space.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specializeSystem(AbstractPoint,PolySystem)&quot;</tt> -- see <span><a title="specialize parametric system at a point in the parameter space." href="_specialize__System.html">specializeSystem</a> -- specialize parametric system at a point in the parameter space.</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><tt>&quot;PartialSols&quot;</tt> -- see <span><a href="___Homotopy__Node.html">HomotopyNode</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;SpecializedSystem&quot;</tt> -- see <span><a href="___Homotopy__Node.html">HomotopyNode</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;AugmentEdgeCount&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;AugmentGraphFunction&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;AugmentNodeCount&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;AugmentNumberOfRepeats&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;BatchSize&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;EdgesSaturated&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;Equivalencer&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;FilterCondition&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;GraphInitFunction&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span>                  </li>
+                  <li>
+<span><tt>&quot;NumberOfEdges&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;NumberOfNodes&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;NumberOfRepeats&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;PointArrayTol&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;Potential&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;Randomizer&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;SelectEdgeAndDirection&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;StoppingCriterion&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                  <li>
+<span><tt>&quot;TargetSolutionCount&quot;</tt> -- see <span><a href="___Monodromy__Solver__Options.html">MonodromySolverOptions</a></span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="solve polynomial systems via homotopy continuation and monodromy" href="index.html">MonodromySolver</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

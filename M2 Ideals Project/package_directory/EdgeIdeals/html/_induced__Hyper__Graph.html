@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>inducedHyperGraph -- returns the induced subgraph of a (hyper)graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Bipartite.html">next</a> | <a href="_induced__Graph_lp..._cm__Original__Ring_eq_gt..._rp.html">previous</a> | <a href="_is__Bipartite.html">forward</a> | <a href="_induced__Graph_lp..._cm__Original__Ring_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="returns the induced subgraph of a (hyper)graph" href="_induced__Hyper__Graph.html">inducedHyperGraph</a>    </div>
+    <hr/>
+    <div>
+      <h1>inducedHyperGraph -- returns the induced subgraph of a (hyper)graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">h = inducedHyperGraph(H, L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="a class for hypergraphs" href="___Hyper__Graph.html">hypergraph</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of vertices (i.e. variables in the ring of <tt>H</tt>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="use OriginalRing inside inducedGraph or inducedHyperGraph" href="_induced__Graph_lp..._cm__Original__Ring_eq_gt..._rp.html">OriginalRing</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, use OriginalRing inside inducedGraph or inducedHyperGraph</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>h</tt>, <span>a <a title="a class for hypergraphs" href="___Hyper__Graph.html">hypergraph</a></span>, the induced subgraph of <tt>H</tt> whose edges are contained in <tt>L</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns the induced subgraph of a (hyper)graph on a specified set of vertices. This function enables the user to create subgraphs of the original (hyper)graph.</p>
+          <p>The default option is for the ring of the induced subgraph to contain only variables in <tt>L</tt>. Then the current ring must be changed before working with the induced subgraph. We use this setup to avoid having a lot of isolated vertices in the induced (hyper)graph. However, one can set the option <a title="optional argument for inducedHyperGraph" href="___Original__Ring.html">OriginalRing</a> to <tt>true</tt> if one wants to give the induced (hyper)graph the same ring as the original (hyper)graph.</p>
+          <p>Note: Since <a title="a class for graphs" href="___Graph.html">Graph</a> is a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">Type</a> of <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a>, <tt>inducedHyperGraph</tt> can be used for graphs, but the output is a <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a>. If one prefers to have a graph returned instead, use <a title="returns the induced subgraph of a graph" href="_induced__Graph.html">inducedGraph</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c,d,e];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = graph {a*b,b*c,c*d,d*e,e*a} -- graph of the 5-cycle
+
+o2 = Graph{edges => {{a, b}, {b, c}, {c, d}, {a, e}, {d, e}}}
+           ring => R
+           vertices => {a, b, c, d, e}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : H1 = inducedHyperGraph(G,{b,c,d,e})
+
+o3 = HyperGraph{edges => {{b, c}, {c, d}, {d, e}}}
+                ring => QQ[b..e]
+                vertices => {b, c, d, e}
+
+o3 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : H2 = inducedHyperGraph(G,{a,b,d,e})
+
+o4 = HyperGraph{edges => {{a, b}, {a, e}, {d, e}}}
+                ring => QQ[a..b, d..e]
+                vertices => {a, b, d, e}
+
+o4 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : use ring H1
+
+o5 = QQ[b..e]
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : inducedHyperGraph(H1,{c,d,e})
+
+o6 = HyperGraph{edges => {{c, d}, {d, e}}}
+                ring => QQ[c..e]
+                vertices => {c, d, e}
+
+o6 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : use ring G
+
+o7 = R
+
+o7 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : inducedHyperGraph(G,{b,c,d,e},OriginalRing=>true) --H1 but in bigger ring
+
+o8 = HyperGraph{edges => {{b, c}, {c, d}, {d, e}}}
+                ring => R
+                vertices => {a, b, c, d, e}
+
+o8 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Equivalently, one can use <a title="replaces vertices with variables of a different ring" href="_change__Ring.html">changeRing</a> to move the induced hypergraph back into the original ring.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : R = QQ[a,b,c,d,e];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : G = graph {a*b,b*c,c*d,d*e,e*a} -- graph of the 5-cycle
+
+o10 = Graph{edges => {{a, b}, {b, c}, {c, d}, {a, e}, {d, e}}}
+            ring => R
+            vertices => {a, b, c, d, e}
+
+o10 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : H = inducedHyperGraph(G,{b,c,d})
+
+o11 = HyperGraph{edges => {{b, c}, {c, d}}}
+                 ring => QQ[b..d]
+                 vertices => {b, c, d}
+
+o11 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : changeRing(H,R,{b,c,d})
+
+o12 = HyperGraph{edges => {{c, d}, {b, c}}  }
+                 ring => R
+                 vertices => {a, b, c, d, e}
+
+o12 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="replaces vertices with variables of a different ring" href="_change__Ring.html">changeRing</a> -- replaces vertices with variables of a different ring</span>          </li>
+          <li>
+<span><a title="returns the (hyper)graph with specified edges removed" href="_delete__Edges.html">deleteEdges</a> -- returns the (hyper)graph with specified edges removed</span>          </li>
+          <li>
+<span><a title="returns the induced subgraph of a graph" href="_induced__Graph.html">inducedGraph</a> -- returns the induced subgraph of a graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>inducedHyperGraph</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;inducedHyperGraph(HyperGraph,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns the induced subgraph of a (hyper)graph" href="_induced__Hyper__Graph.html">inducedHyperGraph</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>intersectInP -- Compute distinguished varieties for an intersection in A^n or P^n</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">next</a> | <a href="_expected__Rees__Ideal.html">previous</a> | <a href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">forward</a> | <a href="_expected__Rees__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Compute Rees algebras and their invariants" href="index.html">ReesAlgebra</a> :: <a title="Compute distinguished varieties for an intersection in A^n or P^n" href="_intersect__In__P.html">intersectInP</a>    </div>
+    <hr/>
+    <div>
+      <h1>intersectInP -- Compute distinguished varieties for an intersection in A^n or P^n</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L = intersectInP(I,J)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, of a polynomial ring P over a field</span>              </li>
+              <li>
+<span><tt>J</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, of the same ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Option for intersectInP" href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">BasisElementLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, Option for intersectInP</span>              </li>
+              <li>
+<span><a title="Option for intersectInP" href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">DegreeLimit</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, Option for intersectInP</span>              </li>
+              <li>
+<span><a title="Option for intersectInP" href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">MinimalGenerators</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, Option for intersectInP</span>              </li>
+              <li>
+<span><a title="Option for intersectInP" href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">PairLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, Option for intersectInP</span>              </li>
+              <li>
+<span><a title="Option for intersectInP" href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, Option for intersectInP</span>              </li>
+              <li>
+<span><a title="Option for intersectInP" href="_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">Variable</a><tt> => </tt><tt>...</tt>, <span>default value &quot;w&quot;</span>, Option for intersectInP</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function applies the technology of <a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> to compute the distinguished subvarieties, with their multiplicities, for an intersection in affine or projective space. The function <a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> is actually applied to the diagonal ideal in P**P and the ideal I**P + P**I, and the answer is pulled back to P.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : P = kk[x,y]
+
+o2 = P
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : I = ideal&quot;x2-y&quot;;J=ideal y
+
+o3 : Ideal of P
+
+o4 = ideal y
+
+o4 : Ideal of P</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : intersectInP(I,J)
+
+o5 = {{2, ideal (y, x)}}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : I = ideal&quot;x4+y3+1&quot;
+
+            4    3
+o6 = ideal(x  + y  + 1)
+
+o6 : Ideal of P</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : intersectInP(I,J)
+
+                     2                        2
+o7 = {{1, ideal (y, x  - 10)}, {1, ideal (y, x  + 10)}}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : I = ideal&quot;x2y&quot;;J=ideal&quot;xy2&quot;
+
+o8 : Ideal of P
+
+              2
+o9 = ideal(x*y )
+
+o9 : Ideal of P</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : intersectInP(I,J)
+
+o10 = {{5, ideal (y, x)}, {2, ideal y}, {2, ideal x}}
+
+o10 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : intersectInP(I,I)
+
+o11 = {{4, ideal (y, x)}, {1, ideal y}, {4, ideal x}}
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that in the last two cases, which are improper intersections of two cubics, the total multiplicity is 9 = 3*3. But this is not always the case (in the actual definition of the intersection product, the multiplicity is multiplied by the class of a certain cycle supported on the distinguished subvariety).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : I = ideal&quot;y-x2&quot;
+
+               2
+o12 = ideal(- x  + y)
+
+o12 : Ideal of P</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : intersectInP(I,I)
+
+                  2
+o13 = {{1, ideal(x  - y)}}
+
+o13 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> -- Compute the distinguished subvarieties of a pullback, intersection or cone</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>intersectInP</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;intersectInP(Ideal,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute distinguished varieties for an intersection in A^n or P^n" href="_intersect__In__P.html">intersectInP</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

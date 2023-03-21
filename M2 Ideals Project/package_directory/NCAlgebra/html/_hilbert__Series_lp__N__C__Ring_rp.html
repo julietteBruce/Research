@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hilbertSeries(NCRing) -- Computes the Hilbert series of an NCRing</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Hom_lp__Z__Z_cm__N__C__Matrix_cm__N__C__Matrix_rp.html">next</a> | <a href="_hilbert__Bergman.html">previous</a> | <a href="___Hom_lp__Z__Z_cm__N__C__Matrix_cm__N__C__Matrix_rp.html">forward</a> | <a href="_hilbert__Bergman.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">NCAlgebra</a> :: <a title="Computes the Hilbert series of an NCRing" href="_hilbert__Series_lp__N__C__Ring_rp.html">hilbertSeries(NCRing)</a>    </div>
+    <hr/>
+    <div>
+      <h1>hilbertSeries(NCRing) -- Computes the Hilbert series of an NCRing</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="compute the Hilbert series" href="../../Macaulay2Doc/html/_hilbert__Series.html">hilbertSeries</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">hseries = hilbertSeries(A)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>an instance of the type <a title="Type of a noncommutative ring" href="___N__C__Ring.html">NCRing</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="display the truncated power series expansion" href="../../Macaulay2Doc/html/_hilbert__Series_lp..._cm__Order_eq_gt..._rp.html">Order</a><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value infinity</span>, </span>              </li>
+              <li>
+<span><a title="reduce the Hilbert series" href="../../Macaulay2Doc/html/_hilbert__Series_lp..._cm__Reduce_eq_gt..._rp.html">Reduce</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>hseries</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method computes the Hilbert series of a graded NCRing.  If the ring is defined ober QQ or ZZ/p, and standard graded, it calls <a title="Calls Bergman to compute the Hilbert series of an NCQuotientRing" href="_hilbert__Bergman.html">hilbertBergman</a>.  Otherwise, if the ring is defined over a field (and potentially not standard graded), then a basis is computed and the generating function of the degrees of that basis is returned.  The degree to which one computes the Hilbert series is controlled with the Order option. The output is returned as a polynomial in ZZ[T].</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ{x,y,z}
+
+o1 = A
+
+o1 : NCPolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : hilbertSeries(A,Order=>10)
+
+                2      3      4       5       6        7        8         9  
+o2 = 1 + 3T + 9T  + 27T  + 81T  + 243T  + 729T  + 2187T  + 6561T  + 19683T  +
+     ------------------------------------------------------------------------
+           10
+     59049T
+
+o2 : ZZ[T]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : setWeights(A,{1,2,3})
+
+o3 = A
+
+o3 : NCPolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : hilbertSeries(A,Order=>10)
+
+               2     3     4      5      6      7      8       9       10
+o4 = 1 + T + 2T  + 4T  + 7T  + 13T  + 24T  + 44T  + 81T  + 149T  + 274T
+
+o4 : ZZ[T]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+--Calling Bergman for NCGB calculation.
+Complete!
+
+o5 = B
+
+o5 : NCQuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : hilbertSeries(B,Order=>10)
+--Calling bergman for HS computation.
+Complete!
+
+                2      3      4      5      6      7      8      9      10
+o6 = 1 + 3T + 6T  + 10T  + 15T  + 21T  + 28T  + 36T  + 45T  + 55T  + 66T
+
+o6 : ZZ[T]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Computes the Hilbert series of an NCRing" href="_hilbert__Series_lp__N__C__Ring_rp.html">hilbertSeries(NCRing)</a> -- Computes the Hilbert series of an NCRing</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

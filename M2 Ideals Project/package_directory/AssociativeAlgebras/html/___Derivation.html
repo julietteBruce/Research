@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Derivation -- Derivation defined on a noncommutative algebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_endomorphism__Ring__Ideal.html">next</a> | <a href="___Defining_spa_spnoncommutative_spring.html">previous</a> | <a href="_endomorphism__Ring__Ideal.html">forward</a> | <a href="___Defining_spa_spnoncommutative_spring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Noncommutative algebra computations" href="index.html">AssociativeAlgebras</a> :: <a title="Derivation defined on a noncommutative algebra" href="___Derivation.html">Derivation</a>    </div>
+    <hr/>
+    <div>
+      <h1>Derivation -- Derivation defined on a noncommutative algebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">delta = derivation(A,output,sigma)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="Type of a free algebra" href="___Free__Algebra.html">free algebra</a></span>, or a <a title="Type of a noncommutative ring" href="___Free__Algebra_sp_sl_sp__Ideal.html">FreeAlgebraQuotient</a>.</span>              </li>
+              <li>
+<span><tt>output</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>sigma</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>delta</tt>, <span>an instance of the type <a title="Derivation defined on a noncommutative algebra" href="___Derivation.html">Derivation</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns a Derivation object, which may be used to perform computations with (twisted) derivations in a noncommutative algebra.  A linear map $\delta : A \to A$ is called a $\sigma$-derivation provided for all $x,y \in A$, one has $\delta(xy) = \delta(x)y + \sigma(x)\delta(y)$. Such maps are useful in defining many noncommutative algebras, including Ore extensions.</p>
+        </div>
+        <div>
+          <p>Below we give a simple example of a twisted derivation that is used to define the subalgebras appearing in Fomin and Procesi's work to describe Fomin-Kirillov algebras.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ&lt;|x,y|>
+
+o1 = A
+
+o1 : FreeAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : sigma = map(A,A,{y,x})
+
+o2 = map (A, A, {y, x})
+
+o2 : RingMap A &lt;--- A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : delta = derivation(A,{-x*y,y*x},sigma)
+
+o3 = Derivation{generators => HashTable{x => -x*y}}
+                                        y => y*x
+                homomorphism => map (A, A, {y, x})
+                imageCache => MutableHashTable{}
+                matrix => | -xy yx |
+                source => A
+
+o3 : Derivation</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : delta y^2
+
+o4 = x*y*x + y*x*y
+
+o4 : A</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Methods that use an object of class Derivation :</h2>
+        <ul>
+          <li>
+<tt>&quot;Derivation RingElement&quot;</tt>          </li>
+          <li>
+<tt>&quot;Derivation ZZ&quot;</tt>          </li>
+          <li>
+<span><tt>&quot;oreExtension(Ring,RingMap,Derivation,RingElement)&quot;</tt> -- see <span><a title="Creates an Ore extension of a noncommutative ring" href="_ore__Extension.html">oreExtension</a> -- Creates an Ore extension of a noncommutative ring</span></span>          </li>
+          <li>
+<span><tt>&quot;oreExtension(Ring,RingMap,Derivation,Symbol)&quot;</tt> -- see <span><a title="Creates an Ore extension of a noncommutative ring" href="_ore__Extension.html">oreExtension</a> -- Creates an Ore extension of a noncommutative ring</span></span>          </li>
+          <li>
+<span><tt>&quot;oreIdeal(Ring,RingMap,Derivation,RingElement)&quot;</tt> -- see <span><a title="Creates the defining ideal of an Ore extension of a noncommutative ring" href="_ore__Ideal.html">oreIdeal</a> -- Creates the defining ideal of an Ore extension of a noncommutative ring</span></span>          </li>
+          <li>
+<span><tt>&quot;oreIdeal(Ring,RingMap,Derivation,Symbol)&quot;</tt> -- see <span><a title="Creates the defining ideal of an Ore extension of a noncommutative ring" href="_ore__Ideal.html">oreIdeal</a> -- Creates the defining ideal of an Ore extension of a noncommutative ring</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Derivation defined on a noncommutative algebra" href="___Derivation.html">Derivation</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

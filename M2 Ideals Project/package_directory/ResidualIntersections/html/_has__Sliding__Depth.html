@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hasSlidingDepth -- Checks if an ideal has the sliding depth property</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Licci.html">next</a> | <a href="_generic__Residual.html">previous</a> | <a href="_is__Licci.html">forward</a> | <a href="_generic__Residual.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Tests for the conditions used in the theory of residual intersections" href="index.html">ResidualIntersections</a> :: <a title="Checks if an ideal has the sliding depth property" href="_has__Sliding__Depth.html">hasSlidingDepth</a>    </div>
+    <hr/>
+    <div>
+      <h1>hasSlidingDepth -- Checks if an ideal has the sliding depth property</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = hasSlidingDepth(k,I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, true if <tt>I</tt> has sliding depth</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Determines whether the ideal <tt>I</tt> has sliding depth for k steps</p>
+        </div>
+        <div>
+          <p>Let K be the Koszul complex on a minimal set of generators of I. We say $I$ has k-sliding depth if for all $i\leq k$ we have $depth(H_{n-codim(I)-i}(K) \geq dim I - i$. Note that if I is perfect then  $H_{n-codim(I)}(K)$ is the canonical module, which is Cohen-Macaulay so that I has 0-sliding depth.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_6];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = minors(2, genericSymmetricMatrix(R,x_1,3))
+
+               2                                                         2  
+o2 = ideal (- x  + x x , - x x  + x x , - x x  + x x , - x x  + x x , - x  +
+               2    1 4     2 3    1 5     3 4    2 5     2 3    1 5     3  
+     ------------------------------------------------------------------------
+                                                           2
+     x x , - x x  + x x , - x x  + x x , - x x  + x x , - x  + x x )
+      1 6     3 5    2 6     3 4    2 5     3 5    2 6     5    4 6
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : c = codim I
+
+o3 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : m = numgens I
+
+o4 = 9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : apply (m+1, i-> koszulDepth(i,I))
+
+o5 = {3, 1, 3, 3, 6, 6, 6, 6, 6, 6}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : hasSlidingDepth(m-c,I)
+
+o6 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : I = ideal{x_1*x_2,x_1*x_3,x_2*x_4*x_5,x_1*x_6,x_4*x_6,x_5*x_6};
+
+o7 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : hasSlidingDepth(1,I)
+
+o8 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : hasSlidingDepth(2,I)
+
+o9 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Checks if the given ideal is Strongly Cohen Macaulay" href="_is__Strongly__C__M.html">isStronglyCM</a> -- Checks if the given ideal is Strongly Cohen Macaulay</span>          </li>
+          <li>
+<span><a title="Computes the depths of the Koszul homology" href="_koszul__Depth.html">koszulDepth</a> -- Computes the depths of the Koszul homology</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hasSlidingDepth</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hasSlidingDepth(ZZ,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Checks if an ideal has the sliding depth property" href="_has__Sliding__Depth.html">hasSlidingDepth</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

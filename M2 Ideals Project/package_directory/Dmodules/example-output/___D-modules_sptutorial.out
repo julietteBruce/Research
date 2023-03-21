@@ -1,0 +1,158 @@
+-- -*- M2-comint -*- hash: 1942196484
+
+i1 : D1 = QQ[z,dz, WeylAlgebra=>{z=>dz}]
+
+o1 = D1
+
+o1 : PolynomialRing, 1 differential variables
+
+i2 : dz*z
+
+o2 = z*dz + 1
+
+o2 : D1
+
+i3 : R = QQ[x_1..x_4]
+
+o3 = R
+
+o3 : PolynomialRing
+
+i4 : D4 = makeWA R
+
+o4 = D4
+
+o4 : PolynomialRing, 4 differential variables
+
+i5 : describe D4
+
+o5 = QQ[x ..x , dx ..dx , Degrees => {8:1}, Heft => {1}, WeylAlgebra => {{x , dx }, {x , dx }, {x , dx }, {x , dx }}]
+         1   4    1    4                                                   1    1     2    2     3    3     4    4
+
+i6 : use D1
+
+o6 = D1
+
+o6 : PolynomialRing, 1 differential variables
+
+i7 : a = 1, b = 2, c = 3
+
+o7 = (1, 2, 3)
+
+o7 : Sequence
+
+i8 : g = z*(1-z)*dz^2 + (c-(a+b+1)*z)*dz -a*b
+
+        2  2       2
+o8 = - z dz  + z*dz  - 4z*dz + 3dz - 2
+
+o8 : D1
+
+i9 : I = ideal g
+
+              2  2       2
+o9 = ideal(- z dz  + z*dz  - 4z*dz + 3dz - 2)
+
+o9 : Ideal of D1
+
+i10 : holonomicRank I
+
+o10 = 2
+
+i11 : use D4
+
+o11 = D4
+
+o11 : PolynomialRing, 4 differential variables
+
+i12 : A = matrix{{1,1,1,1},{0,1,3,4}}
+
+o12 = | 1 1 1 1 |
+      | 0 1 3 4 |
+
+               2        4
+o12 : Matrix ZZ  <--- ZZ
+
+i13 : b = {1,2}
+
+o13 = {1, 2}
+
+o13 : List
+
+i14 : H = gkz(A,b, D4)
+
+                                                                            
+o14 = ideal (x dx  + x dx  + x dx  + x dx  - 1, x dx  + 3x dx  + 4x dx  - 2,
+              1  1    2  2    3  3    4  4       2  2     3  3     4  4     
+      -----------------------------------------------------------------------
+          3        2       2     2                            3     2
+      - dx  + dx dx , dx dx  - dx dx , - dx dx  + dx dx , - dx  + dx dx )
+          3     2  4    1  3     2  4      2  3     1  4      2     1  3
+
+o14 : Ideal of D4
+
+i15 : isHolonomic H
+
+o15 = true
+
+i16 : holonomicRank H
+
+o16 = 5
+
+i17 : holonomicRank sub(gkz(A,{1,0}), vars D4)
+
+o17 = 4
+
+i18 : charIdeal H
+
+                                                                       
+o18 = ideal (dx dx  - dx dx , x dx  + 3x dx  + 4x dx , x dx  - 2x dx  -
+               2  3     1  4   2  2     3  3     4  4   1  1     3  3  
+      -----------------------------------------------------------------------
+                3        2       2     2       3     2
+      3x dx , dx  - dx dx , dx dx  - dx dx , dx  - dx dx )
+        4  4    3     2  4    1  3     2  4    2     1  3
+
+o18 : Ideal of QQ[x ..x , dx ..dx ]
+                   1   4    1    4
+
+i19 : singLocus H
+
+                3 3        3 4       2 2 2 2        4 3       3     3  
+o19 = ideal(4x x x x  + 27x x x  + 6x x x x  + 27x x x  + 192x x x x  -
+              1 2 3 4      1 3 4     1 2 3 4      1 2 4       1 2 3 4  
+      -----------------------------------------------------------------------
+          4 4
+      256x x )
+          1 4
+
+o19 : Ideal of D4
+
+i20 : A1 = matrix{{1,1,1,1},{0,1,2,3}}, b1={0,0}
+
+o20 = (| 1 1 1 1 |, {0, 0})
+       | 0 1 2 3 |
+
+o20 : Sequence
+
+i21 : H1 = sub(gkz(A1,b1),vars D4)
+
+                                                                         2  
+o21 = ideal (x dx  + x dx  + x dx  + x dx , x dx  + 2x dx  + 3x dx , - dx  +
+              1  1    2  2    3  3    4  4   2  2     3  3     4  4      3  
+      -----------------------------------------------------------------------
+                  2
+      dx dx , - dx  + dx dx , - dx dx  + dx dx )
+        2  4      2     1  3      2  3     1  4
+
+o21 : Ideal of D4
+
+i22 : factor (singLocus H1)_0
+
+                2 2       3     3                     2 2
+o22 = (x )(x )(x x  - 4x x  - 4x x  + 18x x x x  - 27x x )
+        4   1   2 3     1 3     2 4      1 2 3 4      1 4
+
+o22 : Expression of class Product
+
+i23 : 

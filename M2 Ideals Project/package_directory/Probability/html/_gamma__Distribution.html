@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gammaDistribution -- gamma distribution</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_geometric__Distribution.html">next</a> | <a href="_f__Distribution.html">previous</a> | <a href="_geometric__Distribution.html">forward</a> | <a href="_f__Distribution.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="basic probability functions" href="index.html">Probability</a> :: <a title="gamma distribution" href="_gamma__Distribution.html">gammaDistribution</a>    </div>
+    <hr/>
+    <div>
+      <h1>gammaDistribution -- gamma distribution</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gammaDistribution(alpha, lambda)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>alpha</tt>, <span>a <a title="the class of all numbers" href="../../Macaulay2Doc/html/___Number.html">number</a></span>, the shape parameter (positive); </span>              </li>
+              <li>
+<span><tt>lambda</tt>, <span>a <a title="the class of all numbers" href="../../Macaulay2Doc/html/___Number.html">number</a></span>, the rate parameter (positive); </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The <a href="https://en.wikipedia.org/wiki/gamma_distribution">gamma distribution</a>.  When <tt>alpha</tt> is an integer (also known as the <a href="https://en.wikipedia.org/wiki/Erlang_distribution">Erlang distribution</a>), this is waiting time until the <tt>alpha</tt>th event in a Poisson process where <tt>lambda</tt> is the expected number of events in one unit of time.  In particular, when <tt>alpha</tt> is 1, this is the <a title="exponential distribution" href="_exponential__Distribution.html">exponential distribution</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = gammaDistribution(5, 0.6)
+
+o1 = Gamma(5,.6)
+
+o1 : ContinuousProbabilityDistribution</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : density_X 2
+
+o2 = .0156139079455286
+
+o2 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : probability_X 3
+
+o3 = .036406661001084
+
+o3 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : quantile_X 0.4
+
+o4 = 6.91289313411757
+
+o4 : RR (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : random X
+
+o5 = 13.1175639516228
+
+o5 : RR (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Some probability texts define the gamma distribution using a <em>scale</em> parameter instead of a rate parameter.  They are reciprocals of one another.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gammaDistribution</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gammaDistribution(Constant,Constant)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gammaDistribution(Constant,Number)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gammaDistribution(Number,Constant)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gammaDistribution(Number,Number)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="gamma distribution" href="_gamma__Distribution.html">gammaDistribution</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

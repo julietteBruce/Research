@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>cite -- obtain bibtex citations for Macaulay2 packages</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="index.html">previous</a> | forward | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package facilitating citation of Macaulay2 packages" href="index.html">PackageCitations</a> :: <a title="obtain bibtex citations for Macaulay2 packages" href="_cite.html">cite</a>    </div>
+    <hr/>
+    <div>
+      <h1>cite -- obtain bibtex citations for Macaulay2 packages</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">cite</code></dd>
+              <dd><code class="language-macaulay2">cite P</code></dd>
+              <dd><code class="language-macaulay2">cite S</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>, </span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, bibtex entry or entries</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>When called without an argument, <a title="obtain bibtex citations for Macaulay2 packages" href="_cite.html">cite</a> produces the desired reference to Macaulay2.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : cite
+
+o1 = @misc{M2,
+       author = {Grayson, Daniel R. and Stillman, Michael E.},
+       title = {Macaulay2, a software system for research in algebraic geometry},
+       howpublished = {Available at \url{http://www.math.uiuc.edu/Macaulay2/}}
+     }</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>When applied to a loaded package <a title="obtain bibtex citations for Macaulay2 packages" href="_cite.html">cite</a> returns a bibtex citation for inclusion in a LaTeX document, assuming there is enough information included in the package to build it. Compare the following.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : cite PackageCitations
+
+o2 = @misc{PackageCitationsSource,
+       title = {{PackageCitations: citation of \emph{Macaulay2} packages. Version~0.1}},
+       author = {Aaron Dall},
+       howpublished = {A \emph{Macaulay2} package available at &quot;https://github.com/aarondall/PackageCitations-M2&quot;}
+     }</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : cite Text
+Warning: The &quot;Text&quot; package provides insufficient citation data: author.
+
+o3 = @misc{TextSource,
+       title = {{Text: documentation and hypertext. Version~0.0}},
+       author = {},
+       howpublished = {A \emph{Macaulay2} package available at \url{https://github.com/Macaulay2/M2/tree/master/M2/Macaulay2/packages}}
+     }</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If <a title="obtain bibtex citations for Macaulay2 packages" href="_cite.html">cite</a> is given a string, then it will load the package if necessary and issue the corresponding citation. Note that if the package is <a title="an optional argument" href="../../Macaulay2Doc/html/___Certification.html">certified</a> then two bibtex entries will be produced: one for the article witnessing the certification and one for the source code. Moreover, if the headline of a package does not meet a certain set of criteria then a more generic title containing  &quot;A Macaulay2 package&quot; is produced. For example, the package PieriMaps is a certified Macaulay2 package whose headline is deemed too long by the <a title="obtain bibtex citations for Macaulay2 packages" href="_cite.html">cite</a> method.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : cite &quot;PieriMaps&quot;
+
+o4 = @misc{PieriMapsSource,
+       title = {{PieriMaps: A \emph{Macaulay2} package. Version~1.0}},
+       author = {Steven V Sam},
+       howpublished = {A \emph{Macaulay2} package available at \url{https://github.com/Macaulay2/M2/tree/master/M2/Macaulay2/packages}}
+     }
+
+     @article{PieriMapsArticle,
+       title = {{Computing inclusions of Schur modules}},
+       author = {Steven V Sam},
+       journal = {The Journal of Software for Algebra and Geometry: Macaulay2},
+       volume = {1},
+       year = {2009},
+     }</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>No effort is made to correct apparent typos in the package data. The user is urged to check for correct spelling and grammar.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : cite &quot;Bruns&quot;
+
+o5 = @misc{BrunsSource,
+       title = {{Bruns: make a 3-generator ideal with an ``any&quot; resolution. Version~2.0}},
+       author = {David Eisenbud},
+       howpublished = {A \emph{Macaulay2} package available at \url{https://github.com/Macaulay2/M2/tree/master/M2/Macaulay2/packages}}
+     }</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a package facilitating citation of Macaulay2 packages" href="index.html">PackageCitations</a> -- a package facilitating citation of Macaulay2 packages</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="obtain bibtex citations for Macaulay2 packages" href="_cite.html">cite</a> is <span>a <a title="the class of all commands" href="../../Macaulay2Doc/html/___Command.html">command</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

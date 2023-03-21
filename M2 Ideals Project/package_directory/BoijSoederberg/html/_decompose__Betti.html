@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>decomposeBetti -- write a Betti diagram as a positive combination of pure integral diagrams</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_decompose__Degrees.html">next</a> | <a href="_decompose_lp__Betti__Tally_rp.html">previous</a> | <a href="_decompose__Degrees.html">forward</a> | <a href="_decompose_lp__Betti__Tally_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Betti diagram routines" href="index.html">BoijSoederberg</a> :: <a title="write a Betti diagram as a positive combination of pure integral diagrams" href="_decompose__Betti.html">decomposeBetti</a>    </div>
+    <hr/>
+    <div>
+      <h1>decomposeBetti -- write a Betti diagram as a positive combination of pure integral diagrams</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">decomposeBetti B</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>B</tt>, not necessarily Cohen-Macaulay</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>TableEntries</tt><tt> => </tt><tt>...</tt>, <span>default value LeastIntegerEntries</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all expressions" href="../../Macaulay2Doc/html/___Expression.html">expression</a></span>, a positive combination of pure integral Betti diagrams</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+This applies the algorithm implied by the Boij-Soederberg conjecture, and also works even if the diagram does not corresponds to a Cohen-Macaulay module.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/103[a,b,c]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal&quot;a3,abc,b4,c4,b2c2&quot;
+
+             3          4   4   2 2
+o2 = ideal (a , a*b*c, b , c , b c )
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = betti res I
+
+            0 1 2 3
+o3 = total: 1 5 8 4
+         0: 1 . . .
+         1: . . . .
+         2: . 2 . .
+         3: . 3 2 .
+         4: . . 4 2
+         5: . . 2 2
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : decomposeBetti(B)
+
+       1 /       0  1  2  3\     1 /       0 1  2 3\     3 /       0 1  2 3\    11 /       0 1 2 3\     1 /       0  1  2  3\
+o4 = (--)|total: 8 35 42 15| + (--)|total: 2 7 14 9| + (--)|total: 1 7 14 8| + (--)|total: 1 6 8 3| + (--)|total: 3 14 32 21|
+      21 |    0: 8  .  .  .|    21 |    0: 2 .  . .|    28 |    0: 1 .  . .|    48 |    0: 1 . . .|    16 |    0: 3  .  .  .|
+         |    1: .  .  .  .|       |    1: . .  . .|       |    1: . .  . .|       |    1: . . . .|       |    1: .  .  .  .|
+         |    2: . 35  .  .|       |    2: . 7  . .|       |    2: . .  . .|       |    2: . . . .|       |    2: .  .  .  .|
+         |    3: .  . 42  .|       |    3: . .  . .|       |    3: . 7  . .|       |    3: . 6 . .|       |    3: . 14  .  .|
+         \    4: .  .  . 15/       \    4: . . 14 9/       \    4: . . 14 8/       |    4: . . 8 .|       |    4: .  .  .  .|
+                                                                                   \    5: . . . 3/       \    5: .  . 32 21/
+
+o4 : Expression of class Sum</code></pre>
+</td>          </tr>
+        </table>
+We can see what the pure diagrams should be using the Herzog-Kuhl equations from Boij-Soederberg's initial paper        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : decomposeBetti(B,TableEntries => HerzogKuhl)
+
+         /           0    1    2    3\       /           0    1    2    3\       /           0    1    2    3\       /           0    1    2    3\       /           0    1    2    3\
+o5 = (40)|total: 1/105 1/24 1/20 1/56| + (12)|total: 1/126 1/36 1/18 1/28| + (18)|total: 1/168 1/24 1/12 1/21| + (44)|total: 1/192 1/32 1/24 1/64| + (42)|total: 1/224 1/48 1/21 1/32|
+         |    0: 1/105    .    .    .|       |    0: 1/126    .    .    .|       |    0: 1/168    .    .    .|       |    0: 1/192    .    .    .|       |    0: 1/224    .    .    .|
+         |    1:     .    .    .    .|       |    1:     .    .    .    .|       |    1:     .    .    .    .|       |    1:     .    .    .    .|       |    1:     .    .    .    .|
+         |    2:     . 1/24    .    .|       |    2:     . 1/36    .    .|       |    2:     .    .    .    .|       |    2:     .    .    .    .|       |    2:     .    .    .    .|
+         |    3:     .    . 1/20    .|       |    3:     .    .    .    .|       |    3:     . 1/24    .    .|       |    3:     . 1/32    .    .|       |    3:     . 1/48    .    .|
+         \    4:     .    .    . 1/56/       \    4:     .    . 1/18 1/28/       \    4:     .    . 1/12 1/21/       |    4:     .    . 1/24    .|       |    4:     .    .    .    .|
+                                                                                                                     \    5:     .    .    . 1/64/       \    5:     .    . 1/21 1/32/
+
+o5 : Expression of class Sum</code></pre>
+</td>          </tr>
+        </table>
+And we can also see what the realization modules from the Eisenbud-Schreyer paper will be.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : decomposeBetti(B,TableEntries => RealizationModules)
+
+       1 /        0   1   2  3\     1  /        0  1  2  3\     3  /       0  1  2  3\     11  /        0   1   2   3\     1 /        0  1   2   3\
+o6 = (--)|total: 24 105 126 45| + (---)|total: 10 35 70 45| + (---)|total: 5 35 70 40| + (----)|total: 35 210 280 105| + (--)|total: 15 70 160 105|
+      63 |    0: 24   .   .  .|    105 |    0: 10  .  .  .|    140 |    0: 5  .  .  .|    1680 |    0: 35   .   .   .|    80 |    0: 15  .   .   .|
+         |    1:  .   .   .  .|        |    1:  .  .  .  .|        |    1: .  .  .  .|         |    1:  .   .   .   .|       |    1:  .  .   .   .|
+         |    2:  . 105   .  .|        |    2:  . 35  .  .|        |    2: .  .  .  .|         |    2:  .   .   .   .|       |    2:  .  .   .   .|
+         |    3:  .   . 126  .|        |    3:  .  .  .  .|        |    3: . 35  .  .|         |    3:  . 210   .   .|       |    3:  . 70   .   .|
+         \    4:  .   .   . 45/        \    4:  .  . 70 45/        \    4: .  . 70 40/         |    4:  .   . 280   .|       |    4:  .  .   .   .|
+                                                                                               \    5:  .   .   . 105/       \    5:  .  . 160 105/
+
+o6 : Expression of class Sum</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="write a Betti diagram as a positive combination of pure integral diagrams" href="_decompose_lp__Betti__Tally_rp.html">decompose(BettiTally)</a></span>          </li>
+          <li>
+<span><a title="Find the degree sequences of pure diagrams occurring in a Boij-Soederberg decomposition of B" href="_decompose__Degrees.html">decomposeDegrees</a> -- Find the degree sequences of pure diagrams occurring in a Boij-Soederberg decomposition of B</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>decomposeBetti</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>decomposeBetti(BettiTally)</tt> (missing documentation)<!--tag: (decomposeBetti,BettiTally)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="write a Betti diagram as a positive combination of pure integral diagrams" href="_decompose__Betti.html">decomposeBetti</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

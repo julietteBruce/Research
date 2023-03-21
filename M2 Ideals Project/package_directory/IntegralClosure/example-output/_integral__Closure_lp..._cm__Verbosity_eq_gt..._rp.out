@@ -1,0 +1,75 @@
+-- -*- M2-comint -*- hash: 118506985
+
+i1 : R = QQ[x,y,z]/ideal(x^8-z^6-y^2*z^4-z^3);
+
+i2 : time R' = integralClosure(R, Verbosity => 2)
+ [jacobian time .000521264 sec #minors 3]
+integral closure nvars 3 numgens 1 is S2 codim 1 codimJ 2
+
+ [step 0: 
+      radical (use minprimes) .00283802 seconds
+      idlizer1:  .00882149 seconds
+      idlizer2:  .018507 seconds
+      minpres:   .0188277 seconds
+  time .0712328 sec  #fractions 4]
+ [step 1: 
+      radical (use minprimes) .00268979 seconds
+      idlizer1:  .073801 seconds
+      idlizer2:  .0524981 seconds
+      minpres:   .0274648 seconds
+  time .190349 sec  #fractions 4]
+ [step 2: 
+      radical (use minprimes) .00305969 seconds
+      idlizer1:  .0197633 seconds
+      idlizer2:  .043688 seconds
+      minpres:   .0238341 seconds
+  time .115925 sec  #fractions 5]
+ [step 3: 
+      radical (use minprimes) .0212424 seconds
+      idlizer1:  .0178096 seconds
+      idlizer2:  .050272 seconds
+      minpres:   .061764 seconds
+  time .209847 sec  #fractions 5]
+ [step 4: 
+      radical (use minprimes) .00294492 seconds
+      idlizer1:  .0285402 seconds
+      idlizer2:  .154261 seconds
+      minpres:   .0186095 seconds
+  time .25452 sec  #fractions 5]
+ [step 5: 
+      radical (use minprimes) .00330553 seconds
+      idlizer1:  .0117615 seconds
+  time .0237797 sec  #fractions 5]
+     -- used 0.871042 seconds
+
+o2 = R'
+
+o2 : QuotientRing
+
+i3 : trim ideal R'
+
+                     3   2                     2 2    4           4         
+o3 = ideal (w   z - x , w   x - w   , w   x - y z  - z  - z, w   x  - w   z,
+             4,0         4,0     1,1   1,1                    4,0      1,1  
+     ------------------------------------------------------------------------
+                 2 2     2 3    2   3      2   3 2      4 2      2 4       2 
+     w   w    - x y z - x z  - x , w    + w   x y  - x*y z  - x*y z  - 2x*y z
+      4,0 1,1                       4,0    4,0                               
+     ------------------------------------------------------------------------
+          3           3    2      6 2    6 2
+     - x*z  - x, w   x  - w    + x y  + x z )
+                  4,0      1,1
+
+o3 : Ideal of QQ[w   , w   , x..z]
+                  4,0   1,1
+
+i4 : icFractions R
+
+       3   2 2    4
+      x   y z  + z  + z
+o4 = {--, -------------, x, y, z}
+       z        x
+
+o4 : List
+
+i5 : 

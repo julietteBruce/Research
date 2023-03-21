@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isGolodHomomorphism -- Determines if the canonical map from the ambient ring is Golod</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Golod__Homomorphism_lp..._cm__Gen__Degree__Limit_eq_gt..._rp.html">next</a> | <a href="_is__Golod.html">previous</a> | <a href="_is__Golod__Homomorphism_lp..._cm__Gen__Degree__Limit_eq_gt..._rp.html">forward</a> | <a href="_is__Golod.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Data types and basic functions on differential graded (DG) Algebras." href="index.html">DGAlgebras</a> :: <a title="Determines if the canonical map from the ambient ring is Golod" href="_is__Golod__Homomorphism.html">isGolodHomomorphism</a>    </div>
+    <hr/>
+    <div>
+      <h1>isGolodHomomorphism -- Determines if the canonical map from the ambient ring is Golod</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isGol = isGolodHomomorphism(R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">quotient ring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Option to specify the maximum degree to look for generators" href="_is__Golod__Homomorphism_lp..._cm__Gen__Degree__Limit_eq_gt..._rp.html">GenDegreeLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, Option to specify the maximum degree to look for generators</span>              </li>
+              <li>
+<span><a title="Option to specify the maximum degree to look for generators when computing the deviations" href="_is__Golod__Homomorphism_lp..._cm__T__M__O__Limit_eq_gt..._rp.html">TMOLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, Option to specify the maximum degree to look for generators when computing the deviations</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>isGol</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function determines if the canonical map from ambient R --> R is Golod.  It does this by computing an acyclic closure of ambient R (which is a <a title="The class of all DGAlgebras" href="___D__G__Algebra.html">DGAlgebra</a>), then tensors this with R, and determines if this DG Algebra has a trivial Massey operation up to a certain homological degree provided by the option GenDegreeLimit.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[a,b,c,d]/ideal{a^4+b^4+c^4+d^4}
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : isGolodHomomorphism(R,GenDegreeLimit=>5)
+
+o2 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If R is a Golod ring, then ambient R $\rightarrow$ R is a Golod homomorphism.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Q = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+o3 = Q
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = Q/ideal (a^3*b^3*c^3*d^3)
+
+o4 = R
+
+o4 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isGolodHomomorphism(R,GenDegreeLimit=>5,TMOLimit=>3)
+
+o5 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The map from Q to R is Golod by a result of Avramov and Levin; we can only find the trivial Massey operations out to a given degree.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isGolodHomomorphism</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isGolodHomomorphism(QuotientRing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Determines if the canonical map from the ambient ring is Golod" href="_is__Golod__Homomorphism.html">isGolodHomomorphism</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

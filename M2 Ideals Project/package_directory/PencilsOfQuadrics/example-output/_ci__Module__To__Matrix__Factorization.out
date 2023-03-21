@@ -1,0 +1,87 @@
+-- -*- M2-comint -*- hash: 647062220
+
+i1 : n = 4
+
+o1 = 4
+
+i2 : c = 2
+
+o2 = 2
+
+i3 : kk = ZZ/101
+
+o3 = kk
+
+o3 : QuotientRing
+
+i4 : U = kk[x_0..x_(n-1)]
+
+o4 = U
+
+o4 : PolynomialRing
+
+i5 : qq = matrix{{x_0^2+x_1^2,x_0*x_1}}
+
+o5 = | x_0^2+x_1^2 x_0x_1 |
+
+             1       2
+o5 : Matrix U  <--- U
+
+i6 : qq = random(U^1, U^{2:-2})
+
+o6 = | 24x_0^2-36x_0x_1+19x_1^2-30x_0x_2+19x_1x_2-29x_2^2-29x_0x_3-10x_1x_3-
+     ------------------------------------------------------------------------
+     8x_2x_3-22x_3^2 -29x_0^2-24x_0x_1+39x_1^2-38x_0x_2+21x_1x_2+19x_2^2-16x_
+     ------------------------------------------------------------------------
+     0x_3+34x_1x_3-47x_2x_3-39x_3^2 |
+
+             1       2
+o6 : Matrix U  <--- U
+
+i7 : Ubar = U/ideal qq
+
+o7 = Ubar
+
+o7 : QuotientRing
+
+i8 : M = coker vars Ubar
+
+o8 = cokernel | x_0 x_1 x_2 x_3 |
+
+                                  1
+o8 : Ubar-module, quotient of Ubar
+
+i9 : betti (fM=res M)
+
+            0 1 2  3  4  5
+o9 = total: 1 4 8 12 16 20
+         0: 1 4 8 12 16 20
+
+o9 : BettiTally
+
+i10 : betti res coker transpose fM.dd_3
+
+              0 1 2 3 4  5
+o10 = total: 12 8 5 5 8 12
+         -3: 12 8 4 1 .  .
+         -2:  . . 1 4 8 12
+
+o10 : BettiTally
+
+i11 : (e1,e0) = ciModuleToMatrixFactorization M;
+
+i12 : source e0 == target e1
+
+o12 = true
+
+i13 : 0 == e0*e1 - diagonalMatrix(ring e0, apply(numcols e0, i->(e0*e1)_0_0))
+
+o13 = true
+
+i14 : degrees source e1-degrees target e0
+
+o14 = {{3}, {3}, {3}, {3}, {3}, {3}, {3}, {3}}
+
+o14 : List
+
+i15 : 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>AdjointIdeal -- Adjoint ideal of a plane curve and related computations</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_adjoint__Ideal.html">next</a> | previous | <a href="_adjoint__Ideal.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Adjoint ideal of a plane curve and related computations" href="index.html">AdjointIdeal</a> :: <a title="Adjoint ideal of a plane curve and related computations" href="index.html">AdjointIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>AdjointIdeal -- Adjoint ideal of a plane curve and related computations</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p></p>
+          <p><b>Overview:</b></p>
+          <p><i>AdjointIdeal</i> is a package to compute the adjoint ideal and the geometric genus of projective plane curves.</p>
+          <p>This is used in particular in the case of genus 0 in the package <i>Parametrization</i> to map any singular plane rational curve to a (smooth) rational normal curve.</p>
+          <p>Suppose (note, that the implementation in <a title="Compute the adjoint ideal of a plane curve" href="_adjoint__Ideal.html">adjointIdeal</a> does not require this) the curve C is given by {f(x,y,z) = 0} and C does not have singularities at infinity {z = 0} and the point (1:0:0) is not on C. Note that these conditions can always be met by a projective automorphism.</p>
+          <p>Considering the affine curve in z!=0 we take y as transcendental and x as algebraic and compute an integral basis in CC(y)[x] of the integral closure of CC[y] in CC(x,y) using the algorithm from</p>
+          <p>Mark van Hoeij: An algorithm for computing an integral basis in an algebraic function field, <a href="http://www.math.fsu.edu/~hoeij/papers/comments/jsc1994.html">http://www.math.fsu.edu/~hoeij/papers/comments/jsc1994.html</a>, Journal of Symbolic Computation, Volume 18 ,  Issue 4  (October 1994), Pages: 353 - 363.</p>
+          <p>So far we call Maple using the MapleInterface package, but once the functionality will be available natively in Macaulay2 this will no longer be necessary.</p>
+          <p>From this data the adjoint ideal can be obtained by linear algebra.</p>
+          <p>The package is work in progress, so there will be future improvements and more testing is necessary.</p>
+          <p></p>
+          <p>For more theoretical details see J. Boehm: Rational parametrization of rational curves, <a href="http://www.math.uni-sb.de/ag/schreyer/jb/diplom%20janko%20boehm.pdf">http://www.math.uni-sb.de/ag/schreyer/jb/diplom%20janko%20boehm.pdf</a>.</p>
+          <p></p>
+          <p><b>Key user functions:</b></p>
+          <p><a title="Compute the adjoint ideal of a plane curve" href="_adjoint__Ideal.html">adjointIdeal</a>  --  compute the adjoint ideal</p>
+          <p><a title="Geometric genus of a plane curve" href="_geometric__Genus.html">geometricGenus</a>  -- compute the geometric genus of a plane curve</p>
+          <p><b>Setup:</b></p>
+          <p>This package uses the package <i>MapleInterface</i>, so install this first.</p>
+          <p>Place the file AdjointIdeal.m2 somewhere into the M2 search path (type path to see it) and install the package by doing</p>
+          <p>installPackage(&quot;AdjointIdeal&quot;)</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://www.math.uni-sb.de/ag/schreyer/jb/">Janko Boehm</a><span> &lt;<a href="mailto:boehm@mathematik.uni-kl.de">boehm@mathematik.uni-kl.de</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.6</b> of AdjointIdeal.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/AdjointIdeal.m2">AdjointIdeal.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/AdjointIdeal/">AdjointIdeal/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="Compute the adjoint ideal of a plane curve" href="_adjoint__Ideal.html">adjointIdeal</a> -- Compute the adjoint ideal of a plane curve</span>                  </li>
+                  <li>
+<span><a title="Backward substitution." href="_backward__Substitution.html">backwardSubstitution</a> -- Backward substitution.</span>                  </li>
+                  <li>
+<span><a title="Extract L from the LR decomposition result." href="_extract__Left__Lower.html">extractLeftLower</a> -- Extract L from the LR decomposition result.</span>                  </li>
+                  <li>
+<span><a title="Extract R from the LR decomposition result." href="_extract__Right__Upper.html">extractRightUpper</a> -- Extract R from the LR decomposition result.</span>                  </li>
+                  <li>
+<span><a title="Forward substitution." href="_forward__Substitution.html">forwardSubstitution</a> -- Forward substitution.</span>                  </li>
+                  <li>
+<span><a title="Geometric genus of a plane curve" href="_geometric__Genus.html">geometricGenus</a> -- Geometric genus of a plane curve</span>                  </li>
+                  <li>
+<span><a title="LR decomposition" href="___L__Rdecomposition.html">LRdecomposition</a> -- LR decomposition</span>                  </li>
+                  <li>
+<span><a title="Compute trace matrix." href="_trace__Matrix.html">traceMatrix</a> -- Compute trace matrix.</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;adjointIdeal(Ideal)&quot;</tt> -- see <span><a title="Compute the adjoint ideal of a plane curve" href="_adjoint__Ideal.html">adjointIdeal</a> -- Compute the adjoint ideal of a plane curve</span></span>                  </li>
+                  <li>
+<span><tt>&quot;adjointIdeal(Ideal,Matrix)&quot;</tt> -- see <span><a title="Compute the adjoint ideal of a plane curve" href="_adjoint__Ideal.html">adjointIdeal</a> -- Compute the adjoint ideal of a plane curve</span></span>                  </li>
+                  <li>
+<span><tt>&quot;adjointIdeal(Ideal,Matrix,ZZ)&quot;</tt> -- see <span><a title="Compute the adjoint ideal of a plane curve" href="_adjoint__Ideal.html">adjointIdeal</a> -- Compute the adjoint ideal of a plane curve</span></span>                  </li>
+                  <li>
+<span><tt>&quot;backwardSubstitution(Matrix,Matrix)&quot;</tt> -- see <span><a title="Backward substitution." href="_backward__Substitution.html">backwardSubstitution</a> -- Backward substitution.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extractLeftLower(Matrix)&quot;</tt> -- see <span><a title="Extract L from the LR decomposition result." href="_extract__Left__Lower.html">extractLeftLower</a> -- Extract L from the LR decomposition result.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extractRightUpper(Matrix)&quot;</tt> -- see <span><a title="Extract R from the LR decomposition result." href="_extract__Right__Upper.html">extractRightUpper</a> -- Extract R from the LR decomposition result.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;forwardSubstitution(Matrix,Matrix)&quot;</tt> -- see <span><a title="Forward substitution." href="_forward__Substitution.html">forwardSubstitution</a> -- Forward substitution.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;geometricGenus(Ideal)&quot;</tt> -- see <span><a title="Geometric genus of a plane curve" href="_geometric__Genus.html">geometricGenus</a> -- Geometric genus of a plane curve</span></span>                  </li>
+                  <li>
+<span><tt>&quot;geometricGenus(Ideal,Matrix)&quot;</tt> -- see <span><a title="Geometric genus of a plane curve" href="_geometric__Genus.html">geometricGenus</a> -- Geometric genus of a plane curve</span></span>                  </li>
+                  <li>
+<span><tt>&quot;LRdecomposition(Matrix,Function)&quot;</tt> -- see <span><a title="LR decomposition" href="___L__Rdecomposition.html">LRdecomposition</a> -- LR decomposition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;traceMatrix(Ideal,Matrix)&quot;</tt> -- see <span><a title="Compute trace matrix." href="_trace__Matrix.html">traceMatrix</a> -- Compute trace matrix.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;traceMatrix(Matrix,Matrix,List)&quot;</tt> -- see <span><a title="Compute trace matrix." href="_trace__Matrix.html">traceMatrix</a> -- Compute trace matrix.</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Adjoint ideal of a plane curve and related computations" href="index.html">AdjointIdeal</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

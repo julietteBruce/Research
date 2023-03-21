@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>invariants(DiagonalAction) -- computes the generating invariants of a group action</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_invariants_lp__Finite__Group__Action_rp.html">next</a> | <a href="_invariants_lp..._cm__Use__Linear__Algebra_eq_gt..._rp.html">previous</a> | <a href="_invariants_lp__Finite__Group__Action_rp.html">forward</a> | <a href="_invariants_lp..._cm__Use__Linear__Algebra_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="invariants of group actions" href="index.html">InvariantRing</a> :: <a title="computes the generating invariants of a group action" href="_invariants_lp__Diagonal__Action_rp.html">invariants(DiagonalAction)</a>    </div>
+    <hr/>
+    <div>
+      <h1>invariants(DiagonalAction) -- computes the generating invariants of a group action</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="computes the generating invariants of a group action" href="_invariants.html">invariants</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">invariants D</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>D</tt>, <span>an instance of the type <a title="the class of all diagonal actions" href="___Diagonal__Action.html">DiagonalAction</a></span>, a diagonal action on a polynomial ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt> (missing documentation)<!--tag: [invariants, Strategy]-->
+<tt> => </tt><tt>...</tt>, <span>default value UseNormaliz</span>, the strategy used to compute diagonal invariants, options are UsePolyhedra or UseNormaliz.</span>              </li>
+              <li>
+<span><a title="degree bound for invariants of finite groups" href="_invariants_lp..._cm__Degree__Bound_eq_gt..._rp.html">DegreeBound</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, degree bound for invariants of finite groups</span>              </li>
+              <li>
+<span><a title="GB option for invariants" href="_invariants_lp..._cm__Degree__Limit_eq_gt..._rp.html">DegreeLimit</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, GB option for invariants</span>              </li>
+              <li>
+<span><a title="GB option for invariants" href="_invariants_lp..._cm__Subring__Limit_eq_gt..._rp.html">SubringLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, GB option for invariants</span>              </li>
+              <li>
+<span><a title="option to compute invariants over the given coefficient ring" href="_invariants_lp..._cm__Use__Coefficient__Ring_eq_gt..._rp.html">UseCoefficientRing</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to compute invariants over the given coefficient ring</span>              </li>
+              <li>
+<span><a title="strategy for computing invariants of finite groups" href="_invariants_lp..._cm__Use__Linear__Algebra_eq_gt..._rp.html">UseLinearAlgebra</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, strategy for computing invariants of finite groups</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a minimal set of generating invariants for the group action</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This function is provided by the package <a title="invariants of group actions" href="index.html">InvariantRing</a>. It implements an algorithm to compute a minimal set of generating monomial invariants for a diagonal action of an abelian group $(k^*)^r \times \mathbb{Z}/d_1 \times \cdots \times \mathbb{Z}/d_g$  on a polynomial ring  $R = k[x_1, \dots, x_n]$. Saying the action is diagonal means that  $(t_1,\ldots,t_r) \in (k^*)^r$  acts by $$(t_1,\ldots,t_r) \cdot x_j = t_1^{w_{1,j}}\cdots t_r^{w_{r,j}} x_j$$ for some integers  $w_{i,j}$  and the generators  $u_1, \dots, u_g$  of the cyclic abelian factors act by $$u_i \cdot x_j = \zeta_i^{w_{r+i,j}} x_j$$ for  $\zeta_i$  a primitive  $d_i$-th root of unity. The integers $w_{i,j}$ comprise the weight matrix <tt>W</tt>. In other words, the  $j$ -th column of <tt>W</tt> is the weight vector of $x_j$. </p>
+        <p>The algorithm combines a modified version of an algorithm for tori due to Derksen and Kemper which can be found in: </p>
+        <ul>
+          <li>
+Derksen, H. &amp; Kemper, G. (2015).<em>Computational Invariant Theory</em>. Heidelberg: Springer. pp 159-164          </li>
+        </ul>
+        <p>together with an algorithm for finite abelian groups due to Gandini which can be found in: </p>
+        <ul>
+          <li>
+Gandini, F. <em>Ideals of Subspace Arrangements</em>. Thesis (Ph.D.)-University of Michigan. 2019. ISBN: 978-1392-76291-2. pp 29-34.          </li>
+        </ul>
+        <p>Here is an example of a one-dimensional torus acting on a two-dimensional vector space:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1,x_2]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : W = matrix{{1,-1}}
+
+o2 = | 1 -1 |
+
+              1        2
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : T = diagonalAction(W, R)
+
+            *
+o3 = R &lt;- QQ  via 
+
+     | 1 -1 |
+
+o3 : DiagonalAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : invariants T
+
+o4 = {x x }
+       1 2
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p>Here is an example of a product of two cyclic groups of order 3 acting on a three-dimensional vector space:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = QQ[x_1..x_3]
+
+o5 = R
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : d = {3,3}
+
+o6 = {3, 3}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : W = matrix{{1,0,1},{0,1,1}}
+
+o7 = | 1 0 1 |
+     | 0 1 1 |
+
+              2        3
+o7 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : A = diagonalAction(W, d, R)
+
+o8 = R &lt;- ZZ/3 x ZZ/3 via 
+
+     | 1 0 1 |
+     | 0 1 1 |
+
+o8 : DiagonalAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : invariants A
+
+       3   3   3       2   2 2
+o9 = {x , x , x , x x x , x x x }
+       3   2   1   1 2 3   1 2 3
+
+o9 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p>Here is an example of a diagonal action by the product of a two-dimensional torus with a cyclic group of order 3 acting on a two-dimensional vector space:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : R = QQ[x_1, x_2]
+
+o10 = R
+
+o10 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : d = {3}
+
+o11 = {3}
+
+o11 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : W1 = matrix{{1,-1}, {-1,1}}
+
+o12 = | 1  -1 |
+      | -1 1  |
+
+               2        2
+o12 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : W2 = matrix {{1,0}}
+
+o13 = | 1 0 |
+
+               1        2
+o13 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : D = diagonalAction(W1, W2, d, R)
+
+              * 2
+o14 = R &lt;- (QQ )  x ZZ/3 via 
+
+      (| 1  -1 |, | 1 0 |)
+       | -1 1  |
+
+o14 : DiagonalAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : invariants D
+
+        3 3
+o15 = {x x }
+        1 2
+
+o15 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+By default, the invariants are computed over an infinite extension of the ground field specified by the user over which the action is defined.  Provided the action is defined, it is possible to compute invariants literally over the specified ground field in prime characteristic using the option <a title="option to compute invariants over the given coefficient ring" href="_invariants_lp..._cm__Use__Coefficient__Ring_eq_gt..._rp.html">UseCoefficientRing</a>.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="diagonal group action via weights" href="_diagonal__Action.html">diagonalAction</a> -- diagonal group action via weights</span>          </li>
+          <li>
+<span><a title="the ring of invariants of a group action" href="_invariant__Ring.html">invariantRing</a> -- the ring of invariants of a group action</span>          </li>
+          <li>
+<span><a title="check whether a polynomial is invariant under a group action" href="_is__Invariant.html">isInvariant</a> -- check whether a polynomial is invariant under a group action</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="computes the generating invariants of a group action" href="_invariants_lp__Diagonal__Action_rp.html">invariants(DiagonalAction)</a> -- computes the generating invariants of a group action</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

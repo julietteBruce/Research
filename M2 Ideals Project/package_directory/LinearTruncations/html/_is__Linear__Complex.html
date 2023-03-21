@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isLinearComplex -- tests whether a complex of graded modules is linear</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_linear__Truncations.html">next</a> | <a href="_partial__Regularities.html">previous</a> | <a href="_linear__Truncations.html">forward</a> | <a href="_partial__Regularities.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="truncations of a multigraded module that give linear resolutions" href="index.html">LinearTruncations</a> > <a title="tests whether a complex of graded modules is linear" href="_is__Linear__Complex.html">isLinearComplex</a>    </div>
+    <hr/>
+    <div>
+      <h1>isLinearComplex -- tests whether a complex of graded modules is linear</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isLinearComplex F</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, true if <tt>F</tt> is a linear complex, false if it is not</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>We say that a (nonzero) $\ZZ^r$-graded complex <tt>F</tt> is linear if its first nonzero module is generated in a single multidegree and all of its maps (including the zero maps) have degree at most 1.  For instance, if <tt>F_i</tt> is zero for $i&lt;0$ and <tt>F_0</tt> is generated in degree $0\in\ZZ^r$, then <tt>F_i</tt> should be generated in multidegrees with sum at most $i$ for $i>0$.  If <tt>F</tt> is zero then the function returns true.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[x_1..x_4]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x_1*x_2, x_1*x_3,x_1*x_4, x_2*x_3, x_3*x_4)
+
+o2 = ideal (x x , x x , x x , x x , x x )
+             1 2   1 3   1 4   2 3   3 4
+
+o2 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = S^1/I
+
+o3 = cokernel | x_1x_2 x_1x_3 x_1x_4 x_2x_3 x_3x_4 |
+
+                            1
+o3 : S-module, quotient of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = res M
+
+      1      5      6      2
+o4 = S  &lt;-- S  &lt;-- S  &lt;-- S  &lt;-- 0
+                                  
+     0      1      2      3      4
+
+o4 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : betti F
+
+            0 1 2 3
+o5 = total: 1 5 6 2
+         0: 1 . . .
+         1: . 5 6 2
+
+o5 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isLinearComplex F
+
+o6 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : F' = res truncate(2,M)
+
+      5      14      13      4
+o7 = S  &lt;-- S   &lt;-- S   &lt;-- S  &lt;-- 0
+                                    
+     0      1       2       3      4
+
+o7 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : betti F'
+
+            0  1  2 3
+o8 = total: 5 14 13 4
+         2: 5 14 13 4
+
+o8 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : isLinearComplex F'
+
+o9 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>It is possible for a complex to have differential matrices containing only linear entries yet be nonlinear by the definition above.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="checks whether degrees in the resolution of a truncation are at most those of the irrelevant ideal" href="_is__Quasi__Linear.html">isQuasiLinear</a> -- checks whether degrees in the resolution of a truncation are at most those of the irrelevant ideal</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isLinearComplex</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isLinearComplex(ChainComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="tests whether a complex of graded modules is linear" href="_is__Linear__Complex.html">isLinearComplex</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

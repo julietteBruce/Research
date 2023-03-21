@@ -1,0 +1,50 @@
+-- -*- M2-comint -*- hash: 245945868
+
+i1 : R = QQ[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing
+
+i2 : I = ideal(x+y+z,x*y+x*z+y*z,x*y*z)
+
+o2 = ideal (x + y + z, x*y + x*z + y*z, x*y*z)
+
+o2 : Ideal of R
+
+i3 : S3 = symmetricGroupActors R
+
+o3 = {| y z x |, | y x z |, | x y z |}
+
+o3 : List
+
+i4 : A = action(R/I,S3)
+
+o4 = QuotientRing with 3 actors
+
+o4 : ActionOnGradedModule
+
+i5 : a = character(A,0,3)
+
+o5 = Character over R
+      
+     (0, {0}) => | 1 1 1 |
+     (0, {1}) => | -1 0 2 |
+     (0, {2}) => | -1 0 2 |
+     (0, {3}) => | 1 -1 1 |
+
+o5 : Character
+
+i6 : sign = character(R,3, hashTable { (0,{3}) => matrix{{1,-1,1}} })
+
+o6 = Character over R
+      
+     (0, {3}) => | 1 -1 1 |
+
+o6 : Character
+
+i7 : dual(a,{1,2,3}) ** sign === a
+
+o7 = true
+
+i8 : 

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>cellOrder -- the poset of a stratification of a GKM variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_cell__Order_lp__Moment__Graph_cm__Poset_rp.html">next</a> | <a href="_bruhat__Order.html">previous</a> | <a href="_cell__Order_lp__Moment__Graph_cm__Poset_rp.html">forward</a> | <a href="_bruhat__Order.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computations with GKM varieties and moment graphs" href="index.html">GKMVarieties</a> :: <a title="the poset of a stratification of a GKM variety" href="_cell__Order.html">cellOrder</a>    </div>
+    <hr/>
+    <div>
+      <h1>cellOrder -- the poset of a stratification of a GKM variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">P = cellOrder(G)</code></dd>
+              <dd><code class="language-macaulay2">P = cellOrder(X)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="the class of all moment graphs" href="___Moment__Graph.html">moment graph</a></span>, on which a cell order has been defined already</span>              </li>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all GKM varieties" href="___G__K__M__Variety.html">GKM variety</a></span>, whose moment graph has a cell order defined already</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>an instance of the type <a title="a class for partially ordered sets (posets)" href="../../Posets/html/___Poset.html">Poset</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If a moment graph $G$ arises from a (possibly singular) GKM variety $X$ with an equivariant stratification, with each strata having a unique torus-fixed point, the vertices of $G$ (which correspond to the torus-fixed point of $X$) form a poset where $v_1 \leq v_2$ if the closure of the stratum corresponding to $v_1$ contains that of $v_2$. The following example features the Schubert variety of projective lines in $\mathbb P^3$ meeting a distinguished line. The poset of its stratification by smaller Schubert cells is a subposet of the Bruhat poset.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Gr24 = generalizedFlagVariety(&quot;A&quot;,3,{2})
+
+o1 = a &quot;GKM variety&quot; with an action of a 4-dimensional torus
+
+o1 : GKMVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X = generalizedSchubertVariety(Gr24, {set{0,2}})
+
+o2 = a &quot;GKM variety&quot; with an action of a 4-dimensional torus
+
+o2 : GKMVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : cellOrder X
+
+o3 = Relation Matrix: | 1 1 1 1 1 |
+                      | 0 1 0 1 1 |
+                      | 0 0 1 1 1 |
+                      | 0 0 0 1 1 |
+                      | 0 0 0 0 1 |
+
+o3 : Poset</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="define a cell order on a moment graph" href="_cell__Order_lp__Moment__Graph_cm__Poset_rp.html">cellOrder(MomentGraph,Poset)</a> -- define a cell order on a moment graph</span>          </li>
+          <li>
+<span><a title="computes the Bruhat order on a generalized flag variety" href="_bruhat__Order.html">bruhatOrder</a> -- computes the Bruhat order on a generalized flag variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>cellOrder</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;cellOrder(GKMVariety)&quot;</tt>          </li>
+          <li>
+<tt>&quot;cellOrder(MomentGraph)&quot;</tt>          </li>
+          <li>
+<span><a title="define a cell order on a moment graph" href="_cell__Order_lp__Moment__Graph_cm__Poset_rp.html">cellOrder(MomentGraph,Poset)</a> -- define a cell order on a moment graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the poset of a stratification of a GKM variety" href="_cell__Order.html">cellOrder</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

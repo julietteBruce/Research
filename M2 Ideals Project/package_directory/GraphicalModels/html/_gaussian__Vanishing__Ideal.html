@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gaussianVanishingIdeal -- vanishing ideal of a Gaussian graphical model</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gaussian__Vanishing__Ideal_lp..._cm__Old__Version_eq_gt..._rp.html">next</a> | <a href="_gaussian__Ring__Data.html">previous</a> | <a href="_gaussian__Vanishing__Ideal_lp..._cm__Old__Version_eq_gt..._rp.html">forward</a> | <a href="_gaussian__Ring__Data.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for discrete and Gaussian statistical graphical models" href="index.html">GraphicalModels</a> :: <a title="vanishing ideal of a Gaussian graphical model" href="_gaussian__Vanishing__Ideal.html">gaussianVanishingIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>gaussianVanishingIdeal -- vanishing ideal of a Gaussian graphical model</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gaussianVanishingIdeal(R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, created with <a title="ring of Gaussian correlations on n random variables or a graphical model" href="_gaussian__Ring.html">gaussianRing</a>  using a graphs of classes <a href="../../Graphs/html/___Graph.html">Graph</a>,  <a href="../../Graphs/html/___Digraph.html">Digraph</a> or  <a title="a graph that has undirected, directed and bidirected edges" href="../../StatGraphs/html/___Mixed__Graph.html">MixedGraph</a> without undirected edges as input.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="optional argument in gaussianVanishingIdeal to use old method for gaussianRings coming from directed graphs" href="_gaussian__Vanishing__Ideal_lp..._cm__Old__Version_eq_gt..._rp.html">OldVersion</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, optional argument in gaussianVanishingIdeal to use old method for gaussianRings coming from directed graphs</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, ideal in R</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><tt>gaussianVanishingIdeal</tt> computes the ideal in $R$ of homogeneous polynomial relations on the variance-covariance parameters of a graphical model on $G$ as explained in Chapter 3.3 of ``Lectures on Algebraic Statistics'' by Drton, Sturmfels, and Sullivant.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G = graph({{a,b},{b,c},{c,d},{a,d}})
+
+o1 = Graph{a => {b, d}}
+           b => {a, c}
+           c => {b, d}
+           d => {a, c}
+
+o1 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = gaussianRing G
+
+o2 = R
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : J = gaussianVanishingIdeal(R);
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : ideal mingens J / print;
+                    2
+s   s   s    - s   s    - s   s   s    + s   s   s    + s   s   s    - s   s   s
+ a,d b,c b,d    a,c b,d    a,d b,b c,d    a,b b,d c,d    a,c b,b d,d    a,b b,c d,d
+                2
+s   s   s    - s   s    - s   s   s    + s   s   s    + s   s   s    - s   s   s
+ a,c a,d b,c    a,c b,d    a,b a,d c,c    a,a b,d c,c    a,b a,c c,d    a,a b,c c,d</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This method works for graphs, digraphs and mixed graphs without undirected edges.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : G = digraph {{a,{b,c}}, {b,{c,d}}, {c,{}}, {d,{}}}
+
+o5 = Digraph{a => {c, b}}
+             b => {c, d}
+             c => {}
+             d => {}
+
+o5 : Digraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R = gaussianRing G
+
+o6 = R
+
+o6 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : gaussianVanishingIdeal(R)
+
+o7 = ideal (s   s    - s   s   , s   s    - s   s   , s   s    - s   s   )
+             b,c b,d    b,b c,d   a,d b,c    a,b c,d   a,d b,b    a,b b,d
+
+o7 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : H = mixedGraph(digraph {{a,{c}},{b,{c}}, {c,{d}}},bigraph {{c,d}})
+
+o8 = MixedGraph{Bigraph => Bigraph{c => {d}}}
+                                   d => {c}
+                Digraph => Digraph{a => {c}}
+                                   b => {c}
+                                   c => {d}
+                                   d => {}
+                Graph => Graph{}
+
+o8 : MixedGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : S = gaussianRing H
+
+o9 = R
+
+o9 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : gaussianVanishingIdeal(S)
+
+o10 = ideal (s   s    - s   s   , s   s    - s   s   , s   s    - s   s   )
+              b,c b,d    b,b c,d   a,d b,c    a,b c,d   a,d b,b    a,b b,d
+
+o10 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This method currently works on really small examples because it computes the vanishing ideal as an elimination ideal.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="ring of Gaussian correlations on n random variables or a graphical model" href="_gaussian__Ring.html">gaussianRing</a> -- ring of Gaussian correlations on n random variables or a graphical model</span>          </li>
+          <li>
+<span><a title="trek separation ideal of a mixed graph" href="_trek__Ideal.html">trekIdeal</a> -- trek separation ideal of a mixed graph</span>          </li>
+          <li>
+<span><a title="optional argument in gaussianVanishingIdeal to use old method for gaussianRings coming from directed graphs" href="___Old__Version.html">OldVersion</a> -- optional argument in gaussianVanishingIdeal to use old method for gaussianRings coming from directed graphs</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gaussianVanishingIdeal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gaussianVanishingIdeal(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="vanishing ideal of a Gaussian graphical model" href="_gaussian__Vanishing__Ideal.html">gaussianVanishingIdeal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

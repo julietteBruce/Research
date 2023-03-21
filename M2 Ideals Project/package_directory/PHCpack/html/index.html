@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PHCpack -- a package for Polynomial Homotopy Continuation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_cascade.html">next</a> | previous | <a href="_cascade.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a> :: <a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a>    </div>
+    <hr/>
+    <div>
+      <h1>PHCpack -- a package for Polynomial Homotopy Continuation</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This package provides an interface to the software <tt>PHCpack</tt>, a general-purpose polynomial system solver that uses homotopy continuation. The main method is a numerical blackbox solver, implemented for Laurent systems.  The package also provides a fast mixed volume computation, the ability to filter solutions, extract real solutions, or track solution paths defined by a polynomial homotopy. For positive dimensional solution sets, we can compute a numerical irreducible decomposition.</p>
+          <p>The software <tt>PHCpack</tt> itself is available at <a href="http://www.math.uic.edu/~jan/download.html">http://www.math.uic.edu/~jan/download.html</a>. This site provides source code and its executable version <tt>phc</tt>. To use the methods from this package, the user must have the executable program <tt>phc</tt> available, preferably in the execution path. The functions in this package call the <tt>phc</tt> executable, behind the scenes, with appropriate input options, and save intermediate output to temporary files. For convenience, the file names are displayed, and the commands that are invoked are documented under &quot;Consequences&quot; for each function.</p>
+          <p>Below is a simple example using the most popular function, the numerical blackbox solver.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : system = {y-x^2,z-x^3,x+y+z-1}
+
+         2         3
+o2 = {- x  + y, - x  + z, x + y + z - 1}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : solns = solveSystem(system)
+
+o3 = {{-.771845-1.11514*ii, -.647799+1.72143*ii, 2.41964-.606291*ii},
+     ------------------------------------------------------------------------
+     {.543689, .295598, .160713}, {-.771845+1.11514*ii, -.647799-1.72143*ii,
+     ------------------------------------------------------------------------
+     2.41964+.606291*ii}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : numSolns = #solns
+
+o4 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : solns/print
+{-.771845-1.11514*ii, -.647799+1.72143*ii, 2.41964-.606291*ii}
+{.543689, .295598, .160713}
+{-.771845+1.11514*ii, -.647799-1.72143*ii, 2.41964+.606291*ii}
+
+o5 = {, , }
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We see that there are three solutions to the above system. Each solution is of type <a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">Point</a> and contains diagnostic information about the quality of the solution.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : oneSoln = solns_0
+
+o6 = oneSoln
+
+o6 : Point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : peek oneSoln
+
+o7 = Point{cache => CacheTable{...3...}                             
+           Coordinates => {-.771845-1.11514*ii, -.647799+1.72143*ii,
+     ------------------------------------------------------------------------
+                        }
+     2.41964-.606291*ii}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>The value of <tt>LastT</tt> is the end value of the continuation parameter: if it equals 1, then the solver reached the end of the path properly.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p><b>1.</b> If you are having trouble installing the package, check whether the path to your PHCpack executable was set correctly. You can check this by typing the following command:</p>
+          <p>options PHCpack</p>
+          <p>If it is wrong, you can update it by putting the absolute path into the <tt>init-PHCpack.m2</tt> file, For example, if the executable <tt>phc</tt> is located in C:/cygwin/PHC, then the line inside the <tt>init-PHCpack.m2</tt> file will look like this:</p>
+          <p>&quot;path&quot; => &quot;C:/cygwin/PHC/&quot; .</p>
+          <p>Alternately, the path could be set when loading the package using the following command:</p>
+          <p>loadPackage (&quot;PHCpack&quot;, Configuration=>{&quot;path&quot;=>&quot;C:/cygwin/PHC/&quot;,&quot;PHCexe&quot;=>&quot;./phc&quot;})</p>
+          <p><b>2.</b> If the package SimpleDoc is not found when installing <tt>PHCpack.m2</tt>, see questions and answers 6, 7, and 8 on the Macaulay2 web site.</p>
+          <p><b>3.</b> The current version 1.8 of PHCpack.m2 was developed with version 1.9 of Macaulay2 and with version 2.4.17 of phc.</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://www.math.uic.edu/~lizgross">Elizabeth Gross</a><span> &lt;<a href="mailto:egross7@uic.edu">egross7@uic.edu</a>></span>            </li>
+            <li>
+<a href="http://mypages.iit.edu/~spetrov1/">Sonja Petrovic</a><span> &lt;<a href="mailto:Sonja.Petrovic@iit.edu">Sonja.Petrovic@iit.edu</a>></span>            </li>
+            <li>
+<a href="http://www.math.uic.edu/~jan">Jan Verschelde</a><span> &lt;<a href="mailto:jan@math.uic.edu">jan@math.uic.edu</a>></span>            </li>
+            <li>
+<a href="http://www.math.gatech.edu/~leykin">Contributing Author: Anton Leykin</a>            </li>
+            <li>
+<a href="http://www.math.uic.edu/~sommars">Contributing Author: Jeff Sommars</a>            </li>
+            <li>
+<a href="http://www.math.tamu.edu/~tbrysiewicz/">Contributing Author: Taylor Brysiewicz</a>            </li>
+            <li>
+<a href="http://www.coreyharris.name/">Contributing Author: Corey Harris</a>            </li>
+            <li>
+<a href="http://www.mit.edu/~diegcif/">Contributing Author: Diego Cifuentes</a>            </li>
+            <li>
+<a href="http://www.kaiekubjas.com/">Contributing Author: Kaie Kubjas</a>            </li>
+            <li>
+<a href="https://math.berkeley.edu/~seigal/">Contributing Author: Anna Seigal</a>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>1.6</b> of this package was accepted for publication in <a href="http://j-sag.org/Volume5/">volume 5</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 2013-07-11, in the article <a href="http://www.j-sag.org/Volume5/jsag-4-2013.pdf">Interfacing with PHCpack</a>. That version can be obtained from <a href="http://www.j-sag.org/Volume5/PHCpack.m2">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/48d32ceffeeb807b23eee20a5c9c243ce085b3ef/M2/Macaulay2/packages/PHCpack.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.8</b> of PHCpack.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/PHCpack.m2">PHCpack.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/PHCpack/">PHCpack/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="runs a cascade of homotopies to get witness sets for the variety" href="_cascade.html">cascade</a> -- runs a cascade of homotopies to get witness sets for the variety</span>                  </li>
+                  <li>
+<span><a title="constructs an embedding of a polynomial system" href="_construct__Embedding.html">constructEmbedding</a> -- constructs an embedding of a polynomial system</span>                  </li>
+                  <li>
+<span><a title="applies monodromy to factor a witness set into irreducible components" href="_factor__Witness__Set.html">factorWitnessSet</a> -- applies monodromy to factor a witness set into irreducible components</span>                  </li>
+                  <li>
+<span><a title="intersects a witness set by a slice" href="_intersect__Slice.html">intersectSlice</a> -- intersects a witness set by a slice</span>                  </li>
+                  <li>
+<span><a title="checks if coordinate has absolute value less than a given tolerance" href="_is__Coordinate__Zero.html">isCoordinateZero</a> -- checks if coordinate has absolute value less than a given tolerance</span>                  </li>
+                  <li>
+<span><a title="tests whether a point belongs to a solution set" href="_is__Witness__Set__Member.html">isWitnessSetMember</a> -- tests whether a point belongs to a solution set</span>                  </li>
+                  <li>
+<span><a title="computes mixed volume of a polynomial system" href="_mixed__Volume.html">mixedVolume</a> -- computes mixed volume of a polynomial system</span>                  </li>
+                  <li>
+<span><a title="returns solutions with coordinate larger than given tolerance" href="_non__Zero__Filter.html">nonZeroFilter</a> -- returns solutions with coordinate larger than given tolerance</span>                  </li>
+                  <li>
+<span><a title="finds the irreducible components of the zero set of a system of polynomials" href="_numerical__Irreducible__Decomposition.html">numericalIrreducibleDecomposition</a> -- finds the irreducible components of the zero set of a system of polynomials</span>                  </li>
+                  <li>
+<span><a title="computes a real slice for a one dimensional witness set" href="_real__Slice1__D.html">realSlice1D</a> -- computes a real slice for a one dimensional witness set</span>                  </li>
+                  <li>
+<span><a title="computes a real slice for a two dimensional witness set" href="_real__Slice2__D.html">realSlice2D</a> -- computes a real slice for a two dimensional witness set</span>                  </li>
+                  <li>
+<span><a title="refines solutions of a system by increasing working precision" href="_refine__Solutions.html">refineSolutions</a> -- refines solutions of a system by increasing working precision</span>                  </li>
+                  <li>
+<span><a title="approximates solutions to a rational system of equations" href="_solve__Rational__System.html">solveRationalSystem</a> -- approximates solutions to a rational system of equations</span>                  </li>
+                  <li>
+<span><a title="a numerical blackbox solver" href="_solve__System.html">solveSystem</a> -- a numerical blackbox solver</span>                  </li>
+                  <li>
+<span><a title="converts a list of rational polynomials into Laurent polynomials" href="_to__Laurent__Polynomial.html">toLaurentPolynomial</a> -- converts a list of rational polynomials into Laurent polynomials</span>                  </li>
+                  <li>
+<span><a title="returns a witness set and nonsolutions for the top dimensional solution set" href="_top__Witness__Set.html">topWitnessSet</a> -- returns a witness set and nonsolutions for the top dimensional solution set</span>                  </li>
+                  <li>
+<span><a title="tracks paths defined by a typical homotopy between start and end systems" href="_track__Paths.html">trackPaths</a> -- tracks paths defined by a typical homotopy between start and end systems</span>                  </li>
+                  <li>
+<span><a title="returns the version number and release date of phc" href="_version__Number.html">versionNumber</a> -- returns the version number and release date of phc</span>                  </li>
+                  <li>
+<span><a title="returns solutions with k-th coordinate less than the given tolerance" href="_zero__Filter.html">zeroFilter</a> -- returns solutions with k-th coordinate less than the given tolerance</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;cascade(List)&quot;</tt> -- see <span><a title="runs a cascade of homotopies to get witness sets for the variety" href="_cascade.html">cascade</a> -- runs a cascade of homotopies to get witness sets for the variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;constructEmbedding(List,ZZ)&quot;</tt> -- see <span><a title="constructs an embedding of a polynomial system" href="_construct__Embedding.html">constructEmbedding</a> -- constructs an embedding of a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;factorWitnessSet(WitnessSet)&quot;</tt> -- see <span><a title="applies monodromy to factor a witness set into irreducible components" href="_factor__Witness__Set.html">factorWitnessSet</a> -- applies monodromy to factor a witness set into irreducible components</span></span>                  </li>
+                  <li>
+<span><tt>&quot;intersectSlice(WitnessSet,List)&quot;</tt> -- see <span><a title="intersects a witness set by a slice" href="_intersect__Slice.html">intersectSlice</a> -- intersects a witness set by a slice</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isCoordinateZero(AbstractPoint,ZZ,RR)&quot;</tt> -- see <span><a title="checks if coordinate has absolute value less than a given tolerance" href="_is__Coordinate__Zero.html">isCoordinateZero</a> -- checks if coordinate has absolute value less than a given tolerance</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isWitnessSetMember(WitnessSet,AbstractPoint)&quot;</tt> -- see <span><a title="tests whether a point belongs to a solution set" href="_is__Witness__Set__Member.html">isWitnessSetMember</a> -- tests whether a point belongs to a solution set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedVolume(List)&quot;</tt> -- see <span><a title="computes mixed volume of a polynomial system" href="_mixed__Volume.html">mixedVolume</a> -- computes mixed volume of a polynomial system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;nonZeroFilter(List,ZZ,RR)&quot;</tt> -- see <span><a title="returns solutions with coordinate larger than given tolerance" href="_non__Zero__Filter.html">nonZeroFilter</a> -- returns solutions with coordinate larger than given tolerance</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numericalIrreducibleDecomposition(List)&quot;</tt> -- see <span><a title="finds the irreducible components of the zero set of a system of polynomials" href="_numerical__Irreducible__Decomposition.html">numericalIrreducibleDecomposition</a> -- finds the irreducible components of the zero set of a system of polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;realSlice1D(WitnessSet)&quot;</tt> -- see <span><a title="computes a real slice for a one dimensional witness set" href="_real__Slice1__D.html">realSlice1D</a> -- computes a real slice for a one dimensional witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;realSlice2D(WitnessSet)&quot;</tt> -- see <span><a title="computes a real slice for a two dimensional witness set" href="_real__Slice2__D.html">realSlice2D</a> -- computes a real slice for a two dimensional witness set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;refineSolutions(List,List,ZZ)&quot;</tt> -- see <span><a title="refines solutions of a system by increasing working precision" href="_refine__Solutions.html">refineSolutions</a> -- refines solutions of a system by increasing working precision</span></span>                  </li>
+                  <li>
+<span><tt>&quot;solveRationalSystem(List)&quot;</tt> -- see <span><a title="approximates solutions to a rational system of equations" href="_solve__Rational__System.html">solveRationalSystem</a> -- approximates solutions to a rational system of equations</span></span>                  </li>
+                  <li>
+<span><tt>&quot;solveSystem(List)&quot;</tt> -- see <span><a title="a numerical blackbox solver" href="_solve__System.html">solveSystem</a> -- a numerical blackbox solver</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toLaurentPolynomial(List,Symbol)&quot;</tt> -- see <span><a title="converts a list of rational polynomials into Laurent polynomials" href="_to__Laurent__Polynomial.html">toLaurentPolynomial</a> -- converts a list of rational polynomials into Laurent polynomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;topWitnessSet(List,ZZ)&quot;</tt> -- see <span><a title="returns a witness set and nonsolutions for the top dimensional solution set" href="_top__Witness__Set.html">topWitnessSet</a> -- returns a witness set and nonsolutions for the top dimensional solution set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;trackPaths(List,List,List)&quot;</tt> -- see <span><a title="tracks paths defined by a typical homotopy between start and end systems" href="_track__Paths.html">trackPaths</a> -- tracks paths defined by a typical homotopy between start and end systems</span></span>                  </li>
+                  <li>
+<span><tt>&quot;versionNumber(Nothing)&quot;</tt> -- see <span><a title="returns the version number and release date of phc" href="_version__Number.html">versionNumber</a> -- returns the version number and release date of phc</span></span>                  </li>
+                  <li>
+<span><tt>&quot;zeroFilter(List,ZZ,RR)&quot;</tt> -- see <span><a title="returns solutions with k-th coordinate less than the given tolerance" href="_zero__Filter.html">zeroFilter</a> -- returns solutions with k-th coordinate less than the given tolerance</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="flag to switch to double double or quad double precision" href="_computing__Precision.html">computingPrecision</a> -- flag to switch to double double or quad double precision</span>                  </li>
+                  <li>
+<span><a title="the constant in the gamma trick, optional input for trackPaths" href="_gamma.html">gamma</a> -- the constant in the gamma trick, optional input for trackPaths</span>                  </li>
+                  <li>
+<span><a title="flag to run phc -p or phc -m in interactive mode" href="_interactive.html">interactive</a> -- flag to run phc -p or phc -m in interactive mode</span>                  </li>
+                  <li>
+<span><a title="option of trackPaths to get all intermediate solutions on a path" href="_intermediate__Solutions.html">intermediateSolutions</a> -- option of trackPaths to get all intermediate solutions on a path</span>                  </li>
+                  <li>
+<span><a title="option of trackPaths to load the settings for a reproducible rerun" href="_load__Settings__Path.html">loadSettingsPath</a> -- option of trackPaths to load the settings for a reproducible rerun</span>                  </li>
+                  <li>
+<span><a title="the number of threads in the path tracker" href="_num__Threads.html">numThreads</a> -- the number of threads in the path tracker</span>                  </li>
+                  <li>
+<span><a title="seed for the random number generators" href="_random__Seed.html">randomSeed</a> -- seed for the random number generators</span>                  </li>
+                  <li>
+<span><a title="option of trackPaths to save the settings for a reproducible rerun" href="_save__Settings__Path.html">saveSettingsPath</a> -- option of trackPaths to save the settings for a reproducible rerun</span>                  </li>
+                  <li>
+<span><a title="option of realSlice1D" href="_search__Delta.html">searchDelta</a> -- option of realSlice1D</span>                  </li>
+                  <li>
+<span><a title="option of realSlice1D" href="_search__Npoints.html">searchNpoints</a> -- option of realSlice1D</span>                  </li>
+                  <li>
+<span><a title="option of realSlice1D" href="_search__Tolerance.html">searchTolerance</a> -- option of realSlice1D</span>                  </li>
+                  <li>
+<span><a title="flag to monitor the progress of the multithreaded path tracker" href="_see__Progress.html">seeProgress</a> -- flag to monitor the progress of the multithreaded path tracker</span>                  </li>
+                  <li>
+<span><a title="optional input for computation of the stable mixed volume" href="___Stable__Mixed__Volume.html">StableMixedVolume</a> -- optional input for computation of the stable mixed volume</span>                  </li>
+                  <li>
+<span><a title="optional input for cascade and numericalIrreducibleDecomposition" href="___Start__Dimension.html">StartDimension</a> -- optional input for cascade and numericalIrreducibleDecomposition</span>                  </li>
+                  <li>
+<span><a title="optional input to construct and solve a random coefficient system" href="___Start__System.html">StartSystem</a> -- optional input to construct and solve a random coefficient system</span>                  </li>
+                  <li>
+<span><a title="the degree of the continuation parameter" href="_t__Degree.html">tDegree</a> -- the degree of the continuation parameter</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>bertiniPosDimSolve -- a main method that is used to produce witness sets</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_bertini__Refine__Sols.html">next</a> | <a href="_bertini__Parameter__Homotopy.html">previous</a> | <a href="_bertini__Refine__Sols.html">forward</a> | <a href="_bertini__Parameter__Homotopy.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="software for numerical algebraic geometry" href="index.html">Bertini</a> :: <a title="a main method that is used to produce witness sets" href="_bertini__Pos__Dim__Solve.html">bertiniPosDimSolve</a>    </div>
+    <hr/>
+    <div>
+      <h1>bertiniPosDimSolve -- a main method that is used to produce witness sets</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">V = bertiniPosDimSolve I</code></dd>
+              <dd><code class="language-macaulay2">V = bertiniPosDimSolve F</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of ring elements defining a variety</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>BertiniInputConfiguration</tt> (missing documentation)<!--tag: [bertiniPosDimSolve, BertiniInputConfiguration]-->
+<tt> => </tt><tt>...</tt>, <span>default value {}</span>, </span>              </li>
+              <li>
+<span><a title="optional argument to specify whether to use homogeneous coordinates" href="___Is__Projective.html">IsProjective</a><tt> => </tt><tt>...</tt>, <span>default value -1</span>, optional argument to specify whether to use homogeneous coordinates</span>              </li>
+              <li>
+<span><a title="Option to silence additional output" href="_bertini__Track__Homotopy_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option to silence additional output</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>V</tt>, <span>a <a title="a numerical variety" href="../../NAGtypes/html/___Numerical__Variety.html">numerical variety</a></span>, a numerical irreducible decomposition of the variety defined by F</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The method <tt>bertiniPosDimSolve</tt> calls  <tt>Bertini</tt> to find a numerical irreducible decomposition of the zero-set of F.  The decomposition is returned as the <a title="a numerical variety" href="../../NAGtypes/html/___Numerical__Variety.html">NumericalVariety</a> NV.  Witness sets of NV contain approximations to solutions of the system F=0. Bertini (1) writes the system to temporary files, (2) invokes <tt>Bertini</tt>'s solver with <tt>TrackType => 1</tt>, (3) Bertini uses a cascade homotopy to find witness supersets in each dimension, (4) removes extra points using a membership test or local dimension test, (5) deflates singular witness points, and finally (6) decomposes using a combination of monodromy and a linear trace test</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = {(y^2+x^2+z^2-1)*x,(y^2+x^2+z^2-1)*y}
+
+       3      2      2       2     3      2
+o2 = {x  + x*y  + x*z  - x, x y + y  + y*z  - y}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = bertiniPosDimSolve F
+
+o3 = S
+
+o3 : NumericalVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S#1_0#Points -- 1_0 chooses the first witness set in dimension 1
+
+o4 = {{-1.10806e-63-6.72876e-63*ii, 7.72046e-63-5.95645e-64*ii, .397346+.0700853*ii}}
+
+o4 : VerticalList</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Each <a title="a witness set" href="../../NAGtypes/html/___Witness__Set.html">WitnessSet</a> is accessed by dimension and then list position.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S#1 --first specify dimension
+
+o5 = {(dim=1,deg=1)}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : peek oo_0 --then list position
+
+o6 = WitnessSet{cache => CacheTable{...3...}                                                              }
+                Equations => {-3} | x3+xy2+xz2-x |
+                             {-3} | x2y+y3+yz2-y |
+                Points => {{-1.10806e-63-6.72876e-63*ii, 7.72046e-63-5.95645e-64*ii, .397346+.0700853*ii}}
+                Slice => | -1.51179-2.7846ii -.654837-3.31013ii 4.905-1.2379ii -2.03574+.148105ii |</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In the example, we find two components, one component has dimension 1 and degree 1 and the other has dimension 2 and degree 2.  We get the same results using symbolic methods.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : PD=primaryDecomposition( ideal F)
+
+             2    2    2
+o7 = {ideal(x  + y  + z  - 1), ideal (y, x)}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : dim PD_0
+
+o8 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : degree PD_0
+
+o9 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : dim PD_1
+
+o10 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : degree PD_1
+
+o11 = 1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>bertiniPosDimSolve</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;bertiniPosDimSolve(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;bertiniPosDimSolve(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a main method that is used to produce witness sets" href="_bertini__Pos__Dim__Solve.html">bertiniPosDimSolve</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

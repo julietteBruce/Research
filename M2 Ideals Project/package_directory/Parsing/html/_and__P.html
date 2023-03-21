@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>andP -- parser conjunction</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="__st_sp__Parser.html">next</a> | <a href="_or__P.html">previous</a> | <a href="__st_sp__Parser.html">forward</a> | <a href="_or__P.html">backward</a> | <a href="___Parser.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a framework for building parsers" href="index.html">Parsing</a> > <a title="the class of all parsers" href="___Parser.html">Parser</a> > <a title="parser conjunction" href="_and__P.html">andP</a>    </div>
+    <hr/>
+    <div>
+      <h1>andP -- parser conjunction</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">r = andP(p,q,...)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>(p,q,...)</tt>, a sequence of parsers (of type <a title="the class of all parsers" href="___Parser.html">Parser</a>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>r</tt>, <span>a <a title="the class of all parsers" href="___Parser.html">parser</a></span>, a parser that accepts as many tokens as <tt>p</tt> will accept, then as many as <tt>q</tt> will accept, and so on.  The return value is the sequence of values returned by each of the input parsers.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>An abbreviation for <tt>andP(p,q)</tt> is <tt>p@q</tt>.</p>
+        <p>If one of the arguments is <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span> then <a title="produce a parser that accepts a fixed string, one character at a time" href="_const__Parser.html">constParser</a> is used to convert it into a parser.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : (constParser &quot;abc&quot; @ constParser &quot;def&quot; : charAnalyzer) &quot;abcdef&quot;
+
+o1 = (abc, def)
+
+o1 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <div>
+          <h2>Code</h2>
+          <pre><code class="language-macaulay2">../../../../Macaulay2/packages/Parsing.m2:120:26-128:85: --source code:
+Parser @ Parser := (p,q) -> new Parser from (
+     c -> (
+          if c =!= null then (
+               if (p' := p c) =!= null 
+               then p' @ q 
+               else if (val1 := p null) =!= null then if (q' := q c) =!= null then (val2 -> (val1,val2)) % q'
+               )
+          else if (val1 = p null) =!= null and (val2 := q null) =!= null then (val1,val2)
+          ))</code></pre>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="produce a parser that accepts a fixed string, one character at a time" href="_const__Parser.html">constParser</a> -- produce a parser that accepts a fixed string, one character at a time</span>          </li>
+          <li>
+<span><a title="combine a parser with a lexical analyzer to make a complete system" href="___Parser_sp_co_sp__Analyzer.html">Parser : Analyzer</a> -- combine a parser with a lexical analyzer to make a complete system</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="parser conjunction" href="_and__P.html">andP</a> is <span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

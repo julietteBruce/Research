@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>substitute(DiffAlgElement,Ring) -- gets the RingElement of a differential form or vector field in a ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_singular__Ideal.html">previous</a> | forward | <a href="_singular__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="differential algebra" href="index.html">DiffAlg</a> :: <a title="gets the RingElement of a differential form or vector field in a ring" href="_substitute_lp__Diff__Alg__Element_cm__Ring_rp.html">substitute(DiffAlgElement,Ring)</a>    </div>
+    <hr/>
+    <div>
+      <h1>substitute(DiffAlgElement,Ring) -- gets the RingElement of a differential form or vector field in a ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="substituting values for variables" href="../../Macaulay2Doc/html/_substitute.html">substitute</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">sub(e,R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>e</tt>, <span>an instance of the type <a title="the class of all differential forms and vector fields" href="___Diff__Alg__Element.html">DiffAlgElement</a></span>, a differential form or vector field</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the target ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, an element of <tt>R</tt> representing <tt>e</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>By its nature, the package <a title="differential algebra" href="index.html">DiffAlg</a> is constantly changing the rings where its differential forms and vector fields are defined. This function is useful to get information of <a title="differential algebra" href="index.html">DiffAlg</a> out to some common polynomial rings and work with the rest of Macaulay2 packages.</p>
+<br/>        <p>In this example we get the singular locus of a logarithmic form and compute its Hilbert polynomial.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : w = random logarithmicForm(2,{1,1},&quot;a&quot;,Projective => true)
+
+o1 = (35x  + 21x )dx  + (- 35x  + 7x )dx  + (- 21x  - 7x )dx
+         1      2   0         0     2   1         0     1   2
+
+o1 : DiffAlgForm</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = singularIdeal w
+
+o2 = ideal (35x  + 21x , - 35x  + 7x , - 21x  - 7x )
+               1      2       0     2       0     1
+
+               QQ[i]
+o2 : Ideal of ------[][x ..x ]
+               2        0   2
+              i  + 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = QQ[gens ring I]
+
+o3 = S
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : hilbertPolynomial (sub(I,S))
+
+o4 = P
+      0
+
+o4 : ProjectiveHilbertPolynomial</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="gets the RingElement of a differential form or vector field in a ring" href="_substitute_lp__Diff__Alg__Element_cm__Ring_rp.html">substitute(DiffAlgElement,Ring)</a> -- gets the RingElement of a differential form or vector field in a ring</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

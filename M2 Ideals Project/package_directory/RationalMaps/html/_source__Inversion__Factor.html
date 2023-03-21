@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>sourceInversionFactor -- computes the common factor among the components of the composition of the inverse map and the original map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_source_lp__Rational__Mapping_rp.html">previous</a> | forward | <a href="_source_lp__Rational__Mapping_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="rational maps between projective varieties" href="index.html">RationalMaps</a> :: <a title="computes the common factor among the components of the composition of the inverse map and the original map" href="_source__Inversion__Factor.html">sourceInversionFactor</a>    </div>
+    <hr/>
+    <div>
+      <h1>sourceInversionFactor -- computes the common factor among the components of the composition of the inverse map and the original map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">s = sourceInversionFactor(g)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>g</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, a birational map $f : X \to Y$.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Verbosity</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 1</span>, if 0 then silence the function, if 1 then generate informative output which can be used to adjust strategies, if > 1 then generate a detailed description of the execution</span>              </li>
+              <li>
+<span><tt>CheckBirational</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to check birationality (if it is not birational, and CheckBirational is set to true, then an error will be thrown)</span>              </li>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value HybridStrategy</span>, choose the strategy to use: HybridStrategy, SimisStrategy, or ReesStrategy</span>              </li>
+              <li>
+<span><tt>HybridLimit</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 15</span>, within HybridStrategy, the option HybridLimit controls how often SimisStrategy and ReesStrategy are used, larger numbers means SimisStrategy will be executed longer</span>              </li>
+              <li>
+<span><tt>MinorsLimit</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 0</span>, how many submatrices of a variant of the Jacobian dual matrix to consider before switching to a different strategy</span>              </li>
+              <li>
+<span><tt>AssumeDominant</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to assume a rational map of schemes is dominant, if set to true it can speed up computation</span>              </li>
+              <li>
+<span><tt>QuickRank</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, whether to compute rank via the package <a title="faster linear algebra, especially for computation of minors" href="../../FastMinors/html/index.html">FastMinors</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>s</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, an element of the coordinate ring of $X$ .</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a map $f : X \to Y$, sourceInversionFactor computes the common factor among the components of, $f^{(-1)}$ composed with $f$, which is an element of the coordinate ring of $X$.</p>
+        </div>
+        <div>
+          <p>If <tt>AssumeDominant</tt> is set to <tt>true</tt> (default is <tt>false</tt>) then it assumes that the rational map of projective varieties is dominant, otherwise the function will compute the image by finding the kernel of $f$.</p>
+        </div>
+        <div>
+          <p>The <tt>Strategy</tt> option can be set to <tt>HybridStrategy</tt> (default), <tt>SimisStrategy</tt>, <tt>ReesStrategy</tt>, or <tt>SaturationStrategy</tt>.  Note <tt>SimisStrategy</tt> will never terminate for non-birational maps. If <tt>CheckBirational</tt> is set to <tt>false</tt> (default is <tt>true</tt>), then no check for birationality will be done.  If it is set to <tt>true</tt> and the map is not birational, then an error will be thrown if you are not using <tt>SimisStrategy</tt>. The option <tt>HybridLimit</tt> controls <tt>HybridStrategy</tt>.  Larger values of <tt>HybridLimit</tt> (the default value is 15) will mean that <tt>SimisStrategy</tt> is executed longer, smaller values will mean that <tt>ReesStrategy</tt> will be switched to sooner.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/7[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = ZZ/7[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : h = map(R, S, {y*z, x*z, x*y});
+
+o3 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : sourceInversionFactor h
+sourceInversionFactor: About to find the image of the map.  If you know the image, 
+        you may want to use the AssumeDominant option if this is slow.
+inverseOfMapSimis: About to find the image of the map.  If you know the image, 
+        you may want to use the AssumeDominant option if this is slow.
+inverseOfMapSimis: About to check rank, if this is very slow, you may want to try turning QuickRank=>false.
+inverseOfMapSimis: rank found, we computed enough of the Groebner basis.
+
+o4 = x*y*z
+
+o4 : R</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S=QQ[a,b,c,d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : g=(b^2-a*c)*c*d;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : phi=map(S,S,transpose jacobian ideal g);
+
+o7 : RingMap S &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : sourceInversionFactor(phi, Verbosity=>0)
+
+      2 4 2      5 2
+o8 = b c d  - a*c d
+
+o8 : S</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The current implementation of this function works only for irreducible varieties..  Also see the function <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Cremona/html/_inverse__Map.html">inverseMap</a> in the package <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Cremona/html/index.html">Cremona</a>, which for some maps from projective space is faster.  Additionally, also compare with the function <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/_invert__Birational__Map.html">invertBirationalMap</a> of the package <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/Parametrization/html/index.html">Parametrization</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="A strategy for determining whether a map is birational and computing its inverse" href="___Hybrid__Strategy.html">HybridStrategy</a> -- A strategy for determining whether a map is birational and computing its inverse</span>          </li>
+          <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Simis__Strategy.html">SimisStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>          </li>
+          <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Rees__Strategy.html">ReesStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>sourceInversionFactor</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;sourceInversionFactor(RingMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the common factor among the components of the composition of the inverse map and the original map" href="_source__Inversion__Factor.html">sourceInversionFactor</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

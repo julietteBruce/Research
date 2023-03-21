@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>LeafTree -- a tree described in terms of its leaves</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_leaf__Tree.html">next</a> | <a href="_leaf__Colorings.html">previous</a> | <a href="_leaf__Tree.html">forward</a> | <a href="_leaf__Colorings.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a> :: <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a>    </div>
+    <hr/>
+    <div>
+      <h1>LeafTree -- a tree described in terms of its leaves</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A tree can be described in terms of its leaves by specifying a leaf set and specifying the edges as partitions of the leaf set. This leaf centric description is particularly useful for phylogenetic trees.</p>
+          <p>The main constructor method is <a title="construct a LeafTree" href="_leaf__Tree.html">leafTree</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : T = leafTree({a,b,c,d},{{a,b}})
+
+o1 = {{a, b, c, d}, {set {a, b}, set {a}, set {b}, set {c}, set {d}}}
+
+o1 : LeafTree</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : leaves T
+
+o2 = set {a, b, c, d}
+
+o2 : Set</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : edges T
+
+o3 = {set {a, b}, set {a}, set {b}, set {c}, set {d}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : G = graph{{a,e},{b,e},{e,f},{c,f},{d,f}}
+
+o4 = Graph{a => {e}      }
+           b => {e}
+           c => {f}
+           d => {f}
+           e => {a, b, f}
+           f => {e, c, d}
+
+o4 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : leafTree G
+
+o5 = {{a, b, c, d}, {set {a, b}, set {a}, set {b}, set {c}, set {d}}}
+
+o5 : LeafTree</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="construct a LeafTree" href="_leaf__Tree.html">leafTree</a> -- construct a LeafTree</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Methods that use an object of class LeafTree :</h2>
+        <ul>
+          <li>
+<span><a title="convert a LeafTree to a Digraph" href="_digraph_lp__Leaf__Tree_cm__List_rp.html">digraph(LeafTree,List)</a> -- convert a LeafTree to a Digraph</span>          </li>
+          <li>
+<span><tt>&quot;digraph(LeafTree,Set)&quot;</tt> -- see <span><a title="convert a LeafTree to a Digraph" href="_digraph_lp__Leaf__Tree_cm__List_rp.html">digraph(LeafTree,List)</a> -- convert a LeafTree to a Digraph</span></span>          </li>
+          <li>
+<span><tt>&quot;edgeContract(LeafTree,List)&quot;</tt> -- see <span><a title="contract an edge of a tree" href="_edge__Contract.html">edgeContract</a> -- contract an edge of a tree</span></span>          </li>
+          <li>
+<span><tt>&quot;edgeContract(LeafTree,Set)&quot;</tt> -- see <span><a title="contract an edge of a tree" href="_edge__Contract.html">edgeContract</a> -- contract an edge of a tree</span></span>          </li>
+          <li>
+<span><tt>&quot;edgeCut(LeafTree,List,Thing)&quot;</tt> -- see <span><a title="break up a tree at an edge" href="_edge__Cut.html">edgeCut</a> -- break up a tree at an edge</span></span>          </li>
+          <li>
+<span><tt>&quot;edgeCut(LeafTree,Set,Thing)&quot;</tt> -- see <span><a title="break up a tree at an edge" href="_edge__Cut.html">edgeCut</a> -- break up a tree at an edge</span></span>          </li>
+          <li>
+<span><a title="list the edges of a tree" href="_edges_lp__Leaf__Tree_rp.html">edges(LeafTree)</a> -- list the edges of a tree</span>          </li>
+          <li>
+<span><a title="convert a LeafTree to Graph" href="_graph_lp__Leaf__Tree_rp.html">graph(LeafTree)</a> -- convert a LeafTree to Graph</span>          </li>
+          <li>
+<span><tt>&quot;internalEdges(LeafTree)&quot;</tt> -- see <span><a title="list the internal edges of a tree" href="_internal__Edges.html">internalEdges</a> -- list the internal edges of a tree</span></span>          </li>
+          <li>
+<span><tt>&quot;internalVertices(LeafTree)&quot;</tt> -- see <span><a title="list the internal vertices of a tree" href="_internal__Vertices.html">internalVertices</a> -- list the internal vertices of a tree</span></span>          </li>
+          <li>
+<span><tt>&quot;leafColorings(LeafTree,Model)&quot;</tt> -- see <span><a title="list the consistent colorings of a tree" href="_leaf__Colorings.html">leafColorings</a> -- list the consistent colorings of a tree</span></span>          </li>
+          <li>
+<tt>&quot;LeafTree == LeafTree&quot;</tt>          </li>
+          <li>
+<span><a title="list the leaves of a tree" href="_leaves_lp__Leaf__Tree_rp.html">leaves(LeafTree)</a> -- list the leaves of a tree</span>          </li>
+          <li>
+<span><tt>&quot;phyloToric42(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with 4ti2" href="_phylo__Toric42.html">phyloToric42</a> -- compute the invariants of a group-based phylogenetic model with 4ti2</span></span>          </li>
+          <li>
+<span><tt>&quot;phyloToricAMatrix(LeafTree,Model)&quot;</tt> -- see <span><a title="construct the design matrix of a group-based phylogenetic model" href="_phylo__Toric__A__Matrix.html">phyloToricAMatrix</a> -- construct the design matrix of a group-based phylogenetic model</span></span>          </li>
+          <li>
+<span><tt>&quot;phyloToricFP(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with toric fiber products" href="_phylo__Toric__F__P.html">phyloToricFP</a> -- compute the invariants of a group-based phylogenetic model with toric fiber products</span></span>          </li>
+          <li>
+<span><tt>&quot;phyloToricLinears(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the linear invariants of a group-based phylogenetic model" href="_phylo__Toric__Linears.html">phyloToricLinears</a> -- compute the linear invariants of a group-based phylogenetic model</span></span>          </li>
+          <li>
+<span><tt>&quot;phyloToricQuads(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the quadratic invariants of a group-based phylogenetic model" href="_phylo__Toric__Quads.html">phyloToricQuads</a> -- compute the quadratic invariants of a group-based phylogenetic model</span></span>          </li>
+          <li>
+<span><tt>&quot;phyloToricRandom(LeafTree,Model)&quot;</tt> -- see <span><a title="compute a random invariant of a group-based phylogenetic model" href="_phylo__Toric__Random.html">phyloToricRandom</a> -- compute a random invariant of a group-based phylogenetic model</span></span>          </li>
+          <li>
+<span><tt>&quot;pRing(LeafTree,Model)&quot;</tt> -- see <span><a title="construct the ring of probability coordinates" href="_p__Ring.html">pRing</a> -- construct the ring of probability coordinates</span></span>          </li>
+          <li>
+<span><tt>&quot;qRing(LeafTree,Model)&quot;</tt> -- see <span><a title="construct the ring of Fourier coordinates" href="_q__Ring.html">qRing</a> -- construct the ring of Fourier coordinates</span></span>          </li>
+          <li>
+<span><tt>&quot;vertexCut(LeafTree,List,Thing,Thing)&quot;</tt> -- see <span><a title="break up a tree at a vertex" href="_vertex__Cut.html">vertexCut</a> -- break up a tree at a vertex</span></span>          </li>
+          <li>
+<span><tt>&quot;vertexCut(LeafTree,Set,Thing,Thing)&quot;</tt> -- see <span><a title="break up a tree at a vertex" href="_vertex__Cut.html">vertexCut</a> -- break up a tree at a vertex</span></span>          </li>
+          <li>
+<span><a title="list the vertices of a tree" href="_vertices_lp__Leaf__Tree_rp.html">vertices(LeafTree)</a> -- list the vertices of a tree</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> &lt; <a title="the class of all visible lists" href="../../Macaulay2Doc/html/___Visible__List.html">VisibleList</a> &lt; <a title="the class of all basic lists" href="../../Macaulay2Doc/html/___Basic__List.html">BasicList</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

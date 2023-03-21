@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PythonObject -- a python object</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Python__Object_sp~.html">next</a> | <a href="_object__Type.html">previous</a> | <a href="___Python__Object_sp~.html">forward</a> | <a href="_object__Type.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="interface to Python" href="index.html">Python</a> :: <a title="a python object" href="___Python__Object.html">PythonObject</a>    </div>
+    <hr/>
+    <div>
+      <h1>PythonObject -- a python object</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This type corresponds to all objects of the <tt><a href="https://docs.python.org/3/c-api/structures.html#c.PyObject">PyObject</a></tt> type in the Python C API, and in particular all of the types that users are familiar with from the Python language itself.</p>
+        </div>
+        <div>
+          <p>You can perform basic arithmetic on python objects.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : x = pythonValue &quot;5&quot;
+
+o1 = 5
+
+o1 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : y = pythonValue &quot;2&quot;
+
+o2 = 2
+
+o2 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : x + y
+
+o3 = 7
+
+o3 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : x - y
+
+o4 = 3
+
+o4 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : x * y
+
+o5 = 10
+
+o5 : PythonObject of class int</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : x / y
+
+o6 = 2.5
+
+o6 : PythonObject of class float</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>You can also compare them.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : x > y
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : x == y
+
+o8 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>You can also perform operations on python objects and Macaulay2 things. The results will be returned as python objects.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : x + 2
+
+o9 = 7
+
+o9 : PythonObject of class int</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that many keywords in Macaulay2 are mapped to a certain dunder method in Python.  In particular,</p>
+        </div>
+        <ul>
+          <li>
+<tt>+</tt> → <tt>__add__</tt> (binary), <tt>__pos__</tt> (unary)          </li>
+          <li>
+<tt>-</tt> → <tt>__sub__</tt> (binary), <tt>__neg__</tt> (unary)          </li>
+          <li>
+<tt>*</tt> → <tt>__mul__</tt>          </li>
+          <li>
+<tt>@</tt> → <tt>__matmul__</tt>          </li>
+          <li>
+<tt>/</tt> → <tt>__truediv__</tt>          </li>
+          <li>
+<tt>//</tt> → <tt>__floordiv__</tt>          </li>
+          <li>
+<tt>%</tt> → <tt>__mod__</tt>          </li>
+          <li>
+<tt>^</tt> → <tt>__pow__</tt>          </li>
+          <li>
+<tt>&lt;&lt;</tt> → <tt>__lshift__</tt>          </li>
+          <li>
+<tt>>></tt> → <tt>__rshift__</tt>          </li>
+          <li>
+<tt>&amp;</tt> → <tt>__and__</tt>          </li>
+          <li>
+<tt>|</tt> → <tt>__or__</tt>          </li>
+          <li>
+<tt>^^</tt> → <tt>__xor__</tt>          </li>
+          <li>
+<tt>and</tt> → <tt>__and__</tt>          </li>
+          <li>
+<tt>or</tt> → <tt>__or__</tt>          </li>
+          <li>
+<tt>xor</tt> → <tt>__xor__</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Methods that use an object of class PythonObject :</h2>
+        <ul>
+          <li>
+<span><a title="absolute value of a python object" href="_abs_lp__Python__Object_rp.html">abs(PythonObject)</a> -- absolute value of a python object</span>          </li>
+          <li>
+<span><a title="ceiling of a python object" href="_ceiling_lp__Python__Object_rp.html">ceiling(PythonObject)</a> -- ceiling of a python object</span>          </li>
+          <li>
+<span><a title="floor of a python object" href="_floor_lp__Python__Object_rp.html">floor(PythonObject)</a> -- floor of a python object</span>          </li>
+          <li>
+<span><tt>&quot;getattr(PythonObject,String)&quot;</tt> -- see <span><a title="get an attribute of a python object" href="_getattr.html">getattr</a> -- get an attribute of a python object</span></span>          </li>
+          <li>
+<span><tt>&quot;PythonObject @@ Thing&quot;</tt> -- see <span><a title="get an attribute of a python object" href="_getattr.html">getattr</a> -- get an attribute of a python object</span></span>          </li>
+          <li>
+<span><tt>&quot;getitem(PythonObject,Thing)&quot;</tt> -- see <span><a title="get elements of python sequences" href="_getitem.html">getitem</a> -- get elements of python sequences</span></span>          </li>
+          <li>
+<span><tt>&quot;PythonObject _ Thing&quot;</tt> -- see <span><a title="get elements of python sequences" href="_getitem.html">getitem</a> -- get elements of python sequences</span></span>          </li>
+          <li>
+<span><tt>&quot;hasattr(PythonObject,String)&quot;</tt> -- see <span><a title="whether a python object has an attribute" href="_hasattr.html">hasattr</a> -- whether a python object has an attribute</span></span>          </li>
+          <li>
+<span><a title="documentation for python object" href="_help_lp__Python__Object_rp.html">help(PythonObject)</a> -- documentation for python object</span>          </li>
+          <li>
+<span><a title="get iterator of iterable python object" href="_iterator_lp__Python__Object_rp.html">iterator(PythonObject)</a> -- get iterator of iterable python object</span>          </li>
+          <li>
+<span><a title="returns the length of a python object" href="_length_lp__Python__Object_rp.html">length(PythonObject)</a> -- returns the length of a python object</span>          </li>
+          <li>
+<span><tt>&quot;member(PythonObject,PythonObject)&quot;</tt> -- see <span><a title="test membership in a python object" href="_member_lp__Thing_cm__Python__Object_rp.html">member(Thing,PythonObject)</a> -- test membership in a python object</span></span>          </li>
+          <li>
+<span><a title="test membership in a python object" href="_member_lp__Thing_cm__Python__Object_rp.html">member(Thing,PythonObject)</a> -- test membership in a python object</span>          </li>
+          <li>
+<span><a title="retrieve the next item from a python iterator" href="_next_lp__Python__Object_rp.html">next(PythonObject)</a> -- retrieve the next item from a python iterator</span>          </li>
+          <li>
+<tt>&quot;+ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;- PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject % PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject % Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject &amp; PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject &amp; Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject * PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject * Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject + PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject + Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject - PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject - Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject / PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject / Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject // PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject // Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject &lt;&lt; PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject &lt;&lt; Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject == PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject == Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject >> PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject >> Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject ? PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject ? Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject @ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject @ Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject ^ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject ^ Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject ^^ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject ^^ Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject | PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject | Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject and PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject and Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject or PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject or Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject xor PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;PythonObject xor Thing&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing % PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing &amp; PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing * PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing + PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing - PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing / PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing // PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing &lt;&lt; PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing == PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing >> PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing ? PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing @ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing ^ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing ^^ PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing | PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing and PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing or PythonObject&quot;</tt>          </li>
+          <li>
+<tt>&quot;Thing xor PythonObject&quot;</tt>          </li>
+          <li>
+<span><a title="bitwise not of a python object" href="___Python__Object_sp~.html">PythonObject ~</a> -- bitwise not of a python object</span>          </li>
+          <li>
+<span><a title="quotient and remainder of python objects" href="_quotient__Remainder_lp__Python__Object_cm__Python__Object_rp.html">quotientRemainder(PythonObject,PythonObject)</a> -- quotient and remainder of python objects</span>          </li>
+          <li>
+<span><tt>&quot;quotientRemainder(PythonObject,Thing)&quot;</tt> -- see <span><a title="quotient and remainder of python objects" href="_quotient__Remainder_lp__Python__Object_cm__Python__Object_rp.html">quotientRemainder(PythonObject,PythonObject)</a> -- quotient and remainder of python objects</span></span>          </li>
+          <li>
+<span><tt>&quot;quotientRemainder(Thing,PythonObject)&quot;</tt> -- see <span><a title="quotient and remainder of python objects" href="_quotient__Remainder_lp__Python__Object_cm__Python__Object_rp.html">quotientRemainder(PythonObject,PythonObject)</a> -- quotient and remainder of python objects</span></span>          </li>
+          <li>
+<span><tt>&quot;round(PythonObject)&quot;</tt> -- see <span><a title="round a python object" href="_round_lp__Z__Z_cm__Python__Object_rp.html">round(ZZ,PythonObject)</a> -- round a python object</span></span>          </li>
+          <li>
+<span><tt>&quot;round(PythonObject,PythonObject)&quot;</tt> -- see <span><a title="round a python object" href="_round_lp__Z__Z_cm__Python__Object_rp.html">round(ZZ,PythonObject)</a> -- round a python object</span></span>          </li>
+          <li>
+<span><a title="round a python object" href="_round_lp__Z__Z_cm__Python__Object_rp.html">round(ZZ,PythonObject)</a> -- round a python object</span>          </li>
+          <li>
+<span><tt>&quot;setattr(PythonObject,String,Thing)&quot;</tt> -- see <span><a title="set an attribute of a python object" href="_setattr.html">setattr</a> -- set an attribute of a python object</span></span>          </li>
+          <li>
+<span><tt>&quot;setitem(PythonObject,Thing,Thing)&quot;</tt> -- see <span><a title="set elements of mutable python sequences" href="_setitem.html">setitem</a> -- set elements of mutable python sequences</span></span>          </li>
+          <li>
+<span><tt>&quot;PythonObject Thing&quot;</tt> -- see <span><a title="convert callable python objects to Macaulay2 functions" href="_to__Function.html">toFunction</a> -- convert callable python objects to Macaulay2 functions</span></span>          </li>
+          <li>
+<span><tt>&quot;toFunction(PythonObject)&quot;</tt> -- see <span><a title="convert callable python objects to Macaulay2 functions" href="_to__Function.html">toFunction</a> -- convert callable python objects to Macaulay2 functions</span></span>          </li>
+          <li>
+<span><tt>&quot;toPython(PythonObject)&quot;</tt> -- see <span><a title="convert Macaulay2 things to Python objects" href="_to__Python.html">toPython</a> -- convert Macaulay2 things to Python objects</span></span>          </li>
+          <li>
+<span><a title="truncate a python object" href="_truncate_lp__Python__Object_rp.html">truncate(PythonObject)</a> -- truncate a python object</span>          </li>
+          <li>
+<span><a title="convert python objects to Macaulay2 things" href="_value_lp__Python__Object_rp.html">value(PythonObject)</a> -- convert python objects to Macaulay2 things</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a python object" href="___Python__Object.html">PythonObject</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor class <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

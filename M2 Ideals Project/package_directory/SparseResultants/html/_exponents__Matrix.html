@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>exponentsMatrix -- exponents in one or more polynomials</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_flattening.html">next</a> | <a href="_exponents_lp__Sparse__Resultant_rp.html">previous</a> | <a href="_flattening.html">forward</a> | <a href="_exponents_lp__Sparse__Resultant_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computations with sparse resultants" href="index.html">SparseResultants</a> :: <a title="exponents in one or more polynomials" href="_exponents__Matrix.html">exponentsMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>exponentsMatrix -- exponents in one or more polynomials</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">exponentsMatrix(f_0,f_1,...)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>(f_0,f_1,...)</tt> one or more Laurent polynomials in the same ring.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Unmixed</tt><tt> => </tt><tt>...</tt>, <span>default value null</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>(A_0,A_1,...)</tt> a sequence of matrices such that the columns of <tt>A_i</tt> are the <a title="the exponents of a polynomial" href="../../Macaulay2Doc/html/_exponents.html">exponents</a> of <tt>f_i</tt>. If either the option <tt>Unmixed</tt> is set to true or all the matrices <tt>A_i</tt> are equal, then just one matrix is returned whose columns are all the exponents occurring in at least one of the polynomials.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = (x^2 - 7 + x*y*z^11 + y, -3*y^7*z + x^3*y + 5*x^2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : exponentsMatrix(f_0)
+
+o3 = | 0 0 1  2 |
+     | 0 1 1  0 |
+     | 0 0 11 0 |
+
+              3        4
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : exponentsMatrix(f_0,f_1)
+
+o4 = (| 0 0 1  2 |, | 0 2 3 |)
+      | 0 1 1  0 |  | 7 0 1 |
+      | 0 0 11 0 |  | 1 0 0 |
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : exponentsMatrix(f_0,f_1,Unmixed=>true)
+
+o5 = | 0 0 0 1  2 3 |
+     | 0 1 7 1  0 1 |
+     | 0 0 1 11 0 0 |
+
+              3        6
+o5 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the exponents of a polynomial" href="../../Macaulay2Doc/html/_exponents.html">exponents</a> -- the exponents of a polynomial</span>          </li>
+          <li>
+<span><a title="sparse resultant (A-resultant)" href="_sparse__Resultant.html">sparseResultant</a> -- sparse resultant (A-resultant)</span>          </li>
+          <li>
+<span><a title="generic (Laurent) polynomials" href="_generic__Laurent__Polynomials.html">genericLaurentPolynomials</a> -- generic (Laurent) polynomials</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>exponentsMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;exponentsMatrix(Sequence)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="exponents in one or more polynomials" href="_exponents__Matrix.html">exponentsMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__Single.html">method function with a single argument</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

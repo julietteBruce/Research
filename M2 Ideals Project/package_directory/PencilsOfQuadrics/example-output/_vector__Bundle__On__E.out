@@ -1,0 +1,87 @@
+-- -*- M2-comint -*- hash: 303237638
+
+i1 : kk=ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing
+
+i2 : R = kk[s,t]
+
+o2 = R
+
+o2 : PolynomialRing
+
+i3 : f =(s+2*t)*(s+t)*(s-t)*(s-2*t)
+
+      4     2 2     4
+o3 = s  - 5s t  + 4t
+
+o3 : R
+
+i4 : L0 = randomLineBundle(0,f)
+
+o4 = VectorBundleOnE{...1...}
+
+o4 : VectorBundleOnE
+
+i5 : (L0.yAction)^2
+
+o5 = {-1} | s4-5s2t2+4t4 0            |
+     {-1} | 0            s4-5s2t2+4t4 |
+
+             2       2
+o5 : Matrix R  <--- R
+
+i6 : degOnE L0
+
+o6 = 0
+
+i7 : orderInPic L0
+
+o7 = 60
+
+i8 : L1 = randomLineBundle(-1,f)
+
+o8 = VectorBundleOnE{...1...}
+
+o8 : VectorBundleOnE
+
+i9 : degOnE L1
+
+o9 = -1
+
+i10 : L1.yAction
+
+o10 = {-2} | -10s2-29st-8t2 16s3-21s2t-2st2+41t3 |
+      {-1} | 38s+t          10s2+29st+8t2        |
+
+              2       2
+o10 : Matrix R  <--- R
+
+i11 : F = randomExtension(L1,L0)
+
+o11 = VectorBundleOnE{...1...}
+
+o11 : VectorBundleOnE
+
+i12 : F.yAction
+
+o12 = {-2} | -10s2-29st-8t2 16s3-21s2t-2st2+41t3 -30s3+24s2t-27st2-41t3
+      {-1} | 38s+t          10s2+29st+8t2        42s2-2st+22t2         
+      {-1} | 0              0                    -29s2+19st+19t2       
+      {-1} | 0              0                    47s2-22st+t2          
+      -----------------------------------------------------------------------
+      -22s3-16s2t-11st2-47t3 |
+      9s2+32st-48t2          |
+      38s2+9st+47t2          |
+      29s2-19st-19t2         |
+
+              4       4
+o12 : Matrix R  <--- R
+
+i13 : degOnE tensorProduct(L1,F)
+
+o13 = -3
+
+i14 : 

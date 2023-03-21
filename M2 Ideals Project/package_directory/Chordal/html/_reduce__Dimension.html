@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>reduceDimension -- removes arcs of a chordal network of small dimension</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_reduce__Net.html">next</a> | <a href="_nodes.html">previous</a> | <a href="_reduce__Net.html">forward</a> | <a href="_nodes.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="exploiting chordal structure in polynomial ideals" href="index.html">Chordal</a> :: <a title="removes arcs of a chordal network of small dimension" href="_reduce__Dimension.html">reduceDimension</a>    </div>
+    <hr/>
+    <div>
+      <h1>reduceDimension -- removes arcs of a chordal network of small dimension</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">reduceDimension N</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>an instance of the type <a title="a chordal network" href="___Chordal__Net.html">ChordalNet</a></span>, </span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span>no output</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+the input chordal network is modified                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Reduces a chordal network, by prunning the arcs that do not belong to the top $k$ dimensional parts of the variety.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a..j,MonomialOrder=>Lex];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal {a*d - b*c, c*f - d*e, e*h - f*g, g*j - h*i, a*j - b*i};
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : N = chordalNet I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : chordalTria N;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : codimCount N
+
+       7      6      5    4
+o5 = 2t  + 17t  + 14t  + t
+
+o5 : ZZ[t]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : reduceDimension(N,2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : codimCount N
+
+        5    4
+o7 = 14t  + t
+
+o7 : ZZ[t]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : reduceDimension(N,1);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : codimCount N
+
+      4
+o9 = t
+
+o9 : ZZ[t]</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The method <a title="top dimension of a chordal network" href="_top__Components_lp__Chordal__Net_rp.html">topComponents(ChordalNet)</a> is equivalent to <tt>reduceDimension(N,1)</tt>.</p>
+        </div>
+        <pre></pre>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>An arc is removed only if all the <a title="a chain of a chordal network" href="___Chordal__Net__Chain.html">chains</a> through it have small dimension. If an arc belongs to a chain of large dimenson and a chain of small dimension, then the arc will not be removed.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="codimension counts of the chains of a chordal network" href="_codim__Count.html">codimCount</a> -- codimension counts of the chains of a chordal network</span>          </li>
+          <li>
+<span><a title="compute top dimensional component of an ideal or module" href="../../PrimaryDecomposition/html/_top__Components.html">topComponents</a> -- compute top dimensional component of an ideal or module</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="removes arcs of a chordal network of small dimension" href="_reduce__Dimension.html">reduceDimension</a> is <span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

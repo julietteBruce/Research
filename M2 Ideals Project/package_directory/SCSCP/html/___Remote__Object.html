@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RemoteObject -- The class of all remote SCSCP objects</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___S__C__S__C__P__Connection.html">next</a> | <a href="_new__Connection.html">previous</a> | <a href="___S__C__S__C__P__Connection.html">forward</a> | <a href="_new__Connection.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="SCSCP (Symbolic Computation Software Composability Protocol) support" href="index.html">SCSCP</a> :: <a title="The class of all remote SCSCP objects" href="___Remote__Object.html">RemoteObject</a>    </div>
+    <hr/>
+    <div>
+      <h1>RemoteObject -- The class of all remote SCSCP objects</h1>
+      <div>
+        <h2>Description</h2>
+As an example, we store three polynomials on a remote server, compute their product both locally and remotely, and then ask the remote server whether the results are equal. Note that &lt;== and &lt;=== may be used without their first argument if no confusion can arise about the SCSCP server where the computation should take place.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : p1 = x^2+1; p2 = x^3-1; p3 = x+17;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : GAP = newConnection &quot;127.0.0.1:26135&quot;;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : gp1 = GAP &lt;=== p1
+
+o6 = &lt;&lt; Remote GAP object >>
+
+o6 : RemoteObject</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : gp2 = GAP &lt;=== p2; gp3 = GAP &lt;=== p3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : gp = gp1*gp2*gp3
+
+o9 = &lt;&lt; Remote GAP object >>
+
+o9 : RemoteObject</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : p = p1*p2*p3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : &lt;== (gp == p)
+
+o11 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : close GAP</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : </code></pre>
+</td>          </tr>
+        </table>
+We create matrices in Macaulay2 and compute the order of the group they generate in GAP. Note that you may have to set 'SCSCPserverAcceptsOnlyTransientCD := false;' in your GAP configuration (particularly scscp/config.g) in order for this example to work.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : m1 = id_(QQ^10)^{1,6,2,7,3,8,4,9,5,0}
+
+o1 = | 0 1 0 0 0 0 0 0 0 0 |
+     | 0 0 0 0 0 0 1 0 0 0 |
+     | 0 0 1 0 0 0 0 0 0 0 |
+     | 0 0 0 0 0 0 0 1 0 0 |
+     | 0 0 0 1 0 0 0 0 0 0 |
+     | 0 0 0 0 0 0 0 0 1 0 |
+     | 0 0 0 0 1 0 0 0 0 0 |
+     | 0 0 0 0 0 0 0 0 0 1 |
+     | 0 0 0 0 0 1 0 0 0 0 |
+     | 1 0 0 0 0 0 0 0 0 0 |
+
+              10        10
+o1 : Matrix QQ   &lt;--- QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : m2 = id_(QQ^10)^{1,0,2,3,4,5,6,7,8,9}
+
+o2 = | 0 1 0 0 0 0 0 0 0 0 |
+     | 1 0 0 0 0 0 0 0 0 0 |
+     | 0 0 1 0 0 0 0 0 0 0 |
+     | 0 0 0 1 0 0 0 0 0 0 |
+     | 0 0 0 0 1 0 0 0 0 0 |
+     | 0 0 0 0 0 1 0 0 0 0 |
+     | 0 0 0 0 0 0 1 0 0 0 |
+     | 0 0 0 0 0 0 0 1 0 0 |
+     | 0 0 0 0 0 0 0 0 1 0 |
+     | 0 0 0 0 0 0 0 0 0 1 |
+
+              10        10
+o2 : Matrix QQ   &lt;--- QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : GAP = newConnection &quot;127.0.0.1:26135&quot;
+
+o3 = SCSCP Connection to GAP (4.dev) on 127.0.0.1:26135
+
+o3 : SCSCPConnection</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : G = GAP &lt;=== matrixGroup({m1,m2})
+
+o4 = &lt;&lt; Remote GAP object >>
+
+o4 : RemoteObject</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : &lt;== size G
+
+o5 = 10080</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : close GAP</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : </code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Create a connection to an SCSCP server" href="_new__Connection.html">newConnection</a> -- Create a connection to an SCSCP server</span>          </li>
+          <li>
+<span><a title="Close an SCSCP connection" href="___Manipulator_sp__S__C__S__C__P__Connection.html">Manipulator SCSCPConnection</a> -- Close an SCSCP connection</span>          </li>
+          <li>
+<span><a title="Execute computations using SCSCP" href="___S__C__S__C__P__Connection_sp_lt_eq_eq_sp__Thing.html">SCSCPConnection Thing</a> -- Execute computations using SCSCP</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse"/>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="The class of all remote SCSCP objects" href="___Remote__Object.html">RemoteObject</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all XML trees created by the library libxml2" href="../../XML/html/___X__M__Lnode.html">XMLnode</a> &lt; <a title="the class of all mutable hash tables" href="../../Macaulay2Doc/html/___Mutable__Hash__Table.html">MutableHashTable</a> &lt; <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

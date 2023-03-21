@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>DExt -- Ext groups between holonomic modules</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___D__Ext_lp..._cm__Info_eq_gt..._rp.html">next</a> | <a href="_de__Rham__All_lp__Ring__Element_rp.html">previous</a> | <a href="___D__Ext_lp..._cm__Info_eq_gt..._rp.html">forward</a> | <a href="_de__Rham__All_lp__Ring__Element_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="Ext groups between holonomic modules" href="___D__Ext.html">DExt</a>    </div>
+    <hr/>
+    <div>
+      <h1>DExt -- Ext groups between holonomic modules</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">DExt(M,N), DExt(M,N,w)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, over the Weyl algebra <em>D</em></span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, over the Weyl algebra <em>D</em></span>              </li>
+              <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a positive weight vector</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="___D__Ext_lp..._cm__Info_eq_gt..._rp.html">Info</a><tt> => </tt><tt>...</tt>, <span>default value 1</span>, </span>              </li>
+              <li>
+<span><a href="___D__Ext_lp..._cm__Output_eq_gt..._rp.html">Output</a><tt> => </tt><tt>...</tt>, <span>default value HomologyModules</span>, </span>              </li>
+              <li>
+<span><a href="___D__Ext_lp..._cm__Special_eq_gt..._rp.html">Special</a><tt> => </tt><tt>...</tt>, <span>default value None</span>, </span>              </li>
+              <li>
+<span><a href="___D__Ext_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value Schreyer</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>,  the <tt>Ext</tt> groups between holonomic D-modules<em>M</em> and <em>N</em></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+The Ext groups between D-modules <em>M</em> and <em>N</em> are the derived functors of Hom, and are finite-dimensional vector spaces over the ground field when <em>M</em> and <em>N</em> are holonomic.        <p>The procedure calls <a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a>, which uses <em>w</em> if specified.</p>
+        <p>The algorithm used appears in the paper 'Polynomial and rational solutions of holonomic systems' by Oaku-Takayama-Tsai (2000). The method is to combine isomorphisms of Bjork and Kashiwara with the restriction algorithm.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : W = QQ[x, D, WeylAlgebra=>{x=>D}]
+
+o1 = W
+
+o1 : PolynomialRing, 1 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = W^1/ideal(x*(D-1))
+
+o2 = cokernel | xD-x |
+
+                            1
+o2 : W-module, quotient of W</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : N = W^1/ideal((D-1)^2)
+
+o3 = cokernel | D2-2D+1 |
+
+                            1
+o3 : W-module, quotient of W</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : DExt(M,N)
+
+                      2
+o4 = HashTable{0 => QQ }
+                      2
+               1 => QQ
+
+o4 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+Input modules M, N should be holonomic.Does not yet compute explicit representations of Ext groups such as Yoneda representation.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span>          </li>
+          <li>
+<span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>DExt</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;DExt(Module,Module)&quot;</tt>          </li>
+          <li>
+<tt>&quot;DExt(Module,Module,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Ext groups between holonomic modules" href="___D__Ext.html">DExt</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

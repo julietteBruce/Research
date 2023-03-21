@@ -1,0 +1,31 @@
+-- -*- M2-comint -*- hash: -1684160130
+
+i1 : ker Matrix := on(lookup(ker,Matrix),GenerateAssertions=>true,Name=>"ker"); 
+
+i2 : f = x -> kernel (x|x);
+
+i3 : R = QQ[a..c];
+
+i4 : f vars R
+-- ker (1) called with OptionTable: OptionTable{SubringLimit => infinity}
+-- ker (1) returned CacheFunction: -*a cache function*-
+-- ker (1) called with Matrix: | a b c a b c |
+-- ker (1) returned Module: image {1} | -1 0  0  -b 0  -c |
+--                                {1} | 0  -1 0  a  -c 0  |
+--                                {1} | 0  0  -1 0  b  a  |
+--                                {1} | 1  0  0  0  0  0  |
+--                                {1} | 0  1  0  0  0  0  |
+--                                {1} | 0  0  1  0  0  0  |
+assert( ker(map(R^1,R^{{-1}, {-1}, {-1}, {-1}, {-1}, {-1}},{{a, b, c, a, b, c}})) === (image(map(R^{{-1}, {-1}, {-1}, {-1}, {-1}, {-1}},R^{{-1}, {-1}, {-1}, {-2}, {-2}, {-2}},{{-1, 0, 0, -b, 0, -c}, {0, -1, 0, a, -c, 0}, {0, 0, -1, 0, b, a}, {1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}}))))
+
+o4 = image {1} | -1 0  0  -b 0  -c |
+           {1} | 0  -1 0  a  -c 0  |
+           {1} | 0  0  -1 0  b  a  |
+           {1} | 1  0  0  0  0  0  |
+           {1} | 0  1  0  0  0  0  |
+           {1} | 0  0  1  0  0  0  |
+
+                             6
+o4 : R-module, submodule of R
+
+i5 : 

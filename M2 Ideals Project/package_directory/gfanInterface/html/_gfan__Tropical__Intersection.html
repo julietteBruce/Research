@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanTropicalIntersection -- polyhedral data describing intersection of tropical hypersurfaces</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__Tropical__Lifting.html">next</a> | <a href="_gfan__Tropical__Hyper__Surface__Reconstruction.html">previous</a> | <a href="_gfan__Tropical__Lifting.html">forward</a> | <a href="_gfan__Tropical__Hyper__Surface__Reconstruction.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="polyhedral data describing intersection of tropical hypersurfaces" href="_gfan__Tropical__Intersection.html">gfanTropicalIntersection</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanTropicalIntersection -- polyhedral data describing intersection of tropical hypersurfaces</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gfanTropicalIntersection(L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>restrict</tt></span>              </li>
+              <li>
+<span><tt>stable</tt></span>              </li>
+              <li>
+<span><tt>symmetryExploit</tt></span>              </li>
+              <li>
+<span><tt>symmetryPrinting</tt></span>              </li>
+              <li>
+<span><tt>tplane</tt></span>              </li>
+              <li>
+<span><tt>tropicalbasistest</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="../../Polyhedra/html/___Fan.html">Fan</a></span>, the intersection of the tropical hypersurfaces of polynomials in <tt>L</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method intersects a list of tropical hypersurfaces. The input is a list of polynomials whose tropicalizations give the hypersurfaces.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : gfanTropicalHyperSurface(x+y)
+
+o2 = (Fan{...1...}, {1})
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : gfanTropicalHyperSurface(x+y+1)
+
+o3 = (Fan{...1...}, {1, 1, 1})
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gfanTropicalIntersection {x+y, x+y+1}
+
+o4 = (Fan{...1...}, {1})
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p><strong>gfan Documentation</strong> This program computes the set theoretical intersection of a set of tropical hypersurfaces (or to be precise, their common refinement as a fan). The input is a list of polynomials with each polynomial defining a hypersurface. Considering tropical hypersurfaces as fans, the intersection can be computed as the common refinement of these. Thus the output is a fan whose support is the intersection of the tropical hypersurfaces.Options:--tropicalbasistest: This option will test that the input polynomials for a tropical basis of the ideal they generate by computing the tropical prevariety of the input polynomials and then refine each cone with the Groebner fan and testing whether each cone in the refinement has an associated monomial free initial ideal. If so, then we have a tropical basis and 1 is written as output. If not, then a zero is written to the output together with a vector in the tropical prevariety but not in the variety. The actual check is done on a homogenization of the input ideal, but this does not affect the result. (This option replaces the -t option from earlier gfan versions.)--tplane: This option intersects the resulting fan with the plane x_0=-1, where x_0 is the first variable. To simplify the implementation the output is actually the common refinement with the non-negative half space. This means that &quot;stuff at infinity&quot; (where x_0=0) is not removed.--symmetryPrinting: Parse a group of symmetries after the input has been read. Used when printing with --incidence.--symmetryExploit: Restrict computation to the closed lexicographic fundamental domain of the specified symmetry group. This overwrites --restrict.--nocones: Tells the program not to output the CONES and MAXIMAL_CONES sections, but still output CONES_COMPRESSED and MAXIMAL_CONES_COMPRESSED if --symmetry is used.--restrict: Restrict the computation to a full-dimensional cone given by a list of marked polynomials. The cone is the closure of all weight vectors choosing these marked terms.--stable: Find the stable intersection of the input polynomials using tropical intersection theory. This can be slow. Most other options are ignored.--parameters value: With this option you can specify how many variables to treat as parameters instead of variables. This makes it possible to do computations where the coefficient field is the field of rational functions in the parameters.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes the tropical variety of an ideal" href="_gfan__Tropical__Brute__Force.html">gfanTropicalBruteForce</a> -- computes the tropical variety of an ideal</span>          </li>
+          <li>
+<span><a title="the tropical hypersurface of a principal ideal" href="_gfan__Tropical__Hyper__Surface.html">gfanTropicalHyperSurface</a> -- the tropical hypersurface of a principal ideal</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfanTropicalIntersection</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfanTropicalIntersection(List)&quot;</tt>          </li>
+          <li>
+<span><tt>gfanTropicalIntersection(List,List)</tt> (missing documentation)<!--tag: (gfanTropicalIntersection,List,List)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="polyhedral data describing intersection of tropical hypersurfaces" href="_gfan__Tropical__Intersection.html">gfanTropicalIntersection</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

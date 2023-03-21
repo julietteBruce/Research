@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>WitnessSet -- a witness set</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_witness__Set.html">next</a> | <a href="_to__Affine__Chart_lp__Z__Z_cm__List_rp.html">previous</a> | <a href="_witness__Set.html">forward</a> | <a href="_to__Affine__Chart_lp__Z__Z_cm__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> :: <a title="a witness set" href="___Witness__Set.html">WitnessSet</a>    </div>
+    <hr/>
+    <div>
+      <h1>WitnessSet -- a witness set</h1>
+      <div>
+        <h2>Description</h2>
+This type stores a witness set of an equidimensional solution component. The following methods can be used to access a <a title="a witness set" href="___Witness__Set.html">WitnessSet</a>:        <ul>
+          <li>
+ideal -- get the defining ideal of the algebraic superset          </li>
+          <li>
+equations -- get the list of defining polynomials of the algebraic superset          </li>
+          <li>
+slice -- get linear functions defining the slicing plane          </li>
+          <li>
+points -- get the list of witness points (which are zeroes of all above)          </li>
+        </ul>
+Also one may determine        <ul>
+          <li>
+dim -- the dimension          </li>
+          <li>
+codim -- the codimension          </li>
+          <li>
+deg -- the degree (the number of witness points)          </li>
+          <li>
+ring -- the ring of the defining polynomials          </li>
+        </ul>
+Only dimension and degree are displayed (by <a title="format for printing, as a net" href="../../Macaulay2Doc/html/_net.html">net</a>); to see the data stored in a witness set use <a title="examine contents of an object" href="../../Macaulay2Doc/html/_peek.html">peek</a>.        <h2>For developers:</h2>
+Required keys in a <a title="a witness set" href="___Witness__Set.html">WitnessSet</a> are        <ul>
+          <li>
+<tt>Equations</tt> -- <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>          </li>
+          <li>
+<tt>Slice</tt> -- <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> or <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>          </li>
+          <li>
+<tt>Points</tt>--  a list of <a title="a type used to store a point in complex space" href="___Abstract__Point.html">points</a>          </li>
+          <li>
+<tt>cache.IsIrreducible</tt> -- takes values <a title="the unique member of the empty class" href="../../Macaulay2Doc/html/_null.html">null</a>(not determined), <a href="../../Macaulay2Doc/html/_true.html">true</a>, or <a href="../../Macaulay2Doc/html/_false.html">false</a>          </li>
+        </ul>
+Optional keys:        <ul>
+          <li>
+<tt>ProjectionDimension</tt> -- <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the witness set describes a lifted variety (its projection on the first <tt>ProjectionDimension</tt> coordinates is the variety the witness set represents)          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span>          </li>
+          <li>
+<span><a title="a projective witness set" href="___Projective__Witness__Set.html">ProjectiveWitnessSet</a> -- a projective witness set</span>          </li>
+          <li>
+<span><a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> -- a numerical variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Types of <tt>witness set</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="a projective witness set" href="___Projective__Witness__Set.html">ProjectiveWitnessSet</a> -- a projective witness set</span>          </li>
+        </ul>
+        <h2>Functions and methods returning a witness set :</h2>
+        <ul>
+          <li>
+<span><a title="construct a WitnessSet" href="_witness__Set.html">witnessSet</a> -- construct a WitnessSet</span>          </li>
+        </ul>
+        <h2>Methods that use a witness set :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;generalEquations(WitnessSet)&quot;</tt> -- see <span><a title="random linear combinations of equations/generators" href="_general__Equations.html">generalEquations</a> -- random linear combinations of equations/generators</span></span>          </li>
+          <li>
+<span><tt>&quot;texMath(WitnessSet)&quot;</tt> -- see <span><a title="convert to TeX math format" href="_tex__Math_lp__Poly__Space_rp.html">texMath(PolySpace)</a> -- convert to TeX math format</span></span>          </li>
+          <li>
+<tt>&quot;codim(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;degree(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;dim(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;equations(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;ideal(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;net(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;points(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;ring(WitnessSet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;slice(WitnessSet)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a witness set" href="___Witness__Set.html">WitnessSet</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="(under construction!) new types and methods needed to generalize WitnessSet" href="___W__Set.html">WSet</a> &lt; <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

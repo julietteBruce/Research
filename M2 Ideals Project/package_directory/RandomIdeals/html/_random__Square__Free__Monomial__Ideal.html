@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomSquareFreeMonomialIdeal -- random square-free monomial ideal with given degree generators</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__Square__Free__Step.html">next</a> | <a href="_random__Sparse__Ideal.html">previous</a> | <a href="_random__Square__Free__Step.html">forward</a> | <a href="_random__Sparse__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package to construct various sorts of random ideals" href="index.html">RandomIdeals</a> :: <a title="random square-free monomial ideal with given degree generators" href="_random__Square__Free__Monomial__Ideal.html">randomSquareFreeMonomialIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomSquareFreeMonomialIdeal -- random square-free monomial ideal with given degree generators</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">I = randomSquareFreeMonomialIdeal(L,S)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, or sequence of non-negative integers</span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, Polynomial ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, square-free monomial ideal with generators of specified degrees</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Choose a random square-free monomial ideal whose generators have the degrees specified by the list or sequence L.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setRandomSeed(currentTime())
+
+o1 = 1675607348</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : kk=ZZ/101
+
+o2 = kk
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S=kk[a..e]
+
+o3 = S
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : L={3,5,7}
+
+o4 = {3, 5, 7}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : randomSquareFreeMonomialIdeal(L, S)
+low degree gens generated everything
+
+o5 = ideal(a*b*e)
+
+o5 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : randomSquareFreeMonomialIdeal(5:2, S)
+
+o6 = ideal (a*d, b*e, b*c, c*e, c*d)
+
+o6 : Ideal of S</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The ideal is constructed degree by degree, starting from the lowest degree specified. If there are not enough monomials of the next specified degree that are not already in the ideal, the function prints a warning and returns an ideal containing all the generators of that degree.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Choose a random monomial of given degree in a given ring" href="_random__Monomial.html">randomMonomial</a> -- Choose a random monomial of given degree in a given ring</span>          </li>
+          <li>
+<span><a title="random monomial ideal with given degree generators" href="_random__Monomial__Ideal.html">randomMonomialIdeal</a> -- random monomial ideal with given degree generators</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>randomSquareFreeMonomialIdeal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;randomSquareFreeMonomialIdeal(List,Ring)&quot;</tt>          </li>
+          <li>
+<tt>&quot;randomSquareFreeMonomialIdeal(Sequence,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="random square-free monomial ideal with given degree generators" href="_random__Square__Free__Monomial__Ideal.html">randomSquareFreeMonomialIdeal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hurwitzForm -- Hurwitz form of a projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Coisotropic.html">next</a> | <a href="___Grass_lp..._cm__Variable_eq_gt..._rp.html">previous</a> | <a href="_is__Coisotropic.html">forward</a> | <a href="___Grass_lp..._cm__Variable_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants, discriminants, and Chow forms" href="index.html">Resultants</a> :: <a title="Hurwitz form of a projective variety" href="_hurwitz__Form.html">hurwitzForm</a>    </div>
+    <hr/>
+    <div>
+      <h1>hurwitzForm -- Hurwitz form of a projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">hurwitzForm I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a homogeneous ideal defining a non-linear projective variety $X=V(I)\subset\mathbb{P}^n$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="use an affine chart on the Grassmannian" href="___Affine__Chart__Grass.html">AffineChartGrass</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, use an affine chart on the Grassmannian</span>              </li>
+              <li>
+<span><a title="use an affine chart on the projective space" href="___Affine__Chart__Proj.html">AffineChartProj</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, use an affine chart on the projective space</span>              </li>
+              <li>
+<span><a title="whether to use dual Plücker coordinates" href="___Duality.html">Duality</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, whether to use dual Plücker coordinates</span>              </li>
+              <li>
+<span><a title="pass the singular locus of the variety" href="___Singular__Locus.html">SingularLocus</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, pass the singular locus of the variety</span>              </li>
+              <li>
+<span><a title="specify a name for a variable" href="___Grass_lp..._cm__Variable_eq_gt..._rp.html">Variable</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, specify a name for a variable</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the Hurwitz form of $X$ in the coordinate ring of the Grassmannian $\mathbb{G}(n-dim(X),\mathbb{P}^n)$ in the Plücker embedding</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is the same as <tt>tangentialChowForm(I,1)</tt>, see <a title="higher Chow forms of a projective variety" href="_tangential__Chow__Form.html">tangentialChowForm</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = ideal random(2,Grass(0,4))
+
+           9 2   1       3 2   9       3       7 2   1       3        7      
+o1 = ideal(-p  + -p p  + -p  + -p p  + -p p  + -p  + -p p  + -p p  + --p p  +
+           2 0   2 0 1   4 1   4 0 2   2 1 2   9 2   2 0 3   4 1 3   10 2 3  
+     ------------------------------------------------------------------------
+      7 2          7       1       7         2
+     --p  + p p  + -p p  + -p p  + -p p  + 7p )
+     10 3    0 4   4 1 4   2 2 4   3 3 4     4
+
+o1 : Ideal of QQ[p ..p ]
+                  0   4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : time hurwitzForm Q
+     -- used 0.0769604 seconds
+
+            2                            2                                  
+o2 = 143100p    + 267300p   p    + 96525p    - 56700p   p    - 56100p   p   
+            0,1          0,1 0,2         0,2         0,1 1,2         0,2 1,2
+     ------------------------------------------------------------------------
+           2                                              2                 
+     + 900p    + 140400p   p    + 111780p   p    + 133380p    - 8100p   p   
+           1,2          0,1 0,3          0,2 0,3          0,3        0,1 1,3
+     ------------------------------------------------------------------------
+                                                           2    
+     - 37530p   p    - 1620p   p    + 7020p   p    + 16605p    +
+             0,2 1,3        1,2 1,3        0,3 1,3         1,3  
+     ------------------------------------------------------------------------
+                                                                   
+     49140p   p    + 17220p   p    - 2520p   p    + 60480p   p    +
+           0,1 2,3         0,2 2,3        1,2 2,3         0,3 2,3  
+     ------------------------------------------------------------------------
+                           2                                     
+     34020p   p    + 18228p    + 329400p   p    + 48600p   p    +
+           1,3 2,3         2,3          0,1 0,4         0,2 0,4  
+     ------------------------------------------------------------------------
+                              2                                     
+     442800p   p    + 1350000p    - 13500p   p    - 106650p   p    -
+            0,3 0,4           0,4         0,1 1,4          0,2 1,4  
+     ------------------------------------------------------------------------
+                                                                     
+     40500p   p    + 15300p   p    + 47250p   p    + 113400p   p    +
+           1,2 1,4         0,3 1,4         1,3 1,4          0,4 1,4  
+     ------------------------------------------------------------------------
+            2                                                    
+     193725p    + 132300p   p    - 9300p   p    - 42600p   p    +
+            1,4          0,1 2,4        0,2 2,4         1,2 2,4  
+     ------------------------------------------------------------------------
+                                                                       
+     206280p   p    + 116640p   p    + 70840p   p    + 669600p   p    +
+            0,3 2,4          1,3 2,4         2,3 2,4          0,4 2,4  
+     ------------------------------------------------------------------------
+                             2                                    
+     434700p   p    + 232500p    - 3600p   p    - 117720p   p    -
+            1,4 2,4          2,4        0,1 3,4          0,2 3,4  
+     ------------------------------------------------------------------------
+                                                                   
+     85860p   p    - 5040p   p    - 15120p   p    + 20160p   p    +
+           1,2 3,4        0,3 3,4         1,3 3,4         2,3 3,4  
+     ------------------------------------------------------------------------
+                                                               2
+     100800p   p    + 138600p   p    + 186480p   p    + 152880p
+            0,4 3,4          1,4 3,4          2,4 3,4          3,4
+
+                                                      QQ[p   ..p   , p   , p   , p   , p   , p   , p   , p   , p   ]
+                                                          0,1   0,2   1,2   0,3   1,3   2,3   0,4   1,4   2,4   3,4
+o2 : ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+     (p   p    - p   p    + p   p   , p   p    - p   p    + p   p   , p   p    - p   p    + p   p   , p   p    - p   p    + p   p   , p   p    - p   p    + p   p   )
+       2,3 1,4    1,3 2,4    1,2 3,4   2,3 0,4    0,3 2,4    0,2 3,4   1,3 0,4    0,3 1,4    0,1 3,4   1,2 0,4    0,2 1,4    0,1 2,4   1,2 0,3    0,2 1,3    0,1 2,3</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="higher Chow forms of a projective variety" href="_tangential__Chow__Form.html">tangentialChowForm</a> -- higher Chow forms of a projective variety</span>          </li>
+          <li>
+<span><a title="Chow form of a projective variety" href="_chow__Form.html">chowForm</a> -- Chow form of a projective variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hurwitzForm</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hurwitzForm(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Hurwitz form of a projective variety" href="_hurwitz__Form.html">hurwitzForm</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

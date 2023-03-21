@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>loadBuiltinCodimAndDegree -- change codim and degree to use the default, built-in methods.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_load__S__C__I__P__Codim__And__Degree.html">next</a> | <a href="___Ignore__Primes.html">previous</a> | <a href="_load__S__C__I__P__Codim__And__Degree.html">forward</a> | <a href="___Ignore__Primes.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for fast monomial ideal computations using constraint integer programming" href="index.html">MonomialIntegerPrograms</a> :: <a title="change codim and degree to use the default, built-in methods." href="_load__Builtin__Codim__And__Degree.html">loadBuiltinCodimAndDegree</a>    </div>
+    <hr/>
+    <div>
+      <h1>loadBuiltinCodimAndDegree -- change codim and degree to use the default, built-in methods.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">loadBuiltinCodimAndDegree()</code></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>When the package gets loaded, codim and degree are replaced with <tt>codimensionIP</tt> and <tt>degreeIP</tt> respectively for a <tt>MonomialIdeal</tt>. <tt>loadBuiltinCodimAndDegree</tt> reloads the built-in methods.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : ScipPrintLevel = 1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : codim(monomialIdeal(a^2, b*a, c*b))
+Codim files saved in directory: /tmp/M2-8647-0/0
+
+o3 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : degree(monomialIdeal(a^2, b*a, c*b))
+Codim files saved in directory: /tmp/M2-8647-0/1
+Degree files saved in directory: /tmp/M2-8647-0/2
+
+o4 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : loadBuiltinCodimAndDegree();</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : codim(monomialIdeal(a^2, b*a, c*b))
+
+o6 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : degree(monomialIdeal(a^2, b*a, c*b))
+
+o7 = 3</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="change codim and degree to use the default, built-in methods." href="_load__S__C__I__P__Codim__And__Degree.html">loadSCIPCodimAndDegree</a> -- change codim and degree to use the default, built-in methods.</span>          </li>
+          <li>
+<span><a title="compute the codimension of a monomial ideal using integer programming" href="_codimension__I__P.html">codimensionIP</a> -- compute the codimension of a monomial ideal using integer programming</span>          </li>
+          <li>
+<span><a title="compute the degree of a monomial ideal using integer programming" href="_degree__I__P.html">degreeIP</a> -- compute the degree of a monomial ideal using integer programming</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>loadBuiltinCodimAndDegree</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>loadBuiltinCodimAndDegree()</tt> (missing documentation)<!--tag: 1 : (loadBuiltinCodimAndDegree)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="change codim and degree to use the default, built-in methods." href="_load__Builtin__Codim__And__Degree.html">loadBuiltinCodimAndDegree</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

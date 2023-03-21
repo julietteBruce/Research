@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>NumericalVariety -- a numerical variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_numerical__Variety_lp__List_rp.html">next</a> | <a href="_numerical__Affine__Space.html">previous</a> | <a href="_numerical__Variety_lp__List_rp.html">forward</a> | <a href="_numerical__Affine__Space.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Common types used in Numerical Algebraic Geometry" href="index.html">NAGtypes</a> :: <a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a>    </div>
+    <hr/>
+    <div>
+      <h1>NumericalVariety -- a numerical variety</h1>
+      <div>
+        <h2>Description</h2>
+        <p>This type stores a collection of witness sets representing a complex affine variety. </p>
+Note that        <ul>
+          <li>
+The ambient space is expected to be the same, i.e., <a title="a witness set" href="___Witness__Set.html">dimension</a> (or <a title="a witness set" href="___Witness__Set.html">ProjectionDimension</a>) of <a title="a witness set" href="___Witness__Set.html">witness sets</a> should be the same.          </li>
+          <li>
+The constructor <a title="construct a numerical variety" href="_numerical__Variety_lp__List_rp.html">numericalVariety(List)</a> does not check the sensibility of the input; run <a title="a numerical variety" href="___Numerical__Variety.html">check(NumericalVariety)</a> to verify the validity of a numerical variety.          </li>
+        </ul>
+Basic service routines:        <ul>
+          <li>
+dim -- the dimension          </li>
+          <li>
+codim -- the codimension          </li>
+          <li>
+deg -- the degree          </li>
+          <li>
+<a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a>          </li>
+        </ul>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y]; I = ideal((x^2+y^2+2)*x,(x^2+y^2+2)*y*(y-1));
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : w1 := witnessSet(I , ideal(x-y), {point {{0.999*ii,0.999*ii}}, point {{-1.001*ii,-1.001*ii}}} )
+
+o3 = [dim=1,deg=2]-*may be reducible*-
+
+o3 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : w0 := witnessSet(I, ideal R, {point {{0.,0.}}})
+
+o4 = [dim=0,deg=1]-*may be reducible*-
+
+o4 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : w0' := witnessSet(I, ideal R, {point {{0.,1.}}})
+
+o5 = [dim=0,deg=1]-*may be reducible*-
+
+o5 : WitnessSet</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : V := numericalVariety {w0,w1,w0'}
+
+o6 = a &quot;numerical variety&quot; with components in
+     dim 0:  [dim=0,deg=1]-*may be reducible*- [dim=0,deg=1]-*may be reducible*-
+     dim 1:  [dim=1,deg=2]-*may be reducible*-
+
+o6 : NumericalVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : dim V
+
+o7 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : degree V
+
+o8 = 2</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a witness set" href="___Witness__Set.html">WitnessSet</a> -- a witness set</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Functions and methods returning a numerical variety :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;numericalVariety&quot;</tt> -- see <span><a title="construct a numerical variety" href="_numerical__Variety_lp__List_rp.html">numericalVariety(List)</a> -- construct a numerical variety</span></span>          </li>
+        </ul>
+        <h2>Methods that use a numerical variety :</h2>
+        <ul>
+          <li>
+<span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span>          </li>
+          <li>
+<span><tt>&quot;components(NumericalVariety,ZZ)&quot;</tt> -- see <span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span></span>          </li>
+          <li>
+<span><tt>&quot;components(NumericalVariety,ZZ,InfiniteNumber)&quot;</tt> -- see <span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span></span>          </li>
+          <li>
+<span><tt>&quot;components(NumericalVariety,ZZ,ZZ)&quot;</tt> -- see <span><a title="list components of a numerical variety" href="_components_lp__Numerical__Variety_rp.html">components(NumericalVariety)</a> -- list components of a numerical variety</span></span>          </li>
+          <li>
+<tt>&quot;check(NumericalVariety)&quot;</tt>          </li>
+          <li>
+<tt>&quot;degree(NumericalVariety)&quot;</tt>          </li>
+          <li>
+<tt>&quot;dim(NumericalVariety)&quot;</tt>          </li>
+          <li>
+<tt>&quot;net(NumericalVariety)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a numerical variety" href="___Numerical__Variety.html">NumericalVariety</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all mutable hash tables" href="../../Macaulay2Doc/html/___Mutable__Hash__Table.html">MutableHashTable</a> &lt; <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>baseChange -- Perform base change for field extensions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ext__Field.html">next</a> | <a href="_rational__Points.html">previous</a> | <a href="_ext__Field.html">forward</a> | <a href="_global__Height.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Find the rational points on a variety" href="index.html">RationalPoints2</a> > <a title="Perform base change for field extensions" href="_base__Change.html">baseChange</a>    </div>
+    <hr/>
+    <div>
+      <h1>baseChange -- Perform base change for field extensions</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">baseChange(F, -)</code></dd>
+              <dd><code class="language-macaulay2">baseChange(p, -)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, the extension field</span>              </li>
+              <li>
+<span><tt>p</tt>, a prime number</span>              </li>
+              <li>
+<span>a polynomial or <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span> with coefficients in the base field</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>PrimitiveElement</tt><tt> => </tt><tt>...</tt>, <span>default value FindOne</span>, specify the image of the primitive element</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span>a polynomial or <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span> with coefficients in the extension field</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The base change requires finding an image for the primitive element of the base field, which can be specified using the option <tt>PrimitiveElement</tt>. The default is <tt>FindOne</tt>, in which case we solve the minimal polynomial of the base field in the extension field and take the first zero. Beware that it is well-defined only up to the action of the Galois group.</p>
+        </div>
+        <div>
+          <p>In this example we first obtain an extension <tt>F</tt> of the rational numbers by adding a cube root of 2, then we compute its image in the splitting field <tt>F'</tt> of <tt>x^3-2</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F = toField(QQ[c]/(c^3-2));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : QQ[x]; F' = splittingField(x^3-2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : c' = baseChange_F' c
+
+      1 4
+o4 = --a
+     18
+
+o4 : F'</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : c'^3 == 2
+
+o5 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : F[x,y]; I = ideal(x-c, y-c^2);
+
+o7 : Ideal of F[x..y]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : baseChange_F' I
+
+                 1 4      1 2
+o8 = ideal (x - --a , y + -a )
+                18        3
+
+o8 : Ideal of F'[x..y]</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We get a different embedding by specifying the image of the primitive element.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : F'[x]; c'' = last zeros(x^3-2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : baseChange(F', I, PrimitiveElement => c'')
+
+                  1 4   1        1 5   1 2
+o11 = ideal (x + --a  + -a, y - --a  - -a )
+                 36     2       36     6
+
+o11 : Ideal of F'[x..y]</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If a prime number <tt>p</tt> is input instead of a field, the element will be reduced to characteristic <tt>p</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : QQ[x]; baseChange_7 (x^3-2)
+
+       3
+o13 = x  - 2
+
+      ZZ
+o13 : --[x]
+       7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : F[x]; baseChange_7 ideal(x-c)
+
+                 2
+o15 = ideal(x - a  - a + 3)
+
+o15 : Ideal of GF 343[x]</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We can also base change an element of a number field to the complex numbers. Note that to avoid accumulated errors, it is better to do computations in the field and only make the conversion once in the end.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : baseChange_CC c
+
+o16 = 1.25992104989487-5.51778059824887e-61*ii
+
+o16 : CC (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : oo^3
+
+o17 = 2-2.62767921785699e-60*ii
+
+o17 : CC (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : baseChange_CC (c^3)
+
+o18 = 2
+
+o18 : CC (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>For complex numbers we only need to provide an approximate value for <tt>PrimitiveElement</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : baseChange(CC, c, PrimitiveElement => -.6+1.1*ii)
+
+o19 = -.629960524947436+1.09112363597172*ii
+
+o19 : CC (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>baseChange</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;baseChange(InexactFieldFamily,Number)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(InexactFieldFamily,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(Number,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(Number,Number)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(Number,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(Ring,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(Ring,Number)&quot;</tt>          </li>
+          <li>
+<tt>&quot;baseChange(Ring,RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Perform base change for field extensions" href="_base__Change.html">baseChange</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

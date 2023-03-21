@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>AbstractSheaf ^** RingElement -- tensor power of an abstract sheaf</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_abstract__Sheaf_lp__Abstract__Variety_cm__Ring__Element_rp.html">next</a> | <a href="___Abstract__Sheaf_sp^_sp__Z__Z.html">previous</a> | <a href="_abstract__Sheaf_lp__Abstract__Variety_cm__Ring__Element_rp.html">forward</a> | <a href="___Abstract__Sheaf_sp^_sp__Z__Z.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computation in intersection theory" href="index.html">Schubert2</a> :: <a title="tensor power of an abstract sheaf" href="___Abstract__Sheaf_sp^_st_st_sp__Ring__Element.html">AbstractSheaf ^** RingElement</a>    </div>
+    <hr/>
+    <div>
+      <h1>AbstractSheaf ^** RingElement -- tensor power of an abstract sheaf</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for tensor or Cartesian power" href="../../Macaulay2Doc/html/_^_st_st.html">^**</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">F^**n</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an <a title="the class of all abstract sheaves" href="___Abstract__Sheaf.html">abstract sheaf</a></span>, of rank 1 if <tt>n</tt> is not an integer</span>              </li>
+              <li>
+<span><tt>n</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, in (or promotable to) the intersection ring of the variety of $F$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all abstract sheaves" href="___Abstract__Sheaf.html">abstract sheaf</a></span>, the $n$-th tensor power of $F$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : pt = base n
+
+o1 = pt
+
+o1 : an abstract variety of dimension 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X = abstractProjectiveSpace'(3,pt)
+
+o2 = X
+
+o2 : a flag bundle with subquotient ranks {3, 1}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : A = intersectionRing X
+
+o3 = A
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : ch ((OO_X(1)) ^** 2)
+
+                2   4 3
+o4 = 1 + 2h + 2h  + -h
+                    3
+
+o4 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : ch ((OO_X(1)) ^** 3)
+
+              9 2   9 3
+o5 = 1 + 3h + -h  + -h
+              2     2
+
+o5 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : ch ((OO_X(1)) ^** n)
+
+               1 2 2   1 3 3
+o6 = 1 + n*h + -n h  + -n h
+               2       6
+
+o6 : A</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<tt>&quot;AbstractSheaf ^** QQ&quot;</tt>          </li>
+          <li>
+<span><a title="tensor power of an abstract sheaf" href="___Abstract__Sheaf_sp^_st_st_sp__Ring__Element.html">AbstractSheaf ^** RingElement</a> -- tensor power of an abstract sheaf</span>          </li>
+          <li>
+<tt>&quot;AbstractSheaf ^** ZZ&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,68 @@
+-- -*- M2-comint -*- hash: 1281313958
+
+i1 : fib = n -> if n <= 1 then 1 else fib(n-1) + fib(n-2)
+
+o1 = fib
+
+o1 : FunctionClosure
+
+i2 : time fib 28
+     -- used 3.21317 seconds
+
+o2 = 514229
+
+i3 : fib = memoize fib
+
+o3 = fib
+
+o3 : FunctionClosure
+
+i4 : time fib 28
+     -- used 0.000067902 seconds
+
+o4 = 514229
+
+i5 : time fib 28
+     -- used 2.122e-6 seconds
+
+o5 = 514229
+
+i6 : peek memoizeValues fib
+
+o6 = MutableHashTable{0 => 1      }
+                      1 => 1
+                      2 => 2
+                      3 => 3
+                      4 => 5
+                      5 => 8
+                      6 => 13
+                      7 => 21
+                      8 => 34
+                      9 => 55
+                      10 => 89
+                      11 => 144
+                      12 => 233
+                      13 => 377
+                      14 => 610
+                      15 => 987
+                      16 => 1597
+                      17 => 2584
+                      18 => 4181
+                      19 => 6765
+                      20 => 10946
+                      21 => 17711
+                      22 => 28657
+                      23 => 46368
+                      24 => 75025
+                      25 => 121393
+                      26 => 196418
+                      27 => 317811
+                      28 => 514229
+
+i7 : memoizeClear fib
+
+i8 : peek memoizeValues fib
+
+o8 = MutableHashTable{}
+
+i9 : 

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>getModuleFromNoetherianOperators -- Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_hilbert__Function_lp__Z__Z_cm__Dual__Space_rp.html">next</a> | <a href="_get__Ideal__From__Noetherian__Operators.html">previous</a> | <a href="_hilbert__Function_lp__Z__Z_cm__Dual__Space_rp.html">forward</a> | <a href="_get__Ideal__From__Noetherian__Operators.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a> :: <a title="Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal" href="_get__Module__From__Noetherian__Operators.html">getModuleFromNoetherianOperators</a>    </div>
+    <hr/>
+    <div>
+      <h1>getModuleFromNoetherianOperators -- Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">U = getModuleFromNoetherianOperators(P, L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a prime ideal</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of <a title="differential operator" href="___Diff__Op.html">differential operators</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>U</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, the primary submodule corresponding to L and P</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method contains an implementation of Algorithm 4.3 in the paper <a href="https://arxiv.org/abs/2104.03385">Primary decomposition of modules: a computational differential approach</a>. This method can be seen as the reverse operation of computing a set of Noetherian operators for a primary module. For more details, see Section 4 of the paper <a href="https://arxiv.org/abs/2104.03385">Primary decomposition of modules: a computational differential approach</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x1,x2,x3,x4]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : U = image matrix{{x1*x2,x2*x3,x3*x4,x4*x1}, {x1^2,x2^2,x3^2,x4^2}}
+
+o2 = image | x1x2 x2x3 x3x4 x1x4 |
+           | x1^2 x2^2 x3^2 x4^2 |
+
+                             2
+o2 : R-module, submodule of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : dpd = differentialPrimaryDecomposition U
+
+                                                                           
+o3 = {{ideal (x4, x2), {| 1 |}}, {ideal (x3, x1), {| 1 |}}, {ideal (x4, x3,
+                        | 0 |                      | 0 |                   
+     ------------------------------------------------------------------------
+                                                             
+     x2), {| x1dx2 |, | x1dx2^2 |, | x1^2dx2^3+6x1dx2dx3 |, |
+           |   -1  |  |  -2dx2  |  |    -3x1dx2^2-6dx3   |  |
+     ------------------------------------------------------------------------
+                                                                           
+     x1^2dx2^4+12x1dx2^2dx3 |}}, {ideal (x4, x3, x1), {| x2dx3 |, | x2dx3^2
+       -4x1dx2^3-24dx2dx3   |                          |   -1  |  |  -2dx3 
+     ------------------------------------------------------------------------
+                                                                          
+     |, | x2^2dx3^3+6x2dx3dx4 |, | x2^2dx3^4+12x2dx3^2dx4 |}}, {ideal (x4,
+     |  |    -3x2dx3^2-6dx4   |  |   -4x2dx3^3-24dx3dx4   |               
+     ------------------------------------------------------------------------
+                                                                 
+     x2, x1), {| x3dx4 |, | x3dx4^2 |, | x3^2dx4^3+6x3dx1dx4 |, |
+               |   -1  |  |  -2dx4  |  |    -3x3dx4^2-6dx1   |  |
+     ------------------------------------------------------------------------
+                                                                           
+     x3^2dx4^4+12x3dx1dx4^2 |}}, {ideal (x3, x2, x1), {| x4dx1 |, | x4dx1^2
+       -4x3dx4^3-24dx1dx4   |                          |   -1  |  |  -2dx1 
+     ------------------------------------------------------------------------
+                                                                           
+     |, | x4^2dx1^3+6x4dx1dx2 |, | x4^2dx1^4+12x4dx1^2dx2 |}}, {ideal (x3 -
+     |  |    -3x4dx1^2-6dx2   |  |   -4x4dx1^3-24dx1dx2   |                
+     ------------------------------------------------------------------------
+                                                                             
+     x4, x2 - x4, x1 - x4), {| -1 |}}, {ideal (x3 + x4, x2 - x4, x1 + x4), {|
+                             |  1 |                                         |
+     ------------------------------------------------------------------------
+                                        2     2
+     1 |}}, {ideal (x2 + x4, x1 + x3, x3  + x4 ), {| x4 |}}, {ideal (x4, x3,
+     1 |                                           | x3 |                   
+     ------------------------------------------------------------------------
+     x2, x1), {|      -2dx1dx2dx3^2-2dx1^2dx3dx4      |}}}
+               | 2dx1dx2^2dx3+dx1^2dx3^2+2dx1dx3dx4^2 |
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : M = dpd / (L -> getModuleFromNoetherianOperators(first L, last L)) // intersect
+
+o4 = image | x1x4 x3x4 x2x3 x1x2 |
+           | x4^2 x3^2 x2^2 x1^2 |
+
+                             2
+o4 : R-module, submodule of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : M == U
+
+o5 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>getModuleFromNoetherianOperators</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;getModuleFromNoetherianOperators(Ideal,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes a primary submodule corresponding to a list of Noetherian operators and a prime ideal" href="_get__Module__From__Noetherian__Operators.html">getModuleFromNoetherianOperators</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

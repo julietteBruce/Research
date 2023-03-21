@@ -1,0 +1,217 @@
+-- -*- M2-comint -*- hash: -1191890984
+
+i1 : A = QQ<|x,y,z|>
+
+o1 = A
+
+o1 : FreeAlgebra
+
+i2 : f = y*z + z*y - x^2
+
+        2
+o2 = - x  + y*z + z*y
+
+o2 : A
+
+i3 : g = x*z + z*x - y^2
+
+            2
+o3 = x*z - y  + z*x
+
+o3 : A
+
+i4 : h = z^2 - x*y - y*x
+
+                    2
+o4 = - x*y - y*x + z
+
+o4 : A
+
+i5 : B = A/ideal{f,g,h}
+Using numthreads = 0
+
+o5 = B
+
+o5 : FreeAlgebraQuotient
+
+i6 : centralElements(B,3)
+
+o6 = | y2x y3 yzx yzy zyx zy2 zyz z2x z2y z3 |
+
+             1       10
+o6 : Matrix B  <--- B
+
+i7 : j = z^3+y*z*x-z*y*x-y^3
+
+        3                    3
+o7 = - y  + y*z*x - z*y*x + z
+
+o7 : B
+
+i8 : isCentral j
+
+o8 = true
+
+i9 : apply(5,i->isLeftRegular(j,i+1))
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+Using numthreads = 0
+
+o9 = {true, true, true, true, true}
+
+o9 : List
+
+i10 : normalElements(B,3,n)
+
+         2    3                          2          2    2    3
+o10 = ({y x, y , y*z*x, y*z*y, z*y*x, z*y , z*y*z, z x, z y, z }, {})
+
+o10 : Sequence
+
+i11 : ncBasis(3,B)
+
+o11 = | y2x y3 yzx yzy zyx zy2 zyz z2x z2y z3 |
+
+              1       10
+o11 : Matrix B  <--- B
+
+i12 : C = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z,w})
+Using numthreads = 0
+
+o12 = C
+
+o12 : FreeAlgebraQuotient
+
+i13 : R = QQ[q]/ideal{q^4+q^3+q^2+q+1}
+
+o13 = R
+
+o13 : QuotientRing
+
+i14 : B = skewPolynomialRing(R,q,{x,y,z,w})
+Using numthreads = 0
+Using GC ring in VectorArithmetic.
+
+o14 = B
+
+o14 : FreeAlgebraQuotient
+
+i15 : x*y == q*y*x
+
+o15 = true
+
+i16 : use C
+
+o16 = C
+
+o16 : FreeAlgebraQuotient
+
+i17 : sigma = map(C,C,{y,z,w,x})
+
+o17 = map (C, C, {y, z, w, x})
+
+o17 : RingMap C <--- C
+
+i18 : D = oreExtension(C,sigma,a)
+Using numthreads = 0
+
+o18 = D
+
+o18 : FreeAlgebraQuotient
+
+i19 : isNormal a
+
+o19 = true
+
+i20 : apply(5,i-> isLeftRegular(a,i+1))
+Using numthreads = 0
+Using numthreads = 0
+
+o20 = {true, true, true, true, true}
+
+o20 : List
+
+i21 : sigmaD = normalAutomorphism a
+
+o21 = map (D, D, {x, y, z, w, a})
+
+o21 : RingMap D <--- D
+
+i22 : normalElements(sigmaD,1)
+
+o22 = | x y z w a |
+
+              1       5
+o22 : Matrix D  <--- D
+
+i23 : normalElements(sigmaD,2)
+
+o23 = | x2 yx y2 zx zy z2 wx wy wz w2 ax ay az aw a2 |
+
+              1       15
+o23 : Matrix D  <--- D
+
+i24 : normalElements(D,2,P)
+
+         2        2             2                  2                     
+o24 = ({x , y*x, y , z*x, z*y, z , w*x, w*y, w*z, w , a*x, a*y, a*z, a*w,
+      -----------------------------------------------------------------------
+       2
+      a }, {})
+
+o24 : Sequence
+
+i25 : ncBasis(2,D)
+
+o25 = | x2 yx y2 zx zy z2 wx wy wz w2 ax ay az aw a2 |
+
+              1       15
+o25 : Matrix D  <--- D
+
+i26 : isNormal (x^2+z^2-y^2-w^2)
+
+o26 = true
+
+i27 : E' = QQ[x,y,z,w,SkewCommutative=>true]
+
+o27 = E'
+
+o27 : PolynomialRing, 4 skew commutative variables
+
+i28 : E = toFreeAlgebraQuotient E'
+Using numthreads = 0
+
+o28 = E
+
+o28 : FreeAlgebraQuotient
+
+i29 : f = map(E,C,gens E)
+
+o29 = map (E, C, {x, y, z, w})
+
+o29 : RingMap E <--- C
+
+i30 : use C
+
+o30 = C
+
+o30 : FreeAlgebraQuotient
+
+i31 : f x^2
+
+o31 = 0
+
+o31 : E
+
+i32 : use E
+
+o32 = E
+
+o32 : FreeAlgebraQuotient
+
+i33 : x^2 == 0
+
+o33 = true
+
+i34 : 

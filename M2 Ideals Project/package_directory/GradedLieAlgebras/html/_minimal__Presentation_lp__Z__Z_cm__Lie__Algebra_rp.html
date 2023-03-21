@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>minimalPresentation(ZZ,LieAlgebra) -- compute a minimal presentation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_monomials_lp__Lie__Element_rp.html">next</a> | <a href="_minimal__Model.html">previous</a> | <a href="_monomials_lp__Lie__Element_rp.html">forward</a> | <a href="_minimal__Model.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="compute a minimal presentation" href="_minimal__Presentation_lp__Z__Z_cm__Lie__Algebra_rp.html">minimalPresentation(ZZ,LieAlgebra)</a>    </div>
+    <hr/>
+    <div>
+      <h1>minimalPresentation(ZZ,LieAlgebra) -- compute a minimal presentation</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="compute a minimal presentation" href="../../Macaulay2Doc/html/_minimal__Presentation.html">minimalPresentation</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = minimalPresentation(n,L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the maximal  degree</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>an instance of the type <a title="the class of all Lie algebras" href="___Lie__Algebra.html">LieAlgebra</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="compute a minimal presentation of a quotient ring" href="../../Macaulay2Doc/html/_minimal__Presentation_lp__Ring_rp.html">Exclude</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>an instance of the type <a title="the class of all Lie algebras" href="___Lie__Algebra.html">LieAlgebra</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The optional input given above is not relevant for Lie algebras. A minimal set of generators and relations for the Lie algebra $L$ (without differential) is given. In general the presentation applies to $H_0(L)$. The example $L$ below is the Lie algebra of strictly upper triangular $4\times 4$-matrices given by its multiplication table on the natural basis.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : L=lieAlgebra({e12,e23,e34,e13,e24,e14},Weights=>{1,1,1,2,2,3})/
+      {e12 e34,e12 e13,e12 e14,
+       e23 e13,e23 e24,e23 e14,
+       e34 e24,e34 e14,e13 e24,
+       e13 e14,e24 e14,
+       e12 e23 - e13,
+       e12 e24 - e14,
+       e13 e34 - e14,
+       e23 e34 - e24}
+
+o1 = L
+
+o1 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M=minimalPresentation(3,L)
+
+o2 = M
+
+o2 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : describe M
+
+o3 = generators => {e12, e23, e34}
+     Weights => {{1, 0}, {1, 0}, {1, 0}}
+     Signs => {0, 0, 0}
+     ideal => {(e34 e12), (e34 e34 e23), (e23 e34 e23), (e23 e23 e12), (e12 e23 e12)}
+     ambient => LieAlgebra{...10...}
+     diff => {}
+     Field => QQ
+     computedDegree => 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : dims(1,4,M)
+
+o4 = {3, 2, 1, 0}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the minimal model" href="_minimal__Model.html">minimalModel</a> -- compute the minimal model</span>          </li>
+          <li>
+<span><a href="___Minimal_spmodels_cm_sp__Ext-algebras_spand_sp__Koszul_spduals.html">Minimal models, Ext-algebras and Koszul duals</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="compute a minimal presentation" href="_minimal__Presentation_lp__Z__Z_cm__Lie__Algebra_rp.html">minimalPresentation(ZZ,LieAlgebra)</a> -- compute a minimal presentation</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

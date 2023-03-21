@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isLeaf -- determines if an edge (or vertex) is a leaf of a (hyper)graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_isolated__Vertices.html">next</a> | <a href="_is__Graph.html">previous</a> | <a href="_isolated__Vertices.html">forward</a> | <a href="_is__Graph.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="determines if an edge (or vertex) is a leaf of a (hyper)graph" href="_is__Leaf.html">isLeaf</a>    </div>
+    <hr/>
+    <div>
+      <h1>isLeaf -- determines if an edge (or vertex) is a leaf of a (hyper)graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = isLeaf(G,N)</code></dd>
+              <dd><code class="language-macaulay2">b = isLeaf(H,n)</code></dd>
+              <dd><code class="language-macaulay2">b = isLeaf(H,V)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="a class for graphs" href="___Graph.html">graph</a></span>, </span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="a class for hypergraphs" href="___Hyper__Graph.html">hypergraph</a></span>, </span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, an index of an edge</span>              </li>
+              <li>
+<span><tt>V</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a vertex</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <tt>true</tt> if edge <tt>n</tt> is a leaf or if vertex <tt>V</tt> has degree 1</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>An edge in a graph is a leaf if it contains a vertex of degree one. An edge <tt>E</tt> in a hypergraph is a leaf if there is another edge <tt>B</tt> with the property that for all edges <tt>F</tt> (other than <tt>E</tt>), the intersection of <tt>F</tt> with <tt>E</tt> is contained in the intersection of <tt>B</tt> with <tt>E</tt>.</p>
+          <p>A vertex of a graph is a leaf if it has degree one. A vertex of a hypergraph is a leaf if it is contained in precisely one edge which is itself is leaf.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a..f];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = graph {a*b,b*c,c*a,b*d};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isLeaf(G, d)
+
+o3 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isLeaf(G, getEdgeIndex(G, {b,d}))
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isLeaf(G, a)
+
+o5 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isLeaf(G, getEdgeIndex(G, {a,b}))
+
+o6 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : H = hyperGraph {a*b*c,b*d,c*e,b*c*f};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : K = hyperGraph {a*b*c,b*d,c*e};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : isLeaf(H, a)
+
+o9 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : isLeaf(H, getEdgeIndex(H, {a,b,c}))
+
+o10 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : isLeaf(K, a)
+
+o11 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : isLeaf(K, getEdgeIndex(K, {a,b,c}))
+
+o12 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="determines whether a (hyper)graph is a forest" href="_is__Forest.html">isForest</a> -- determines whether a (hyper)graph is a forest</span>          </li>
+          <li>
+<span><a title="determines if an edge is a good leaf" href="_is__Good__Leaf.html">isGoodLeaf</a> -- determines if an edge is a good leaf</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isLeaf</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isLeaf(Graph,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isLeaf(HyperGraph,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isLeaf(HyperGraph,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="determines if an edge (or vertex) is a leaf of a (hyper)graph" href="_is__Leaf.html">isLeaf</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

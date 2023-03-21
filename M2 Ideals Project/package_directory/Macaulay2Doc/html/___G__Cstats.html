@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>GCstats -- information about the status of the garbage collector</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_genera.html">next</a> | <a href="_gcd__Coefficients.html">previous</a> | <a href="_genera.html">forward</a> | <a href="_gcd__Coefficients.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> :: <a title="information about the status of the garbage collector" href="___G__Cstats.html">GCstats</a>    </div>
+    <hr/>
+    <div>
+      <h1>GCstats -- information about the status of the garbage collector</h1>
+      <div>
+        <h2>Description</h2>
+        <p>Macaulay2 uses the Hans Boehm <a href="___G__C_spgarbage_spcollector.html">garbage collector</a> to reclaim unused memory.  The function <tt>GCstats</tt> provides information about its status.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : s = GCstats()
+
+o1 = HashTable{don't expand => false           }
+               finalize on demand => false
+               full freq => 19
+               GC_ALL_INTERIOR_POINTERS => 
+               GC_all_interior_pointers => 1
+               GC_BACKTRACES => 
+               GC_DISABLE_INCREMENTAL => 
+               GC_DONT_GC => 
+               GC_DUMP_REGULARLY => 
+               GC_ENABLE_INCREMENTAL => 
+               GC_FIND_LEAK => 
+               GC_FORCE_UNMAP_ON_GCOLLECT => 
+               GC_FREE_SPACE_DIVISOR => 
+               GC_free_space_divisor => 12
+               GC_FULL_FREQUENCY => 
+               GC_IGNORE_GCJ_INFO => 
+               GC_INITIAL_HEAP_SIZE => 
+               GC_LARGE_ALLOC_WARN_INTERVAL => 
+               GC_LOG_FILE => 
+               GC_LOOP_ON_ABORT => 
+               GC_MARKERS => 
+               GC_MAXIMUM_HEAP_SIZE => 
+               GC_NO_BLACKLIST_WARNING => 
+               GC_NPROCS => 
+               GC_PAUSE_TIME_TARGET => 
+               GC_PRINT_ADDRESS_MAP => 
+               GC_PRINT_BACK_HEIGHT => 
+               GC_PRINT_STATS => 
+               GC_PRINT_VERBOSE_STATS => 
+               GC_RETRY_SIGNALS, => 
+               GC_TRACE => 
+               GC_UNMAP_THRESHOLD => 
+               GC_USE_GETWRITEWATCH => 
+               heap size => 114876416
+               java finalization => true
+               max retries => 0
+               number of collections => 1035
+               parallel => false
+               time limit => 999999
+
+o1 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+        <p>The value returned is a hash table, from which individual bits of information can be easily extracted, as follows.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : s#&quot;heap size&quot;
+
+o2 = 114876416</code></pre>
+</td>          </tr>
+        </table>
+        <p>The entries whose keys are upper case give the values of environment variables affecting the operation of the garbage collector that have been specified by the user.</p>
+        <p>For further information about the individual items in the table, we refer the user to the source code and documentation of the garbage collector.</p>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a href="___G__C_spgarbage_spcollector.html">GC garbage collector</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="information about the status of the garbage collector" href="___G__Cstats.html">GCstats</a> is <span>a <a title="the class of all compiled functions" href="___Compiled__Function.html">compiled function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

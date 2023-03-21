@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isSameMap -- whether two rational maps to between projective varieties are really the same</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_jacobian__Dual__Matrix.html">next</a> | <a href="_is__Regular__Map.html">previous</a> | <a href="_jacobian__Dual__Matrix.html">forward</a> | <a href="_is__Regular__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="rational maps between projective varieties" href="index.html">RationalMaps</a> :: <a title="whether two rational maps to between projective varieties are really the same" href="_is__Same__Map.html">isSameMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>isSameMap -- whether two rational maps to between projective varieties are really the same</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = isSameMap(f1, f2)</code></dd>
+              <dd><code class="language-macaulay2">phi == psi</code></dd>
+              <dd><code class="language-macaulay2">b = isSameMap(phi, psi)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f1</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, a map of rings corresponding to a rational map between projective varieties</span>              </li>
+              <li>
+<span><tt>f2</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, a map of rings corresponding to a rational map between projective varieties</span>              </li>
+              <li>
+<span><tt>phi</tt>, <span>an instance of the type <a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a></span>, a map between projective varieties</span>              </li>
+              <li>
+<span><tt>psi</tt>, <span>an instance of the type <a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a></span>, a rational map between projective varieties</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, true if the rational maps are the same, false otherwise.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Checks whether two rational maps between projective varieties are really the same (that is, agree on a dense open set).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S=QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f1=map(R, S, {y*z,x*z,x*y});
+
+o3 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f2=map(R, S, {x*y*z,x^2*z,x^2*y});
+
+o4 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isSameMap(f1,f2)
+
+o5 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The Cremona transformation is not the identity, but its square is.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R = ZZ/7[x,y,z]
+
+o6 = R
+
+o6 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : phi = rationalMapping(R, R, {y*z,x*z,x*y})
+
+o7 = Proj R - - - > Proj R   {y*z, x*z, x*y}
+
+o7 : RationalMapping</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : ident = rationalMapping(R, R, {x,y,z})
+
+o8 = Proj R - - - > Proj R   {x, y, z}
+
+o8 : RationalMapping</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : phi == ident
+
+o9 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : phi^2 == ident
+
+o10 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isSameMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isSameMap(RationalMapping,RationalMapping)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isSameMap(RingMap,RingMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether two rational maps to between projective varieties are really the same" href="_is__Same__Map.html">isSameMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

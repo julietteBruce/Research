@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Alternative algorithm to compute the symbolic powers of a prime ideal in positive characteristic</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ass__Primes__Height.html">next</a> | <a href="___A_spquick_spintroduction_spto_spthis_sppackage.html">previous</a> | <a href="_ass__Primes__Height.html">forward</a> | <a href="___A_spquick_spintroduction_spto_spthis_sppackage.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="symbolic powers of ideals" href="index.html">SymbolicPowers</a> :: <a href="___Alternative_spalgorithm_spto_spcompute_spthe_spsymbolic_sppowers_spof_spa_spprime_spideal_spin_sppositive_spcharacteristic.html">Alternative algorithm to compute the symbolic powers of a prime ideal in positive characteristic</a>    </div>
+    <hr/>
+    <div>
+      <h1>Alternative algorithm to compute the symbolic powers of a prime ideal in positive characteristic</h1>
+      <div>
+        <div>
+          <p>Given a prime ideal P in a regular ring of positive characteristic, symbPowerPrimePosChar computes its symbolic powers. Unfortunately, this algorithm is slower than others.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/7[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : P = ker map(ZZ/7[t],R,{t^3,t^4,t^5})
+
+             2         2     2   3
+o2 = ideal (y  - x*z, x y - z , x  - y*z)
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : J = symbPowerPrimePosChar(P,2)
+
+             4       2     2 2   2 3    3       2 2      3   3 2    4     3 
+o3 = ideal (y  - 2x*y z + x z , x y  - x y*z - y z  + x*z , x y  - x z - y z
+     ------------------------------------------------------------------------
+            2   5      3     2       3
+     + x*y*z , x  + x*y  - 3x y*z + z )
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The symbolic powers of P do not coincide with its powers.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : J == P^2
+
+o4 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We can also test it a bit faster, without computing the symbolic powers of $P$.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isSymbolicEqualOrdinary(P,2)
+
+o5 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+
+</html>

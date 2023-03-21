@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>substitute(RationalMap,PolynomialRing,PolynomialRing) -- substitute the ambient projective spaces of source and target</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_super_lp__Rational__Map_rp.html">next</a> | <a href="_special__Quadratic__Transformation.html">previous</a> | <a href="_super_lp__Rational__Map_rp.html">forward</a> | <a href="_special__Quadratic__Transformation.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="substitute the ambient projective spaces of source and target" href="_substitute_lp__Rational__Map_cm__Polynomial__Ring_cm__Polynomial__Ring_rp.html">substitute(RationalMap,PolynomialRing,PolynomialRing)</a>    </div>
+    <hr/>
+    <div>
+      <h1>substitute(RationalMap,PolynomialRing,PolynomialRing) -- substitute the ambient projective spaces of source and target</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="substituting values for variables" href="../../Macaulay2Doc/html/_substitute.html">substitute</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">sub(phi,R,S)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>phi</tt>, <span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>, $\phi:X\subseteq\mathbb{P}^n\dashrightarrow Y\subseteq\mathbb{P}^m$</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, the coordinate ring of $\mathbb{P}^n$</span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, the coordinate ring of $\mathbb{P}^m$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>, a rational map isomorphic to the original map such that the <a title="ambient free module of a subquotient, or ambient ring" href="../../Macaulay2Doc/html/_ambient.html">ambient</a> of the <a title="coordinate ring of the source for a rational map" href="_source_lp__Rational__Map_rp.html">source</a> is $R$ and the <a title="ambient free module of a subquotient, or ambient ring" href="../../Macaulay2Doc/html/_ambient.html">ambient</a> of the <a title="coordinate ring of the target for a rational map" href="_target_lp__Rational__Map_rp.html">target</a> is $S$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : ZZ/3331[vars(0..5)];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : phi = rationalMap {e^2-d*f, c*e-b*f, c*d-b*e, c^2-a*f, b*c-a*e, b^2-a*d}
+
+o2 = -- rational map --
+                   ZZ
+     source: Proj(----[a, b, c, d, e, f])
+                  3331
+                   ZZ
+     target: Proj(----[a, b, c, d, e, f])
+                  3331
+     defining forms: {
+                       2
+                      e  - d*f,
+                      
+                      c*e - b*f,
+                      
+                      c*d - b*e,
+                      
+                       2
+                      c  - a*f,
+                      
+                      b*c - a*e,
+                      
+                       2
+                      b  - a*d
+                     }
+
+o2 : RationalMap (quadratic rational map from PP^5 to PP^5)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : R = ZZ/3331[x_0..x_5], S = ZZ/3331[y_0..y_5];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : sub(phi,R,S)
+
+o4 = -- rational map --
+                   ZZ
+     source: Proj(----[x , x , x , x , x , x ])
+                  3331  0   1   2   3   4   5
+                   ZZ
+     target: Proj(----[y , y , y , y , y , y ])
+                  3331  0   1   2   3   4   5
+     defining forms: {
+                       2
+                      x  - x x ,
+                       4    3 5
+                      
+                      x x  - x x ,
+                       2 4    1 5
+                      
+                      x x  - x x ,
+                       2 3    1 4
+                      
+                       2
+                      x  - x x ,
+                       2    0 5
+                      
+                      x x  - x x ,
+                       1 2    0 4
+                      
+                       2
+                      x  - x x
+                       1    0 3
+                     }
+
+o4 : RationalMap (quadratic rational map from PP^5 to PP^5)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="change the coefficient ring of a rational map" href="___Rational__Map_sp_st_st_sp__Ring.html">RationalMap ** Ring</a> -- change the coefficient ring of a rational map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="substitute the ambient projective spaces of source and target" href="_substitute_lp__Rational__Map_cm__Polynomial__Ring_cm__Polynomial__Ring_rp.html">substitute(RationalMap,PolynomialRing,PolynomialRing)</a> -- substitute the ambient projective spaces of source and target</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

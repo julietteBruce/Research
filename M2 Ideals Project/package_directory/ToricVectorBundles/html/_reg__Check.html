@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>regCheck --  checking the regularity condition for a toric vector bundle</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ring_lp__Toric__Vector__Bundle_rp.html">next</a> | <a href="_rays_lp__Toric__Vector__Bundle_rp.html">previous</a> | <a href="_ring_lp__Toric__Vector__Bundle_rp.html">forward</a> | <a href="_rays_lp__Toric__Vector__Bundle_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="cohomology computations of equivariant vector bundles on toric varieties" href="index.html">ToricVectorBundles</a> :: <a title=" checking the regularity condition for a toric vector bundle" href="_reg__Check.html">regCheck</a>    </div>
+    <hr/>
+    <div>
+      <h1>regCheck --  checking the regularity condition for a toric vector bundle</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = regCheck E</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E</tt>, <span>a <a title="the class of all toric vector bundles in Kaneyama's description" href="___Toric__Vector__Bundle__Kaneyama.html">vector bundle on a toric variety (Kaneyama's description)</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether <tt>E</tt> satisfies the regularity condition</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+&quot;For a toric vector bundle in Kaneyama's description, the regularity condition means that for every pair of maximal cones $\sigma_1,\sigma_2$intersecting in a common codimension-one face, the two sets of degrees $d_1,d_2$ and the transition matrix $A_{1,2}$ fulfil the regularity condition. I.e. for every $i$ and $j$ we have that either the $(i,j)$ entry of the matrix $A_{1,2}$ is $0$ or the difference of the $i$-th degree vector of $d_1$ of $\sigma_1$ and the $j$-th degree vector of $d_2$ of $\sigma_2$ is in the dual cone of the intersection of $\sigma_1$ and $\sigma_2$.&quot;        <p/>
+Note that this is only necessary for toric vector bundles generated 'by hand' using <a title="changing the transition matrices of a toric vector bundle" href="_add__Base__Change.html">addBaseChange</a> and <a title="changing the degrees of a toric vector bundle" href="_add__Degrees.html">addDegrees</a>, since bundles generated for example by <a title=" the tangent bundle on a toric variety" href="_tangent__Bundle.html">tangentBundle</a> satisfy the condition automatically.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : E = tangentBundle(pp1ProductFan 2,&quot;Type&quot; => &quot;Kaneyama&quot;)
+
+o1 = {dimension of the variety => 2 }
+      number of affine charts => 4
+      rank of the vector bundle => 2
+
+o1 : ToricVectorBundleKaneyama</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : regCheck E
+
+o2 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="changing the transition matrices of a toric vector bundle" href="_add__Base__Change.html">addBaseChange</a> -- changing the transition matrices of a toric vector bundle</span>          </li>
+          <li>
+<span><a title="changing the degrees of a toric vector bundle" href="_add__Degrees.html">addDegrees</a> -- changing the degrees of a toric vector bundle</span>          </li>
+          <li>
+<span><a title=" checks if a toric vector bundle fulfills the cocycle condition" href="_cocycle__Check.html">cocycleCheck</a> --  checks if a toric vector bundle fulfills the cocycle condition</span>          </li>
+          <li>
+<span><a title=" checks if the data does in fact define an equivariant toric vector bundle" href="_is__Vector__Bundle.html">isVectorBundle</a> --  checks if the data does in fact define an equivariant toric vector bundle</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>regCheck</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;regCheck(ToricVectorBundleKaneyama)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title=" checking the regularity condition for a toric vector bundle" href="_reg__Check.html">regCheck</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

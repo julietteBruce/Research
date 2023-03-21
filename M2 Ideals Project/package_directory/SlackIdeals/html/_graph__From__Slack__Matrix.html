@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>graphFromSlackMatrix -- creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_graphic__Ideal.html">next</a> | <a href="_get__Facet__Bases_lp..._cm__Object_eq_gt..._rp.html">previous</a> | <a href="_graphic__Ideal.html">forward</a> | <a href="_get__Facet__Bases_lp..._cm__Object_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for slack ideals of polytopes and matroids" href="index.html">SlackIdeals</a> :: <a title="creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix" href="_graph__From__Slack__Matrix.html">graphFromSlackMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>graphFromSlackMatrix -- creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">A = graphFromSlackMatrix S</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a (symbolic) slack matrix</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, 0-1 vertex-edge incidence matrix</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function creates a matrix whose columns correspond to the edges of the non-incidence graph of a slack matrix. They are ordered by variable index. The first n rows correspond to rows of the slack matrix (vertices/ground set elements) and the remaining rows correspond to columns of the slack matrix (facets/hyperplanes).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : V = {{0, 0}, {1, 0}, {1, 1}, {0, 1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = symbolicSlackMatrix V
+
+Order of vertices is 
+{{0, 0}, {1, 0}, {0, 1}, {1, 1}}
+
+o2 = | 0   x_0 0   x_1 |
+     | x_2 0   0   x_3 |
+     | 0   x_4 x_5 0   |
+     | x_6 0   x_7 0   |
+
+                        4                  4
+o2 : Matrix (QQ[x ..x ])  &lt;--- (QQ[x ..x ])
+                 0   7              0   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : A = graphFromSlackMatrix S
+Graph computed from symbolic adjacency matrix: | 0   y_1 0   y_2 |
+                                               | y_3 0   0   y_4 |
+                                               | 0   y_5 y_6 0   |
+                                               | y_7 0   y_8 0   |
+
+o3 = | 1 1 0 0 0 0 0 0 |
+     | 0 0 1 1 0 0 0 0 |
+     | 0 0 0 0 1 1 0 0 |
+     | 0 0 0 0 0 0 1 1 |
+     | 0 0 1 0 0 0 1 0 |
+     | 1 0 0 0 1 0 0 0 |
+     | 0 0 0 0 0 1 0 1 |
+     | 0 1 0 1 0 0 0 0 |
+
+              8        8
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>If S is not a symbolic slack matrix, the columns of A will be ordered assuming edges are listed in order by rows of S (as in <a title="computes the symbolic slack matrix" href="_symbolic__Slack__Matrix.html">symbolicSlackMatrix</a>).</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates the toric ideal of the non-incidence graph of a polytope" href="_graphic__Ideal.html">graphicIdeal</a> -- creates the toric ideal of the non-incidence graph of a polytope</span>          </li>
+          <li>
+<span><a title="computes the symbolic slack matrix" href="_symbolic__Slack__Matrix.html">symbolicSlackMatrix</a> -- computes the symbolic slack matrix</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>graphFromSlackMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;graphFromSlackMatrix(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix" href="_graph__From__Slack__Matrix.html">graphFromSlackMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

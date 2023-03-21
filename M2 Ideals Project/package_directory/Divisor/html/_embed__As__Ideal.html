@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>embedAsIdeal -- embed a module as an ideal of a ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_find__Element__Of__Degree.html">next</a> | <a href="_dualize.html">previous</a> | <a href="_find__Element__Of__Degree.html">forward</a> | <a href="_dualize.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="embed a module as an ideal of a ring" href="_embed__As__Ideal.html">embedAsIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>embedAsIdeal -- embed a module as an ideal of a ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">I = embedAsIdeal(R, M, MTries=>n, IsGraded=>false)</code></dd>
+              <dd><code class="language-macaulay2">L = embedAsIdeal(R, M, MTries=>n, IsGraded=>true)</code></dd>
+              <dd><code class="language-macaulay2">L = embedAsIdeal(R, M, MTries=>n, ReturnMap=>true)</code></dd>
+              <dd><code class="language-macaulay2">L = embedAsIdeal(R, M, MTries=>n, ReturnMap=>true, IsGraded=>true)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>MTries</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 10</span>, how many times random attempts to embed the module should be attempted if the first attempt fails</span>              </li>
+              <li>
+<span><tt>IsGraded</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, specify that the module is graded and instruct the function to return the degree shift of the embedding</span>              </li>
+              <li>
+<span><tt>ReturnMap</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, specify that the function should also return a map from the module to R^1, identifying the embedding</span>              </li>
+              <li>
+<span><tt>Section</tt><tt> => </tt><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, <span>default value null</span>, used to specify that the function will keep track of a certain element</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the module embedded as an ideal</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, if IsGraded is true, then this function returns the degree shift of the embedding as a second entry in a list.  Further if ReturnMap is true, then a map from the module to the ring is also returned as another entry in this list.  Finally, if a matrix defining is passed to the function, then the first entry in the list is this ring element.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Tries to embed the module $M$ as an ideal in $R$.  It will make several automatic tries followed by <tt>MTries => n</tt> attempts (the default <tt>n</tt> value is 10).  Parts of this function were based on code originally written in the Macaulay2 Divisor tutorial and also based on code by Mordechai Katzman, see the <tt>canonicalIdeal</tt> function in http://katzman.staff.shef.ac.uk/FSplitting/ParameterTestIdeals.m2</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = (ideal(x^2,x*y))*R^1
+
+o2 = image | x2 xy |
+
+                             1
+o2 : R-module, submodule of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : embedAsIdeal(M)
+
+o3 = ideal (y, x)
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>It also works for non-domains</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = QQ[x,y]/ideal(x*y);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : M = (ideal(x^3, y^5))*R^1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : embedAsIdeal(M)
+
+o6 = ideal (y, x)
+
+o6 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : N = (ideal(x,y))*R^1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : embedAsIdeal(N)
+
+o8 = ideal (y, x)
+
+o8 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that the answer is right even if you don't recognize it at first.  Next, consider the <tt>IsGraded</tt> option. If this is set to <tt>true</tt>, then the system returns the degree as well (as you can see in the example below).   The default value for the option <tt>IsGraded</tt> is <tt>false</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : M = R^{-3};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : embedAsIdeal(M, IsGraded=>true)
+
+o11 = {ideal 1, {-3}}
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Next consider the <tt>ReturnMap</tt> option.  What this does is also return the map from <tt>M</tt> to <tt>R^1</tt> of which the map is based upon.  Note that if both <tt>IsGraded</tt> and <tt>ReturnMap</tt> are enabled, then the map comes after the degree.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : M = ideal(x^2, x*y)*R^1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : L = embedAsIdeal(M, ReturnMap=>true)
+
+o14 = {ideal (y, x), | x y |}
+
+o14 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : target L#1
+
+       1
+o15 = R
+
+o15 : R-module, free</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : source L#1
+
+o16 = image | x2 xy |
+
+                              1
+o16 : R-module, submodule of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Alternately, instead of passing an ideal you can pass <tt>embedAsIdeal</tt> a <tt>Matrix</tt>, where the source is a free module of rank one and the target is the module you wish to embed.  (This can also be accomplished by passing the same matrix via the Section option).  In this case, the first output will be a ring element corresponding to the section.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : M = (ideal(x^2,x*y))*R^1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : mat = map(M, R^1, {{1}, {1}});
+
+o19 : Matrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : embedAsIdeal(mat)
+
+o20 = {x + y, ideal (y, x)}
+
+o20 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : embedAsIdeal(M, Section=>mat)
+
+o21 = {x + y, ideal (y, x)}
+
+o21 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>embedAsIdeal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;embedAsIdeal(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;embedAsIdeal(Module)&quot;</tt>          </li>
+          <li>
+<tt>&quot;embedAsIdeal(Ring,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;embedAsIdeal(Ring,Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="embed a module as an ideal of a ring" href="_embed__As__Ideal.html">embedAsIdeal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

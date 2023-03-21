@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>makeRes -- creates a resolution starting from three matrices</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_mult__Table__One__One.html">next</a> | <a href="___Labels.html">previous</a> | <a href="_mult__Table__One__One.html">forward</a> | <a href="___Labels.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computation of multiplicative structures on free resolutions of length three" href="index.html">ResLengthThree</a> :: <a title="creates a resolution starting from three matrices" href="_make__Res.html">makeRes</a>    </div>
+    <hr/>
+    <div>
+      <h1>makeRes -- creates a resolution starting from three matrices</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">makeRes(d1,d2,d3)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>d1</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of the differential in degree 1</span>              </li>
+              <li>
+<span><tt>d2</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of the differential in degree 2</span>              </li>
+              <li>
+<span><tt>d3</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of the differential in degree 3</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, the resolution with differentials d1, d2, d3.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>Creates a resolution of length 3 that has the given three matrices as differentials.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : d1=matrix{{-x^2,z^2-x*y,-y^2,-x*z,-y*z}}
+
+o2 = | -x2 -xy+z2 -y2 -xz -yz |
+
+             1       5
+o2 : Matrix Q  &lt;--- Q</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : d2=matrix{{0,0,z,0,-y},{0,0,0,-y,x},{-z,0,0,x,0},{0,y,-x,0,z},{y,-x,0,-z,0}}
+
+o3 = | 0  0  z  0  -y |
+     | 0  0  0  -y x  |
+     | -z 0  0  x  0  |
+     | 0  y  -x 0  z  |
+     | y  -x 0  -z 0  |
+
+             5       5
+o3 : Matrix Q  &lt;--- Q</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : d3=transpose d1
+
+o4 = {-2} | -x2    |
+     {-2} | -xy+z2 |
+     {-2} | -y2    |
+     {-2} | -xz    |
+     {-2} | -yz    |
+
+             5       1
+o4 : Matrix Q  &lt;--- Q</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : makeRes(d1,d2,d3)
+
+      1      5      5      1
+o5 = Q  &lt;-- Q  &lt;-- Q  &lt;-- Q  &lt;-- 0
+                                  
+     0      1      2      3      4
+
+o5 : ChainComplex</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates a resolution starting from three matrices" href="_make__Res.html">makeRes</a> is <span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

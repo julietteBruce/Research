@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>addPyToM2Function -- convenience function for adding value hooks</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ceiling_lp__Python__Object_rp.html">next</a> | <a href="_abs_lp__Python__Object_rp.html">previous</a> | <a href="_ceiling_lp__Python__Object_rp.html">forward</a> | <a href="_abs_lp__Python__Object_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="interface to Python" href="index.html">Python</a> :: <a title="convenience function for adding value hooks" href="_add__Py__To__M2__Function.html">addPyToM2Function</a>    </div>
+    <hr/>
+    <div>
+      <h1>addPyToM2Function -- convenience function for adding value hooks</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">addPyToM2Function(type, f, desc)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>type</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span> or <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the type(s) to convert; </span>              </li>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all functions" href="../../Macaulay2Doc/html/___Function.html">function</a></span>, the function that will do the converting; </span>              </li>
+              <li>
+<span><tt>desc</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, passed to the <tt>Strategy</tt> option of <a title="add a hook function to an object for later processing" href="../../Macaulay2Doc/html/_add__Hook.html">addHook</a>; </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Most of the hooks used by <a title="evaluate" href="../../Macaulay2Doc/html/_value.html">value</a> have the same general format: if the python object has a particular type, then use a particular function to convert it to a corresponding Macaulay2 thing.  This function simplifies the process of adding such a hook.</p>
+        </div>
+        <div>
+          <p>For example, suppose we would like to convert <tt>Fraction</tt> objects from the Python <a href="https://docs.python.org/3/library/fractions.html">fractions</a> module to <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a> objects.  Without adding a hook, <a title="evaluate" href="../../Macaulay2Doc/html/_value.html">value</a> will do nothing with these objects.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : fractions = import &quot;fractions&quot;
+
+o1 = &lt;module 'fractions' from '/usr/lib/python3.9/fractions.py'>
+
+o1 : PythonObject of class module</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : x = fractions@@&quot;Fraction&quot;(2, 3)
+
+o2 = 2/3
+
+o2 : PythonObject of class fractions.Fraction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : value x
+
+o3 = 2/3
+
+o3 : PythonObject of class fractions.Fraction</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>So we write a function to do the conversion and then install the hook using <tt>addPyToM2Function</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : toQQ = x -> value x@@&quot;numerator&quot; / value x@@&quot;denominator&quot;;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : addPyToM2Function(&quot;Fraction&quot;, toQQ, &quot;Fraction -> QQ&quot;);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : value x
+
+     2
+o6 = -
+     3
+
+o6 : QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : hooks value
+
+o7 = {0 => (value, PythonObject, Strategy => unknown -> PythonObject)    }
+     {1 => (value, PythonObject, Strategy => function -> FunctionClosure)}
+     {2 => (value, PythonObject, Strategy => Counter -> Tally)           }
+     {3 => (value, PythonObject, Strategy => dict -> HashTable)          }
+     {4 => (value, PythonObject, Strategy => set -> Set)                 }
+     {5 => (value, PythonObject, Strategy => list -> List)               }
+     {6 => (value, PythonObject, Strategy => tuple -> Sequence)          }
+     {7 => (value, PythonObject, Strategy => str -> String)              }
+     {8 => (value, PythonObject, Strategy => complex -> CC)              }
+     {9 => (value, PythonObject, Strategy => float -> RR)                }
+     {10 => (value, PythonObject, Strategy => int -> ZZ)                 }
+     {11 => (value, PythonObject, Strategy => bool -> Boolean)           }
+     {12 => (value, PythonObject, Strategy => Fraction -> QQ)            }
+
+o7 : NumberedVerticalList</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>addPyToM2Function</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;addPyToM2Function(List,Function,String)&quot;</tt>          </li>
+          <li>
+<tt>&quot;addPyToM2Function(String,Function,String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="convenience function for adding value hooks" href="_add__Py__To__M2__Function.html">addPyToM2Function</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

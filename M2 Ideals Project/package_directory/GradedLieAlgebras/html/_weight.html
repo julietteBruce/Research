@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>weight -- get the weight of a homogeneous element</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_zero__Derivation.html">next</a> | <a href="___Vector__Space.html">previous</a> | <a href="_zero__Derivation.html">forward</a> | <a href="___Vector__Space.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="get the weight of a homogeneous element" href="_weight.html">weight</a>    </div>
+    <hr/>
+    <div>
+      <h1>weight -- get the weight of a homogeneous element</h1>
+      <div>
+        <h2>Description</h2>
+The weight of a homogeneous Lie (or Ext) element $x$ is obtained as <tt>weight(x).</tt> The zero element of a Lie algebra has weight equal to a list of zeroes of length equal to the degree length of the Lie algebra; however, its weight should be thought of as arbitrary. The weight of a derivation $d$ is the weight of $d$ as a graded map and may also be obtained as <tt>d#weight.</tt>        <div>
+          <h2>Synopsis</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">w=weight(x)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>x</tt>, <span>an instance of the type <a title="the class of all Lie algebra elements" href="___Lie__Element.html">LieElement</a></span></span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : L = lieAlgebra({a,b,c},Weights=>{{1,0},{2,1},{3,2}},
+     	 LastWeightHomological=>true, Signs => 1)
+
+o1 = L
+
+o1 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D=differentialLieAlgebra{0_L,a a,a b}/{a a b, a a c, b a b}
+
+o2 = D
+
+o2 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : x=a b c+2 c b a
+
+o3 =  - 2 (b a c) - (a b c)
+
+o3 : D</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : weight x
+
+o4 = {6, 3}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : weight 0_D
+
+o5 = {0, 0}
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <h2>Synopsis</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">w=weight(x)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>x</tt>, <span>an instance of the type <a title="the class of all Ext-algebra elements" href="___Ext__Element.html">ExtElement</a></span></span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : E=extAlgebra(5,D)
+
+o6 = E
+
+o6 : ExtAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : b=basis(5,E)
+
+o7 = {ext_4, ext_5}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : apply(b,weight)
+
+o8 = {{5, 4}, {5, 4}}
+
+o8 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <h2>Synopsis</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">w=weight(d)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>d</tt>, <span>an instance of the type <a title="the class of all Lie algebra derivations" href="___Lie__Derivation.html">LieDerivation</a></span></span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span></span>                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : weight differential D
+
+o9 = {0, -1}
+
+o9 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="get the degree of an element" href="_first__Degree.html">firstDegree(LieElement)</a> -- get the degree of an element</span>          </li>
+          <li>
+<span><a title="get the sign of a homogeneous element  " href="_sign.html">sign</a> -- get the sign of a homogeneous element  </span>          </li>
+          <li>
+<span><a title="the length of the degree vector" href="../../Macaulay2Doc/html/_degree__Length.html">degreeLength</a> -- the length of the degree vector</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>weight</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;weight(ExtElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;weight(LieDerivation)&quot;</tt>          </li>
+          <li>
+<tt>&quot;weight(LieElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="get the weight of a homogeneous element" href="_weight.html">weight</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

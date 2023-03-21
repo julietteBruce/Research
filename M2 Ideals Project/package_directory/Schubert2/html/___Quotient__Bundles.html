@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>QuotientBundles -- get the quotient bundles of the tautological filtration on a flag bundle</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_rank_lp__Abstract__Sheaf_rp.html">next</a> | <a href="___Pull__Back.html">previous</a> | <a href="_rank_lp__Abstract__Sheaf_rp.html">forward</a> | <a href="___Pull__Back.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computation in intersection theory" href="index.html">Schubert2</a> :: <a title="get the quotient bundles of the tautological filtration on a flag bundle" href="___Quotient__Bundles.html">QuotientBundles</a>    </div>
+    <hr/>
+    <div>
+      <h1>QuotientBundles -- get the quotient bundles of the tautological filtration on a flag bundle</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">F.QuotientBundles</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an <a title="the class of all flag bundles" href="___Flag__Bundle.html">abstract flag bundle</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> $\{E_n/E_n, E_n/E_{n-1}, ..., E_n/E_1, E_n/E_0\}$ whose elements are the quotient bundles in the tautological filtration $0 = E_0 \subseteq{} E_1 \subseteq{} ... \subseteq{} E_n = f^* B$, where $F$ is a flag bundle parametrizing filtrations of an abstract sheaf $B$ on a variety $X$, and $f : F \rightarrow X$ is the structure map of $F$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F = flagBundle {1,1,2}
+
+o1 = F
+
+o1 : a flag bundle with subquotient ranks {2:1, 2}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F.QuotientBundles
+
+o2 = {a sheaf, a sheaf, a sheaf, a sheaf}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : rank \ oo
+
+o3 = {0, 2, 3, 4}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : netList \\ chern \ ooo
+
+     +------------------------------------------------+
+o4 = |1                                               |
+     +------------------------------------------------+
+     |1 + H    + H                                    |
+     |     3,1    3,2                                 |
+     +------------------------------------------------+
+     |1 + (H    + H   ) + (H   H    + H   ) + H   H   |
+     |      2,1    3,1      2,1 3,1    3,2     2,1 3,2|
+     +------------------------------------------------+
+     |1                                               |
+     +------------------------------------------------+</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>QuotientBundles</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;flagBundle(...,QuotientBundles=>...)&quot;</tt> -- see <span><a title="make a flag bundle" href="_flag__Bundle.html">flagBundle</a> -- make a flag bundle</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="get the quotient bundles of the tautological filtration on a flag bundle" href="___Quotient__Bundles.html">QuotientBundles</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

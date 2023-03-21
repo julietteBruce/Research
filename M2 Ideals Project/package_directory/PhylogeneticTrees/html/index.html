@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PhylogeneticTrees -- a package to compute phylogenetic invariants associated to group-based models</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_buckets.html">next</a> | previous | <a href="_buckets.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a> :: <a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a>    </div>
+    <hr/>
+    <div>
+      <h1>PhylogeneticTrees -- a package to compute phylogenetic invariants associated to group-based models</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><em>PhylogeneticTrees</em> is a package for phylogenetic algebraic geometry. This package calculates generating sets for phylogenetic ideals and their joins and secants.  Additionally, the package computes lower bounds for the dimensions of secants and joins of phylogenetic ideals.</p>
+          <p>This package handles a class of commonly used tree-based Markov models called group-based models.  These models are subject to the Fourier-Hadamard coordinate transformation, which make the parametrizations monomial and the ideals toric. See the following for more details: [1] and [2].</p>
+          <p>For these models, the PhylogeneticTrees package includes two methods for computing a generating set for ideals of phylogenetic invariants. The first  method calls <a title="Interface for 4ti2" href="../../FourTiTwo/html/index.html">FourTiTwo</a> to compute the generating set of the toric ideal. The second implements a theoretical construction for inductively determining the ideal of phylogenetic invariants for any $k$-valent tree from the $k$-leaf claw tree as described in Theorem 24 of [3].</p>
+          <p>This package also handles the joins and secants of these ideals by implementing the elimination method described in [4].</p>
+          <p>In cases where computing a generating set for a join or secant ideal is infeasible, the package provides a probabilistic method, based on Terracini’s Lemma, to compute a lower bound on the dimension of a join or secant ideal.</p>
+          <p><em>References:</em></p>
+          <p>[1] S.N. Evans and T.P. Speed, it Invariants of some probability models used in phylogenetic inference, <em>Ann. Statist.</em> 21 (1993), no. 1, 355–377, and</p>
+          <p>[2] L. Székely, P.L. Erdös, M.A. Steel, and D. Penny, A Fourier inversion formula for evolutionary trees, <em>Applied Mathematics Letters</em> 6 (1993), no. 2, 13–17.</p>
+          <p>[3] Bernd Sturmfels and Seth Sullivant, Toric ideals of phylogenetic invariants, <em>J. Comp. Biol.</em> 12 (2005), no. 2, 204–228.</p>
+          <p>[4] Bernd Sturmfels and Seth Sullivant, Combinatorial secant varieties, <em>Quarterly Journal of Pure and Applied Mathematics</em> 2 (2006), 285–309.</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+Hector Baños<span> &lt;<a href="mailto:hbanos@gatech.edu">hbanos@gatech.edu</a>></span>            </li>
+            <li>
+Nathaniel Bushek<span> &lt;<a href="mailto:nbushek@css.edu">nbushek@css.edu</a>></span>            </li>
+            <li>
+Ruth Davidson<span> &lt;<a href="mailto:ruth.davidson.math@gmail.com">ruth.davidson.math@gmail.com</a>></span>            </li>
+            <li>
+Elizabeth Gross<span> &lt;<a href="mailto:egross@hawaii.edu">egross@hawaii.edu</a>></span>            </li>
+            <li>
+Pamela Harris<span> &lt;<a href="mailto:peh2@williams.edu">peh2@williams.edu</a>></span>            </li>
+            <li>
+Robert Krone<span> &lt;<a href="mailto:rckrone@gmail.com">rckrone@gmail.com</a>></span>            </li>
+            <li>
+Colby Long<span> &lt;<a href="mailto:clong@wooster.edu">clong@wooster.edu</a>></span>            </li>
+            <li>
+AJ Stewart<span> &lt;<a href="mailto:stewaral@seattleu.edu">stewaral@seattleu.edu</a>></span>            </li>
+            <li>
+Robert Walker<span> &lt;<a href="mailto:robmarsw@umich.edu">robmarsw@umich.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>2.0</b> of this package was accepted for publication in <a href="https://msp.org/jsag/2021/11-1/">volume 11</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 8 August 2020, in the article <a href="https://msp.org/jsag/2021/11-1/p01.xhtml">Phylogenetic trees</a>. That version can be obtained from <a href="https://msp.org/jsag/2021/11-1/jsag-v11-n1-x01-PhylogeneticTrees.m2">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/abdf0903e7ffc31568c0cc4beb181368d943cb8d/M2/Macaulay2/packages/PhylogeneticTrees.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>2.0</b> of PhylogeneticTrees.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/PhylogeneticTrees.m2">PhylogeneticTrees.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a> -- a tree described in terms of its leaves</span>                  </li>
+                  <li>
+<span><a title="a group-based model" href="___Model.html">Model</a> -- a group-based model</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="the equivalence classes of group elements of a Model" href="_buckets.html">buckets</a> -- the equivalence classes of group elements of a Model</span>                  </li>
+                  <li>
+<span><a title="contract an edge of a tree" href="_edge__Contract.html">edgeContract</a> -- contract an edge of a tree</span>                  </li>
+                  <li>
+<span><a title="break up a tree at an edge" href="_edge__Cut.html">edgeCut</a> -- break up a tree at an edge</span>                  </li>
+                  <li>
+<span><a title="map from Fourier coordinates to probability coordinates" href="_fourier__To__Probability.html">fourierToProbability</a> -- map from Fourier coordinates to probability coordinates</span>                  </li>
+                  <li>
+<span><a title="the group of a Model" href="_group.html">group</a> -- the group of a Model</span>                  </li>
+                  <li>
+<span><a title="list the internal edges of a tree" href="_internal__Edges.html">internalEdges</a> -- list the internal edges of a tree</span>                  </li>
+                  <li>
+<span><a title="list the internal vertices of a tree" href="_internal__Vertices.html">internalVertices</a> -- list the internal vertices of a tree</span>                  </li>
+                  <li>
+<span><a title="check isomorphism of two tree" href="_is__Isomorphic.html">isIsomorphic</a> -- check isomorphism of two tree</span>                  </li>
+                  <li>
+<span><a title="compute the join of several ideals" href="_join__Ideal.html">joinIdeal</a> -- compute the join of several ideals</span>                  </li>
+                  <li>
+<span><a title="enumerate all binary labeled trees" href="_labeled__Binary__Trees.html">labeledBinaryTrees</a> -- enumerate all binary labeled trees</span>                  </li>
+                  <li>
+<span><a title="enumerate all labeled trees" href="_labeled__Trees.html">labeledTrees</a> -- enumerate all labeled trees</span>                  </li>
+                  <li>
+<span><a title="list the consistent colorings of a tree" href="_leaf__Colorings.html">leafColorings</a> -- list the consistent colorings of a tree</span>                  </li>
+                  <li>
+<span><a title="construct a LeafTree" href="_leaf__Tree.html">leafTree</a> -- construct a LeafTree</span>                  </li>
+                  <li>
+<span><a title="construct a Model" href="_model.html">model</a> -- construct a Model</span>                  </li>
+                  <li>
+<span><a title="compute the invariants of a group-based phylogenetic model with 4ti2" href="_phylo__Toric42.html">phyloToric42</a> -- compute the invariants of a group-based phylogenetic model with 4ti2</span>                  </li>
+                  <li>
+<span><a title="construct the design matrix of a group-based phylogenetic model" href="_phylo__Toric__A__Matrix.html">phyloToricAMatrix</a> -- construct the design matrix of a group-based phylogenetic model</span>                  </li>
+                  <li>
+<span><a title="compute the invariants of a group-based phylogenetic model with toric fiber products" href="_phylo__Toric__F__P.html">phyloToricFP</a> -- compute the invariants of a group-based phylogenetic model with toric fiber products</span>                  </li>
+                  <li>
+<span><a title="compute the linear invariants of a group-based phylogenetic model" href="_phylo__Toric__Linears.html">phyloToricLinears</a> -- compute the linear invariants of a group-based phylogenetic model</span>                  </li>
+                  <li>
+<span><a title="compute the quadratic invariants of a group-based phylogenetic model" href="_phylo__Toric__Quads.html">phyloToricQuads</a> -- compute the quadratic invariants of a group-based phylogenetic model</span>                  </li>
+                  <li>
+<span><a title="compute a random invariant of a group-based phylogenetic model" href="_phylo__Toric__Random.html">phyloToricRandom</a> -- compute a random invariant of a group-based phylogenetic model</span>                  </li>
+                  <li>
+<span><a title="construct the ring of probability coordinates" href="_p__Ring.html">pRing</a> -- construct the ring of probability coordinates</span>                  </li>
+                  <li>
+<span><a title="construct the ring of Fourier coordinates" href="_q__Ring.html">qRing</a> -- construct the ring of Fourier coordinates</span>                  </li>
+                  <li>
+<span><a title="enumerate all rooted binary trees" href="_rooted__Binary__Trees.html">rootedBinaryTrees</a> -- enumerate all rooted binary trees</span>                  </li>
+                  <li>
+<span><a title="enumerate all rooted trees" href="_rooted__Trees.html">rootedTrees</a> -- enumerate all rooted trees</span>                  </li>
+                  <li>
+<span><a title="compute the secant of an ideal" href="_secant.html">secant</a> -- compute the secant of an ideal</span>                  </li>
+                  <li>
+<span><a title="dimension of a join of toric varieties" href="_toric__Join__Dim.html">toricJoinDim</a> -- dimension of a join of toric varieties</span>                  </li>
+                  <li>
+<span><a title="dimension of a secant of a toric variety" href="_toric__Secant__Dim.html">toricSecantDim</a> -- dimension of a secant of a toric variety</span>                  </li>
+                  <li>
+<span><a title="enumerate all unlabeled trees" href="_unlabeled__Trees.html">unlabeledTrees</a> -- enumerate all unlabeled trees</span>                  </li>
+                  <li>
+<span><a title="break up a tree at a vertex" href="_vertex__Cut.html">vertexCut</a> -- break up a tree at a vertex</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;buckets(Model)&quot;</tt> -- see <span><a title="the equivalence classes of group elements of a Model" href="_buckets.html">buckets</a> -- the equivalence classes of group elements of a Model</span></span>                  </li>
+                  <li>
+<span><a title="convert a LeafTree to a Digraph" href="_digraph_lp__Leaf__Tree_cm__List_rp.html">digraph(LeafTree,List)</a> -- convert a LeafTree to a Digraph</span>                  </li>
+                  <li>
+<span><tt>&quot;digraph(LeafTree,Set)&quot;</tt> -- see <span><a title="convert a LeafTree to a Digraph" href="_digraph_lp__Leaf__Tree_cm__List_rp.html">digraph(LeafTree,List)</a> -- convert a LeafTree to a Digraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;edgeContract(LeafTree,List)&quot;</tt> -- see <span><a title="contract an edge of a tree" href="_edge__Contract.html">edgeContract</a> -- contract an edge of a tree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;edgeContract(LeafTree,Set)&quot;</tt> -- see <span><a title="contract an edge of a tree" href="_edge__Contract.html">edgeContract</a> -- contract an edge of a tree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;edgeCut(LeafTree,List,Thing)&quot;</tt> -- see <span><a title="break up a tree at an edge" href="_edge__Cut.html">edgeCut</a> -- break up a tree at an edge</span></span>                  </li>
+                  <li>
+<span><tt>&quot;edgeCut(LeafTree,Set,Thing)&quot;</tt> -- see <span><a title="break up a tree at an edge" href="_edge__Cut.html">edgeCut</a> -- break up a tree at an edge</span></span>                  </li>
+                  <li>
+<span><a title="list the edges of a tree" href="_edges_lp__Leaf__Tree_rp.html">edges(LeafTree)</a> -- list the edges of a tree</span>                  </li>
+                  <li>
+<span><tt>&quot;fourierToProbability(Ring,Ring,ZZ,Model)&quot;</tt> -- see <span><a title="map from Fourier coordinates to probability coordinates" href="_fourier__To__Probability.html">fourierToProbability</a> -- map from Fourier coordinates to probability coordinates</span></span>                  </li>
+                  <li>
+<span><a title="convert a LeafTree to Graph" href="_graph_lp__Leaf__Tree_rp.html">graph(LeafTree)</a> -- convert a LeafTree to Graph</span>                  </li>
+                  <li>
+<span><tt>&quot;group(Model)&quot;</tt> -- see <span><a title="the group of a Model" href="_group.html">group</a> -- the group of a Model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;internalEdges(LeafTree)&quot;</tt> -- see <span><a title="list the internal edges of a tree" href="_internal__Edges.html">internalEdges</a> -- list the internal edges of a tree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;internalVertices(LeafTree)&quot;</tt> -- see <span><a title="list the internal vertices of a tree" href="_internal__Vertices.html">internalVertices</a> -- list the internal vertices of a tree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;joinIdeal(Ideal,Ideal)&quot;</tt> -- see <span><a title="compute the join of several ideals" href="_join__Ideal.html">joinIdeal</a> -- compute the join of several ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;joinIdeal(List)&quot;</tt> -- see <span><a title="compute the join of several ideals" href="_join__Ideal.html">joinIdeal</a> -- compute the join of several ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;labeledBinaryTrees(ZZ)&quot;</tt> -- see <span><a title="enumerate all binary labeled trees" href="_labeled__Binary__Trees.html">labeledBinaryTrees</a> -- enumerate all binary labeled trees</span></span>                  </li>
+                  <li>
+<span><tt>&quot;labeledTrees(ZZ)&quot;</tt> -- see <span><a title="enumerate all labeled trees" href="_labeled__Trees.html">labeledTrees</a> -- enumerate all labeled trees</span></span>                  </li>
+                  <li>
+<span><tt>&quot;leafColorings(LeafTree,Model)&quot;</tt> -- see <span><a title="list the consistent colorings of a tree" href="_leaf__Colorings.html">leafColorings</a> -- list the consistent colorings of a tree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;leafColorings(ZZ,Model)&quot;</tt> -- see <span><a title="list the consistent colorings of a tree" href="_leaf__Colorings.html">leafColorings</a> -- list the consistent colorings of a tree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;LeafTree == LeafTree&quot;</tt> -- see <span><a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a> -- a tree described in terms of its leaves</span></span>                  </li>
+                  <li>
+<span><tt>&quot;leafTree(Graph)&quot;</tt> -- see <span><a title="construct a LeafTree" href="_leaf__Tree.html">leafTree</a> -- construct a LeafTree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;leafTree(List,List)&quot;</tt> -- see <span><a title="construct a LeafTree" href="_leaf__Tree.html">leafTree</a> -- construct a LeafTree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;leafTree(ZZ,List)&quot;</tt> -- see <span><a title="construct a LeafTree" href="_leaf__Tree.html">leafTree</a> -- construct a LeafTree</span></span>                  </li>
+                  <li>
+<span><a title="list the leaves of a tree" href="_leaves_lp__Leaf__Tree_rp.html">leaves(LeafTree)</a> -- list the leaves of a tree</span>                  </li>
+                  <li>
+<span><tt>&quot;model(List,List,List)&quot;</tt> -- see <span><a title="construct a Model" href="_model.html">model</a> -- construct a Model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToric42(Graph,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with 4ti2" href="_phylo__Toric42.html">phyloToric42</a> -- compute the invariants of a group-based phylogenetic model with 4ti2</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToric42(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with 4ti2" href="_phylo__Toric42.html">phyloToric42</a> -- compute the invariants of a group-based phylogenetic model with 4ti2</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToric42(ZZ,List,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with 4ti2" href="_phylo__Toric42.html">phyloToric42</a> -- compute the invariants of a group-based phylogenetic model with 4ti2</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricAMatrix(Graph,Model)&quot;</tt> -- see <span><a title="construct the design matrix of a group-based phylogenetic model" href="_phylo__Toric__A__Matrix.html">phyloToricAMatrix</a> -- construct the design matrix of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricAMatrix(LeafTree,Model)&quot;</tt> -- see <span><a title="construct the design matrix of a group-based phylogenetic model" href="_phylo__Toric__A__Matrix.html">phyloToricAMatrix</a> -- construct the design matrix of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricAMatrix(ZZ,List,Model)&quot;</tt> -- see <span><a title="construct the design matrix of a group-based phylogenetic model" href="_phylo__Toric__A__Matrix.html">phyloToricAMatrix</a> -- construct the design matrix of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricFP(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with toric fiber products" href="_phylo__Toric__F__P.html">phyloToricFP</a> -- compute the invariants of a group-based phylogenetic model with toric fiber products</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricFP(ZZ,List,Model)&quot;</tt> -- see <span><a title="compute the invariants of a group-based phylogenetic model with toric fiber products" href="_phylo__Toric__F__P.html">phyloToricFP</a> -- compute the invariants of a group-based phylogenetic model with toric fiber products</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricLinears(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the linear invariants of a group-based phylogenetic model" href="_phylo__Toric__Linears.html">phyloToricLinears</a> -- compute the linear invariants of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricLinears(ZZ,List,Model)&quot;</tt> -- see <span><a title="compute the linear invariants of a group-based phylogenetic model" href="_phylo__Toric__Linears.html">phyloToricLinears</a> -- compute the linear invariants of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricQuads(LeafTree,Model)&quot;</tt> -- see <span><a title="compute the quadratic invariants of a group-based phylogenetic model" href="_phylo__Toric__Quads.html">phyloToricQuads</a> -- compute the quadratic invariants of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricQuads(ZZ,List,Model)&quot;</tt> -- see <span><a title="compute the quadratic invariants of a group-based phylogenetic model" href="_phylo__Toric__Quads.html">phyloToricQuads</a> -- compute the quadratic invariants of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricRandom(LeafTree,Model)&quot;</tt> -- see <span><a title="compute a random invariant of a group-based phylogenetic model" href="_phylo__Toric__Random.html">phyloToricRandom</a> -- compute a random invariant of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;phyloToricRandom(ZZ,List,Model)&quot;</tt> -- see <span><a title="compute a random invariant of a group-based phylogenetic model" href="_phylo__Toric__Random.html">phyloToricRandom</a> -- compute a random invariant of a group-based phylogenetic model</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pRing(LeafTree,Model)&quot;</tt> -- see <span><a title="construct the ring of probability coordinates" href="_p__Ring.html">pRing</a> -- construct the ring of probability coordinates</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pRing(ZZ,Model)&quot;</tt> -- see <span><a title="construct the ring of probability coordinates" href="_p__Ring.html">pRing</a> -- construct the ring of probability coordinates</span></span>                  </li>
+                  <li>
+<span><tt>&quot;qRing(LeafTree,Model)&quot;</tt> -- see <span><a title="construct the ring of Fourier coordinates" href="_q__Ring.html">qRing</a> -- construct the ring of Fourier coordinates</span></span>                  </li>
+                  <li>
+<span><tt>&quot;qRing(ZZ,Model)&quot;</tt> -- see <span><a title="construct the ring of Fourier coordinates" href="_q__Ring.html">qRing</a> -- construct the ring of Fourier coordinates</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rootedBinaryTrees(ZZ)&quot;</tt> -- see <span><a title="enumerate all rooted binary trees" href="_rooted__Binary__Trees.html">rootedBinaryTrees</a> -- enumerate all rooted binary trees</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rootedTrees(ZZ)&quot;</tt> -- see <span><a title="enumerate all rooted trees" href="_rooted__Trees.html">rootedTrees</a> -- enumerate all rooted trees</span></span>                  </li>
+                  <li>
+<span><tt>&quot;secant(Ideal,ZZ)&quot;</tt> -- see <span><a title="compute the secant of an ideal" href="_secant.html">secant</a> -- compute the secant of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toricJoinDim(List)&quot;</tt> -- see <span><a title="dimension of a join of toric varieties" href="_toric__Join__Dim.html">toricJoinDim</a> -- dimension of a join of toric varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toricJoinDim(Matrix,Matrix)&quot;</tt> -- see <span><a title="dimension of a join of toric varieties" href="_toric__Join__Dim.html">toricJoinDim</a> -- dimension of a join of toric varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toricSecantDim(Matrix,ZZ)&quot;</tt> -- see <span><a title="dimension of a secant of a toric variety" href="_toric__Secant__Dim.html">toricSecantDim</a> -- dimension of a secant of a toric variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;unlabeledTrees(ZZ)&quot;</tt> -- see <span><a title="enumerate all unlabeled trees" href="_unlabeled__Trees.html">unlabeledTrees</a> -- enumerate all unlabeled trees</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vertexCut(LeafTree,List,Thing,Thing)&quot;</tt> -- see <span><a title="break up a tree at a vertex" href="_vertex__Cut.html">vertexCut</a> -- break up a tree at a vertex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vertexCut(LeafTree,Set,Thing,Thing)&quot;</tt> -- see <span><a title="break up a tree at a vertex" href="_vertex__Cut.html">vertexCut</a> -- break up a tree at a vertex</span></span>                  </li>
+                  <li>
+<span><a title="list the vertices of a tree" href="_vertices_lp__Leaf__Tree_rp.html">vertices(LeafTree)</a> -- list the vertices of a tree</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="optional argument to specify Fourier coordinate ring" href="___Q__Ring.html">QRing</a> -- optional argument to specify Fourier coordinate ring</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Other things                <ul>
+                  <li>
+<span><a title="the model corresponding to the Cavender-Farris-Neyman model or binary Jukes Cantor" href="___C__F__Nmodel.html">CFNmodel</a> -- the model corresponding to the Cavender-Farris-Neyman model or binary Jukes Cantor</span>                  </li>
+                  <li>
+<span><a title="the model corresponding to the Jukes Cantor model" href="___J__Cmodel.html">JCmodel</a> -- the model corresponding to the Jukes Cantor model</span>                  </li>
+                  <li>
+<span><a title="the model corresponding to the Kimura 2-parameter model" href="___K2__Pmodel.html">K2Pmodel</a> -- the model corresponding to the Kimura 2-parameter model</span>                  </li>
+                  <li>
+<span><a title="the model corresponding to the Kimura 3-parameter model" href="___K3__Pmodel.html">K3Pmodel</a> -- the model corresponding to the Kimura 3-parameter model</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

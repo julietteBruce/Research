@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isWellDefined(BasicDivisor) -- whether a divisor is valid</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Zero__Divisor.html">next</a> | <a href="_is__Weil__Divisor.html">previous</a> | <a href="_is__Zero__Divisor.html">forward</a> | <a href="_is__Weil__Divisor.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="whether a divisor is valid" href="_is__Well__Defined_lp__Basic__Divisor_rp.html">isWellDefined(BasicDivisor)</a>    </div>
+    <hr/>
+    <div>
+      <h1>isWellDefined(BasicDivisor) -- whether a divisor is valid</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="whether a map is well defined" href="../../Macaulay2Doc/html/_is__Well__Defined.html">isWellDefined</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isWellDefined( D1 )</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>D1</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">BasicDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function tries to verify that this is a valid divisor.  It checks that the coefficients are from the right ring (in the <tt>WeilDivisor/QWeilDivisor/RWeilDivisor</tt> cases at least).  It also checks to make sure all the ideals are from the same ring, are prime, and have height one.  If debugLevel > 0, the function will print an message explaining why the divisor was not valid.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : debugLevel = 1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isWellDefined(divisor({1}, {ideal(x)} ))
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+ -- (minimalPrimes,Ideal) with Strategy => Monomial from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/MinimalPrimes.m2:303:27-312:61]*-
+ -- (trim,Module) with Strategy => Complement from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/matrix2.m2:248:62-248:113]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+
+o3 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isWellDefined(divisor({1/2}, {ideal(x)} ))
+(isWellDefined, BasicDivisor): Not all coefficients are integers
+
+o4 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isWellDefined(divisor({1/2}, {ideal(x)}, CoefficientType=>QQ))
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+ -- (minimalPrimes,Ideal) with Strategy => Monomial from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/MinimalPrimes.m2:303:27-312:61]*-
+ -- (trim,Module) with Strategy => Complement from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/matrix2.m2:248:62-248:113]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+
+o5 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isWellDefined(divisor({1}, {ideal(x,y)}))
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+ -- (minimalPrimes,Ideal) with Strategy => Monomial from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/MinimalPrimes.m2:303:27-312:61]*-
+ -- (trim,Module) with Strategy => Complement from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/matrix2.m2:248:62-248:113]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+(isWellDefined, BasicDivisor): Not all ideals are height one
+
+o6 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isWellDefined(divisor({1}, {ideal(x^2)}))
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+ -- (minimalPrimes,Ideal) with Strategy => Monomial from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/MinimalPrimes.m2:303:27-312:61]*-
+ -- (trim,Module) with Strategy => Complement from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/matrix2.m2:248:62-248:113]*-
+ -- (codim,Module) with Strategy => Default from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/monideal.m2:37:57-49:52]*-
+ -- 1 : (ContainmentHooks) with Strategy => Inhomogeneous from -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/modules2.m2:115:61-115:99]*-
+(isWellDefined, BasicDivisor): Not all ideals are prime
+
+o7 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : S = QQ[a,b];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : isWellDefined(divisor({1,2}, {ideal(x), ideal(a)}))
+(isWellDefined, BasicDivisor): Not all ideals have the same ambient ring
+
+o9 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="constructor for (Weil/Q/R)-divisors" href="_divisor.html">divisor</a> -- constructor for (Weil/Q/R)-divisors</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="whether a divisor is valid" href="_is__Well__Defined_lp__Basic__Divisor_rp.html">isWellDefined(BasicDivisor)</a> -- whether a divisor is valid</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

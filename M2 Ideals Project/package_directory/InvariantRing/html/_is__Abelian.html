@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isAbelian -- check whether a finite matrix group is Abelian</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Invariant.html">next</a> | <a href="_invariants_lp__Linearly__Reductive__Action_cm__Z__Z_rp.html">previous</a> | <a href="_is__Invariant.html">forward</a> | <a href="_invariants_lp__Linearly__Reductive__Action_cm__Z__Z_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="invariants of group actions" href="index.html">InvariantRing</a> :: <a title="check whether a finite matrix group is Abelian" href="_is__Abelian.html">isAbelian</a>    </div>
+    <hr/>
+    <div>
+      <h1>isAbelian -- check whether a finite matrix group is Abelian</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isAbelian G</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>an instance of the type <a title="the class of all finite group actions" href="___Finite__Group__Action.html">FiniteGroupAction</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether the group associated to the action is Abelian</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+This function is provided by the package <a title="invariants of group actions" href="index.html">InvariantRing</a>.         <p>The following example defines the action of a symmetric group permuting the three variables generating a polynomial ring.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_4]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : P = apply(3, i -> permutationMatrix(4, [i + 1, i + 2] ) )
+
+o2 = {| 0 1 0 0 |, | 1 0 0 0 |, | 1 0 0 0 |}
+      | 1 0 0 0 |  | 0 0 1 0 |  | 0 1 0 0 |
+      | 0 0 1 0 |  | 0 1 0 0 |  | 0 0 0 1 |
+      | 0 0 0 1 |  | 0 0 0 1 |  | 0 0 1 0 |
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S4 = finiteAction(P, R)
+
+o3 = R &lt;- {| 0 1 0 0 |, | 1 0 0 0 |, | 1 0 0 0 |}
+           | 1 0 0 0 |  | 0 0 1 0 |  | 0 1 0 0 |
+           | 0 0 1 0 |  | 0 1 0 0 |  | 0 0 0 1 |
+           | 0 0 0 1 |  | 0 0 0 1 |  | 0 0 1 0 |
+
+o3 : FiniteGroupAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isAbelian S4
+
+o4 = false</code></pre>
+</td>          </tr>
+        </table>
+        <p>The following example defines the action of the product of two cyclic groups. One group has order 3 and cyclically permutes the three variables generating a polynomial ring. The other group has order 2 and multiplies the variables by -1.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = QQ[x_1..x_3]
+
+o5 = R
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : L = {matrix {{0,0,1},{0,1,0},{1,0,0}}, matrix {{-1,0,0},{0,-1,0},{0,0,-1}} }
+
+o6 = {| 0 0 1 |, | -1 0  0  |}
+      | 0 1 0 |  | 0  -1 0  |
+      | 1 0 0 |  | 0  0  -1 |
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : G = finiteAction(L, R)
+
+o7 = R &lt;- {| 0 0 1 |, | -1 0  0  |}
+           | 0 1 0 |  | 0  -1 0  |
+           | 1 0 0 |  | 0  0  -1 |
+
+o7 : FiniteGroupAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isAbelian G
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isAbelian</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isAbelian(FiniteGroupAction)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="check whether a finite matrix group is Abelian" href="_is__Abelian.html">isAbelian</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

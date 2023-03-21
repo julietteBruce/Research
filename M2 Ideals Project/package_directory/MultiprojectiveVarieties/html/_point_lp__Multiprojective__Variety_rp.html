@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>point(MultiprojectiveVariety) -- pick a random rational point on a multi-projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_projections.html">next</a> | <a href="_permute_lp__Multiprojective__Variety_cm__List_rp.html">previous</a> | <a href="_projections.html">forward</a> | <a href="_permute_lp__Multiprojective__Variety_cm__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="pick a random rational point on a multi-projective variety" href="_point_lp__Multiprojective__Variety_rp.html">point(MultiprojectiveVariety)</a>    </div>
+    <hr/>
+    <div>
+      <h1>point(MultiprojectiveVariety) -- pick a random rational point on a multi-projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="pick a random rational point on a projective variety" href="../../Cremona/html/_point.html">point</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">point X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">multi-projective variety</a></span>, defined over a finite field</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">multi-projective variety</a></span>, a random rational point on $X$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : K = ZZ/1000003;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X = PP_K^({1,1,2},{3,2,3});
+
+o2 : ProjectiveVariety, 4-dimensional subvariety of PP^3 x PP^2 x PP^9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time p := point X
+     -- used 0.0413026 seconds
+
+o3 = point of coordinates ([421369, 39917, -212481, 1],[-128795, -176966, 1],[3870, -390108, -496127, -308581, 46649, 164926, -446111, 48038, 415309, 1])
+
+o3 : ProjectiveVariety, a point in PP^3 x PP^2 x PP^9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Y = random({2,1,2},X);
+
+o4 : ProjectiveVariety, hypersurface in PP^3 x PP^2 x PP^9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time q = point Y
+     -- used 1.89639 seconds
+
+o5 = q
+
+o5 : ProjectiveVariety, a point in PP^3 x PP^2 x PP^9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : assert(isSubset(p,X) and isSubset(q,Y))</code></pre>
+</td>          </tr>
+        </table>
+        <p>The list of homogeneous coordinates can be obtained with the operator <tt>|-</tt>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : |- p
+
+o7 = ([421369, 39917, -212481, 1], [-128795, -176966, 1], [3870, -390108,
+     ------------------------------------------------------------------------
+     -496127, -308581, 46649, 164926, -446111, 48038, 415309, 1])
+
+o7 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : |- q
+
+o8 = ([158712, 271608, 202519, 1], [-411495, 350529, 1], [499681, 293896,
+     ------------------------------------------------------------------------
+     -144543, 481344, 258084, 405184, -259486, -147014, 37168, 1])
+
+o8 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="pick a random rational point on a projective variety" href="../../Cremona/html/_point.html">point</a> -- pick a random rational point on a projective variety</span>          </li>
+          <li>
+<span><a title="Pick a random K rational point on the scheme X defined by I" href="../../Macaulay2Doc/html/_random__K__Rational__Point.html">randomKRationalPoint</a> -- Pick a random K rational point on the scheme X defined by I</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="pick a random rational point on a multi-projective variety" href="_point_lp__Multiprojective__Variety_rp.html">point(MultiprojectiveVariety)</a> -- pick a random rational point on a multi-projective variety</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

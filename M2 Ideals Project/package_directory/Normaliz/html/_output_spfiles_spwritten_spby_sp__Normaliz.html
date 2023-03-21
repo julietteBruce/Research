@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>output files written by Normaliz</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Rational__Cone.html">next</a> | <a href="_numgens_lp__Monomial__Subalgebra_rp.html">previous</a> | <a href="___Rational__Cone.html">forward</a> | <a href="_numgens_lp__Monomial__Subalgebra_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a href="_output_spfiles_spwritten_spby_sp__Normaliz.html">output files written by Normaliz</a>    </div>
+    <hr/>
+    <div>
+      <h1>output files written by Normaliz</h1>
+      <div>
+        <p/>
+Depending on the options enabled (see <a title="sets a command line option for Normaliz" href="_set__Nmz__Option.html">setNmzOption</a>), <tt>Normaliz</tt> writes additional output files. To obtain the content of these files within Macaulay2, use <a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a> or <a href="_all__Computations.html">allComputations</a>. The following files may be written, provided certain conditions are satisfied and the information that should go into them has been computed. We denote the files simply by their types. For the most types of inputs the ambient lattice is \ZZ^n if the input of Normaliz is a matrix of n columns. In types polytope and rees_algebra the ambient lattice is \ZZ^{n+1} since the input vectors are extended by 1 component. For congruences and inhomogeneous input it is \ZZ^{n-1} and for inhomogeneous congruences \ZZ^{n-2}. For input of type normal_toric_ideal the lattice is \ZZ^{r} where n-r is the rank of the input matrix. The essential lattice is gp(M) where M is the monoid computed by Normaliz internally, i.e. after a linear transformation such that the cone is full-dimensional and the integral closure has to be computed. See the documentation of Normaliz at <a href="https://github.com/Normaliz/Normaliz/blob/master/doc/Normaliz.pdf">https://github.com/Normaliz/Normaliz/blob/master/doc/Normaliz.pdf</a> for more details.        <ul>
+          <li>
+<tt>gen      </tt>   The Hilbert basis          </li>
+          <li>
+<tt>ext      </tt>   The extreme rays          </li>
+          <li>
+<tt>cst      </tt>   The constraints defining the cone and the lattice in the same format as they would appear in the input. Using this file as input for <tt>Normaliz</tt> will reproduce the Hilbert basis and all the other data computed.          </li>
+          <li>
+<tt>egn, esp  </tt>   These contain the Hilbert basis and the support hyperplanes respectively, however with respect to the essential lattice and a basis of it.          </li>
+          <li>
+<tt>typ       </tt>   This is the product of the matrices corresponding to <tt>egn</tt> and <tt>esp</tt>. That is, the support hyperplanes of the cone are evaluated (as  linear forms) on the generators.           </li>
+          <li>
+<tt>tri       </tt>   The file <tt>tri</tt> contains a triangulation of the cone computed by <tt>Normaliz</tt>. Each of the rows of the matrix specifies a simplicial cone D: the entries except the last are the indices (with respect to the order in <tt>tgn</tt>) of those generators that span D, and the last entry is the multiplicity of D in the essential lattice, i.e. the absolute value of the determinant of the matrix of the spanning vectors (as elements of the essential lattice).          </li>
+          <li>
+<tt>tgn        </tt>The file <tt>tgn</tt> contains a matrix of vectors (in the coordinates of the ambient lattice) spanning the simplicial cones in the triangulation.          </li>
+          <li>
+<tt>ht1        </tt>If the there was a grading available, the file <tt>ht1</tt> contains the degree 1 elements of the cone.          </li>
+          <li>
+<tt>inv         </tt>   The file <tt>inv</tt> contains all the information computed that is not contained in any of the other files, e.g. the h-vector, the Hilbert polynomial, whether the semigroup is generated in degree 1, the index, the multiplicity, and the cardinality of sets like the Hilbert basis, support hyperplanes and so one.          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,74 @@
+-- -*- M2-comint -*- hash: 394695187
+
+i1 : A = ZZ/101[x,y,z]
+
+o1 = A
+
+o1 : PolynomialRing
+
+i2 : F = x^4 - y*z*(1-x)^2 - z - y^3
+
+      4    2       3
+o2 = x  - x y*z - y  + 2x*y*z - y*z - z
+
+o2 : A
+
+i3 : I = ideal(F,diff(x,F),diff(y,F),diff(z,F))
+
+             4    2       3                       3                     2   
+o3 = ideal (x  - x y*z - y  + 2x*y*z - y*z - z, 4x  - 2x*y*z + 2y*z, - x z -
+     ------------------------------------------------------------------------
+       2                2
+     3y  + 2x*z - z, - x y + 2x*y - y - 1)
+
+o3 : Ideal of A
+
+i4 : transpose gens I
+
+o4 = {-4} | x4-x2yz-y3+2xyz-yz-z |
+     {-3} | 4x3-2xyz+2yz         |
+     {-3} | -x2z-3y2+2xz-z       |
+     {-3} | -x2y+2xy-y-1         |
+
+             4       1
+o4 : Matrix A  <--- A
+
+i5 : 1 % I
+
+o5 = 0
+
+o5 : A
+
+i6 : h = 1 // gens I
+
+o6 = {4} | -46x3y2-4x2y3+11x4z+4x3yz-2x2y2z+22x3z2+50x2yz2+8x3y+36x2y2-xy3+14
+     {3} | -39x4y2+x3y3-28x5z-x4yz-50x3y2z+45x4z2+38x3yz2-2x4y-9x3y2-25x2y3+4
+     {3} | 49x3y3+35x2y4+30x4yz-35x3y2z-33x2y3z-41x3yz2+17x2y2z2+31x3y2-12x2y
+     {3} | -26x3y2z-33x2y3z+15x4z2+33x3yz2+34x2y2z2+30x3z3-42x2yz3-35x3yz-29x
+     ------------------------------------------------------------------------
+     x3z+48xy2z+11x2z2-26xyz2-12x3-49x2y-7xy2+5y3-44x2z+12xyz-16y2z-13xz2-46y
+     7x4z-12x2y2z-28x3z2-44x2yz2+3x4-13x3y+8x2y2+24xy3+11x3z-32x2yz+41xy2z-22
+     3+34xy4+29x3yz-16xy3z+30x2yz2-25xy2z2+4x3y+50x2y2+36xy3+32y4-19x2yz-4xy2
+     2y2z+15xy3z+20x3z2+2x2yz2-9xy2z2+26x2z3-38xyz3+25x3y-13x3z-25x2yz-50xy2z
+     ------------------------------------------------------------------------
+     z2+19x2-28xy-y2+22xz+9yz-15z2-49x-11y-35z+28                           
+     x2z2+4xyz2-30x3+7x2y-12xy2+45x2z-17xyz+21y2z+29xz2+2yz2-13x2+28xy-20y2-
+     z+39y3z+38xyz2+49y2z2-40x2y+43xy2+34y3-26x2z+27xyz-3y2z+49xz2+5yz2-2x2+
+     -37y3z-27x2z2-43xyz2+19y2z2-15xz3+yz3+x2y-14x2z+49xyz+7y2z+15xz2-39yz2-
+     ------------------------------------------------------------------------
+                                             |
+     17xz+26yz-7x-19y-47z                    |
+     50xy-30y2+15xz-38yz-40z2+35x-43y+26z-34 |
+     46z3-2xy+47xz+20yz+9z2+y+6z-1           |
+
+             4       1
+o6 : Matrix A  <--- A
+
+i7 : gens I * h
+
+o7 = | 1 |
+
+             1       1
+o7 : Matrix A  <--- A
+
+i8 : 

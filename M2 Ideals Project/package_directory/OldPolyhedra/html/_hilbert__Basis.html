@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hilbertBasis -- computes the Hilbert basis of a Cone</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_hirzebruch.html">next</a> | <a href="_halfspaces.html">previous</a> | <a href="_hirzebruch.html">forward</a> | <a href="_halfspaces.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="computes the Hilbert basis of a Cone" href="_hilbert__Basis.html">hilbertBasis</a>    </div>
+    <hr/>
+    <div>
+      <h1>hilbertBasis -- computes the Hilbert basis of a Cone</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">HB = hilbertBasis C</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all rational convex polyhedral cones" href="___Cone.html">convex rational cone</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing the elements of the Hilbert basis</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+The Hilbert basis of the cone <tt>C</tt> is computed by the Project-and-Lift-algorithm by Raymond Hemmecke (see below). It computes a Hilbert basis of the cone modulo the lineality space, so it returns the list of one column matrices that give the Hilbert basis of the Cone if one adds the basis of the lineality space and its negative. For the Project-and-Lift-algorithm see:         <p/>
+<a href="http://www.hemmecke.de/raymond/">Raymond Hemmecke's</a> <em>On the computation of Hilbert bases of cones</em>, in A. M. Cohen, X.-S. Gao, and N. Takayama, editors, Mathematical Software, ICMS 2002, pages 307317. World Scientific, 2002.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C = posHull matrix {{1,2},{2,1}}
+
+o1 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of the cone => 2
+      number of facets => 2
+      number of rays => 2
+
+o1 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : hilbertBasis C
+
+o2 = {| 1 |, | 2 |, | 1 |}
+      | 1 |  | 1 |  | 2 |
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hilbertBasis</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hilbertBasis(Cone)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the Hilbert basis of a Cone" href="_hilbert__Basis.html">hilbertBasis</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

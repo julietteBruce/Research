@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Parabolic % WeylGroupElement -- the right coset defined by an element of Weyl group</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Parabolic_sp_pc_sp__Weyl__Group__Left__Coset.html">next</a> | <a href="_parabolic.html">previous</a> | <a href="___Parabolic_sp_pc_sp__Weyl__Group__Left__Coset.html">forward</a> | <a href="_parabolic.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Weyl groups" href="index.html">WeylGroups</a> :: <a title="the right coset defined by an element of Weyl group" href="___Parabolic_sp_pc_sp__Weyl__Group__Element.html">Parabolic % WeylGroupElement</a>    </div>
+    <hr/>
+    <div>
+      <h1>Parabolic % WeylGroupElement -- the right coset defined by an element of Weyl group</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for remainder and reduction" href="../../Macaulay2Doc/html/__pc.html">%</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">P % w</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>an instance of the type <a title="the class of parabolic subgroups of Weyl groups" href="___Parabolic.html">Parabolic</a></span>, </span>              </li>
+              <li>
+<span><tt>w</tt>, <span>an instance of the type <a title="the class of elements of Weyl groups" href="___Weyl__Group__Element.html">WeylGroupElement</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of left cosets of Weyl groups by parabolic subgroup" href="___Weyl__Group__Left__Coset.html">WeylGroupLeftCoset</a></span>, W_Pw</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=rootSystemD(5)
+
+o1 = RootSystem{...8...}
+
+o1 : RootSystem</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : P=parabolic(R,set{2,3,4,5})
+
+o2 = set {2, 3, 4, 5}
+
+o2 : Parabolic</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : w=longestWeylGroupElement R
+
+o3 = WeylGroupElement{RootSystem{...8...}, | -1 |}
+                                           | -1 |
+                                           | -1 |
+                                           | -1 |
+                                           | -1 |
+
+o3 : WeylGroupElement</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : P % w
+
+o4 = WeylGroupRightCoset{set {2, 3, 4, 5}, WeylGroupElement{RootSystem{...8...}, | -7 |}}
+                                                                                 |  1 |
+                                                                                 |  1 |
+                                                                                 |  1 |
+                                                                                 |  1 |
+
+o4 : WeylGroupRightCoset</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="the right coset defined by an element of Weyl group" href="___Parabolic_sp_pc_sp__Weyl__Group__Element.html">Parabolic % WeylGroupElement</a> -- the right coset defined by an element of Weyl group</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>lieAlgebra(...,Field=>...) -- optional argument for lieAlgebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_lie__Algebra_lp..._cm__Last__Weight__Homological_eq_gt..._rp.html">next</a> | <a href="___Lie__Algebra_sp_eq_eq_sp__Lie__Algebra.html">previous</a> | <a href="_lie__Algebra_lp..._cm__Last__Weight__Homological_eq_gt..._rp.html">forward</a> | <a href="___Lie__Algebra_sp_eq_eq_sp__Lie__Algebra.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="optional argument for lieAlgebra" href="_lie__Algebra_lp..._cm__Field_eq_gt..._rp.html">lieAlgebra(...,Field=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>lieAlgebra(...,Field=>...) -- optional argument for lieAlgebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L = lieAlgebra(gen,Field => F)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>gen</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the field of coefficients</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>an instance of the type <a title="the class of all Lie algebras" href="___Lie__Algebra.html">LieAlgebra</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This is an option for <a title="make a free Lie algebra" href="_lie__Algebra.html">lieAlgebra</a> and <a title="compute the holonomy Lie algebra associated to an arrangement or matroid" href="_holonomy.html">holonomy</a> to define the coefficient field, which is <tt>QQ</tt> by default. You may use any &quot;exact&quot; field (not the real numbers or the complex numbers), such as a prime field or an algebraic extension, e.g., <tt>toField(ZZ/7[x]/ideal\{x^2+1\})</tt> or a fraction field, e.g., <tt>frac(QQ[x])</tt>. Observe that it is necessary to use the function <tt>toField</tt> when $F$ is defined as an algebraic extension of a prime field.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F = toField(ZZ/7[x]/ideal{x^2+1})
+
+o1 = F
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L = lieAlgebra({a,b},Field=>F)
+
+o2 = L
+
+o2 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (3*x+2) a b + (2*x+3) b a
+
+o3 = (-x+1)(b a)
+
+o3 : L</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>          </li>
+          <li>
+<span>Function: <span><a title="make a free Lie algebra" href="_lie__Algebra.html">lieAlgebra</a> -- make a free Lie algebra</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="name for an optional argument for lieAlgebra and holonomy" href="___Field.html">Field</a> -- name for an optional argument for lieAlgebra and holonomy</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make a free Lie algebra" href="_lie__Algebra.html">lieAlgebra</a> -- make a free Lie algebra</span>          </li>
+          <li>
+<span><a title="compute the holonomy Lie algebra associated to an arrangement or matroid" href="_holonomy.html">holonomy</a> -- compute the holonomy Lie algebra associated to an arrangement or matroid</span>          </li>
+          <li>
+<span><a href="___Second_sp__Lie_spalgebra_sptutorial.html">Second Lie algebra tutorial</a></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Field</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="optional argument for holonomy" href="_holonomy_lp..._cm__Field_eq_gt..._rp.html">holonomy(...,Field=>...)</a> -- optional argument for holonomy</span>          </li>
+          <li>
+<span><a title="optional argument for lieAlgebra" href="_lie__Algebra_lp..._cm__Field_eq_gt..._rp.html">lieAlgebra(...,Field=>...)</a> -- optional argument for lieAlgebra</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

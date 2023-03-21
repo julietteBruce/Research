@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>multirationalMap(MultiprojectiveVariety,MultiprojectiveVariety) -- get the natural inclusion</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_multirational__Map_lp__Multirational__Map_cm__Multiprojective__Variety_rp.html">next</a> | <a href="_multirational__Map_lp__Multiprojective__Variety_rp.html">previous</a> | <a href="_multirational__Map_lp__Multirational__Map_cm__Multiprojective__Variety_rp.html">forward</a> | <a href="_multirational__Map_lp__Multiprojective__Variety_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="get the natural inclusion" href="_multirational__Map_lp__Multiprojective__Variety_cm__Multiprojective__Variety_rp.html">multirationalMap(MultiprojectiveVariety,MultiprojectiveVariety)</a>    </div>
+    <hr/>
+    <div>
+      <h1>multirationalMap(MultiprojectiveVariety,MultiprojectiveVariety) -- get the natural inclusion</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="the multi-rational map defined by a list of rational maps" href="_multirational__Map.html">multirationalMap</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">rationalMap(X,Y)</code></dd>
+              <dd><code class="language-macaulay2">multirationalMap(X,Y)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">multi-projective variety</a></span></span>              </li>
+              <li>
+<span><tt>Y</tt>, <span>a <a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">multi-projective variety</a></span>, with $X\subseteq Y$ (after identifying the ambient spaces)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all multi-rational maps" href="___Multirational__Map.html">multi-rational map</a></span>, the natural inclusion of $X$ into $Y$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[a_0,a_1,b_0..b_2,Degrees=>{2:{1,0},3:{0,1}}], S = ZZ/101[c_0,c_1,d_0..d_2,Degrees=>{2:{1,0},3:{0,1}}]
+
+o1 = (R, S)
+
+o1 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal (random({0,1},R),random({1,1},R)), J = sub(I,vars S)
+
+o2 = (ideal (24b  - 36b  - 30b , - 29a b  - 10a b  + 19a b  - 29a b  + 19a b 
+                0      1      2       0 0      1 0      0 1      1 1      0 2
+     ------------------------------------------------------------------------
+     - 8a b ), ideal (24d  - 36d  - 30d , - 29c d  - 10c d  + 19c d  - 29c d 
+         1 2             0      1      2       0 0      1 0      0 1      1 1
+     ------------------------------------------------------------------------
+     + 19c d  - 8c d ))
+          0 2     1 2
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : X = projectiveVariety I, Y = projectiveVariety J
+
+o3 = (X, Y)
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : rationalMap(X,ambient X);
+
+o4 : MultirationalMap (morphism from X to PP^1 x PP^2)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : rationalMap(X,Y);
+
+o5 : MultirationalMap (morphism from X to Y)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : stopIfError = false;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : rationalMap(ambient X,X)
+stdio:7:1:(3): error: not able to define a natural map between the two varieties</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="identity map" href="_multirational__Map_lp__Multiprojective__Variety_rp.html">ZZ _ MultiprojectiveVariety</a> -- identity map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="get the natural inclusion" href="_multirational__Map_lp__Multiprojective__Variety_cm__Multiprojective__Variety_rp.html">multirationalMap(MultiprojectiveVariety,MultiprojectiveVariety)</a> -- get the natural inclusion</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

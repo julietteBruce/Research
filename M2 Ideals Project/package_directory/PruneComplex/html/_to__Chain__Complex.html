@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toChainComplex -- Converts a list of mutable matrices into a ChainComplex.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_to__Mutable__Complex.html">next</a> | <a href="___Pruning__Map.html">previous</a> | <a href="_to__Mutable__Complex.html">forward</a> | <a href="___Pruning__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Pruning chain complexes over polynomial and local rings" href="index.html">PruneComplex</a> :: <a title="Converts a list of mutable matrices into a ChainComplex." href="_to__Chain__Complex.html">toChainComplex</a>    </div>
+    <hr/>
+    <div>
+      <h1>toChainComplex -- Converts a list of mutable matrices into a ChainComplex.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">C = toChainComplex(M, F)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of MutableMatrix type</span>              </li>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, the initial free module in the resolution. This is used to calculate the degrees in the maps.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/32003[vars(0..17)];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : m1 = genericMatrix(R,a,3,3)
+
+o2 = | a d g |
+     | b e h |
+     | c f i |
+
+             3       3
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : m2 = genericMatrix(R,j,3,3)
+
+o3 = | j m p |
+     | k n q |
+     | l o r |
+
+             3       3
+o3 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : I = ideal(m1*m2-m2*m1)
+
+o4 = ideal (d*k + g*l - b*m - c*p, b*j - a*k + e*k + h*l - b*n - c*q, c*j +
+     ------------------------------------------------------------------------
+     f*k - a*l + i*l - b*o - c*r, - d*j + a*m - e*m + d*n + g*o - f*p, - d*k
+     ------------------------------------------------------------------------
+     + b*m + h*o - f*q, - d*l + c*m + f*n - e*o + i*o - f*r, - g*j - h*m +
+     ------------------------------------------------------------------------
+     a*p - i*p + d*q + g*r, - g*k - h*n + b*p + e*q - i*q + h*r, - g*l - h*o
+     ------------------------------------------------------------------------
+     + c*p + f*q)
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C = res I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : D = C[-10]
+
+      1      8      33      60      61      32      5
+o6 = R  &lt;-- R  &lt;-- R   &lt;-- R   &lt;-- R   &lt;-- R   &lt;-- R  &lt;-- 0
+                                                           
+     10     11     12      13      14      15      16     17
+
+o6 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : MC = toMutableComplex D;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : MC = first pruneComplex MC;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : D' = toChainComplex MC
+
+      1      8      33      60      61      32      5
+o9 = R  &lt;-- R  &lt;-- R   &lt;-- R   &lt;-- R   &lt;-- R   &lt;-- R
+                                                    
+     0      1      2       3       4       5       6
+
+o9 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : assert(betti D == betti D'[-10])</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Since the information about source of target of maps is not available, the grading may be incorrect for general complexes.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Converts a chain complex into a list of mutable matrices." href="_to__Mutable__Complex.html">toMutableComplex</a> -- Converts a chain complex into a list of mutable matrices.</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toChainComplex</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toChainComplex(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toChainComplex(List,Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Converts a list of mutable matrices into a ChainComplex." href="_to__Chain__Complex.html">toChainComplex</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>HH DGAlgebraMap -- Computes the homomorphism in homology associated to a DGAlgebraMap.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___H__H_us__Z__Z_sp__D__G__Algebra.html">next</a> | <a href="___H__H_sp__D__G__Algebra.html">previous</a> | <a href="___H__H_us__Z__Z_sp__D__G__Algebra.html">forward</a> | <a href="___H__H_sp__D__G__Algebra.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Data types and basic functions on differential graded (DG) Algebras." href="index.html">DGAlgebras</a> :: <a title="Computes the homomorphism in homology associated to a DGAlgebraMap." href="___H__H_sp__D__G__Algebra__Map.html">HH DGAlgebraMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>HH DGAlgebraMap -- Computes the homomorphism in homology associated to a DGAlgebraMap.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="general homology functor" href="../../Macaulay2Doc/html/_homology.html">homology</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">homologyPhi = homology(phi,n)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>phi</tt>, <span>an instance of the type <a title="The class of all DG Algebra maps" href="___D__G__Algebra__Map.html">DGAlgebraMap</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>homologyPhi</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, The map on homology defined by phi.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : K1 = koszulComplexDGA(ideal vars R,Variable=>&quot;Y&quot;)
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[Y ..Y ]
+                               1   3
+      Differential => {a, b, c}
+
+o2 : DGAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : K2 = koszulComplexDGA(ideal {b,c},Variable=>&quot;T&quot;)
+
+o3 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   2
+      Differential => {b, c}
+
+o3 : DGAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f = dgAlgebraMap(K2,K1,matrix{{0,T_1,T_2}})
+
+o4 = map (R[T ..T ], R[Y ..Y ], {0, T , T , a, b, c})
+             1   2      1   3        1   2
+
+o4 : DGAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+o5 = map (R[Y ..Y ], R[T ..T ], {Y , Y , a, b, c})
+             1   3      1   2     2   3
+
+o5 : DGAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : toComplexMap g
+
+          1             1
+o6 = 0 : R  &lt;--------- R  : 0
+               | 1 |
+
+          3                   2
+     1 : R  &lt;--------------- R  : 1
+               {1} | 0 0 |
+               {1} | 1 0 |
+               {1} | 0 1 |
+
+          3                 1
+     2 : R  &lt;------------- R  : 2
+               {2} | 0 |
+               {2} | 0 |
+               {2} | 1 |
+
+o6 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : HHg = HH g
+Finding easy relations           :      -- used 0.0210618 seconds
+
+                         ZZ
+                        ---[a..c]
+           ZZ           101
+o7 = map (---[X ..X ], ----------[X ], {X , 0, 0, 0})
+          101  1   2           3   1     1
+                       (c, b, a )
+
+                                ZZ
+                               ---[a..c]
+              ZZ               101
+o7 : RingMap ---[X ..X ] &lt;--- ----------[X ]
+             101  1   2               3   1
+                              (c, b, a )</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Computes the homomorphism in homology associated to a DGAlgebraMap." href="___H__H_sp__D__G__Algebra__Map.html">HH DGAlgebraMap</a> -- Computes the homomorphism in homology associated to a DGAlgebraMap.</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

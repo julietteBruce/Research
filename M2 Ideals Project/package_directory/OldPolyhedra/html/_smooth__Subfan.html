@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>smoothSubfan -- computes the subfan of all smooth cones</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_state__Polytope.html">next</a> | <a href="_smallest__Face.html">previous</a> | <a href="_state__Polytope.html">forward</a> | <a href="_smallest__Face.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="computes the subfan of all smooth cones" href="_smooth__Subfan.html">smoothSubfan</a>    </div>
+    <hr/>
+    <div>
+      <h1>smoothSubfan -- computes the subfan of all smooth cones</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">F1 = smoothSubfan F</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>F1</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+ For a given <a title="the class of all fans" href="___Fan.html">Fan</a> <tt>F</tt> the function computes the subfan <tt>F1</tt> of all smooth cones.        <p/>
+Let's consider the fan consisting of the following three dimensional cone and all of its faces:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C = posHull  matrix {{1,-1,0},{1,1,0},{1,1,1}}
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o1 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = fan C
+
+o2 = {ambient dimension => 3         }
+      number of generating cones => 1
+      number of rays => 3
+      top dimension of the cones => 3
+
+o2 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This cone is not smooth, therefore also the fan is not. But if we remove the interior and one of the two dimensional faces the resulting subfan is smooth.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : F1 = smoothSubfan F
+
+o3 = {ambient dimension => 3         }
+      number of generating cones => 2
+      number of rays => 3
+      top dimension of the cones => 2
+
+o3 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : apply(maxCones F1, rays)
+
+o4 = {| 0 1 |, | 0 -1 |}
+      | 0 1 |  | 0 1  |
+      | 1 1 |  | 1 1  |
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>smoothSubfan</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;smoothSubfan(Fan)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the subfan of all smooth cones" href="_smooth__Subfan.html">smoothSubfan</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

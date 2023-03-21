@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomBlockMatrix -- create a block matrix with zero, identity and random blocks</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__Homomorphism.html">next</a> | <a href="_random_lp__List_cm__Ideal_rp.html">previous</a> | <a href="_random__Homomorphism.html">forward</a> | <a href="_random_lp__List_cm__Ideal_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="code to support the paper 'Quaternary Quartic Forms and Gorenstein Rings'" href="index.html">QuaternaryQuartics</a> :: <a title="create a block matrix with zero, identity and random blocks" href="_random__Block__Matrix.html">randomBlockMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomBlockMatrix -- create a block matrix with zero, identity and random blocks</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">randomBlockMatrix(tarList, srcList, mats)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>tarList</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a non-empty list of modules over a ring $R$</span>              </li>
+              <li>
+<span><tt>srcList</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a non-empty list of modules over the same ring $R$</span>              </li>
+              <li>
+<span><tt>mats</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of lists, of length = number of elements in the tarList, and each list has <tt>#srcList</tt> entries</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function creates a block matrix with the block sizes (and degrees) determined by the modules in <tt>tarList</tt> and <tt>srcList</tt>. Each entry in the <tt>mats</tt> matrix indicates what should be placed at that block of the matrix: mats#r#c corresponds to a matrix with target tarList#r, and source srcList#c.</p>
+          <p>Each entry can be: <tt>random</tt> (giving a block which is random), the number 0 (a zero block), the number 1 (an identity block), or an actual matrix.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[a..d]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : randomBlockMatrix({S^3, S^1}, {S^3, S^1}, {{random, random}, {0, 1}})
+
+o2 = | 24  -29 -10 -22 |
+     | -36 19  -29 -29 |
+     | -30 19  -8  -24 |
+     | 0   0   0   1   |
+
+             4       4
+o2 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = ZZ/101[a..d]
+
+o3 = S
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : randomBlockMatrix({S^3, S^2}, {S^3, S^2, S^{2:-1}}, {{random, random, 0}, {0, 1, random}})
+
+o4 = | -38 21 -47 -13 -28 0                0                |
+     | -16 34 -39 -43 -47 0                0                |
+     | 39  19 -18 -15 38  0                0                |
+     | 0   0  0   1   0   2a+16b+22c+45d   19a-16b+7c+15d   |
+     | 0   0  0   0   1   -34a-48b-47c+47d -23a+39b+43c-17d |
+
+             5       7
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make a random module map" href="../../Macaulay2Doc/html/_random_lp__Module_cm__Module_rp.html">random(Module,Module)</a> -- make a random module map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>randomBlockMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;randomBlockMatrix(List,List,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="create a block matrix with zero, identity and random blocks" href="_random__Block__Matrix.html">randomBlockMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

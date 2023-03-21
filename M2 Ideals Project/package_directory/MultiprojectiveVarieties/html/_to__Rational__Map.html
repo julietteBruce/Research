@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toRationalMap -- convert a multi-rational map consisting of a single rational map to a standard rational map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_trim_lp__Multirational__Map_rp.html">next</a> | <a href="_top__Components_lp__Multiprojective__Variety_rp.html">previous</a> | <a href="_trim_lp__Multirational__Map_rp.html">forward</a> | <a href="_top__Components_lp__Multiprojective__Variety_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="convert a multi-rational map consisting of a single rational map to a standard rational map" href="_to__Rational__Map.html">toRationalMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>toRationalMap -- convert a multi-rational map consisting of a single rational map to a standard rational map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toRationalMap Phi</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>Phi</tt>, <span>a <a title="the class of all multi-rational maps" href="___Multirational__Map.html">multi-rational map</a></span>, whose target is <span>an <a title="the class of all embedded projective varieties" href="___Embedded__Projective__Variety.html">embedded projective variety</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="../../Cremona/html/___Rational__Map.html">rational map</a></span>, which is mathematically equal to <tt>Phi</tt> but represented as an object of the class <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="../../Cremona/html/___Rational__Map.html">RationalMap</a></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is useful when you need to use tools from the package <a title="package for some computations on rational maps between projective varieties" href="../../Cremona/html/index.html">Cremona</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Phi = rationalMap(PP_QQ^(1,4),Dominant=>true);
+
+o1 : MultirationalMap (dominant rational map from PP^4 to hypersurface in PP^5)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : class Phi
+
+o2 = MultirationalMap
+
+o2 : Type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = toRationalMap Phi;
+
+o3 : RationalMap (quadratic dominant rational map from PP^4 to hypersurface in PP^5)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : class f
+
+o4 = RationalMap
+
+o4 : Type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : assert(Phi == f and Phi =!= f)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Some convenient shortcuts for multi-rational maps consisting of a single rational map" href="_shortcuts.html">multirationalMap(RationalMap)</a> -- Some convenient shortcuts for multi-rational maps consisting of a single rational map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toRationalMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toRationalMap(MultirationalMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="convert a multi-rational map consisting of a single rational map to a standard rational map" href="_to__Rational__Map.html">toRationalMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

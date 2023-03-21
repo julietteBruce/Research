@@ -1,0 +1,86 @@
+-- -*- M2-comint -*- hash: 428780752
+
+i1 : a=5,b=5
+
+o1 = (5, 5)
+
+o1 : Sequence
+
+i2 : elapsedTime T=carpetBettiTable(a,b,3)
+ -- 0.00278139 seconds elapsed
+ -- 0.0104066 seconds elapsed
+ -- 0.0653171 seconds elapsed
+ -- 0.0250897 seconds elapsed
+ -- 0.0153197 seconds elapsed
+ -- 0.430743 seconds elapsed
+
+            0  1   2   3   4   5   6   7  8 9
+o2 = total: 1 36 160 315 302 302 315 160 36 1
+         0: 1  .   .   .   .   .   .   .  . .
+         1: . 36 160 315 288  14   .   .  . .
+         2: .  .   .   .  14 288 315 160 36 .
+         3: .  .   .   .   .   .   .   .  . 1
+
+o2 : BettiTally
+
+i3 : J=canonicalCarpet(a+b+1,b,Characteristic=>3);
+
+              ZZ
+o3 : Ideal of --[x ..x , y ..y ]
+               3  0   5   0   5
+
+i4 : elapsedTime T'=minimalBetti J
+ -- 0.393076 seconds elapsed
+
+            0  1   2   3   4   5   6   7  8 9
+o4 = total: 1 36 160 315 302 302 315 160 36 1
+         0: 1  .   .   .   .   .   .   .  . .
+         1: . 36 160 315 288  14   .   .  . .
+         2: .  .   .   .  14 288 315 160 36 .
+         3: .  .   .   .   .   .   .   .  . 1
+
+o4 : BettiTally
+
+i5 : T-T'
+
+            0 1 2 3 4 5 6 7 8 9
+o5 = total: . . . . . . . . . .
+         1: . . . . . . . . . .
+         2: . . . . . . . . . .
+         3: . . . . . . . . . .
+
+o5 : BettiTally
+
+i6 : elapsedTime h=carpetBettiTables(6,6);
+ -- 0.00839505 seconds elapsed
+ -- 0.0619664 seconds elapsed
+ -- 0.285735 seconds elapsed
+ -- 4.00796 seconds elapsed
+ -- 1.18629 seconds elapsed
+ -- 0.097114 seconds elapsed
+ -- 0.0163592 seconds elapsed
+ -- 9.12699 seconds elapsed
+
+i7 : carpetBettiTable(h,7)
+
+            0  1   2   3    4    5    6    7   8   9 10 11
+o7 = total: 1 55 320 891 1408 1155 1155 1408 891 320 55  1
+         0: 1  .   .   .    .    .    .    .   .   .  .  .
+         1: . 55 320 891 1408 1155    .    .   .   .  .  .
+         2: .  .   .   .    .    . 1155 1408 891 320 55  .
+         3: .  .   .   .    .    .    .    .   .   .  .  1
+
+o7 : BettiTally
+
+i8 : carpetBettiTable(h,5)
+
+            0  1   2   3    4    5    6    7   8   9 10 11
+o8 = total: 1 55 320 891 1408 1275 1275 1408 891 320 55  1
+         0: 1  .   .   .    .    .    .    .   .   .  .  .
+         1: . 55 320 891 1408 1155  120    .   .   .  .  .
+         2: .  .   .   .    .  120 1155 1408 891 320 55  .
+         3: .  .   .   .    .    .    .    .   .   .  .  1
+
+o8 : BettiTally
+
+i9 : 

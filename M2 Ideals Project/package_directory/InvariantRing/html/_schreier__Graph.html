@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>schreierGraph -- Schreier graph of a finite group</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_secondary__Invariants.html">next</a> | <a href="___Ring__Of__Invariants.html">previous</a> | <a href="_secondary__Invariants.html">forward</a> | <a href="___Ring__Of__Invariants.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="invariants of group actions" href="index.html">InvariantRing</a> :: <a title="Schreier graph of a finite group" href="_schreier__Graph.html">schreierGraph</a>    </div>
+    <hr/>
+    <div>
+      <h1>schreierGraph -- Schreier graph of a finite group</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">schreierGraph G</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>an instance of the type <a title="the class of all finite group actions" href="___Finite__Group__Action.html">FiniteGroupAction</a></span>, a finite group action</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, representing the Schreier graph of the group</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+This function is provided by the package <a title="invariants of group actions" href="index.html">InvariantRing</a>.        <p>For a finite group action, we form a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> whose keys are the generators provided by the user. The value corresponding to a generator <tt>g</tt> is a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> containing all pairs <tt>a => b</tt> such that <tt>a*g == b</tt>. This represents the Schreier graph of the group relative to the generating set provided by the user.</p>
+        <p>The following example defines the permutation action of a symmetric group on three elements using only two generators, a transposition and a 3-cycle.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_3]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L = {matrix {{0,1,0},{1,0,0},{0,0,1}}, matrix {{0,0,1},{0,1,0},{1,0,0}} }
+
+o2 = {| 0 1 0 |, | 0 0 1 |}
+      | 1 0 0 |  | 0 1 0 |
+      | 0 0 1 |  | 1 0 0 |
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : G = finiteAction(L, R)
+
+o3 = R &lt;- {| 0 1 0 |, | 0 0 1 |}
+           | 1 0 0 |  | 0 1 0 |
+           | 0 0 1 |  | 1 0 0 |
+
+o3 : FiniteGroupAction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : schreierGraph G
+
+o4 = HashTable{0 => HashTable{| 0 0 1 | => | 0 0 1 |}}
+                              | 0 1 0 |    | 1 0 0 |
+                              | 1 0 0 |    | 0 1 0 |
+                              | 0 0 1 | => | 0 0 1 |
+                              | 1 0 0 |    | 0 1 0 |
+                              | 0 1 0 |    | 1 0 0 |
+                              | 0 1 0 | => | 1 0 0 |
+                              | 0 0 1 |    | 0 0 1 |
+                              | 1 0 0 |    | 0 1 0 |
+                              | 0 1 0 | => | 1 0 0 |
+                              | 1 0 0 |    | 0 1 0 |
+                              | 0 0 1 |    | 0 0 1 |
+                              | 1 0 0 | => | 0 1 0 |
+                              | 0 0 1 |    | 0 0 1 |
+                              | 0 1 0 |    | 1 0 0 |
+                              | 1 0 0 | => | 0 1 0 |
+                              | 0 1 0 |    | 1 0 0 |
+                              | 0 0 1 |    | 0 0 1 |
+               1 => HashTable{| 0 0 1 | => | 1 0 0 |}
+                              | 0 1 0 |    | 0 1 0 |
+                              | 1 0 0 |    | 0 0 1 |
+                              | 0 0 1 | => | 1 0 0 |
+                              | 1 0 0 |    | 0 0 1 |
+                              | 0 1 0 |    | 0 1 0 |
+                              | 0 1 0 | => | 0 1 0 |
+                              | 0 0 1 |    | 1 0 0 |
+                              | 1 0 0 |    | 0 0 1 |
+                              | 0 1 0 | => | 0 1 0 |
+                              | 1 0 0 |    | 0 0 1 |
+                              | 0 0 1 |    | 1 0 0 |
+                              | 1 0 0 | => | 0 0 1 |
+                              | 0 0 1 |    | 1 0 0 |
+                              | 0 1 0 |    | 0 1 0 |
+                              | 1 0 0 | => | 0 0 1 |
+                              | 0 1 0 |    | 0 1 0 |
+                              | 0 0 1 |    | 1 0 0 |
+
+o4 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>schreierGraph</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;schreierGraph(FiniteGroupAction)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Schreier graph of a finite group" href="_schreier__Graph.html">schreierGraph</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

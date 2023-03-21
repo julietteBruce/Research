@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>nonCartierLocus -- the non-Cartier locus of a Weil divisor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Number_sp_st_sp__Basic__Divisor.html">next</a> | <a href="___M__Tries.html">previous</a> | <a href="___Number_sp_st_sp__Basic__Divisor.html">forward</a> | <a href="___M__Tries.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="the non-Cartier locus of a Weil divisor" href="_non__Cartier__Locus.html">nonCartierLocus</a>    </div>
+    <hr/>
+    <div>
+      <h1>nonCartierLocus -- the non-Cartier locus of a Weil divisor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">nonCartierLocus( D, IsGraded=>b)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>D</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">WeilDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>IsGraded</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, specify that we are computing this locus on a projective variety</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns an ideal which vanishes on the locus where <tt>D</tt> is not Cartier.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x, y, u, v]/ideal(x * y  - u * v);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : D = divisor({1, -3, -5, 8}, {ideal(x, u), ideal(y, v), ideal(x, v), ideal(y, u)})
+
+o2 = 8*Div(y, u) + Div(x, u) + -3*Div(y, v) + -5*Div(x, v)
+
+o2 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : nonCartierLocus( D )
+
+             5     4     4     4   2 3       3       3   2 3   2 3   3 2 
+o3 = ideal (v , u*v , y*v , x*v , u v , y*u*v , x*u*v , y v , x v , u v ,
+     ------------------------------------------------------------------------
+        2 2     2 2   2   2   2   2   3 2   3 2   4      3      3    2 2  
+     y*u v , x*u v , y u*v , x u*v , y v , x v , u v, y*u v, x*u v, y u v,
+     ------------------------------------------------------------------------
+      2 2    3      3      4    4    5     4     4   2 3   2 3   3 2   3 2 
+     x u v, y u*v, x u*v, y v, x v, u , y*u , x*u , y u , x u , y u , x u ,
+     ------------------------------------------------------------------------
+      4    4    5   5
+     y u, x u, y , x )
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If the option <tt>IsGraded</tt> is set to <tt>true</tt> (by default it is <tt>false</tt>), it saturates with respect to the homogeneous maximal ideal.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = QQ[x, y, u, v]/ideal(x * y  - u * v);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : D = divisor({1, -3, -5, 8}, {ideal(x, u), ideal(y, v), ideal(x, v), ideal(y, u)})
+
+o5 = 8*Div(y, u) + Div(x, u) + -3*Div(y, v) + -5*Div(x, v)
+
+o5 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : nonCartierLocus( D, IsGraded => true )
+
+o6 = ideal 1
+
+o6 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The output value of this function is stored in the divisor's cache with the value of the last <tt>IsGraded</tt> option.  If you change the <tt>IsGraded</tt> option, the value will be recomputed.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether a Weil divisor is Cartier" href="_is__Cartier.html">isCartier</a> -- whether a Weil divisor is Cartier</span>          </li>
+          <li>
+<span><a title="whether m times a divisor is Cartier for any m from 1 to a fixed positive integer n1." href="_is__Q__Cartier.html">isQCartier</a> -- whether m times a divisor is Cartier for any m from 1 to a fixed positive integer n1.</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>nonCartierLocus</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;nonCartierLocus(WeilDivisor)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the non-Cartier locus of a Weil divisor" href="_non__Cartier__Locus.html">nonCartierLocus</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

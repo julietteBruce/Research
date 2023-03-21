@@ -1,0 +1,37 @@
+-- -*- M2-comint -*- hash: 1651399738
+
+i1 : -- map defined by the quadrics through a twisted cubic curve
+     ZZ/33331[a..d]; f = rationalMap {c^2-b*d,b*c-a*d,b^2-a*c};
+
+o2 : RationalMap (quadratic rational map from PP^3 to PP^2)
+
+i3 : Phi = rationalMap {f,f};
+
+o3 : MultirationalMap (rational map from PP^3 to PP^2 x PP^2)
+
+i4 : time isIsomorphism Phi
+     -- used 0.000027296 seconds
+
+o4 = false
+
+i5 : Psi = first graph Phi;
+
+o5 : MultirationalMap (birational map from threefold in PP^3 x PP^2 x PP^2 to PP^3)
+
+i6 : time isIsomorphism Psi
+     -- used 0.248758 seconds
+
+o6 = false
+
+i7 : Eta = first graph Psi;
+
+o7 : MultirationalMap (birational map from threefold in PP^3 x PP^2 x PP^2 x PP^3 to threefold in PP^3 x PP^2 x PP^2)
+
+i8 : time isIsomorphism Eta
+     -- used 0.957887 seconds
+
+o8 = true
+
+i9 : assert(o8 and (not o6) and (not o4))
+
+i10 : 

@@ -1,0 +1,39 @@
+-- -*- M2-comint -*- hash: 101797998
+
+i1 : X = specialCubicFourfold "quartic scroll";
+
+o1 : ProjectiveVariety, cubic fourfold containing a surface of degree 4 and sectional genus 0
+
+i2 : describe X
+
+o2 = Special cubic fourfold of discriminant 14
+     containing a (smooth) surface of degree 4 and sectional genus 0
+     cut out by 6 hypersurfaces of degree 2
+
+i3 : time U' = associatedK3surface X;
+     -- used 1.4969 seconds
+
+o3 : ProjectiveVariety, K3 surface associated to X
+
+i4 : (mu,U,C,f) = building U';
+
+i5 : ? mu
+
+o5 = multi-rational map consisting of one single rational map
+     source variety: PP^5
+     target variety: hypersurface in PP^5 defined by a form of degree 2
+     dominance: true
+
+i6 : ? U
+
+o6 = surface in PP^5 cut out by 7 hypersurfaces of degrees 2^1 3^6 
+
+i7 : last C
+
+o7 = curve in PP^5 cut out by 4 hypersurfaces of degrees 1^3 2^1 
+
+o7 : ProjectiveVariety, curve in PP^5 (subvariety of codimension 1 in U)
+
+i8 : assert(image f == U')
+
+i9 : 

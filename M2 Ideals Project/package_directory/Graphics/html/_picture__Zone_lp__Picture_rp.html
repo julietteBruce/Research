@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>pictureZone(Picture) -- find the zone that contains the whole picture</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_picture__Zone_lp__Point2__D_rp.html">next</a> | <a href="_picture__Zone_lp__Formatted__Graphic__Primitives_rp.html">previous</a> | <a href="_picture__Zone_lp__Point2__D_rp.html">forward</a> | <a href="_picture__Zone_lp__Formatted__Graphic__Primitives_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Graphics" href="index.html">Graphics</a> :: <a title="find the zone that contains the whole picture" href="_picture__Zone_lp__Picture_rp.html">pictureZone(Picture)</a>    </div>
+    <hr/>
+    <div>
+      <h1>pictureZone(Picture) -- find the zone that contains the whole picture</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="find the zone in which a picture lies" href="_picture__Zone.html">pictureZone</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">pictureZone(mypict)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>mypict</tt>, <span>an instance of the type <a title="the class of pictures containing several FormattedGraphicPrimitives" href="___Picture.html">Picture</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of the form {xmin,xmax,ymin,ymax} (or {xmin,xmax,ymin,ymax,zmin,zmax} for 3D objects) describing a zone containing the object fgp</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : myfgp1=formatGraphicPrimitives({point(20.,30.),point(30.,40.)},hashTable {&quot;fill&quot;=>&quot;black&quot;})
+
+o1 = FormattedGraphicPrimitives{{Point2D{20, 30}, Point2D{30, 40}}, HashTable{fill => black}}
+
+o1 : FormattedGraphicPrimitives</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : myfgp2=formatGraphicPrimitives({circle(point(20.,30.),10)},hashTable {&quot;fill&quot;=>&quot;red&quot;})
+
+o2 = FormattedGraphicPrimitives{{Circle{Point2D{20, 30}, 10}}, HashTable{fill => red}}
+
+o2 : FormattedGraphicPrimitives</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : mypict=picture({myfgp1,myfgp2})
+
+o3 = Picture{FormattedGraphicPrimitives{{Point2D{20, 30}, Point2D{30, 40}}, HashTable{fill => black}}, FormattedGraphicPrimitives{{Circle{Point2D{20, 30}, 10}}, HashTable{fill => red}}}
+
+o3 : Picture</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : pictureZone(mypict)
+
+o4 = {10, 30, 20, 40}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="find the zone that contains the whole picture" href="_picture__Zone_lp__Picture_rp.html">pictureZone(Picture)</a> -- find the zone that contains the whole picture</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

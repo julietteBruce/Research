@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RandomMonomialIdeals -- A package for generating Erdos-Renyi-type random monomial ideals and variations</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_betti__Stats.html">next</a> | previous | <a href="_betti__Stats.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a> :: <a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a>    </div>
+    <hr/>
+    <div>
+      <h1>RandomMonomialIdeals -- A package for generating Erdos-Renyi-type random monomial ideals and variations</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><em>RandomMonomialIdeals</em> is a  package for sampling random monomial ideals from an Erdos-Renyi-type distribution, the graded version of it, and some extensions. It also introduces new types of objects, <a title="a type used to store a data sample from a statistical model" href="___Sample.html">Sample</a> and <a title="a type used to store a statistical model and its parameters" href="___Model.html">Model</a>, to allow for streamlined handling of random objects and their statistics in <em>Macaulay2</em>. Most of the models implemented are drawn from the paper <em>Random Monomial Ideals</em> by Jesus A. De Loera, Sonja Petrovic, Lily Silverstein, Despina Stasi, and Dane Wilburne (<a href="https://arxiv.org/abs/1701.07130">https://arxiv.org/abs/1701.07130</a>).</p>
+          <p>The main method, <a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a>, generates a sample of size $N$ from the distribution $\mathcal B(n, D, p)$ of sets of monomials of degree at most $D$ on $n$ variables, where $p$ is the probability of selecting any given monomial:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : n=3; D=2; p=0.5; N=4;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : L = randomMonomialSets(n,D,p,N)
+
+                      2         2             2   2               2       
+o5 = {{x , x , x x , x , x x , x }, {x , x , x , x }, {x , x x , x , x x ,
+        2   3   1 2   2   2 3   3     2   3   2   3     3   1 3   2   2 3 
+     ------------------------------------------------------------------------
+      2                 2         2         2
+     x }, {x , x , x , x , x x , x , x x , x }}
+      3     1   2   3   1   1 2   2   2 3   3
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>For a formal definition of the distribution, see Section 1 of <a href="https://arxiv.org/abs/1701.07130">https://arxiv.org/abs/1701.07130</a>. As is customary, we use the word `model' when referring to a distribution of the random objects at hand.</p>
+          <p>The model defined by $\mathcal B(n, D, p)$ was inspired by the Erdos-Renyi random graph model denoted by $G(n,p)$: it is a natural generalization, as squarefree monomials of degree tww can be encoded by edges of a graph whose vertices are the variables. The random graph model can be introduced in two ways: one can either fix the probability of an edge or fix the total number of edges. Thus the package also includes the model variant that generates a fixed  <em>number</em> of monomials:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : n=3; D=2; M=3; N=4;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : L = randomMonomialSets(n,D,M,N)
+
+                 2                       2                     2
+o10 = {{x , x , x }, {x , x x , x x }, {x , x , x x }, {x x , x , x }}
+         2   3   3     3   1 3   2 3     1   1   2 3     2 3   1   3
+
+o10 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>To sample from the <em>graded</em> model from Section 6 of <a href="https://arxiv.org/abs/1701.07130">https://arxiv.org/abs/1701.07130</a>, simply replace $p$ by a list of $D$ probabilities, one for each degree. In the example below, monomials of degree 1 are not selected since their probability = 0, while each monomial of degree 2 is selected with probability 1.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : n=3; D=2; N=4;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : randomMonomialSets(n,D,{0.0,1.0},N)
+
+         2               2         2     2               2         2     2 
+o14 = {{x , x x , x x , x , x x , x }, {x , x x , x x , x , x x , x }, {x ,
+         1   1 2   1 3   2   2 3   3     1   1 2   1 3   2   2 3   3     1 
+      -----------------------------------------------------------------------
+                   2         2     2               2         2
+      x x , x x , x , x x , x }, {x , x x , x x , x , x x , x }}
+       1 2   1 3   2   2 3   3     1   1 2   1 3   2   2 3   3
+
+o14 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The package also allows for sampling from the <em>graded</em> version of the fixed number of monomials model, where we specify the requested number of monomials of each degree. In the example below, we sample random sets of monomials with one monomial of degree 1, zero of degree 2 and three monomials of degree 3.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : n=3; D=3; N=4;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : randomMonomialSets(n,D,{1,0,3},N)
+
+               2   2       2         2             2           3         
+o18 = {{x , x x , x x , x x }, {x , x x , x x x , x x }, {x , x , x x x ,
+         1   1 2   1 2   2 3     3   2 3   1 2 3   1 2     2   2   1 2 3 
+      -----------------------------------------------------------------------
+       2           3             2
+      x x }, {x , x , x x x , x x }}
+       1 3     2   3   1 2 3   1 3
+
+o18 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Finally, we can request the monomial sets generated by the <em>graded</em> model with a fixed number of monomials to be minimal generating sets. We can also employ the minimal strategy for a couple of other versions of the randomMonomialSets method.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : n=3; D=3; N=4;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : randomMonomialSets(n,D,{1,0,3},N, Strategy=>&quot;Minimal&quot;)
+
+             3   2     3           2   2     3         3   3     2       
+o22 = {{x , x , x x , x }, {x , x x , x x , x }, {x , x , x , x x }, {x ,
+         1   2   2 3   3     3   1 2   1 2   1     2   1   3   1 3     3 
+      -----------------------------------------------------------------------
+         2   2     3
+      x x , x x , x }}
+       1 2   1 2   2
+
+o22 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : randomMonomialSets(n,D,{0.0,0.3,0.5},N, Strategy=>&quot;Minimal&quot;)
+
+         2       2           3           3   2       2             2   3 
+o23 = {{x x , x x , x x x , x }, {x x , x , x x , x x }, {x x , x x , x ,
+         1 3   1 2   1 2 3   2     1 2   1   2 3   2 3     1 2   1 3   2 
+      -----------------------------------------------------------------------
+         2   3           2   2
+      x x , x }, {x x , x , x x }}
+       2 3   3     2 3   3   1 2
+
+o23 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i24 : randomMonomialSets(n,D,0.1,N, Strategy=>&quot;Minimal&quot;)
+
+           2     2
+o24 = {{x x }, {x x }, {x }, {x x x }}
+         1 2     1 3     1     1 2 3
+
+o24 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Once a sample (that is, a set of random objects) is generated, one can compute various statistics of algebraic properties of the sample. The methods in the package offer a way to compute and summarize statistics of some of the common properties, such as degree, dimension, projective dimension, Castelnuovo-Mumford regularity, etc. For example, we can use the method <a title="statistics on the Krull dimension of a list of objects" href="_dim__Stats.html">dimStats</a> to get the Krull dimension statistics:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i25 : ideals=idealsFromGeneratingSets(L)
+
+                                                                          
+o25 = {monomialIdeal (x , x ), monomialIdeal x , monomialIdeal (x , x x ),
+                       2   3                  3                  1   2 3  
+      -----------------------------------------------------------------------
+                      2
+      monomialIdeal (x , x )}
+                      1   3
+
+o25 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i26 : dimStats(ideals,ShowTally=>true)
+
+o26 = (1.25, .433013, Tally{1 => 3})
+                            2 => 1
+
+o26 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The first entry in the output of the method <a title="statistics on the Krull dimension of a list of objects" href="_dim__Stats.html">dimStats</a> is the mean Krull dimension of the sample. The second entry is the standard deviation. Similarly, one can obtain the mean and standard deviations of the number of minimal generators and degree complexity via <a title="statistics on the minimal generators of a list of ideals: number and degree complexity" href="_mingen__Stats.html">mingenStats</a>, and the average Betti table shape, mean Betti table, and its standard deviation via <a title="statistics on Betti tables of a sample of monomial ideals or list of objects" href="_betti__Stats.html">bettiStats</a>:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i27 : mingenStats ideals
+
+o27 = (1.75, .433013, 1.5, .5)
+
+o27 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i28 : bettiStats ideals
+
+              0   1   2         0    1   2               1       2
+o28 = (total: 1 1.5 .75, total: 1 1.75 .75, total: .933013 .933013)
+           0: 1   1 .25      0: 1 1.25 .25      0: .433013 .433013
+           1: .  .5  .5      1: .   .5  .5      1:      .5      .5
+
+o28 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>For developing other models and computing statistics on objects other than monomial ideals, the package also defines two new types of object, <a title="a type used to store a statistical model and its parameters" href="___Model.html">Model</a> and <a title="a type used to store a data sample from a statistical model" href="___Sample.html">Sample</a>, which allow for convenient storage of statistics from a sample of algebraic objects and streamlines writing sample data into files.</p>
+          <p>For example, below we create a sample of size 10 from the Erdos-Renyi distribution $\mathcal B(n, D, p)$ on monomials in $Q[y,w]$ with $D=4$, and $p=0.5$, and then a sample of size 15 from the graded version of this distribution on monomials in $Z/101[z_1..z_8]$ with $D=2$, and $p={0.25,0.5}$:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i29 : sample1 = sample(ER(QQ[y,w],4,0.5),10)
+
+o29 = Sample{...4...}
+
+o29 : Sample</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i30 : sample2 = sample(ER(ZZ/101[z_1..z_8],2,{0.25,0.75}),15)
+
+o30 = Sample{...4...}
+
+o30 : Sample</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The output is a hash table with 4 entries. To obtain the random sets of monomials that were generated (that is, the actual data we are interested in), use the command <a title="get the underlying samples" href="_get__Data.html">getData</a>:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i31 : keys sample1
+
+o31 = {SampleSize, ModelName, Data, Parameters}
+
+o31 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i32 : sample2.Parameters
+
+        ZZ
+o32 = (---[z ..z ], 2, {.25, .75})
+       101  1   8
+
+o32 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i33 : myData = getData(sample1);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i34 : myData_0
+
+           2          2   3   4   2 2     3
+o34 = {w, y , y*w, y*w , w , y , y w , y*w }
+
+o34 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We can also use the object of type <a title="a type used to store a data sample from a statistical model" href="___Sample.html">Sample</a> to calculate the mean, standard deviation, and tally of the dimension of the ideals in the sample:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i35 : statistics(sample(ER(CC[z_1..z_8],5,0.1),100), degree@@ideal)
+-- warning: experimental computation over inexact field begun
+--          results not reliable (one warning given per session)
+
+o35 = HashTable{Histogram => Tally{1 => 11}}
+                                   2 => 11
+                                   3 => 6
+                                   4 => 10
+                                   5 => 4
+                                   6 => 6
+                                   7 => 4
+                                   8 => 5
+                                   9 => 4
+                                   10 => 2
+                                   11 => 4
+                                   12 => 3
+                                   13 => 3
+                                   14 => 1
+                                   15 => 4
+                                   16 => 1
+                                   17 => 2
+                                   18 => 1
+                                   19 => 1
+                                   20 => 2
+                                   21 => 3
+                                   25 => 1
+                                   26 => 1
+                                   28 => 1
+                                   34 => 1
+                                   36 => 1
+                                   40 => 1
+                                   45 => 1
+                                   47 => 1
+                                   49 => 1
+                                   52 => 1
+                                   67 => 1
+                                   77 => 1
+                        59
+                Mean => --
+                         5
+                StdDev => 14.0556
+
+o35 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>Most of the methods in this package offer various options, such as selecting a specific ring with which to work, or specifying variable names, coefficients, etc. Here is a simple example:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i36 : R=ZZ/101[a..e];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i37 : randomMonomialSets(R,D,p,N)
+
+                                       2                       2   2   3 
+o37 = {{a, b, c, d, e, a*b, a*c, a*d, b , b*d, b*e, c*d, c*e, d , e , a ,
+      -----------------------------------------------------------------------
+       2      2   3   2    2      2     2          3   2             2   3 
+      a b, a*b , b , b c, b d, b*c , b*d , b*d*e, c , c e, c*d*e, c*e , d ,
+      -----------------------------------------------------------------------
+       2      2                          2        2        2   3   2    2  
+      d e, d*e }, {a, e, b*c, b*d, b*e, c , c*d, d , d*e, e , a , a c, a e,
+      -----------------------------------------------------------------------
+                              2     2   2    2    2      2            2   3 
+      a*b*e, a*c*d, a*c*e, a*d , a*e , b c, b d, b e, b*d , b*d*e, b*e , c ,
+      -----------------------------------------------------------------------
+       2      2            2   3     2                                   
+      c d, c*d , c*d*e, c*e , d , d*e }, {a, b, c, d, a*b, a*c, a*e, b*c,
+      -----------------------------------------------------------------------
+                           2   2      2                          2   3 
+      b*d, b*e, c*d, d*e, e , a e, a*c , a*c*d, a*c*e, a*d*e, a*e , b ,
+      -----------------------------------------------------------------------
+                       2   2    2      2     2   3                         
+      b*c*d, b*c*e, b*d , c d, c e, c*e , d*e , e }, {a, c, d, e, a*b, b*c,
+      -----------------------------------------------------------------------
+                      2   3   2    2      2                   2     2        
+      b*d, b*e, c*e, e , a , a d, a e, a*b , a*b*c, a*b*e, a*c , a*d , a*d*e,
+      -----------------------------------------------------------------------
+       3   2      2                   2   3   2    2             2   2  
+      b , b c, b*c , b*c*d, b*c*e, b*e , c , c d, c e, c*d*e, c*e , d e,
+      -----------------------------------------------------------------------
+         2
+      d*e }}
+
+o37 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i38 : randomMonomialSets(n,D,p,N,VariableName=>&quot;t&quot;)
+
+                     2         2           2   2     3             2       
+o38 = {{t , t , t , t , t t , t , t t , t t , t t , t }, {t , t , t , t t ,
+         1   2   3   1   1 3   2   2 3   1 2   2 3   3     1   2   1   1 2 
+      -----------------------------------------------------------------------
+             3   2       2                     2               2   3     2 
+      t t , t , t t , t t , t t t }, {t , t , t , t t , t t , t , t , t t ,
+       1 3   1   1 3   1 2   1 2 3     1   3   1   1 2   2 3   3   1   1 2 
+      -----------------------------------------------------------------------
+         2   3     2   3         2         3   2       2   3   2
+      t t , t , t t , t }, {t , t , t t , t , t t , t t , t , t t }}
+       1 3   2   2 3   3     3   1   1 2   1   1 3   1 2   2   2 3
+
+o38 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In some cases, we may want to work directly with the sets of randomly chosen monomials, while at other times it may be more convenient to pass directly to the corresponding random monomial ideals. Both options induce the same distribution on monomial ideals:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i39 : randomMonomialSets(3,4,1.0,1)
+
+                     2               2         2   3   2     2       2 
+o39 = {{x , x , x , x , x x , x x , x , x x , x , x , x x , x x , x x ,
+         1   2   3   1   1 2   1 3   2   2 3   3   1   1 2   1 3   1 2 
+      -----------------------------------------------------------------------
+                 2   3   2       2   3   4   3     3     2 2   2       2 2 
+      x x x , x x , x , x x , x x , x , x , x x , x x , x x , x x x , x x ,
+       1 2 3   1 3   2   2 3   2 3   3   1   1 2   1 3   1 2   1 2 3   1 3 
+      -----------------------------------------------------------------------
+         3     2         2     3   4   3     2 2     3   4
+      x x , x x x , x x x , x x , x , x x , x x , x x , x }}
+       1 2   1 2 3   1 2 3   1 3   2   2 3   2 3   2 3   3
+
+o39 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i40 : monomialIdeal flatten oo
+
+o40 = monomialIdeal (x , x , x )
+                      1   2   3
+
+o40 : MonomialIdeal of QQ[x ..x ]
+                           1   3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i41 : randomMonomialIdeals(3,4,1.0,1)
+
+o41 = {monomialIdeal (x , x , x )}
+                       1   2   3
+
+o41 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span>          </li>
+          <li>
+<span><a title="request verbose feedback" href="../../Macaulay2Doc/html/___Verbose.html">Verbose</a> -- request verbose feedback</span>          </li>
+          <li>
+<span><a title="generates a sample from the given model" href="_sample.html">sample</a> -- generates a sample from the given model</span>          </li>
+          <li>
+<span><a title="creates a new model for random objects with a given list of parameters and generating function" href="_model.html">model</a> -- creates a new model for random objects with a given list of parameters and generating function</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://math.iit.edu/~spetrov1/">Sonja Petrovic</a><span> &lt;<a href="mailto:sonja.petrovic@iit.edu">sonja.petrovic@iit.edu</a>></span>            </li>
+            <li>
+<a href="http://math.iit.edu/~stasdes/">Despina Stasi</a><span> &lt;<a href="mailto:stasdes@iit.edu">stasdes@iit.edu</a>></span>            </li>
+            <li>
+<a href="http://mypages.iit.edu/~dwilburn/">Dane Wilburne</a><span> &lt;<a href="mailto:dwilburn@hawk.iit.edu">dwilburn@hawk.iit.edu</a>></span>            </li>
+            <li>
+<a href="https://www.linkedin.com/in/tannerzielinski/">Tanner Zielinski</a><span> &lt;<a href="mailto:tzielin1@hawk.iit.edu">tzielin1@hawk.iit.edu</a>></span>            </li>
+            <li>
+<a href="https://www.linkedin.com/in/daniel-kosmas-03160988/">Daniel Kosmas</a><span> &lt;<a href="mailto:dkosmas@hawk.iit.edu">dkosmas@hawk.iit.edu</a>></span>            </li>
+            <li>
+Parker Joncus<span> &lt;<a href="mailto:pjoncus@hawk.iit.edu">pjoncus@hawk.iit.edu</a>></span>            </li>
+            <li>
+Richard Osborn<span> &lt;<a href="mailto:rosborn@hawk.iit.edu">rosborn@hawk.iit.edu</a>></span>            </li>
+            <li>
+Monica Yun<span> &lt;<a href="mailto:myun1@hawk.iit.edu">myun1@hawk.iit.edu</a>></span>            </li>
+            <li>
+Genevieve Hummel<span> &lt;<a href="mailto:ghummel1@hawk.iit.edu">ghummel1@hawk.iit.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>1.0</b> of this package was accepted for publication in <a href="https://msp.org/jsag/2019/9-1/">volume 9</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 11 April 2019, in the article <a href="https://msp.org/jsag/2019/9-1/p08.xhtml">Random Monomial Ideals: a Macaulay2 package</a>. That version can be obtained from <a href="https://msp.org/jsag/2019/9-1/jsag-v9-n1-x08-RandomMonomialIdeals.m2">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/902570b14480e7590b6960b1352331acce3ef817/M2/Macaulay2/packages/RandomMonomialIdeals.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.0</b> of RandomMonomialIdeals.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/RandomMonomialIdeals.m2">RandomMonomialIdeals.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a type used to store a statistical model and its parameters" href="___Model.html">Model</a> -- a type used to store a statistical model and its parameters</span>                  </li>
+                  <li>
+<span><a title="a type used to store a data sample from a statistical model" href="___Sample.html">Sample</a> -- a type used to store a data sample from a statistical model</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="statistics on Betti tables of a sample of monomial ideals or list of objects" href="_betti__Stats.html">bettiStats</a> -- statistics on Betti tables of a sample of monomial ideals or list of objects</span>                  </li>
+                  <li>
+<span><a title="fraction of Borel-fixed monomial ideals in the given list" href="_borel__Fixed__Stats.html">borelFixedStats</a> -- fraction of Borel-fixed monomial ideals in the given list</span>                  </li>
+                  <li>
+<span><a title="fraction of monomial ideals (or other objects) in the given list whose quotient ring is Cohen-Macaulay" href="___C__M__Stats.html">CMStats</a> -- fraction of monomial ideals (or other objects) in the given list whose quotient ring is Cohen-Macaulay</span>                  </li>
+                  <li>
+<span><a title="statistics on the degrees of a list of objects" href="_deg__Stats.html">degStats</a> -- statistics on the degrees of a list of objects</span>                  </li>
+                  <li>
+<span><a title="statistics on the Krull dimension of a list of objects" href="_dim__Stats.html">dimStats</a> -- statistics on the Krull dimension of a list of objects</span>                  </li>
+                  <li>
+<span><a title="model for sampling from Erdos-Renyi type distributions on monomials" href="___E__R.html">ER</a> -- model for sampling from Erdos-Renyi type distributions on monomials</span>                  </li>
+                  <li>
+<span><a title="get the underlying samples" href="_get__Data.html">getData</a> -- get the underlying samples</span>                  </li>
+                  <li>
+<span><a title="creates ideals from sets of monomials" href="_ideals__From__Generating__Sets.html">idealsFromGeneratingSets</a> -- creates ideals from sets of monomials</span>                  </li>
+                  <li>
+<span><a title="statistics on the minimal generators of a list of ideals: number and degree complexity" href="_mingen__Stats.html">mingenStats</a> -- statistics on the minimal generators of a list of ideals: number and degree complexity</span>                  </li>
+                  <li>
+<span><a title="creates a new model for random objects with a given list of parameters and generating function" href="_model.html">model</a> -- creates a new model for random objects with a given list of parameters and generating function</span>                  </li>
+                  <li>
+<span><a title="statistics on projective dimension of a list of objects" href="_pdim__Stats.html">pdimStats</a> -- statistics on projective dimension of a list of objects</span>                  </li>
+                  <li>
+<span><a title="generates random sets of monomial ideals" href="_random__Monomial__Ideals.html">randomMonomialIdeals</a> -- generates random sets of monomial ideals</span>                  </li>
+                  <li>
+<span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span>                  </li>
+                  <li>
+<span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span>                  </li>
+                  <li>
+<span><a title="statistics on the regularities of a list of objects" href="_reg__Stats.html">regStats</a> -- statistics on the regularities of a list of objects</span>                  </li>
+                  <li>
+<span><a title="generates a sample from the given model" href="_sample.html">sample</a> -- generates a sample from the given model</span>                  </li>
+                  <li>
+<span><a title="generate statistics for a sample" href="_statistics.html">statistics</a> -- generate statistics for a sample</span>                  </li>
+                  <li>
+<span><a title="write sample data to a directory" href="_write__Sample.html">writeSample</a> -- write sample data to a directory</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;bettiStats(List)&quot;</tt> -- see <span><a title="statistics on Betti tables of a sample of monomial ideals or list of objects" href="_betti__Stats.html">bettiStats</a> -- statistics on Betti tables of a sample of monomial ideals or list of objects</span></span>                  </li>
+                  <li>
+<span><tt>&quot;borelFixedStats(List)&quot;</tt> -- see <span><a title="fraction of Borel-fixed monomial ideals in the given list" href="_borel__Fixed__Stats.html">borelFixedStats</a> -- fraction of Borel-fixed monomial ideals in the given list</span></span>                  </li>
+                  <li>
+<span><tt>&quot;CMStats(List)&quot;</tt> -- see <span><a title="fraction of monomial ideals (or other objects) in the given list whose quotient ring is Cohen-Macaulay" href="___C__M__Stats.html">CMStats</a> -- fraction of monomial ideals (or other objects) in the given list whose quotient ring is Cohen-Macaulay</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degStats(List)&quot;</tt> -- see <span><a title="statistics on the degrees of a list of objects" href="_deg__Stats.html">degStats</a> -- statistics on the degrees of a list of objects</span></span>                  </li>
+                  <li>
+<span><tt>&quot;dimStats(List)&quot;</tt> -- see <span><a title="statistics on the Krull dimension of a list of objects" href="_dim__Stats.html">dimStats</a> -- statistics on the Krull dimension of a list of objects</span></span>                  </li>
+                  <li>
+<span><a title="Graded Erdos-Renyi type distribution on monomials over (R,D,L)" href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__List_rp.html">ER(PolynomialRing,ZZ,List)</a> -- Graded Erdos-Renyi type distribution on monomials over (R,D,L)</span>                  </li>
+                  <li>
+<span><a title="Erdos-Renyi type distribution on monomials over (R,D,p)" href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__R__R_rp.html">ER(PolynomialRing,ZZ,RR)</a> -- Erdos-Renyi type distribution on monomials over (R,D,p)</span>                  </li>
+                  <li>
+<span><a title="Erdos-Renyi type distribution on monomials over (R,D,M)" href="___E__R_lp__Polynomial__Ring_cm__Z__Z_cm__Z__Z_rp.html">ER(PolynomialRing,ZZ,ZZ)</a> -- Erdos-Renyi type distribution on monomials over (R,D,M)</span>                  </li>
+                  <li>
+<span><a title="Graded Erdos-Renyi type distribution on monomials over (n,D,L)" href="___E__R_lp__Z__Z_cm__Z__Z_cm__List_rp.html">ER(ZZ,ZZ,List)</a> -- Graded Erdos-Renyi type distribution on monomials over (n,D,L)</span>                  </li>
+                  <li>
+<span><a title="Erdos-Renyi type distribution on monomials over (n,D,p)" href="___E__R_lp__Z__Z_cm__Z__Z_cm__R__R_rp.html">ER(ZZ,ZZ,RR)</a> -- Erdos-Renyi type distribution on monomials over (n,D,p)</span>                  </li>
+                  <li>
+<span><a title="Erdos-Renyi type distribution on monomials over (n,D,M)" href="___E__R_lp__Z__Z_cm__Z__Z_cm__Z__Z_rp.html">ER(ZZ,ZZ,ZZ)</a> -- Erdos-Renyi type distribution on monomials over (n,D,M)</span>                  </li>
+                  <li>
+<span><tt>&quot;getData(Sample)&quot;</tt> -- see <span><a title="get the underlying samples" href="_get__Data.html">getData</a> -- get the underlying samples</span></span>                  </li>
+                  <li>
+<span><tt>&quot;idealsFromGeneratingSets(List)&quot;</tt> -- see <span><a title="creates ideals from sets of monomials" href="_ideals__From__Generating__Sets.html">idealsFromGeneratingSets</a> -- creates ideals from sets of monomials</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mingenStats(List)&quot;</tt> -- see <span><a title="statistics on the minimal generators of a list of ideals: number and degree complexity" href="_mingen__Stats.html">mingenStats</a> -- statistics on the minimal generators of a list of ideals: number and degree complexity</span></span>                  </li>
+                  <li>
+<span><tt>&quot;model(List,FunctionClosure,String)&quot;</tt> -- see <span><a title="creates a new model for random objects with a given list of parameters and generating function" href="_model.html">model</a> -- creates a new model for random objects with a given list of parameters and generating function</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pdimStats(List)&quot;</tt> -- see <span><a title="statistics on projective dimension of a list of objects" href="_pdim__Stats.html">pdimStats</a> -- statistics on projective dimension of a list of objects</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialIdeals(ZZ,ZZ,List,ZZ)&quot;</tt> -- see <span><a title="generates random sets of monomial ideals" href="_random__Monomial__Ideals.html">randomMonomialIdeals</a> -- generates random sets of monomial ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialIdeals(ZZ,ZZ,RR,ZZ)&quot;</tt> -- see <span><a title="generates random sets of monomial ideals" href="_random__Monomial__Ideals.html">randomMonomialIdeals</a> -- generates random sets of monomial ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialIdeals(ZZ,ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="generates random sets of monomial ideals" href="_random__Monomial__Ideals.html">randomMonomialIdeals</a> -- generates random sets of monomial ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSet(PolynomialRing,ZZ,List)&quot;</tt> -- see <span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSet(PolynomialRing,ZZ,RR)&quot;</tt> -- see <span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSet(PolynomialRing,ZZ,ZZ)&quot;</tt> -- see <span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSet(ZZ,ZZ,List)&quot;</tt> -- see <span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSet(ZZ,ZZ,RR)&quot;</tt> -- see <span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSet(ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="randomly generates a list of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Set.html">randomMonomialSet</a> -- randomly generates a list of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSets(PolynomialRing,ZZ,List,ZZ)&quot;</tt> -- see <span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSets(PolynomialRing,ZZ,RR,ZZ)&quot;</tt> -- see <span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSets(PolynomialRing,ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSets(ZZ,ZZ,List,ZZ)&quot;</tt> -- see <span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSets(ZZ,ZZ,RR,ZZ)&quot;</tt> -- see <span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;randomMonomialSets(ZZ,ZZ,ZZ,ZZ)&quot;</tt> -- see <span><a title="randomly generates lists of monomials in fixed number of variables up to a given degree" href="_random__Monomial__Sets.html">randomMonomialSets</a> -- randomly generates lists of monomials in fixed number of variables up to a given degree</span></span>                  </li>
+                  <li>
+<span><tt>&quot;regStats(List)&quot;</tt> -- see <span><a title="statistics on the regularities of a list of objects" href="_reg__Stats.html">regStats</a> -- statistics on the regularities of a list of objects</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sample(Model,ZZ)&quot;</tt> -- see <span><a title="generates a sample from the given model" href="_sample.html">sample</a> -- generates a sample from the given model</span></span>                  </li>
+                  <li>
+<span><a title="creates an object of type Sample from a sample stored in a directory on disk" href="_sample_lp__String_rp.html">sample(String)</a> -- creates an object of type Sample from a sample stored in a directory on disk</span>                  </li>
+                  <li>
+<span><tt>&quot;statistics(Sample,Function)&quot;</tt> -- see <span><a title="generate statistics for a sample" href="_statistics.html">statistics</a> -- generate statistics for a sample</span></span>                  </li>
+                  <li>
+<span><tt>&quot;writeSample(Sample,String)&quot;</tt> -- see <span><a title="write sample data to a directory" href="_write__Sample.html">writeSample</a> -- write sample data to a directory</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="optional input to choose the coefficients of the ambient polynomial ring" href="___Coefficients.html">Coefficients</a> -- optional input to choose the coefficients of the ambient polynomial ring</span>                  </li>
+                  <li>
+<span><a title="optional input to show the number of objects in the list whose Betti tables are pure" href="___Count__Pure.html">CountPure</a> -- optional input to show the number of objects in the list whose Betti tables are pure</span>                  </li>
+                  <li>
+<span><a title="model construct function" href="___Generate.html">Generate</a> -- model construct function</span>                  </li>
+                  <li>
+<span><a title="a summary statistic for a list of objects" href="___Histogram.html">Histogram</a> -- a summary statistic for a list of objects</span>                  </li>
+                  <li>
+<span><a title="optional input to choose whether zero ideals should be included" href="___Include__Zero__Ideals.html">IncludeZeroIdeals</a> -- optional input to choose whether zero ideals should be included</span>                  </li>
+                  <li>
+<span><a title="a summary statistic for a list of objects" href="___Mean.html">Mean</a> -- a summary statistic for a list of objects</span>                  </li>
+                  <li>
+<span><a title="name of the model used to generate a given sample" href="___Model__Name.html">ModelName</a> -- name of the model used to generate a given sample</span>                  </li>
+                  <li>
+<span><a title="values of the model parameters that were used to generate a given sample" href="___Parameters.html">Parameters</a> -- values of the model parameters that were used to generate a given sample</span>                  </li>
+                  <li>
+<span><a title="size of the random sample" href="___Sample__Size.html">SampleSize</a> -- size of the random sample</span>                  </li>
+                  <li>
+<span><a title="optional input to store all Betti tables computed" href="___Save__Bettis.html">SaveBettis</a> -- optional input to store all Betti tables computed</span>                  </li>
+                  <li>
+<span><a title="optional input to choose if the tally is to be returned" href="___Show__Tally.html">ShowTally</a> -- optional input to choose if the tally is to be returned</span>                  </li>
+                  <li>
+<span><a title="a summary statistic for a list of objects" href="___Std__Dev.html">StdDev</a> -- a summary statistic for a list of objects</span>                  </li>
+                  <li>
+<span><a title="optional input to choose the indexed variable name for the polynomial ring" href="___Variable__Name.html">VariableName</a> -- optional input to choose the indexed variable name for the polynomial ring</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

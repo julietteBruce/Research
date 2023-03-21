@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>DiffAlgField _ DiffAlgForm -- contraction of a differential form with respect to a vector field</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Diff__Alg__Field_sp_vb_sp__Diff__Alg__Field.html">next</a> | <a href="___Diff__Alg__Field.html">previous</a> | <a href="___Diff__Alg__Field_sp_vb_sp__Diff__Alg__Field.html">forward</a> | <a href="___Diff__Alg__Field.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="differential algebra" href="index.html">DiffAlg</a> :: <a title="contraction of a differential form with respect to a vector field" href="___Diff__Alg__Field_sp_us_sp__Diff__Alg__Form.html">DiffAlgField _ DiffAlgForm</a>    </div>
+    <hr/>
+    <div>
+      <h1>DiffAlgField _ DiffAlgForm -- contraction of a differential form with respect to a vector field</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, used for subscripting and access to elements" href="../../Macaulay2Doc/html/__us.html">_</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">X _ w</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>an instance of the type <a title="the class of all vector fields" href="___Diff__Alg__Field.html">DiffAlgField</a></span>, a vector field</span>              </li>
+              <li>
+<span><tt>w</tt>, <span>an instance of the type <a title="the class of all differential forms" href="___Diff__Alg__Form.html">DiffAlgForm</a></span>, a differential form</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all differential forms" href="___Diff__Alg__Form.html">DiffAlgForm</a></span>, the contraction of <tt>w</tt> with respect to <tt>X</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>Given a vector field <tt>X</tt> and a differential form <tt>w</tt>, this function returns the contraction of <tt>w</tt> with respect to <tt>X</tt>. The function can be called as <tt>X _ w</tt>  or as <tt>w _ X</tt>.</p>
+<br/>        <p>In this example we compute the contraction of a simple differential form and a vector field.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : w = newForm(&quot;dx_0 * dx_1&quot;)
+
+o1 = dx dx
+       0  1
+
+o1 : DiffAlgForm</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Y = newField(&quot;ax_0&quot;)
+
+o2 = ax
+       0
+
+o2 : DiffAlgField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Y _ w
+
+o3 = dx
+       1
+
+o3 : DiffAlgForm</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="contraction of a differential form with respect to a vector field" href="___Diff__Alg__Field_sp_us_sp__Diff__Alg__Form.html">DiffAlgField _ DiffAlgForm</a> -- contraction of a differential form with respect to a vector field</span>          </li>
+          <li>
+<tt>&quot;DiffAlgForm _ DiffAlgField&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

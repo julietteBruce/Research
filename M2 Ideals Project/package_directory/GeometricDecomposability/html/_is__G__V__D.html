@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isGVD -- checks whether an ideal is geometrically vertex decomposable</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Is__Ideal__Homogeneous.html">next</a> | <a href="_is__Generated__By__Indeterminates.html">previous</a> | <a href="___Is__Ideal__Homogeneous.html">forward</a> | <a href="_is__Generated__By__Indeterminates.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to check whether ideals are geometrically vertex decomposable" href="index.html">GeometricDecomposability</a> > <a title="checks whether an ideal is geometrically vertex decomposable" href="_is__G__V__D.html">isGVD</a>    </div>
+    <hr/>
+    <div>
+      <h1>isGVD -- checks whether an ideal is geometrically vertex decomposable</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isGVD I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="when to perform a Cohen-Macaulay check on the ideal" href="___Check__C__M.html">CheckCM</a><tt> => </tt><tt>...</tt>, <span>default value &quot;once&quot;</span>, when to perform a Cohen-Macaulay check on the ideal</span>              </li>
+              <li>
+<span><a title="check whether ideals encountered are unmixed" href="___Check__Unmixed.html">CheckUnmixed</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, check whether ideals encountered are unmixed</span>              </li>
+              <li>
+<span><a title="specify whether an ideal is homogeneous" href="___Is__Ideal__Homogeneous.html">IsIdealHomogeneous</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, specify whether an ideal is homogeneous</span>              </li>
+              <li>
+<span><a title="specify whether an ideal is unmixed" href="___Is__Ideal__Unmixed.html">IsIdealUnmixed</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, specify whether an ideal is unmixed</span>              </li>
+              <li>
+<span><a title="print additional output" href="___Verbose.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, print additional output</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function tests whether a given ideal is geometrically vertex decomposable. Geometrically vertex decomposable ideals are based upon the geometric vertex decomposition defined by Knutson, Miller, and Yong [KMY].  Using geometric vertex decomposition, Klein and Rajchgot gave a recursive definition for geometrically vertex decomposable ideals in [KR, Definition 2.7].  This definition generalizes the properties of a square-free monomial ideal whose associated simplicial complex is vertex decomposable.</p>
+          <p>We include the definition here. Let $y$ be a variable of the polynomial ring $R = k[x_1,\ldots,x_n]$. A monomial ordering $&lt;$ on $R$ is said to be <i>$y$-compatible</i> if the initial term of $f$ satisfies ${\rm in}_&lt;(f) = {\rm in}_&lt;({\rm in}_y(f))$ for all $f \in R$.  Here, ${\rm in}_y(f)$ is the <i>initial $y$-form</i> of $f$, that is, if $f = \sum_i \alpha_iy^i$ and $\alpha_d \neq 0$ but $\alpha_t = 0$ for all $t >d$, then ${\rm in}_y(f) = \alpha_d y^d$. We set ${\rm in}_y(I) = \langle {\rm in}_y(f) ~|~ f \in I \rangle$ to be the ideal generated by all the initial $y$-forms in $I$.</p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p>Given an ideal $I$ and a $y$-compatible monomial ordering $&lt;$, let $G(I) = \{ g_1,\ldots,g_m\}$ be a Gröbner basis of $I$ with respect to this ordering.  For $i=1,\ldots,m$, write $g_i$ as $g_i = y^{d_i}q_i + r_i$, where $y$ does not divide any term of $q_i$; that is, ${\rm in}_y(g_i) = y^{d_i}q_i$.   Given this setup, we define two ideals: $$C_{y,I} = \langle q_1,\ldots,q_m\rangle$$ and $$N_{y,I} = \langle q_i ~|~ d_i = 0 \rangle.$$ Recall that an ideal $I$ is <i>unmixed</i> if all of the associated primes of $I$ have the same height.</p>
+          <p>An ideal $I$ of $R =k[x_1,\ldots,x_n]$ is <i>geometrically vertex decomposable</i> if $I$ is unmixed and</p>
+          <p>(1)  $I = \langle 1 \rangle$, or $I$ is generated by a (possibly empty) subset of variables of $R$, or</p>
+          <p>(2) there is a variable $y = x_i$ in $R$ and a $y$-compatible monomial ordering $&lt;$ such that $${\rm in}_y(I) = C_{y,I} \cap (N_{y,I} + \langle y \rangle),$$ and the contractions of the ideals $C_{y,I}$ and $N_{y,I}$ to the ring $k[x_1,\ldots,\hat{y},\ldots,x_n]$ are geometrically vertex decomposable.</p>
+          <p><i>NOTE:</i>  The ideals $C_{y,I}$ and $N_{y,I}$ do not depend upon the choice of the Gröbner basis or a particular $y$-compatible order (see comment after [KR, Definition 2.3]). When computing $C_{y,I}$ and $N_{y,I}$ we use a lexicographical ordering on $R$ where $y > x_j$ for all $i \neq j$ if $y = x_i$ since this gives us a $y$-compatible order.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c,d]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = 3*a*b + 4*b*c+ 16*a*c + 18*d
+
+o2 = 3a*b + 16a*c + 4b*c + 18d
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : i = ideal f
+
+o3 = ideal(3a*b + 16a*c + 4b*c + 18d)
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isGVD i
+
+o4 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Square-free monomial ideals that are geometrically vertex decomposable are precisely those square-free monomial ideals whose associated simplicial complex are vertex decomposable [KR, Proposition 2.9]. The edge ideal of a chordal graph corresponds to a simplicial complex that is vertex decomposable (for more, see the EdgeIdeals package).  The option <tt>Verbose</tt> shows the intermediate steps; in particular, <tt>Verbose</tt> displays what variable is being used to test a decomposition, as well as the ideals $C_{y,I}$ and $N_{y,I}$.</p>
+          <p></p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = QQ[a,b,c,d]
+
+o5 = R
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : i = ideal(a*b, a*c, a*d, b*c, b*d, c*d) -- edge ideal of a complete graph K_4, a chordal graph
+
+o6 = ideal (a*b, a*c, a*d, b*c, b*d, c*d)
+
+o6 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isGVD(i, Verbose=>true)
+ideal(a*b,a*c,a*d,b*c,b*d,c*d)
+-- decomposing with respect to a
+-- C = ideal(c*d,b*d,b*c,d,c,b)
+-- N = ideal(c*d,b*d,b*c)
+ideal(c*d,b*d,b*c,d,c,b)
+-- decomposing with respect to b
+-- C = ideal(d,c,1)
+-- N = ideal(d,c)
+ideal(d,c,1)
+-- unit ideal
+ideal(d,c)
+-- generated by indeterminates
+ideal(c*d,b*d,b*c)
+-- decomposing with respect to b
+-- C = ideal(c*d,d,c)
+-- N = ideal(c*d)
+ideal(c*d,d,c)
+-- decomposing with respect to c
+-- C = ideal(d,1)
+-- N = ideal d
+ideal(d,1)
+-- unit ideal
+ideal d
+-- generated by indeterminates
+ideal(c*d)
+-- decomposing with respect to c
+-- C = ideal d
+-- N = ideal()
+ideal d
+-- generated by indeterminates
+ideal()
+-- zero ideal
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The following is an example of a toric ideal of graph that is geometrically vertex decomposable, and another example of a toric ideal of a graph that is not geometrically vertex decomposable. The second ideal is not Cohen-Macaulay, so it cannot be geometrically vertex decomposable [KR, Corollary 4.5]. For background on toric ideals of graphs, see [CDSRVT, Section 3].</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R = QQ[e_1..e_7]
+
+o8 = R
+
+o8 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : i = ideal(e_2*e_7-e_5*e_6, e_1*e_4-e_2*e_3) -- the toric ideal of a graph
+
+o9 = ideal (- e e  + e e , - e e  + e e )
+               5 6    2 7     2 3    1 4
+
+o9 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : isGVD i
+
+o10 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : R = QQ[e_1..e_10]
+
+o11 = R
+
+o11 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : i = ideal(e_1*e_4-e_2*e_3, e_2^2*e_7*e_8*e_9-e_4^2*e_5*e_6*e_10, e_1*e_2*e_7*e_8*e_9-e_3*e_4*e_5*e_6*e_10, e_1^2*e_7*e_8*e_9-e_3^2*e_5*e_6*e_10)
+
+                             2          2                                  
+o12 = ideal (- e e  + e e , e e e e  - e e e e  , e e e e e  - e e e e e  ,
+                2 3    1 4   2 7 8 9    4 5 6 10   1 2 7 8 9    3 4 5 6 10 
+      -----------------------------------------------------------------------
+       2          2
+      e e e e  - e e e e  )
+       1 7 8 9    3 5 6 10
+
+o12 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : isGVD i
+
+o13 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>References</h2>
+        <div>
+          <p>[CDSRVT] M. Cummings, S. Da Silva, J. Rajchgot, and A. Van Tuyl. Geometric Vertex Decomposition and Liaison for Toric Ideals of Graphs. Preprint, <a href="https://arxiv.org/abs/2207.06391">arXiv:2207.06391</a> (2022).</p>
+          <p>[KMY] A. Knutson, E. Miller, and A. Yong. Gröbner Geometry of Vertex Decompositions and of Flagged Tableaux. J. Reine Angew. Math. 630 (2009) 1–31.</p>
+          <p>[KR] P. Klein and J. Rajchgot. Geometric Vertex Decomposition and Liaison. Forum of Math, Sigma, 9 (2021) e70:1-23.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="when to perform a Cohen-Macaulay check on the ideal" href="___Check__C__M.html">CheckCM</a> -- when to perform a Cohen-Macaulay check on the ideal</span>          </li>
+          <li>
+<span><a title="check whether ideals encountered are unmixed" href="___Check__Unmixed.html">CheckUnmixed</a> -- check whether ideals encountered are unmixed</span>          </li>
+          <li>
+<span><a title="checks whether the ideal is generated by indeterminates" href="_is__Generated__By__Indeterminates.html">isGeneratedByIndeterminates</a> -- checks whether the ideal is generated by indeterminates</span>          </li>
+          <li>
+<span><a title="specify whether an ideal is homogeneous" href="___Is__Ideal__Homogeneous.html">IsIdealHomogeneous</a> -- specify whether an ideal is homogeneous</span>          </li>
+          <li>
+<span><a title="specify whether an ideal is unmixed" href="___Is__Ideal__Unmixed.html">IsIdealUnmixed</a> -- specify whether an ideal is unmixed</span>          </li>
+          <li>
+<span><a title="checks whether an ideal is &lt;-compatibly geometrically vertex decomposable for a given order" href="_is__Lex__Compatibly__G__V__D.html">isLexCompatiblyGVD</a> -- checks whether an ideal is &lt;-compatibly geometrically vertex decomposable for a given order</span>          </li>
+          <li>
+<span><a title="checks whether an ideal is unmixed" href="_is__Unmixed.html">isUnmixed</a> -- checks whether an ideal is unmixed</span>          </li>
+          <li>
+<span><a title="checks whether an ideal is weakly geometrically vertex decomposable" href="_is__Weakly__G__V__D.html">isWeaklyGVD</a> -- checks whether an ideal is weakly geometrically vertex decomposable</span>          </li>
+          <li>
+<span><a title="computes a geometric vertex decomposition" href="_one__Step__G__V__D.html">oneStepGVD</a> -- computes a geometric vertex decomposition</span>          </li>
+          <li>
+<span><a title="print additional output" href="___Verbose.html">Verbose</a> -- print additional output</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isGVD</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isGVD(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="checks whether an ideal is geometrically vertex decomposable" href="_is__G__V__D.html">isGVD</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isPure -- checks if a Fan or PolyhedralComplex is of pure dimension</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Reflexive.html">next</a> | <a href="_is__Polytopal.html">previous</a> | <a href="_is__Reflexive.html">forward</a> | <a href="_is__Polytopal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="checks if a Fan or PolyhedralComplex is of pure dimension" href="_is__Pure.html">isPure</a>    </div>
+    <hr/>
+    <div>
+      <h1>isPure -- checks if a Fan or PolyhedralComplex is of pure dimension</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = isPure X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span>, or <span>an instance of the type <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <a href="../../Macaulay2Doc/html/_true.html">true</a> if the <a title="the class of all fans" href="___Fan.html">Fan</a>/<a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a> is of pure dimension, <a href="../../Macaulay2Doc/html/_false.html">false</a> otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+<tt>isPure</tt> tests if the <a title="the class of all fans" href="___Fan.html">Fan</a>/<a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a> is pure by checking if the first and the last entry in the list of generating Cones/Polyhedra are of the same dimension.        <p/>
+Let us construct a fan consisting of the positive orthant and the ray <tt>v</tt> that is the negative sum of the canonical basis, which is obviously not pure:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C = posHull matrix {{1,0,0},{0,1,0},{0,0,1}}
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o1 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : v = posHull matrix {{-1},{-1},{-1}}
+
+o2 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 1
+      number of facets => 1
+      number of rays => 1
+
+o2 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : F = fan {C,v}
+
+o3 = {ambient dimension => 3         }
+      number of generating cones => 2
+      number of rays => 4
+      top dimension of the cones => 3
+
+o3 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isPure F
+
+o4 = false</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+But we can make a pure fan if we choose any two dimensional face of the positive orthant and take the cone generated by this face and <tt>v</tt> and add it to the cone:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C1 = posHull{(faces(1,C))#0,v}
+
+o5 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o5 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : F = addCone(C1,F)
+
+o6 = {ambient dimension => 3         }
+      number of generating cones => 2
+      number of rays => 4
+      top dimension of the cones => 3
+
+o6 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isPure F
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isPure</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isPure(Fan)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isPure(PolyhedralComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="checks if a Fan or PolyhedralComplex is of pure dimension" href="_is__Pure.html">isPure</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

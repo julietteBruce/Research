@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanTropicalFunction -- tropicalizes a polynomial</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__Tropical__Hyper__Surface.html">next</a> | <a href="_gfan__Tropical__Evaluation.html">previous</a> | <a href="_gfan__Tropical__Hyper__Surface.html">forward</a> | <a href="_gfan__Tropical__Evaluation.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="tropicalizes a polynomial" href="_gfan__Tropical__Function.html">gfanTropicalFunction</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanTropicalFunction -- tropicalizes a polynomial</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">F = gfanTropicalFunction(f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="../../Polyhedra/html/___Fan.html">Fan</a></span>, the tropicalization of <tt>f</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method tropicalizes a polynomial. The output is a piecewise linear function given in the form of a polyhedral fan.</p>
+          <p>For example, the tropicalization of $x*y + z^2$ is max$(x+y, 2z)$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x,y,z]
+
+o1 = QQ[x..z]
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : gfanTropicalFunction(x*y+z^2)
+
+o2 = Fan{...1...}
+
+o2 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>To evaluate the tropical function at a point $p$, as given by the polyhedral data above, we write it a linear combination of the appropriate ray and lineality vectors. The coefficients used are then combined in a linear combination with the given ray values.</p>
+          <p>For instance the point $p = (1, 7, 13)$ can be written as $3(-1,-1,2) + 2(2,0,1) + 5(0,2,1)$. The values on the these rays are $4, 2$ and $2$ respectively. Thus the tropical function evaluated at $p$ is $3*4 + 2*2 + 5*2 = 26$.</p>
+          <p><strong>gfan Documentation</strong> This program takes a polynomial and tropicalizes it. The output is piecewise linear function represented by a fan whose cones are the linear regions. Each ray of the fan gets the value of the tropical function assigned to it. In other words this program computes the normal fan of the Newton polytope of the input polynomial with additional information.Options:--exponents: Tell program to read a list of exponent vectors instead.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="evaluates a tropical polynomial function" href="_gfan__Tropical__Evaluation.html">gfanTropicalEvaluation</a> -- evaluates a tropical polynomial function</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfanTropicalFunction</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfanTropicalFunction(RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="tropicalizes a polynomial" href="_gfan__Tropical__Function.html">gfanTropicalFunction</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

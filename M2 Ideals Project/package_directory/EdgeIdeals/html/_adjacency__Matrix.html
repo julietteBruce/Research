@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>adjacencyMatrix -- returns the adjacency Matrix of a graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_all__Even__Holes.html">next</a> | <a href="index.html">previous</a> | <a href="_all__Even__Holes.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="returns the adjacency Matrix of a graph" href="_adjacency__Matrix.html">adjacencyMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>adjacencyMatrix -- returns the adjacency Matrix of a graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = adjacencyMatrix G</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="a class for graphs" href="___Graph.html">graph</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the adjacency matrix of the graph</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns the adjacency matrix of the given graph <tt>G</tt>.  The (i,j)^{th} position of the matrix is 1 if there is an edge between the i^{th} vertex and j^{th} vertex, and 0 otherwise.  The rows and columns are indexed by the variables of the ring and use the ordering of the variables for determining the order of the rows and columns.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = QQ[a..f];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = graph {a*b,a*c,b*c,c*d,d*e,e*f,f*a,a*d}
+
+o2 = Graph{edges => {{a, b}, {a, c}, {b, c}, {a, d}, {c, d}, {d, e}, {a, f}, {e, f}}}
+           ring => S
+           vertices => {a, b, c, d, e, f}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : t = adjacencyMatrix G
+
+o3 = | 0 1 1 1 0 1 |
+     | 1 0 1 0 0 0 |
+     | 1 1 0 1 0 0 |
+     | 1 0 1 0 1 0 |
+     | 0 0 0 1 0 1 |
+     | 1 0 0 0 1 0 |
+
+              6        6
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : T = QQ[f,e,d,c,b,a];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : G = graph {a*b,a*c,b*c,c*d,d*e,e*f,f*a,a*d}
+
+o5 = Graph{edges => {{f, e}, {e, d}, {d, c}, {c, b}, {f, a}, {d, a}, {c, a}, {b, a}}}
+           ring => T
+           vertices => {f, e, d, c, b, a}
+
+o5 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : t = adjacencyMatrix G -- although the same graph, matrix is different since variables have different ordering
+
+o6 = | 0 1 0 0 0 1 |
+     | 1 0 1 0 0 0 |
+     | 0 1 0 1 0 1 |
+     | 0 0 1 0 1 1 |
+     | 0 0 0 1 0 1 |
+     | 1 0 1 1 1 0 |
+
+              6        6
+o6 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="returns the incidence matrix of a hypergraph" href="_incidence__Matrix.html">incidenceMatrix</a> -- returns the incidence matrix of a hypergraph</span>          </li>
+          <li>
+<span><a title="gets the vertices of a (hyper)graph" href="_vertices_lp__Hyper__Graph_rp.html">vertices(HyperGraph)</a> -- gets the vertices of a (hyper)graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>adjacencyMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;adjacencyMatrix(Graph)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="returns the adjacency Matrix of a graph" href="_adjacency__Matrix.html">adjacencyMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

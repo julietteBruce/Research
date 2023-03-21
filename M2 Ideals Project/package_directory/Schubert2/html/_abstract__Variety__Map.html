@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>abstractVarietyMap -- make an abstract variety morphism</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Abstract__Variety__Map_sp_st_sp__Abstract__Variety__Map.html">next</a> | <a href="___Abstract__Variety__Map.html">previous</a> | <a href="___Abstract__Variety__Map_sp_st_sp__Abstract__Variety__Map.html">forward</a> | <a href="___Abstract__Variety__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computation in intersection theory" href="index.html">Schubert2</a> :: <a title="make an abstract variety morphism" href="_abstract__Variety__Map.html">abstractVarietyMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>abstractVarietyMap -- make an abstract variety morphism</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">f = abstractVarietyMap(Y,X,fUpper,fLower)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>Y</tt>, <span>an <a title="the class of all abstract varieties" href="___Abstract__Variety.html">abstract variety</a></span>, the target of $f$</span>              </li>
+              <li>
+<span><tt>X</tt>, <span>an <a title="the class of all abstract varieties" href="___Abstract__Variety.html">abstract variety</a></span>, the source of $f$</span>              </li>
+              <li>
+<span><tt>fUpper</tt>, the method for pulling back from $Y$ to $X$; if given as a ring map, this should be a ring map from the intersection ring of $Y$ to that of $X$.  If given as a MethodFunction, there must be a method installed for pulling back elements of the intersection ring of $Y$ to that of $X$.  Optionally, a method can also be given for pulling back sheaves from $Y$ to $X$, in which case the <tt>DefaultPullBack => false</tt> option must be set to override the default behavior.</span>              </li>
+              <li>
+<span><tt>fLower</tt>, the method from pushing forward from $X$ to $Y$. Must have a method installed for pushing forward elements of the intersection ring of $X$ to that of $Y$.  Optionally, a method can also be given for pushing forward sheaves from $X$ to $Y$, in which case the <tt>DefaultPushForward => false</tt> option must be set to override the default behavior.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>DefaultPullBack</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, if true, sheaf pullbacks are computed in the default manner from ring element pullbacks</span>              </li>
+              <li>
+<span><tt>DefaultPushForward</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, if true, sheaf pushforwards are computed (if possible) in the default manner from ring element pushforwards</span>              </li>
+              <li>
+<span><tt>TangentBundle</tt><tt> => </tt><span>an <a title="the class of all abstract sheaves" href="___Abstract__Sheaf.html">abstract sheaf</a></span>, <span>default value null</span>, the relative tangent bundle of $f$.  If not supplied, is computed anyway if possible.</span>              </li>
+              <li>
+<span><tt>SectionClass</tt><tt> => </tt><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, <span>default value null</span>, the class of a section of $f$, an element of the intersection ring of $X$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>an <a title="the class of all abstract variety maps" href="___Abstract__Variety__Map.html">abstract variety map</a></span>, the resulting map from $X$ to $Y$</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+If <tt>fUpper</tt> is given as a ring map, then a new method is created for the pullback, encapsulating this ring map.  However, if <tt>fUpper</tt> is given as a MethodFunction, then this MethodFunction is used directly, and may have new methods installed on it.                </li>
+                <li>
+If the <tt>DefaultPullBack => true</tt> option is set (this is the default setting), then a method for pulling back sheaves is installed in the method fUpper.  The default behavior is to pull back both Chern classes and Chern characters via the supplied map.                </li>
+                <li>
+If the <tt>DefaultPullBack => true</tt> option is set (this is the default setting), and if the calculation of sheaf pushforward is possible (i.e. either $X$ and $Y$ have supplied tangent bundles and $fUpper$ can pull back sheaves, or the <tt>TangentBundle</tt> option is set), method for pulling back sheaves is installed in the method fUpper.  The default behavior is to compute the pushforward of sheaves via Grothendieck-Riemann-Roch.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Typically it is inconvenient to have to use this function unless absolutely necessary.  Consider whether the morphism you need may be built via one of the built-in maps, for example via <a title="maps to projective bundles" href="_map_lp__Flag__Bundle_cm__Abstract__Variety_cm__Abstract__Sheaf_rp.html">map(FlagBundle,AbstractVariety,AbstractSheaf)</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = point
+
+o1 = point
+
+o1 : an abstract variety of dimension 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : RX = intersectionRing X
+
+o2 = RX
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Y = abstractProjectiveSpace 3
+
+o3 = Y
+
+o3 : a flag bundle with subquotient ranks {1, 3}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : RY = intersectionRing Y
+
+o4 = RY
+
+o4 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : fUpper = map(RX, RY, splice{4:0_RX})
+
+o5 = map (RX, RY, {0, 0, 0, 0})
+
+o5 : RingMap RX &lt;--- RY</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : fLower = method()
+
+o6 = fLower
+
+o6 : MethodFunction</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : fLower RX := a -> promote(a,RY) * ctop last bundles Y;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : incl = abstractVarietyMap(Y,X,fUpper,fLower)
+
+o8 = incl
+
+o8 : a map to Y from point</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : integral incl_* 1_RX
+
+o9 = 1</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This same example can be done much more easily via:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : X = point
+
+o10 = point
+
+o10 : an abstract variety of dimension 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : Y = abstractProjectiveSpace 3
+
+o11 = Y
+
+o11 : a flag bundle with subquotient ranks {1, 3}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : incl = map(Y,X,OO_X)
+
+o12 = incl
+
+o12 : a map to Y from point</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>abstractVarietyMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;abstractVarietyMap(AbstractVariety,AbstractVariety,MethodFunction,MethodFunction)&quot;</tt>          </li>
+          <li>
+<tt>&quot;abstractVarietyMap(AbstractVariety,AbstractVariety,RingMap,MethodFunction)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="make an abstract variety morphism" href="_abstract__Variety__Map.html">abstractVarietyMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

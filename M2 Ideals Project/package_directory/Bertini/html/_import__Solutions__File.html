@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>importSolutionsFile -- Imports coordinates from a Bertini solution file.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Is__Projective.html">next</a> | <a href="_import__Parameter__File.html">previous</a> | <a href="___Is__Projective.html">forward</a> | <a href="_import__Parameter__File.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="software for numerical algebraic geometry" href="index.html">Bertini</a> :: <a title="Imports coordinates from a Bertini solution file." href="_import__Solutions__File.html">importSolutionsFile</a>    </div>
+    <hr/>
+    <div>
+      <h1>importSolutionsFile -- Imports coordinates from a Bertini solution file.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">importSolutionsFile(s)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>s</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, The directory where the file is stored.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>M2Precision</tt> (missing documentation)<!--tag: [importSolutionsFile, M2Precision]-->
+<tt> => </tt><tt>...</tt>, <span>default value 53</span>, </span>              </li>
+              <li>
+<span><tt>NameSolutionsFile</tt> (missing documentation)<!--tag: [importSolutionsFile, NameSolutionsFile]-->
+<tt> => </tt><tt>...</tt>, <span>default value &quot;raw_solutions&quot;</span>, </span>              </li>
+              <li>
+<span><tt>OrderPaths</tt> (missing documentation)<!--tag: [importSolutionsFile, OrderPaths]-->
+<tt> => </tt><tt>...</tt>, <span>default value false</span>, </span>              </li>
+              <li>
+<span><tt>StorageFolder</tt> (missing documentation)<!--tag: [importSolutionsFile, StorageFolder]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a title="Option to silence additional output" href="_bertini__Track__Homotopy_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option to silence additional output</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>After Bertini does a run many files are created. This function imports the coordinates of solutions from the simple &quot;raw_solutions&quot; file. By using the option NameSolutionsFile=>&quot;real_finite_solutions&quot; we would import solutions from real finite solutions. Other common file names are &quot;nonsingular_solutions&quot;, &quot;finite_solutions&quot;, &quot;infinite_solutions&quot;, and &quot;singular_solutions&quot;.</p>
+        </div>
+        <div>
+          <p>If the NameSolutionsFile option is set to 0 then &quot;nonsingular_solutions&quot; is imported, is set to 1 then &quot;real_finite_solutions&quot; is imported, is set to 2 then &quot;infinite_solutions&quot; is imported, is set to 3 then &quot;finite_solutions&quot; is imported, is set to 4 then &quot;start&quot; is imported, is set to 5 then &quot;raw_solutions&quot; is imported.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : makeB'InputFile(storeBM2Files,
+         AffVariableGroup=>{{x,y}},
+         B'Polynomials=>{x^2-1,y^3-1});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : runBertini(storeBM2Files)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : importSolutionsFile(storeBM2Files)
+
+o4 = {{1, 1}, {1, -.5+.866025*ii}, {1, -.5-.866025*ii}, {-1, 1}, {-1,
+     ------------------------------------------------------------------------
+     -.5+.866025*ii}, {-1, -.5-.866025*ii}}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : importSolutionsFile(storeBM2Files,NameSolutionsFile=>&quot;real_finite_solutions&quot;)
+
+o5 = {{1, 1}, {-1, 1}}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : importSolutionsFile(storeBM2Files,NameSolutionsFile=>0)
+
+o6 = {{1, 1}, {1, -.5+.866025*ii}, {1, -.5-.866025*ii}, {-1, 1}, {-1,
+     ------------------------------------------------------------------------
+     -.5+.866025*ii}, {-1, -.5-.866025*ii}}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>importSolutionsFile</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;importSolutionsFile(String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Imports coordinates from a Bertini solution file." href="_import__Solutions__File.html">importSolutionsFile</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

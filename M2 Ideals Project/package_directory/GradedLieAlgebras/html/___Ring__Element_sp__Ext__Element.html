@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RingElement ExtElement -- multiplication of a field element and a Ext-algebra element</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Ring__Element_sp__Lie__Algebra__Map.html">next</a> | <a href="___Ring__Element_sp_at_sp__Lie__Element.html">previous</a> | <a href="___Ring__Element_sp__Lie__Algebra__Map.html">forward</a> | <a href="___Ring__Element_sp_at_sp__Lie__Element.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="multiplication of a field element and a Ext-algebra element" href="___Ring__Element_sp__Ext__Element.html">RingElement ExtElement</a>    </div>
+    <hr/>
+    <div>
+      <h1>RingElement ExtElement -- multiplication of a field element and a Ext-algebra element</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="blank operator; often used for function application, making polynomial rings" href="../../Macaulay2Doc/html/___S__P__A__C__E.html">SPACE</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">y = a x</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>a</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, $a$ is an element in the field of $E$, where $E$ is of type <tt>ExtAlgebra</tt></span>              </li>
+              <li>
+<span><tt>x</tt>, <span>an instance of the type <a title="the class of all Ext-algebra elements" href="___Ext__Element.html">ExtElement</a></span>, $x$ is of type $E$</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>y</tt>, <span>an instance of the type <a title="the class of all Ext-algebra elements" href="___Ext__Element.html">ExtElement</a></span>, $y$ is of type $E$, the product $a*x$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The symbol SPACE is used as notation for multiplication by scalars. The scalars belong to the field of $E$. If the field is not <tt>QQ</tt>, then the scalars are of type <tt>RingElement</tt>. If the field is <tt>QQ</tt>, then the scalars are of type <tt>Number</tt>. Observe that it is necessary to use the function <tt>toField</tt> when $F$ is defined as an algebraic extension of a prime field.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F = toField(ZZ/7[x]/{x^2+1})
+
+o1 = F
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L = lieAlgebra({a,b,c},Field=>F)/{a b,b c}
+
+o2 = L
+
+o2 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : E = extAlgebra(3,L)
+
+o3 = E
+
+o3 : ExtAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (3*x+1) (ext_1 ext_2)+(2*x+3) (ext_2 ext_1)
+
+o4 = (-x+2)ext_3
+
+o4 : E</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="multiplication of a number and an Ext-algebra element" href="___Number_sp__Ext__Element.html">Number ExtElement</a> -- multiplication of a number and an Ext-algebra element</span>          </li>
+          <li>
+<span><a title="the class of all Ext-algebras" href="___Ext__Algebra.html">ExtAlgebra</a> -- the class of all Ext-algebras</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="multiplication of a field element and a Ext-algebra element" href="___Ring__Element_sp__Ext__Element.html">RingElement ExtElement</a> -- multiplication of a field element and a Ext-algebra element</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

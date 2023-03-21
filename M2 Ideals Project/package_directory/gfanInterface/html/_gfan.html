@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfan -- all reduced Groebner bases of a polynomial ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__Buchberger.html">next</a> | <a href="___Conventions_spfor_spcalling_spmethods_spwith_spoptions.html">previous</a> | <a href="_gfan__Buchberger.html">forward</a> | <a href="___Conventions_spfor_spcalling_spmethods_spwith_spoptions.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfan -- all reduced Groebner bases of a polynomial ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = gfan(I)</code></dd>
+              <dd><code class="language-macaulay2">G = gfan(L)</code></dd>
+              <dd><code class="language-macaulay2">G = gfan(M)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, contained in a polynomial ring</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a href="___Marked__Polynomial__List.html">marked polynomial list</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>disableSymmetryTest</tt></span>              </li>
+              <li>
+<span><tt>e</tt></span>              </li>
+              <li>
+<span><tt>g</tt></span>              </li>
+              <li>
+<span><tt>symmetry</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, all <tt>marked reduced Groebner bases</tt> (missing documentation)<!--tag: Marked Groebner Basis Example-->
+ of <tt>I</tt>, <tt>L</tt>, or <tt>M</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method produces all reduced Groebner bases of a polynomial ideal.  The ideal can be given as an <tt>Ideal</tt>, <tt>List</tt> of polynomials, or a <tt>MarkedPolynomialList</tt>. The <tt>&quot;g&quot;=> true</tt> option can be used to inform <tt>gfan</tt> that the input is already a Groebner basis with respect to some monomial order.  However, in this case, the input must be a <tt>MarkedPolynomialList</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : gfan(ideal(x^2*y -y^2, y^2*x - x^2))
+
+         5     2      2     4    2     4      3     3    2      2      2   
+o2 = {{(y ) - y , (x*y ) - y , (x ) - y }, {(x ) - y , (x y) - y , (x*y ) -
+     ------------------------------------------------------------------------
+      2    4     2      4     2    2      2      2     2    3     3      5   
+     x , (y ) - x }, {(x ) - y , (x y) - y , (x*y ) - x , (y ) - x }, {(x ) -
+     ------------------------------------------------------------------------
+      2    2      4    2     4
+     x , (x y) - x , (y ) - x }}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : gfan({x^2*y -y^2, y^2*x - x^2}, &quot;symmetry&quot; => {{0,1,2}, {1,0,2}})
+
+           2     2    2      2    3     3    4     2      5     2      2   
+o3 = {{(x*y ) - x , (x y) - y , (x ) - y , (y ) - x }, {(y ) - y , (x*y ) -
+     ------------------------------------------------------------------------
+      4    2     4
+     y , (x ) - y }}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gfan(markedPolynomialList {{y^5, x*y^2, x^2},{y^5-y^2,x*y^2 - y^4, x^2 -y^4}}, &quot;g&quot; => true)
+
+         5     2      2     4    2     4      3     3    2      2      2   
+o4 = {{(y ) - y , (x*y ) - y , (x ) - y }, {(x ) - y , (x y) - y , (x*y ) -
+     ------------------------------------------------------------------------
+      2    4     2      4     2    2      2      2     2    3     3      5   
+     x , (y ) - x }, {(x ) - y , (x y) - y , (x*y ) - x , (y ) - x }, {(x ) -
+     ------------------------------------------------------------------------
+      2    2      4    2     4
+     x , (x y) - x , (y ) - x }}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><strong>gfan Documentation</strong> This is a program for computing all reduced Groebner bases of a polynomial ideal. It takes the ring and a generating set for the ideal as input. By default the enumeration is done by an almost memoryless reverse search. If the ideal is symmetric the symmetry option is useful and enumeration will be done up to symmetry using a breadth first search. The program needs a starting Groebner basis to do its computations. If the -g option is not specified it will compute one using Buchberger's algorithm.Options:-g: Tells the program that the input is already a Groebner basis (with the initial term of each polynomial being the first ones listed). Use this option if it takes too much time to compute the starting (standard degree lexicographic) Groebner basis and the input is already a Groebner basis.--symmetry: Tells the program to read in generators for a group of symmetries (subgroup of $S_n$) after having read in the ideal. The program checks that the ideal stays fixed when permuting the variables with respect to elements in the group. The program uses breadth first search to compute the set of reduced Groebner bases up to symmetry with respect to the specified subgroup.-e: Echo. Output the generators for the symmetry group.--disableSymmetryTest: When using --symmetry this option will disable the check that the group read off from the input actually is a symmetry group with respect to the input ideal.--parameters value: With this option you can specify how many variables to treat as parameters instead of variables. This makes it possible to do computations where the coefficient field is the field of rational functions in the parameters.--interrupt value: Interrupt the enumeration after a specified number of facets have been computed (works for usual symmetric traversals, but may not work in general for non-symmetric traversals or for traversals restricted to fans).</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfan</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfan(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfan(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfan(MarkedPolynomialList)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="all reduced Groebner bases of a polynomial ideal" href="_gfan.html">gfan</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

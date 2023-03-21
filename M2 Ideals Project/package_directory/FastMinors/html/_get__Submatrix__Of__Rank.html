@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>getSubmatrixOfRank -- tries to find a submatrix of the given rank</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Codim__At__Least.html">next</a> | <a href="___Fast__Minors__Strategy__Tutorial.html">previous</a> | <a href="_is__Codim__At__Least.html">forward</a> | <a href="___Fast__Minors__Strategy__Tutorial.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="faster linear algebra, especially for computation of minors" href="index.html">FastMinors</a> :: <a title="tries to find a submatrix of the given rank" href="_get__Submatrix__Of__Rank.html">getSubmatrixOfRank</a>    </div>
+    <hr/>
+    <div>
+      <h1>getSubmatrixOfRank -- tries to find a submatrix of the given rank</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">getSubmatrixOfRank(n1, M1)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n1</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>M1</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="DetStrategy is a strategy for allowing the user to choose how determinants (or rank), is computed" href="___Det__Strategy.html">DetStrategy</a><tt> => </tt><tt>...</tt>, <span>default value Rank</span>, DetStrategy is a strategy for allowing the user to choose how determinants (or rank), is computed</span>              </li>
+              <li>
+<span><a title="an option to control depth of search" href="___Max__Minors.html">MaxMinors</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, an option to control depth of search</span>              </li>
+              <li>
+<span><a title="options to pass to functions in the package RandomPoints" href="___Point__Options.html">PointOptions</a><tt> => </tt><tt>...</tt>, <span>default value {Strategy => Default, Homogeneous => false, Replacement => Binomial, ExtendField => true, PointCheckAttempts => 0, DecompositionStrategy => Decompose, NumThreadsToUse => 1, DimensionFunction => dim, Verbose => false}</span>, options to pass to functions in the package RandomPoints</span>              </li>
+              <li>
+<span><a title="strategies for choosing submatrices" href="___Strategy__Default.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value new OptionTable from {Points => 0, Random => 0, GRevLexLargest => 0, LexSmallestTerm => 25, LexLargest => 0, LexSmallest => 25, GRevLexSmallestTerm => 25, RandomNonzero => 0, GRevLexSmallest => 25}</span>, strategies for choosing submatrices</span>              </li>
+              <li>
+<span><tt>Threads</tt><tt> => </tt><tt>...</tt>, <span>default value 1</span></span>              </li>
+              <li>
+<span><tt>Verbose</tt><tt> => </tt><tt>...</tt>, <span>default value false</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the first entry is a list of row indices, the second is a list of column indices</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function looks at submatrices of the given matrix, and tries to find one of the specified rank.  If it succeeds, it returns a list of two lists. The first is the list of row indices, the second is the list of columns, of the desired rank submatrix. If it fails to find such a matrix, the function returns <tt>null</tt>.  The option <tt>MaxMinors</tt> is used to control how many minors to consider.  If left <tt>null</tt>, the number considered is based on the size of the matrix.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = matrix{{x,y,2,0,2*x+y}, {0,0,1,0,x}, {x,y,0,0,y}};
+
+             3       5
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : l = getSubmatrixOfRank(2, M)
+
+o3 = {{1, 2}, {2, 1}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (M^(l#0))_(l#1)
+
+o4 = | 1 0 |
+     | 0 y |
+
+             2       2
+o4 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : l = getSubmatrixOfRank(2, M)
+
+o5 = {{1, 0}, {2, 1}}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : (M^(l#0))_(l#1)
+
+o6 = | 1 0 |
+     | 2 y |
+
+             2       2
+o6 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : getSubmatrixOfRank(3, M)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The option <tt>Strategy</tt> is used to used to control how the function computes the rank of the submatrices considered.  See <a title="strategies for choosing submatrices" href="___Strategy__Default.html">getSubmatrixOfRank(...,Strategy=>...)</a>. In the future, we hope to speed up the function to use multiple threads of execution, in which case the threading would be controlled by the option <tt>Threads</tt>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="determines if the matrix has rank at least a number" href="_is__Rank__At__Least.html">isRankAtLeast</a> -- determines if the matrix has rank at least a number</span>          </li>
+          <li>
+<span><a title="strategies for choosing submatrices" href="___Strategy__Default.html">getSubmatrixOfRank(...,Strategy=>...)</a> -- strategies for choosing submatrices</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>getSubmatrixOfRank</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;getSubmatrixOfRank(ZZ,Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="tries to find a submatrix of the given rank" href="_get__Submatrix__Of__Rank.html">getSubmatrixOfRank</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

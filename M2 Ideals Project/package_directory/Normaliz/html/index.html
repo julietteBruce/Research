@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Normaliz -- an interface to use Normaliz in Macaulay 2</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_all__Computations.html">next</a> | previous | <a href="_all__Computations.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a>    </div>
+    <hr/>
+    <div>
+      <h1>Normaliz -- an interface to use Normaliz in Macaulay 2</h1>
+      <div>
+        <h2>Description</h2>
+The package <em>Normaliz</em> provides an interface for the use of <tt>Normaliz 2.8</tt> within Macaulay 2.        <p/>
+The program <tt>Normaliz 2.8</tt> (referred to as <tt>Normaliz</tt> in the following) is mainly a tool for computing the Hilbert bases and enumerative invariants of rational cones. Several additional data can be computed. It is included in the Macaulay 2 distribution. For more details on the program, see <a href="http://www.math.uos.de/normaliz/">http://www.math.uos.de/normaliz/</a>. For the theory of affine semigroups and the notions of commutative algebra we refer to W. Bruns and J. Gubeladze, <em>Polytopes, rings and K-theory.</em> Springer 2009.        <p/>
+For algorithms see:         <ul>
+          <li>
+W. Bruns and R. Koch, <em>Computing the integral closure of an affine semigroup. </em>Univ. Iagiell. Acta Math. 39, (2001), 59-70          </li>
+          <li>
+W. Bruns and B. Ichim <em>Normaliz: Algorithms for affine monoids and rational cones,</em> J. Algebra (2010), available at <a href="http://dx.doi.org/10.1016/j.jalgebra.2010.01.031">http://dx.doi.org/10.1016/j.jalgebra.2010.01.031</a>          </li>
+          <li>
+W. Bruns, B. Ichim and C.Soeger <em>The power of pyramid decomposition in Normaliz,</em> arXiv:1206.1916v1, available at <a href="http://arxiv.org/abs/1206.1916v1">http://arxiv.org/abs/1206.1916v1</a>          </li>
+        </ul>
+        <p/>
+Using <tt>Normaliz</tt> one may for example compute the following:         <ul>
+          <li>
+<a href="___The_sp__Hilbert_spbasis_spand_spthe_spsupport_sphyperplanes_spof_spa_sprational_spcone..html">The Hilbert basis and the support hyperplanes of a rational cone.</a>          </li>
+          <li>
+<a href="___The_splattice_sppoints_cm_sp__Ehrhart_spseries_spand_spthe_spsupport_sphyperplanes_spof_span_spintegral_sppolytope..html">The lattice points, Ehrhart series and the support hyperplanes of an integral polytope.</a>          </li>
+          <li>
+<span><a href="___The_spgenerators_spof_spthe_spintegral_spclosure_spof_spthe_sp__Rees_spalgebra_spof_spa_spmonomial_spideal..html">The generators of the integral closure of the Rees algebra of a monomial ideal.</a></span>          </li>
+        </ul>
+        <p/>
+If the associated semigroup or corresponding semigroup algebra is graded, then one may also compute the Hilbert series and Hilbert (quasi)polynomial of the semigroup.        <p/>
+The package gives direct access to <tt>Normaliz</tt>. The exchange of data between <tt>Normaliz</tt> and Macaulay 2 is via files. These files are automatically created and erased behind the scenes. As long as one wants to use only the ring-theoretic functions there is no need for file management. The key function for the direct use of <tt>Normaliz</tt> is <a title="calls Normaliz" href="_normaliz.html">normaliz</a>, which calls the program <tt>Normaliz</tt>. To handle the in- and output one can use the functions <a title="creates an input file for Normaliz" href="_write__Nmz__Data.html">writeNmzData</a> and <a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a>, to set the options for the program <a title="sets a command line option for Normaliz" href="_set__Nmz__Option.html">setNmzOption</a>. The output files are explained in <a href="_output_spfiles_spwritten_spby_sp__Normaliz.html">output files written by Normaliz</a>.        <p/>
+If you want to keep the results of the computations by <tt>Normaliz</tt> (i.e. the files written by the program), the package offers several methods for this purpose, see <a href="___Keeping_spresults_spof_spthe_spcomputation_spby_sp__Normaliz.html">Keeping results of the computation by Normaliz</a> for an example how to do this.        <p/>
+The package introduces two new classes <a title="class of monomial subalgebras" href="___Monomial__Subalgebra.html">MonomialSubalgebra</a> and <a title="class of rational cones" href="___Rational__Cone.html">RationalCone</a>.        <p/>
+The package provides four top level functions that aim directly at algebraic objects:        <ul>
+          <li>
+<span><a title="normalization of a toric ring" href="_normal__Toric__Ring.html">normalToricRing</a> -- normalization of a toric ring</span>          </li>
+          <li>
+<span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring.html">intclToricRing</a> -- integral closure of a toric ring</span>          </li>
+          <li>
+<span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal.html">intclMonIdeal</a> -- normalization of Rees algebra</span>          </li>
+          <li>
+<span><a title="Ehrhart ring" href="_ehrhart__Ring.html">ehrhartRing</a> -- Ehrhart ring</span>          </li>
+        </ul>
+        <p/>
+The package offers the following additional functions:        <ul>
+          <li>
+<span><a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a> -- ring of invariants of torus action</span>          </li>
+          <li>
+<span><a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a> -- ring of invariants of a finite group action</span>          </li>
+          <li>
+<span><a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a> -- ring of invariants of a diagonalizable group action</span>          </li>
+          <li>
+<span><a title="intersection of ring of valuations" href="_intersection__Val__Rings.html">intersectionValRings</a> -- intersection of ring of valuations</span>          </li>
+          <li>
+<span><a title="intersection of valuation ideals" href="_intersection__Val__Ring__Ideals.html">intersectionValRingIdeals</a> -- intersection of valuation ideals</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+Gesa Kaempf<span> &lt;<a href="mailto:gkaempf@uni-osnabrueck.de">gkaempf@uni-osnabrueck.de</a>></span>            </li>
+            <li>
+Christof Soeger<span> &lt;<a href="mailto:csoeger@uni-osnabrueck.de">csoeger@uni-osnabrueck.de</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>2.0</b> of this package was accepted for publication in <a href="http://www.j-sag.org/volume2.html">volume 2</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry: Macaulay2</a> on 2010-08-08, in the article <a href="http://www.j-sag.org/Volume2/jsag-4-2010.pdf">A Macaulay2 interface for Normaliz</a>. That version can be obtained from <a href="http://www.j-sag.org/Volume2/Normaliz.m2">the journal</a> or from <a href="https://github.com/Macaulay2/M2/blob/d814bd64858da074bc73c626d27ff5494dfb7d4f/M2/Macaulay2/packages/Normaliz.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>2.6</b> of Normaliz.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/Normaliz.m2">Normaliz.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="class of monomial subalgebras" href="___Monomial__Subalgebra.html">MonomialSubalgebra</a> -- class of monomial subalgebras</span>                  </li>
+                  <li>
+<span><a title="class of rational cones" href="___Rational__Cone.html">RationalCone</a> -- class of rational cones</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="creates a monomial subalgebra" href="_create__Monomial__Subalgebra.html">createMonomialSubalgebra</a> -- creates a monomial subalgebra</span>                  </li>
+                  <li>
+<span><a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a> -- ring of invariants of a diagonalizable group action</span>                  </li>
+                  <li>
+<span><a title="Ehrhart ring" href="_ehrhart__Ring.html">ehrhartRing</a> -- Ehrhart ring</span>                  </li>
+                  <li>
+<span><a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a> -- ring of invariants of a finite group action</span>                  </li>
+                  <li>
+<span><a title="returns the numerical invariants computed" href="_get__Num__Invs.html">getNumInvs</a> -- returns the numerical invariants computed</span>                  </li>
+                  <li>
+<span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal.html">intclMonIdeal</a> -- normalization of Rees algebra</span>                  </li>
+                  <li>
+<span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring.html">intclToricRing</a> -- integral closure of a toric ring</span>                  </li>
+                  <li>
+<span><a title="intersection of valuation ideals" href="_intersection__Val__Ring__Ideals.html">intersectionValRingIdeals</a> -- intersection of valuation ideals</span>                  </li>
+                  <li>
+<span><a title="intersection of ring of valuations" href="_intersection__Val__Rings.html">intersectionValRings</a> -- intersection of ring of valuations</span>                  </li>
+                  <li>
+<span><a title="calls Normaliz" href="_normaliz.html">normaliz</a> -- calls Normaliz</span>                  </li>
+                  <li>
+<span><a title="normalization of a toric ring" href="_normal__Toric__Ring.html">normalToricRing</a> -- normalization of a toric ring</span>                  </li>
+                  <li>
+<span><a title="reads an output file of Normaliz containing several matrices" href="_read__Multiple__Nmz__Data.html">readMultipleNmzData</a> -- reads an output file of Normaliz containing several matrices</span>                  </li>
+                  <li>
+<span><a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a> -- reads an output file of Normaliz containing one matrix</span>                  </li>
+                  <li>
+<span><a title="removes the files created by Normaliz" href="_rm__Nmz__Files.html">rmNmzFiles</a> -- removes the files created by Normaliz</span>                  </li>
+                  <li>
+<span><a title="sets a command line option for Normaliz" href="_set__Nmz__Option.html">setNmzOption</a> -- sets a command line option for Normaliz</span>                  </li>
+                  <li>
+<span><a title="prints the enabled options" href="_show__Nmz__Options.html">showNmzOptions</a> -- prints the enabled options</span>                  </li>
+                  <li>
+<span><a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a> -- ring of invariants of torus action</span>                  </li>
+                  <li>
+<span><a title="creates an input file for Normaliz" href="_write__Nmz__Data.html">writeNmzData</a> -- creates an input file for Normaliz</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;createMonomialSubalgebra(List)&quot;</tt> -- see <span><a title="creates a monomial subalgebra" href="_create__Monomial__Subalgebra.html">createMonomialSubalgebra</a> -- creates a monomial subalgebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;diagInvariants(Matrix,Matrix,Ring)&quot;</tt> -- see <span><a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a> -- ring of invariants of a diagonalizable group action</span></span>                  </li>
+                  <li>
+<span><a title="Ehrhart ring" href="_ehrhart__Ring_lp__List_rp.html">ehrhartRing(List)</a> -- Ehrhart ring</span>                  </li>
+                  <li>
+<span><a title="Ehrhart ring" href="_ehrhart__Ring_lp__List_cm__Ring__Element_rp.html">ehrhartRing(List,RingElement)</a> -- Ehrhart ring</span>                  </li>
+                  <li>
+<span><tt>&quot;finiteDiagInvariants(Matrix,Ring)&quot;</tt> -- see <span><a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a> -- ring of invariants of a finite group action</span></span>                  </li>
+                  <li>
+<span><a title="generators of a monomial subalgebra" href="_generators_lp__Monomial__Subalgebra_rp.html">generators(MonomialSubalgebra)</a> -- generators of a monomial subalgebra</span>                  </li>
+                  <li>
+<span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_rp.html">intclMonIdeal(Ideal)</a> -- normalization of Rees algebra</span>                  </li>
+                  <li>
+<span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_cm__Ring__Element_rp.html">intclMonIdeal(Ideal,RingElement)</a> -- normalization of Rees algebra</span>                  </li>
+                  <li>
+<span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring_lp__List_rp.html">intclToricRing(List)</a> -- integral closure of a toric ring</span>                  </li>
+                  <li>
+<span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring_lp__Monomial__Subalgebra_rp.html">intclToricRing(MonomialSubalgebra)</a> -- integral closure of a toric ring</span>                  </li>
+                  <li>
+<span><tt>&quot;intersectionValRingIdeals(Matrix,Ring)&quot;</tt> -- see <span><a title="intersection of valuation ideals" href="_intersection__Val__Ring__Ideals.html">intersectionValRingIdeals</a> -- intersection of valuation ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;intersectionValRings(Matrix,Ring)&quot;</tt> -- see <span><a title="intersection of ring of valuations" href="_intersection__Val__Rings.html">intersectionValRings</a> -- intersection of ring of valuations</span></span>                  </li>
+                  <li>
+<span><a title="calls Normaliz with several input matrices" href="_normaliz_lp__List_rp.html">normaliz(List)</a> -- calls Normaliz with several input matrices</span>                  </li>
+                  <li>
+<span><a title="calls Normaliz" href="_normaliz_lp__Matrix_cm__String_rp.html">normaliz(Matrix,String)</a> -- calls Normaliz</span>                  </li>
+                  <li>
+<span><a title="normalization of a toric ring given by a binomial ideal" href="_normal__Toric__Ring_lp__Ideal_cm__Thing_rp.html">normalToricRing(Ideal,Thing)</a> -- normalization of a toric ring given by a binomial ideal</span>                  </li>
+                  <li>
+<span><a title="normalization of a toric ring" href="_normal__Toric__Ring_lp__List_rp.html">normalToricRing(List)</a> -- normalization of a toric ring</span>                  </li>
+                  <li>
+<span><a title="normalization of a toric ring" href="_normal__Toric__Ring_lp__Monomial__Subalgebra_rp.html">normalToricRing(MonomialSubalgebra)</a> -- normalization of a toric ring</span>                  </li>
+                  <li>
+<span><a title="number of generators of a monomial subalgebra" href="_numgens_lp__Monomial__Subalgebra_rp.html">numgens(MonomialSubalgebra)</a> -- number of generators of a monomial subalgebra</span>                  </li>
+                  <li>
+<span><tt>&quot;readMultipleNmzData(String)&quot;</tt> -- see <span><a title="reads an output file of Normaliz containing several matrices" href="_read__Multiple__Nmz__Data.html">readMultipleNmzData</a> -- reads an output file of Normaliz containing several matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;readNmzData(String)&quot;</tt> -- see <span><a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a> -- reads an output file of Normaliz containing one matrix</span></span>                  </li>
+                  <li>
+<span><a title="surrounding ring of a monomial subalgebra" href="_ring_lp__Monomial__Subalgebra_rp.html">ring(MonomialSubalgebra)</a> -- surrounding ring of a monomial subalgebra</span>                  </li>
+                  <li>
+<span><tt>&quot;setNmzOption(String,Boolean)&quot;</tt> -- see <span><a title="sets a command line option for Normaliz" href="_set__Nmz__Option.html">setNmzOption</a> -- sets a command line option for Normaliz</span></span>                  </li>
+                  <li>
+<span><tt>&quot;torusInvariants(Matrix,Ring)&quot;</tt> -- see <span><a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a> -- ring of invariants of torus action</span></span>                  </li>
+                  <li>
+<span><a title="row matrix of the generators of a monomial subalgebra" href="_vars_lp__Monomial__Subalgebra_rp.html">vars(MonomialSubalgebra)</a> -- row matrix of the generators of a monomial subalgebra</span>                  </li>
+                  <li>
+<span><a title="creates an input file for Normaliz with several matrices" href="_write__Nmz__Data_lp__List_rp.html">writeNmzData(List)</a> -- creates an input file for Normaliz with several matrices</span>                  </li>
+                  <li>
+<span><a title="creates an input file for Normaliz with one matrix" href="_write__Nmz__Data_lp__Matrix_cm__String_rp.html">writeNmzData(Matrix,String)</a> -- creates an input file for Normaliz with one matrix</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a href="_all__Computations.html">allComputations</a></span>                  </li>
+                  <li>
+<span><a href="_grading.html">grading</a></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Other things                <ul>
+                  <li>
+<span><a title="global variable, the path where Normaliz stores its files" href="_nmz__Data__Path.html">nmzDataPath</a> -- global variable, the path where Normaliz stores its files</span>                  </li>
+                  <li>
+<span><a title="global variable holding the filename" href="_nmz__Filename.html">nmzFilename</a> -- global variable holding the filename</span>                  </li>
+                  <li>
+<span><a title="global variable holding the number of threads" href="_nmz__Number__Threads.html">nmzNumberThreads</a> -- global variable holding the number of threads</span>                  </li>
+                  <li>
+<span><a title="global variable holding the Normaliz version" href="_nmz__Version.html">nmzVersion</a> -- global variable holding the Normaliz version</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>projectiveDegrees -- This method computes the projective degrees of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_segre.html">next</a> | <a href="_projective__Degree.html">previous</a> | <a href="_segre.html">forward</a> | <a href="_projective__Degree.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Tests containment of varieties and computes algebraic multiplicity of subvarieties and Fulton-MacPherson intersection products - via a very general Segre class computation" href="index.html">SegreClasses</a> :: <a title="This method computes the projective degrees of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces" href="_projective__Degrees.html">projectiveDegrees</a>    </div>
+    <hr/>
+    <div>
+      <h1>projectiveDegrees -- This method computes the projective degrees of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">projectiveDegrees(IX,IY)</code></dd>
+              <dd><code class="language-macaulay2">projectiveDegrees(IX,IY,A)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>IX</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a multi-homogeneous ideal defining a closed subscheme of \PP^{n_1}x...x\PP^{n_m}; <a title="Makes the coordinate ring of a product of projective spaces." href="_make__Product__Ring.html">makeProductRing</a> builds the graded coordinate ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+              <li>
+<span><tt>IY</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a multi-homogeneous ideal defining a closed subscheme of \PP^{n_1}x...x\PP^{n_m}; <a title="Makes the coordinate ring of a product of projective spaces." href="_make__Product__Ring.html">makeProductRing</a> builds the graded coordinate ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">quotient ring</a></span>, the Chow ring of \PP^{n_1}x...x\PP^{n_m}. This ring can be built by applying <a title="Makes the Chow ring of a product of projective spaces." href="_make__Chow__Ring.html">makeChowRing</a> to the coordinate ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Verbose</tt> (missing documentation)<!--tag: [projectiveDegrees, Verbose]-->
+<tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>pd</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of the projective degrees of a subscheme X defined by IX in the subscheme Y defined by IY as classes in the Chow ring of \PP^{n_1}x...x\PP^{n_m}.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>For subschemes X,Y of \PP^{n_1}x...x\PP^{n_m} this command computes  a list of the projective degrees of a subscheme X in the subscheme Y as classes in the Chow ring of \PP^{n_1}x...x\PP^{n_m}.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = makeProductRing({3,3})
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : x = gens(R)
+
+o2 = {a, b, c, d, e, f, g, h}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D = minors(2,matrix{{x_0..x_3},{x_4..x_7}})
+
+o3 = ideal (- b*e + a*f, - c*e + a*g, - c*f + b*g, - d*e + a*h, - d*f + b*h,
+     ------------------------------------------------------------------------
+     - d*g + c*h)
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : X = ideal(x_0*x_1,x_1*x_2,x_0*x_2)
+
+o4 = ideal (a*b, b*c, a*c)
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : projectiveDegrees(X,D)
+
+         3 3    2 3    3 2      3    2 2    3
+o5 = {10H H , 6H H , 6H H , 3H H , 3H H , 3H H }
+         1 2    1 2    1 2    1 2    1 2    1 2
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = makeChowRing(R)
+
+o6 = A
+
+o6 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : pd = projectiveDegrees(X,D,A)
+
+         3 3    2 3    3 2      3    2 2    3
+o7 = {10H H , 6H H , 6H H , 3H H , 3H H , 3H H }
+         1 2    1 2    1 2    1 2    1 2    1 2
+
+o7 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>projectiveDegrees</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;projectiveDegrees(Ideal,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;projectiveDegrees(Ideal,Ideal,QuotientRing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="This method computes the projective degrees of a scheme X inside a scheme Y, where X,Y are subschemes of some product of projective spaces" href="_projective__Degrees.html">projectiveDegrees</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

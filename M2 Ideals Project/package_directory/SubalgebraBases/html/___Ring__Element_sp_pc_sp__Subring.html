@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RingElement % Subring -- Remainder modulo a subring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Ring__Element_sp_sl_sl_sp__Subring.html">next</a> | <a href="___Ring__Element_sp_pc_sp__S__A__G__B__I__Basis.html">previous</a> | <a href="___Ring__Element_sp_sl_sl_sp__Subring.html">forward</a> | <a href="___Ring__Element_sp_pc_sp__S__A__G__B__I__Basis.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for finding canonical subalgebra bases (Sagbi bases)" href="index.html">SubalgebraBases</a> :: <a title="Remainder modulo a subring" href="___Ring__Element_sp_pc_sp__Subring.html">RingElement % Subring</a>    </div>
+    <hr/>
+    <div>
+      <h1>RingElement % Subring -- Remainder modulo a subring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator, usually used for remainder and reduction" href="../../Macaulay2Doc/html/__pc.html">%</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">r = f % S</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, </span>              </li>
+              <li>
+<span><tt>S</tt>, <span>an instance of the type <a title="The type of all subrings" href="___Subring.html">Subring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>r</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the normal form of f modulo the subring</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The result is zero if and only if the input belongs to the subring. If a sagbi basis is known for the subring then subduction is used to compute the normal forms. If no sagbi basis is known then an extrinsic method is used, similar to <tt>groebnerMembershipTest</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x1, x2, x3];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = subring {x1+x2+x3, x1*x2+x1*x3+x2*x3, x1*x2*x3, (x1-x2)*(x1-x3)*(x2-x3)} --usual invariants of A_3
+
+o2 = QQ[p_0..p_3], subring of R
+
+o2 : Subring</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = x1 + x2 + 2*x3
+
+o3 = x1 + x2 + 2x3
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f % S
+
+o4 = x3
+
+o4 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : g = x1^2*x2 + x2^2*x3 + x3^2*x1
+
+       2       2          2
+o5 = x1 x2 + x2 x3 + x1*x3
+
+o5 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : g % S
+
+o6 = 0
+
+o6 : R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Remainder modulo a subring" href="___Ring__Element_sp_pc_sp__Subring.html">RingElement % Subring</a> -- Remainder modulo a subring</span>          </li>
+          <li>
+<span><a title="Remainder modulo a subring" href="___Matrix_sp_pc_sp__Subring.html">Matrix % Subring</a> -- Remainder modulo a subring</span>          </li>
+          <li>
+<span><a title="Remainder modulo a subring" href="___Ring__Element_sp_pc_sp__S__A__G__B__I__Basis.html">RingElement % SAGBIBasis</a> -- Remainder modulo a subring</span>          </li>
+          <li>
+<span><a title="Remainder modulo a subring" href="___Matrix_sp_pc_sp__S__A__G__B__I__Basis.html">Matrix % SAGBIBasis</a> -- Remainder modulo a subring</span>          </li>
+          <li>
+<span><a title="The type of all subrings" href="___Subring.html">Subring</a> -- The type of all subrings</span>          </li>
+          <li>
+<span><a title="The type of all sagbi bases" href="___S__A__G__B__I__Basis.html">SAGBIBasis</a> -- The type of all sagbi bases</span>          </li>
+          <li>
+<span><a title="Extrinsic method for subring membership" href="_groebner__Membership__Test.html">groebnerMembershipTest</a> -- Extrinsic method for subring membership</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Remainder modulo a subring" href="___Ring__Element_sp_pc_sp__Subring.html">RingElement % Subring</a> -- Remainder modulo a subring</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

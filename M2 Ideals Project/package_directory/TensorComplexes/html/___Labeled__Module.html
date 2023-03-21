@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>LabeledModule -- the class of free modules with a labeled basis</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_labeled__Module.html">next</a> | <a href="_hyperdeterminant__Matrix.html">previous</a> | <a href="_labeled__Module.html">forward</a> | <a href="_hyperdeterminant__Matrix.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="multilinear algebra for the construction of tensor complexes" href="index.html">TensorComplexes</a> :: <a title="the class of free modules with a labeled basis" href="___Labeled__Module.html">LabeledModule</a>    </div>
+    <hr/>
+    <div>
+      <h1>LabeledModule -- the class of free modules with a labeled basis</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A labeled module $F$ is a free module together with two additional pieces of data: a <a title="gives the list used to label the basis elements of a labeled module" href="_basis__List.html">basisList</a> which corresponds to the basis of $F$, and a list of <a title="gives the list of underlying modules of a labeled module" href="_underlying__Modules.html">underlyingModules</a> which were used in the construction of $F$. The constructor <a title="makes a labeled module" href="_labeled__Module.html">labeledModule</a> can be used to construct a labeled module from a free module. The call <tt>labeledModule E</tt>, where $E$ is a free module, returns a labeled module with <a title="gives the list used to label the basis elements of a labeled module" href="_basis__List.html">basisList</a> $\{1,\dots, rank E\}$ and <a title="gives the list of underlying modules of a labeled module" href="_underlying__Modules.html">underlyingModules</a> $\{E\}$.ß</p>
+          <p>For example if $A,B$ are of type LabeledModule, then <tt>F=tensorProduct(A,B)</tt> constructs the LabeledModule $F=A\otimes B$ with <a title="gives the list used to label the basis elements of a labeled module" href="_basis__List.html">basisList</a> equal to the list of pairs $\{a,b\}$ where $a$ belongs to the basis list of $A$ and $b$ belongs to the basis list of $b$. The list of <a title="gives the list of underlying modules of a labeled module" href="_underlying__Modules.html">underlyingModules</a> of $F$ is $\{A,B\}$.</p>
+          <p>Certain functors which are the identity in the category of modules are non-trivial isomorphisms in the category of labeled modules.  For example, if <tt>F</tt> is a labeled module with basis list <tt>\{0,1\}</tt> then <tt>tensorProduct F</tt> is a labeled free module with basis list <tt>\{\{ 0\},\{ 1\}\} </tt>.  Similarly, one must be careful when applying the functors <a title="exterior power" href="../../Macaulay2Doc/html/_exterior__Power.html">exteriorPower</a> and <a title="symmetric power" href="../../Macaulay2Doc/html/_symmetric__Power.html">symmetricPower</a>.  For a ring $S$, the multiplicative unit for tensor product is the rank 1 free $S$-module whose generator is labeled by <tt>\{\} </tt>. This is constructed by <tt>labeledModule S</tt>.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Functions and methods returning a free module with labeled basis :</h2>
+        <ul>
+          <li>
+<span><a title="makes a labeled module" href="_labeled__Module.html">labeledModule</a> -- makes a labeled module</span>          </li>
+          <li>
+<span><a title="creates the tensor product of two labeled modules, as a labeled module" href="_tensor_lp__Labeled__Module_cm__Labeled__Module_rp.html">tensor(LabeledModule,LabeledModule)</a> -- creates the tensor product of two labeled modules, as a labeled module</span>          </li>
+        </ul>
+        <h2>Methods that use a free module with labeled basis :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;basisList(LabeledModule)&quot;</tt> -- see <span><a title="gives the list used to label the basis elements of a labeled module" href="_basis__List.html">basisList</a> -- gives the list used to label the basis elements of a labeled module</span></span>          </li>
+          <li>
+<span><tt>&quot;cauchyMap(ZZ,LabeledModule)&quot;</tt> -- see <span><a title="produces one surjection from the Cauchy decomposition of the exterior power of a tensor product" href="_cauchy__Map.html">cauchyMap</a> -- produces one surjection from the Cauchy decomposition of the exterior power of a tensor product</span></span>          </li>
+          <li>
+<span><a title="Exterior power of a @TO LabeledModule@" href="_exterior__Power_lp__Z__Z_cm__Labeled__Module_rp.html">exteriorPower(ZZ,LabeledModule)</a> -- Exterior power of a @TO LabeledModule@</span>          </li>
+          <li>
+<span><tt>&quot;fromOrdinal(ZZ,LabeledModule)&quot;</tt> -- see <span><a title="outputs the label of a basis element of a labeled module" href="_from__Ordinal.html">fromOrdinal</a> -- outputs the label of a basis element of a labeled module</span></span>          </li>
+          <li>
+<span><tt>LabeledModule ** LabeledModule</tt> (missing documentation)<!--tag: (**,LabeledModule,LabeledModule)-->
+</span>          </li>
+          <li>
+<span><tt>LabeledModule == LabeledModule</tt> (missing documentation)<!--tag: (==,LabeledModule,LabeledModule)-->
+</span>          </li>
+          <li>
+<span><a title="create a LabeledModuleMap by specifying a function that gives each entry" href="_map_lp__Labeled__Module_cm__Labeled__Module_cm__Function_rp.html">map(LabeledModule,LabeledModule,Function)</a> -- create a LabeledModuleMap by specifying a function that gives each entry</span>          </li>
+          <li>
+<span><a title="creates a new LabeledModuleMap from a given LabeledModuleMap" href="_map_lp__Labeled__Module_cm__Labeled__Module_cm__Labeled__Module__Map_rp.html">map(LabeledModule,LabeledModule,LabeledModuleMap)</a> -- creates a new LabeledModuleMap from a given LabeledModuleMap</span>          </li>
+          <li>
+<span><a title="creates a LabeledModuleMap from a list" href="_map_lp__Labeled__Module_cm__Labeled__Module_cm__List_rp.html">map(LabeledModule,LabeledModule,List)</a> -- creates a LabeledModuleMap from a list</span>          </li>
+          <li>
+<span><a title="creates a LabeledModuleMap from a matrix" href="_map_lp__Labeled__Module_cm__Labeled__Module_cm__Matrix_rp.html">map(LabeledModule,LabeledModule,Matrix)</a> -- creates a LabeledModuleMap from a matrix</span>          </li>
+          <li>
+<span><a title="creates scalar multiplication by an integer as a LabeledModuleMap" href="_map_lp__Labeled__Module_cm__Labeled__Module_cm__Z__Z_rp.html">map(LabeledModule,LabeledModule,ZZ)</a> -- creates scalar multiplication by an integer as a LabeledModuleMap</span>          </li>
+          <li>
+<span><tt>&quot;minorsMap(LabeledModuleMap,LabeledModule)&quot;</tt> -- see <span><a title="creates a map of labeled free modules whose image is the minors of a map of labeled free modules" href="_minors__Map.html">minorsMap</a> -- creates a map of labeled free modules whose image is the minors of a map of labeled free modules</span></span>          </li>
+          <li>
+<span><tt>&quot;minorsMap(Matrix,LabeledModule)&quot;</tt> -- see <span><a title="creates a map of labeled free modules whose image is the minors of a map of labeled free modules" href="_minors__Map.html">minorsMap</a> -- creates a map of labeled free modules whose image is the minors of a map of labeled free modules</span></span>          </li>
+          <li>
+<span><tt>module(LabeledModule)</tt> (missing documentation)<!--tag: (module,LabeledModule)-->
+</span>          </li>
+          <li>
+<span><tt>net(LabeledModule)</tt> (missing documentation)<!--tag: (net,LabeledModule)-->
+</span>          </li>
+          <li>
+<span><tt>rank(LabeledModule)</tt> (missing documentation)<!--tag: (rank,LabeledModule)-->
+</span>          </li>
+          <li>
+<span><tt>ring(LabeledModule)</tt> (missing documentation)<!--tag: (ring,LabeledModule)-->
+</span>          </li>
+          <li>
+<span><tt>&quot;symmetricMultiplication(LabeledModule,ZZ,ZZ)&quot;</tt> -- see <span><a title="creates the symmetric multiplication map" href="_symmetric__Multiplication.html">symmetricMultiplication</a> -- creates the symmetric multiplication map</span></span>          </li>
+          <li>
+<span><a title="Symmetric power of a @TO LabeledModule@" href="_symmetric__Power_lp__Z__Z_cm__Labeled__Module_rp.html">symmetricPower(ZZ,LabeledModule)</a> -- Symmetric power of a @TO LabeledModule@</span>          </li>
+          <li>
+<span><tt>&quot;toOrdinal(Thing,LabeledModule)&quot;</tt> -- see <span><a title="turns the label of a basis element of a labeled module into a corresponding ordinal" href="_to__Ordinal.html">toOrdinal</a> -- turns the label of a basis element of a labeled module into a corresponding ordinal</span></span>          </li>
+          <li>
+<span><tt>&quot;traceMap(LabeledModule)&quot;</tt> -- see <span><a title="produces the trace map from a ring to a free module tensored with its dual" href="_trace__Map.html">traceMap</a> -- produces the trace map from a ring to a free module tensored with its dual</span></span>          </li>
+          <li>
+<span><tt>&quot;underlyingModules(LabeledModule)&quot;</tt> -- see <span><a title="gives the list of underlying modules of a labeled module" href="_underlying__Modules.html">underlyingModules</a> -- gives the list of underlying modules of a labeled module</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the class of free modules with a labeled basis" href="___Labeled__Module.html">LabeledModule</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

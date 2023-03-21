@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>shorten -- shortens a code</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_universe__Code.html">next</a> | <a href="_repetition__Code.html">previous</a> | <a href="_universe__Code.html">forward</a> | <a href="_repetition__Code.html">backward</a> | <a href="_linear__Code.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a> > <a title="functions to construct linear codes over Galois fields" href="_linear__Code.html">linearCode</a> > <a title="shortens a code" href="_shorten.html">shorten</a>    </div>
+    <hr/>
+    <div>
+      <h1>shorten -- shortens a code</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">shorten(LinearCode, List)</code></dd>
+              <dd><code class="language-macaulay2">shorten(LindearCode, ZZ)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>i</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a code <tt>C</tt> of length $n$ and a list <tt>L</tt> (or an integer <tt>i</tt>), returns a new code obtained from <tt>C</tt> by selecting only those codewords of <tt>C</tt> that have zeros in each of the coordinate positions in the list <tt>L</tt> (or the position <tt>i</tt>), and then deleting these positions.</p>
+        </div>
+        <div>
+          <p>The resulting code will have length $n - r$, where $r$ is the number of elements in <tt>L</tt> (or 1 when the integer <tt>i</tt> is used).</p>
+        </div>
+        <div>
+          <h2>a code and a list are given</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">shorten(LinearCode, List)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>C</tt>, <span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, </span>                </li>
+                <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, </span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p>Given a code <tt>C</tt> of length $n$ and a list <tt>L</tt>, returns a new code obtained from <tt>C</tt> by selecting only those codewords of <tt>C</tt> that have zeros in each of the coordinate positions in the list <tt>L</tt>, and then deleting these positions.</p>
+          </div>
+          <div>
+            <p>The resulting code will have length $n - r$, where $r$ is the number of elements in <tt>L</tt>.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i1 : F = GF(2);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i2 : codeLen = 10;</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i3 : L = {{0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 1, 0, 1, 0,0}, {1, 1, 0, 0, 0, 1, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1, 1,1}};</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i4 : C = linearCode(F,codeLen,L);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i5 : shorten(C, {3,6,8,9});</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+        <div>
+          <h2>a linear code and an integer are given</h2>
+          <ul>
+            <li>
+              <dl class="element">
+                <dt>Usage: </dt>
+                <dd><code class="language-macaulay2">shorten(LinearCode, ZZ)</code></dd>
+              </dl>
+            </li>
+            <li>
+Inputs:              <ul>
+                <li>
+<span><tt>C</tt>, <span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, </span>                </li>
+                <li>
+<span><tt>i</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>                </li>
+              </ul>
+            </li>
+            <li>
+Outputs:              <ul>
+                <li>
+<span><span>an instance of the type <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a></span>, $C$</span>                </li>
+              </ul>
+            </li>
+          </ul>
+          <div>
+            <p>Given a code <tt>C</tt> of length $n$ and a list <tt>L</tt>, returns a new code obtained from <tt>C</tt> by selecting only those codewords of <tt>C</tt> that have zero in the position <tt>i</tt>), and then deleting this position.</p>
+          </div>
+          <div>
+            <p>The resulting code will have length $n - 1$.</p>
+          </div>
+          <table class="examples">
+            <tr>
+<td>                <pre><code class="language-macaulay2">i6 : F = GF(2);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i7 : codeLen = 10;</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i8 : L = {{0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 1, 0, 1, 0,0}, {1, 1, 0, 0, 0, 1, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 0, 1, 1,1}};</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i9 : C = linearCode(F,codeLen,L);</code></pre>
+</td>            </tr>
+            <tr>
+<td>                <pre><code class="language-macaulay2">i10 : shorten(C, 3)
+
+                                   9
+o10 = LinearCode{AmbientModule => F                                                                                                                                                                                                                                    }
+                 BaseField => F
+                 cache => CacheTable{}
+                 Code => image | 0 1 1 1 0 0 1 0 |
+                               | 1 1 1 0 0 0 0 1 |
+                               | 0 0 1 1 1 0 0 1 |
+                               | 0 0 1 1 1 0 0 1 |
+                               | 0 1 0 0 1 0 1 1 |
+                               | 0 0 0 0 0 0 0 0 |
+                               | 0 0 1 1 1 0 0 1 |
+                               | 0 1 1 1 0 0 1 0 |
+                               | 0 0 0 0 0 0 0 0 |
+                 GeneratorMatrix => | 0 1 0 0 0 0 0 0 0 |
+                                    | 1 1 0 0 1 0 0 1 0 |
+                                    | 1 1 1 1 0 0 1 1 0 |
+                                    | 1 0 1 1 0 0 1 1 0 |
+                                    | 0 0 1 1 1 0 1 0 0 |
+                                    | 0 0 0 0 0 0 0 0 0 |
+                                    | 1 0 0 0 1 0 0 1 0 |
+                                    | 0 1 1 1 1 0 1 0 0 |
+                 Generators => {{0, 1, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 1, 0, 0, 1, 0}, {1, 1, 1, 1, 0, 0, 1, 1, 0}, {1, 0, 1, 1, 0, 0, 1, 1, 0}, {0, 0, 1, 1, 1, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 1, 1, 0, 1, 0, 0}}
+                 ParityCheckMatrix => | 0 0 1 1 0 0 0 0 0 |
+                                      | 1 0 1 0 1 0 0 0 0 |
+                                      | 0 0 0 0 0 1 0 0 0 |
+                                      | 0 0 1 0 0 0 1 0 0 |
+                                      | 1 0 0 0 0 0 0 1 0 |
+                                      | 0 0 0 0 0 0 0 0 1 |
+                 ParityCheckRows => {{0, 0, 1, 1, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 1, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1}}
+
+o10 : LinearCode</code></pre>
+</td>            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>shorten</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;shorten(LinearCode,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;shorten(LinearCode,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="shortens a code" href="_shorten.html">shorten</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

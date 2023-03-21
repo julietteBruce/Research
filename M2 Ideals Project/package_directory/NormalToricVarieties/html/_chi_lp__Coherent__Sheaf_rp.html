@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>chi(CoherentSheaf) -- compute the Euler characteristic of a coherent sheaf</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Chow_spring.html">next</a> | <a href="_chern_lp__Z__Z_cm__Coherent__Sheaf_rp.html">previous</a> | <a href="___Chow_spring.html">forward</a> | <a href="_chern_lp__Z__Z_cm__Coherent__Sheaf_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="working with normal toric varieties and related objects" href="index.html">NormalToricVarieties</a> :: <a title="compute the Euler characteristic of a coherent sheaf" href="_chi_lp__Coherent__Sheaf_rp.html">chi(CoherentSheaf)</a>    </div>
+    <hr/>
+    <div>
+      <h1>chi(CoherentSheaf) -- compute the Euler characteristic of a coherent sheaf</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a href="../../Macaulay2Doc/html/_chi.html">chi</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">chi F</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all coherent sheaves" href="../../Macaulay2Doc/html/___Coherent__Sheaf.html">coherent sheaf</a></span>, on a complete simplicial normal toric variety</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, in the coefficient ring of intersection ring of the underlying variety</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>By definition, the Euler characteristic of coherent sheaf $F$ on a variety $X$ is $\sum_i (-1)^i$ dim $HH^i (X, F)$.  However, this methods uses the Hirzebruch-Riemann-Roch theorem to calculate the Euler characteristic.</p>
+        </div>
+        <div>
+          <p>For a nef line bundle on a normal toric variety, the Euler characteristic equals the number of lattice points in the corresponding polytope.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X0 = hirzebruchSurface 2;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : degrees ring X0
+
+o2 = {{1, 0}, {-2, 1}, {1, 0}, {0, 1}}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : chi OO X0_2
+
+o3 = 2
+
+o3 : QQ[]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : latticePoints X0_2
+
+o4 = | 0 1 |
+     | 0 0 |
+
+              2        2
+o4 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : assert all ({{1,0},{0,1},{1,1},{2,1},{1,2}}, p -> (
+             D := p#0 * X0_2 + p#1 * X0_3;
+             isNef D and chi OO D == rank source latticePoints D
+             )
+         )</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : chi OO (2 * X0_1)
+
+o6 = -3
+
+o6 : QQ[]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : assert not isNef (2 * X0_1)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="information about coherent sheaves and total coordinate rings (a.k.a. Cox rings)" href="_working_spwith_spsheaves.html">working with sheaves</a> -- information about coherent sheaves and total coordinate rings (a.k.a. Cox rings)</span>          </li>
+          <li>
+<span><a title="compute the Todd class of a coherent sheaf" href="_todd_lp__Coherent__Sheaf_rp.html">todd(CoherentSheaf)</a></span>          </li>
+          <li>
+<span><a title="compute the multivariate Hilbert polynomial" href="_hilbert__Polynomial_lp__Normal__Toric__Variety_cm__Coherent__Sheaf_rp.html">hilbertPolynomial(NormalToricVariety,CoherentSheaf)</a> -- compute the multivariate Hilbert polynomial</span>          </li>
+          <li>
+<span><a title="make the rational Chow ring" href="___Chow_spring.html">intersectionRing(NormalToricVariety)</a> -- make the rational Chow ring</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="compute the Euler characteristic of a coherent sheaf" href="_chi_lp__Coherent__Sheaf_rp.html">chi(CoherentSheaf)</a> -- compute the Euler characteristic of a coherent sheaf</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

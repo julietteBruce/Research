@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>coeffMatrices -- gets coefficient matrices for a matrix of linear forms</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_companion__Matrix.html">next</a> | <a href="_cholesky.html">previous</a> | <a href="_companion__Matrix.html">forward</a> | <a href="_cholesky.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computing determinantal representations of polynomials" href="index.html">DeterminantalRepresentations</a> :: <a title="gets coefficient matrices for a matrix of linear forms" href="_coeff__Matrices.html">coeffMatrices</a>    </div>
+    <hr/>
+    <div>
+      <h1>coeffMatrices -- gets coefficient matrices for a matrix of linear forms</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">coeffMatrices(M)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of linear forms</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of matrices</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a linear matrix pencil $M = I_d + x_1A_1 + ... + x_nA_n$, this method returns the list of matrices $A_1, ..., A_n$.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = id_(R^3) + random(R^3,R^{3:-1})
+
+o2 = | 9/2x+1/2y+9/4z+1 7/9x+7/10y+1/2z 2/3x+y+2z    |
+     | 1/2x+y+3/4z      7/10x+7/3y+7z+1 6x+5/4y+2/9z |
+     | 3/2x+3/4y+7/4z   3/7x+5/2y+6/7z  5x+3/10y+z+1 |
+
+             3       3
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : coeffs = coeffMatrices M
+
+o3 = {{1} | 9/2 7/9  2/3 |, {1} | 1/2 7/10 1    |, {1} | 9/4 1/2 2   |}
+      {1} | 1/2 7/10 6   |  {1} | 1   7/3  5/4  |  {1} | 3/4 7   2/9 |
+      {1} | 3/2 3/7  5   |  {1} | 3/4 5/2  3/10 |  {1} | 7/4 6/7 1   |
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : M - sum(#gens R, i -> R_i*coeffs#i)
+
+o4 = | 1 0 0 |
+     | 0 1 0 |
+     | 0 0 1 |
+
+             3       3
+o4 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This method does not return the constant term, or coefficients of terms of degree $> 1$.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>coeffMatrices</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;coeffMatrices(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="gets coefficient matrices for a matrix of linear forms" href="_coeff__Matrices.html">coeffMatrices</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

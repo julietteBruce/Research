@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ChernSchwartzMacPherson -- Chern-Schwartz-MacPherson class of a projective scheme</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Codim__Bs__Inv.html">next</a> | <a href="___Certify.html">previous</a> | <a href="___Codim__Bs__Inv.html">forward</a> | <a href="___Certify.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a>    </div>
+    <hr/>
+    <div>
+      <h1>ChernSchwartzMacPherson -- Chern-Schwartz-MacPherson class of a projective scheme</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">ChernSchwartzMacPherson I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a homogeneous ideal defining a closed subscheme $X\subset\mathbb{P}^n$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="___Blow__Up__Strategy.html">BlowUpStrategy</a><tt> => </tt><tt>...</tt>, <span>default value &quot;Eliminate&quot;</span>, </span>              </li>
+              <li>
+<span><a title="whether to ensure correctness of output" href="___Certify.html">Certify</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, whether to ensure correctness of output</span>              </li>
+              <li>
+<span><a href="_inverse__Map_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the push-forward to the Chow ring of $\mathbb{P}^n$ of the Chern-Schwartz-MacPherson class $c_{SM}(X)$ of $X$. In particular, the coefficient of $H^n$ gives the Euler characteristic of the support of $X$, where $H$ denotes the hyperplane class.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is an example of application of the method <a title="projective degrees of a rational map between projective varieties" href="_projective__Degrees.html">projectiveDegrees</a>, due to results shown in <a href="http://www.sciencedirect.com/science/article/pii/S0747717102000895">Computing characteristic classes of projective schemes</a>, by P. Aluffi. See also the corresponding methods in the packages <a href="http://www.math.fsu.edu/~aluffi/CSM/CSM.html">CSM-A</a>, by P. Aluffi, and <a href="http://www.math.uiuc.edu/Macaulay2/doc/Macaulay2-1.16/share/doc/Macaulay2/CharacteristicClasses/html/">CharacteristicClasses</a>, by M. Helmer and C. Jost.</p>
+        <p>In the example below, we compute the push-forward to the Chow ring of $\mathbb{P}^4$ of the Chern-Schwartz-MacPherson class of the cone over the twisted cubic curve, using both a probabilistic and a non-probabilistic approach.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : GF(5^7)[x_0..x_4]
+
+o1 = GF 78125[x ..x ]
+               0   4
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C = minors(2,matrix{{x_0,x_1,x_2},{x_1,x_2,x_3}})
+
+               2                           2
+o2 = ideal (- x  + x x , - x x  + x x , - x  + x x )
+               1    0 2     1 2    0 3     2    1 3
+
+o2 : Ideal of GF 78125[x ..x ]
+                        0   4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time ChernSchwartzMacPherson C
+     -- used 1.77249 seconds
+
+       4     3     2
+o3 = 3H  + 5H  + 3H
+
+     ZZ[H]
+o3 : -----
+        5
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time ChernSchwartzMacPherson(C,Certify=>true)
+Certify: output certified!
+     -- used 2.04986 seconds
+
+       4     3     2
+o4 = 3H  + 5H  + 3H
+
+     ZZ[H]
+o4 : -----
+        5
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : oo == ooo
+
+o5 = true</code></pre>
+</td>          </tr>
+        </table>
+        <p>In the case when the input ideal <tt>I</tt> defines a smooth projective variety $X$, the push-forward of $c_{SM}(X)$ can be computed much more efficiently using <a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a>. Indeed, in this case, $c_{SM}(X)$ coincides with the (total) Chern class of the tangent bundle of $X$ and can be obtained as follows (in general the method below gives the push-forward of the so-called Chern-Fulton class).</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : ChernClass = method(Options=>{Certify=>false});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : ChernClass (Ideal) := o -> (I) -> (
+        s := SegreClass(I,Certify=>o.Certify);
+        s*(1+first gens ring s)^(numgens ring I));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : -- example: Chern class of G(1,4)
+     G = Grassmannian(1,4,CoefficientRing=>ZZ/190181)
+
+o8 = ideal (p   p    - p   p    + p   p   , p   p    - p   p    + p   p   ,
+             2,3 1,4    1,3 2,4    1,2 3,4   2,3 0,4    0,3 2,4    0,2 3,4 
+     ------------------------------------------------------------------------
+     p   p    - p   p    + p   p   , p   p    - p   p    + p   p   , p   p   
+      1,3 0,4    0,3 1,4    0,1 3,4   1,2 0,4    0,2 1,4    0,1 2,4   1,2 0,3
+     ------------------------------------------------------------------------
+     - p   p    + p   p   )
+        0,2 1,3    0,1 2,3
+
+                ZZ
+o8 : Ideal of ------[p   ..p   , p   , p   , p   , p   , p   , p   , p   , p   ]
+              190181  0,1   0,2   1,2   0,3   1,3   2,3   0,4   1,4   2,4   3,4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : time ChernClass G
+     -- used 0.205473 seconds
+
+        9      8      7      6      5      4     3
+o9 = 10H  + 30H  + 60H  + 75H  + 57H  + 25H  + 5H
+
+     ZZ[H]
+o9 : -----
+       10
+      H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : time ChernClass(G,Certify=>true)
+Certify: output certified!
+     -- used 0.0170752 seconds
+
+         9      8      7      6      5      4     3
+o10 = 10H  + 30H  + 60H  + 75H  + 57H  + 25H  + 5H
+
+      ZZ[H]
+o10 : -----
+        10
+       H</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> -- Segre class of a closed subscheme of a projective variety</span>          </li>
+          <li>
+<span><a title="topological Euler characteristic of a (smooth) projective variety" href="___Euler__Characteristic.html">EulerCharacteristic</a> -- topological Euler characteristic of a (smooth) projective variety</span>          </li>
+          <li>
+<span><a title="topological Euler characteristic of a (smooth) projective variety" href="../../Macaulay2Doc/html/_euler_lp__Projective__Variety_rp.html">euler(ProjectiveVariety)</a> -- topological Euler characteristic of a (smooth) projective variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>ChernSchwartzMacPherson</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;ChernSchwartzMacPherson(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

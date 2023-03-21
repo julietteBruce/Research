@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanRender -- render an image of a Groebner fan</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__Render__Staircase.html">next</a> | <a href="_gfan__Polynomial__Set__Union.html">previous</a> | <a href="_gfan__Render__Staircase.html">forward</a> | <a href="_gfan__Polynomial__Set__Union.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="render an image of a Groebner fan" href="_gfan__Render.html">gfanRender</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanRender -- render an image of a Groebner fan</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gfanRender(L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>fileName</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, the name of the file to be output, given without an extension</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, all <a href="___Marked__Polynomial__List.html">marked reduced Groebner bases</a> of <tt>I</tt> or an ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>L</tt></span>              </li>
+              <li>
+<span><tt>shiftVariables</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method renders the Groebner fan of an ideal and writes it to a <tt>.fig</tt> file. If <tt>fig2dev</tt> is installed then the <tt>.fig</tt> file will be converted to <tt>.png</tt> and displayed. The names of the <tt>.fig</tt> and <tt>.png</tt> files are printed on standard out.</p>
+          <p>This method may support more options in the future to control rendering, conversion, and display. It may also eventually output file names in a list.</p>
+          <p><strong>gfan Documentation</strong> This program renders a Groebner fan as an xfig file. To be more precise, the input is the list of all reduced Groebner bases of an ideal. The output is a drawing of the Groebner fan intersected with a triangle. The corners of the triangle are (1,0,0) to the right, (0,1,0) to the left and (0,0,1) at the top. If there are more than three variables in the ring these coordinates are extended with zeros. It is possible to shift the 1 entry cyclic with the option --shiftVariables.Options:-L: Make the triangle larger so that the shape of the Groebner region appears.--shiftVariables value: Shift the positions of the variables in the drawing. For example with the value equal to 1 the corners will be right: (0,1,0,0,...), left: (0,0,1,0,...) and top: (0,0,0,1,...). The shifting is done modulo the number of variables in the polynomial ring. The default value is 0.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfanRender</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfanRender(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanRender(String,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="render an image of a Groebner fan" href="_gfan__Render.html">gfanRender</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

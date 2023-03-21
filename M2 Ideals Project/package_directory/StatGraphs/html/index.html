@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>StatGraphs -- a package for graphs used in statistical models</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Bigraph.html">next</a> | previous | <a href="___Bigraph.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for graphs used in statistical models" href="index.html">StatGraphs</a> :: <a title="a package for graphs used in statistical models" href="index.html">StatGraphs</a>    </div>
+    <hr/>
+    <div>
+      <h1>StatGraphs -- a package for graphs used in statistical models</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This package contains the types of graphs that are used in algebraic statistics: <a title="a graph with bidirected edges and no multiple edges" href="___Bigraph.html">Bigraph</a> and  <a title="a graph that has undirected, directed and bidirected edges" href="___Mixed__Graph.html">MixedGraph</a>.</p>
+          <p>A bigraph is graph with bidirected edges and no multiple edges. A mixed graph is a graph with undirected, directed and bidirected edges.</p>
+          <p>This is an example of a bigraph on 4 vertices. It is created using the method <a title="create a bigraph" href="_bigraph.html">bigraph</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G = bigraph {{3,4},{1,2},{2,4}}
+
+o1 = Bigraph{1 => {2}   }
+             2 => {4, 1}
+             3 => {4}
+             4 => {3, 2}
+
+o1 : Bigraph</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Next is an example of a mixed graph on 4 vertices with undirected, directed and bidirected edges. It is created using the method <a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = mixedGraph(graph{{1,2}},digraph {{1,3},{2,3}},bigraph {{3,4}})
+
+o2 = MixedGraph{Bigraph => Bigraph{3 => {4}}}
+                                   4 => {3}
+                Digraph => Digraph{1 => {3}}
+                                   2 => {3}
+                                   3 => {}
+                Graph => Graph{1 => {2}}
+                               2 => {1}
+
+o2 : MixedGraph</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>One can extract key information about mixed graphs using: <a title="extract the undirected graph component of a mixed graph" href="_undirected__Graph.html">undirectedGraph(MixedGraph)</a>, <a title="extract the bigraph component of a mixed graph" href="_bigraph_lp__Mixed__Graph_rp.html">bigraph(MixedGraph)</a>, <a title="extract the digraph component of a mixed graph" href="_digraph_lp__Mixed__Graph_rp.html">digraph(MixedGraph)</a>, <a title="create a union of all vertices of a mixed graph" href="_vertices_lp__Mixed__Graph_rp.html">vertices(MixedGraph)</a>,</p>
+          <p>or convert a mixed graph into a more convenient form using: <a title="convert a mixed graph into a new mixed graph where each component subgraph has the same set of vertices" href="_collate__Vertices.html">collateVertices(MixedGraph)</a>, <a title="relabel the vertices of a mixed graph according to their indices, indexed from 0" href="_index__Label__Graph_lp__Mixed__Graph_rp.html">indexLabelGraph(MixedGraph)</a>.</p>
+          <p>There are several methods that allow to check the properties of mixed graphs: <a title="check whether a mixed graph contains a directed cycle" href="_is__Cyclic_lp__Mixed__Graph_rp.html">isCyclic(MixedGraph)</a>, <a title="check whether a graph contains a loop" href="_is__Loopless.html">isLoopless(MixedGraph)</a>, <a title="check whether a mixed graph is simple" href="_is__Simple_lp__Mixed__Graph_rp.html">isSimple(MixedGraph)</a>.</p>
+          <p>One can also study the properties of vertices using: <a title="return the children of a vertex of a mixed graph" href="_children_lp__Mixed__Graph_cm__Thing_rp.html">children(MixedGraph,Thing)</a>, <a title="return the parents of a vertex of a mixed graph" href="_parents_lp__Mixed__Graph_cm__Thing_rp.html">parents(MixedGraph,Thing)</a>, <a title="return the descendants of a vertex of a mixed graph" href="_descendants_lp__Mixed__Graph_cm__Thing_rp.html">descendants(MixedGraph,Thing)</a>, <a title="return the nondescendents of a vertex of a mixed graph" href="_nondescendants_lp__Mixed__Graph_cm__Thing_rp.html">nondescendants(MixedGraph,Thing)</a>, <a title="return the forefathers of a vertex of a mixed graph" href="_forefathers_lp__Mixed__Graph_cm__Thing_rp.html">forefathers(MixedGraph,Thing)</a>, <a title="return the neighbors of a vertex of a mixed graph" href="_neighbors_lp__Mixed__Graph_cm__Thing_rp.html">neighbors(MixedGraph,Thing)</a>, <a title="return the neighbors of a vertex of a mixed graph" href="_nonneighbors_lp__Mixed__Graph_cm__Thing_rp.html">nonneighbors(MixedGraph,Thing)</a>.</p>
+          <p>This package allows to construct loopless mixed graphs (LMG) as introduced in Kayvan Sadeghi and Steffen Lauritzen, <em>Markov properties for mixed graphs</em>, Bernoulli 20.2 (2014): 676-696 and to check whether a mixedGraph is an LMG using <a title="partition the vertices of a loopless mixed graph into adjacent to undirected edges and adjacent to bidirected edges" href="_partition__L__M__G.html">partitionLMG</a>.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>StatGraphs requires  <a href="../../Graphs/html/index.html">Graphs</a> version 0.3.3 or later.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a href="../../Graphs/html/index.html">Graphs</a></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://www.carlos-amendola.com/">Carlos Amendola</a><span> &lt;<a href="mailto:carlos.amendola@tum.de">carlos.amendola@tum.de</a>></span>            </li>
+            <li>
+<a href="http://www.shsu.edu/~ldg005">Luis David Garcia Puente</a><span> &lt;<a href="mailto:lgarcia@shsu.edu">lgarcia@shsu.edu</a>></span>            </li>
+            <li>
+<a href="https://personal-homepages.mis.mpg.de/homspons/index.html">Roser Homs Pons</a><span> &lt;<a href="mailto:roser.homs@tum.de">roser.homs@tum.de</a>></span>            </li>
+            <li>
+<a href="https://okuznetsova.com">Olga Kuznetsova</a><span> &lt;<a href="mailto:kuznetsova.olga@gmail.com">kuznetsova.olga@gmail.com</a>></span>            </li>
+            <li>
+<a href="https://sites.google.com/view/harshitjmotwani/home">Harshit J Motwani</a><span> &lt;<a href="mailto:harshitmotwani2015@gmail.com">harshitmotwani2015@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.1</b> of StatGraphs.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/StatGraphs.m2">StatGraphs.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="a graph with bidirected edges and no multiple edges" href="___Bigraph.html">Bigraph</a> -- a graph with bidirected edges and no multiple edges</span>                  </li>
+                  <li>
+<span><a title="a graph that has undirected, directed and bidirected edges" href="___Mixed__Graph.html">MixedGraph</a> -- a graph that has undirected, directed and bidirected edges</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="create a bigraph" href="_bigraph.html">bigraph</a> -- create a bigraph</span>                  </li>
+                  <li>
+<span><a title="convert a mixed graph into a new mixed graph where each component subgraph has the same set of vertices" href="_collate__Vertices.html">collateVertices</a> -- convert a mixed graph into a new mixed graph where each component subgraph has the same set of vertices</span>                  </li>
+                  <li>
+<span><a title="check whether a graph contains a loop" href="_is__Loopless.html">isLoopless</a> -- check whether a graph contains a loop</span>                  </li>
+                  <li>
+<span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span>                  </li>
+                  <li>
+<span><a title="partition the vertices of a loopless mixed graph into adjacent to undirected edges and adjacent to bidirected edges" href="_partition__L__M__G.html">partitionLMG</a> -- partition the vertices of a loopless mixed graph into adjacent to undirected edges and adjacent to bidirected edges</span>                  </li>
+                  <li>
+<span><a title="extract the undirected graph component of a mixed graph" href="_undirected__Graph.html">undirectedGraph</a> -- extract the undirected graph component of a mixed graph</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;bigraph(HashTable)&quot;</tt> -- see <span><a title="create a bigraph" href="_bigraph.html">bigraph</a> -- create a bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bigraph(List)&quot;</tt> -- see <span><a title="create a bigraph" href="_bigraph.html">bigraph</a> -- create a bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bigraph(List,List)&quot;</tt> -- see <span><a title="create a bigraph" href="_bigraph.html">bigraph</a> -- create a bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bigraph(List,Matrix)&quot;</tt> -- see <span><a title="create a bigraph" href="_bigraph.html">bigraph</a> -- create a bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bigraph(Matrix)&quot;</tt> -- see <span><a title="create a bigraph" href="_bigraph.html">bigraph</a> -- create a bigraph</span></span>                  </li>
+                  <li>
+<span><a title="extract the bigraph component of a mixed graph" href="_bigraph_lp__Mixed__Graph_rp.html">bigraph(MixedGraph)</a> -- extract the bigraph component of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="return the children of a vertex of a mixed graph" href="_children_lp__Mixed__Graph_cm__Thing_rp.html">children(MixedGraph,Thing)</a> -- return the children of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><tt>&quot;collateVertices(MixedGraph)&quot;</tt> -- see <span><a title="convert a mixed graph into a new mixed graph where each component subgraph has the same set of vertices" href="_collate__Vertices.html">collateVertices</a> -- convert a mixed graph into a new mixed graph where each component subgraph has the same set of vertices</span></span>                  </li>
+                  <li>
+<span><a title="return the descendants of a vertex of a mixed graph" href="_descendants_lp__Mixed__Graph_cm__Thing_rp.html">descendants(MixedGraph,Thing)</a> -- return the descendants of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="extract the digraph component of a mixed graph" href="_digraph_lp__Mixed__Graph_rp.html">digraph(MixedGraph)</a> -- extract the digraph component of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="return the forefathers of a vertex of a mixed graph" href="_forefathers_lp__Mixed__Graph_cm__Thing_rp.html">forefathers(MixedGraph,Thing)</a> -- return the forefathers of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="convert mixed graph to a hash table" href="_graph_lp__Mixed__Graph_rp.html">graph(MixedGraph)</a> -- convert mixed graph to a hash table</span>                  </li>
+                  <li>
+<span><a title="relabel the vertices of a mixed graph according to their indices, indexed from 0" href="_index__Label__Graph_lp__Mixed__Graph_rp.html">indexLabelGraph(MixedGraph)</a> -- relabel the vertices of a mixed graph according to their indices, indexed from 0</span>                  </li>
+                  <li>
+<span><a title="check whether a mixed graph contains a directed cycle" href="_is__Cyclic_lp__Mixed__Graph_rp.html">isCyclic(MixedGraph)</a> -- check whether a mixed graph contains a directed cycle</span>                  </li>
+                  <li>
+<span><tt>&quot;isLoopless(Bigraph)&quot;</tt> -- see <span><a title="check whether a graph contains a loop" href="_is__Loopless.html">isLoopless</a> -- check whether a graph contains a loop</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLoopless(Digraph)&quot;</tt> -- see <span><a title="check whether a graph contains a loop" href="_is__Loopless.html">isLoopless</a> -- check whether a graph contains a loop</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLoopless(Graph)&quot;</tt> -- see <span><a title="check whether a graph contains a loop" href="_is__Loopless.html">isLoopless</a> -- check whether a graph contains a loop</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLoopless(MixedGraph)&quot;</tt> -- see <span><a title="check whether a graph contains a loop" href="_is__Loopless.html">isLoopless</a> -- check whether a graph contains a loop</span></span>                  </li>
+                  <li>
+<span><a title="check whether a mixed graph is simple" href="_is__Simple_lp__Mixed__Graph_rp.html">isSimple(MixedGraph)</a> -- check whether a mixed graph is simple</span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Bigraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Bigraph,Digraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Bigraph,Digraph,Graph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Bigraph,Graph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Bigraph,Graph,Digraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Digraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Digraph,Bigraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Digraph,Bigraph,Graph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Digraph,Graph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Digraph,Graph,Bigraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Graph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Graph,Bigraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Graph,Bigraph,Digraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Graph,Digraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mixedGraph(Graph,Digraph,Bigraph)&quot;</tt> -- see <span><a title="create a mixed graph from a combination of undirected graph, digraph and bigraph" href="_mixed__Graph.html">mixedGraph</a> -- create a mixed graph from a combination of undirected graph, digraph and bigraph</span></span>                  </li>
+                  <li>
+<span><a title="return the neighbors of a vertex of a mixed graph" href="_neighbors_lp__Mixed__Graph_cm__Thing_rp.html">neighbors(MixedGraph,Thing)</a> -- return the neighbors of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="print a mixed graph as a  net" href="_net_lp__Mixed__Graph_rp.html">net(MixedGraph)</a> -- print a mixed graph as a  net</span>                  </li>
+                  <li>
+<span><a title="return the nondescendents of a vertex of a mixed graph" href="_nondescendants_lp__Mixed__Graph_cm__Thing_rp.html">nondescendants(MixedGraph,Thing)</a> -- return the nondescendents of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="return the neighbors of a vertex of a mixed graph" href="_nonneighbors_lp__Mixed__Graph_cm__Thing_rp.html">nonneighbors(MixedGraph,Thing)</a> -- return the neighbors of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><a title="return the parents of a vertex of a mixed graph" href="_parents_lp__Mixed__Graph_cm__Thing_rp.html">parents(MixedGraph,Thing)</a> -- return the parents of a vertex of a mixed graph</span>                  </li>
+                  <li>
+<span><tt>&quot;partitionLMG(MixedGraph)&quot;</tt> -- see <span><a title="partition the vertices of a loopless mixed graph into adjacent to undirected edges and adjacent to bidirected edges" href="_partition__L__M__G.html">partitionLMG</a> -- partition the vertices of a loopless mixed graph into adjacent to undirected edges and adjacent to bidirected edges</span></span>                  </li>
+                  <li>
+<span><a title="print a mixed graph as a string" href="_to__String_lp__Mixed__Graph_rp.html">toString(MixedGraph)</a> -- print a mixed graph as a string</span>                  </li>
+                  <li>
+<span><tt>&quot;undirectedGraph(MixedGraph)&quot;</tt> -- see <span><a title="extract the undirected graph component of a mixed graph" href="_undirected__Graph.html">undirectedGraph</a> -- extract the undirected graph component of a mixed graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vertexSet(MixedGraph)&quot;</tt> -- see <span><a title="create a union of all vertices of a mixed graph" href="_vertices_lp__Mixed__Graph_rp.html">vertices(MixedGraph)</a> -- create a union of all vertices of a mixed graph</span></span>                  </li>
+                  <li>
+<span><a title="create a union of all vertices of a mixed graph" href="_vertices_lp__Mixed__Graph_rp.html">vertices(MixedGraph)</a> -- create a union of all vertices of a mixed graph</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a package for graphs used in statistical models" href="index.html">StatGraphs</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

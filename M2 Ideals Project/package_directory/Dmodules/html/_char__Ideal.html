@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>charIdeal -- characteristic ideal of a D-module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Cohomology__Groups.html">next</a> | <a href="___Canonical_sp__Series_sp__Tutorial.html">previous</a> | <a href="___Cohomology__Groups.html">forward</a> | <a href="___Canonical_sp__Series_sp__Tutorial.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="characteristic ideal of a D-module" href="_char__Ideal.html">charIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>charIdeal -- characteristic ideal of a D-module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">charIdeal M, charIdeal I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, over the Weyl algebra <em>D</em></span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, which represents the module <em>M = D/I</em></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the characteristic ideal of <em>M</em></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p></p>
+          <p>The characteristic ideal of <em>M</em> is the annihilator of <em>gr(M)</em> under a good filtration with respect to the order filtration. If $D$ is the Weyl algebra over &amp;#x2102; with generators $x_1,\dots,x_n$ and $\partial_1,\dots,\partial_n$, then the order filtration corresponds to the weight vector $(0,...,0,1,...,1)$. The characteristic ideal lives in the associated graded ring of $D$ with respect to the order filtration, and this is a commutative polynomial ring &amp;#x2102;$[x_1,\dots,x_n,\xi_1,\dots,\xi_n]$. Here the $\xi_i$ is the principal symbol of $\partial_i$, that is, the image of $\partial_i$ in the associated graded ring. The zero locus of the characteristic ideal is equal to the <em>characteristic variety</em> of <em>D/I</em> which is an invariant of a D-module.</p>
+        </div>
+        <div>
+          <p>The algorithm to compute the characteristic ideal consists of computing the initial ideal of I with respect to the weight vector $(0,...,0,1...,1)$. More details can be found in [<a href="https://mathscinet.ams.org/mathscinet/pdf/1734566.pdf">SST</a>, Section 1.4].</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : makeWA(QQ[x,y])
+
+o1 = QQ[x..y, dx, dy]
+
+o1 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal (x*dx+2*y*dy-3, dx^2-dy)
+
+                                2
+o2 = ideal (x*dx + 2y*dy - 3, dx  - dy)
+
+o2 : Ideal of QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : charIdeal I
+
+              2
+o3 = ideal (dx , x*dx + 2y*dy)
+
+o3 : Ideal of QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="dimension of a D-module" href="___Ddim.html">Ddim</a> -- dimension of a D-module</span>          </li>
+          <li>
+<span><a title="singular locus of a D-module" href="_sing__Locus.html">singLocus</a> -- singular locus of a D-module</span>          </li>
+          <li>
+<span><a title="rank of a D-module" href="_holonomic__Rank.html">holonomicRank</a> -- rank of a D-module</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>charIdeal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;charIdeal(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;charIdeal(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="characteristic ideal of a D-module" href="_char__Ideal.html">charIdeal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

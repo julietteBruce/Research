@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>degreesRing(List) -- the ring or monoid of degrees</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | previous | <a href="_delete.html">forward</a> | <a href="_degrees__Ring.html">backward</a> | <a href="_degrees__Ring.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="the ring or monoid of degrees" href="_degrees__Ring.html">degreesRing</a> > <a title="the ring or monoid of degrees" href="_degrees__Ring_lp__List_rp.html">degreesRing(List)</a>    </div>
+    <hr/>
+    <div>
+      <h1>degreesRing(List) -- the ring or monoid of degrees</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="the ring or monoid of degrees" href="_degrees__Ring.html">degreesRing</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">degreesRing L</code></dd>
+              <dd><code class="language-macaulay2">degreesMonoid L</code></dd>
+              <dd><code class="language-macaulay2">degreesRing n</code></dd>
+              <dd><code class="language-macaulay2">degreesMonoid n</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="___List.html">list</a></span>, <span>a <a title="the class of all lists -- {...}" href="___List.html">list</a></span> or <span>an <a title="the class of all integers" href="___Z__Z.html">integer</a></span>, see <a href="_heft_spvectors.html">heft vectors</a> or <a title="the length of the degree vector" href="_degree__Length.html">degreeLength</a>; </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all ordered monoid rings" href="___Polynomial__Ring.html">polynomial ring</a></span>, <span>a <a title="the class of all monoids" href="___Monoid.html">monoid</a></span> or <span>a <a title="the class of all ordered monoid rings" href="___Polynomial__Ring.html">polynomial ring</a></span>, a monoid of Laurent monomials or ring of Laurent polynomials.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>These functions produce either a monoid of Laurent monomials or Laurent polynomial ring $A$ in <tt>n</tt> variables, where <tt>n</tt> is the length of the list <tt>L</tt>, which is typically a <a href="_heft_spvectors.html">heft vector</a>. Each monomial in the output corresponds to a degree vector for a ring with heft vector <tt>L</tt> or degree length <tt>n</tt> and no heft vector.</p>
+          <p>When a list is given, the variables of the output have degrees given by the elements of <tt>L</tt> and weights are the negative of the degrees. When an integer is given, then the number of variables is <tt>n</tt>, the degrees are all <tt>{}</tt>, and the weights are all <tt>-1</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : degreesMonoid {1,2,3}
+
+o1 = monoid[T ..T , Degrees => {1..3}, MonomialOrder => {MonomialSize => 32     }, Inverses => true, Global => false]
+             0   2                                      {Weights => {-1, -2, -3}}
+                                                        {GroupLex => 3          }
+                                                        {Position => Up         }
+
+o1 : GeneralOrderedMonoid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : degreesMonoid 3
+
+o2 = monoid[T ..T , Degrees => {3:{}}, MonomialOrder => {MonomialSize => 32}, Inverses => true, Global => false]
+             0   2                                      {Weights => {3:-1} }
+                                                        {GroupLex => 3     }
+                                                        {Position => Up    }
+
+o2 : GeneralOrderedMonoid</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The monomial ordering used in the degrees ring is <tt>RevLex</tt> so the polynomials in it will be displayed with the smallest exponents first, because such polynomials are often used as Hilbert series.</p>
+          <p>Assign the degrees ring to a global variable or call <a title="install ring variables and ring operations" href="_use_lp__Ring_rp.html">use(Monoid)</a> to assign the indeterminates of the ring or monoid to global variables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : assert instance(T_0, IndexedVariable)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : use degreesMonoid 3
+
+o4 = monoid[T ..T , Degrees => {3:{}}, MonomialOrder => {MonomialSize => 32}, Inverses => true, Global => false]
+             0   2                                      {Weights => {3:-1} }
+                                                        {GroupLex => 3     }
+                                                        {Position => Up    }
+
+o4 : GeneralOrderedMonoid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : assert instance(T_0, degreesMonoid 3)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = degreesRing 4
+
+o6 = A
+
+o6 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : assert instance(T_0, degreesRing 4)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="install or activate object" href="_use.html">use</a> -- install or activate object</span>          </li>
+          <li>
+<span><a title="heft vector of ring or monoid" href="_heft.html">heft</a> -- heft vector of ring or monoid</span>          </li>
+          <li>
+<span><a title="the length of the degree vector" href="_degree__Length.html">degreeLength</a> -- the length of the degree vector</span>          </li>
+          <li>
+<span><a href="_division_spin_sppolynomial_springs_spwith_spmonomials_spless_spthan_sp1.html">division in polynomial rings with monomials less than 1</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="the ring or monoid of degrees" href="_degrees__Ring_lp__List_rp.html">degreesRing(List)</a> -- the ring or monoid of degrees</span>          </li>
+          <li>
+<tt>&quot;degreesRing(ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

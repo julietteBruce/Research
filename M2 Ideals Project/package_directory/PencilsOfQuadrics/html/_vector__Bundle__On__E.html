@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>vectorBundleOnE -- creates a VectorBundleOnE, represented as a matrix factorization</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_y__Action.html">next</a> | <a href="___Vector__Bundle__On__E.html">previous</a> | <a href="_y__Action.html">forward</a> | <a href="___Vector__Bundle__On__E.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Clifford Algebra of a Pencil of quadratic forms on PP^(2g+1)" href="index.html">PencilsOfQuadrics</a> :: <a title="creates a VectorBundleOnE, represented as a matrix factorization" href="_vector__Bundle__On__E.html">vectorBundleOnE</a>    </div>
+    <hr/>
+    <div>
+      <h1>vectorBundleOnE -- creates a VectorBundleOnE, represented as a matrix factorization</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">V = vectorBundleOnE M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, -square matrix on PP^1, representing the action of y</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>V</tt>, <span>an instance of the type <a title="vector bundle on a hyperelliptic curve E" href="___Vector__Bundle__On__E.html">VectorBundleOnE</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A vector bundle on a hyperelliptic curve E with equation y^2 - (-1)^g * f can be represented by it's pushforward V to PP^1, under the degree 2 map, which will be a vector bundle of twice the rank, together with a matrix M = V.yAction, specifying the action of y. The matrix must therefore satisfy M^2 = (-1)^g * f. Here f is the hyperellipticBranchEquation, a form on PP^1 of degree 2g+2</p>
+          <p>The following gives an example for g=1, constructing a random line bundle of degree 0, and computing its order in the Picard group; and the producing a random extension of this bundle by a random line bundle of order -1.</p>
+          <p>The random matrix factorization of f has the form</p>
+          <p>b c</p>
+          <p>a -b</p>
+          <p>where a is the lowest degree factor of f-b^2 (or f+b^2), depending on the desired sign, and values of b are taken randomly until one giving a nontrivial factorization over the given ground field is found. Note that this works well over a finite field, but is unlikely to work over QQ.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk=ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = kk[s,t]
+
+o2 = R
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f =(s+2*t)*(s+t)*(s-t)*(s-2*t)
+
+      4     2 2     4
+o3 = s  - 5s t  + 4t
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : L0 = randomLineBundle(0,f)
+
+o4 = VectorBundleOnE{...1...}
+
+o4 : VectorBundleOnE</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : (L0.yAction)^2
+
+o5 = {-1} | s4-5s2t2+4t4 0            |
+     {-1} | 0            s4-5s2t2+4t4 |
+
+             2       2
+o5 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : degOnE L0
+
+o6 = 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : orderInPic L0
+
+o7 = 60</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : L1 = randomLineBundle(-1,f)
+
+o8 = VectorBundleOnE{...1...}
+
+o8 : VectorBundleOnE</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : degOnE L1
+
+o9 = -1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : L1.yAction
+
+o10 = {-2} | -10s2-29st-8t2 16s3-21s2t-2st2+41t3 |
+      {-1} | 38s+t          10s2+29st+8t2        |
+
+              2       2
+o10 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : F = randomExtension(L1,L0)
+
+o11 = VectorBundleOnE{...1...}
+
+o11 : VectorBundleOnE</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : F.yAction
+
+o12 = {-2} | -10s2-29st-8t2 16s3-21s2t-2st2+41t3 -30s3+24s2t-27st2-41t3
+      {-1} | 38s+t          10s2+29st+8t2        42s2-2st+22t2         
+      {-1} | 0              0                    -29s2+19st+19t2       
+      {-1} | 0              0                    47s2-22st+t2          
+      -----------------------------------------------------------------------
+      -22s3-16s2t-11st2-47t3 |
+      9s2+32st-48t2          |
+      38s2+9st+47t2          |
+      29s2-19st-19t2         |
+
+              4       4
+o12 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : degOnE tensorProduct(L1,F)
+
+o13 = -3</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a random line bundle on the hyperelliptic curve" href="_random__Line__Bundle.html">randomLineBundle</a> -- a random line bundle on the hyperelliptic curve</span>          </li>
+          <li>
+<span><a title="a random extension of a vector bundle on E by another vector bundle" href="_random__Extension.html">randomExtension</a> -- a random extension of a vector bundle on E by another vector bundle</span>          </li>
+          <li>
+<span><a title="vector bundle on a hyperelliptic curve E" href="___Vector__Bundle__On__E.html">VectorBundleOnE</a> -- vector bundle on a hyperelliptic curve E</span>          </li>
+          <li>
+<span><a title="defines a vector bundle on E" href="_y__Action.html">yAction</a> -- defines a vector bundle on E</span>          </li>
+          <li>
+<span><a title="degree of a vector bundle on E" href="_deg__On__E.html">degOnE</a> -- degree of a vector bundle on E</span>          </li>
+          <li>
+<span><a title="order of a line bundle of degree 0 in Pic(E)" href="_order__In__Pic.html">orderInPic</a> -- order of a line bundle of degree 0 in Pic(E)</span>          </li>
+          <li>
+<span><a title="tensor product of sheaves on the elliptic curve or sheaf times CliffordModule" href="_tensor__Product.html">tensorProduct</a> -- tensor product of sheaves on the elliptic curve or sheaf times CliffordModule</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>vectorBundleOnE</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;vectorBundleOnE(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates a VectorBundleOnE, represented as a matrix factorization" href="_vector__Bundle__On__E.html">vectorBundleOnE</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

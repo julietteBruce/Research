@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>intclMonIdeal(Ideal,allComputations=>...) -- normalization of Rees algebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_intcl__Mon__Ideal_lp__Ideal_cm__Ring__Element_rp.html">next</a> | <a href="_intcl__Mon__Ideal_lp__Ideal_rp.html">previous</a> | <a href="_intcl__Mon__Ideal_lp__Ideal_cm__Ring__Element_rp.html">forward</a> | <a href="_intcl__Mon__Ideal_lp__Ideal_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_cmall__Computations_eq_gt..._rp.html">intclMonIdeal(Ideal,allComputations=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>intclMonIdeal(Ideal,allComputations=>...) -- normalization of Rees algebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">intclMonIdeal I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the leading monomials of the elements of the ideal are considered as generators of a monomial ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the integral closure of the input ideal</span>              </li>
+              <li>
+<span><span>an instance of the type <a title="class of monomial subalgebras" href="___Monomial__Subalgebra.html">MonomialSubalgebra</a></span>, the normalization of the Rees algebra of I</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+The leading monomials of the elements of I are considered as generators of a monomial ideal. This function computes the integral closure of I\subset R in the polynomial ring R[t] and the normalization of its Rees algebra. If f_1,\ldots,f_m are the monomial generators of I, then the normalization of the Rees algebra is the integral closure of K[f_1t,\ldots,f_nt] in R[t]. For a definition of the Rees algebra (or Rees ring) see Bruns and Herzog, Cohen-Macaulay rings, Cambridge University Press 1998, p. 182. The function returns the integral closure of the ideal I and the normalization of its Rees algebra. Since the Rees algebra is defined in a polynomial ring with an additional variable, the function creates a new polynomial ring with an additional variable. If the option <a href="_all__Computations.html">allComputations</a> is set to true, all data that has been computed by <tt>Normaliz</tt> is stored in a <a title="class of rational cones" href="___Rational__Cone.html">RationalCone</a> in the CacheTable of the monomial subalgebra returned. This method can also be used with the option <a href="_grading.html">grading</a>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=ZZ/37[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I=ideal(x^3, x^2*y, y^3, x*y^2);
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (intCl,normRees)=intclMonIdeal(allComputations=>true,I)
+
+              3     2   2    3
+o3 = (ideal (y , x*y , x y, x ),
+                                
+                                
+                                
+                                
+                                
+     ------------------------------------------------------------------------
+     MonomialSubalgebra{cache => CacheTable{...1...}                })
+                                           3         2    2      3
+                        generators => {y, y a, x, x*y a, x y*a, x a}
+                                ZZ
+                        ring => --[x..y, a]
+                                37
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : normRees.cache#&quot;cone&quot;
+
+o4 = RationalCone{cgr => | 0 |                                        }
+                         | 4 |
+                  equ => | 0 |
+                         | 3 |
+                  gen => | 0 1 0 |
+                         | 0 3 1 |
+                         | 1 0 0 |
+                         | 1 2 1 |
+                         | 2 1 1 |
+                         | 3 0 1 |
+                  inv => HashTable{ => (1, 1, 1)                     }
+                                   class group => 1 : (1)
+                                   degree 1 elements => 6
+                                   dim max subspace => 0
+                                   embedding dim => 3
+                                   external index => 1
+                                   graded => true
+                                   grading denom => 1
+                                   grading => (1, 1, -2)
+                                   hilbert basis elements => 6
+                                   hilbert quasipolynomial denom => 1
+                                   hilbert series denom => (1, 1, 1)
+                                   hilbert series num => (1, 3)
+                                   ideal multiplicity => 9
+                                   inhomogeneous => false
+                                   integrally closed => true
+                                   internal index => 1
+                                   multiplicity denom => 1
+                                   multiplicity => 4
+                                   number extreme rays => 4
+                                   number support hyperplanes => 4
+                                   primary => true
+                                   rank => 3
+                                   size triangulation => 4
+                                   sum dets => 4
+                  sup => | 0 0 1  |
+                         | 0 1 0  |
+                         | 1 0 0  |
+                         | 1 1 -3 |
+
+o4 : RationalCone</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <a href="../../Macaulay2Doc/html/_false.html">false</a></span>          </li>
+          <li>
+<span>Method: <span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_rp.html">intclMonIdeal(Ideal)</a> -- normalization of Rees algebra</span></span>          </li>
+          <li>
+<span>Option key: <span><a href="_all__Computations.html">allComputations</a></span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>allComputations</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;diagInvariants(Matrix,Matrix,Ring,allComputations=>...)&quot;</tt> -- see <span><a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a> -- ring of invariants of a diagonalizable group action</span></span>          </li>
+          <li>
+<span><a title="Ehrhart ring" href="_ehrhart__Ring_lp__List_cmall__Computations_eq_gt..._rp.html">ehrhartRing(List,allComputations=>...)</a> -- Ehrhart ring</span>          </li>
+          <li>
+<span><a title="Ehrhart ring" href="_ehrhart__Ring_lp__List_cm__Ring__Element_cmall__Computations_eq_gt..._rp.html">ehrhartRing(List,RingElement,allComputations=>...)</a> -- Ehrhart ring</span>          </li>
+          <li>
+<span><tt>&quot;finiteDiagInvariants(Matrix,Ring,allComputations=>...)&quot;</tt> -- see <span><a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a> -- ring of invariants of a finite group action</span></span>          </li>
+          <li>
+<span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_cmall__Computations_eq_gt..._rp.html">intclMonIdeal(Ideal,allComputations=>...)</a> -- normalization of Rees algebra</span>          </li>
+          <li>
+<span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_cm__Ring__Element_cmall__Computations_eq_gt..._rp.html">intclMonIdeal(Ideal,RingElement,allComputations=>...)</a> -- normalization of Rees algebra</span>          </li>
+          <li>
+<span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring_lp__List_cmall__Computations_eq_gt..._rp.html">intclToricRing(List,allComputations=>...)</a> -- integral closure of a toric ring</span>          </li>
+          <li>
+<span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring_lp__Monomial__Subalgebra_cmall__Computations_eq_gt..._rp.html">intclToricRing(MonomialSubalgebra,allComputations=>...)</a> -- integral closure of a toric ring</span>          </li>
+          <li>
+<span><tt>&quot;intersectionValRingIdeals(Matrix,Ring,allComputations=>...)&quot;</tt> -- see <span><a title="intersection of valuation ideals" href="_intersection__Val__Ring__Ideals.html">intersectionValRingIdeals</a> -- intersection of valuation ideals</span></span>          </li>
+          <li>
+<span><tt>&quot;intersectionValRings(Matrix,Ring,allComputations=>...)&quot;</tt> -- see <span><a title="intersection of ring of valuations" href="_intersection__Val__Rings.html">intersectionValRings</a> -- intersection of ring of valuations</span></span>          </li>
+          <li>
+<span><tt>&quot;normaliz(List,allComputations=>...)&quot;</tt> -- see <span><a title="calls Normaliz with several input matrices" href="_normaliz_lp__List_rp.html">normaliz(List)</a> -- calls Normaliz with several input matrices</span></span>          </li>
+          <li>
+<span><tt>&quot;normaliz(Matrix,String,allComputations=>...)&quot;</tt> -- see <span><a title="calls Normaliz" href="_normaliz_lp__Matrix_cm__String_rp.html">normaliz(Matrix,String)</a> -- calls Normaliz</span></span>          </li>
+          <li>
+<span><tt>normaliz(Matrix,ZZ,allComputations=>...)</tt> (missing documentation)<!--tag: [(normaliz,Matrix,ZZ), allComputations]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;normalToricRing(Ideal,Thing,allComputations=>...)&quot;</tt> -- see <span><a title="normalization of a toric ring given by a binomial ideal" href="_normal__Toric__Ring_lp__Ideal_cm__Thing_rp.html">normalToricRing(Ideal,Thing)</a> -- normalization of a toric ring given by a binomial ideal</span></span>          </li>
+          <li>
+<span><a title="normalization of a toric ring" href="_normal__Toric__Ring_lp__List_cmall__Computations_eq_gt..._rp.html">normalToricRing(List,allComputations=>...)</a> -- normalization of a toric ring</span>          </li>
+          <li>
+<span><a title="normalization of a toric ring" href="_normal__Toric__Ring_lp__Monomial__Subalgebra_cmall__Computations_eq_gt..._rp.html">normalToricRing(MonomialSubalgebra,allComputations=>...)</a> -- normalization of a toric ring</span>          </li>
+          <li>
+<span><tt>&quot;torusInvariants(Matrix,Ring,allComputations=>...)&quot;</tt> -- see <span><a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a> -- ring of invariants of torus action</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

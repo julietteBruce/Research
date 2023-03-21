@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>tensor(Character,Character) -- tensor product of characters</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_net_lp__Character_rp.html">previous</a> | <a href="_character_lp__Action__On__Complex_rp.html">forward</a> | <a href="_net_lp__Character_rp.html">backward</a> | <a href="___Character.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="finite group characters on free resolutions and graded modules" href="index.html">BettiCharacters</a> > <a title="compute characters of finite group action" href="_character.html">character</a> > <a title="the class of all characters of finite group representations" href="___Character.html">Character</a> > <a title="tensor product of characters" href="_tensor_lp__Character_cm__Character_rp.html">tensor(Character,Character)</a>    </div>
+    <hr/>
+    <div>
+      <h1>tensor(Character,Character) -- tensor product of characters</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="tensor product" href="../../Macaulay2Doc/html/_tensor.html">tensor</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">tensor(c1,c2)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>c1</tt>, <span>an instance of the type <a title="the class of all characters of finite group representations" href="___Character.html">Character</a></span>, </span>              </li>
+              <li>
+<span><tt>c2</tt>, <span>an instance of the type <a title="the class of all characters of finite group representations" href="___Character.html">Character</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all characters of finite group representations" href="___Character.html">Character</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function is provided by the package <a title="finite group characters on free resolutions and graded modules" href="index.html">BettiCharacters</a>.</p>
+          <p>Returns the tensor product of the input characters. The operator <tt>**</tt> may be used for the same purpose.</p>
+          <p>We construct the character of the coinvariant algebra of the symmetric group on 3 variables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x+y+z,x*y+x*z+y*z,x*y*z)
+
+o2 = ideal (x + y + z, x*y + x*z + y*z, x*y*z)
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S3 = symmetricGroupActors R
+
+o3 = {| y z x |, | y x z |, | x y z |}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : A = action(R/I,S3)
+
+o4 = QuotientRing with 3 actors
+
+o4 : ActionOnGradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : a = character(A,0,3)
+
+o5 = Character over R
+      
+     (0, {0}) => | 1 1 1 |
+     (0, {1}) => | -1 0 2 |
+     (0, {2}) => | -1 0 2 |
+     (0, {3}) => | 1 -1 1 |
+
+o5 : Character</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The Gorenstein duality of this character may be observed by tensoring with the character of the sign representation concentrated in degree 3.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : sign = character(R,3, hashTable { (0,{3}) => matrix{{1,-1,1}} })
+
+o6 = Character over R
+      
+     (0, {3}) => | 1 -1 1 |
+
+o6 : Character</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : dual(a,{1,2,3}) ** sign === a
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="tensor product of characters" href="_tensor_lp__Character_cm__Character_rp.html">tensor(Character,Character)</a> -- tensor product of characters</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

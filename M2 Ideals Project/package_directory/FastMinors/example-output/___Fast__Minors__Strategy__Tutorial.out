@@ -1,0 +1,686 @@
+-- -*- M2-comint -*- hash: 1102508894
+
+i1 : S = ZZ/103[x_1..x_9];
+
+i2 : J = ideal(x_6*x_8-x_5*x_9,x_3*x_8-x_2*x_9,x_6*x_7-x_4*x_9,x_5*x_7-x_4*x_8,x_3*x_7-x_1*x_9,x_2*x_7-x_1*x_8,x_3*x_5-x_2*x_6,x_3*x_4-x_1*x_6,x_2*x_4-x_1*x_5,x_7^3-x_8^2*x_9-x_7*x_9^2,x_4*x_7^2-x_5*x_8*x_9-x_4*x_9^2, x_1*x_7^2-x_2*x_8*x_9-x_1*x_9^2,x_4^2*x_7-x_5^2*x_9-x_4*x_6*x_9,x_1*x_4*x_7-x_2*x_5*x_9-x_1*x_6*x_9,x_1^2*x_7-x_2^2*x_9-x_1*x_3*x_9,x_4^3-x_5^2*x_6-x_4*x_6^2,x_1*x_4^2-x_2*x_5*x_6-x_1*x_6^2,x_1^2*x_4-x_2^2*x_6-x_1*x_3*x_6,x_1^3-x_2^2*x_3-x_1*x_3^2,x_3^4+x_6^4-x_9^4,x_2*x_3^3+x_5*x_6^3-x_8*x_9^3,x_1*x_3^3+x_4*x_6^3-x_7*x_9^3,x_2^2*x_3^2+x_5^2*x_6^2-x_8^2*x_9^2,x_1*x_2*x_3^2+x_4*x_5*x_6^2-x_7*x_8*x_9^2,x_1^2*x_3^2+x_4^2*x_6^2-x_7^2*x_9^2,x_2^3*x_3+x_5^3*x_6-x_8^3*x_9,x_1*x_2^2*x_3+x_4*x_5^2*x_6-x_7*x_8^2*x_9,x_1^2*x_2*x_3+x_4^2*x_5*x_6-x_7^2*x_8*x_9,x_2^4+x_5^4-x_8^4,x_1*x_2^3+x_4*x_5^3-x_7*x_8^3,x_1^2*x_2^2+x_4^2*x_5^2-x_7^2*x_8^2)
+
+                                                                            
+o2 = ideal (x x  - x x , x x  - x x , x x  - x x , x x  - x x , x x  - x x ,
+             6 8    5 9   3 8    2 9   6 7    4 9   5 7    4 8   3 7    1 9 
+     ------------------------------------------------------------------------
+                                                          3    2        2 
+     x x  - x x , x x  - x x , x x  - x x , x x  - x x , x  - x x  - x x ,
+      2 7    1 8   3 5    2 6   3 4    1 6   2 4    1 5   7    8 9    7 9 
+     ------------------------------------------------------------------------
+        2               2     2               2   2      2                   
+     x x  - x x x  - x x , x x  - x x x  - x x , x x  - x x  - x x x , x x x 
+      4 7    5 8 9    4 9   1 7    2 8 9    1 9   4 7    5 9    4 6 9   1 4 7
+     ------------------------------------------------------------------------
+                         2      2              3    2        2     2         
+     - x x x  - x x x , x x  - x x  - x x x , x  - x x  - x x , x x  - x x x 
+        2 5 9    1 6 9   1 7    2 9    1 3 9   4    5 6    4 6   1 4    2 5 6
+     ------------------------------------------------------------------------
+          2   2      2              3    2        2   4    4    4     3  
+     - x x , x x  - x x  - x x x , x  - x x  - x x , x  + x  - x , x x  +
+        1 6   1 4    2 6    1 3 6   1    2 3    1 3   3    6    9   2 3  
+     ------------------------------------------------------------------------
+        3      3     3      3      3   2 2    2 2    2 2       2        2  
+     x x  - x x , x x  + x x  - x x , x x  + x x  - x x , x x x  + x x x  -
+      5 6    8 9   1 3    4 6    7 9   2 3    5 6    8 9   1 2 3    4 5 6  
+     ------------------------------------------------------------------------
+          2   2 2    2 2    2 2   3      3      3       2        2    
+     x x x , x x  + x x  - x x , x x  + x x  - x x , x x x  + x x x  -
+      7 8 9   1 3    4 6    7 9   2 3    5 6    8 9   1 2 3    4 5 6  
+     ------------------------------------------------------------------------
+        2     2        2        2       4    4    4     3      3      3   2 2
+     x x x , x x x  + x x x  - x x x , x  + x  - x , x x  + x x  - x x , x x 
+      7 8 9   1 2 3    4 5 6    7 8 9   2    5    8   1 2    4 5    7 8   1 2
+     ------------------------------------------------------------------------
+        2 2    2 2
+     + x x  - x x )
+        4 5    7 8
+
+o2 : Ideal of S
+
+i3 : M = jacobian J
+
+o3 = {1} | 0    0    0    0    -x_9 -x_8 0    -x_6 -x_5 0             
+     {1} | 0    -x_9 0    0    0    x_7  -x_6 0    x_4  0             
+     {1} | 0    x_8  0    0    x_7  0    x_5  x_4  0    0             
+     {1} | 0    0    -x_9 -x_8 0    0    0    x_3  x_2  0             
+     {1} | -x_9 0    0    x_7  0    0    x_3  0    -x_1 0             
+     {1} | x_8  0    x_7  0    0    0    -x_2 -x_1 0    0             
+     {1} | 0    0    x_6  x_5  x_3  x_2  0    0    0    3x_7^2-x_9^2  
+     {1} | x_6  x_3  0    -x_4 0    -x_1 0    0    0    -2x_8x_9      
+     {1} | -x_5 -x_2 -x_4 0    -x_1 0    0    0    0    -x_8^2-2x_7x_9
+     ------------------------------------------------------------------------
+     0               x_7^2-x_9^2     0              x_4x_7-x_6x_9 
+     0               -x_8x_9         0              -x_5x_9       
+     0               0               0              0             
+     x_7^2-x_9^2     0               2x_4x_7-x_6x_9 x_1x_7        
+     -x_8x_9         0               -2x_5x_9       -x_2x_9       
+     0               0               -x_4x_9        -x_1x_9       
+     2x_4x_7         2x_1x_7         x_4^2          x_1x_4        
+     -x_5x_9         -x_2x_9         0              0             
+     -x_5x_8-2x_4x_9 -x_2x_8-2x_1x_9 -x_5^2-x_4x_6  -x_2x_5-x_1x_6
+     ------------------------------------------------------------------------
+     2x_1x_7-x_3x_9 0              x_4^2-x_6^2     2x_1x_4-x_3x_6
+     -2x_2x_9       0              -x_5x_6         -2x_2x_6      
+     -x_1x_9        0              0               -x_1x_6       
+     0              3x_4^2-x_6^2   2x_1x_4         x_1^2         
+     0              -2x_5x_6       -x_2x_6         0             
+     0              -x_5^2-2x_4x_6 -x_2x_5-2x_1x_6 -x_2^2-x_1x_3 
+     x_1^2          0              0               0             
+     0              0              0               0             
+     -x_2^2-x_1x_3  0              0               0             
+     ------------------------------------------------------------------------
+     3x_1^2-x_3^2   0       0          x_3^3      0          x_2x_3^2   
+     -2x_2x_3       0       x_3^3      0          2x_2x_3^2  x_1x_3^2   
+     -x_2^2-2x_1x_3 4x_3^3  3x_2x_3^2  3x_1x_3^2  2x_2^2x_3  2x_1x_2x_3 
+     0              0       0          x_6^3      0          x_5x_6^2   
+     0              0       x_6^3      0          2x_5x_6^2  x_4x_6^2   
+     0              4x_6^3  3x_5x_6^2  3x_4x_6^2  2x_5^2x_6  2x_4x_5x_6 
+     0              0       0          -x_9^3     0          -x_8x_9^2  
+     0              0       -x_9^3     0          -2x_8x_9^2 -x_7x_9^2  
+     0              -4x_9^3 -3x_8x_9^2 -3x_7x_9^2 -2x_8^2x_9 -2x_7x_8x_9
+     ------------------------------------------------------------------------
+     2x_1x_3^2  0          x_2^2x_3    2x_1x_2x_3  0       x_2^3     
+     0          3x_2^2x_3  2x_1x_2x_3  x_1^2x_3    4x_2^3  3x_1x_2^2 
+     2x_1^2x_3  x_2^3      x_1x_2^2    x_1^2x_2    0       0         
+     2x_4x_6^2  0          x_5^2x_6    2x_4x_5x_6  0       x_5^3     
+     0          3x_5^2x_6  2x_4x_5x_6  x_4^2x_6    4x_5^3  3x_4x_5^2 
+     2x_4^2x_6  x_5^3      x_4x_5^2    x_4^2x_5    0       0         
+     -2x_7x_9^2 0          -x_8^2x_9   -2x_7x_8x_9 0       -x_8^3    
+     0          -3x_8^2x_9 -2x_7x_8x_9 -x_7^2x_9   -4x_8^3 -3x_7x_8^2
+     -2x_7^2x_9 -x_8^3     -x_7x_8^2   -x_7^2x_8   0       0         
+     ------------------------------------------------------------------------
+     2x_1x_2^2  |
+     2x_1^2x_2  |
+     0          |
+     2x_4x_5^2  |
+     2x_4^2x_5  |
+     0          |
+     -2x_7x_8^2 |
+     -2x_7^2x_8 |
+     0          |
+
+             9       31
+o3 : Matrix S  <--- S
+
+i4 : a = getSubmatrixOfRank(6, M**(S/J), Strategy=>Random)
+
+o4 = {{0, 4, 5, 6, 7, 8}, {24, 8, 13, 5, 1, 25}}
+
+o4 : List
+
+i5 : M^(a#0)_(a#1)
+
+o5 = {1} | 2x_1x_3^2  -x_5 x_4x_7-x_6x_9  -x_8 0    0          |
+     {1} | 0          -x_1 -x_2x_9        0    0    3x_5^2x_6  |
+     {1} | 2x_4^2x_6  0    -x_1x_9        0    0    x_5^3      |
+     {1} | -2x_7x_9^2 0    x_1x_4         x_2  0    0          |
+     {1} | 0          0    0              -x_1 x_3  -3x_8^2x_9 |
+     {1} | -2x_7^2x_9 0    -x_2x_5-x_1x_6 0    -x_2 -x_8^3     |
+
+             6       6
+o5 : Matrix S  <--- S
+
+i6 : d = getSubmatrixOfRank(6, M**(S/J), MaxMinors=>100, Strategy=>LexSmallest)
+
+o6 = {{8, 7, 1, 2, 6, 4}, {2, 3, 8, 7, 12, 30}}
+
+o6 : List
+
+i7 : M^(d#0)_(d#1)
+
+o7 = {1} | -x_4 0    0    0   -x_5^2-x_4x_6 0          |
+     {1} | 0    -x_4 0    0   0             -2x_7^2x_8 |
+     {1} | 0    0    x_4  0   0             2x_1^2x_2  |
+     {1} | 0    0    0    x_4 0             0          |
+     {1} | x_6  x_5  0    0   x_4^2         -2x_7x_8^2 |
+     {1} | 0    x_7  -x_1 0   -2x_5x_9      2x_4^2x_5  |
+
+             6       6
+o7 : Matrix S  <--- S
+
+i8 : e = getSubmatrixOfRank(6, M**(S/J), Strategy=>LexSmallestTerm)
+
+o8 = {{6, 3, 7, 4, 0, 2}, {4, 7, 1, 6, 18, 19}}
+
+o8 : List
+
+i9 : M^(e#0)_(e#1)
+
+o9 = {1} | x_3  0    0   0   0              0      |
+     {1} | 0    x_3  0   0   0              0      |
+     {1} | 0    0    x_3 0   0              0      |
+     {1} | 0    0    0   x_3 0              0      |
+     {1} | -x_9 -x_6 0   0   3x_1^2-x_3^2   0      |
+     {1} | x_7  x_4  x_8 x_5 -x_2^2-2x_1x_3 4x_3^3 |
+
+             6       6
+o9 : Matrix S  <--- S
+
+i10 : f = getSubmatrixOfRank(6, M**(S/J), MaxMinors=>100, Strategy=>LexLargest)
+
+o10 = {{0, 2, 1, 5, 8, 4}, {29, 25, 28, 17, 14, 16}}
+
+o10 : List
+
+i11 : M^(f#0)_(f#1)
+
+o11 = {1} | x_2^3     0         0      2x_1x_4-x_3x_6 2x_1x_7-x_3x_9
+      {1} | 0         x_2^3     0      -x_1x_6        -x_1x_9       
+      {1} | 3x_1x_2^2 3x_2^2x_3 4x_2^3 -2x_2x_6       -2x_2x_9      
+      {1} | 0         x_5^3     0      -x_2^2-x_1x_3  0             
+      {1} | 0         -x_8^3    0      0              -x_2^2-x_1x_3 
+      {1} | 3x_4x_5^2 3x_5^2x_6 4x_5^3 0              0             
+      -----------------------------------------------------------------------
+      x_4^2-x_6^2     |
+      0               |
+      -x_5x_6         |
+      -x_2x_5-2x_1x_6 |
+      0               |
+      -x_2x_6         |
+
+              6       6
+o11 : Matrix S  <--- S
+
+i12 : g = getSubmatrixOfRank(6, M**(S/J), Strategy=>Points)
+
+o12 = {{0, 1, 2, 3, 4, 6}, {0, 1, 2, 4, 9, 19}}
+
+o12 : List
+
+i13 : M^(g#0)_(g#1)
+
+o13 = {1} | 0    0    0    -x_9 0            0      |
+      {1} | 0    -x_9 0    0    0            0      |
+      {1} | 0    x_8  0    x_7  0            4x_3^3 |
+      {1} | 0    0    -x_9 0    0            0      |
+      {1} | -x_9 0    0    0    0            0      |
+      {1} | 0    0    x_6  x_3  3x_7^2-x_9^2 0      |
+
+              6       6
+o13 : Matrix S  <--- S
+
+i14 : b = getSubmatrixOfRank(6, M, Strategy=>GRevLexSmallest)
+
+o14 = {{4, 7, 3, 6, 8, 1}, {6, 1, 7, 4, 2, 8}}
+
+o14 : List
+
+i15 : M^(b#0)_(b#1)
+
+o15 = {1} | x_3  0    0   0    0    -x_1 |
+      {1} | 0    x_3  0   0    0    0    |
+      {1} | 0    0    x_3 0    -x_9 x_2  |
+      {1} | 0    0    0   x_3  x_6  0    |
+      {1} | 0    -x_2 0   -x_1 -x_4 0    |
+      {1} | -x_6 -x_9 0   0    0    x_4  |
+
+              6       6
+o15 : Matrix S  <--- S
+
+i16 : c = getSubmatrixOfRank(6, M, Strategy=>GRevLexSmallestTerm)
+
+o16 = {{1, 0, 7, 6, 4, 2}, {6, 7, 0, 2, 3, 4}}
+
+o16 : List
+
+i17 : M^(c#0)_(c#1)
+
+o17 = {1} | -x_6 0    0    0   0    0    |
+      {1} | 0    -x_6 0    0   0    -x_9 |
+      {1} | 0    0    x_6  0   -x_4 0    |
+      {1} | 0    0    0    x_6 x_5  x_3  |
+      {1} | x_3  0    -x_9 0   x_7  0    |
+      {1} | x_5  x_4  0    0   0    x_7  |
+
+              6       6
+o17 : Matrix S  <--- S
+
+i18 : h = getSubmatrixOfRank(6, M, Strategy=>LexLargest)
+
+o18 = {{4, 3, 5, 0, 8, 2}, {20, 21, 19, 16, 12, 17}}
+
+o18 : List
+
+i19 : M^(h#0)_(h#1)
+
+o19 = {1} | x_6^3      0          0       -x_2x_6         -2x_5x_9      
+      {1} | 0          x_6^3      0       2x_1x_4         2x_4x_7-x_6x_9
+      {1} | 3x_5x_6^2  3x_4x_6^2  4x_6^3  -x_2x_5-2x_1x_6 -x_4x_9       
+      {1} | 0          x_3^3      0       x_4^2-x_6^2     0             
+      {1} | -3x_8x_9^2 -3x_7x_9^2 -4x_9^3 0               -x_5^2-x_4x_6 
+      {1} | 3x_2x_3^2  3x_1x_3^2  4x_3^3  0               0             
+      -----------------------------------------------------------------------
+      0              |
+      x_1^2          |
+      -x_2^2-x_1x_3  |
+      2x_1x_4-x_3x_6 |
+      0              |
+      -x_1x_6        |
+
+              6       6
+o19 : Matrix S  <--- S
+
+i20 : chooseGoodMinors(1, 6, M, J, Strategy=>Random)
+
+                 5 4   3      2 3 5   3      3   6   3      3 3 2 2   3  
+o20 = ideal(16x x x x x  + 32x x x x x  + 16x x x x x  - 16x x x x x x  -
+               1 2 3 4 7      1 2 3 4 7      1 2 3 4 7      2 3 4 5 6 7  
+      -----------------------------------------------------------------------
+             4 2 2   3        5   4 3      3   2   4 3      2 4 4   2    
+      16x x x x x x x  + 16x x x x x  - 16x x x x x x  - 32x x x x x x  -
+         1 2 3 4 5 6 7      1 2 4 6 7      1 2 3 4 6 7      1 2 3 4 7 8  
+      -----------------------------------------------------------------------
+         3 2 5   2        3 3 4   2        4   5   2          2 3 2 2   2    
+      32x x x x x x  + 24x x x x x x  + 24x x x x x x  + 32x x x x x x x x  -
+         1 2 3 4 7 8      1 2 3 5 7 8      1 2 3 5 7 8      1 2 3 4 5 6 7 8  
+      -----------------------------------------------------------------------
+         2   3   3   2        2 4   4 2        3 2     4 2        3 3   4 2  
+      24x x x x x x x x  - 32x x x x x x  + 32x x x x x x x  + 24x x x x x x 
+         1 2 3 4 5 6 7 8      1 2 4 6 7 8      1 2 3 4 6 7 8      1 2 5 6 7 8
+      -----------------------------------------------------------------------
+           4       4 2        3 3 4   2        4   5   2    
+      - 24x x x x x x x  - 16x x x x x x  - 16x x x x x x  +
+           1 2 3 5 6 7 8      1 2 3 4 7 9      1 2 3 4 7 9  
+      -----------------------------------------------------------------------
+         2   3 2 2   2        3 3   4 2        4       4 2       6 4        
+      16x x x x x x x x  - 16x x x x x x  + 16x x x x x x x  - 8x x x x x x 
+         1 2 3 4 5 6 7 9      1 2 4 6 7 9      1 2 3 4 6 7 9     2 3 4 7 8 9
+      -----------------------------------------------------------------------
+             4 5              2 2 6                5 4          
+      + 16x x x x x x x  + 24x x x x x x x  + 16x x x x x x x  -
+           1 2 3 4 7 8 9      1 2 3 4 7 8 9      1 2 3 5 7 8 9  
+      -----------------------------------------------------------------------
+         3   6                2 3 3 2            2 4 3 2        
+      16x x x x x x x  - 16x x x x x x x x  + 16x x x x x x x  +
+         1 2 3 5 7 8 9      1 2 3 4 5 7 8 9      1 3 4 5 7 8 9  
+      -----------------------------------------------------------------------
+         2   3 2 3           2 4 2 2               5 2 2          
+      32x x x x x x x x  - 8x x x x x x x x  - 8x x x x x x x x  +
+         1 2 3 4 5 7 8 9     2 3 4 5 6 7 8 9     1 3 4 5 6 7 8 9  
+      -----------------------------------------------------------------------
+         2 4 2 3            3 2   2 3            3 3     3        
+      16x x x x x x x  - 48x x x x x x x x  - 32x x x x x x x x  +
+         1 2 4 6 7 8 9      1 2 3 4 6 7 8 9      1 2 4 5 6 7 8 9  
+      -----------------------------------------------------------------------
+         4         3           2 4 4   2       3 2 5   2       3 3 2 3 2    
+      32x x x x x x x x x  - 4x x x x x x  - 4x x x x x x  - 8x x x x x x  +
+         1 2 3 4 5 6 7 8 9     1 2 3 5 8 9     1 2 3 5 8 9     1 3 4 5 8 9  
+      -----------------------------------------------------------------------
+        2 4   3   2       4 2     3 2        3 3   4 2            4   4 2    
+      4x x x x x x x  + 8x x x x x x x  + 16x x x x x x  + 16x x x x x x x  -
+        1 3 4 5 6 8 9     1 2 4 5 6 8 9      2 3 4 7 8 9      1 2 3 4 7 8 9  
+      -----------------------------------------------------------------------
+           2 3   3 3        2 4   3 3        2   4 3 3          5 4     2  
+      16x x x x x x x  - 16x x x x x x  + 16x x x x x x  - 16x x x x x x  -
+         1 2 3 4 7 8 9      1 3 4 7 8 9      1 4 6 7 8 9      1 2 3 4 7 9  
+      -----------------------------------------------------------------------
+         2 3 5     2      3   6     2      3 3 2 2     2          4 2 2     2
+      32x x x x x x  - 16x x x x x x  + 16x x x x x x x  + 16x x x x x x x x 
+         1 2 3 4 7 9      1 2 3 4 7 9      2 3 4 5 6 7 9      1 2 3 4 5 6 7 9
+      -----------------------------------------------------------------------
+             5   4   2      3   2   4   2     2 4 4     2     3 2 5     2  
+      - 16x x x x x x  + 16x x x x x x x  - 8x x x x x x  - 8x x x x x x  +
+           1 2 4 6 7 9      1 2 3 4 6 7 9     1 2 3 4 8 9     1 2 3 4 8 9  
+      -----------------------------------------------------------------------
+        3 3 4     2     4   5     2      3 3 3 2   2     2 4 2 2     2  
+      8x x x x x x  + 8x x x x x x  - 16x x x x x x  + 8x x x x x x x  -
+        1 2 3 5 8 9     1 2 3 5 8 9      1 3 4 5 8 9     1 3 4 5 6 8 9  
+      -----------------------------------------------------------------------
+        2   3   3     2      4 2 2 3   2     3 3   4   2     4       4   2  
+      8x x x x x x x x  + 16x x x x x x  + 8x x x x x x  - 8x x x x x x x  +
+        1 2 3 4 5 6 8 9      1 2 4 6 8 9     1 2 5 6 8 9     1 2 3 5 6 8 9  
+      -----------------------------------------------------------------------
+        2 4   2 3 2       5   2 3 2     3 3   2 3 2         4   2 3 2  
+      8x x x x x x  + 8x x x x x x  + 8x x x x x x  + 8x x x x x x x  -
+        2 3 4 7 8 9     1 3 4 7 8 9     2 3 5 7 8 9     1 2 3 5 7 8 9  
+      -----------------------------------------------------------------------
+         2 2 3 2 3 2       2 3     4 2     2 4     4 2     2   4   4 2  
+      16x x x x x x  - 8x x x x x x x  - 8x x x x x x  + 8x x x x x x  +
+         1 4 6 7 8 9     1 2 3 5 7 8 9     1 3 5 7 8 9     1 5 6 7 8 9  
+      -----------------------------------------------------------------------
+         3 3 4   3      4   5   3      2   3 2 2   3      3 3   4 3  
+      16x x x x x  + 16x x x x x  - 16x x x x x x x  + 16x x x x x  -
+         1 2 3 4 9      1 2 3 4 9      1 2 3 4 5 6 9      1 2 4 6 9  
+      -----------------------------------------------------------------------
+         4       4 3        2 3     3 3      2 4     3 3      2   4   3 3  
+      16x x x x x x  - 16x x x x x x x  - 16x x x x x x  + 16x x x x x x  +
+         1 2 3 4 6 9      1 2 3 4 7 8 9      1 3 4 7 8 9      1 4 6 7 8 9  
+      -----------------------------------------------------------------------
+        2 4   4 3       5   4 3     2     3 4 3        5   3 4  
+      4x x x x x  + 4x x x x x  - 8x x x x x x  - 16x x x x x  +
+        2 3 5 8 9     1 3 5 8 9     1 4 5 6 8 9      1 2 4 7 9  
+      -----------------------------------------------------------------------
+         3   2   3 4      2 4   2   4      3 2     2   4      2 2 2   2   4  
+      16x x x x x x  + 16x x x x x x  + 16x x x x x x x  - 16x x x x x x x  +
+         1 2 3 4 7 9      1 2 4 7 8 9      1 2 3 4 7 8 9      1 4 5 6 7 8 9  
+      -----------------------------------------------------------------------
+        2 4   3 4       5   3 4     3 3   3 4         4   3 4      2 2 3 3 4
+      8x x x x x  + 8x x x x x  - 8x x x x x  - 8x x x x x x  - 16x x x x x 
+        2 3 4 8 9     1 3 4 8 9     2 3 5 8 9     1 2 3 5 8 9      1 4 6 8 9
+      -----------------------------------------------------------------------
+           2 3 2     5      3 3   2 5          4   2 5        5     6  
+      + 16x x x x x x  - 16x x x x x  - 16x x x x x x  + 16x x x x x  -
+           1 4 5 7 8 9      2 3 4 8 9      1 2 3 4 8 9      1 2 4 7 9  
+      -----------------------------------------------------------------------
+         3   2     6
+      16x x x x x x )
+         1 2 3 4 7 9
+
+o20 : Ideal of S
+
+i21 : chooseGoodMinors(1, 6, M, J, Strategy=>LexSmallest)
+
+                 6      5        3 2        2 3        4 2      3   2
+o21 = ideal(- x x  + x x x  + x x x x  - x x x x  + x x x  - x x x x )
+               2 4    1 4 5    2 4 5 6    1 4 5 6    2 4 6    1 4 5 6
+
+o21 : Ideal of S
+
+i22 : chooseGoodMinors(1, 6, M, J, Strategy=>LexSmallestTerm)
+
+              8     5 2       6 2    3 2 3    4 4
+o22 = ideal(3x  - 3x x x  - 4x x  + x x x  + x x )
+              7     7 8 9     7 9    7 8 9    7 9
+
+o22 : Ideal of S
+
+i23 : chooseGoodMinors(1, 6, M, J, Strategy=>LexLargest)
+
+                3 2 9     4 10     4 10       2 11     2 12        2 7 2 2  
+o23 = ideal(- 4x x x  - 4x x   + 4x x   + 8x x x   + 4x x   + 24x x x x x  +
+                1 2 3     1 3      2 3      1 2 3      1 3       1 2 3 4 6  
+      -----------------------------------------------------------------------
+         2 8 2 2     2 2 6   3     3 7   3      2 8   3        9   3  
+      24x x x x  - 8x x x x x  - 8x x x x  - 12x x x x  - 12x x x x  -
+         1 3 4 6     1 2 3 4 6     1 3 4 6      2 3 4 6      1 3 4 6  
+      -----------------------------------------------------------------------
+         3 7   3          8   3      3 2 5 4      4 6 4      4 6 4  
+      24x x x x  - 24x x x x x  - 12x x x x  - 12x x x  + 28x x x  +
+         2 3 5 6      1 2 3 5 6      1 2 3 6      1 3 6      2 3 6  
+      -----------------------------------------------------------------------
+           2 7 4     2 8 4       2 3 2 6     2 4 2 6     2 4   7       5   7
+      36x x x x  + 8x x x  + 8x x x x x  + 8x x x x  - 4x x x x  - 4x x x x 
+         1 2 3 6     1 3 6     1 2 3 4 6     1 3 4 6     2 3 4 6     1 3 4 6
+      -----------------------------------------------------------------------
+           3 3   7          4   7      4 2 8        2 3 8     2 4 8  
+      - 24x x x x  - 24x x x x x  + 24x x x  + 20x x x x  - 4x x x  +
+           2 3 5 6      1 2 3 5 6      2 3 6      1 2 3 6     1 3 6  
+      -----------------------------------------------------------------------
+         4 6 2 2        2 7 2 2      2 8 2 2      3 3   3 2 2  
+      24x x x x  - 24x x x x x  - 24x x x x  + 24x x x x x x  +
+         1 3 7 9      1 2 3 7 9      1 3 7 9      1 3 4 6 7 9  
+      -----------------------------------------------------------------------
+             4   3 2 2        2 3 4 2 2      2 4 4 2 2          4   3     2  
+      41x x x x x x x  - 41x x x x x x  + 24x x x x x  - 41x x x x x x x x  -
+         1 2 3 5 6 7 9      1 2 3 6 7 9      1 3 6 7 9      1 2 3 4 6 7 8 9  
+      -----------------------------------------------------------------------
+        2   3 4     2            7     2      5 5   3      2 2 6   3  
+      7x x x x x x x  - 48x x x x x x x  - 24x x x x  + 24x x x x x  +
+        1 2 3 6 7 8 9      1 2 4 6 7 8 9      1 3 7 9      1 2 3 7 9  
+      -----------------------------------------------------------------------
+         3 7   3      2 8   3        9   3      3 3 2 2   3  
+      12x x x x  + 12x x x x  + 12x x x x  - 24x x x x x x  -
+         1 3 7 9      2 3 7 9      1 3 7 9      1 3 4 6 7 9  
+      -----------------------------------------------------------------------
+             4     2   3        2 3   3   3      2 4   3   3  
+      41x x x x x x x x  - 29x x x x x x x  + 35x x x x x x  -
+         1 2 3 4 5 6 7 9      1 2 3 4 6 7 9      1 3 4 6 7 9  
+      -----------------------------------------------------------------------
+         2   3   3   3      2 2 2 4   3      3 3 4   3              6   3  
+      10x x x x x x x  + 17x x x x x x  - 20x x x x x  + 48x x x x x x x  -
+         1 2 3 5 6 7 9      1 2 3 6 7 9      1 3 6 7 9      1 2 4 5 6 7 9  
+      -----------------------------------------------------------------------
+         3   6   3      3 7   3          8   3          4 2 2   3  
+      24x x x x x  + 24x x x x  + 24x x x x x  + 41x x x x x x x  -
+         1 2 3 8 9      2 3 8 9      1 2 3 8 9      1 2 3 4 6 8 9  
+      -----------------------------------------------------------------------
+         2   3   3   3      3   2 4   3      3 3 4   3          4 4   3  
+      48x x x x x x x  + 31x x x x x x  + 24x x x x x  + 24x x x x x x  +
+         1 2 3 4 6 8 9      1 2 3 6 8 9      2 3 6 8 9      1 2 3 6 8 9  
+      -----------------------------------------------------------------------
+             2 6   3      3 2 5 4     4 6 4      4 6 4        2 7 4     2 8 4
+      48x x x x x x  + 24x x x x  + 8x x x  - 24x x x  - 32x x x x  - 8x x x 
+         1 2 4 6 8 9      1 2 3 9     1 3 9      2 3 9      1 2 3 9     1 3 9
+      -----------------------------------------------------------------------
+             2 3 2 2 4      2 4 2 2 4      2   3     2 4      2 2 2   3 4  
+      - 41x x x x x x  + 36x x x x x  - 38x x x x x x x  - 17x x x x x x  +
+           1 2 3 4 6 9      1 3 4 6 9      1 2 3 4 5 6 9      1 2 3 4 6 9  
+      -----------------------------------------------------------------------
+         3 3   3 4     2 4   3 4       5   3 4      3   2   3 4      4 2 4 4
+      20x x x x x  + 4x x x x x  + 4x x x x x  - 31x x x x x x  - 24x x x x 
+         1 3 4 6 9     2 3 4 6 9     1 3 4 6 9      1 2 3 5 6 9      2 3 6 9
+      -----------------------------------------------------------------------
+             2 3 4 4     2 4 4 4          2   5 4
+      - 20x x x x x  + 4x x x x  - 48x x x x x x )
+           1 2 3 6 9     1 3 6 9      1 2 4 5 6 9
+
+o23 : Ideal of S
+
+i24 : chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexSmallest)
+
+             4 2       3        2 2 2
+o24 = ideal(x x  - 2x x x x  + x x x )
+             3 5     2 3 5 6    2 3 6
+
+o24 : Ideal of S
+
+i25 : chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexSmallestTerm)
+
+               4 2       3        2 2 2
+o25 = ideal(- x x  + 2x x x x  - x x x )
+               2 4     1 2 4 5    1 2 5
+
+o25 : Ideal of S
+
+i26 : chooseGoodMinors(1, 6, M, J, Strategy=>GRevLexLargest)
+
+               9 5 4        8 4 5      2 7 3 6      3 6 2 7      4 5   8  
+o26 = ideal(16x x x  + 23x x x x  - 46x x x x  + 46x x x x  - 23x x x x  -
+               3 8 9      2 3 8 9      2 3 8 9      2 3 8 9      2 3 8 9  
+      -----------------------------------------------------------------------
+         5 4 9
+      16x x x )
+         2 3 9
+
+o26 : Ideal of S
+
+i27 : chooseGoodMinors(1, 6, M, J, Strategy=>Points)
+
+               3 2 4     3 6
+o27 = ideal(12x x x  - 4x x )
+               3 7 9     3 9
+
+o27 : Ideal of S
+
+i28 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>Random))
+     -- used 0.0460402 seconds
+
+o28 = 2
+
+i29 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexSmallest))
+     -- used 0.242585 seconds
+
+o29 = 2
+
+i30 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexSmallestTerm))
+     -- used 0.314794 seconds
+
+o30 = 0
+
+i31 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>LexLargest))
+     -- used 0.425506 seconds
+
+o31 = 2
+
+i32 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexSmallest))
+     -- used 0.187949 seconds
+
+o32 = 3
+
+i33 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexSmallestTerm))
+     -- used 0.22083 seconds
+
+o33 = 3
+
+i34 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>GRevLexLargest))
+     -- used 0.141989 seconds
+
+o34 = 3
+
+i35 : time dim (J + chooseGoodMinors(8, 6, M, J, Strategy=>Points))
+     -- used 12.0797 seconds
+
+o35 = 1
+
+i36 : peek StrategyDefault
+
+o36 = OptionTable{GRevLexLargest => 0      }
+                  GRevLexSmallest => 16
+                  GRevLexSmallestTerm => 16
+                  LexLargest => 0
+                  LexSmallest => 16
+                  LexSmallestTerm => 16
+                  Points => 0
+                  Random => 16
+                  RandomNonzero => 16
+
+i37 : time chooseGoodMinors(20, 6, M, J, Strategy=>StrategyDefault, Verbose=>true);
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing LexSmallest
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing Random
+internalChooseMinor: Choosing RandomNonZero
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing Random
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing Random
+internalChooseMinor: Choosing GRevLexSmallest
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing LexSmallestTerm
+internalChooseMinor: Choosing GRevLexSmallest
+chooseGoodMinors: found =20, attempted = 21
+     -- used 0.400545 seconds
+
+o37 : Ideal of S
+
+i38 : peek StrategyDefaultNonRandom
+
+o38 = OptionTable{GRevLexLargest => 0      }
+                  GRevLexSmallest => 25
+                  GRevLexSmallestTerm => 25
+                  LexLargest => 0
+                  LexSmallest => 25
+                  LexSmallestTerm => 25
+                  Points => 0
+                  Random => 0
+                  RandomNonzero => 0
+
+i39 : peek StrategyDefaultWithPoints
+
+o39 = OptionTable{GRevLexLargest => 0      }
+                  GRevLexSmallest => 16
+                  GRevLexSmallestTerm => 16
+                  LexLargest => 0
+                  LexSmallest => 16
+                  LexSmallestTerm => 16
+                  Points => 32
+                  Random => 0
+                  RandomNonzero => 0
+
+i40 : peek StrategyPoints
+
+o40 = OptionTable{GRevLexLargest => 0     }
+                  GRevLexSmallest => 0
+                  GRevLexSmallestTerm => 0
+                  LexLargest => 0
+                  LexSmallest => 0
+                  LexSmallestTerm => 0
+                  Points => 100
+                  Random => 0
+                  RandomNonzero => 0
+
+i41 : ptsStratGeometric = new OptionTable from (options chooseGoodMinors)#PointOptions;
+
+i42 : ptsStratGeometric#ExtendField --look at the default value
+
+o42 = true
+
+i43 : time dim (J + chooseGoodMinors(1, 6, M, J, Strategy=>Points, PointOptions=>ptsStratGeometric))
+     -- used 0.899519 seconds
+
+o43 = 2
+
+i44 : ptsStratRational = ptsStratGeometric++{ExtendField=>false} --change that value
+
+o44 = OptionTable{DecompositionStrategy => Decompose}
+                  DimensionFunction => dim
+                  ExtendField => false
+                  Homogeneous => false
+                  NumThreadsToUse => 1
+                  PointCheckAttempts => 0
+                  Replacement => Binomial
+                  Strategy => Default
+                  Verbose => false
+
+o44 : OptionTable
+
+i45 : ptsStratRational.ExtendField --look at our changed value
+
+o45 = false
+
+i46 : time dim (J + chooseGoodMinors(1, 6, M, J, Strategy=>Points, PointOptions=>ptsStratRational))
+     -- used 3.39123 seconds
+
+o46 = 2
+
+i47 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefault)
+     -- used 1.99798 seconds
+
+o47 = true
+
+i48 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefaultNonRandom)
+     -- used 0.577181 seconds
+
+o48 = true
+
+i49 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>Random)
+     -- used 3.29686 seconds
+
+i50 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>LexSmallest)
+     -- used 2.26566 seconds
+
+i51 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>LexSmallestTerm)
+     -- used 0.36724 seconds
+
+o51 = true
+
+i52 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>GRevLexSmallest)
+     -- used 2.56458 seconds
+
+i53 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>GRevLexSmallestTerm)
+     -- used 3.29896 seconds
+
+i54 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>Points)
+     -- used 9.94088 seconds
+
+o54 = true
+
+i55 : time regularInCodimension(1, S/J, MaxMinors => 100, Strategy=>StrategyDefaultWithPoints)
+     -- used 11.0363 seconds
+
+o55 = true
+
+i56 : 

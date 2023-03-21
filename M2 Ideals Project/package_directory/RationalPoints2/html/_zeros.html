@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>zeros -- List the zeros of a polynomial</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Projective__Point.html">next</a> | previous | <a href="___Projective__Point.html">forward</a> | <a href="_rational__Points.html">backward</a> | <a href="_rational__Points.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Find the rational points on a variety" href="index.html">RationalPoints2</a> > <a title="Find the rational points on a variety" href="_rational__Points.html">rationalPoints</a> > <a title="List the zeros of a polynomial" href="_zeros.html">zeros</a>    </div>
+    <hr/>
+    <div>
+      <h1>zeros -- List the zeros of a polynomial</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">zeros p</code></dd>
+              <dd><code class="language-macaulay2">zeros(F, p)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>p</tt>, a polynomial</span>              </li>
+              <li>
+<span><tt>F</tt>, the coefficient field; if not specified then it is taken to be the field of definition of <tt>p</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> of zeros of <tt>p</tt> in the coefficient field</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Get <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> of zeros of a polynomial using <a title="factor a ring element or a ZZ-module" href="../../Macaulay2Doc/html/_factor.html">factor</a>, baby version of <a title="Find the rational points on a variety" href="_rational__Points.html">rationalPoints</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x]; p = (x-2)^2 * (x^2-2) * (x^3-x-1); zeros p
+
+o3 = {2}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = toField(QQ[q]/(q^2-2)); zeros_F p
+
+o5 = {2, q, -q}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : F = splittingField p; #zeros_F p
+
+o7 = 6</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that when the degree is big, the expression of each zero in terms of a primitive element is usually complicated.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : last zeros_F p
+
+          2918037   11      43736   10     176511427  9     1742239  8  
+o8 = - ------------a   + ----------a   + ------------a  - ----------a  -
+       194598748990      3926880585      194598748990     2617920390    
+     ------------------------------------------------------------------------
+      7776041337  7    54520588  6    38282000079 5    50576753 4  
+     ------------a  + ----------a  + ------------a  - ---------a  -
+     389197497980     3926880585     194598748990     436320065    
+     ------------------------------------------------------------------------
+     382379122373 3   1544138762 2   456488667029     137345843
+     ------------a  + ----------a  + ------------a + ----------
+     389197497980     3926880585     389197497980    1308960195
+
+o8 : F</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : (map(F, ring p, {oo})) p
+
+o9 = 0
+
+o9 : F</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Over finite fields.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : q = baseChange_13 p; zeros q
+
+o11 = {2}
+
+o11 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : F = splittingField q; describe F
+
+o13 = GF 4826809</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : #zeros_F q
+
+o14 = 6</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>zeros</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;zeros(Ring,RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;zeros(RingElement)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="List the zeros of a polynomial" href="_zeros.html">zeros</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

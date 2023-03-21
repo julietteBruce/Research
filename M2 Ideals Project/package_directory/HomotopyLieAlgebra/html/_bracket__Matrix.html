@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>bracketMatrix -- Multiplication matrix of the homotopy Lie algebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_bracket.html">previous</a> | forward | <a href="_bracket.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Homotopy Lie Algebra of a surjective ring homomorphism" href="index.html">HomotopyLieAlgebra</a> :: <a title="Multiplication matrix of the homotopy Lie algebra" href="_bracket__Matrix.html">bracketMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>bracketMatrix -- Multiplication matrix of the homotopy Lie algebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = bracketMatrix(A,d,e)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>an instance of the type <a title="The class of all DGAlgebras" href="../../DGAlgebras/html/___D__G__Algebra.html">DGAlgebra</a></span>, first part of the acyclic closure of a Koszul complex</span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>e</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, of linear forms in the generators of A</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function implements the multiplication table of the degree d and degree e components of the homotopy Lie algebra Pi. The entries of the matrix are linear forms of homological degree d+e+1, interpreted as generators of Pi^{d+e}. See <a title="Computes the Lie product" href="_bracket.html">bracket</a> for more details.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = ZZ/101
+
+o1 = kk
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = kk[x,y,z]
+
+o2 = S
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : R = S/ideal(x^2,y^2,z^2-x*y,x*z, y*z)
+
+o3 = R
+
+o3 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : lastCyclesDegree = 4
+
+o4 = 4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : KR = koszulComplexDGA(ideal R)
+
+o5 = {Ring => S                                     }
+      Underlying algebra => S[T ..T ]
+                               1   5
+                        2   2           2
+      Differential => {x , y , - x*y + z , x*z, y*z}
+
+o5 : DGAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = acyclicClosure(KR, EndDegree => lastCyclesDegree);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : p1 = allgens(A,0) -- dual generators of Pi^1
+
+o7 = {x, y, z}
+
+o7 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : p2 = allgens(A,1) -- dual generators of Pi^3
+
+o8 = {T , T , T , T , T }
+       1   2   3   4   5
+
+o8 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : p3 = allgens(A,2) -- dual generators of Pi^4
+
+o9 = {T , T , T , T , T  }
+       6   7   8   9   10
+
+o9 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : bracketMatrix(A,2,1)
+
+o10 = | 0    T_6   -T_7 |
+      | T_8  0     -T_9 |
+      | T_6  T_8   0    |
+      | T_7  -T_10 -T_6 |
+      | T_10 T_9   -T_8 |
+
+                         5                  3
+o10 : Matrix (S[T ..T  ])  &lt;--- (S[T ..T  ])
+                 1   99             1   99</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Computes the Lie product" href="_bracket.html">bracket</a> -- Computes the Lie product</span>          </li>
+          <li>
+<span><a title="List the generators of a given degree" href="_allgens.html">allgens</a> -- List the generators of a given degree</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>bracketMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;bracketMatrix(DGAlgebra,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Multiplication matrix of the homotopy Lie algebra" href="_bracket__Matrix.html">bracketMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

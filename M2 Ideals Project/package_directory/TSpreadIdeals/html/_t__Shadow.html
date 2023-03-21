@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>tShadow -- give the t-spread shadow of a given t-spread monomial or a given list of t-spread monomials</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_t__Next__Mon.html">next</a> | <a href="_is__T__Spread.html">previous</a> | <a href="_t__Next__Mon.html">forward</a> | <a href="_is__T__Spread.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with t-spread ideals of polynomial rings" href="index.html">TSpreadIdeals</a> > <a title="give the t-spread shadow of a given t-spread monomial or a given list of t-spread monomials" href="_t__Shadow.html">tShadow</a>    </div>
+    <hr/>
+    <div>
+      <h1>tShadow -- give the t-spread shadow of a given t-spread monomial or a given list of t-spread monomials</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">tShadow(u,t)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>u</tt>, a t-spread monomial of a polynomial ring</span>              </li>
+              <li>
+<span><tt>l</tt>, a list of t-spread monomials of a polynomial ring</span>              </li>
+              <li>
+<span><tt>t</tt>, a positive integer that idenfies the t-spread contest</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the list of all the <tt>t</tt>-spread monomial of the shadow of the <tt>t</tt>-spread monomial <tt>u</tt> or of the list <tt>l</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+the function <tt>tShadow(u,t)</tt> gives the <tt>t</tt>-spread shadow of <tt>u</tt>, that is, the set of all the <tt>t</tt>-spread monomials of the shadow of <tt>u</tt>. The overloading function <tt>tShadow(l,t)</tt> gives the <tt>t</tt>-spread shadow of <tt>l</tt>, that is, the set of all the <tt>t</tt>-spread monomials of the shadow of each <tt>t</tt>-spread monomial belonging to <tt>l</tt>.<br/>Let $S=K[x_1,\ldots,x_n]$ and $u\in M_{n,d,t}$, that is, <tt>u</tt> is a $t$-spread monomial of degree $d$. The <tt>t</tt>-spread shadow of <tt>u</tt>, is defined as $\mathrm{Shad}_t(u)=\{ux_i\ :\ i\in [n]\}\cap M_{n,d+1,t}$. The algorithm is optimized for the $t$-spread environment.        <p>Examples:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S=QQ[x_1..x_14]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : u=x_2*x_6*x_10
+
+o2 = x x x
+      2 6 10
+
+o2 : S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : tShadow(u,3)
+
+o3 = {x x x  x  , x x x  x  }
+       2 6 10 13   2 6 10 14
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : tShadow(u,4)
+
+o4 = {x x x  x  }
+       2 6 10 14
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : l={x_3*x_6*x_10, x_1*x_5*x_9}
+
+o5 = {x x x  , x x x }
+       3 6 10   1 5 9
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : tShadow(l,3)
+
+o6 = {x x x x  , x x x x  , x x x x  , x x x  x  , x x x  x  }
+       1 5 9 12   1 5 9 13   1 5 9 14   3 6 10 13   3 6 10 14
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : tShadow(l,4)
+
+o7 = {x x x x  , x x x x  }
+       1 5 9 13   1 5 9 14
+
+o7 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether a monomial, a list of monomials or a monomial ideal is t-spread" href="_is__T__Spread.html">isTSpread</a> -- whether a monomial, a list of monomials or a monomial ideal is t-spread</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>tShadow</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;tShadow(List,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;tShadow(RingElement,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="give the t-spread shadow of a given t-spread monomial or a given list of t-spread monomials" href="_t__Shadow.html">tShadow</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

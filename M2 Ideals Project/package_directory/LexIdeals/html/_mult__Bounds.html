@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>multBounds -- determine whether an ideal satisfies the upper and lower bounds of the multiplicity conjecture</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_mult__Lower__Bound.html">next</a> | <a href="___Max__Degree.html">previous</a> | <a href="_mult__Lower__Bound.html">forward</a> | <a href="___Max__Degree.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with lex ideals" href="index.html">LexIdeals</a> :: <a title="determine whether an ideal satisfies the upper and lower bounds of the multiplicity conjecture" href="_mult__Bounds.html">multBounds</a>    </div>
+    <hr/>
+    <div>
+      <h1>multBounds -- determine whether an ideal satisfies the upper and lower bounds of the multiplicity conjecture</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">B=multBounds I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a homogeneous ideal in a polynomial ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <tt>true</tt> if both the upper and lower bounds hold and <tt>false</tt> otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let <tt>I</tt> be a homogeneous ideal of codimension <tt>c</tt> in a polynomial ring <tt>R</tt> such that <tt>R/I</tt> is Cohen-Macaulay. Herzog, Huneke, and Srinivasan conjectured that if <tt>R/I</tt> is Cohen-Macaulay, then</p>
+          <p><tt>m_1 ... m_c / c! &lt;= e(R/I) &lt;= M_1 ... M_c / c!</tt>,</p>
+          <p>where <tt>m_i</tt> is the minimum shift in the minimal graded free resolution of <tt>R/I</tt> at step <tt>i</tt>, <tt>M_i</tt> is the maximum shift in the minimal graded free resolution of <tt>R/I</tt> at step <tt>i</tt>, and <tt>e(R/I)</tt> is the multiplicity of <tt>R/I</tt>. If <tt>R/I</tt> is not Cohen-Macaulay, the upper bound is still conjectured to hold. <tt>multBounds</tt> tests the inequalities for the given ideal, returning <tt>true</tt> if both inequalities hold and <tt>false</tt> otherwise. <tt>multBounds</tt> prints the bounds and the multiplicity (called the degree), and it calls <a title="determine whether an ideal satisfies the upper bound of the multiplicity conjecture" href="_mult__Upper__Bound.html">multUpperBound</a> and <a title="determine whether an ideal satisfies the lower bound of the multiplicity conjecture" href="_mult__Lower__Bound.html">multLowerBound</a>.</p>
+          <p>This conjecture was proven in 2008 work of Eisenbud-Schreyer and Boij-Soderberg.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S=ZZ/32003[a..c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : multBounds ideal(a^4,b^4,c^4)
+
+lower bound = 64 degree = 64 upper bound = 64
+
+o2 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : multBounds ideal(a^3,b^4,c^5,a*b^3,b*c^2,a^2*c^3)
+
+              35                           140
+lower bound = -- degree = 27 upper bound = ---
+               2                            3
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Note that <tt>multBounds</tt> makes no attempt to check to see whether <tt>R/I</tt> is Cohen-Macaulay.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make all potentially possible cancellations in the graded free resolution of an ideal" href="_cancel__All.html">cancelAll</a> -- make all potentially possible cancellations in the graded free resolution of an ideal</span>          </li>
+          <li>
+<span><a title="test a sufficient condition for the upper bound of the multiplicity conjecture" href="_mult__Upper__H__F.html">multUpperHF</a> -- test a sufficient condition for the upper bound of the multiplicity conjecture</span>          </li>
+          <li>
+<span><a title="determine whether an ideal satisfies the upper bound of the multiplicity conjecture" href="_mult__Upper__Bound.html">multUpperBound</a> -- determine whether an ideal satisfies the upper bound of the multiplicity conjecture</span>          </li>
+          <li>
+<span><a title="determine whether an ideal satisfies the lower bound of the multiplicity conjecture" href="_mult__Lower__Bound.html">multLowerBound</a> -- determine whether an ideal satisfies the lower bound of the multiplicity conjecture</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>multBounds</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;multBounds(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="determine whether an ideal satisfies the upper and lower bounds of the multiplicity conjecture" href="_mult__Bounds.html">multBounds</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

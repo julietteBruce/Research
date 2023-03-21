@@ -1,0 +1,31 @@
+-- -*- M2-comint -*- hash: -1177181672
+
+i1 : programPaths#"gfan" = "/path/to/gfan/" 
+
+o1 = /path/to/gfan/
+
+i2 : gfan = findProgram("gfan", "gfan _version --help", Verbose => false)
+
+o2 = gfan
+
+o2 : Program
+
+i3 : findProgram("topcom", "cube 3", Verbose => false, Prefix => {
+         (".*", "topcom-"),
+         ("^(cross|cube|cyclic|hypersimplex|lattice)$", "TOPCOM-"),
+         ("^cube$", "topcom_")})
+
+o3 = topcom
+
+o3 : Program
+
+i4 : findProgram("gfan", "gfan _version --help", Verbose => false,
+       MinimumVersion => ("0.5",
+         "gfan _version | head -2 | tail -1 | sed 's/gfan//'"))
+
+o4 = gfan
+
+o4 : Program
+
+i5 :     
+     

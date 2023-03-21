@@ -1,0 +1,40 @@
+-- -*- M2-comint -*- hash: 395543761
+
+i1 : R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+o1 = R
+
+o1 : QuotientRing
+
+i2 : A = koszulComplexDGA(R);
+
+i3 : B = acyclicClosure(A,EndDegree=>3)
+
+o3 = {Ring => R                                  }
+      Underlying algebra => R[T ..T ]
+                               1   6
+                                 2     2     2
+      Differential => {a, b, c, a T , b T , c T }
+                                   1     2     3
+
+o3 : DGAlgebra
+
+i4 : toComplex(B,8)
+
+      1      3      6      10      15      21      28      36      45
+o4 = R  <-- R  <-- R  <-- R   <-- R   <-- R   <-- R   <-- R   <-- R
+                                                                   
+     0      1      2      3       4       5       6       7       8
+
+o4 : ChainComplex
+
+i5 : B.diff
+
+                                           2     2     2
+o5 = map (R[T ..T ], R[T ..T ], {a, b, c, a T , b T , c T , a, b, c})
+             1   6      1   6                1     2     3
+
+o5 : RingMap R[T ..T ] <--- R[T ..T ]
+                1   6          1   6
+
+i6 : 

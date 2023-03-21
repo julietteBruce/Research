@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>pullback -- pullback a divisor under a ring map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ramification__Divisor.html">next</a> | <a href="_primes.html">previous</a> | <a href="_ramification__Divisor.html">forward</a> | <a href="_primes.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="divisors" href="index.html">Divisor</a> :: <a title="pullback a divisor under a ring map" href="_pullback.html">pullback</a>    </div>
+    <hr/>
+    <div>
+      <h1>pullback -- pullback a divisor under a ring map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">pullback(f, D1)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, </span>              </li>
+              <li>
+<span><tt>D1</tt>, <span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">RWeilDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value Primes</span>, specify the strategy used by pullback</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the Types of divisors" href="___Basic__Divisor.html">RWeilDivisor</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function computes the pullback of a divisor under a ring map.  There are two potential strategies, <tt>Primes</tt> and <tt>Sheaves</tt> (<tt>Primes</tt> is the default strategy).  The <tt>Primes</tt> strategy pulls back each prime individually.  It can be faster, but it only works for ring maps that are either finite or flat (unless each prime is also Cartier).  For more general maps, it can give incorrect results.  The other option for <tt>Strategy</tt> is <tt>Sheaves</tt>.  This can be slower, especially for divisors with large coefficients, but it will successfully pull back any Cartier divisor.  The option <tt>Sheaves</tt> also requires the divisor passed to be a <tt>WeilDivisor</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z,w]/ideal(z^2-y*w,y*z-x*w,y^2-x*z);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : T = QQ[a,b];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = map(T, R, {a^3, a^2*b, a*b^2, b^3});
+
+o3 : RingMap T &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : D = divisor(y*z)
+
+o4 = 3*Div(z, y, x) + 3*Div(w, z, y)
+
+o4 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : pullback(f, D, Strategy=>Primes)
+
+o5 = 3*Div(a) + 3*Div(b)
+
+o5 : WeilDivisor on T</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : pullback(f, D, Strategy=>Sheaves)
+
+o6 = 3*Div(b) + 3*Div(a)
+
+o6 : WeilDivisor on T</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Let us also consider pulling back a divisor under a blowup map.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : S = QQ[a,b];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : f = map(S, R, {a*b, b});
+
+o9 : RingMap S &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : D = divisor(x*y*(x+y));
+
+o10 : WeilDivisor on R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : D1 = pullback(f, D)
+
+o11 = Div(a+1) + Div(a) + 3*Div(b)
+
+o11 : WeilDivisor on S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : f^* D
+
+o12 = Div(a+1) + Div(a) + 3*Div(b)
+
+o12 : WeilDivisor on S</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>As illustrated by the previous example, the same functionality can also be accomplished by <tt>f^*</tt> (which creates a function which sends a divisor $D$ to $f^* D$).</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a value for the option Strategy for the pullback method" href="___Primes.html">Primes</a> -- a value for the option Strategy for the pullback method</span>          </li>
+          <li>
+<span><a title="a value for the option Strategy for the pullback method" href="___Sheaves.html">Sheaves</a> -- a value for the option Strategy for the pullback method</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>pullback</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;pullback(RingMap,RWeilDivisor)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="pullback a divisor under a ring map" href="_pullback.html">pullback</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hilbertSequence(Module) -- compute the Hilbert sequence of a given module over an exterior algebra</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_initial__Module.html">next</a> | <a href="_get__Ideals.html">previous</a> | <a href="_initial__Module.html">forward</a> | <a href="_get__Ideals.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with modules over exterior algebra" href="index.html">ExteriorModules</a> :: <a title="compute the Hilbert sequence of a given module over an exterior algebra" href="_hilbert__Sequence_lp__Module_rp.html">hilbertSequence(Module)</a>    </div>
+    <hr/>
+    <div>
+      <h1>hilbertSequence(Module) -- compute the Hilbert sequence of a given module over an exterior algebra</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="compute the Hilbert sequence of a given ideal in an exterior algebra" href="../../ExteriorIdeals/html/_hilbert__Sequence.html">hilbertSequence</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">hilbertSequence M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, a module over an exterior algebra <tt>E</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, nonnegative integers representing the Hilbert sequence of the quotient <tt>F/M</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Let $\{g_1,g_2,\ldots,g_r\}$ be a graded basis of <tt>F</tt> with $deg(g_i)=f_i,\ i=1, \ldots, r.$ Given $\sum_{i=f_1}^{n+f_r}{h_i t^i}$ the Hilbert series of a graded <tt>E</tt>-module $F/M$, the sequence $(h_{f_1},\ldots,h_{n+f_r})$ is called the Hilbert sequence of $F/M.$        <p>Example:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : E = QQ[e_1..e_4, SkewCommutative => true]
+
+o1 = E
+
+o1 : PolynomialRing, 4 skew commutative variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M=image matrix {{e_1*e_2,e_3*e_4,0,0,0},{0,0,e_1*e_2,e_2*e_3*e_4,0},{0,0,0,0,e_2*e_3*e_4}}
+
+o2 = image | e_1e_2 e_3e_4 0      0         0         |
+           | 0      0      e_1e_2 e_2e_3e_4 0         |
+           | 0      0      0      0         e_2e_3e_4 |
+
+                             3
+o2 : E-module, submodule of E</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : hilbertSequence M
+
+o3 = {3, 12, 15, 4, 0}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="compute the Hilbert sequence of a given module over an exterior algebra" href="_hilbert__Sequence_lp__Module_rp.html">hilbertSequence(Module)</a> -- compute the Hilbert sequence of a given module over an exterior algebra</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

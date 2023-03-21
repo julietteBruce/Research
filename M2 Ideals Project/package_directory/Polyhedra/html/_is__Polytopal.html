@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isPolytopal -- checks if a Fan is polytopal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Pure.html">next</a> | <a href="_is__Pointed.html">previous</a> | <a href="_is__Pure.html">forward</a> | <a href="_is__Pointed.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">Polyhedra</a> :: <a title="checks if a Fan is polytopal" href="_is__Polytopal.html">isPolytopal</a>    </div>
+    <hr/>
+    <div>
+      <h1>isPolytopal -- checks if a Fan is polytopal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = isPolytopal F</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <a href="../../Macaulay2Doc/html/_true.html">true</a> if the <a title="the class of all fans" href="___Fan.html">Fan</a> is polytopal, <a href="../../Macaulay2Doc/html/_false.html">false</a> otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+If <tt>F</tt> is projective, then there exists a polyhedron <tt>P</tt> such that <tt>F</tt> is the normalFan of <tt>P</tt>. This means every codimension 1 cone of the Fan corresponds exactly to an edge of the polytope. So consider <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a> to the number of all edges. This can be considered as the space of all edge lengths. If we take arbitrary lengths now for every edge we do not get a polytope. But every codimension 2 cone of the fan corresponds to a 2 dimensional face of the polytope and if the edges belonging to this face add up to 0 zero, they form in fact a 2 dimensional face. This gives linear equations on the space of edge lengths and if we intersect these equations with the positive orthant in the space of edge lengths we get a Cone. Thus, there exists such a polytope if and only if there is a vector in this cone with strictly positive entries, since every edge has to appear in the polytope.        <p/>
+IF <tt>F</tt> is polytopal, the function <a title="returns a polytope of which the fan is the normal fan if it is polytopal" href="_polytope.html">polytope</a> returns a polytope of which <tt>F</tt> is the normalFan.        <p/>
+Note that the function first checks if the fan is complete.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C1 = coneFromVData matrix {{1,0},{0,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C2 = coneFromVData matrix {{1,-1},{0,-2}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C3 = coneFromVData matrix {{0,-2},{1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : C4 = coneFromVData matrix {{-1,-2},{-2,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : F = fan{C1,C2,C3,C4}
+
+o5 = F
+
+o5 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isPolytopal F
+
+o6 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isPolytopal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isPolytopal(Fan)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="checks if a Fan is polytopal" href="_is__Polytopal.html">isPolytopal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

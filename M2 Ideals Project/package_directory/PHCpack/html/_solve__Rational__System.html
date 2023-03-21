@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>solveRationalSystem -- approximates solutions to a rational system of equations</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_solve__Rational__System_lp..._cm__Verbose_eq_gt..._rp.html">next</a> | <a href="_see__Progress.html">previous</a> | <a href="_solve__Rational__System_lp..._cm__Verbose_eq_gt..._rp.html">forward</a> | <a href="_see__Progress.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a> :: <a title="approximates solutions to a rational system of equations" href="_solve__Rational__System.html">solveRationalSystem</a>    </div>
+    <hr/>
+    <div>
+      <h1>solveRationalSystem -- approximates solutions to a rational system of equations</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">solveRationalSystem (f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a system of rational equations with a finite number of solutions</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="option to specify whether additional output is wanted" href="_solve__Rational__System_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to specify whether additional output is wanted</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, containing the solutions of f, each of type <a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">Point</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+converts the rational system into a Laurent system, invokes the commands <tt>phc -b</tt> and <tt>phc -z</tt>,                </li>
+                <li>
+adds slack variables if needed (i.e. if system is overdetermined),                </li>
+                <li>
+writes the system to temporary file,                </li>
+                <li>
+launches the blackbox solver,                </li>
+                <li>
+stores the output of phc in a temporary file,                </li>
+                <li>
+parses and outputs the solutions.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function returns numerical approximations of all complex solutions of a rational system. The function converts the system to a Laurent polynomial system and then calls <tt>PHCpack</tt>'s blackbox solver.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : system = {y-x^2, z-x^3, (x+y+z-1)/x};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : sols = solveRationalSystem(system)
+
+o3 = {{.543689, .295598, .160713}, {-.771845-1.11514*ii, -.647799+1.72143*ii,
+     ------------------------------------------------------------------------
+     2.41964-.606291*ii}, {-.771845+1.11514*ii, -.647799-1.72143*ii,
+     ------------------------------------------------------------------------
+     2.41964+.606291*ii}}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The solutions are of type <a title="a type used to store a point in complex space" href="../../NAGtypes/html/___Abstract__Point.html">Point</a>. Each point <tt>p</tt> comes with cached diagnostics. For example, <tt>p.cache.LastT</tt> is the end value of the continuation parameter; if it equals 1, then the solver reached the end of the path properly.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : peek first sols
+
+o4 = Point{cache => CacheTable{...3...}              }
+           Coordinates => {.543689, .295598, .160713}</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a numerical blackbox solver" href="_solve__System.html">solveSystem</a> -- a numerical blackbox solver</span>          </li>
+          <li>
+<span><a title="converts a list of rational polynomials into Laurent polynomials" href="_to__Laurent__Polynomial.html">toLaurentPolynomial</a> -- converts a list of rational polynomials into Laurent polynomials</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>solveRationalSystem</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;solveRationalSystem(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="approximates solutions to a rational system of equations" href="_solve__Rational__System.html">solveRationalSystem</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

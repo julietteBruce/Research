@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>creating gates</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_declare__Variable.html">next</a> | <a href="_compressing_spcircuits.html">previous</a> | <a href="_declare__Variable.html">forward</a> | <a href="_compressing_spcircuits.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Straight Line Programs and expressions for evaluation circuits" href="index.html">SLPexpressions</a> :: <a href="_creating_spgates.html">creating gates</a>    </div>
+    <hr/>
+    <div>
+      <h1>creating gates</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">inputGate L</code></dd>
+              <dd><code class="language-macaulay2">sumGate L</code></dd>
+              <dd><code class="language-macaulay2">productGate L</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all gates" href="___Gate.html">InputGate</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <p>This method returns a type of <a title="the class of all gates" href="___Gate.html">Gate</a> from the given data. Some specific <a title="the class of all gates" href="___Gate.html">Gate</a>s are constructed as follows:</p>
+          <p><a title="the class of all gates" href="___Gate.html">InputGate</a> is constructed with <a href="_creating_spgates.html">inputGate</a> <tt>name</tt>, if <tt>name</tt> is a number then this gate is assumed to be constant.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : declareVariable X
+
+o1 = X
+
+o1 : InputGate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : declareVariable Y
+
+o2 = Y
+
+o2 : InputGate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : inputGate 3
+
+o3 = 3
+
+o3 : InputGate</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><a title="the class of all gates" href="___Gate.html">SumGate</a> is constructed with <a href="_creating_spgates.html">sumGate</a> L, where L is a list of gates, or <a href="_arithmetic_spwith_spcircuits.html">Gate + Gate</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : X + 1
+
+o4 = (X + 1)
+
+o4 : SumGate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : sumGate{X,Y}
+
+o5 = (X + Y)
+
+o5 : SumGate</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><a title="the class of all gates" href="___Gate.html">ProductGate</a> is constructed with <a href="_creating_spgates.html">productGate</a> L, where L is a list of gates, or <a href="_arithmetic_spwith_spcircuits.html">Gate * Gate</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : 2*Y
+
+o6 = (2 * Y)
+
+o6 : ProductGate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : productGate{X,-X,Y}
+
+o7 = (X * (-1 * X) * Y)
+
+o7 : ProductGate</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><a title="the class of all gates" href="___Gate.html">DivideGate</a> is constructed with <a href="_arithmetic_spwith_spcircuits.html">Gate / Gate</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : X / Y
+
+     X
+o8 = -
+     Y
+
+o8 : DivideGate</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><a title="the class of all gates" href="___Gate.html">DetGate</a> is constructed with <a href="_creating_spgates.html">detGate</a> L, where L is a doubly-nested list of gates, or det A, where A is a <a title="a matrix of Gates" href="___Gate__Matrix.html">GateMatrix</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : detGate {{X, Y}, {-Y, X}}
+
+o9 = det| X        Y |
+        | (-1 * Y) X |
+
+o9 : DetGate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : det matrix{{Y, 1}, {-1, X}}
+
+o10 = det| Y  1 |
+         | -1 X |
+
+o10 : DetGate</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the class of all gates" href="___Gate.html">Gate</a> -- the class of all gates</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

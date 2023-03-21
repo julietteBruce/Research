@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>resLengthThreeAlg -- the minimal free resolution presented as a graded-commutative ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_res__Length__Three__Tor__Alg.html">next</a> | <a href="_mult__Table__One__Two_lp..._cm__Labels_eq_gt..._rp.html">previous</a> | <a href="_res__Length__Three__Tor__Alg.html">forward</a> | <a href="_mult__Table__One__Two_lp..._cm__Labels_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computation of multiplicative structures on free resolutions of length three" href="index.html">ResLengthThree</a> :: <a title="the minimal free resolution presented as a graded-commutative ring" href="_res__Length__Three__Alg.html">resLengthThreeAlg</a>    </div>
+    <hr/>
+    <div>
+      <h1>resLengthThreeAlg -- the minimal free resolution presented as a graded-commutative ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">resLengthThreeAlg F, resLengthThreeAlg(F,L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, a length three free resolution of a cyclic module</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of three symbols</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">quotient ring</a></span>, the resolution presented as a quotient of a graded-commutative free algebra over the ambient ring</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>For a free resolution <tt>F</tt> over a ring <tt>Q</tt>, the function returns the resolution <tt>F</tt> as a quotient of a graded-commutative free algebra over <tt>Q</tt>. The basis vectors in degrees 1, 2, and 3 are named with the symbols from the list <tt>L</tt>. The default symbols are <tt>e</tt>, <tt>f</tt>, and <tt>g</tt>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : A = resLengthThreeAlg res ideal (x^2,y^2,z^2)
+
+o2 = A
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : describe A
+
+                     Q[e ..f , g ]
+                        1   3   1
+o3 = --------------------------------------------
+     (e e  - f , e e  - f , e e  - f , e f  - g )
+       2 3    3   1 3    2   1 2    1   1 3    1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : e_1*e_2
+
+o4 = f
+      1
+
+o4 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : e_1*f_2
+
+o5 = 0
+
+o5 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : e_1*f_3
+
+o6 = g
+      1
+
+o6 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : f_1*f_2
+
+o7 = 0
+
+o7 : A</code></pre>
+</td>          </tr>
+        </table>
+        <p>The ambient ring <tt>Q</tt> does not need to be a polynomial algebra.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : P = QQ[u,v,x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : Q = P/ideal(u^2,u*v);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : F = resLengthThreeAlg ( res ideal (x^2,x*y,y^2,z^2), {a,b,c} )
+
+o10 = F
+
+o10 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : describe F
+
+                                                                     Q[a ..a , b ..b , c ..c ]
+                                                                        1   4   1   5   1   2
+o11 = -------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                                                 2         2
+      (a a  - b , a a  - b , a a  - b , a a  - y*b , a a  - x*b  - y*b , a a  - x*b , a b  + c , a b , a b , a b , a b  + c , a b , a b , a b , b , b b , b )
+        3 4    3   2 4    4   1 4    5   2 3      1   1 3      1      2   1 2      2   4 2    2   3 2   2 2   1 2   4 1    1   3 1   2 1   1 1   2   1 2   1</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : P = QQ[u,v];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : Q = (P/ideal(u^2,u*v))[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : A = resLengthThreeAlg res ideal (x^2,x*y,y^2,z^2)
+
+o14 = A
+
+o14 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : describe A
+
+                                                                     Q[e ..e , f ..f , g ..g ]
+                                                                        1   4   1   5   1   2
+o15 = -------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                                                 2         2
+      (e e  - f , e e  - f , e e  - f , e e  - y*f , e e  - y*f  - x*f , e e  - x*f , e f  - g , e f , e f , e f , e f  - g , e f , e f , e f , f , f f , f )
+        3 4    5   2 4    4   1 4    3   2 3      2   1 3      1      2   1 2      1   4 2    2   3 2   2 2   1 2   4 1    1   3 1   2 1   1 1   2   1 2   1</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : P = ZZ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : Q = P/ideal(4_P);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : A = resLengthThreeAlg res ideal (x^2,y^2,z^2)
+
+o18 = A
+
+o18 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : describe A
+
+                                                                                    Q[e ..f , g ]
+                                                                                       1   3   1
+o19 = ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                                2               2         2
+      (e e  - f , e e  - f , e e  - f , e f , e f  + g , e f , e f , e f , e f  - g , e f  - g , e f , e f , e g , e g , e g , f , f f , f f , f , f f , f , f g , f g , f g )
+        2 3    2   1 3    3   1 2    1   3 3   2 3    1   1 3   3 2   2 2   1 2    1   3 1    1   2 1   1 1   3 1   2 1   1 1   3   2 3   1 3   2   1 2   1   3 1   2 1   1 1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+The ambient ring <tt>Q </tt>must be homogeneous.      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>resLengthThreeAlg</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;resLengthThreeAlg(ChainComplex)&quot;</tt>          </li>
+          <li>
+<tt>&quot;resLengthThreeAlg(ChainComplex,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the minimal free resolution presented as a graded-commutative ring" href="_res__Length__Three__Alg.html">resLengthThreeAlg</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>mapOntoImage -- the induced map from a variety to the closure of its image under a rational map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Minors__Limit.html">next</a> | <a href="_map_lp__Rational__Mapping_rp.html">previous</a> | <a href="___Minors__Limit.html">forward</a> | <a href="_map_lp__Rational__Mapping_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="rational maps between projective varieties" href="index.html">RationalMaps</a> :: <a title="the induced map from a variety to the closure of its image under a rational map" href="_map__Onto__Image.html">mapOntoImage</a>    </div>
+    <hr/>
+    <div>
+      <h1>mapOntoImage -- the induced map from a variety to the closure of its image under a rational map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">h = mapOntoImage(f)</code></dd>
+              <dd><code class="language-macaulay2">psi = mapOntoImage(phi)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, the ring map corresponding to a rational map $\phi$ of projective varieties</span>              </li>
+              <li>
+<span><tt>phi</tt>, <span>an instance of the type <a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a></span>, a rational map $\phi$ of projective varieties</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>QuickRank</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, whether to compute rank via the package <a title="faster linear algebra, especially for computation of minors" href="../../FastMinors/html/index.html">FastMinors</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>h</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, the map of rings corresponding to $X \to \overline{\phi(X)}$.</span>              </li>
+              <li>
+<span><tt>psi</tt>, <span>an instance of the type <a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a></span>, the rational map</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given $f : X \to Y$ <tt>mapOntoImage</tt> returns $X \to \overline{\phi(X)}$.  Alternately, given $f: S \to R$, <tt>mapOntoImage</tt> just returns $S/(kernel f) \to R$.  <tt>mapOntoImage</tt> first computes whether the kernel is $0$ without calling <a title="kernel of a ringmap" href="../../Macaulay2Doc/html/_kernel_lp__Ring__Map_rp.html">ker</a>, which can have speed advantages.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = map(R, S, {x^2, x*y, y^2});
+
+o3 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : mapOntoImage(f)
+
+                 S       2        2
+o4 = map (R, --------, {x , x*y, y })
+              2
+             b  - a*c
+
+                        S
+o4 : RingMap R &lt;--- --------
+                     2
+                    b  - a*c</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : phi = rationalMapping f
+
+                               2        2
+o5 = Proj R - - - > Proj S   {x , x*y, y }
+
+o5 : RationalMapping</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : mapOntoImage(phi)
+
+                        /    S   \     2        2
+o6 = Proj R - - - > Proj|--------|   {x , x*y, y }
+                        | 2      |
+                        \b  - a*c/
+
+o6 : RationalMapping</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>mapOntoImage</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;mapOntoImage(RationalMapping)&quot;</tt>          </li>
+          <li>
+<tt>&quot;mapOntoImage(RingMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the induced map from a variety to the closure of its image under a rational map" href="_map__Onto__Image.html">mapOntoImage</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

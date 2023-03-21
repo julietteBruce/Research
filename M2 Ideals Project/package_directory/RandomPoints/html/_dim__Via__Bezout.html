@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>dimViaBezout -- computes the dimension of the given ideal $I$ probabilistically</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Extend__Field.html">next</a> | <a href="___Dimension__Function.html">previous</a> | <a href="___Extend__Field.html">forward</a> | <a href="___Dimension__Function.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Obtain random points in a variety" href="index.html">RandomPoints</a> :: <a title="computes the dimension of the given ideal $I$ probabilistically" href="_dim__Via__Bezout.html">dimViaBezout</a>    </div>
+    <hr/>
+    <div>
+      <h1>dimViaBezout -- computes the dimension of the given ideal $I$ probabilistically</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">dimViaBezout(I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, in a polynomial ring over a field</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>DimensionIntersectionAttempts</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value null</span>, the number of linear spaces to try before moving to the next dimension</span>              </li>
+              <li>
+<span><tt>MinimumFieldSize</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value null</span>, if the ambient field is smaller than this value it will automatically be replaced with an extension</span>              </li>
+              <li>
+<span><tt>Homogeneous</tt><tt> => </tt><tt>...</tt>, <span>default value true</span></span>              </li>
+              <li>
+<span><a title="When changing coordinates, whether to replace variables by general degree 1 forms, binomials, etc." href="___Replacement.html">Replacement</a><tt> => </tt><tt>...</tt>, <span>default value Full</span>, When changing coordinates, whether to replace variables by general degree 1 forms, binomials, etc.</span>              </li>
+              <li>
+<span><tt>Verbose</tt><tt> => </tt><tt>...</tt>, <span>default value false</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, d = dimension of the ideal $I$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This intersects $V(I)$ with successively higher dimensional random linear spaces until there is an intersection.  For example, if $V(I)$ intersect a random line has a point, then we expect that $V(I)$ contains a hypersurface.  If there was no intersection, this function tries a 2-dimensional linear space, and so on.  This greatly speeds up some computations, although in other examples, the built in <tt>dim</tt> function is much faster.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk=ZZ/101;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S=kk[y_0..y_8];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : I=ideal random(S^1,S^{-2,-2,-2,-2})+(ideal random(2,S))^2;
+
+o3 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : elapsedTime dimViaBezout(I)
+ -- 4.89232 seconds elapsed
+
+o4 = 4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : elapsedTime dim I
+ -- 20.3881 seconds elapsed
+
+o5 = 4</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The user may set the <tt>MinimumFieldSize</tt> to ensure that the field being worked over is big enough.  For instance, there are relatively few linear spaces over a field of characteristic 2, and this can cause incorrect results to be provided.  If no size is provided, the function tries to guess a good size based on ambient ring.</p>
+        </div>
+        <div>
+          <p>If the option <tt>Homogeneous=>true</tt> then we use homogeneous linear spaces if the ideal itself is homogeneous.  Otherwise our linear spaces are not homogeneous.</p>
+        </div>
+        <div>
+          <p>The user may also specify what sort of linear forms to intersect with via the <a title="When changing coordinates, whether to replace variables by general degree 1 forms, binomials, etc." href="___Replacement.html">Replacement</a> option.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="an option for specifying custom dimension functions" href="___Dimension__Function.html">DimensionFunction</a> -- an option for specifying custom dimension functions</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>dimViaBezout</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;dimViaBezout(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the dimension of the given ideal $I$ probabilistically" href="_dim__Via__Bezout.html">dimViaBezout</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

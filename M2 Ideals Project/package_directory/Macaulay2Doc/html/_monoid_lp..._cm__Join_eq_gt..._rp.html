@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>monoid(...,Join=>...) -- specify how to handle degrees in the coefficient ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_monoid_lp..._cm__Monomial__Order_eq_gt..._rp.html">next</a> | <a href="_monoid_lp..._cm__Heft_eq_gt..._rp.html">previous</a> | <a href="_monoid_lp..._cm__Monomial__Order_eq_gt..._rp.html">forward</a> | <a href="_monoid_lp..._cm__Heft_eq_gt..._rp.html">backward</a> | <a href="_monoid.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> > <a href="_rings.html">rings</a> > <a title="make or retrieve a monoid" href="_monoid.html">monoid</a> > <a title="specify how to handle degrees in the coefficient ring" href="_monoid_lp..._cm__Join_eq_gt..._rp.html">monoid(...,Join=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>monoid(...,Join=>...) -- specify how to handle degrees in the coefficient ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">monoid[a,b,c, Join => P]</code></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The <tt>Join</tt> option specifies whether the degrees in the new monoid ring will be obtained by joining the degrees in the coefficient with the degrees in the monoid.</p>
+          <p>By default, (multi)degrees are concatenated when forming polynomial rings over polynomial rings, as can be seen by examining the corresponding flattened monoid, which displays information about all of the variables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x][y]
+
+o1 = QQ[x][y]
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : oo.FlatMonoid
+
+o2 = monoid[y, x, Degrees => {{1}, {0}}, Heft => {2:1}, MonomialOrder => {MonomialSize => 32}]
+                              {0}  {1}                                   {GRevLex => {1}    }
+                                                                         {Position => Up    }
+                                                                         {GRevLex => {1}    }
+
+o2 : GeneralOrderedMonoid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : QQ[x][y][z]
+
+o3 = QQ[x][y][z]
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : oo.FlatMonoid
+
+o4 = monoid[z, y, x, Degrees => {{1}, {0}, {0}}, Heft => {3:1}, MonomialOrder => {MonomialSize => 32}]
+                                 {0}  {1}  {0}                                   {GRevLex => {1}    }
+                                 {0}  {0}  {1}                                   {Position => Up    }
+                                                                                 {2:(GRevLex => {1})}
+
+o4 : GeneralOrderedMonoid</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>That behavior can be overridden with the <a title="specify how to handle degrees in the coefficient ring" href="_monoid_lp..._cm__Join_eq_gt..._rp.html">monoid(...,Join=>...)</a> option.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : QQ[x][y, Join => false]
+
+o5 = QQ[x][y]
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : oo.FlatMonoid
+
+o6 = monoid[y, x, Degrees => {2:1}, Heft => {1}, Join => false, MonomialOrder => {MonomialSize => 32}]
+                                                                                 {GRevLex => {1}    }
+                                                                                 {Position => Up    }
+                                                                                 {GRevLex => {1}    }
+
+o6 : GeneralOrderedMonoid</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This option may also be used when creating a new ring from an existing ring, creating a tensor product ring, or symmetric algebra.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <tt>null</tt></span>          </li>
+          <li>
+<span>Function: <span><a title="make or retrieve a monoid" href="_monoid.html">monoid</a> -- make or retrieve a monoid</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="an optional argument" href="___Join.html">Join</a> -- an optional argument</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make or retrieve a monoid" href="_monoid.html">monoid</a> -- make or retrieve a monoid</span>          </li>
+          <li>
+<span><a title="make a copy of a ring, with some features changed" href="_new__Ring.html">newRing</a> -- make a copy of a ring, with some features changed</span>          </li>
+          <li>
+<span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Ring,Ring)</a> -- tensor product of monoids</span>          </li>
+          <li>
+<span><a title="the symmetric algebra of a module" href="_symmetric__Algebra.html">symmetricAlgebra</a> -- the symmetric algebra of a module</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Join</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="specify how to handle degrees in the coefficient ring" href="_monoid_lp..._cm__Join_eq_gt..._rp.html">monoid(...,Join=>...)</a> -- specify how to handle degrees in the coefficient ring</span>          </li>
+          <li>
+<span><tt>&quot;newRing(...,Join=>...)&quot;</tt> -- see <span><a title="make a copy of a ring, with some features changed" href="_new__Ring.html">newRing</a> -- make a copy of a ring, with some features changed</span></span>          </li>
+          <li>
+<span><tt>&quot;symmetricAlgebra(...,Join=>...)&quot;</tt> -- see <span><a title="the symmetric algebra of a module" href="_symmetric__Algebra.html">symmetricAlgebra</a> -- the symmetric algebra of a module</span></span>          </li>
+          <li>
+<span><tt>&quot;tensor(Monoid,Monoid,Join=>...)&quot;</tt> -- see <span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Monoid,Monoid)</a> -- tensor product of monoids</span></span>          </li>
+          <li>
+<span><tt>&quot;tensor(Ring,Ring,Join=>...)&quot;</tt> -- see <span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Monoid,Monoid)</a> -- tensor product of monoids</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

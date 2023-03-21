@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>jacobianDualMatrix -- computes the Jacobian dual matrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_map_lp__Rational__Mapping_rp.html">next</a> | <a href="_is__Same__Map.html">previous</a> | <a href="_map_lp__Rational__Mapping_rp.html">forward</a> | <a href="_is__Same__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="rational maps between projective varieties" href="index.html">RationalMaps</a> :: <a title="computes the Jacobian dual matrix" href="_jacobian__Dual__Matrix.html">jacobianDualMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>jacobianDualMatrix -- computes the Jacobian dual matrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = jacobianDualMatrix(p)</code></dd>
+              <dd><code class="language-macaulay2">M = jacobianDualMatrix(phi)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>phi</tt>, <span>an instance of the type <a title="a rational mapping between projective varieties" href="___Rational__Mapping.html">RationalMapping</a></span>, a rational map between projective varieties</span>              </li>
+              <li>
+<span><tt>p</tt>, <span>a <a title="the class of all ring maps" href="../../Macaulay2Doc/html/___Ring__Map.html">ring map</a></span>, ring map corresponding to a rational map between projective varieties</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value ReesStrategy</span>, choose the strategy to use: ReesStrategy or SaturationStrategy</span>              </li>
+              <li>
+<span><tt>AssumeDominant</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, whether to assume the provided rational map of projective varieties is dominant, if set to true it can speed up computation</span>              </li>
+              <li>
+<span><tt>QuickRank</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, whether to compute rank via the package <a title="faster linear algebra, especially for computation of minors" href="../../FastMinors/html/index.html">FastMinors</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a matrix $M$ over the coordinate ring of the image, the kernel of $M$ describes the syzygies of the inverse map, if it exists.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The Jacobian dual matrix is a matrix whose kernel describes the syzygies of the matrix corresponding to the inverse map. For more information, see</p>
+        </div>
+        <div>
+          <ul>
+            <li>
+Doria, A. V.; Hassanzadeh, S. H.; Simis, A. A characteristic-free criterion of birationality.<em> Adv. Math.</em> 230 (2012), no. 1, 390--413.            </li>
+          </ul>
+        </div>
+        <div>
+          <p>This is mostly an internal function. It is used when checking whether a map is birational and when computing the inverse map.  If the <tt>AssumeDominant</tt> option is set to <tt>true</tt>, it assumes that the kernel of the associated ring map is zero (default value is false).  Valid values for the <tt>Strategy</tt> option are <tt>ReesStrategy</tt> and <tt>SaturationStrategy</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S=QQ[a,b,c,d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Pi = map(R, S, {x^3, x^2*y, x*y^2, y^3});
+
+o3 : RingMap R &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : jacobianDualMatrix(Pi, Strategy=>SaturationStrategy)
+
+o4 = | -d -c -b 0 0 0 |
+     | c  b  a  0 0 0 |
+
+            /               S               \2      /               S               \6
+o4 : Matrix |-------------------------------|  &lt;--- |-------------------------------|
+            |  2                    2       |       |  2                    2       |
+            \(c  - b*d, b*c - a*d, b  - a*c)/       \(c  - b*d, b*c - a*d, b  - a*c)/</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="A strategy for determining whether a map is birational and computing its inverse" href="___Hybrid__Strategy.html">HybridStrategy</a> -- A strategy for determining whether a map is birational and computing its inverse</span>          </li>
+          <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Simis__Strategy.html">SimisStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>          </li>
+          <li>
+<span><a title="a strategy for determining whether a map is birational and computing its inverse" href="___Rees__Strategy.html">ReesStrategy</a> -- a strategy for determining whether a map is birational and computing its inverse</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>jacobianDualMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;jacobianDualMatrix(RationalMapping)&quot;</tt>          </li>
+          <li>
+<tt>&quot;jacobianDualMatrix(RingMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the Jacobian dual matrix" href="_jacobian__Dual__Matrix.html">jacobianDualMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

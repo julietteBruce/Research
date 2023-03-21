@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>codimCount -- codimension counts of the chains of a chordal network</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_components_lp__Chordal__Net_cm__Z__Z_rp.html">next</a> | <a href="_chromatic__Ideal.html">previous</a> | <a href="_components_lp__Chordal__Net_cm__Z__Z_rp.html">forward</a> | <a href="_chromatic__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="exploiting chordal structure in polynomial ideals" href="index.html">Chordal</a> :: <a title="codimension counts of the chains of a chordal network" href="_codim__Count.html">codimCount</a>    </div>
+    <hr/>
+    <div>
+      <h1>codimCount -- codimension counts of the chains of a chordal network</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">codimCount N</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>an instance of the type <a title="a chordal network" href="___Chordal__Net.html">ChordalNet</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="get dynamic programming table" href="___Get__Table.html">GetTable</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, get dynamic programming table</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, generating function of the codimensions of the chains</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method classifies the number of <a title="a chain of a chordal network" href="___Chordal__Net__Chain.html">chains</a> of the network according to its codimension. The output is the generating function of such counts. For instance, if there are ten chains of codimension 4 and one chain of codimension 6 the output is $t^6+10t^4$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : I = adjacentMinorsIdeal(QQ,2,5);
+
+o1 : Ideal of QQ[a..j]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : N = chordalNet I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : chordalTria N;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : codimCount N
+
+       6      5     4
+o4 = 5t  + 11t  + 5t
+
+o4 : ZZ[t]</code></pre>
+</td>          </tr>
+        </table>
+        <pre></pre>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a chain of a chordal network" href="___Chordal__Net__Chain.html">ChordalNetChain</a> -- a chain of a chordal network</span>          </li>
+          <li>
+<span><a title="iterates over the chains of a chordal network" href="_next__Chain.html">nextChain</a> -- iterates over the chains of a chordal network</span>          </li>
+          <li>
+<span><a title="dimension of a chordal network" href="_dim_lp__Chordal__Net_rp.html">codim(ChordalNet)</a> -- dimension of a chordal network</span>          </li>
+          <li>
+<span><a title="counts the number of roots of a chordal network" href="_root__Count.html">rootCount</a> -- counts the number of roots of a chordal network</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>codimCount</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;codimCount(ChordalNet)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="codimension counts of the chains of a chordal network" href="_codim__Count.html">codimCount</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

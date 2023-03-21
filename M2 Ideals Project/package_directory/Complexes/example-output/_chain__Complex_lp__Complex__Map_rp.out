@@ -1,0 +1,143 @@
+-- -*- M2-comint -*- hash: -638041749
+
+i1 : R = ZZ/101[a..d];
+
+i2 : I = monomialCurveIdeal(R, {1,2,3})
+
+             2                    2
+o2 = ideal (c  - b*d, b*c - a*d, b  - a*c)
+
+o2 : Ideal of R
+
+i3 : M = R^1/I
+
+o3 = cokernel | c2-bd bc-ad b2-ac |
+
+                            1
+o3 : R-module, quotient of R
+
+i4 : D = freeResolution M
+
+      1      3      2
+o4 = R  <-- R  <-- R
+                    
+     0      1      2
+
+o4 : Complex
+
+i5 : C = resolution M
+
+      1      3      2
+o5 = R  <-- R  <-- R  <-- 0
+                           
+     0      1      2      3
+
+o5 : ChainComplex
+
+i6 : g = D.dd
+
+          1                             3
+o6 = 0 : R  <------------------------- R  : 1
+               | b2-ac bc-ad c2-bd |
+
+          3                     2
+     1 : R  <----------------- R  : 2
+               {2} | -c d  |
+               {2} | b  -c |
+               {2} | -a b  |
+
+o6 : ComplexMap
+
+i7 : f = chainComplex g
+
+          1                             3
+o7 = 0 : R  <------------------------- R  : 1
+               | b2-ac bc-ad c2-bd |
+
+          3                     2
+     1 : R  <----------------- R  : 2
+               {2} | -c d  |
+               {2} | b  -c |
+               {2} | -a b  |
+
+o7 : ChainComplexMap
+
+i8 : assert(f == C.dd)
+
+i9 : J = ideal vars R
+
+o9 = ideal (a, b, c, d)
+
+o9 : Ideal of R
+
+i10 : C1 = resolution(R^1/J)
+
+       1      4      6      4      1
+o10 = R  <-- R  <-- R  <-- R  <-- R  <-- 0
+                                          
+      0      1      2      3      4      5
+
+o10 : ChainComplex
+
+i11 : D1 = freeResolution(R^1/J)
+
+       1      4      6      4      1
+o11 = R  <-- R  <-- R  <-- R  <-- R
+                                   
+      0      1      2      3      4
+
+o11 : Complex
+
+i12 : g = randomComplexMap(D1, D, Cycle => true)
+
+           1               1
+o12 = 0 : R  <----------- R  : 0
+                | -16 |
+
+           4                                                          3
+      1 : R  <------------------------------------------------------ R  : 1
+                {1} | -19b+45c-34d    -19b+8c-3d  -10b-22c-47d   |
+                {1} | 19a-16b+24c+39d 19a+22c+29d 10a-39c+29d    |
+                {1} | -29a-24b-15d    -8a-38b-28d 22a+39b-16c-7d |
+                {1} | 34a-39b+15c     19a-29b+28c 47a-13b+7c     |
+
+           6                                                 2
+      2 : R  <--------------------------------------------- R  : 2
+                {2} | -10a+19b+44c+36d 10b+2c-24d       |
+                {2} | -22a+30b+45c-22d b+8c+9d          |
+                {2} | 24a-38b+24c+43d  21a+39b+22c+23d  |
+                {2} | -47a-33b-12c     -11b+44c+34d     |
+                {2} | -36a-29b-4c      -43a-13b-18c-39d |
+                {2} | -29a-30b-15c     38a-47b-28c+15d  |
+
+o12 : ComplexMap
+
+i13 : f = chainComplex g
+
+           1               1
+o13 = 0 : R  <----------- R  : 0
+                | -16 |
+
+           4                                                          3
+      1 : R  <------------------------------------------------------ R  : 1
+                {1} | -19b+45c-34d    -19b+8c-3d  -10b-22c-47d   |
+                {1} | 19a-16b+24c+39d 19a+22c+29d 10a-39c+29d    |
+                {1} | -29a-24b-15d    -8a-38b-28d 22a+39b-16c-7d |
+                {1} | 34a-39b+15c     19a-29b+28c 47a-13b+7c     |
+
+           6                                                 2
+      2 : R  <--------------------------------------------- R  : 2
+                {2} | -10a+19b+44c+36d 10b+2c-24d       |
+                {2} | -22a+30b+45c-22d b+8c+9d          |
+                {2} | 24a-38b+24c+43d  21a+39b+22c+23d  |
+                {2} | -47a-33b-12c     -11b+44c+34d     |
+                {2} | -36a-29b-4c      -43a-13b-18c-39d |
+                {2} | -29a-30b-15c     38a-47b-28c+15d  |
+
+o13 : ChainComplexMap
+
+i14 : assert(g == complex f)
+
+i15 : assert(isComplexMorphism g)
+
+i16 : 

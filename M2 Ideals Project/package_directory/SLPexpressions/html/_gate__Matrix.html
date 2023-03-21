@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gateMatrix -- create a GateMatrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gate__Polynomial.html">next</a> | <a href="___Gate__Matrix.html">previous</a> | <a href="_gate__Polynomial.html">forward</a> | <a href="___Gate__Matrix.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Straight Line Programs and expressions for evaluation circuits" href="index.html">SLPexpressions</a> :: <a title="create a GateMatrix" href="_gate__Matrix.html">gateMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>gateMatrix -- create a GateMatrix</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gateMatrix M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, a <a title="make a matrix" href="../../Macaulay2Doc/html/_matrix.html">matrix</a> or a table (a nested <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="a matrix of Gates" href="___Gate__Matrix.html">GateMatrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This methods creates a <a title="a matrix of Gates" href="___Gate__Matrix.html">GateMatrix</a> from the given input data, which should be a matrix or a doubly-nested list.</p>
+          <p>The package <a title="Straight Line Programs and expressions for evaluation circuits" href="index.html">SLPexpressions</a> overrides <a title="make a matrix" href="../../Macaulay2Doc/html/_matrix.html">matrix</a> to allow a table (a nested list) of <a title="the class of all gates" href="___Gate.html">Gate</a>s as an argument.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : declareVariable x; declareVariable y;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : A = matrix { apply(5,i->i*x) }
+
+o3 = {{0, x, (2 * x), (3 * x), (4 * x)}}
+
+o3 : GateMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : A#0
+
+o4 = {0, x, (2 * x), (3 * x), (4 * x)}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : A#0#0
+
+o5 = 0
+
+o5 : InputGate</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : B = matrix { apply(4,i->y^i) }
+
+o6 = {{1, (y), (y * y), (y * y * y)}}
+
+o6 : GateMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : C = transpose A * B
+
+o7 = {{(0), (0), (0), (0)}, {(x), ((x * (y))), ((x * (y * y))), ((x * (y * y
+     ------------------------------------------------------------------------
+     * y)))}, {((2 * x)), (((2 * x) * (y))), (((2 * x) * (y * y))), (((2 * x)
+     ------------------------------------------------------------------------
+     * (y * y * y)))}, {((3 * x)), (((3 * x) * (y))), (((3 * x) * (y * y))),
+     ------------------------------------------------------------------------
+     (((3 * x) * (y * y * y)))}, {((4 * x)), (((4 * x) * (y))), (((4 * x) *
+     ------------------------------------------------------------------------
+     (y * y))), (((4 * x) * (y * y * y)))}}
+
+o7 : GateMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : numrows C, numcols C
+
+o8 = (5, 4)
+
+o8 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a matrix of Gates" href="___Gate__Matrix.html">GateMatrix</a> -- a matrix of Gates</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gateMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gateMatrix(GateMatrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gateMatrix(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gateMatrix(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="create a GateMatrix" href="_gate__Matrix.html">gateMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

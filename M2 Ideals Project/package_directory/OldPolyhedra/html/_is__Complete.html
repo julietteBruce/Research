@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isComplete -- checks completeness of a Fan or PolyhedralComplex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Empty.html">next</a> | <a href="_is__Compact.html">previous</a> | <a href="_is__Empty.html">forward</a> | <a href="_is__Compact.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="checks completeness of a Fan or PolyhedralComplex" href="_is__Complete.html">isComplete</a>    </div>
+    <hr/>
+    <div>
+      <h1>isComplete -- checks completeness of a Fan or PolyhedralComplex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b = isComplete X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span>, or <span>an instance of the type <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <a href="../../Macaulay2Doc/html/_true.html">true</a> if the <a title="the class of all fans" href="___Fan.html">Fan</a>/<a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a> is complete, <a href="../../Macaulay2Doc/html/_false.html">false</a> otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+<tt>isComplete</tt> just calls an entry in the hash table of the Fan. The check for completeness is done while generating the fan. Whenever a full dimensional Cone is added (see <a title="generates a Fan" href="_fan.html">fan</a> or <a title="adds cones to a Fan" href="_add__Cone.html">addCone</a>) the set of faces of codimension 1 that appear only in one full dimensional Cone is updated. The Fan is then complete if and only if this set is empty and there is at least one full dimensional Cone.        <p/>
+ For a <a title="the class of all polyhedral complexes" href="___Polyhedral__Complex.html">PolyhedralComplex</a> the function does the same. Just note, that a complete polyhedral complex must contain non-compact polyhedra.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : C1 = posHull matrix {{1,0},{0,1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C2 = posHull matrix {{1,-1},{0,-2}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C3 = posHull matrix {{0,-2},{1,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = fan {C1,C2,C3}
+
+o4 = {ambient dimension => 2         }
+      number of generating cones => 3
+      number of rays => 4
+      top dimension of the cones => 2
+
+o4 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isComplete F
+
+o5 = false</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+Hence the fan above is not complete, but we can add the missing cone:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C4 = posHull matrix {{-1,-2},{-2,-1}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : F = addCone(C4,F)
+
+o7 = {ambient dimension => 2         }
+      number of generating cones => 4
+      number of rays => 4
+      top dimension of the cones => 2
+
+o7 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isComplete F
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isComplete</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isComplete(Fan)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isComplete(PolyhedralComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="checks completeness of a Fan or PolyhedralComplex" href="_is__Complete.html">isComplete</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

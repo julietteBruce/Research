@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>AbstractSheaf RingElement -- twist by a divisor class</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="___O__O_sp_us_sp__Ring__Element.html">previous</a> | <a href="_-_sp__Abstract__Sheaf.html">forward</a> | <a href="___O__O_sp_us_sp__Ring__Element.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computation in intersection theory" href="index.html">Schubert2</a> > <a title="twist by a divisor class" href="___Abstract__Sheaf_sp__Ring__Element.html">AbstractSheaf RingElement</a>    </div>
+    <hr/>
+    <div>
+      <h1>AbstractSheaf RingElement -- twist by a divisor class</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="blank operator; often used for function application, making polynomial rings" href="../../Macaulay2Doc/html/___S__P__A__C__E.html">SPACE</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">F(n)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>an <a title="the class of all abstract sheaves" href="___Abstract__Sheaf.html">abstract sheaf</a></span>, </span>              </li>
+              <li>
+<span><tt>n</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, in (or promotable to) the intersection ring of the variety of $F$, homogeneous of degree 1 or 0</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all abstract sheaves" href="___Abstract__Sheaf.html">abstract sheaf</a></span>, which depends on the degree of <tt>n</tt>. In the case where <tt>n</tt> has degree 0, the sheaf returned is the tensor product of <tt>F</tt> with the <tt>n</tt>-th (tensor) power of the tautological line bundle on the variety of <tt>F</tt>. In the case where <tt>n</tt> has degree 1, the sheaf returned is the tensor product of <tt>F</tt> with the line bundle whose first Chern class is <tt>n</tt>.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = abstractProjectiveSpace' 4
+
+o1 = X
+
+o1 : a flag bundle with subquotient ranks {4, 1}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : OO_X(3)
+
+o2 = a sheaf
+
+o2 : an abstract sheaf of rank 1 on X</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : chi oo
+
+o3 = 35</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : pt = base n
+
+o4 = pt
+
+o4 : an abstract variety of dimension 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Y = abstractProjectiveSpace'(4,pt)
+
+o5 = Y
+
+o5 : a flag bundle with subquotient ranks {4, 1}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : OO_Y(n)
+
+o6 = a sheaf
+
+o6 : an abstract sheaf of rank 1 on Y</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : chi oo
+
+      1 4    5 3   35 2   25
+o7 = --n  + --n  + --n  + --n + 1
+     24     12     24     12
+
+o7 : QQ[n]</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The notation <tt>OO(n)</tt> is an abbreviation for <tt>OO_X(n)</tt>, where <tt>X</tt> is the variety whose intersection ring <tt>n</tt> is in.  By default, the first Chern class of the tautological line bundle on a projective space or projective bundle is called <tt>h</tt>, so we may use <tt>OO(h)</tt> as alternative notation for <tt>OO_Y(1)</tt>:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : A = intersectionRing Y
+
+o8 = A
+
+o8 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : chern OO_Y(1)
+
+o9 = 1 + h
+
+o9 : A</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : OO(h)
+
+o10 = a sheaf
+
+o10 : an abstract sheaf of rank 1 on Y</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : chern oo
+
+o11 = 1 + h
+
+o11 : A</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Beware the low parsing precedence of the adjacency operator <a title="blank operator; often used for function application, making polynomial rings" href="../../Macaulay2Doc/html/___S__P__A__C__E.html">SPACE</a>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="get the tautological line bundle of a flag bundle or abstract variety" href="_tautological__Line__Bundle.html">tautologicalLineBundle</a> -- get the tautological line bundle of a flag bundle or abstract variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<tt>&quot;AbstractSheaf QQ&quot;</tt>          </li>
+          <li>
+<span><a title="twist by a divisor class" href="___Abstract__Sheaf_sp__Ring__Element.html">AbstractSheaf RingElement</a> -- twist by a divisor class</span>          </li>
+          <li>
+<tt>&quot;AbstractSheaf ZZ&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

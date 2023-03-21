@@ -1,0 +1,51 @@
+-- -*- M2-comint -*- hash: 1371945916
+
+i1 : R = buildERing({symbol x}, {1}, QQ, 2);
+
+i2 : S = buildERing({symbol y}, {2}, QQ, 2);
+
+i3 : m = buildEMonomialMap(R,S,{x_0*x_1})
+
+                  2               2
+o3 = map (R, S, {x , x x , x x , x })
+                  1   1 0   1 0   0
+
+o3 : RingMap R <--- S
+
+i4 : G = egbToric(m, OutFile=>stdio)
+3
+     -- used .00293575 seconds
+     -- used .000216707 seconds
+(9, 9)
+new stuff found
+4
+     -- used .00473863 seconds
+     -- used .00152035 seconds
+(16, 26)
+new stuff found
+5
+     -- used .00844611 seconds
+     -- used .00531394 seconds
+(25, 60)
+6
+     -- used .0176543 seconds
+     -- used .0153448 seconds
+(36, 120)
+7
+     -- used .0364397 seconds
+     -- used .0436364 seconds
+(49, 217)
+
+                                   2
+o4 = {- y    + y   , - y   y    + y   , - y   y    + y   y   , - y   y    +
+         1,0    0,1     1,1 0,0    1,0     2,1 0,0    2,0 1,0     2,1 1,0  
+     ------------------------------------------------------------------------
+     y   y   , - y   y    + y   y   , - y   y    + y   y   , - y   y    +
+      2,0 1,1     2,2 1,0    2,1 2,0     3,2 1,0    3,0 2,1     3,2 1,0  
+     ------------------------------------------------------------------------
+     y   y   }
+      3,1 2,0
+
+o4 : List
+
+i5 : 

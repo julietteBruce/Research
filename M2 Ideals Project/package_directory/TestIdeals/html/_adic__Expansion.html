@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>adicExpansion -- compute adic expansion</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_adic__Truncation.html">next</a> | <a href="_adic__Digit.html">previous</a> | <a href="_adic__Truncation.html">forward</a> | <a href="_adic__Digit.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for calculations of singularities in positive characteristic " href="index.html">TestIdeals</a> :: <a title="compute adic expansion" href="_adic__Expansion.html">adicExpansion</a>    </div>
+    <hr/>
+    <div>
+      <h1>adicExpansion -- compute adic expansion</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L1 = adicExpansion(p, N)</code></dd>
+              <dd><code class="language-macaulay2">L2 = adicExpansion(p, e, x)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>p</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, greater than 1; the desired base</span>              </li>
+              <li>
+<span><tt>N</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, positive; the number whose base $p$ expansion is to be computed</span>              </li>
+              <li>
+<span><tt>e</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, positive, which specifies how many digits are to be computed</span>              </li>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">rational number</a></span>, in the interval [0,1]; the number whose base <tt>p</tt> expansion is to be computed</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>L1</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, consisting of all digits of the terminating base <tt>p</tt> expansion of <tt>N</tt></span>              </li>
+              <li>
+<span><tt>L2</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, consisting of the first <tt>e</tt> digits of the <em>non-terminating</em> base <tt>p</tt> expansion of <tt>x</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p><tt>adicExpansion(p, 0)</tt> returns <tt>\{0\}</tt>. If $N$ is nonzero, then <tt>adicExpansion(p, N)</tt> returns a list in which the $i^{th}$ element is the coefficient of $p^{i-1}$ in the base $p$ expansion of $N$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : 38 == 3*5^0 + 2*5^1 + 1*5^2
+
+o1 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : adicExpansion(5, 38)
+
+o2 = {3, 2, 1}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><tt>adicExpansion(p, e, 0)</tt> returns a list with $e$ elements, all of which are zero. If $x$ is nonzero, then <tt>adicExpansion(p, e, x)</tt> returns a list with $e$ elements in which the $i^{th}$ element is the coefficient of $p^{-i}$ in the unique nonterminating base $p$ expansion of $x$. For example, the non-terminating base $3$ expansion of $1/5$ is $1/5 = 0/3 + 1/9 + 2/27 + 1/81 + 0/243 + 1/729 + \cdots$, and so <tt>adicExpansion(3, 6, 1/5)</tt> returns the digits $0$, $1$, $2$, $1$, $0$, and $1$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : adicExpansion(3, 6, 1/5)
+
+o3 = {0, 1, 2, 1, 0, 1}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute a digit of the non-terminating expansion of a number in the unit interval in a given base" href="_adic__Digit.html">adicDigit</a> -- compute a digit of the non-terminating expansion of a number in the unit interval in a given base</span>          </li>
+          <li>
+<span><a title="truncation of a non-terminating adic expansion" href="_adic__Truncation.html">adicTruncation</a> -- truncation of a non-terminating adic expansion</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>adicExpansion</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;adicExpansion(ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;adicExpansion(ZZ,ZZ,QQ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;adicExpansion(ZZ,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute adic expansion" href="_adic__Expansion.html">adicExpansion</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

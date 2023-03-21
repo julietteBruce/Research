@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>primaryComponent -- find a primary component corresponding to an associated prime</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_localize.html">next</a> | <a href="_primary_spdecomposition.html">previous</a> | <a href="_localize.html">forward</a> | <a href="_primary_spdecomposition.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="primary decomposition and associated primes routines for ideals and modules" href="index.html">PrimaryDecomposition</a> > <a title="find a primary component corresponding to an associated prime" href="_primary__Component.html">primaryComponent</a>    </div>
+    <hr/>
+    <div>
+      <h1>primaryComponent -- find a primary component corresponding to an associated prime</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Q = primaryComponent(I, P)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal in a (quotient of a) polynomial ring <tt>R</tt></span>              </li>
+              <li>
+<span><tt>P</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an associated prime of <tt>I</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Increment</tt><tt> => </tt><tt>...</tt>, <span>default value 1</span></span>              </li>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><tt>...</tt>, <span>default value 2</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Q</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a <tt>P</tt>-primary ideal of <tt>I</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The output <tt>Q</tt> is <tt>topComponents(I + P^m)</tt> for sufficiently large <tt>m</tt>. The criterion that <tt>Q</tt> is primary is given in Eisenbud-Huneke-Vasconcelos, Invent. Math. 110 (1992) 207-235. However, we use <a title="localize an ideal at a prime ideal" href="_localize.html">localize(Ideal,Ideal)</a>.</p>
+          <p>The <tt>Strategy</tt> option value sets the strategy option for <a title="localize an ideal at a prime ideal" href="_localize.html">localize</a>, and should be one of the following:</p>
+          <ul>
+            <li>
+Strategy => 0 -- Uses <tt>localize</tt> Strategy 0            </li>
+            <li>
+Strategy => 1 -- Uses <tt>localize</tt> Strategy 1            </li>
+            <li>
+Strategy => 2 -- Uses <tt>localize</tt> Strategy 2            </li>
+          </ul>
+          <p>The <tt>Increment</tt> option value should be an integer. The algorithm given in Eisenbud-Huneke-Vasconcelos, Invent. Math. 110 (1992) 207-235, relies on <tt>topComponents(I + P^m)</tt> for $m$ sufficiently large. The algorithm begins with $m = 1$, and increases $m$ by the value of the <tt>Increment</tt> option until <tt>m</tt> is sufficiently large. The default value is 1.</p>
+          <p>Authored by <a href="http://faculty.mercer.edu/yackel_ca">C. Yackel</a>. Last modified June, 2000.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="find associated primes" href="_associated__Primes.html">associatedPrimes(Ideal)</a> -- find associated primes</span>          </li>
+          <li>
+<span><a title="irredundant primary decomposition of an ideal" href="_primary__Decomposition.html">primaryDecomposition(Ideal)</a> -- irredundant primary decomposition of an ideal</span>          </li>
+          <li>
+<span><a title="the radical of an ideal" href="../../MinimalPrimes/html/_radical.html">radical</a> -- the radical of an ideal</span>          </li>
+          <li>
+<span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span>          </li>
+          <li>
+<span><a title="compute top dimensional component of an ideal or module" href="_top__Components.html">topComponents</a> -- compute top dimensional component of an ideal or module</span>          </li>
+          <li>
+<span><a title="remove components of lowest dimension" href="_remove__Lowest__Dimension.html">removeLowestDimension</a> -- remove components of lowest dimension</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>primaryComponent</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;primaryComponent(Ideal,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="find a primary component corresponding to an associated prime" href="_primary__Component.html">primaryComponent</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

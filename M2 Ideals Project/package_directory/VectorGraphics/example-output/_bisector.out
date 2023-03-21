@@ -1,0 +1,24 @@
+-- -*- M2-comint -*- hash: 480344655
+
+i1 : circ=Circle{Radius=>0.1,"fill"=>"red","stroke"=>"black"};
+
+i2 : (a,b,c)=apply(([-1,-1],[2,0],[0,2]),coord -> gNode(coord,circ,Draggable=>true))
+
+o2 = (a, b, c)
+
+o2 : Sequence
+
+i3 : p=bisector(a,b,c); q=bisector(b,c,a); r=bisector(c,a,b); o=crossing(p,a,q,b);
+
+i7 : gList(Line{a,b},Line{a,c},Line{b,c},Line{p,a},Line{q,b},Line{r,c},Circle{o,projection(o,a,b)},a,b,c)
+
+o7 = GraphicsList{cache => CacheTable{}                                                                                                                                                                                                                                                          }
+                  Contents => {Line{cache => CacheTable{}      }, Line{cache => CacheTable{}      }, Line{cache => CacheTable{}      }, Line{cache => CacheTable{}      }, Line{cache => CacheTable{}      }, Line{cache => CacheTable{}      }, Circle{cache => CacheTable{}         }, a, b, c}
+                                    Point1 => a                        Point1 => a                        Point1 => b                        Point1 => p                        Point1 => q                        Point1 => r                          Center => o
+                                    Point2 => b                        Point2 => c                        Point2 => c                        Point2 => a                        Point2 => b                        Point2 => c                          Radius => projection (o, a, b)
+                                    style => MutableHashTable{}        style => MutableHashTable{}        style => MutableHashTable{}        style => MutableHashTable{}        style => MutableHashTable{}        style => MutableHashTable{}          style => MutableHashTable{}
+                  style => MutableHashTable{}
+
+o7 : GraphicsList
+
+i8 : 

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>add -- Add Reduced Ideals</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_double.html">next</a> | <a href="index.html">previous</a> | <a href="_double.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Miura curve arithmetic" href="index.html">Miura</a> :: <a title="Add Reduced Ideals" href="_add.html">add</a>    </div>
+    <hr/>
+    <div>
+      <h1>add -- Add Reduced Ideals</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">L=add(J,K)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>J</tt>, an integral ideal</span>              </li>
+              <li>
+<span><tt>K</tt>, an integral ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>The function add computes the reduced ideal of multiplication of two integral ideals. Each reduced ideal is a representative of its ideal class, and the addition is executed over the ideal class group.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setPolynomialRing(GF 13, {x,y}, {2,3}); setQuotientRing(y^2-x^3-7*x)
+
+o2 = QR
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : J=ideal(x, y); K=ideal(x-2, y-3); add(J, K)
+
+o3 : Ideal of QR
+
+o4 : Ideal of QR
+
+o5 = ideal (x + 3, y + 2)
+
+o5 : Ideal of QR</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : L=J*K; reduced(L)
+
+o6 : Ideal of QR
+
+o7 = ideal (x + 3, y + 2)
+
+o7 : Ideal of QR</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : setPolynomialRing(GF 5,{x,y,z},{4,6,5})
+
+o8 = PR
+
+o8 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : setQuotientRing({y^2-x^3-1, z^2-x*y-1})
+
+o9 = QR
+
+o9 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : J=ideal(x-2,y-2,z)
+
+o10 = ideal (x - 2, y - 2, z)
+
+o10 : Ideal of QR</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : K=ideal(x-4,y,z-1)
+
+o11 = ideal (x + 1, y, z - 1)
+
+o11 : Ideal of QR</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : add(J, K)
+
+                                     2
+o12 = ideal (z + 2x + 1, y + x + 1, x  - x - 2)
+
+o12 : Ideal of QR</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Compute Reduced Ideal" href="_reduced.html">reduced</a> -- Compute Reduced Ideal</span>          </li>
+          <li>
+<span><a title="Double Reduced Ideal" href="_double.html">double</a> -- Double Reduced Ideal</span>          </li>
+          <li>
+<span><a title="Add Reduced Ideal Multiple Times" href="_scalar__Multiplication.html">scalarMultiplication</a> -- Add Reduced Ideal Multiple Times</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>add</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>add(Ideal,Ideal)</tt> (missing documentation)<!--tag: (add,Ideal,Ideal)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Add Reduced Ideals" href="_add.html">add</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

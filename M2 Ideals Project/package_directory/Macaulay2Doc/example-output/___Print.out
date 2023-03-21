@@ -1,0 +1,24 @@
+-- -*- M2-comint -*- hash: -832437980
+
+i1 : code Thing#{Standard,Print}
+
+o1 = ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/m2/robust.m2:134:28-150:19: --source code:
+     Thing#{Standard,Print} = x -> (
+          oprompt := concatenate(interpreterDepth:"o", toString lineNumber, " = ");
+          save := printWidth;
+          if printWidth != 0 then printWidth = printWidth - #oprompt;
+          z := robustNet x;
+          wrapper := lookup(global Wrap,class x);
+          if wrapper =!= null then (
+               fun := () -> z = wrapper z;
+               try timelimit(printingTimeLimit, fun)
+               else (
+                    alarm 0;
+                    global debugError <- fun;
+                    stderr << "--error or time limit reached in applying Wrap method to output; type 'debugError()' to see it" << endl << endl);
+               );
+          << endl << oprompt << z << endl;
+          printWidth = save;
+          )
+
+i2 : 

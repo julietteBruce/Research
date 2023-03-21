@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>cascade -- runs a cascade of homotopies to get witness sets for the variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_cascade_lp..._cm__Start__Dimension_eq_gt..._rp.html">next</a> | <a href="index.html">previous</a> | <a href="_cascade_lp..._cm__Start__Dimension_eq_gt..._rp.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for Polynomial Homotopy Continuation" href="index.html">PHCpack</a> :: <a title="runs a cascade of homotopies to get witness sets for the variety" href="_cascade.html">cascade</a>    </div>
+    <hr/>
+    <div>
+      <h1>cascade -- runs a cascade of homotopies to get witness sets for the variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">cascade L</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of polynomials</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Option to specify the dimension to begin searching for positive dimensional components" href="_cascade_lp..._cm__Start__Dimension_eq_gt..._rp.html">StartDimension</a><tt> => </tt><tt>...</tt>, <span>default value -1</span>, Option to specify the dimension to begin searching for positive dimensional components</span>              </li>
+              <li>
+<span><a title="option to specify whether additional output is wanted" href="_cascade_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, option to specify whether additional output is wanted</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="a numerical variety" href="../../NAGtypes/html/___Numerical__Variety.html">numerical variety</a></span>, containing the witness sets for each pure-dimensional variety contained in zero set of L.</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+Writes the system to temporary file                </li>
+                <li>
+Invokes the command <tt>phc -c</tt> (with option 0)                </li>
+                <li>
+Stores output of phc in temporary file                </li>
+                <li>
+Parses and outputs the solutions.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a list of generators of an ideal I, this function creates an embedding and then runs a cascade of homotopies. The output is a <a title="a numerical variety" href="../../NAGtypes/html/___Numerical__Variety.html">NumericalVariety</a> that contains a <a title="a witness set" href="../../NAGtypes/html/___Witness__Set.html">WitnessSet</a> for each pure dimensional variety contained in V(I).</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L = { z*(x+y), z*(x-y) };</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : WitSets = cascade(L)
+
+o3 = WitSets
+
+o3 : NumericalVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : W=first WitSets#2
+
+o4 = W
+
+o4 : WitnessSet</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The function <tt>cascade</tt> extends the ring of the inputted system with slack variables beginning with zz.  Each witness set in contains the equations, points, and slices of the embedded system.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : W#Equations
+
+o5 = {-2} | (-.380139+.924929ii)zz1+(.547606+.836736ii)zz2-xz-yz |
+     {-2} | (.45571-.890128ii)zz1+(-.663772-.747935ii)zz2-xz+yz  |
+     {-1} | -zz1+(.537862+.843033ii)zz2                          |
+
+o5 : PolySystem</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : W#Points
+
+o6 = {{.148619-.161802*ii, .45886-1.03272*ii, 3.21921e-32+7.65273e-33*ii, -2.28184e-32-4.87389e-33*ii, -1.6382e-32+1.66152e-32*ii}}
+
+o6 : VerticalList</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : W#Slice
+
+o7 = | .205377+.978683ii  .673112+.739541ii .943327-.331864ii 
+     | -.759495+.650513ii -.89022-.45553ii  -.972487+.232959ii
+     ------------------------------------------------------------------------
+     -.911067-.412259ii .497812+.867285ii  -.883724+.468009ii |
+     -.595572-.803302ii -.236638-.971598ii .871298-.490754ii  |
+
+                2          6
+o7 : Matrix CC    &lt;--- CC
+              53         53</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Coefficient ring of the polynomial system must be of type <a title="the class of all complex fields" href="../../Macaulay2Doc/html/___Complex__Field.html">ComplexField</a>.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="constructs an embedding of a polynomial system" href="_construct__Embedding.html">constructEmbedding</a> -- constructs an embedding of a polynomial system</span>          </li>
+          <li>
+<span><a title="finds the irreducible components of the zero set of a system of polynomials" href="_numerical__Irreducible__Decomposition.html">numericalIrreducibleDecomposition</a> -- finds the irreducible components of the zero set of a system of polynomials</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>cascade</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;cascade(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="runs a cascade of homotopies to get witness sets for the variety" href="_cascade.html">cascade</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

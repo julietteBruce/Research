@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>truncate(DualSpace,ZZ) -- truncate a polynomial space or dual space</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_truncated__Dual.html">next</a> | <a href="_truncate_lp__Dual__Space_cm__List_cm__Z__Z_rp.html">previous</a> | <a href="_truncated__Dual.html">forward</a> | <a href="_truncate_lp__Dual__Space_cm__List_cm__Z__Z_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a> :: <a title="truncate a polynomial space or dual space" href="_truncate_lp__Dual__Space_cm__Z__Z_rp.html">truncate(DualSpace,ZZ)</a>    </div>
+    <hr/>
+    <div>
+      <h1>truncate(DualSpace,ZZ) -- truncate a polynomial space or dual space</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a href="../../Macaulay2Doc/html/_truncate.html">truncate</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">S = truncate(T, d)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>an instance of the type <a title="a dual functional vector subspace" href="../../NAGtypes/html/___Dual__Space.html">DualSpace</a></span>, or <span>an instance of the type <a title="a polynomial vector subspace" href="../../NAGtypes/html/___Poly__Space.html">PolySpace</a></span></span>              </li>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree bound for the designated variables</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>an instance of the type <a title="a dual functional vector subspace" href="../../NAGtypes/html/___Dual__Space.html">DualSpace</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method truncates a dual space or polynomial space T so that the total degree of all terms does not exceed d.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = CC[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal {x-y};
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D = truncatedDual(origin R, I, 5)
+
+o3 = | 1 x+y .5x2+xy+.5y2 .166667x3+.5x2y+.5xy2+.166667y3 .0416667x4+.166667x3y+.25x2y2+.166667xy3+.0416667y4 .00833333x5+.0416667x4y+.0833333x3y2+.0833333x2y3+.0416667xy4+.00833333y5 |
+
+o3 : DualSpace</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : truncate(D, 3)
+
+o4 = | x3+3x2y+3xy2+y3 x2+2xy+y2 x+y 1 |
+
+o4 : DualSpace</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="truncate a polynomial space or dual space" href="_truncate_lp__Dual__Space_cm__Z__Z_rp.html">truncate(DualSpace,ZZ)</a> -- truncate a polynomial space or dual space</span>          </li>
+          <li>
+<tt>&quot;truncate(PolySpace,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

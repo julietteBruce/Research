@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ReesAlgebra -- Compute Rees algebras and their invariants</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_analytic__Spread.html">next</a> | previous | <a href="_analytic__Spread.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Compute Rees algebras and their invariants" href="index.html">ReesAlgebra</a> :: <a title="Compute Rees algebras and their invariants" href="index.html">ReesAlgebra</a>    </div>
+    <hr/>
+    <div>
+      <h1>ReesAlgebra -- Compute Rees algebras and their invariants</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The Rees Algebra of an ideal is the commutative algebra analogue of the blow up in algebraic geometry. (In fact, the  ``Rees Algebra'' is sometimes called the ``blowup algebra''.) A great deal of modern commutative algebra is devoted to studying them.</p>
+          <p>Classically the Rees algebra appeared as the bihomogeneous coordinate ring of the blowup of a projective variety along a subvariety or subscheme, used for resolution of singularities. Though this is computationally slow on interesting examples, we illustrate with some elementary cases of resolution of plane curve singularities in <a title="Using the Rees Algebra to resolve plane curve singularities" href="___Plane__Curve__Singularities.html">PlaneCurveSingularities</a>.</p>
+          <p>The Rees algebra was studied in the commutative algebra context (in the case where M is an ideal of a ring R), by David Rees in a famous paper,</p>
+          <p><em>On a problem of Zariski</em>, Illinois J. Math. (1958) 145-149).</p>
+          <p>In fact, Rees mainly studied the ring $R[It,t^{-1}]$, now also called the `extended Rees Algebra' of I.</p>
+          <p>The original goal of this package, first written around 2002, was to compute the Rees algebra of a module as it is defined in the paper <em>What is the Rees algebra of a module?</em>, by Craig Huneke, David Eisenbud and Bernd Ulrich, Proc. Am. Math. Soc. 131, 701-708, 2002. It has since expanded to include routines for computing many of the invariants of an ideal or module defined in terms of Rees algebras.</p>
+          <p>The Rees algebra, or more precisely the associated graded ring, which we compute as a biproduct, plays a central role in modern intersection theory: it is the basis of the Fulton-MacPherson definition of the intersection product in the Chow ring. We illustrate this in <a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> and <a title="Compute distinguished varieties for an intersection in A^n or P^n" href="_intersect__In__P.html">intersectInP</a>.</p>
+          <p>The Rees algebra of a module M is defined by a certain ideal in the symmetric algebra $Sym(M)$ of $M$, or, as in this package, by an ideal in the symmetric algebra of any free module $F$ that maps onto $M$. When $\phi: M \to G$ is the <em>versal embedding</em> of $M$, then, by the definition of Huneke-Eisenbud-Ulrich, the <em>Rees ideal of M</em> is the kernel of $Sym(\phi)$. Thus the Rees Algebra of M is the image of $Sym(\phi)$.</p>
+          <p>In most cases the kernel of the $Sym(\phi)$ is the same for any embedding $\phi$ of $M$ into a free module:</p>
+          <p><b>Theorem (Eisenbud-Huneke-Ulrich, Thms 0.2 and 1.4):</b> Let R be a Noetherian ring and let $M$ be a finitely generated R-module. Let $\phi: M \to G$ be a versal map of $M$ to a free module. Assume that $\phi$ is an inclusion, and let $\psi: M \to G'$ be any inclusion. If $R$ is torsion-free over $\ZZ$ or $R$ is unmixed and generically Gorenstein, or $M$ is free locally at each associated prime of $R$, or $G=R$, then the kernel of $Sym(\phi)$ and the kernel of $Sym(\psi)$ are equal.</p>
+          <p>It follows that in the good cases above the Rees ideal is equal to the saturation of the defining ideal of symmetric algebra of $M$ with respect to any element f of the ground ring such that $M[f^{-1}]$ is free, or is simply <em>of linear type</em>, meaning that $Sym(\phi)$ is a monomorphism. This is the case, for example, when M is an ideal and $M[f^{-1}]$ is generated by a regular sequence. This fact often leads to a faster computation than computing the kernel of $Sym(\phi)$ directly.</p>
+          <p>Here is an example of the pathological case of inclusions $\phi: M \to G$ and $\psi: M \to G'$ where $ker(\phi) \neq ker(\psi)$. In the following, any finite characteristic would work as well.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : p = 5;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = ZZ/p[x,y,z]/(ideal(x^p,y^p)+(ideal(x,y,z))^(p+1));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = module ideal(z);</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>It is easy to check that M \cong R^1/(x,y,z)^p. We write iota: M\to R^1 for the embedding as an ideal and psi for the embedding M \to R^2 sending z to (x,y).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : iota = map(R^1,M,matrix{{z}});
+
+o4 : Matrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : psi = map(R^2,M,matrix{{x},{y}});
+
+o5 : Matrix</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Finally, a versal embedding is M \to R^3, sending z to (x,y,z):</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : phi = versalEmbedding(M);
+
+o6 : Matrix</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We now compute the kernels of the three maps on symmetric algebras:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : Iiota = symmetricKernel iota;
+
+                                                                                             R[w ]
+                                                                                                0
+o7 : Ideal of ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                5       4       4     2 3         3     2 3     3 2       2 2     2   2     3 2     4         3       2 2       3         4         4     2 3     3 2     4
+              (z w , y*z w , x*z w , y z w , x*y*z w , x z w , y z w , x*y z w , x y*z w , x z w , y z*w , x*y z*w , x y z*w , x y*z*w , x z*w , x*y w , x y w , x y w , x y*w )
+                  0       0       0       0         0       0       0         0         0       0       0         0         0         0       0       0       0       0       0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : Ipsi = symmetricKernel psi;
+
+                                                                                             R[w ]
+                                                                                                0
+o8 : Ideal of ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                5       4       4     2 3         3     2 3     3 2       2 2     2   2     3 2     4         3       2 2       3         4         4     2 3     3 2     4
+              (z w , y*z w , x*z w , y z w , x*y*z w , x z w , y z w , x*y z w , x y*z w , x z w , y z*w , x*y z*w , x y z*w , x y*z*w , x z*w , x*y w , x y w , x y w , x y*w )
+                  0       0       0       0         0       0       0         0         0       0       0         0         0         0       0       0       0       0       0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : Iphi = symmetricKernel phi;
+
+                                                                                             R[w ]
+                                                                                                0
+o9 : Ideal of ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                5       4       4     2 3         3     2 3     3 2       2 2     2   2     3 2     4         3       2 2       3         4         4     2 3     3 2     4
+              (z w , y*z w , x*z w , y z w , x*y*z w , x z w , y z w , x*y z w , x y*z w , x z w , y z*w , x*y z*w , x y z*w , x y*z*w , x z*w , x*y w , x y w , x y w , x y*w )
+                  0       0       0       0         0       0       0         0         0       0       0         0         0         0       0       0       0       0       0</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>and check that the ones corresponding to phi and iota are equal, whereas the ones corresponding to psi and phi are not:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : Iiota == Iphi
+
+o10 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : Ipsi == Iphi
+
+o11 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In fact, they differ in degree p:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : numcols basis(p,Iphi)
+
+o12 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : numcols basis(p,Ipsi)
+
+o13 = 1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Using the Rees Algebra to resolve plane curve singularities" href="___Plane__Curve__Singularities.html">PlaneCurveSingularities</a> -- Using the Rees Algebra to resolve plane curve singularities</span>          </li>
+          <li>
+<span><a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> -- Compute the distinguished subvarieties of a pullback, intersection or cone</span>          </li>
+          <li>
+<span><a title="Compute distinguished varieties for an intersection in A^n or P^n" href="_intersect__In__P.html">intersectInP</a> -- Compute distinguished varieties for an intersection in A^n or P^n</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+David Eisenbud<span> &lt;<a href="mailto:de@msri.org">de@msri.org</a>></span>            </li>
+            <li>
+Amelia Taylor<span> &lt;<a href="mailto:originalbrickhouse@gmail.com">originalbrickhouse@gmail.com</a>></span>            </li>
+            <li>
+Sorin Popescu<span> &lt;<a href="mailto:sorin@math.sunysb.edu">sorin@math.sunysb.edu</a>></span>            </li>
+            <li>
+Michael E. Stillman<span> &lt;<a href="mailto:mike@math.cornell.edu">mike@math.cornell.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>2.2</b> of this package was accepted for publication in <a href="https://msp.org/jsag/2018/8-1/">volume 8</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 21 May 2018, in the article <a href="https://msp.org/jsag/2018/8-1/p05.xhtml">The ReesAlgebra package in Macaulay2</a>. That version can be obtained from <a href="https://msp.org/jsag/2018/8-1/jsag-v8-n1-x05-ReesAlgebra.m2">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/0ccfca1d3d08d13ed0da78435b2106209fcee1b1/M2/Macaulay2/packages/ReesAlgebra.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>2.3</b> of ReesAlgebra.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/ReesAlgebra.m2">ReesAlgebra.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="Compute the analytic spread of a module or ideal" href="_analytic__Spread.html">analyticSpread</a> -- Compute the analytic spread of a module or ideal</span>                  </li>
+                  <li>
+<span><a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> -- Compute the distinguished subvarieties of a pullback, intersection or cone</span>                  </li>
+                  <li>
+<span><a title="symmetric algebra ideal plus jacobian dual" href="_expected__Rees__Ideal.html">expectedReesIdeal</a> -- symmetric algebra ideal plus jacobian dual</span>                  </li>
+                  <li>
+<span><a title="Compute distinguished varieties for an intersection in A^n or P^n" href="_intersect__In__P.html">intersectInP</a> -- Compute distinguished varieties for an intersection in A^n or P^n</span>                  </li>
+                  <li>
+<span><a title="Determine whether module has linear type" href="_is__Linear__Type.html">isLinearType</a> -- Determine whether module has linear type</span>                  </li>
+                  <li>
+<span><a title="Determine whether an ideal is a reduction" href="_is__Reduction.html">isReduction</a> -- Determine whether an ideal is a reduction</span>                  </li>
+                  <li>
+<span><a title="Computes the 'jacobian dual', part of a method of finding generators for Rees Algebra ideals" href="_jacobian__Dual.html">jacobianDual</a> -- Computes the 'jacobian dual', part of a method of finding generators for Rees Algebra ideals</span>                  </li>
+                  <li>
+<span><a title="Find a minimal reduction of an ideal" href="_minimal__Reduction.html">minimalReduction</a> -- Find a minimal reduction of an ideal</span>                  </li>
+                  <li>
+<span><a title="Compute the Hilbert-Samuel multiplicity of an ideal" href="_multiplicity.html">multiplicity</a> -- Compute the Hilbert-Samuel multiplicity of an ideal</span>                  </li>
+                  <li>
+<span><a title="The normal cone of a subscheme" href="_normal__Cone.html">normalCone</a> -- The normal cone of a subscheme</span>                  </li>
+                  <li>
+<span><a title="Reduction number of one ideal with respect to another" href="_reduction__Number.html">reductionNumber</a> -- Reduction number of one ideal with respect to another</span>                  </li>
+                  <li>
+<span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Algebra.html">reesAlgebra</a> -- Compute the defining ideal of the Rees Algebra</span>                  </li>
+                  <li>
+<span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Ideal.html">reesIdeal</a> -- Compute the defining ideal of the Rees Algebra</span>                  </li>
+                  <li>
+<span><a title="Special fiber of a blowup" href="_special__Fiber.html">specialFiber</a> -- Special fiber of a blowup</span>                  </li>
+                  <li>
+<span><a title="Special fiber of a blowup" href="_special__Fiber__Ideal.html">specialFiberIdeal</a> -- Special fiber of a blowup</span>                  </li>
+                  <li>
+<span><a title="Ideal of the symmetric algebra of an ideal or module" href="_symmetric__Algebra__Ideal.html">symmetricAlgebraIdeal</a> -- Ideal of the symmetric algebra of an ideal or module</span>                  </li>
+                  <li>
+<span><a title="Compute the Rees ring of the image of a matrix" href="_symmetric__Kernel.html">symmetricKernel</a> -- Compute the Rees ring of the image of a matrix</span>                  </li>
+                  <li>
+<span><a title="Compute a versal embedding" href="_versal__Embedding.html">versalEmbedding</a> -- Compute a versal embedding</span>                  </li>
+                  <li>
+<span><a title="Largest Gm satisfied by an ideal" href="_which__Gm.html">whichGm</a> -- Largest Gm satisfied by an ideal</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;analyticSpread(Ideal)&quot;</tt> -- see <span><a title="Compute the analytic spread of a module or ideal" href="_analytic__Spread.html">analyticSpread</a> -- Compute the analytic spread of a module or ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;analyticSpread(Ideal,RingElement)&quot;</tt> -- see <span><a title="Compute the analytic spread of a module or ideal" href="_analytic__Spread.html">analyticSpread</a> -- Compute the analytic spread of a module or ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;analyticSpread(Module)&quot;</tt> -- see <span><a title="Compute the analytic spread of a module or ideal" href="_analytic__Spread.html">analyticSpread</a> -- Compute the analytic spread of a module or ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;analyticSpread(Module,RingElement)&quot;</tt> -- see <span><a title="Compute the analytic spread of a module or ideal" href="_analytic__Spread.html">analyticSpread</a> -- Compute the analytic spread of a module or ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;distinguished(Ideal)&quot;</tt> -- see <span><a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> -- Compute the distinguished subvarieties of a pullback, intersection or cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;distinguished(Ideal,Ideal)&quot;</tt> -- see <span><a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> -- Compute the distinguished subvarieties of a pullback, intersection or cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;distinguished(RingMap,Ideal)&quot;</tt> -- see <span><a title="Compute the distinguished subvarieties of a pullback, intersection or cone" href="_distinguished.html">distinguished</a> -- Compute the distinguished subvarieties of a pullback, intersection or cone</span></span>                  </li>
+                  <li>
+<span><tt>&quot;expectedReesIdeal(Ideal)&quot;</tt> -- see <span><a title="symmetric algebra ideal plus jacobian dual" href="_expected__Rees__Ideal.html">expectedReesIdeal</a> -- symmetric algebra ideal plus jacobian dual</span></span>                  </li>
+                  <li>
+<span><tt>&quot;expectedReesIdeal(Module)&quot;</tt> -- see <span><a title="symmetric algebra ideal plus jacobian dual" href="_expected__Rees__Ideal.html">expectedReesIdeal</a> -- symmetric algebra ideal plus jacobian dual</span></span>                  </li>
+                  <li>
+<span><tt>&quot;intersectInP(Ideal,Ideal)&quot;</tt> -- see <span><a title="Compute distinguished varieties for an intersection in A^n or P^n" href="_intersect__In__P.html">intersectInP</a> -- Compute distinguished varieties for an intersection in A^n or P^n</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLinearType(Ideal)&quot;</tt> -- see <span><a title="Determine whether module has linear type" href="_is__Linear__Type.html">isLinearType</a> -- Determine whether module has linear type</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLinearType(Ideal,RingElement)&quot;</tt> -- see <span><a title="Determine whether module has linear type" href="_is__Linear__Type.html">isLinearType</a> -- Determine whether module has linear type</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLinearType(Module)&quot;</tt> -- see <span><a title="Determine whether module has linear type" href="_is__Linear__Type.html">isLinearType</a> -- Determine whether module has linear type</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLinearType(Module,RingElement)&quot;</tt> -- see <span><a title="Determine whether module has linear type" href="_is__Linear__Type.html">isLinearType</a> -- Determine whether module has linear type</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isReduction(Ideal,Ideal)&quot;</tt> -- see <span><a title="Determine whether an ideal is a reduction" href="_is__Reduction.html">isReduction</a> -- Determine whether an ideal is a reduction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isReduction(Ideal,Ideal,RingElement)&quot;</tt> -- see <span><a title="Determine whether an ideal is a reduction" href="_is__Reduction.html">isReduction</a> -- Determine whether an ideal is a reduction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isReduction(Module,Module)&quot;</tt> -- see <span><a title="Determine whether an ideal is a reduction" href="_is__Reduction.html">isReduction</a> -- Determine whether an ideal is a reduction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isReduction(Module,Module,RingElement)&quot;</tt> -- see <span><a title="Determine whether an ideal is a reduction" href="_is__Reduction.html">isReduction</a> -- Determine whether an ideal is a reduction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jacobianDual(Matrix)&quot;</tt> -- see <span><a title="Computes the 'jacobian dual', part of a method of finding generators for Rees Algebra ideals" href="_jacobian__Dual.html">jacobianDual</a> -- Computes the 'jacobian dual', part of a method of finding generators for Rees Algebra ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jacobianDual(Matrix,Matrix,Matrix)&quot;</tt> -- see <span><a title="Computes the 'jacobian dual', part of a method of finding generators for Rees Algebra ideals" href="_jacobian__Dual.html">jacobianDual</a> -- Computes the 'jacobian dual', part of a method of finding generators for Rees Algebra ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;minimalReduction(Ideal)&quot;</tt> -- see <span><a title="Find a minimal reduction of an ideal" href="_minimal__Reduction.html">minimalReduction</a> -- Find a minimal reduction of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiplicity(Ideal)&quot;</tt> -- see <span><a title="Compute the Hilbert-Samuel multiplicity of an ideal" href="_multiplicity.html">multiplicity</a> -- Compute the Hilbert-Samuel multiplicity of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiplicity(Ideal,RingElement)&quot;</tt> -- see <span><a title="Compute the Hilbert-Samuel multiplicity of an ideal" href="_multiplicity.html">multiplicity</a> -- Compute the Hilbert-Samuel multiplicity of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;normalCone(Ideal)&quot;</tt> -- see <span><a title="The normal cone of a subscheme" href="_normal__Cone.html">normalCone</a> -- The normal cone of a subscheme</span></span>                  </li>
+                  <li>
+<span><tt>&quot;normalCone(Ideal,RingElement)&quot;</tt> -- see <span><a title="The normal cone of a subscheme" href="_normal__Cone.html">normalCone</a> -- The normal cone of a subscheme</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reductionNumber(Ideal,Ideal)&quot;</tt> -- see <span><a title="Reduction number of one ideal with respect to another" href="_reduction__Number.html">reductionNumber</a> -- Reduction number of one ideal with respect to another</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesAlgebra(Ideal)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Algebra.html">reesAlgebra</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesAlgebra(Ideal,RingElement)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Algebra.html">reesAlgebra</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesAlgebra(Module)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Algebra.html">reesAlgebra</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesAlgebra(Module,RingElement)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Algebra.html">reesAlgebra</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesIdeal(Ideal)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Ideal.html">reesIdeal</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesIdeal(Ideal,RingElement)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Ideal.html">reesIdeal</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesIdeal(Module)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Ideal.html">reesIdeal</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reesIdeal(Module,RingElement)&quot;</tt> -- see <span><a title="Compute the defining ideal of the Rees Algebra" href="_rees__Ideal.html">reesIdeal</a> -- Compute the defining ideal of the Rees Algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiber(Ideal)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber.html">specialFiber</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiber(Ideal,RingElement)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber.html">specialFiber</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiber(Module)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber.html">specialFiber</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiber(Module,RingElement)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber.html">specialFiber</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiberIdeal(Ideal)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber__Ideal.html">specialFiberIdeal</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiberIdeal(Ideal,RingElement)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber__Ideal.html">specialFiberIdeal</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiberIdeal(Module)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber__Ideal.html">specialFiberIdeal</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specialFiberIdeal(Module,RingElement)&quot;</tt> -- see <span><a title="Special fiber of a blowup" href="_special__Fiber__Ideal.html">specialFiberIdeal</a> -- Special fiber of a blowup</span></span>                  </li>
+                  <li>
+<span><tt>&quot;symmetricAlgebraIdeal(Ideal)&quot;</tt> -- see <span><a title="Ideal of the symmetric algebra of an ideal or module" href="_symmetric__Algebra__Ideal.html">symmetricAlgebraIdeal</a> -- Ideal of the symmetric algebra of an ideal or module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;symmetricAlgebraIdeal(Module)&quot;</tt> -- see <span><a title="Ideal of the symmetric algebra of an ideal or module" href="_symmetric__Algebra__Ideal.html">symmetricAlgebraIdeal</a> -- Ideal of the symmetric algebra of an ideal or module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;symmetricKernel(Matrix)&quot;</tt> -- see <span><a title="Compute the Rees ring of the image of a matrix" href="_symmetric__Kernel.html">symmetricKernel</a> -- Compute the Rees ring of the image of a matrix</span></span>                  </li>
+                  <li>
+<span><tt>&quot;versalEmbedding(Ideal)&quot;</tt> -- see <span><a title="Compute a versal embedding" href="_versal__Embedding.html">versalEmbedding</a> -- Compute a versal embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;versalEmbedding(Module)&quot;</tt> -- see <span><a title="Compute a versal embedding" href="_versal__Embedding.html">versalEmbedding</a> -- Compute a versal embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;whichGm(Ideal)&quot;</tt> -- see <span><a title="Largest Gm satisfied by an ideal" href="_which__Gm.html">whichGm</a> -- Largest Gm satisfied by an ideal</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><tt>&quot;Tries&quot;</tt> -- see <span><a title="Set the number of random tries to compute a minimal reduction" href="_minimal__Reduction_lp..._cm__Tries_eq_gt..._rp.html">minimalReduction(...,Tries=>...)</a> -- Set the number of random tries to compute a minimal reduction</span></span>                  </li>
+                  <li>
+<span><a title="Using the Rees Algebra to resolve plane curve singularities" href="___Plane__Curve__Singularities.html">PlaneCurveSingularities</a> -- Using the Rees Algebra to resolve plane curve singularities</span>                  </li>
+                  <li>
+<span><a title="Choose whether to trim (or find minimal generators) for the ideal or module." href="___Trim.html">Trim</a> -- Choose whether to trim (or find minimal generators) for the ideal or module.</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute Rees algebras and their invariants" href="index.html">ReesAlgebra</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

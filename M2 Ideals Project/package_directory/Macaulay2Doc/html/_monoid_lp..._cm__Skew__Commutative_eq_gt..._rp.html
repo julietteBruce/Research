@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>monoid(...,SkewCommutative=>...) -- specify Skew commuting variables in the ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_monoid_lp..._cm__Weyl__Algebra_eq_gt..._rp.html">next</a> | <a href="_monoid_lp..._cm__Monomial__Size_eq_gt..._rp.html">previous</a> | <a href="_monoid_lp..._cm__Weyl__Algebra_eq_gt..._rp.html">forward</a> | <a href="_monoid_lp..._cm__Monomial__Size_eq_gt..._rp.html">backward</a> | <a href="_monoid.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> > <a href="_rings.html">rings</a> > <a title="make or retrieve a monoid" href="_monoid.html">monoid</a> > <a title="specify Skew commuting variables in the ring" href="_monoid_lp..._cm__Skew__Commutative_eq_gt..._rp.html">monoid(...,SkewCommutative=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>monoid(...,SkewCommutative=>...) -- specify Skew commuting variables in the ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">monoid[e_0..e_3, SkewCommutative => true]</code></dd>
+              <dd><code class="language-macaulay2">monoid[u,v,x,y,  SkewCommutative => {u,v}]</code></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The <tt>SkewCommutative</tt> option specifies which variables will skew-commute when the monoid is used to create a ring. The value <tt>true</tt> indicates that all of the variables skew-commute. Otherwise, the value of the option may be a list of symbols or indices corresponding to the skew-commuting variables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : ZZ/101[e_0..e_3,       SkewCommutative => true]
+
+      ZZ
+o1 = ---[e ..e ]
+     101  0   3
+
+o1 : PolynomialRing, 4 skew commutative variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (e_0+e_1+e_2+e_3)^2
+
+o2 = 0
+
+      ZZ
+o2 : ---[e ..e ]
+     101  0   3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : ZZ/101[x,y,vars(0..4), SkewCommutative => vars(0..4)]
+
+      ZZ
+o3 = ---[x..y, a..e]
+     101
+
+o3 : PolynomialRing, 5 skew commutative variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : c*b*a*d
+
+o4 = -a*b*c*d
+
+      ZZ
+o4 : ---[x..y, a..e]
+     101</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : ZZ/101[x,y,vars(0..4), SkewCommutative => {2..6}]
+
+      ZZ
+o5 = ---[x..y, a..e]
+     101
+
+o5 : PolynomialRing, 5 skew commutative variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : c*b*a*d
+
+o6 = -a*b*c*d
+
+      ZZ
+o6 : ---[x..y, a..e]
+     101</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : R = ZZ[x,y,z, SkewCommutative => {x,y}]
+
+o7 = R
+
+o7 : PolynomialRing, 2 skew commutative variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : x*y
+
+o8 = x*y
+
+o8 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : y*x
+
+o9 = -x*y
+
+o9 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : x*z-z*x
+
+o10 = 0
+
+o10 : R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This option may also be used when creating a new ring from an existing ring, creating a tensor product ring, or symmetric algebra.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <tt>{}</tt></span>          </li>
+          <li>
+<span>Function: <span><a title="make or retrieve a monoid" href="_monoid.html">monoid</a> -- make or retrieve a monoid</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="an optional argument" href="___Skew__Commutative.html">SkewCommutative</a> -- an optional argument</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make or retrieve a monoid" href="_monoid.html">monoid</a> -- make or retrieve a monoid</span>          </li>
+          <li>
+<span><a title="make a copy of a ring, with some features changed" href="_new__Ring.html">newRing</a> -- make a copy of a ring, with some features changed</span>          </li>
+          <li>
+<span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Ring,Ring)</a> -- tensor product of monoids</span>          </li>
+          <li>
+<span><a title="the symmetric algebra of a module" href="_symmetric__Algebra.html">symmetricAlgebra</a> -- the symmetric algebra of a module</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>SkewCommutative</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="specify Skew commuting variables in the ring" href="_monoid_lp..._cm__Skew__Commutative_eq_gt..._rp.html">monoid(...,SkewCommutative=>...)</a> -- specify Skew commuting variables in the ring</span>          </li>
+          <li>
+<span><tt>&quot;newRing(...,SkewCommutative=>...)&quot;</tt> -- see <span><a title="make a copy of a ring, with some features changed" href="_new__Ring.html">newRing</a> -- make a copy of a ring, with some features changed</span></span>          </li>
+          <li>
+<span><tt>&quot;symmetricAlgebra(...,SkewCommutative=>...)&quot;</tt> -- see <span><a title="the symmetric algebra of a module" href="_symmetric__Algebra.html">symmetricAlgebra</a> -- the symmetric algebra of a module</span></span>          </li>
+          <li>
+<span><tt>&quot;tensor(Monoid,Monoid,SkewCommutative=>...)&quot;</tt> -- see <span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Monoid,Monoid)</a> -- tensor product of monoids</span></span>          </li>
+          <li>
+<span><tt>&quot;tensor(Ring,Ring,SkewCommutative=>...)&quot;</tt> -- see <span><a title="tensor product of monoids" href="_tensor_lp__Monoid_cm__Monoid_rp.html">tensor(Monoid,Monoid)</a> -- tensor product of monoids</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

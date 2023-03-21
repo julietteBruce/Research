@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety -- try to find an isomorphism between two projective varieties</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_euler_lp__Multiprojective__Variety_rp.html">next</a> | <a href="___Embedded__Projective__Variety_sp_pl_pl_sp__Embedded__Projective__Variety.html">previous</a> | <a href="_euler_lp__Multiprojective__Variety_rp.html">forward</a> | <a href="___Embedded__Projective__Variety_sp_pl_pl_sp__Embedded__Projective__Variety.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="try to find an isomorphism between two projective varieties" href="___Embedded__Projective__Variety_sp_eq_eq_eq_gt_sp__Embedded__Projective__Variety.html">EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety</a>    </div>
+    <hr/>
+    <div>
+      <h1>EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety -- try to find an isomorphism between two projective varieties</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Operator: <a title="a binary operator" href="../../Macaulay2Doc/html/__eq_eq_eq_gt.html">===></a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">X ===> Y</code></dd>
+              <dd><code class="language-macaulay2">Y &lt;=== X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>an <a title="the class of all embedded projective varieties" href="___Embedded__Projective__Variety.html">embedded projective variety</a></span></span>              </li>
+              <li>
+<span><tt>Y</tt>, <span>an <a title="the class of all embedded projective varieties" href="___Embedded__Projective__Variety.html">embedded projective variety</a></span>, projectively equivalent to <tt>X</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all multi-rational maps" href="___Multirational__Map.html">multi-rational map</a></span>, an isomorphism of the ambient spaces that sends <tt>X</tt> to <tt>Y</tt> (or an error if it fails)</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This recursively tries to find an isomorphism between the base loci of the <a title="try to get a parametrization of a multi-projective variety" href="_parametrize_lp__Multiprojective__Variety_rp.html">parameterizations</a>.</p>
+        <p>In the following example, $X$ and $Y$ are two random rational normal curves of degree 6 in $\mathbb{P}^6\subset\mathbb{P}^8$, and $V$ (resp., $W$) is a random complete intersection of type (2,1) containing $X$ (resp., $Y$).</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : K = ZZ/10000019;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (M,N) = (apply(9,i -> random(1,ring PP_K^8)), apply(9,i -> random(1,ring PP_K^8)));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : X = projectiveVariety(minors(2,matrix{take(M,6),take(M,{1,6})}) + ideal take(M,-2));
+
+o3 : ProjectiveVariety, curve in PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Y = projectiveVariety(minors(2,matrix{take(N,6),take(N,{1,6})}) + ideal take(N,-2));
+
+o4 : ProjectiveVariety, curve in PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : ? X
+
+o5 = curve in PP^8 cut out by 17 hypersurfaces of degrees 1^2 2^15 </code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time f = X ===> Y;
+     -- used 2.85603 seconds
+
+o6 : MultirationalMap (automorphism of PP^8)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : f X
+
+o7 = Y
+
+o7 : ProjectiveVariety, curve in PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : f^* Y
+
+o8 = X
+
+o8 : ProjectiveVariety, curve in PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : V = random({{2},{1}},X);
+
+o9 : ProjectiveVariety, 6-dimensional subvariety of PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : W = random({{2},{1}},Y);
+
+o10 : ProjectiveVariety, 6-dimensional subvariety of PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : time g = V ===> W;
+     -- used 2.87259 seconds
+
+o11 : MultirationalMap (automorphism of PP^8)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : g||W
+
+o12 = multi-rational map consisting of one single rational map
+      source variety: 6-dimensional subvariety of PP^8 cut out by 2 hypersurfaces of degrees 1^1 2^1 
+      target variety: 6-dimensional subvariety of PP^8 cut out by 2 hypersurfaces of degrees 1^1 2^1 
+
+o12 : MultirationalMap (rational map from V to W)</code></pre>
+</td>          </tr>
+        </table>
+        <p>In the next example, $Z\subset\mathbb{P}^9$ is a random (smooth) del Pezzo sixfold, hence projectively equivalent to $\mathbb{G}(1,4)$.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : A = matrix pack(5,for i to 24 list random(1,ring PP_K^9)); A = A - transpose A
+
+                          5                   5
+o13 : Matrix (K[x0 ..x0 ])  &lt;--- (K[x0 ..x0 ])
+                  0    9              0    9
+
+o14 = | 0                     
+      | 4699078x0_0-1746876x0_
+      | 27066x0_0+3423234x0_1+
+      | -3001071x0_0+3626292x0
+      | -1128116x0_0+2410838x0
+      -----------------------------------------------------------------------
+                                                                             
+      1-380897x0_2+1422530x0_3+4811841x0_4-3896862x0_5-3722785x0_6-3815668x0_
+      230399x0_2+2782180x0_3+309050x0_4-1114049x0_5+2286765x0_6-2212565x0_7-7
+      _1+3927398x0_2-4508287x0_3-1613351x0_4-1776043x0_5+1219497x0_6-2150772x
+      _1+4011204x0_2-1473177x0_3+2441342x0_4-4718496x0_5+4295767x0_6+1349994x
+      -----------------------------------------------------------------------
+                                 
+      7-3313914x0_8-4758195x0_9  
+      4241x0_8-860866x0_9        
+      0_7+2179139x0_8-692400x0_9 
+      0_7-3469596x0_8-4256627x0_9
+      -----------------------------------------------------------------------
+      -4699078x0_0+1746876x0_1+380897x0_2-1422530x0_3-4811841x0_4+3896862x0_
+      0                                                                     
+      -4775990x0_0-1733951x0_1+2685339x0_2-101690x0_3-1299785x0_4-3383627x0_
+      -301724x0_0+3056350x0_1-4261084x0_2+1869785x0_3-1725095x0_4+4002080x0_
+      2255774x0_0+152589x0_1-2805551x0_2-411254x0_3+2029789x0_4-2013016x0_5-
+      -----------------------------------------------------------------------
+      5+3722785x0_6+3815668x0_7+3313914x0_8+4758195x0_9
+                                                       
+      5+1688069x0_6+4817905x0_7-2628713x0_8-4634439x0_9
+      5+3630364x0_6+522185x0_7+3993769x0_8+117133x0_9  
+      421034x0_6+4901792x0_7-4988209x0_8+494257x0_9    
+      -----------------------------------------------------------------------
+      -27066x0_0-3423234x0_1-230399x0_2-2782180x0_3-309050x0_4+1114049x0_5-
+      4775990x0_0+1733951x0_1-2685339x0_2+101690x0_3+1299785x0_4+3383627x0_
+      0                                                                    
+      4824428x0_0-260873x0_1-3590724x0_2-438108x0_3+4564938x0_4-837765x0_5-
+      1232609x0_0+3795926x0_1+3890630x0_2-3831039x0_3-1495247x0_4-1456108x0
+      -----------------------------------------------------------------------
+      2286765x0_6+2212565x0_7+74241x0_8+860866x0_9     
+      5-1688069x0_6-4817905x0_7+2628713x0_8+4634439x0_9
+                                                       
+      4403511x0_6+1089387x0_7+1483485x0_8-4660338x0_9  
+      _5+976817x0_6-2292406x0_7+4444574x0_8-4380563x0_9
+      -----------------------------------------------------------------------
+      3001071x0_0-3626292x0_1-3927398x0_2+4508287x0_3+1613351x0_4+1776043x0_
+      301724x0_0-3056350x0_1+4261084x0_2-1869785x0_3+1725095x0_4-4002080x0_5
+      -4824428x0_0+260873x0_1+3590724x0_2+438108x0_3-4564938x0_4+837765x0_5+
+      0                                                                     
+      1260139x0_0-2367455x0_1+2074452x0_2-1540641x0_3-2096244x0_4-604376x0_5
+      -----------------------------------------------------------------------
+      5-1219497x0_6+2150772x0_7-2179139x0_8+692400x0_9
+      -3630364x0_6-522185x0_7-3993769x0_8-117133x0_9  
+      4403511x0_6-1089387x0_7-1483485x0_8+4660338x0_9 
+                                                      
+      -115065x0_6-2900230x0_7-1708776x0_8+3939426x0_9 
+      -----------------------------------------------------------------------
+      1128116x0_0-2410838x0_1-4011204x0_2+1473177x0_3-2441342x0_4+4718496x0_5
+      -2255774x0_0-152589x0_1+2805551x0_2+411254x0_3-2029789x0_4+2013016x0_5+
+      -1232609x0_0-3795926x0_1-3890630x0_2+3831039x0_3+1495247x0_4+1456108x0_
+      -1260139x0_0+2367455x0_1-2074452x0_2+1540641x0_3+2096244x0_4+604376x0_5
+      0                                                                      
+      -----------------------------------------------------------------------
+      -4295767x0_6-1349994x0_7+3469596x0_8+4256627x0_9 |
+      421034x0_6-4901792x0_7+4988209x0_8-494257x0_9    |
+      5-976817x0_6+2292406x0_7-4444574x0_8+4380563x0_9 |
+      +115065x0_6+2900230x0_7+1708776x0_8-3939426x0_9  |
+                                                       |
+
+                          5                   5
+o14 : Matrix (K[x0 ..x0 ])  &lt;--- (K[x0 ..x0 ])
+                  0    9              0    9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : Z = projectiveVariety pfaffians(4,A);
+
+o15 : ProjectiveVariety, 6-dimensional subvariety of PP^9</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : ? Z
+
+o16 = 6-dimensional subvariety of PP^9 cut out by 5 hypersurfaces of degree 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : time h = Z ===> GG_K(1,4)
+     -- used 6.59105 seconds
+
+o17 = h
+
+o17 : MultirationalMap (isomorphism from PP^9 to PP^9)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : h || GG_K(1,4)
+
+o18 = multi-rational map consisting of one single rational map
+      source variety: 6-dimensional subvariety of PP^9 cut out by 5 hypersurfaces of degree 2
+      target variety: GG(1,4) ⊂ PP^9
+
+o18 : MultirationalMap (rational map from Z to GG(1,4))</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : show oo
+
+o19 = -- multi-rational map --
+      source: subvariety of Proj(K[x0 , x0 , x0 , x0 , x0 , x0 , x0 , x0 , x0 , x0 ]) defined by
+                                     0    1    2    3    4    5    6    7    8    9
+              {
+                                 2                                                            2                                                                            2                                                                                           2                                                                                                           2                                                                                                                           2                                                                                                                                           2                                                                                                                                                          2
+               x0 x0  + 1177025x0  - 1095541x0 x0  - 2449657x0 x0  - 3243503x0 x0  - 1061060x0  - 2783252x0 x0  - 3274449x0 x0  + 3386662x0 x0  + 4880814x0 x0  + 3733032x0  + 1640949x0 x0  - 329156x0 x0  - 2083947x0 x0  - 2312431x0 x0  - 1936834x0 x0  + 1149240x0  - 4060388x0 x0  - 3611959x0 x0  + 3508392x0 x0  - 537860x0 x0  - 4281865x0 x0  - 4451400x0 x0  + 2528307x0  - 4230765x0 x0  - 2408221x0 x0  - 1286535x0 x0  - 4336603x0 x0  - 4220128x0 x0  + 749283x0 x0  + 3981741x0 x0  + 3038844x0  + 4740906x0 x0  + 4843505x0 x0  - 3886471x0 x0  + 696812x0 x0  - 4988346x0 x0  + 2077593x0 x0  - 2859698x0 x0  - 1518929x0 x0  - 3232058x0  + 3121313x0 x0  - 4756567x0 x0  - 3127167x0 x0  - 1627093x0 x0  + 2611828x0 x0  + 4968424x0 x0  - 64090x0 x0  + 2180367x0 x0  + 2238599x0 x0  + 2439061x0 ,
+                 1  2            2            0  3            1  3            2  3            3            0  4            1  4            2  4            3  4            4            0  5           1  5            2  5            3  5            4  5            5            0  6            1  6            2  6           3  6            4  6            5  6            6            0  7            1  7            2  7            3  7            4  7           5  7            6  7            7            0  8            1  8            2  8           3  8            4  8            5  8            6  8            7  8            8            0  9            1  9            2  9            3  9            4  9            5  9          6  9            7  9            8  9            9
+               
+                                 2                                                          2                                                                          2                                                                                           2                                                                                                         2                                                                                                                            2                                                                                                                                         2                                                                                                                                                          2
+               x0 x0  + 4570442x0  - 95455x0 x0  + 4540866x0 x0  - 3666920x0 x0  - 2236818x0  - 2988265x0 x0  + 2811128x0 x0  + 1843189x0 x0  + 2468602x0 x0  + 90348x0  - 899258x0 x0  - 4198922x0 x0  + 2215739x0 x0  - 1414418x0 x0  - 4001772x0 x0  + 1783295x0  - 1769084x0 x0  + 4558141x0 x0  - 1508432x0 x0  - 81167x0 x0  - 625040x0 x0  + 2937038x0 x0  + 4090836x0  + 3729984x0 x0  + 4292910x0 x0  - 1067772x0 x0  - 2704646x0 x0  - 4942689x0 x0  - 3684702x0 x0  + 2267021x0 x0  + 1087738x0  - 2739302x0 x0  + 1562924x0 x0  - 2847121x0 x0  - 4121261x0 x0  + 2174897x0 x0  + 90757x0 x0  - 2407863x0 x0  - 2324974x0 x0  - 174089x0  + 4436267x0 x0  + 487180x0 x0  - 4151396x0 x0  - 1383729x0 x0  + 773635x0 x0  + 3984741x0 x0  + 3303811x0 x0  - 4267053x0 x0  - 4832450x0 x0  - 4362709x0 ,
+                 0  2            2          0  3            1  3            2  3            3            0  4            1  4            2  4            3  4          4           0  5            1  5            2  5            3  5            4  5            5            0  6            1  6            2  6          3  6           4  6            5  6            6            0  7            1  7            2  7            3  7            4  7            5  7            6  7            7            0  8            1  8            2  8            3  8            4  8          5  8            6  8            7  8           8            0  9           1  9            2  9            3  9           4  9            5  9            6  9            7  9            8  9            9
+               
+                 2            2                                                           2                                                                           2                                                                                            2                                                                                                           2                                                                                                                         2                                                                                                                                         2                                                                                                                                                          2
+               x0  - 4983412x0  + 4394308x0 x0  + 2815203x0 x0  - 331579x0 x0  + 2764751x0  - 2805962x0 x0  + 668466x0 x0  - 2554152x0 x0  + 4279022x0 x0  - 2965749x0  - 1508144x0 x0  - 1365547x0 x0  + 4996438x0 x0  - 3145140x0 x0  + 1783510x0 x0  + 2519033x0  + 3099034x0 x0  + 4073779x0 x0  - 385562x0 x0  + 2573406x0 x0  + 3053509x0 x0  - 1162366x0 x0  + 4302327x0  + 117773x0 x0  + 1743374x0 x0  + 2462036x0 x0  - 4097671x0 x0  - 1750639x0 x0  - 418086x0 x0  - 369814x0 x0  - 1611145x0  - 1066092x0 x0  + 1462981x0 x0  - 897233x0 x0  - 4918316x0 x0  - 442190x0 x0  + 1847233x0 x0  + 3694786x0 x0  + 1873500x0 x0  + 747368x0  + 3942073x0 x0  + 1611533x0 x0  - 1063893x0 x0  + 3564330x0 x0  - 1700115x0 x0  - 410720x0 x0  + 2237535x0 x0  + 316734x0 x0  - 4299028x0 x0  - 1057166x0 ,
+                 1            2            0  3            1  3           2  3            3            0  4           1  4            2  4            3  4            4            0  5            1  5            2  5            3  5            4  5            5            0  6            1  6           2  6            3  6            4  6            5  6            6           0  7            1  7            2  7            3  7            4  7           5  7           6  7            7            0  8            1  8           2  8            3  8           4  8            5  8            6  8            7  8           8            0  9            1  9            2  9            3  9            4  9           5  9            6  9           7  9            8  9            9
+               
+                                 2                                                           2                                                                           2                                                                                            2                                                                                                          2                                                                                                                      2                                                                                                                                            2                                                                                                                                                      2
+               x0 x0  + 4945366x0  + 122400x0 x0  + 4613283x0 x0  + 3607605x0 x0  - 3797186x0  + 880351x0 x0  - 4741277x0 x0  - 1205877x0 x0  + 3486734x0 x0  + 2898287x0  + 3006671x0 x0  + 3243145x0 x0  - 1623964x0 x0  + 4521923x0 x0  + 4756659x0 x0  - 4484352x0  - 3236288x0 x0  - 695220x0 x0  + 970619x0 x0  - 3098637x0 x0  - 2898498x0 x0  - 3885949x0 x0  + 1379926x0  + 452843x0 x0  - 602246x0 x0  - 2706941x0 x0  - 290203x0 x0  - 1724577x0 x0  + 123395x0 x0  + 583922x0 x0  + 115646x0  + 2172520x0 x0  + 1125647x0 x0  - 2817246x0 x0  + 4180857x0 x0  - 3227735x0 x0  - 2538539x0 x0  - 1811940x0 x0  - 3865917x0 x0  - 3160054x0  - 738144x0 x0  + 2508981x0 x0  + 2624313x0 x0  + 2088816x0 x0  + 2135052x0 x0  + 140567x0 x0  - 3482168x0 x0  + 3607342x0 x0  - 205597x0 x0  - 3307x0 ,
+                 0  1            2           0  3            1  3            2  3            3           0  4            1  4            2  4            3  4            4            0  5            1  5            2  5            3  5            4  5            5            0  6           1  6           2  6            3  6            4  6            5  6            6           0  7           1  7            2  7           3  7            4  7           5  7           6  7           7            0  8            1  8            2  8            3  8            4  8            5  8            6  8            7  8            8           0  9            1  9            2  9            3  9            4  9           5  9            6  9            7  9           8  9         9
+               
+                 2            2                                                           2                                                                           2                                                                                          2                                                                                                           2                                                                                                                           2                                                                                                                                           2                                                                                                                                                           2
+               x0  - 2084490x0  + 3965062x0 x0  + 3920717x0 x0  - 748684x0 x0  - 3601351x0  - 4434745x0 x0  + 2429080x0 x0  + 4533987x0 x0  - 3525867x0 x0  + 316102x0  - 989703x0 x0  + 2718669x0 x0  - 2734172x0 x0  - 926135x0 x0  + 1668848x0 x0  - 3637865x0  + 2187085x0 x0  - 1706603x0 x0  + 1210817x0 x0  + 993302x0 x0  - 3101990x0 x0  - 1214647x0 x0  + 4207879x0  + 1139881x0 x0  + 1251151x0 x0  + 1168855x0 x0  - 912010x0 x0  - 3811666x0 x0  - 3437312x0 x0  + 1947189x0 x0  + 4881584x0  - 4659830x0 x0  + 3854863x0 x0  + 701591x0 x0  + 3308028x0 x0  + 2182166x0 x0  + 3628590x0 x0  + 1667603x0 x0  - 1656132x0 x0  - 4157810x0  - 2253747x0 x0  - 1789013x0 x0  + 3891052x0 x0  - 4072307x0 x0  - 3350837x0 x0  + 4382093x0 x0  + 348517x0 x0  - 3484961x0 x0  + 1064900x0 x0  - 2493096x0
+                 0            2            0  3            1  3           2  3            3            0  4            1  4            2  4            3  4           4           0  5            1  5            2  5           3  5            4  5            5            0  6            1  6            2  6           3  6            4  6            5  6            6            0  7            1  7            2  7           3  7            4  7            5  7            6  7            7            0  8            1  8           2  8            3  8            4  8            5  8            6  8            7  8            8            0  9            1  9            2  9            3  9            4  9            5  9           6  9            7  9            8  9            9
+              }
+      target: subvariety of Proj(K[x   , x   , x   , x   , x   , x   , x   , x   , x   , x   ]) defined by
+                                    0,1   0,2   1,2   0,3   1,3   2,3   0,4   1,4   2,4   3,4
+              {
+               x   x    - x   x    + x   x   ,
+                2,3 1,4    1,3 2,4    1,2 3,4
+               
+               x   x    - x   x    + x   x   ,
+                2,3 0,4    0,3 2,4    0,2 3,4
+               
+               x   x    - x   x    + x   x   ,
+                1,3 0,4    0,3 1,4    0,1 3,4
+               
+               x   x    - x   x    + x   x   ,
+                1,2 0,4    0,2 1,4    0,1 2,4
+               
+               x   x    - x   x    + x   x
+                1,2 0,3    0,2 1,3    0,1 2,3
+              }
+      -- rational map 1/1 -- 
+      map 1/1, one of its representatives:
+      {
+       - 4955130x0  - 2830792x0  + 1376806x0  + 4129359x0  + 4511300x0  - 4710574x0  + 2905466x0  - 4890882x0  - 215730x0  + 3759197x0 ,
+                  0            1            2            3            4            5            6            7           8            9
+       
+       - 2350531x0  + 647071x0  - 2010797x0  - 1679088x0  - 1605354x0  + 245004x0  - 1952375x0  + 4032072x0  + 4274163x0  - 3460346x0 ,
+                  0           1            2            3            4           5            6            7            8            9
+       
+       - 2105465x0  + 2212889x0  + 2560271x0  + 546146x0  + 1007583x0  - 3570671x0  + 2251582x0  - 1355141x0  - 188875x0  + 87464x0 ,
+                  0            1            2           3            4            5            6            7           8          9
+       
+       613134x0  + 3423965x0  - 2992038x0  - 1116142x0  - 1947368x0  - 1631649x0  + 1335061x0  + 4143364x0  + 259754x0  + 3440927x0 ,
+               0            1            2            3            4            5            6            7           8            9
+       
+       - 853563x0  + 2955972x0  + 1107025x0  + 4901955x0  - 4405095x0  + 768881x0  - 121812x0  + 1770730x0  + 558569x0  + 3067493x0 ,
+                 0            1            2            3            4           5           6            7           8            9
+       
+       - 1429409x0  + 4258621x0  - 134232x0  - 2023131x0  - 4008192x0  + 2021415x0  + 257400x0  + 3674927x0  + 4256589x0  + 784860x0 ,
+                  0            1           2            3            4            5           6            7            8           9
+       
+       668204x0  + 314424x0  - 3430507x0  - 2810996x0  + 3883757x0  + 1562229x0  - 3244720x0  + 1895569x0  + 3350914x0  + 1627251x0 ,
+               0           1            2            3            4            5            6            7            8            9
+       
+       409606x0  - 1564530x0  + 4411376x0  - 3966210x0  + 2237618x0  + 474772x0  - 2750700x0  + 1022834x0  - 98736x0  + 2004957x0 ,
+               0            1            2            3            4           5            6            7          8            9
+       
+       - 4005338x0  + 4473865x0  + 514745x0  + 2120182x0  + 2345402x0  - 417906x0  + 2386551x0  - 754907x0  - 2731424x0  + 4928807x0 ,
+                  0            1           2            3            4           5            6           7            8            9
+       
+       - 4867678x0  + 3796787x0  - 1874516x0  + 4528024x0  - 1592517x0  + 4922242x0  - 408054x0  - 4897063x0  + 4835457x0  - 3641859x0
+                  0            1            2            3            4            5           6            7            8            9
+      }</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="try to get a parametrization of a multi-projective variety" href="_parametrize_lp__Multiprojective__Variety_rp.html">parametrize(MultiprojectiveVariety)</a> -- try to get a parametrization of a multi-projective variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="try to find an isomorphism between two projective varieties" href="___Embedded__Projective__Variety_sp_eq_eq_eq_gt_sp__Embedded__Projective__Variety.html">EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety</a> -- try to find an isomorphism between two projective varieties</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

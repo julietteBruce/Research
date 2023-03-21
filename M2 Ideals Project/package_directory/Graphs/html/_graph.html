@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>graph -- Constructs a simple graph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_graph_lp__Digraph_rp.html">next</a> | <a href="___Graph.html">previous</a> | <a href="_graph_lp__Digraph_rp.html">forward</a> | <a href="___Graph.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">Graphs</a> :: <a title="Constructs a simple graph" href="_graph.html">graph</a>    </div>
+    <hr/>
+    <div>
+      <h1>graph -- Constructs a simple graph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = graph E</code></dd>
+              <dd><code class="language-macaulay2">G = graph (V,E)</code></dd>
+              <dd><code class="language-macaulay2">G = graph H</code></dd>
+              <dd><code class="language-macaulay2">G = graph (V, A)</code></dd>
+              <dd><code class="language-macaulay2">G = graph A</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>E</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>V</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, </span>              </li>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>EntryMode</tt><tt> => </tt><tt>...</tt>, <span>default value &quot;auto&quot;</span></span>              </li>
+              <li>
+<span><tt>Singletons</tt><tt> => </tt><tt>...</tt>, <span>default value null</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a href="___Graph.html">graph</a></span>, The graph with edges E and vertices V, or constructed from HashTable H, or from an adjacency matrix A, or from a new naming of vertices V and an adjacency matrix A.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A graph consists of two sets, a vertex set and an edge set which is a subset of the collection of subsets of the vertex set. Edges in graphs are symmetric or two-way; if u and v are vertices then if {u,v} is an edge connecting them, {v,u} is also an edge (which is implicit in the definition, we will almost always just use one of the pairs). Graphs are defined uniquely from their Adjacency Matrices. These matrices use the entries as 0 or 1 to signal the existence of an edge connecting vertices. The options for EntryMode are &quot;neighbors&quot; and &quot;edges&quot; (the default).  This means that in including EntryMode => &quot;edges&quot; in the constructor allows the user to simply type in a list of edges to construct a graph.  See example 1 below.  Using the default takes an input of a list of pairs, where the first entry of each pair is a vertex and the second entry of each pair is that vertex's neighborhood. The options for Singletons allows the user to enter Singletons => {list of single points} in a graph if they desire to have isolated points in a graph.  See second example below.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G = graph({{1,2},{2,3},{3,4}})
+
+o1 = Graph{1 => {2}   }
+           2 => {1, 3}
+           3 => {2, 4}
+           4 => {3}
+
+o1 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = graph({{1,2},{2,3},{3,4}}, Singletons => {5,6,7})
+
+o2 = Graph{1 => {2}   }
+           2 => {1, 3}
+           3 => {2, 4}
+           4 => {3}
+           5 => {}
+           6 => {}
+           7 => {}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : G = graph ({{a,{b,c,d,e}}, {b,{d,e}}, {e,{a}}})
+
+o3 = Graph{a => {e, b, c, d}}
+           b => {e, a, d}
+           c => {a}
+           d => {a, b}
+           e => {a, b}
+
+o3 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : G = graph hashTable {{1,{2}},{2,{1,3}},{3,{2,4}},{4,{3}}}
+
+o4 = Graph{1 => {2}   }
+           2 => {1, 3}
+           3 => {2, 4}
+           4 => {3}
+
+o4 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : G = graph(matrix {{0,1,1},{1,0,0},{1,0,0}})
+
+o5 = Graph{0 => {1, 2}}
+           1 => {0}
+           2 => {0}
+
+o5 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : G = graph({a,b,c}, matrix {{0,1,1},{1,0,0},{1,0,0}})
+
+o6 = Graph{a => {b, c}}
+           b => {a}
+           c => {a}
+
+o6 : Graph</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Constructs a digraph" href="_digraph.html">digraph</a> -- Constructs a digraph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>graph</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;graph(HashTable)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graph(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graph(List,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graph(List,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graph(Matrix)&quot;</tt>          </li>
+          <li>
+<span><a title="Returns the legacy G#graph hash table" href="_graph_lp__Digraph_rp.html">graph(Digraph)</a> -- Returns the legacy G#graph hash table</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Constructs a simple graph" href="_graph.html">graph</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

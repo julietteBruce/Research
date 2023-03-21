@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Dmodules -- algorithms for D-modules</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Alg.html">next</a> | previous | <a href="___Alg.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="algorithms for D-modules" href="index.html">Dmodules</a>    </div>
+    <hr/>
+    <div>
+      <h1>Dmodules -- algorithms for D-modules</h1>
+      <div>
+        <h2>Description</h2>
+To begin, read the <a title="Algebraic computations for linear differential equations" href="___D-modules_sptutorial.html">D-modules tutorial</a>.        <h3>How to make Weyl algebras:</h3>
+        <ul>
+          <li>
+<span><a title="an optional argument" href="../../Macaulay2Doc/html/___Weyl__Algebra.html">WeylAlgebra</a> -- an optional argument</span>          </li>
+          <li>
+<span><a title="Weyl algebra corresponding to a polynomial ring" href="_make__Weyl__Algebra.html">makeWeylAlgebra</a> -- Weyl algebra corresponding to a polynomial ring</span>          </li>
+        </ul>
+        <h3>Basic commands:</h3>
+        <ul>
+          <li>
+<span><a title="Groebner bases w.r.t. a weight" href="_gbw.html">gbw</a> -- Groebner bases w.r.t. a weight</span>          </li>
+          <li>
+<span><a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a> -- initial form/ideal w.r.t. a weight</span>          </li>
+          <li>
+<span><a title="Fourier transform for Weyl algebra" href="___Fourier.html">Fourier</a> -- Fourier transform for Weyl algebra</span>          </li>
+          <li>
+<span><a title="standard transposition for Weyl algebra" href="___Dtransposition.html">Dtransposition</a> -- standard transposition for Weyl algebra</span>          </li>
+          <li>
+<span><a title="finds a cyclic generator of a D-module" href="_make__Cyclic.html">makeCyclic</a> -- finds a cyclic generator of a D-module</span>          </li>
+          <li>
+<span><a title="computes 2 generators for a given ideal in the Weyl algebra" href="_stafford.html">stafford</a> -- computes 2 generators for a given ideal in the Weyl algebra</span>          </li>
+        </ul>
+        <h3>Some examples of D-modules:</h3>
+        <ul>
+          <li>
+<span><a title="The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)" href="_gkz.html">gkz</a> -- The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)</span>          </li>
+          <li>
+<span><a title="Appell F1 system of PDE's" href="___Appell__F1.html">AppellF1</a> -- Appell F1 system of PDE's</span>          </li>
+          <li>
+<span><a title="annihilator of a polynomial in the Weyl algebra" href="___Poly__Ann.html">PolyAnn</a> -- annihilator of a polynomial in the Weyl algebra</span>          </li>
+          <li>
+<span><a title="annihilator of a rational function in Weyl algebra" href="___Rat__Ann.html">RatAnn</a> -- annihilator of a rational function in Weyl algebra</span>          </li>
+        </ul>
+        <h3>Basic invariants of D-modules:</h3>
+        <ul>
+          <li>
+<span><a title="dimension of a D-module" href="___Ddim.html">Ddim</a> -- dimension of a D-module</span>          </li>
+          <li>
+<span><a title="rank of a D-module" href="_holonomic__Rank.html">holonomicRank</a> -- rank of a D-module</span>          </li>
+          <li>
+<span><a title="characteristic ideal of a D-module" href="_char__Ideal.html">charIdeal</a> -- characteristic ideal of a D-module</span>          </li>
+          <li>
+<span><a title="singular locus of a D-module" href="_sing__Locus.html">singLocus</a> -- singular locus of a D-module</span>          </li>
+        </ul>
+        <h3>B-functions:</h3>
+        <ul>
+          <li>
+<span><a title="b-function" href="_b__Function.html">bFunction</a> -- b-function</span>          </li>
+          <li>
+<span><a title="global b-function (else known as the Bernstein-Sato polynomial)" href="_global__B__Function_lp__Ring__Element_rp.html">globalBFunction</a> -- global b-function (else known as the Bernstein-Sato polynomial)</span>          </li>
+          <li>
+<span><a title="compute global b-function and b-operator for a D-module and a polynomial" href="_global__B_lp__Ideal_cm__Ring__Element_rp.html">globalB</a> -- compute global b-function and b-operator for a D-module and a polynomial</span>          </li>
+          <li>
+<span><a title="compute a b-operator of a polynomial" href="_global__Boperator_lp__Ring__Element_rp.html">globalBoperator</a> -- compute a b-operator of a polynomial</span>          </li>
+          <li>
+<span><a title="global generalized Bernstein-Sato polynomial" href="_general__B_lp__List_cm__Ring__Element_rp.html">generalB</a> -- global generalized Bernstein-Sato polynomial</span>          </li>
+          <li>
+<span><a title="local b-function (a.k.a. the local Bernstein-Sato polynomial)" href="_local__B__Function_lp__Ring__Element_cm__Ideal_rp.html">localBFunction</a> -- local b-function (a.k.a. the local Bernstein-Sato polynomial)</span>          </li>
+          <li>
+<span><a title="compute the list of all possible Bernstein-Sato polynomials for a polynomial with parametric coefficients" href="_param__Bpoly_lp__Ring__Element_cm__String_rp.html">paramBpoly</a> -- compute the list of all possible Bernstein-Sato polynomials for a polynomial with parametric coefficients</span>          </li>
+          <li>
+<span><a title="factorization of a b-function" href="_factor__B__Function_lp__Ring__Element_rp.html">factorBFunction</a> -- factorization of a b-function</span>          </li>
+          <li>
+<span><a title="get roots of a b-function" href="_b__Function__Roots_lp__Ring__Element_rp.html">bFunctionRoots</a> -- get roots of a b-function</span>          </li>
+          <li>
+<span><a title="get integer roots of a b-function" href="_get__Int__Roots_lp__Ring__Element_rp.html">getIntRoots</a> -- get integer roots of a b-function</span>          </li>
+          <li>
+<a title="the annihilating ideal of f^s" href="___Ann__Fs.html">AnnFs</a> -- annihilator ideal of <em>f</em><sup>s</sup>          </li>
+          <li>
+<a title="the annihilating ideal of f^s for an arbitrary D-module" href="___Ann__I__Fs_lp__Ideal_cm__Ring__Element_rp.html">AnnIFs</a> -- annihilator ideal  of <em>f</em><sup>s</sup> for an arbitrary D-module          </li>
+        </ul>
+        <h3>Resolutions and Functors:</h3>
+        <ul>
+          <li>
+<span><a title="resolution of a D-module" href="___Dresolution.html">Dresolution</a> -- resolution of a D-module</span>          </li>
+          <li>
+<span><a title="localization of a D-module" href="___Dlocalize.html">Dlocalize</a> -- localization of a D-module</span>          </li>
+          <li>
+<span><a title="Weyl closure of an ideal" href="___Weyl__Closure.html">WeylClosure</a> -- Weyl closure of an ideal</span>          </li>
+          <li>
+<span><a title="holonomic dual of a D-module" href="___Ddual.html">Ddual</a> -- holonomic dual of a D-module</span>          </li>
+          <li>
+<span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span>          </li>
+          <li>
+<span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span>          </li>
+          <li>
+<span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span>          </li>
+          <li>
+<span><a title="Ext groups between holonomic modules" href="___D__Ext.html">DExt</a> -- Ext groups between holonomic modules</span>          </li>
+          <li>
+<span><a title="Ext groups between a holonomic module and a polynomial ring" href="___Poly__Ext.html">PolyExt</a> -- Ext groups between a holonomic module and a polynomial ring</span>          </li>
+          <li>
+<span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span>          </li>
+        </ul>
+        <h3>Applications:</h3>
+        <ul>
+          <li>
+<span><a title="local cohomology" href="_local__Cohom.html">localCohom</a> -- local cohomology</span>          </li>
+          <li>
+<span><a title="deRham cohomology groups for the complement of a hypersurface" href="_de__Rham.html">deRham</a> -- deRham cohomology groups for the complement of a hypersurface</span>          </li>
+          <li>
+<span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span>          </li>
+          <li>
+<span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span>          </li>
+          <li>
+<span><a title="differential operators of up to the given order for a quotient polynomial ring" href="_diff__Ops.html">diffOps</a> -- differential operators of up to the given order for a quotient polynomial ring</span>          </li>
+          <li>
+<a title="Cech complex skeleton for the computation of the characteristic cycles of local cohomology modules" href="_populate__Cech__Complex__C__C_lp__Ideal_cm__List_rp.html">populateCechComplexCC</a>, <a title="reduction of the Cech complex that produces characteristic cycles of local cohomology modules" href="_prune__Cech__Complex__C__C_lp__Mutable__Hash__Table_rp.html">pruneCechComplexCC</a> -- characteristic cycles of local cohomology          </li>
+          <li>
+<span><a title="logarithmic cohomology groups in two variables" href="_log__Cohomology_lp__Ring__Element_rp.html">logCohomology</a> -- logarithmic cohomology groups in two variables</span>          </li>
+          <li>
+<span><a title="compute the log canonical threshold for an ideal" href="_lct_lp__Ideal_rp.html">lct</a> -- compute the log canonical threshold for an ideal</span>          </li>
+          <li>
+<a title="multiplier ideal" href="_multiplier__Ideal_lp__Ideal_cm__Q__Q_rp.html">multiplierIdeal</a>, <a title="multiplier ideal membership test" href="_is__In__Multiplier__Ideal_lp__Ring__Element_cm__Ideal_cm__Q__Q_rp.html">isInMultiplierIdeal</a>, <a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients</a> -- multiplier ideals          </li>
+          <li>
+<span><a title="check if a complete intersection has at most rational singularities" href="_has__Rational__Sing_lp__List_rp.html">hasRationalSing</a> -- check if a complete intersection has at most rational singularities</span>          </li>
+        </ul>
+        <h3>Canonical Series:</h3>
+        <ul>
+          <li>
+<span><a title="the image in the thetaRing of a torus-fixed ideal in a Weyl algebra" href="_distraction.html">distraction</a> -- the image in the thetaRing of a torus-fixed ideal in a Weyl algebra</span>          </li>
+          <li>
+<span><a title="the image in the thetaRing of a torus-fixed element in a Weyl algebra" href="_gen__To__Distraction__Gens.html">genToDistractionGens</a> -- the image in the thetaRing of a torus-fixed element in a Weyl algebra</span>          </li>
+          <li>
+<span><a title="the exponents of the canonical series solutions of I in the direction of a weight vector" href="_css__Expts.html">cssExpts</a> -- the exponents of the canonical series solutions of I in the direction of a weight vector</span>          </li>
+          <li>
+<span><a title="the exponents (and multiplicities) of the canonical series solutions of I in the direction of a weight vector" href="_css__Expts__Mult.html">cssExptsMult</a> -- the exponents (and multiplicities) of the canonical series solutions of I in the direction of a weight vector</span>          </li>
+          <li>
+<span><a title="checks if an ideal in a Weyl algebra is torus-fixed" href="_is__Torus__Fixed.html">isTorusFixed</a> -- checks if an ideal in a Weyl algebra is torus-fixed</span>          </li>
+          <li>
+<span><a title="Computing series solutions to regular holonomic systems" href="___Canonical_sp__Series_sp__Tutorial.html">Canonical Series Tutorial</a> -- Computing series solutions to regular holonomic systems</span>          </li>
+        </ul>
+        <h3>Programming aids:</h3>
+        <ul>
+          <li>
+<span><a title="pairs up the variables in Weyl algebra " href="_create__Dpairs_lp__Polynomial__Ring_rp.html">createDpairs</a> -- pairs up the variables in Weyl algebra </span>          </li>
+          <li>
+<span><a title="set the depth of comments made by D-module routines" href="___Dtrace_lp__Z__Z_rp.html">Dtrace</a> -- set the depth of comments made by D-module routines</span>          </li>
+          <li>
+<span><a title="toggles the use of homogeneous Weyl algebra" href="_set__Hom__Switch_lp__Boolean_rp.html">setHomSwitch</a> -- toggles the use of homogeneous Weyl algebra</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+Anton Leykin<span> &lt;<a href="mailto:leykin@math.gatech.edu">leykin@math.gatech.edu</a>></span>            </li>
+            <li>
+Harrison Tsai            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.4.0.1</b> of Dmodules.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/Dmodules.m2">Dmodules.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/Dmodules/">Dmodules/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="the annihilating ideal of f^s" href="___Ann__Fs.html">AnnFs</a> -- the annihilating ideal of f^s</span>                  </li>
+                  <li>
+<span><tt>&quot;AnnIFs&quot;</tt> -- see <span><a title="the annihilating ideal of f^s for an arbitrary D-module" href="___Ann__I__Fs_lp__Ideal_cm__Ring__Element_rp.html">AnnIFs(Ideal,RingElement)</a> -- the annihilating ideal of f^s for an arbitrary D-module</span></span>                  </li>
+                  <li>
+<span><a title="Appell F1 system of PDE's" href="___Appell__F1.html">AppellF1</a> -- Appell F1 system of PDE's</span>                  </li>
+                  <li>
+<span><a title="b-function" href="_b__Function.html">bFunction</a> -- b-function</span>                  </li>
+                  <li>
+<span><tt>&quot;bFunctionRoots&quot;</tt> -- see <span><a title="get roots of a b-function" href="_b__Function__Roots_lp__Ring__Element_rp.html">bFunctionRoots(RingElement)</a> -- get roots of a b-function</span></span>                  </li>
+                  <li>
+<span><a title="the characteristic cycle of the localized $D$-module" href="___B__M__M.html">BMM</a> -- the characteristic cycle of the localized $D$-module</span>                  </li>
+                  <li>
+<span><a title="characteristic ideal of a D-module" href="_char__Ideal.html">charIdeal</a> -- characteristic ideal of a D-module</span>                  </li>
+                  <li>
+<span><tt>&quot;createDpairs&quot;</tt> -- see <span><a title="pairs up the variables in Weyl algebra " href="_create__Dpairs_lp__Polynomial__Ring_rp.html">createDpairs(PolynomialRing)</a> -- pairs up the variables in Weyl algebra </span></span>                  </li>
+                  <li>
+<span><a title="the exponents of the canonical series solutions of I in the direction of a weight vector" href="_css__Expts.html">cssExpts</a> -- the exponents of the canonical series solutions of I in the direction of a weight vector</span>                  </li>
+                  <li>
+<span><a title="the exponents (and multiplicities) of the canonical series solutions of I in the direction of a weight vector" href="_css__Expts__Mult.html">cssExptsMult</a> -- the exponents (and multiplicities) of the canonical series solutions of I in the direction of a weight vector</span>                  </li>
+                  <li>
+<span><a title="dimension of a D-module" href="___Ddim.html">Ddim</a> -- dimension of a D-module</span>                  </li>
+                  <li>
+<span><a title="holonomic dual of a D-module" href="___Ddual.html">Ddual</a> -- holonomic dual of a D-module</span>                  </li>
+                  <li>
+<span><a title="deRham cohomology groups for the complement of a hypersurface" href="_de__Rham.html">deRham</a> -- deRham cohomology groups for the complement of a hypersurface</span>                  </li>
+                  <li>
+<span><tt>&quot;deRhamAll&quot;</tt> -- see <span><a title="deRham complex for the complement of a hypersurface" href="_de__Rham__All_lp__Ring__Element_rp.html">deRhamAll(RingElement)</a> -- deRham complex for the complement of a hypersurface</span></span>                  </li>
+                  <li>
+<span><a title="Ext groups between holonomic modules" href="___D__Ext.html">DExt</a> -- Ext groups between holonomic modules</span>                  </li>
+                  <li>
+<span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span>                  </li>
+                  <li>
+<span><a title="differential operators of up to the given order for a quotient polynomial ring" href="_diff__Ops.html">diffOps</a> -- differential operators of up to the given order for a quotient polynomial ring</span>                  </li>
+                  <li>
+<span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateAll&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateClasses&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateComplex&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateIdeal&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span>                  </li>
+                  <li>
+<span><a title="integration modules of a D-module (extended version)" href="___Dintegration__All.html">DintegrationAll</a> -- integration modules of a D-module (extended version)</span>                  </li>
+                  <li>
+<span><a title="integration classes of a D-module" href="___Dintegration__Classes.html">DintegrationClasses</a> -- integration classes of a D-module</span>                  </li>
+                  <li>
+<span><a title="derived integration complex of a D-module" href="___Dintegration__Complex.html">DintegrationComplex</a> -- derived integration complex of a D-module</span>                  </li>
+                  <li>
+<span><a title="integration ideal of a D-module" href="___Dintegration__Ideal.html">DintegrationIdeal</a> -- integration ideal of a D-module</span>                  </li>
+                  <li>
+<span><a title="the image in the thetaRing of a torus-fixed ideal in a Weyl algebra" href="_distraction.html">distraction</a> -- the image in the thetaRing of a torus-fixed ideal in a Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizationAll&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizationMap&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><a title="localization of a D-module" href="___Dlocalize.html">Dlocalize</a> -- localization of a D-module</span>                  </li>
+                  <li>
+<span><a title="localization of a D-module (extended version)" href="___Dlocalize__All.html">DlocalizeAll</a> -- localization of a D-module (extended version)</span>                  </li>
+                  <li>
+<span><a title="localization map from a D-module to its localization" href="___Dlocalize__Map.html">DlocalizeMap</a> -- localization map from a D-module to its localization</span>                  </li>
+                  <li>
+<span><a title="prunes a D-module" href="___Dprune.html">Dprune</a> -- prunes a D-module</span>                  </li>
+                  <li>
+<span><a title="abbreviation for Dresolution" href="___Dres.html">Dres</a> -- abbreviation for Dresolution</span>                  </li>
+                  <li>
+<span><a title="resolution of a D-module" href="___Dresolution.html">Dresolution</a> -- resolution of a D-module</span>                  </li>
+                  <li>
+<span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictAll&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictClasses&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictComplex&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictIdeal&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span>                  </li>
+                  <li>
+<span><a title="restriction modules of a D-module (extended version)" href="___Drestriction__All.html">DrestrictionAll</a> -- restriction modules of a D-module (extended version)</span>                  </li>
+                  <li>
+<span><a title="restriction classes of a D-module" href="___Drestriction__Classes.html">DrestrictionClasses</a> -- restriction classes of a D-module</span>                  </li>
+                  <li>
+<span><a title="derived restriction complex of a D-module" href="___Drestriction__Complex.html">DrestrictionComplex</a> -- derived restriction complex of a D-module</span>                  </li>
+                  <li>
+<span><a title="restriction ideal of a D-module" href="___Drestriction__Ideal.html">DrestrictionIdeal</a> -- restriction ideal of a D-module</span>                  </li>
+                  <li>
+<span><tt>&quot;Dtrace&quot;</tt> -- see <span><a title="set the depth of comments made by D-module routines" href="___Dtrace_lp__Z__Z_rp.html">Dtrace(ZZ)</a> -- set the depth of comments made by D-module routines</span></span>                  </li>
+                  <li>
+<span><a title="standard transposition for Weyl algebra" href="___Dtransposition.html">Dtransposition</a> -- standard transposition for Weyl algebra</span>                  </li>
+                  <li>
+<span><tt>eulerOperators</tt> (missing documentation)<!--tag: eulerOperators-->
+</span>                  </li>
+                  <li>
+<span><a title="external product of modules or complexes" href="___External__Product.html">ExternalProduct</a> -- external product of modules or complexes</span>                  </li>
+                  <li>
+<span><a title="underlying polynomial ring in the differentials of a Weyl algebra" href="_extract__Diffs__Algebra.html">extractDiffsAlgebra</a> -- underlying polynomial ring in the differentials of a Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="underlying polynomial ring in the ordinary variables of a Weyl algebra" href="_extract__Vars__Algebra.html">extractVarsAlgebra</a> -- underlying polynomial ring in the ordinary variables of a Weyl algebra</span>                  </li>
+                  <li>
+<span><tt>&quot;factorBFunction&quot;</tt> -- see <span><a title="factorization of a b-function" href="_factor__B__Function_lp__Ring__Element_rp.html">factorBFunction(RingElement)</a> -- factorization of a b-function</span></span>                  </li>
+                  <li>
+<span><a title="Fourier transform for Weyl algebra" href="___Fourier.html">Fourier</a> -- Fourier transform for Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="Inverse Fourier map (D-modules)" href="___Fourier__Inverse.html">FourierInverse</a> -- Inverse Fourier map (D-modules)</span>                  </li>
+                  <li>
+<span><a title="Groebner bases w.r.t. a weight" href="_gbw.html">gbw</a> -- Groebner bases w.r.t. a weight</span>                  </li>
+                  <li>
+<span><tt>&quot;generalB&quot;</tt> -- see <span><a title="global generalized Bernstein-Sato polynomial" href="_general__B_lp__List_cm__Ring__Element_rp.html">generalB(List,RingElement)</a> -- global generalized Bernstein-Sato polynomial</span></span>                  </li>
+                  <li>
+<span><a title="the image in the thetaRing of a torus-fixed element in a Weyl algebra" href="_gen__To__Distraction__Gens.html">genToDistractionGens</a> -- the image in the thetaRing of a torus-fixed element in a Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="(internal) -- get the INFOLEVEL switch" href="_get__Dtrace.html">getDtrace</a> -- (internal) -- get the INFOLEVEL switch</span>                  </li>
+                  <li>
+<span><a title="(internal) -- get the HOMOGENIZATION switch" href="_get__Hom__Switch.html">getHomSwitch</a> -- (internal) -- get the HOMOGENIZATION switch</span>                  </li>
+                  <li>
+<span><tt>&quot;getIntRoots&quot;</tt> -- see <span><a title="get integer roots of a b-function" href="_get__Int__Roots_lp__Ring__Element_rp.html">getIntRoots(RingElement)</a> -- get integer roots of a b-function</span></span>                  </li>
+                  <li>
+<span><a title="The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)" href="_gkz.html">gkz</a> -- The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)</span>                  </li>
+                  <li>
+<span><tt>&quot;globalB&quot;</tt> -- see <span><a title="compute global b-function and b-operator for a D-module and a polynomial" href="_global__B_lp__Ideal_cm__Ring__Element_rp.html">globalB(Ideal,RingElement)</a> -- compute global b-function and b-operator for a D-module and a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;globalBFunction&quot;</tt> -- see <span><a title="global b-function (else known as the Bernstein-Sato polynomial)" href="_global__B__Function_lp__Ring__Element_rp.html">globalBFunction(RingElement)</a> -- global b-function (else known as the Bernstein-Sato polynomial)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;globalBoperator&quot;</tt> -- see <span><a title="compute a b-operator of a polynomial" href="_global__Boperator_lp__Ring__Element_rp.html">globalBoperator(RingElement)</a> -- compute a b-operator of a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hasRationalSing&quot;</tt> -- see <span><a title="check if a complete intersection has at most rational singularities" href="_has__Rational__Sing_lp__List_rp.html">hasRationalSing(List)</a> -- check if a complete intersection has at most rational singularities</span></span>                  </li>
+                  <li>
+<span><a title="rank of a D-module" href="_holonomic__Rank.html">holonomicRank</a> -- rank of a D-module</span>                  </li>
+                  <li>
+<span><tt>ICcohom</tt> (missing documentation)<!--tag: ICcohom-->
+</span>                  </li>
+                  <li>
+<span><tt>ICmodule</tt> (missing documentation)<!--tag: ICmodule-->
+</span>                  </li>
+                  <li>
+<span><a title="the image in the thetaRing of an indicial ideal in a Weyl algebra" href="_indicial__Ideal.html">indicialIdeal</a> -- the image in the thetaRing of an indicial ideal in a Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a> -- initial form/ideal w.r.t. a weight</span>                  </li>
+                  <li>
+<span><a title="determines whether a D-module (or ideal in Weyl algebra) is holonomic" href="_is__Holonomic.html">isHolonomic</a> -- determines whether a D-module (or ideal in Weyl algebra) is holonomic</span>                  </li>
+                  <li>
+<span><tt>&quot;isInMultiplierIdeal&quot;</tt> -- see <span><a title="multiplier ideal membership test" href="_is__In__Multiplier__Ideal_lp__Ring__Element_cm__Ideal_cm__Q__Q_rp.html">isInMultiplierIdeal(RingElement,Ideal,QQ)</a> -- multiplier ideal membership test</span></span>                  </li>
+                  <li>
+<span><a title="checks if an ideal in a Weyl algebra is torus-fixed" href="_is__Torus__Fixed.html">isTorusFixed</a> -- checks if an ideal in a Weyl algebra is torus-fixed</span>                  </li>
+                  <li>
+<span><tt>&quot;jumpingCoefficients&quot;</tt> -- see <span><a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients(Ideal)</a> -- jumping coefficients and corresponding multiplier ideals</span></span>                  </li>
+                  <li>
+<span><a title="D-annihilator of 1/f for a planar curve" href="_kappa__Ann__F1__Planar__Curve.html">kappaAnnF1PlanarCurve</a> -- D-annihilator of 1/f for a planar curve</span>                  </li>
+                  <li>
+<span><a title="k-th order D-annihilator of a power of a polynomial" href="_k__Order__Ann__Fa.html">kOrderAnnFa</a> -- k-th order D-annihilator of a power of a polynomial</span>                  </li>
+                  <li>
+<span><tt>&quot;kOrderAnnFs&quot;</tt> -- see <span><a title="k-th order D-annihilator of a power of a polynomial" href="_k__Order__Ann__Fa.html">kOrderAnnFa</a> -- k-th order D-annihilator of a power of a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;lct&quot;</tt> -- see <span><a title="compute the log canonical threshold for an ideal" href="_lct_lp__Ideal_rp.html">lct(Ideal)</a> -- compute the log canonical threshold for an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;localBFunction&quot;</tt> -- see <span><a title="local b-function (a.k.a. the local Bernstein-Sato polynomial)" href="_local__B__Function_lp__Ring__Element_cm__Ideal_rp.html">localBFunction(RingElement,Ideal)</a> -- local b-function (a.k.a. the local Bernstein-Sato polynomial)</span></span>                  </li>
+                  <li>
+<span><a title="local cohomology" href="_local__Cohom.html">localCohom</a> -- local cohomology</span>                  </li>
+                  <li>
+<span><tt>&quot;logCohomology&quot;</tt> -- see <span><a title="logarithmic cohomology groups in two variables" href="_log__Cohomology_lp__Ring__Element_rp.html">logCohomology(RingElement)</a> -- logarithmic cohomology groups in two variables</span></span>                  </li>
+                  <li>
+<span><a title="finds a cyclic generator of a D-module" href="_make__Cyclic.html">makeCyclic</a> -- finds a cyclic generator of a D-module</span>                  </li>
+                  <li>
+<span><a title="Weyl algebra corresponding to a polynomial ring" href="_make__Weyl__Algebra.html">makeWeylAlgebra</a> -- Weyl algebra corresponding to a polynomial ring</span>                  </li>
+                  <li>
+<span><tt>&quot;multiplierIdeal&quot;</tt> -- see <span><a title="multiplier ideal" href="_multiplier__Ideal_lp__Ideal_cm__Q__Q_rp.html">multiplierIdeal(Ideal,QQ)</a> -- multiplier ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;paramBpoly&quot;</tt> -- see <span><a title="compute the list of all possible Bernstein-Sato polynomials for a polynomial with parametric coefficients" href="_param__Bpoly_lp__Ring__Element_cm__String_rp.html">paramBpoly(RingElement,String)</a> -- compute the list of all possible Bernstein-Sato polynomials for a polynomial with parametric coefficients</span></span>                  </li>
+                  <li>
+<span><a title="prints tracing info" href="_p__Info.html">pInfo</a> -- prints tracing info</span>                  </li>
+                  <li>
+<span><a title="annihilator of a polynomial in the Weyl algebra" href="___Poly__Ann.html">PolyAnn</a> -- annihilator of a polynomial in the Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="Ext groups between a holonomic module and a polynomial ring" href="___Poly__Ext.html">PolyExt</a> -- Ext groups between a holonomic module and a polynomial ring</span>                  </li>
+                  <li>
+<span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span>                  </li>
+                  <li>
+<span><tt>&quot;populateCechComplexCC&quot;</tt> -- see <span><a title="Cech complex skeleton for the computation of the characteristic cycles of local cohomology modules" href="_populate__Cech__Complex__C__C_lp__Ideal_cm__List_rp.html">populateCechComplexCC(Ideal,List)</a> -- Cech complex skeleton for the computation of the characteristic cycles of local cohomology modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneCechComplexCC&quot;</tt> -- see <span><a title="reduction of the Cech complex that produces characteristic cycles of local cohomology modules" href="_prune__Cech__Complex__C__C_lp__Mutable__Hash__Table_rp.html">pruneCechComplexCC(MutableHashTable)</a> -- reduction of the Cech complex that produces characteristic cycles of local cohomology modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneLocalCohom&quot;</tt> -- see <span><a title="prunes local cohomology modules" href="_prune__Local__Cohom_lp__Hash__Table_rp.html">pruneLocalCohom(HashTable)</a> -- prunes local cohomology modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;putWeylAlgebra&quot;</tt> -- see <span><a title="transforms output of diffOps into elements of Weyl algebra" href="_put__Weyl__Algebra_lp__Hash__Table_rp.html">putWeylAlgebra(HashTable)</a> -- transforms output of diffOps into elements of Weyl algebra</span></span>                  </li>
+                  <li>
+<span><a title="annihilator of a rational function in Weyl algebra" href="___Rat__Ann.html">RatAnn</a> -- annihilator of a rational function in Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span>                  </li>
+                  <li>
+<span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span>                  </li>
+                  <li>
+<span><a title="Reiffen's curve" href="_reiffen.html">reiffen</a> -- Reiffen's curve</span>                  </li>
+                  <li>
+<span><tt>&quot;setHomSwitch&quot;</tt> -- see <span><a title="toggles the use of homogeneous Weyl algebra" href="_set__Hom__Switch_lp__Boolean_rp.html">setHomSwitch(Boolean)</a> -- toggles the use of homogeneous Weyl algebra</span></span>                  </li>
+                  <li>
+<span><a title="singular locus of a D-module" href="_sing__Locus.html">singLocus</a> -- singular locus of a D-module</span>                  </li>
+                  <li>
+<span><a title="solving Frobenius ideals" href="_solve__Frobenius__Ideal.html">solveFrobeniusIdeal</a> -- solving Frobenius ideals</span>                  </li>
+                  <li>
+<span><a title="computes 2 generators for a given ideal in the Weyl algebra" href="_stafford.html">stafford</a> -- computes 2 generators for a given ideal in the Weyl algebra</span>                  </li>
+                  <li>
+<span><a title="image of a monomial map" href="_toric__Ideal__Partials.html">toricIdealPartials</a> -- image of a monomial map</span>                  </li>
+                  <li>
+<span><a title="Weyl closure of an ideal" href="___Weyl__Closure.html">WeylClosure</a> -- Weyl closure of an ideal</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><a title="the annihilating ideal of f_1^{s_1}...f_r^{s_r}" href="___Ann__Fs_lp__List_rp.html">AnnFs(List)</a> -- the annihilating ideal of f_1^{s_1}...f_r^{s_r}</span>                  </li>
+                  <li>
+<span><a title="the annihilating ideal of f^s" href="___Ann__Fs_lp__Ring__Element_rp.html">AnnFs(RingElement)</a> -- the annihilating ideal of f^s</span>                  </li>
+                  <li>
+<span><a title="the annihilating ideal of f^s for an arbitrary D-module" href="___Ann__I__Fs_lp__Ideal_cm__Ring__Element_rp.html">AnnIFs(Ideal,RingElement)</a> -- the annihilating ideal of f^s for an arbitrary D-module</span>                  </li>
+                  <li>
+<span><tt>&quot;AppellF1(List)&quot;</tt> -- see <span><a title="Appell F1 system of PDE's" href="___Appell__F1.html">AppellF1</a> -- Appell F1 system of PDE's</span></span>                  </li>
+                  <li>
+<span><a title="b-function of an ideal" href="_b__Function_lp__Ideal_cm__List_rp.html">bFunction(Ideal,List)</a> -- b-function of an ideal</span>                  </li>
+                  <li>
+<span><a title="b-function of a holonomic D-module" href="_b__Function_lp__Module_cm__List_cm__List_rp.html">bFunction(Module,List,List)</a> -- b-function of a holonomic D-module</span>                  </li>
+                  <li>
+<span><a title="get roots of a b-function" href="_b__Function__Roots_lp__Ring__Element_rp.html">bFunctionRoots(RingElement)</a> -- get roots of a b-function</span>                  </li>
+                  <li>
+<span><tt>&quot;BMM(Ideal,RingElement)&quot;</tt> -- see <span><a title="the characteristic cycle of the localized $D$-module" href="___B__M__M.html">BMM</a> -- the characteristic cycle of the localized $D$-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;BMM(List,RingElement)&quot;</tt> -- see <span><a title="the characteristic cycle of the localized $D$-module" href="___B__M__M.html">BMM</a> -- the characteristic cycle of the localized $D$-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;charIdeal(Ideal)&quot;</tt> -- see <span><a title="characteristic ideal of a D-module" href="_char__Ideal.html">charIdeal</a> -- characteristic ideal of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;charIdeal(Module)&quot;</tt> -- see <span><a title="characteristic ideal of a D-module" href="_char__Ideal.html">charIdeal</a> -- characteristic ideal of a D-module</span></span>                  </li>
+                  <li>
+<span><a title="pairs up the variables in Weyl algebra " href="_create__Dpairs_lp__Polynomial__Ring_rp.html">createDpairs(PolynomialRing)</a> -- pairs up the variables in Weyl algebra </span>                  </li>
+                  <li>
+<span><tt>&quot;cssExpts(Ideal,List)&quot;</tt> -- see <span><a title="the exponents of the canonical series solutions of I in the direction of a weight vector" href="_css__Expts.html">cssExpts</a> -- the exponents of the canonical series solutions of I in the direction of a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cssExptsMult(Ideal,List)&quot;</tt> -- see <span><a title="the exponents (and multiplicities) of the canonical series solutions of I in the direction of a weight vector" href="_css__Expts__Mult.html">cssExptsMult</a> -- the exponents (and multiplicities) of the canonical series solutions of I in the direction of a weight vector</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Ddim(Ideal)&quot;</tt> -- see <span><a title="dimension of a D-module" href="___Ddim.html">Ddim</a> -- dimension of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Ddim(Module)&quot;</tt> -- see <span><a title="dimension of a D-module" href="___Ddim.html">Ddim</a> -- dimension of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Ddual(Ideal)&quot;</tt> -- see <span><a title="holonomic dual of a D-module" href="___Ddual.html">Ddual</a> -- holonomic dual of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Ddual(Module)&quot;</tt> -- see <span><a title="holonomic dual of a D-module" href="___Ddual.html">Ddual</a> -- holonomic dual of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;deRham(RingElement)&quot;</tt> -- see <span><a title="deRham cohomology groups for the complement of a hypersurface" href="_de__Rham.html">deRham</a> -- deRham cohomology groups for the complement of a hypersurface</span></span>                  </li>
+                  <li>
+<span><tt>&quot;deRham(ZZ,RingElement)&quot;</tt> -- see <span><a title="deRham cohomology groups for the complement of a hypersurface" href="_de__Rham.html">deRham</a> -- deRham cohomology groups for the complement of a hypersurface</span></span>                  </li>
+                  <li>
+<span><a title="deRham complex for the complement of a hypersurface" href="_de__Rham__All_lp__Ring__Element_rp.html">deRhamAll(RingElement)</a> -- deRham complex for the complement of a hypersurface</span>                  </li>
+                  <li>
+<span><tt>&quot;DExt(Module,Module)&quot;</tt> -- see <span><a title="Ext groups between holonomic modules" href="___D__Ext.html">DExt</a> -- Ext groups between holonomic modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DExt(Module,Module,List)&quot;</tt> -- see <span><a title="Ext groups between holonomic modules" href="___D__Ext.html">DExt</a> -- Ext groups between holonomic modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DHom(Ideal,Ideal)&quot;</tt> -- see <span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DHom(Module,Module)&quot;</tt> -- see <span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DHom(Module,Module,List)&quot;</tt> -- see <span><a title="D-homomorphisms between holonomic D-modules" href="___D__Hom.html">DHom</a> -- D-homomorphisms between holonomic D-modules</span></span>                  </li>
+                  <li>
+<span><tt>&quot;diffOps(Ideal,ZZ)&quot;</tt> -- see <span><a title="differential operators of up to the given order for a quotient polynomial ring" href="_diff__Ops.html">diffOps</a> -- differential operators of up to the given order for a quotient polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;diffOps(RingElement,ZZ)&quot;</tt> -- see <span><a title="differential operators of up to the given order for a quotient polynomial ring" href="_diff__Ops.html">diffOps</a> -- differential operators of up to the given order for a quotient polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegrate(Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegrate(Module,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegrate(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegrate(ZZ,Module,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateAll(Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateAll(Module,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateClasses(Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateClasses(Module,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateClasses(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateClasses(ZZ,Module,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateComplex(Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateComplex(Module,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrateIdeal(Ideal,List)&quot;</tt> -- see <span><a title="Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*" href="___Dintegrate.html">Dintegrate</a> -- Dintegrate* is an (OBSOLETE) abbreviation for Dintegration*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegration(Ideal,List)&quot;</tt> -- see <span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegration(Module,List)&quot;</tt> -- see <span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegration(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dintegration(ZZ,Module,List)&quot;</tt> -- see <span><a title="integration modules of a D-module" href="___Dintegration.html">Dintegration</a> -- integration modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationAll(Ideal,List)&quot;</tt> -- see <span><a title="integration modules of a D-module (extended version)" href="___Dintegration__All.html">DintegrationAll</a> -- integration modules of a D-module (extended version)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationAll(Module,List)&quot;</tt> -- see <span><a title="integration modules of a D-module (extended version)" href="___Dintegration__All.html">DintegrationAll</a> -- integration modules of a D-module (extended version)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationClasses(Ideal,List)&quot;</tt> -- see <span><a title="integration classes of a D-module" href="___Dintegration__Classes.html">DintegrationClasses</a> -- integration classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationClasses(Module,List)&quot;</tt> -- see <span><a title="integration classes of a D-module" href="___Dintegration__Classes.html">DintegrationClasses</a> -- integration classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationClasses(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="integration classes of a D-module" href="___Dintegration__Classes.html">DintegrationClasses</a> -- integration classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationClasses(ZZ,Module,List)&quot;</tt> -- see <span><a title="integration classes of a D-module" href="___Dintegration__Classes.html">DintegrationClasses</a> -- integration classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationComplex(Ideal,List)&quot;</tt> -- see <span><a title="derived integration complex of a D-module" href="___Dintegration__Complex.html">DintegrationComplex</a> -- derived integration complex of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationComplex(Module,List)&quot;</tt> -- see <span><a title="derived integration complex of a D-module" href="___Dintegration__Complex.html">DintegrationComplex</a> -- derived integration complex of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DintegrationIdeal(Ideal,List)&quot;</tt> -- see <span><a title="integration ideal of a D-module" href="___Dintegration__Ideal.html">DintegrationIdeal</a> -- integration ideal of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;distraction(Ideal,Ring)&quot;</tt> -- see <span><a title="the image in the thetaRing of a torus-fixed ideal in a Weyl algebra" href="_distraction.html">distraction</a> -- the image in the thetaRing of a torus-fixed ideal in a Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dlocalization(Ideal,RingElement)&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dlocalization(Module,RingElement)&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizationAll(Ideal,RingElement)&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizationAll(Module,RingElement)&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizationMap(Ideal,RingElement)&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizationMap(Module,RingElement)&quot;</tt> -- see <span><a title="Dlocalization* is an OBSOLETE name for Dlocalize*" href="___Dlocalization.html">Dlocalization</a> -- Dlocalization* is an OBSOLETE name for Dlocalize*</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dlocalize(Ideal,RingElement)&quot;</tt> -- see <span><a title="localization of a D-module" href="___Dlocalize.html">Dlocalize</a> -- localization of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dlocalize(Module,RingElement)&quot;</tt> -- see <span><a title="localization of a D-module" href="___Dlocalize.html">Dlocalize</a> -- localization of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizeAll(Ideal,RingElement)&quot;</tt> -- see <span><a title="localization of a D-module (extended version)" href="___Dlocalize__All.html">DlocalizeAll</a> -- localization of a D-module (extended version)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizeAll(Module,RingElement)&quot;</tt> -- see <span><a title="localization of a D-module (extended version)" href="___Dlocalize__All.html">DlocalizeAll</a> -- localization of a D-module (extended version)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizeMap(Ideal,RingElement)&quot;</tt> -- see <span><a title="localization map from a D-module to its localization" href="___Dlocalize__Map.html">DlocalizeMap</a> -- localization map from a D-module to its localization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DlocalizeMap(Module,RingElement)&quot;</tt> -- see <span><a title="localization map from a D-module to its localization" href="___Dlocalize__Map.html">DlocalizeMap</a> -- localization map from a D-module to its localization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dprune(Matrix)&quot;</tt> -- see <span><a title="prunes a D-module" href="___Dprune.html">Dprune</a> -- prunes a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dprune(Module)&quot;</tt> -- see <span><a title="prunes a D-module" href="___Dprune.html">Dprune</a> -- prunes a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dres(Ideal)&quot;</tt> -- see <span><a title="abbreviation for Dresolution" href="___Dres.html">Dres</a> -- abbreviation for Dresolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dres(Ideal,List)&quot;</tt> -- see <span><a title="abbreviation for Dresolution" href="___Dres.html">Dres</a> -- abbreviation for Dresolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dres(Module)&quot;</tt> -- see <span><a title="abbreviation for Dresolution" href="___Dres.html">Dres</a> -- abbreviation for Dresolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dres(Module,List)&quot;</tt> -- see <span><a title="abbreviation for Dresolution" href="___Dres.html">Dres</a> -- abbreviation for Dresolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dresolution(Ideal)&quot;</tt> -- see <span><a title="resolution of a D-module" href="___Dresolution.html">Dresolution</a> -- resolution of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dresolution(Ideal,List)&quot;</tt> -- see <span><a title="resolution of a D-module" href="___Dresolution.html">Dresolution</a> -- resolution of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dresolution(Module)&quot;</tt> -- see <span><a title="resolution of a D-module" href="___Dresolution.html">Dresolution</a> -- resolution of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dresolution(Module,List)&quot;</tt> -- see <span><a title="resolution of a D-module" href="___Dresolution.html">Dresolution</a> -- resolution of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestrict(Ideal,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestrict(Module,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestrict(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestrict(ZZ,Module,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictAll(Ideal,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictAll(Module,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictClasses(Ideal,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictClasses(Ideal,List,ZZ)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictClasses(Module,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictClasses(Module,List,ZZ)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictComplex(Ideal,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictComplex(Ideal,List,ZZ)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictComplex(Module,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictComplex(Module,List,ZZ)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictIdeal(Ideal,List)&quot;</tt> -- see <span><a title="an (OBSOLETE) abbreviation for Drestriction" href="___Drestrict.html">Drestrict</a> -- an (OBSOLETE) abbreviation for Drestriction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestriction(Ideal,List)&quot;</tt> -- see <span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestriction(Module,List)&quot;</tt> -- see <span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestriction(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Drestriction(ZZ,Module,List)&quot;</tt> -- see <span><a title="restriction modules of a D-module" href="___Drestriction.html">Drestriction</a> -- restriction modules of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionAll(Ideal,List)&quot;</tt> -- see <span><a title="restriction modules of a D-module (extended version)" href="___Drestriction__All.html">DrestrictionAll</a> -- restriction modules of a D-module (extended version)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionAll(Module,List)&quot;</tt> -- see <span><a title="restriction modules of a D-module (extended version)" href="___Drestriction__All.html">DrestrictionAll</a> -- restriction modules of a D-module (extended version)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionClasses(Ideal,List)&quot;</tt> -- see <span><a title="restriction classes of a D-module" href="___Drestriction__Classes.html">DrestrictionClasses</a> -- restriction classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionClasses(Module,List)&quot;</tt> -- see <span><a title="restriction classes of a D-module" href="___Drestriction__Classes.html">DrestrictionClasses</a> -- restriction classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionClasses(ZZ,Ideal,List)&quot;</tt> -- see <span><a title="restriction classes of a D-module" href="___Drestriction__Classes.html">DrestrictionClasses</a> -- restriction classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionClasses(ZZ,Module,List)&quot;</tt> -- see <span><a title="restriction classes of a D-module" href="___Drestriction__Classes.html">DrestrictionClasses</a> -- restriction classes of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionComplex(Ideal,List)&quot;</tt> -- see <span><a title="derived restriction complex of a D-module" href="___Drestriction__Complex.html">DrestrictionComplex</a> -- derived restriction complex of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionComplex(Module,List)&quot;</tt> -- see <span><a title="derived restriction complex of a D-module" href="___Drestriction__Complex.html">DrestrictionComplex</a> -- derived restriction complex of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;DrestrictionIdeal(Ideal,List)&quot;</tt> -- see <span><a title="restriction ideal of a D-module" href="___Drestriction__Ideal.html">DrestrictionIdeal</a> -- restriction ideal of a D-module</span></span>                  </li>
+                  <li>
+<span><a title="set the depth of comments made by D-module routines" href="___Dtrace_lp__Z__Z_rp.html">Dtrace(ZZ)</a> -- set the depth of comments made by D-module routines</span>                  </li>
+                  <li>
+<span><tt>&quot;Dtransposition(ChainComplex)&quot;</tt> -- see <span><a title="standard transposition for Weyl algebra" href="___Dtransposition.html">Dtransposition</a> -- standard transposition for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dtransposition(Ideal)&quot;</tt> -- see <span><a title="standard transposition for Weyl algebra" href="___Dtransposition.html">Dtransposition</a> -- standard transposition for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dtransposition(Matrix)&quot;</tt> -- see <span><a title="standard transposition for Weyl algebra" href="___Dtransposition.html">Dtransposition</a> -- standard transposition for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Dtransposition(RingElement)&quot;</tt> -- see <span><a title="standard transposition for Weyl algebra" href="___Dtransposition.html">Dtransposition</a> -- standard transposition for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ExternalProduct(ChainComplex,ChainComplex)&quot;</tt> -- see <span><a title="external product of modules or complexes" href="___External__Product.html">ExternalProduct</a> -- external product of modules or complexes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ExternalProduct(Module,Module)&quot;</tt> -- see <span><a title="external product of modules or complexes" href="___External__Product.html">ExternalProduct</a> -- external product of modules or complexes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extractDiffsAlgebra(PolynomialRing)&quot;</tt> -- see <span><a title="underlying polynomial ring in the differentials of a Weyl algebra" href="_extract__Diffs__Algebra.html">extractDiffsAlgebra</a> -- underlying polynomial ring in the differentials of a Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extractVarsAlgebra(PolynomialRing)&quot;</tt> -- see <span><a title="underlying polynomial ring in the ordinary variables of a Weyl algebra" href="_extract__Vars__Algebra.html">extractVarsAlgebra</a> -- underlying polynomial ring in the ordinary variables of a Weyl algebra</span></span>                  </li>
+                  <li>
+<span><a title="factorization of a b-function" href="_factor__B__Function_lp__Ring__Element_rp.html">factorBFunction(RingElement)</a> -- factorization of a b-function</span>                  </li>
+                  <li>
+<span><tt>&quot;Fourier(Ideal)&quot;</tt> -- see <span><a title="Fourier transform for Weyl algebra" href="___Fourier.html">Fourier</a> -- Fourier transform for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Fourier(Matrix)&quot;</tt> -- see <span><a title="Fourier transform for Weyl algebra" href="___Fourier.html">Fourier</a> -- Fourier transform for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Fourier(RingElement)&quot;</tt> -- see <span><a title="Fourier transform for Weyl algebra" href="___Fourier.html">Fourier</a> -- Fourier transform for Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;FourierInverse(ChainComplex)&quot;</tt> -- see <span><a title="Inverse Fourier map (D-modules)" href="___Fourier__Inverse.html">FourierInverse</a> -- Inverse Fourier map (D-modules)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;FourierInverse(Ideal)&quot;</tt> -- see <span><a title="Inverse Fourier map (D-modules)" href="___Fourier__Inverse.html">FourierInverse</a> -- Inverse Fourier map (D-modules)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;FourierInverse(Matrix)&quot;</tt> -- see <span><a title="Inverse Fourier map (D-modules)" href="___Fourier__Inverse.html">FourierInverse</a> -- Inverse Fourier map (D-modules)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;FourierInverse(Module)&quot;</tt> -- see <span><a title="Inverse Fourier map (D-modules)" href="___Fourier__Inverse.html">FourierInverse</a> -- Inverse Fourier map (D-modules)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;FourierInverse(RingElement)&quot;</tt> -- see <span><a title="Inverse Fourier map (D-modules)" href="___Fourier__Inverse.html">FourierInverse</a> -- Inverse Fourier map (D-modules)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gbw(Ideal,List)&quot;</tt> -- see <span><a title="Groebner bases w.r.t. a weight" href="_gbw.html">gbw</a> -- Groebner bases w.r.t. a weight</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gbw(Matrix,List)&quot;</tt> -- see <span><a title="Groebner bases w.r.t. a weight" href="_gbw.html">gbw</a> -- Groebner bases w.r.t. a weight</span></span>                  </li>
+                  <li>
+<span><tt>&quot;generalB(List)&quot;</tt> -- see <span><a title="global generalized Bernstein-Sato polynomial" href="_general__B_lp__List_cm__Ring__Element_rp.html">generalB(List,RingElement)</a> -- global generalized Bernstein-Sato polynomial</span></span>                  </li>
+                  <li>
+<span><a title="global generalized Bernstein-Sato polynomial" href="_general__B_lp__List_cm__Ring__Element_rp.html">generalB(List,RingElement)</a> -- global generalized Bernstein-Sato polynomial</span>                  </li>
+                  <li>
+<span><tt>&quot;genToDistractionGens(RingElement,Ring)&quot;</tt> -- see <span><a title="the image in the thetaRing of a torus-fixed element in a Weyl algebra" href="_gen__To__Distraction__Gens.html">genToDistractionGens</a> -- the image in the thetaRing of a torus-fixed element in a Weyl algebra</span></span>                  </li>
+                  <li>
+<span><a title="get integer roots of a b-function" href="_get__Int__Roots_lp__Ring__Element_rp.html">getIntRoots(RingElement)</a> -- get integer roots of a b-function</span>                  </li>
+                  <li>
+<span><tt>&quot;gkz(Matrix,List)&quot;</tt> -- see <span><a title="The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)" href="_gkz.html">gkz</a> -- The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;gkz(Matrix,List,PolynomialRing)&quot;</tt> -- see <span><a title="The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)" href="_gkz.html">gkz</a> -- The A-hypergeometric systems of Gelfand, Kapranov and Zelevinsky (GKZ)</span></span>                  </li>
+                  <li>
+<span><a title="compute global b-function and b-operator for a D-module and a polynomial" href="_global__B_lp__Ideal_cm__Ring__Element_rp.html">globalB(Ideal,RingElement)</a> -- compute global b-function and b-operator for a D-module and a polynomial</span>                  </li>
+                  <li>
+<span><a title="global b-function (else known as the Bernstein-Sato polynomial)" href="_global__B__Function_lp__Ring__Element_rp.html">globalBFunction(RingElement)</a> -- global b-function (else known as the Bernstein-Sato polynomial)</span>                  </li>
+                  <li>
+<span><a title="compute a b-operator of a polynomial" href="_global__Boperator_lp__Ring__Element_rp.html">globalBoperator(RingElement)</a> -- compute a b-operator of a polynomial</span>                  </li>
+                  <li>
+<span><a title="check if a complete intersection has at most rational singularities" href="_has__Rational__Sing_lp__List_rp.html">hasRationalSing(List)</a> -- check if a complete intersection has at most rational singularities</span>                  </li>
+                  <li>
+<span><tt>&quot;holonomicRank(Ideal)&quot;</tt> -- see <span><a title="rank of a D-module" href="_holonomic__Rank.html">holonomicRank</a> -- rank of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;holonomicRank(Module)&quot;</tt> -- see <span><a title="rank of a D-module" href="_holonomic__Rank.html">holonomicRank</a> -- rank of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;indicialIdeal(Ideal,List)&quot;</tt> -- see <span><a title="the image in the thetaRing of an indicial ideal in a Weyl algebra" href="_indicial__Ideal.html">indicialIdeal</a> -- the image in the thetaRing of an indicial ideal in a Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inw(Ideal,List)&quot;</tt> -- see <span><a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a> -- initial form/ideal w.r.t. a weight</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inw(Matrix,List)&quot;</tt> -- see <span><a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a> -- initial form/ideal w.r.t. a weight</span></span>                  </li>
+                  <li>
+<span><tt>&quot;inw(RingElement,List)&quot;</tt> -- see <span><a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a> -- initial form/ideal w.r.t. a weight</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isHolonomic(Ideal)&quot;</tt> -- see <span><a title="determines whether a D-module (or ideal in Weyl algebra) is holonomic" href="_is__Holonomic.html">isHolonomic</a> -- determines whether a D-module (or ideal in Weyl algebra) is holonomic</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isHolonomic(Module)&quot;</tt> -- see <span><a title="determines whether a D-module (or ideal in Weyl algebra) is holonomic" href="_is__Holonomic.html">isHolonomic</a> -- determines whether a D-module (or ideal in Weyl algebra) is holonomic</span></span>                  </li>
+                  <li>
+<span><a title="multiplier ideal membership test" href="_is__In__Multiplier__Ideal_lp__Ring__Element_cm__Ideal_cm__Q__Q_rp.html">isInMultiplierIdeal(RingElement,Ideal,QQ)</a> -- multiplier ideal membership test</span>                  </li>
+                  <li>
+<span><tt>&quot;isTorusFixed(Ideal)&quot;</tt> -- see <span><a title="checks if an ideal in a Weyl algebra is torus-fixed" href="_is__Torus__Fixed.html">isTorusFixed</a> -- checks if an ideal in a Weyl algebra is torus-fixed</span></span>                  </li>
+                  <li>
+<span><a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients(Ideal)</a> -- jumping coefficients and corresponding multiplier ideals</span>                  </li>
+                  <li>
+<span><tt>&quot;jumpingCoefficients(Ideal,QQ,QQ)&quot;</tt> -- see <span><a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients(Ideal)</a> -- jumping coefficients and corresponding multiplier ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jumpingCoefficients(Ideal,QQ,ZZ)&quot;</tt> -- see <span><a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients(Ideal)</a> -- jumping coefficients and corresponding multiplier ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jumpingCoefficients(Ideal,ZZ,QQ)&quot;</tt> -- see <span><a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients(Ideal)</a> -- jumping coefficients and corresponding multiplier ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;jumpingCoefficients(Ideal,ZZ,ZZ)&quot;</tt> -- see <span><a title="jumping coefficients and corresponding multiplier ideals" href="_jumping__Coefficients_lp__Ideal_rp.html">jumpingCoefficients(Ideal)</a> -- jumping coefficients and corresponding multiplier ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;kappaAnnF1PlanarCurve(RingElement)&quot;</tt> -- see <span><a title="D-annihilator of 1/f for a planar curve" href="_kappa__Ann__F1__Planar__Curve.html">kappaAnnF1PlanarCurve</a> -- D-annihilator of 1/f for a planar curve</span></span>                  </li>
+                  <li>
+<span><tt>&quot;kOrderAnnFa(ZZ,RingElement,ZZ)&quot;</tt> -- see <span><a title="k-th order D-annihilator of a power of a polynomial" href="_k__Order__Ann__Fa.html">kOrderAnnFa</a> -- k-th order D-annihilator of a power of a polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;kOrderAnnFs(ZZ,RingElement)&quot;</tt> -- see <span><a title="k-th order D-annihilator of a power of a polynomial" href="_k__Order__Ann__Fa.html">kOrderAnnFa</a> -- k-th order D-annihilator of a power of a polynomial</span></span>                  </li>
+                  <li>
+<span><a title="compute the log canonical threshold for an ideal" href="_lct_lp__Ideal_rp.html">lct(Ideal)</a> -- compute the log canonical threshold for an ideal</span>                  </li>
+                  <li>
+<span><a title="local b-function (a.k.a. the local Bernstein-Sato polynomial)" href="_local__B__Function_lp__Ring__Element_cm__Ideal_rp.html">localBFunction(RingElement,Ideal)</a> -- local b-function (a.k.a. the local Bernstein-Sato polynomial)</span>                  </li>
+                  <li>
+<span><a title="local cohomology of a polynomial ring" href="_local__Cohom_lp__Ideal_rp.html">localCohom(Ideal)</a> -- local cohomology of a polynomial ring</span>                  </li>
+                  <li>
+<span><a title="local cohomology of a D-module" href="_local__Cohom_lp__Ideal_cm__Module_rp.html">localCohom(Ideal,Module)</a> -- local cohomology of a D-module</span>                  </li>
+                  <li>
+<span><a title="local cohomology of a polynomial ring" href="_local__Cohom_lp__List_cm__Ideal_rp.html">localCohom(List,Ideal)</a> -- local cohomology of a polynomial ring</span>                  </li>
+                  <li>
+<span><a title="local cohomology of a D-module" href="_local__Cohom_lp__List_cm__Ideal_cm__Module_rp.html">localCohom(List,Ideal,Module)</a> -- local cohomology of a D-module</span>                  </li>
+                  <li>
+<span><a title="local cohomology of a polynomial ring" href="_local__Cohom_lp__Z__Z_cm__Ideal_rp.html">localCohom(ZZ,Ideal)</a> -- local cohomology of a polynomial ring</span>                  </li>
+                  <li>
+<span><a title="local cohomology of a D-module" href="_local__Cohom_lp__Z__Z_cm__Ideal_cm__Module_rp.html">localCohom(ZZ,Ideal,Module)</a> -- local cohomology of a D-module</span>                  </li>
+                  <li>
+<span><a title="logarithmic cohomology groups in two variables" href="_log__Cohomology_lp__Ring__Element_rp.html">logCohomology(RingElement)</a> -- logarithmic cohomology groups in two variables</span>                  </li>
+                  <li>
+<span><tt>&quot;makeCyclic(Matrix)&quot;</tt> -- see <span><a title="finds a cyclic generator of a D-module" href="_make__Cyclic.html">makeCyclic</a> -- finds a cyclic generator of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;makeWeylAlgebra(PolynomialRing)&quot;</tt> -- see <span><a title="Weyl algebra corresponding to a polynomial ring" href="_make__Weyl__Algebra.html">makeWeylAlgebra</a> -- Weyl algebra corresponding to a polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multiplierIdeal(Ideal,List)&quot;</tt> -- see <span><a title="multiplier ideal" href="_multiplier__Ideal_lp__Ideal_cm__Q__Q_rp.html">multiplierIdeal(Ideal,QQ)</a> -- multiplier ideal</span></span>                  </li>
+                  <li>
+<span><a title="multiplier ideal" href="_multiplier__Ideal_lp__Ideal_cm__Q__Q_rp.html">multiplierIdeal(Ideal,QQ)</a> -- multiplier ideal</span>                  </li>
+                  <li>
+<span><tt>&quot;multiplierIdeal(Ideal,ZZ)&quot;</tt> -- see <span><a title="multiplier ideal" href="_multiplier__Ideal_lp__Ideal_cm__Q__Q_rp.html">multiplierIdeal(Ideal,QQ)</a> -- multiplier ideal</span></span>                  </li>
+                  <li>
+<span><a title="compute the list of all possible Bernstein-Sato polynomials for a polynomial with parametric coefficients" href="_param__Bpoly_lp__Ring__Element_cm__String_rp.html">paramBpoly(RingElement,String)</a> -- compute the list of all possible Bernstein-Sato polynomials for a polynomial with parametric coefficients</span>                  </li>
+                  <li>
+<span><tt>&quot;pInfo(ZZ,List)&quot;</tt> -- see <span><a title="prints tracing info" href="_p__Info.html">pInfo</a> -- prints tracing info</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pInfo(ZZ,Thing)&quot;</tt> -- see <span><a title="prints tracing info" href="_p__Info.html">pInfo</a> -- prints tracing info</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolyAnn(RingElement)&quot;</tt> -- see <span><a title="annihilator of a polynomial in the Weyl algebra" href="___Poly__Ann.html">PolyAnn</a> -- annihilator of a polynomial in the Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolyExt(Ideal)&quot;</tt> -- see <span><a title="Ext groups between a holonomic module and a polynomial ring" href="___Poly__Ext.html">PolyExt</a> -- Ext groups between a holonomic module and a polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolyExt(Module)&quot;</tt> -- see <span><a title="Ext groups between a holonomic module and a polynomial ring" href="___Poly__Ext.html">PolyExt</a> -- Ext groups between a holonomic module and a polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolyExt(ZZ,Ideal)&quot;</tt> -- see <span><a title="Ext groups between a holonomic module and a polynomial ring" href="___Poly__Ext.html">PolyExt</a> -- Ext groups between a holonomic module and a polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolyExt(ZZ,Module)&quot;</tt> -- see <span><a title="Ext groups between a holonomic module and a polynomial ring" href="___Poly__Ext.html">PolyExt</a> -- Ext groups between a holonomic module and a polynomial ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolySols(Ideal)&quot;</tt> -- see <span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolySols(Ideal,List)&quot;</tt> -- see <span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolySols(Module)&quot;</tt> -- see <span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;PolySols(Module,List)&quot;</tt> -- see <span><a title="polynomial solutions of a holonomic system" href="___Poly__Sols.html">PolySols</a> -- polynomial solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><a title="Cech complex skeleton for the computation of the characteristic cycles of local cohomology modules" href="_populate__Cech__Complex__C__C_lp__Ideal_cm__List_rp.html">populateCechComplexCC(Ideal,List)</a> -- Cech complex skeleton for the computation of the characteristic cycles of local cohomology modules</span>                  </li>
+                  <li>
+<span><a title="reduction of the Cech complex that produces characteristic cycles of local cohomology modules" href="_prune__Cech__Complex__C__C_lp__Mutable__Hash__Table_rp.html">pruneCechComplexCC(MutableHashTable)</a> -- reduction of the Cech complex that produces characteristic cycles of local cohomology modules</span>                  </li>
+                  <li>
+<span><a title="prunes local cohomology modules" href="_prune__Local__Cohom_lp__Hash__Table_rp.html">pruneLocalCohom(HashTable)</a> -- prunes local cohomology modules</span>                  </li>
+                  <li>
+<span><a title="transforms output of diffOps into elements of Weyl algebra" href="_put__Weyl__Algebra_lp__Hash__Table_rp.html">putWeylAlgebra(HashTable)</a> -- transforms output of diffOps into elements of Weyl algebra</span>                  </li>
+                  <li>
+<span><tt>&quot;RatAnn(RingElement)&quot;</tt> -- see <span><a title="annihilator of a rational function in Weyl algebra" href="___Rat__Ann.html">RatAnn</a> -- annihilator of a rational function in Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatAnn(RingElement,RingElement)&quot;</tt> -- see <span><a title="annihilator of a rational function in Weyl algebra" href="___Rat__Ann.html">RatAnn</a> -- annihilator of a rational function in Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(Ideal)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(Ideal,RingElement)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(Module)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(Module,RingElement)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(ZZ,Ideal)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(ZZ,Ideal,RingElement)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(ZZ,Module)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatExt(ZZ,Module,RingElement)&quot;</tt> -- see <span><a title="Ext(holonomic D-module, polynomial ring localized at the singular locus)" href="___Rat__Ext.html">RatExt</a> -- Ext(holonomic D-module, polynomial ring localized at the singular locus)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatSols(Ideal)&quot;</tt> -- see <span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatSols(Ideal,List)&quot;</tt> -- see <span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatSols(Ideal,List,List)&quot;</tt> -- see <span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatSols(Ideal,RingElement)&quot;</tt> -- see <span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RatSols(Ideal,RingElement,List)&quot;</tt> -- see <span><a title="rational solutions of a holonomic system" href="___Rat__Sols.html">RatSols</a> -- rational solutions of a holonomic system</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reiffen(ZZ,ZZ)&quot;</tt> -- see <span><a title="Reiffen's curve" href="_reiffen.html">reiffen</a> -- Reiffen's curve</span></span>                  </li>
+                  <li>
+<span><a title="toggles the use of homogeneous Weyl algebra" href="_set__Hom__Switch_lp__Boolean_rp.html">setHomSwitch(Boolean)</a> -- toggles the use of homogeneous Weyl algebra</span>                  </li>
+                  <li>
+<span><tt>&quot;singLocus(Ideal)&quot;</tt> -- see <span><a title="singular locus of a D-module" href="_sing__Locus.html">singLocus</a> -- singular locus of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;singLocus(Module)&quot;</tt> -- see <span><a title="singular locus of a D-module" href="_sing__Locus.html">singLocus</a> -- singular locus of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;solveFrobeniusIdeal(Ideal)&quot;</tt> -- see <span><a title="solving Frobenius ideals" href="_solve__Frobenius__Ideal.html">solveFrobeniusIdeal</a> -- solving Frobenius ideals</span></span>                  </li>
+                  <li>
+<span><tt>&quot;stafford(Ideal)&quot;</tt> -- see <span><a title="computes 2 generators for a given ideal in the Weyl algebra" href="_stafford.html">stafford</a> -- computes 2 generators for a given ideal in the Weyl algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toricIdealPartials(Matrix,PolynomialRing)&quot;</tt> -- see <span><a title="image of a monomial map" href="_toric__Ideal__Partials.html">toricIdealPartials</a> -- image of a monomial map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;WeylClosure(Ideal)&quot;</tt> -- see <span><a title="Weyl closure of an ideal" href="___Weyl__Closure.html">WeylClosure</a> -- Weyl closure of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;WeylClosure(Ideal,RingElement)&quot;</tt> -- see <span><a title="Weyl closure of an ideal" href="___Weyl__Closure.html">WeylClosure</a> -- Weyl closure of an ideal</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a href="___Alg.html">Alg</a></span>                  </li>
+                  <li>
+<span><a title="a key created by Dlocalize" href="_ann__F__S.html">annFS</a> -- a key created by Dlocalize</span>                  </li>
+                  <li>
+<span><a title="a key created by makeCyclic" href="___Ann__G.html">AnnG</a> -- a key created by makeCyclic</span>                  </li>
+                  <li>
+<span><a title="a key of the hashtable generated by diffOps" href="___Basis__Elts.html">BasisElts</a> -- a key of the hashtable generated by diffOps</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___B__Function.html">BFunction</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><a title="a key created by Dlocalize" href="___Bfunction.html">Bfunction</a> -- a key created by Dlocalize</span>                  </li>
+                  <li>
+<span><a title="a key attached by globalB and Dlocalize" href="___Boperator.html">Boperator</a> -- a key attached by globalB and Dlocalize</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___Boundaries.html">Boundaries</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><a title="a key attached by globalB" href="___Bpolynomial.html">Bpolynomial</a> -- a key attached by globalB</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by deRham" href="___Cohomology__Groups.html">CohomologyGroups</a> -- a key in the hashtable created by deRham</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___Cycles.html">Cycles</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><tt>&quot;Oaku&quot;</tt> -- see <span><a title="strategy for computing a localization of a D-module" href="___Dlocalize_lp..._cm__Strategy_eq_gt..._rp.html">Dlocalize(...,Strategy=>...)</a> -- strategy for computing a localization of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;OTW&quot;</tt> -- see <span><a title="strategy for computing a localization of a D-module" href="___Dlocalize_lp..._cm__Strategy_eq_gt..._rp.html">Dlocalize(...,Strategy=>...)</a> -- strategy for computing a localization of a D-module</span></span>                  </li>
+                  <li>
+<span><tt>&quot;OTWcyclic&quot;</tt> -- see <span><a title="strategy for computing a localization of a D-module" href="___Dlocalize_lp..._cm__Strategy_eq_gt..._rp.html">Dlocalize(...,Strategy=>...)</a> -- strategy for computing a localization of a D-module</span></span>                  </li>
+                  <li>
+<span><a title="a key attached by createDpairs" href="_dpair__Inds.html">dpairInds</a> -- a key attached by createDpairs</span>                  </li>
+                  <li>
+<span><a title="a key attached by createDpairs" href="_dpair__Vars.html">dpairVars</a> -- a key attached by createDpairs</span>                  </li>
+                  <li>
+<span><tt>&quot;optGB&quot;</tt> -- see <span><a title="indicates whether a Grobner basis should be computed" href="___Dprune_lp..._cmopt__G__B_eq_gt..._rp.html">Dprune(...,optGB=>...)</a> -- indicates whether a Grobner basis should be computed</span></span>                  </li>
+                  <li>
+<span><a title="an option for PolySols=>Alg" href="___Duality.html">Duality</a> -- an option for PolySols=>Alg</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___Explicit.html">Explicit</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___Exponents.html">Exponents</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><a title="an option for PolySols=>Alg" href="___G__D.html">GD</a> -- an option for PolySols=>Alg</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___Gen__Cycles.html">GenCycles</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><tt>&quot;Exponent&quot;</tt> -- see <span><a title="specify exponent m for m-generalized Bernstein-Sato polynomial" href="_general__B_lp..._cm__Exponent_eq_gt..._rp.html">generalB(...,Exponent=>...)</a> -- specify exponent m for m-generalized Bernstein-Sato polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;InitialIdeal&quot;</tt> -- see <span><a title="specify strategy for computing generalized Bernstein-Sato polynomial" href="_general__B_lp..._cm__Strategy_eq_gt..._rp.html">generalB(...,Strategy=>...)</a> -- specify strategy for computing generalized Bernstein-Sato polynomial</span></span>                  </li>
+                  <li>
+<span><tt>&quot;StarIdeal&quot;</tt> -- see <span><a title="specify strategy for computing generalized Bernstein-Sato polynomial" href="_general__B_lp..._cm__Strategy_eq_gt..._rp.html">generalB(...,Strategy=>...)</a> -- specify strategy for computing generalized Bernstein-Sato polynomial</span></span>                  </li>
+                  <li>
+<span><a title="a strategy option for lct, globalBFunction" href="___General__Bernstein__Sato.html">GeneralBernsteinSato</a> -- a strategy option for lct, globalBFunction</span>                  </li>
+                  <li>
+<span><a title="a key created by makeCyclic" href="___Generator.html">Generator</a> -- a key created by makeCyclic</span>                  </li>
+                  <li>
+<span><a title="a key created by Dlocalize" href="___Generator__Power.html">GeneratorPower</a> -- a key created by Dlocalize</span>                  </li>
+                  <li>
+<span><a href="___Ground__Field.html">GroundField</a></span>                  </li>
+                  <li>
+<span><a title="a key in a hashtable; an option of DExt" href="___Homology__Modules.html">HomologyModules</a> -- a key in a hashtable; an option of DExt</span>                  </li>
+                  <li>
+<span><a href="___Info.html">Info</a></span>                  </li>
+                  <li>
+<span><a title="a key created by Dlocalize" href="___Integrate__Bfunction.html">IntegrateBfunction</a> -- a key created by Dlocalize</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Dintegration" href="___Integrate__Complex.html">IntegrateComplex</a> -- a key in the hashtable created by Dintegration</span>                  </li>
+                  <li>
+<span><a title="a strategy option for b-functions" href="___Int__Ring.html">IntRing</a> -- a strategy option for b-functions</span>                  </li>
+                  <li>
+<span><tt>&quot;generalizedBFunction&quot;</tt> -- see <span><a title="multiplier ideal membership test" href="_is__In__Multiplier__Ideal_lp__Ring__Element_cm__Ideal_cm__Q__Q_rp.html">isInMultiplierIdeal(RingElement,Ideal,QQ)</a> -- multiplier ideal membership test</span></span>                  </li>
+                  <li>
+<span><tt>&quot;mGeneralizedBFunction&quot;</tt> -- see <span><a title="multiplier ideal membership test" href="_is__In__Multiplier__Ideal_lp__Ring__Element_cm__Ideal_cm__Q__Q_rp.html">isInMultiplierIdeal(RingElement,Ideal,QQ)</a> -- multiplier ideal membership test</span></span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by deRham" href="___Localize__Map.html">LocalizeMap</a> -- a key in the hashtable created by deRham</span>                  </li>
+                  <li>
+<span><tt>LocCohomStrategy</tt> (missing documentation)<!--tag: LocCohomStrategy-->
+</span>                  </li>
+                  <li>
+<span><a title="a key created by Dlocalize" href="___Loc__Map.html">LocMap</a> -- a key created by Dlocalize</span>                  </li>
+                  <li>
+<span><a title="a key created by Dlocalize" href="___Loc__Module.html">LocModule</a> -- a key created by Dlocalize</span>                  </li>
+                  <li>
+<span><a href="___Loc__Strategy.html">LocStrategy</a></span>                  </li>
+                  <li>
+<span><a title="an option for DExt=>Special" href="___None.html">None</a> -- an option for DExt=>Special</span>                  </li>
+                  <li>
+<span><a title="a strategy option for b-functions" href="___Non__Generic.html">NonGeneric</a> -- a strategy option for b-functions</span>                  </li>
+                  <li>
+<span><a title="an option for localCohom=>Strategy" href="___Oa__Ta.html">OaTa</a> -- an option for localCohom=>Strategy</span>                  </li>
+                  <li>
+<span><a title="an option for localCohom => LocStrategy" href="___Oa__Ta__Wa.html">OaTaWa</a> -- an option for localCohom => LocStrategy</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by deRham" href="___Omega__Res.html">OmegaRes</a> -- a key in the hashtable created by deRham</span>                  </li>
+                  <li>
+<span><a href="___Output.html">Output</a></span>                  </li>
+                  <li>
+<span><a title="a key of the hashtable generated by diffOps" href="___Poly__Gens.html">PolyGens</a> -- a key of the hashtable generated by diffOps</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by deRham" href="___Pre__Cycles.html">PreCycles</a> -- a key in the hashtable created by deRham</span>                  </li>
+                  <li>
+<span><a title="a key attached by ExternalProduct" href="_proj__Map1.html">projMap1</a> -- a key attached by ExternalProduct</span>                  </li>
+                  <li>
+<span><a title="a key attached by ExternalProduct" href="_proj__Map2.html">projMap2</a> -- a key attached by ExternalProduct</span>                  </li>
+                  <li>
+<span><a title="a strategy option for global b-functions" href="___Reduced__B.html">ReducedB</a> -- a strategy option for global b-functions</span>                  </li>
+                  <li>
+<span><a title="strategy for computing a resolution of a D-module" href="___Schreyer.html">Schreyer</a> -- strategy for computing a resolution of a D-module</span>                  </li>
+                  <li>
+<span><a title="name for an optional argument" href="___Set__Variables.html">SetVariables</a> -- name for an optional argument</span>                  </li>
+                  <li>
+<span><a href="___Special.html">Special</a></span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by deRham" href="___Transfer__Cycles.html">TransferCycles</a> -- a key in the hashtable created by deRham</span>                  </li>
+                  <li>
+<span><a title="a strategy option for b-functions" href="___Try__Generic.html">TryGeneric</a> -- a strategy option for b-functions</span>                  </li>
+                  <li>
+<span><a title="a key attached by ExternalProduct" href="_twist__Inv__Map.html">twistInvMap</a> -- a key attached by ExternalProduct</span>                  </li>
+                  <li>
+<span><a title="indicates whether TwistMap should be computed" href="___Twist__Map.html">TwistMap</a> -- indicates whether TwistMap should be computed</span>                  </li>
+                  <li>
+<span><a title="a key attached by ExternalProduct" href="_twist__Map.html">twistMap</a> -- a key attached by ExternalProduct</span>                  </li>
+                  <li>
+<span><a href="___Vars.html">Vars</a></span>                  </li>
+                  <li>
+<span><a title="strategy for computing a resolution of a D-module" href="___Vhomogenize.html">Vhomogenize</a> -- strategy for computing a resolution of a D-module</span>                  </li>
+                  <li>
+<span><a title="a strategy option for global b-functions" href="___Via__Ann__Fs.html">ViaAnnFs</a> -- a strategy option for global b-functions</span>                  </li>
+                  <li>
+<span><a title="a strategy option for lct" href="___Via__B__Function.html">ViaBFunction</a> -- a strategy option for lct</span>                  </li>
+                  <li>
+<span><tt>ViaColonIdeal</tt> (missing documentation)<!--tag: ViaColonIdeal-->
+</span>                  </li>
+                  <li>
+<span><tt>ViaElimination</tt> (missing documentation)<!--tag: ViaElimination-->
+</span>                  </li>
+                  <li>
+<span><a title="an option for generalB=>Strategy" href="___Via__Linear__Algebra.html">ViaLinearAlgebra</a> -- an option for generalB=>Strategy</span>                  </li>
+                  <li>
+<span><a title="a key in the hashtable created by Drestriction/Dintegration" href="___V__Resolution.html">VResolution</a> -- a key in the hashtable created by Drestriction/Dintegration</span>                  </li>
+                  <li>
+<span><a title="an option for localCohom=>Strategy" href="___Walther.html">Walther</a> -- an option for localCohom=>Strategy</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="algorithms for D-modules" href="index.html">Dmodules</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

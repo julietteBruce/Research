@@ -1,0 +1,83 @@
+-- -*- M2-comint -*- hash: 1174730516
+
+i1 : f = {a=>3, c=>12} >> opts -> val -> if val == 1 then opts.a + opts.c;
+
+i2 : g = method(Options => {b => 5});
+
+i3 : g ZZ := opts -> val -> if val == 2 then opts.b + 1;
+
+i4 : h = val -> if val == 3 then 24;
+
+i5 : foo = method(Options => true);
+
+i6 : addHook((foo, ZZ), f)
+
+o6 = f
+
+o6 : FunctionClosure
+
+i7 : addHook((foo, ZZ), g, Strategy => "G")
+
+o7 = g
+
+o7 : MethodFunctionWithOptions
+
+i8 : addHook((foo, ZZ), h)
+
+o8 = h
+
+o8 : FunctionClosure
+
+i9 : foo ZZ := true >> opts -> args -> runHooks((foo, ZZ), args, opts);
+
+i10 : debugLevel = 1
+
+o10 = 1
+
+i11 : assert( foo 1 == 15 )
+ -- (foo,ZZ) with Strategy => 2 from h
+ -- (foo,ZZ) with Strategy => G from g
+ -- (foo,ZZ) with Strategy => 0 from f
+
+i12 : assert( foo(2, b => 9) == 10 )
+ -- (foo,ZZ) with Strategy => 2 from h
+ -- (foo,ZZ) with Strategy => G from g
+
+i13 : assert( foo 3 == 24 )
+ -- (foo,ZZ) with Strategy => 2 from h
+
+i14 : hooks(foo, ZZ)
+
+o14 = {0 => (foo, ZZ, Strategy => 0)}
+      {1 => (foo, ZZ, Strategy => G)}
+      {2 => (foo, ZZ, Strategy => 2)}
+
+o14 : NumberedVerticalList
+
+i15 : assert( foo(3, Strategy => 2) == 24 )
+ -- (foo,ZZ) with Strategy => 2 from h
+
+i16 : assert( foo(2, Strategy => "G") == 6 )
+ -- (foo,ZZ) with Strategy => G from g
+
+i17 : hooks(quotient, Ideal, Ideal)
+
+o17 = {0 => (quotient, Ideal, Ideal, Strategy => Quotient)}
+      {1 => (quotient, Ideal, Ideal, Strategy => Iterate) }
+      {2 => (quotient, Ideal, Ideal, Strategy => Monomial)}
+
+o17 : NumberedVerticalList
+
+i18 : code 1
+
+o18 = -- code for method: quotient(Ideal,Ideal)
+      ../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/Saturation.m2:218:29-224:71: --source code:
+          Iterate => (opts, I, J) -> (
+              R := ring I;
+              -- TODO: extend this into a strategy for any PID
+              if R === ZZ then return ideal sub(gcd I_* / gcd flatten(I_*, J_*), ZZ);
+              fold(first entries mingens J, ideal 1_R, (f, M1) ->
+                  if generators(f * M1) % generators I == 0 then M1
+                  else intersect(M1, quotient(I, ideal f, opts, Strategy => Quotient)))),
+
+i19 : 

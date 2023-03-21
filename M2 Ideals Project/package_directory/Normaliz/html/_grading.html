@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>grading</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_intcl__Mon__Ideal.html">next</a> | <a href="_get__Num__Invs.html">previous</a> | <a href="_intcl__Mon__Ideal.html">forward</a> | <a href="_get__Num__Invs.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a href="_grading.html">grading</a>    </div>
+    <hr/>
+    <div>
+      <h1>grading</h1>
+      <div>
+        <h2>Description</h2>
+        <p/>
+grading is an option for <a title="calls Normaliz" href="_normaliz.html">normaliz</a>, <a title="integral closure of a toric ring" href="_intcl__Toric__Ring.html">intclToricRing</a>, <a title="normalization of a toric ring" href="_normal__Toric__Ring.html">normalToricRing</a>, <a title="normalization of Rees algebra" href="_intcl__Mon__Ideal.html">intclMonIdeal</a>, <a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a>, <a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a>, <a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a>, <a title="intersection of ring of valuations" href="_intersection__Val__Rings.html">intersectionValRings</a>, <a title="intersection of valuation ideals" href="_intersection__Val__Ring__Ideals.html">intersectionValRingIdeals</a>. Its default value is an empty list. If it is set to a list of integers it will be used as grading. This has no influence on the generators of the computed objects, but on additional data like the multiplicity or the Hilbert series. The grading may have non-positive entries, but it must give positive values for all generators.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=ZZ/37[x,y,t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L={x^3, x^2*y, y^3, x*y^2};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : T=intclToricRing(allComputations=>true,L);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : T.cache#&quot;cone&quot;#&quot;inv&quot;#&quot;hilbert series num&quot;
+
+o4 = 1 : (1)
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : T.cache#&quot;cone&quot;#&quot;inv&quot;#&quot;hilbert series denom&quot;
+
+o5 = (1, 1)
+
+o5 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : T=intclToricRing(allComputations=>true,grading=>{3,2,1},L);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : T.cache#&quot;cone&quot;#&quot;inv&quot;#&quot;hilbert series num&quot;
+
+o7 = (1, -1, 1)
+
+o7 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : T.cache#&quot;cone&quot;#&quot;inv&quot;#&quot;hilbert series denom&quot;
+
+o8 = (1, 6)
+
+o8 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a href="_all__Computations.html">allComputations</a></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>grading</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;diagInvariants(Matrix,Matrix,Ring,grading=>...)&quot;</tt> -- see <span><a title="ring of invariants of a diagonalizable group action" href="_diag__Invariants.html">diagInvariants</a> -- ring of invariants of a diagonalizable group action</span></span>          </li>
+          <li>
+<span><tt>&quot;finiteDiagInvariants(Matrix,Ring,grading=>...)&quot;</tt> -- see <span><a title="ring of invariants of a finite group action" href="_finite__Diag__Invariants.html">finiteDiagInvariants</a> -- ring of invariants of a finite group action</span></span>          </li>
+          <li>
+<span><tt>&quot;intclMonIdeal(Ideal,grading=>...)&quot;</tt> -- see <span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_cmall__Computations_eq_gt..._rp.html">intclMonIdeal(Ideal,allComputations=>...)</a> -- normalization of Rees algebra</span></span>          </li>
+          <li>
+<span><tt>&quot;intclMonIdeal(Ideal,RingElement,grading=>...)&quot;</tt> -- see <span><a title="normalization of Rees algebra" href="_intcl__Mon__Ideal_lp__Ideal_cm__Ring__Element_cmall__Computations_eq_gt..._rp.html">intclMonIdeal(Ideal,RingElement,allComputations=>...)</a> -- normalization of Rees algebra</span></span>          </li>
+          <li>
+<span><tt>&quot;intclToricRing(List,grading=>...)&quot;</tt> -- see <span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring_lp__List_cmall__Computations_eq_gt..._rp.html">intclToricRing(List,allComputations=>...)</a> -- integral closure of a toric ring</span></span>          </li>
+          <li>
+<span><tt>&quot;intclToricRing(MonomialSubalgebra,grading=>...)&quot;</tt> -- see <span><a title="integral closure of a toric ring" href="_intcl__Toric__Ring_lp__Monomial__Subalgebra_cmall__Computations_eq_gt..._rp.html">intclToricRing(MonomialSubalgebra,allComputations=>...)</a> -- integral closure of a toric ring</span></span>          </li>
+          <li>
+<span><tt>&quot;intersectionValRingIdeals(Matrix,Ring,grading=>...)&quot;</tt> -- see <span><a title="intersection of valuation ideals" href="_intersection__Val__Ring__Ideals.html">intersectionValRingIdeals</a> -- intersection of valuation ideals</span></span>          </li>
+          <li>
+<span><tt>&quot;intersectionValRings(Matrix,Ring,grading=>...)&quot;</tt> -- see <span><a title="intersection of ring of valuations" href="_intersection__Val__Rings.html">intersectionValRings</a> -- intersection of ring of valuations</span></span>          </li>
+          <li>
+<span><tt>&quot;normaliz(List,grading=>...)&quot;</tt> -- see <span><a title="calls Normaliz with several input matrices" href="_normaliz_lp__List_rp.html">normaliz(List)</a> -- calls Normaliz with several input matrices</span></span>          </li>
+          <li>
+<span><tt>&quot;normaliz(Matrix,String,grading=>...)&quot;</tt> -- see <span><a title="calls Normaliz" href="_normaliz_lp__Matrix_cm__String_rp.html">normaliz(Matrix,String)</a> -- calls Normaliz</span></span>          </li>
+          <li>
+<span><tt>normaliz(Matrix,ZZ,grading=>...)</tt> (missing documentation)<!--tag: [(normaliz,Matrix,ZZ), grading]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;normalToricRing(Ideal,Thing,grading=>...)&quot;</tt> -- see <span><a title="normalization of a toric ring given by a binomial ideal" href="_normal__Toric__Ring_lp__Ideal_cm__Thing_rp.html">normalToricRing(Ideal,Thing)</a> -- normalization of a toric ring given by a binomial ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;normalToricRing(List,grading=>...)&quot;</tt> -- see <span><a title="normalization of a toric ring" href="_normal__Toric__Ring_lp__List_cmall__Computations_eq_gt..._rp.html">normalToricRing(List,allComputations=>...)</a> -- normalization of a toric ring</span></span>          </li>
+          <li>
+<span><tt>&quot;normalToricRing(MonomialSubalgebra,grading=>...)&quot;</tt> -- see <span><a title="normalization of a toric ring" href="_normal__Toric__Ring_lp__Monomial__Subalgebra_cmall__Computations_eq_gt..._rp.html">normalToricRing(MonomialSubalgebra,allComputations=>...)</a> -- normalization of a toric ring</span></span>          </li>
+          <li>
+<span><tt>&quot;torusInvariants(Matrix,Ring,grading=>...)&quot;</tt> -- see <span><a title="ring of invariants of torus action" href="_torus__Invariants.html">torusInvariants</a> -- ring of invariants of torus action</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a href="_grading.html">grading</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

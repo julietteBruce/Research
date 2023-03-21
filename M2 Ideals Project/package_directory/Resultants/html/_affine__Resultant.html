@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>affineResultant -- affine resultant</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Assume__Ordinary.html">next</a> | <a href="_affine__Discriminant.html">previous</a> | <a href="___Assume__Ordinary.html">forward</a> | <a href="_affine__Discriminant.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants, discriminants, and Chow forms" href="index.html">Resultants</a> :: <a title="affine resultant" href="_affine__Resultant.html">affineResultant</a>    </div>
+    <hr/>
+    <div>
+      <h1>affineResultant -- affine resultant</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">affineResultant f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a row matrix whose entries are $n+1$ polynomials $f_0,\ldots,f_n$ in $n$ variables (or a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a> to be interpreted as such a matrix)</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="_resultant_lp..._cm__Algorithm_eq_gt..._rp.html">Algorithm</a><tt> => </tt><tt>...</tt>, <span>default value &quot;Poisson&quot;</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the resultant of the polynomials obtained by homogenizing $f_0,\ldots,f_n$ with respect to a new variable</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : ZZ[t,u][y,z]
+
+o1 = ZZ[t..u][y..z]
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = {3*t*y*z-u*z^2+1, -y+t+3*u-1, u*z^4-t*y^3+t*y*z}
+
+                  2                           4      3
+o2 = {3t*y*z - u*z  + 1, - y + t + 3u - 1, u*z  - t*y  + t*y*z}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : affineResultant f
+
+          12         11 2         10 3         9 4          8 5          7 6
+o3 = - 81t  u - 1701t  u  - 15309t  u  - 76545t u  - 229635t u  - 413343t u 
+     ------------------------------------------------------------------------
+              6 7          5 8       11          10 2         9 3  
+     - 413343t u  - 177147t u  + 567t  u + 10206t  u  + 76545t u  +
+     ------------------------------------------------------------------------
+            8 4          7 5          6 6          5 7        4 8        3 9
+     306181t u  + 688923t u  + 826821t u  + 413883t u  + 1215t u  + 1458t u 
+     ------------------------------------------------------------------------
+           2 10        10          9 2          8 3          7 4          6 5
+     + 729t u   - 1701t  u - 25515t u  - 153093t u  - 459321t u  - 689265t u 
+     ------------------------------------------------------------------------
+              5 6        4 7        3 8        2 9        9          8 2  
+     - 414693t u  - 2835t u  - 3159t u  - 1458t u  + 2835t u + 33984t u  +
+     ------------------------------------------------------------------------
+            7 3          6 4          5 5         4 6        3 7        2 8  
+     152565t u  + 303135t u  + 220905t u  - 12150t u  - 5913t u  + 1215t u  -
+     ------------------------------------------------------------------------
+          8          7 2         6 3         5 4         4 5         3 6  
+     2862t u - 25659t u  - 75873t u  - 70031t u  + 16263t u  + 13230t u  -
+     ------------------------------------------------------------------------
+         2 7        7          6 2         5 3        4 4        3 5  
+     540t u  + 1809t u + 10818t u  + 15015t u  - 6609t u  - 9360t u  +
+     ------------------------------------------------------------------------
+         2 6       6         5 2       4 3        3 4      2 5        6  
+     135t u  - 729t u - 2313t u  + 684t u  + 3165t u  - 81t u  - 54t*u  +
+     ------------------------------------------------------------------------
+         5        4 2       3 3      2 4        5      4       3 2      2 3  
+     189t u + 135t u  - 583t u  - 38t u  + 54t*u  - 27t u + 54t u  + 47t u  -
+     ------------------------------------------------------------------------
+          4     2 2       3    2
+     18t*u  - 9t u  + 2t*u  + u
+
+o3 : ZZ[t..u]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="multipolynomial resultant" href="_resultant.html">resultant</a> -- multipolynomial resultant</span>          </li>
+          <li>
+<span><a title="affine discriminant" href="_affine__Discriminant.html">affineDiscriminant</a> -- affine discriminant</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>affineResultant</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;affineResultant(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;affineResultant(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="affine resultant" href="_affine__Resultant.html">affineResultant</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PieriMaps -- Pieri inclusions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_pieri.html">next</a> | previous | <a href="_pieri.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Pieri inclusions" href="index.html">PieriMaps</a> :: <a title="Pieri inclusions" href="index.html">PieriMaps</a>    </div>
+    <hr/>
+    <div>
+      <h1>PieriMaps -- Pieri inclusions</h1>
+      <div>
+        <h2>Description</h2>
+For mathematical background of this package and some examples of use, see:<br/>Steven V Sam, Computing inclusions of Schur modules, arXiv:0810.4666<br/>Some other references:<br/>Andrzej Daszkiewicz, On the Invariant Ideals of the Symmetric Algebra $S.(V \oplus \wedge^2 V)$, J. Algebra 125, 1989, 444-473.<br/>David Eisenbud, Gunnar Fl\o ystad, and Jerzy Weyman, The existence of pure free resolutions, arXiv:0709.1529.<br/>William Fulton, Young Tableaux: With Applications to Representation Theory and Geometry, London Math. Society Student Texts 35, 1997.<br/>Jerzy Weyman, Cohomology of Vector Bundles and Syzygies, Cambridge University Press, 2002.<br/><br/>Let V be a vector space over K. If K has characteristic 0, then given the partition mu and the partition mu' obtained from mu by removing a single box, there is a unique (up to nonzero scalar) GL(V)-equivariant inclusion S_mu V -> V otimes S_mu' V, where S_mu refers to the irreducible representation of GL(V) with highest weight mu. This can be extended uniquely to a map of P = Sym(V)-modules P otimes S_mu V -> P otimes S_mu' V. The purpose of this package is to write down matrix representatives for these maps. The main function for doing so is <a title="computes a matrix representation for a Pieri inclusion of representations of a general linear group" href="_pieri.html">pieri</a>. Here is an example of the use of the package PieriMaps, which is also designed to check whether the maps are being constructed correctly (important, since it is notoriously difficult to get the signs and coefficients right.) We will construct by hand the free resolution in 3 variables corresponding to the degree sequence (0,2,3,6). Let's start with the packaged code:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = pureFree({0,2,3,6}, R)
+
+o2 = | 12a2 0    0    6ab 0   0   6ac   0    0   2b2 0   0   2bc  0    0  
+     | 0    12a2 0    0   6ab 0   0     6ac  0   0   2b2 0   0    2bc  0  
+     | 0    0    12a2 0   0   6ab 0     0    6ac 0   0   2b2 0    0    2bc
+     | 0    0    0    0   6a2 0   -12a2 0    0   0   8ab 0   -8ab 4ac  0  
+     | 0    0    0    0   0   6a2 0     -3a2 0   0   0   8ab 0    -2ab 4ac
+     | 0    0    0    0   0   0   0     0    0   0   0   2a2 0    -a2  0  
+     ------------------------------------------------------------------------
+     2c2   0    0   0   0   0    0   0    0   0    0   0   |
+     0     2c2  0   0   0   0    0   0    0   0    0   0   |
+     0     0    2c2 0   0   0    0   0    0   0    0   0   |
+     -16ac 0    0   6b2 0   4bc  0   2c2  0   0    0   0   |
+     0     -4ac 0   0   6b2 -b2  4bc -2bc 2c2 0    0   0   |
+     2a2   0    0   0   6ab -2ab 2ac -2ac 0   12b2 6bc 2c2 |
+
+             6       27
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : betti res coker f
+
+            0  1  2 3
+o3 = total: 6 27 24 3
+         0: 6  .  . .
+         1: . 27 24 .
+         2: .  .  . .
+         3: .  .  . 3
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+By the general theory from Eisenbud-Fl\o ystad-Weyman, each of these free modules should be essentially Schur functors corresponding to the following partitions.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : needsPackage &quot;SchurRings&quot;
+
+o4 = SchurRings
+
+o4 : Package</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : schurRing(s,3)
+
+o5 = schurRing (QQ, s, 3)
+
+o5 : SchurRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : dim s_{2,2}
+
+o6 = 6</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : dim s_{4,2}
+
+o7 = 27</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : dim s_{4,3}
+
+o8 = 24</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : dim s_{4,3,3}
+
+o9 = 3</code></pre>
+</td>          </tr>
+        </table>
+This package also provides a routine <a title="computes the dimension of the irreducible GL(QQ^n) representation associated to a partition" href="_schur__Rank.html">schurRank</a> for computing this dimension:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : schurRank(3, {2,2})
+
+o10 = 6</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : schurRank(3, {4,2})
+
+o11 = 27</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : schurRank(3, {4,3})
+
+o12 = 24</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : schurRank(3, {4,3,3})
+
+o13 = 3</code></pre>
+</td>          </tr>
+        </table>
+We now use <a title="computes a matrix representation for a Pieri inclusion of representations of a general linear group" href="_pieri.html">pieri</a> to construct each of the maps of the resolution separately.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : f1 = pieri({4,2,0},{1,1}, R)
+
+o14 = | 12a2 0    0    6ab 0   0   6ac   0    0   2b2 0   0   2bc  0    0  
+      | 0    12a2 0    0   6ab 0   0     6ac  0   0   2b2 0   0    2bc  0  
+      | 0    0    12a2 0   0   6ab 0     0    6ac 0   0   2b2 0    0    2bc
+      | 0    0    0    0   6a2 0   -12a2 0    0   0   8ab 0   -8ab 4ac  0  
+      | 0    0    0    0   0   6a2 0     -3a2 0   0   0   8ab 0    -2ab 4ac
+      | 0    0    0    0   0   0   0     0    0   0   0   2a2 0    -a2  0  
+      -----------------------------------------------------------------------
+      2c2   0    0   0   0   0    0   0    0   0    0   0   |
+      0     2c2  0   0   0   0    0   0    0   0    0   0   |
+      0     0    2c2 0   0   0    0   0    0   0    0   0   |
+      -16ac 0    0   6b2 0   4bc  0   2c2  0   0    0   0   |
+      0     -4ac 0   0   6b2 -b2  4bc -2bc 2c2 0    0   0   |
+      2a2   0    0   0   6ab -2ab 2ac -2ac 0   12b2 6bc 2c2 |
+
+              6       27
+o14 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : f2 = pieri({4,3,0},{2}, R)
+
+o15 = | 3b  c   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   2b  2c  0   0     0     0     0     0     0     0     0     0    
+      | 0   0   b   3c  0     0     0     0     0     0     0     0     0    
+      | -6a 0   0   0   3/2b  c     0     0     -3/2c 0     0     0     0    
+      | 0   -4a 0   0   0     b     2c    0     0     -c    0     0     0    
+      | 0   0   -2a 0   0     0     1/2b  3c    0     0     -1/2c 0     0    
+      | 0   -2a 0   0   0     -1/2b 0     0     3b    1/2c  0     0     0    
+      | 0   0   -4a 0   0     0     -b    0     0     2b    c     0     0    
+      | 0   0   0   -6a 0     0     0     -3/2b 0     0     b     3/2c  0    
+      | 0   0   0   0   -9/2a 0     0     0     0     0     0     0     c    
+      | 0   0   0   0   0     -3a   0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     -3/2a 0     0     0     0     0     0    
+      | 0   0   0   0   0     -3/2a 0     0     -9/2a 0     0     0     -b   
+      | 0   0   0   0   0     0     -3a   0     0     -3a   0     0     0    
+      | 0   0   0   0   0     0     0     -9/2a 0     0     -3/2a 0     0    
+      | 0   0   0   0   0     0     0     0     0     -3/2a 0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     -3a   0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     -9/2a 0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     -4/3a
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      | 0   0   0   0   0     0     0     0     0     0     0     0     0    
+      -----------------------------------------------------------------------
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      0   0   0     0     0     0     0     0     0     0   0     |
+      2c  0   -c    0     0     0     0     0     0     0   0     |
+      0   3c  0     -1/2c 0     0     0     0     0     0   0     |
+      0   0   1/2c  0     0     0     0     0     0     0   0     |
+      -2b 0   b     c     0     0     0     0     0     0   0     |
+      0   -3b 0     1/2b  3/2c  0     0     0     0     0   0     |
+      0   0   -1/2b 0     0     0     0     0     0     0   0     |
+      0   0   0     -b    0     0     0     0     0     0   0     |
+      0   0   0     0     -3/2b 0     0     0     0     0   0     |
+      0   0   0     0     0     2c    0     0     0     0   0     |
+      -a  0   1/3a  0     0     -1/2b 3c    -1/2c 0     0   0     |
+      -2a 0   0     0     0     -3b   0     c     0     0   0     |
+      0   -3a 0     -a    0     0     -9/2b 0     3/2c  0   0     |
+      0   0   0     -2a   0     0     0     -2b   0     0   0     |
+      0   0   0     0     -3a   0     0     0     -3b   0   0     |
+      0   0   0     0     0     -1/4a 0     0     0     3c  0     |
+      0   0   0     0     0     0     -3/2a 1/6a  0     -6b 3/2c  |
+      0   0   0     0     0     0     0     0     -3/2a 0   -9/2b |
+
+              27       24
+o15 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : f3 = pieri({4,3,3},{3,3,3}, R)
+
+o16 = | 6c3       0         0         |
+      | -18bc2    0         0         |
+      | 18b2c     0         0         |
+      | -6b3      0         0         |
+      | 0         6c3       0         |
+      | 72/5ac2   -72/5bc2  18/5c3    |
+      | -144/5abc 54/5b2c   -36/5bc2  |
+      | 72/5ab2   -12/5b3   18/5b2c   |
+      | -72/5ac2  -18/5bc2  12/5c3    |
+      | 144/5abc  36/5b2c   -54/5bc2  |
+      | -72/5ab2  -18/5b3   72/5b2c   |
+      | 0         0         -6b3      |
+      | 0         27ac2     0         |
+      | -108/5a2c -162/5abc 108/5ac2  |
+      | -36/5a2b  36/5ab2   -54/5abc  |
+      | -432/5a2c -108/5abc 162/5ac2  |
+      | 216/5a2b  54/5ab2   -216/5abc |
+      | 0         0         18ab2     |
+      | 0         18a2c     0         |
+      | -24/5a3   -36/5a2b  54/5a2c   |
+      | -216/5a3  -54/5a2b  216/5a2c  |
+      | 0         0         -18a2b    |
+      | 0         3/2a3     0         |
+      | 0         0         6a3       |
+
+              24       3
+o16 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+        </table>
+Fix the degrees (i.e. make sure that the target of f2 is the source of f1, etc). Otherwise the test of exactness below would fail.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : f1
+
+o17 = | 12a2 0    0    6ab 0   0   6ac   0    0   2b2 0   0   2bc  0    0  
+      | 0    12a2 0    0   6ab 0   0     6ac  0   0   2b2 0   0    2bc  0  
+      | 0    0    12a2 0   0   6ab 0     0    6ac 0   0   2b2 0    0    2bc
+      | 0    0    0    0   6a2 0   -12a2 0    0   0   8ab 0   -8ab 4ac  0  
+      | 0    0    0    0   0   6a2 0     -3a2 0   0   0   8ab 0    -2ab 4ac
+      | 0    0    0    0   0   0   0     0    0   0   0   2a2 0    -a2  0  
+      -----------------------------------------------------------------------
+      2c2   0    0   0   0   0    0   0    0   0    0   0   |
+      0     2c2  0   0   0   0    0   0    0   0    0   0   |
+      0     0    2c2 0   0   0    0   0    0   0    0   0   |
+      -16ac 0    0   6b2 0   4bc  0   2c2  0   0    0   0   |
+      0     -4ac 0   0   6b2 -b2  4bc -2bc 2c2 0    0   0   |
+      2a2   0    0   0   6ab -2ab 2ac -2ac 0   12b2 6bc 2c2 |
+
+              6       27
+o17 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : f2 = map(source f1,,f2)
+
+o18 = {1} | 3b  c   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   2b  2c  0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   b   3c  0     0     0     0     0     0     0     0    
+      {1} | -6a 0   0   0   3/2b  c     0     0     -3/2c 0     0     0    
+      {1} | 0   -4a 0   0   0     b     2c    0     0     -c    0     0    
+      {1} | 0   0   -2a 0   0     0     1/2b  3c    0     0     -1/2c 0    
+      {1} | 0   -2a 0   0   0     -1/2b 0     0     3b    1/2c  0     0    
+      {1} | 0   0   -4a 0   0     0     -b    0     0     2b    c     0    
+      {1} | 0   0   0   -6a 0     0     0     -3/2b 0     0     b     3/2c 
+      {1} | 0   0   0   0   -9/2a 0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     -3a   0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     -3/2a 0     0     0     0     0    
+      {1} | 0   0   0   0   0     -3/2a 0     0     -9/2a 0     0     0    
+      {1} | 0   0   0   0   0     0     -3a   0     0     -3a   0     0    
+      {1} | 0   0   0   0   0     0     0     -9/2a 0     0     -3/2a 0    
+      {1} | 0   0   0   0   0     0     0     0     0     -3/2a 0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     -3a   0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     -9/2a
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      {1} | 0   0   0   0   0     0     0     0     0     0     0     0    
+      -----------------------------------------------------------------------
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      0     0   0   0     0     0     0     0     0     0     0   0     |
+      c     0   0   0     0     0     0     0     0     0     0   0     |
+      0     2c  0   -c    0     0     0     0     0     0     0   0     |
+      0     0   3c  0     -1/2c 0     0     0     0     0     0   0     |
+      -b    0   0   1/2c  0     0     0     0     0     0     0   0     |
+      0     -2b 0   b     c     0     0     0     0     0     0   0     |
+      0     0   -3b 0     1/2b  3/2c  0     0     0     0     0   0     |
+      0     0   0   -1/2b 0     0     0     0     0     0     0   0     |
+      0     0   0   0     -b    0     0     0     0     0     0   0     |
+      0     0   0   0     0     -3/2b 0     0     0     0     0   0     |
+      -4/3a 0   0   0     0     0     2c    0     0     0     0   0     |
+      0     -a  0   1/3a  0     0     -1/2b 3c    -1/2c 0     0   0     |
+      0     -2a 0   0     0     0     -3b   0     c     0     0   0     |
+      0     0   -3a 0     -a    0     0     -9/2b 0     3/2c  0   0     |
+      0     0   0   0     -2a   0     0     0     -2b   0     0   0     |
+      0     0   0   0     0     -3a   0     0     0     -3b   0   0     |
+      0     0   0   0     0     0     -1/4a 0     0     0     3c  0     |
+      0     0   0   0     0     0     0     -3/2a 1/6a  0     -6b 3/2c  |
+      0     0   0   0     0     0     0     0     0     -3/2a 0   -9/2b |
+
+              27       24
+o18 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : f3 = map(source f2,,f3)
+
+o19 = {2} | 6c3       0         0         |
+      {2} | -18bc2    0         0         |
+      {2} | 18b2c     0         0         |
+      {2} | -6b3      0         0         |
+      {2} | 0         6c3       0         |
+      {2} | 72/5ac2   -72/5bc2  18/5c3    |
+      {2} | -144/5abc 54/5b2c   -36/5bc2  |
+      {2} | 72/5ab2   -12/5b3   18/5b2c   |
+      {2} | -72/5ac2  -18/5bc2  12/5c3    |
+      {2} | 144/5abc  36/5b2c   -54/5bc2  |
+      {2} | -72/5ab2  -18/5b3   72/5b2c   |
+      {2} | 0         0         -6b3      |
+      {2} | 0         27ac2     0         |
+      {2} | -108/5a2c -162/5abc 108/5ac2  |
+      {2} | -36/5a2b  36/5ab2   -54/5abc  |
+      {2} | -432/5a2c -108/5abc 162/5ac2  |
+      {2} | 216/5a2b  54/5ab2   -216/5abc |
+      {2} | 0         0         18ab2     |
+      {2} | 0         18a2c     0         |
+      {2} | -24/5a3   -36/5a2b  54/5a2c   |
+      {2} | -216/5a3  -54/5a2b  216/5a2c  |
+      {2} | 0         0         -18a2b    |
+      {2} | 0         3/2a3     0         |
+      {2} | 0         0         6a3       |
+
+              24       3
+o19 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : f1 * f2
+
+o20 = 0
+
+              6       24
+o20 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : f2 * f3
+
+o21 = 0
+
+              27       3
+o21 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+        </table>
+Check that the complex is exact.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : ker f1 == image f2
+
+o22 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : ker f2 == image f3
+
+o23 = true</code></pre>
+</td>          </tr>
+        </table>
+Looks great! Now let's try it modulo some prime numbers and see if we get exactness.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i24 : p = 32003
+
+o24 = 32003</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i25 : R = ZZ/p[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i26 : f1 = pieri({4,2,0},{1,1},R)
+
+o26 = | a2 ab b2 0  ac  bc 0  0   c2  0  0  0  0  -bc 0  0    -c2  0   0   0 
+      | 0  0  0  a2 2ab b2 0  2ac 4bc 0  c2 0  ab 0   0  -2ac -2bc 0   -c2 0 
+      | 0  0  0  0  0   0  a2 ab  b2  ac bc c2 0  0   0  0    0    0   0   0 
+      | 0  0  0  0  0   0  0  0   0   0  0  0  a2 4ab b2 0    4ac  4bc 0   c2
+      | 0  0  0  0  0   0  0  0   0   0  0  0  0  0   0  a2   2ab  0   2ac bc
+      | 0  0  0  0  0   0  0  0   0   0  0  0  0  0   0  0    0    -ab 0   0 
+      -----------------------------------------------------------------------
+      0  0    0    0  0    0  0  |
+      0  -2bc 0    0  0    0  0  |
+      0  0    0    0  0    0  0  |
+      0  -4ac -4bc 0  -2c2 0  0  |
+      c2 2ab  b2   0  0    0  0  |
+      0  a2   2ab  b2 ac   bc c2 |
+
+              6       27
+o26 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i27 : betti res coker f1
+
+             0  1  2 3
+o27 = total: 6 27 24 3
+          0: 6  .  . .
+          1: . 27 24 .
+          2: .  .  . .
+          3: .  .  . 3
+
+o27 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i28 : f2 = pieri({4,3,0},{2},R)
+
+o28 = | -b -c  0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  -2b -2c 0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  0   -b  -c 0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 2a 0   0   0  -b -3c -2c 0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  4a  0   0  0  -2b -2b -4c 0   6c  0   0  0   0   0   0  0   0   0 
+      | 0  0   2a  0  0  0   0   -b  -2c b   c   0  0   0   0   0  0   0   0 
+      | 0  2a  0   0  0  3b  b   0   0   -c  0   0  0   0   0   0  0   0   0 
+      | 0  0   4a  0  0  0   0   2b  0   -6b -2c 0  0   0   0   0  0   0   0 
+      | 0  0   0   2a 0  0   0   0   b   0   -2b -c 0   0   0   0  0   0   0 
+      | 0  0   0   0  3a 0   0   0   0   0   0   0  -3c 0   0   0  0   0   0 
+      | 0  0   0   0  0  6a  6a  0   0   0   0   0  0   -4c -6c 0  0   0   0 
+      | 0  0   0   0  0  0   0   3a  0   -3a 0   0  0   0   0   -c c   0   0 
+      | 0  0   0   0  0  0   3a  0   0   0   0   0  3b  3c  3c  0  0   0   0 
+      | 0  0   0   0  0  0   0   6a  0   0   0   0  0   4b  6b  0  -2c 0   0 
+      | 0  0   0   0  0  0   0   0   3a  0   3a  0  0   0   0   b  -b  0   -c
+      | 0  0   0   0  0  0   0   0   0   3a  0   0  0   -3b -3b 0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   6a  0  0   0   0   0  2b  0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   3a 0   0   0   0  0   0   b 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  4a  0   0   0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   a   2a  0  0   c   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   -2a 0   0  0   -6c 0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   a  2a  3b  0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  4a  12b 0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   2a
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      -----------------------------------------------------------------------
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      -8c 0    0  0  0  |
+      2b  -3c  0  0  0  |
+      12b 6c   0  0  0  |
+      0   0    0  -c 0  |
+      0   -12b 0  0  0  |
+      0   0    0  2b 0  |
+      a   0    -c 0  0  |
+      0   a    2b 0  -c |
+      0   0    0  a  3b |
+
+              27       24
+o28 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i29 : f3 = pieri({4,3,3},{3,3,3},R)
+
+o29 = | -5c3   0       0      |
+      | 15bc2  0       0      |
+      | -15b2c 0       0      |
+      | 5b3    0       0      |
+      | 0      20c3    0      |
+      | -12ac2 -48bc2  3c3    |
+      | 24abc  36b2c   -6bc2  |
+      | -12ab2 -8b3    3b2c   |
+      | 12ac2  -12bc2  2c3    |
+      | -24abc 24b2c   -9bc2  |
+      | 12ab2  -12b3   12b2c  |
+      | 0      0       -5b3   |
+      | 0      90ac2   0      |
+      | 18a2c  -108abc 18ac2  |
+      | 6a2b   24ab2   -9abc  |
+      | 72a2c  -72abc  27ac2  |
+      | -36a2b 36ab2   -36abc |
+      | 0      0       15ab2  |
+      | 0      60a2c   0      |
+      | 4a3    -24a2b  9a2c   |
+      | 36a3   -36a2b  36a2c  |
+      | 0      0       -15a2b |
+      | 0      5a3     0      |
+      | 0      0       5a3    |
+
+              24       3
+o29 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i30 : f2 = map(source f1,,f2)
+
+o30 = | -b -c  0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  -2b -2c 0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  0   -b  -c 0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 2a 0   0   0  -b -3c -2c 0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  4a  0   0  0  -2b -2b -4c 0   6c  0   0  0   0   0   0  0   0   0 
+      | 0  0   2a  0  0  0   0   -b  -2c b   c   0  0   0   0   0  0   0   0 
+      | 0  2a  0   0  0  3b  b   0   0   -c  0   0  0   0   0   0  0   0   0 
+      | 0  0   4a  0  0  0   0   2b  0   -6b -2c 0  0   0   0   0  0   0   0 
+      | 0  0   0   2a 0  0   0   0   b   0   -2b -c 0   0   0   0  0   0   0 
+      | 0  0   0   0  3a 0   0   0   0   0   0   0  -3c 0   0   0  0   0   0 
+      | 0  0   0   0  0  6a  6a  0   0   0   0   0  0   -4c -6c 0  0   0   0 
+      | 0  0   0   0  0  0   0   3a  0   -3a 0   0  0   0   0   -c c   0   0 
+      | 0  0   0   0  0  0   3a  0   0   0   0   0  3b  3c  3c  0  0   0   0 
+      | 0  0   0   0  0  0   0   6a  0   0   0   0  0   4b  6b  0  -2c 0   0 
+      | 0  0   0   0  0  0   0   0   3a  0   3a  0  0   0   0   b  -b  0   -c
+      | 0  0   0   0  0  0   0   0   0   3a  0   0  0   -3b -3b 0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   6a  0  0   0   0   0  2b  0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   3a 0   0   0   0  0   0   b 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  4a  0   0   0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   a   2a  0  0   c   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   -2a 0   0  0   -6c 0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   a  2a  3b  0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  4a  12b 0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   2a
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      | 0  0   0   0  0  0   0   0   0   0   0   0  0   0   0   0  0   0   0 
+      -----------------------------------------------------------------------
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      0   0    0  0  0  |
+      -8c 0    0  0  0  |
+      2b  -3c  0  0  0  |
+      12b 6c   0  0  0  |
+      0   0    0  -c 0  |
+      0   -12b 0  0  0  |
+      0   0    0  2b 0  |
+      a   0    -c 0  0  |
+      0   a    2b 0  -c |
+      0   0    0  a  3b |
+
+              27       24
+o30 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i31 : f3 = map(source f2,,f3)
+
+o31 = {1} | -5c3   0       0      |
+      {1} | 15bc2  0       0      |
+      {1} | -15b2c 0       0      |
+      {1} | 5b3    0       0      |
+      {1} | 0      20c3    0      |
+      {1} | -12ac2 -48bc2  3c3    |
+      {1} | 24abc  36b2c   -6bc2  |
+      {1} | -12ab2 -8b3    3b2c   |
+      {1} | 12ac2  -12bc2  2c3    |
+      {1} | -24abc 24b2c   -9bc2  |
+      {1} | 12ab2  -12b3   12b2c  |
+      {1} | 0      0       -5b3   |
+      {1} | 0      90ac2   0      |
+      {1} | 18a2c  -108abc 18ac2  |
+      {1} | 6a2b   24ab2   -9abc  |
+      {1} | 72a2c  -72abc  27ac2  |
+      {1} | -36a2b 36ab2   -36abc |
+      {1} | 0      0       15ab2  |
+      {1} | 0      60a2c   0      |
+      {1} | 4a3    -24a2b  9a2c   |
+      {1} | 36a3   -36a2b  36a2c  |
+      {1} | 0      0       -15a2b |
+      {1} | 0      5a3     0      |
+      {1} | 0      0       5a3    |
+
+              24       3
+o31 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i32 : f1 * f2
+
+o32 = | -a2b -2ab2+3a2c -b3       -b2c+2ac2 0    -2abc          
+      | 2a3  8a2b       2ab2+8a2c 8abc      -a2b -4ab2-3a2c+6ac2
+      | 0    2a3        4a2b      2ab2      3a2c 3a2b+6abc      
+      | 0    0          0         0         0    0              
+      | 0    0          0         0         0    0              
+      | 0    0          0         0         0    0              
+      -----------------------------------------------------------------------
+      -2abc               -6abc-b2c-4ac2 -bc2 b2c+6ac2       -6ac2-bc2       
+      3a2b-4ab2-2a2c+6ac2 -b3-4abc       2b2c b3-6a2c        -12abc-7b2c-4ac2
+      a2b+6abc            2ab2+3ac2      b3   -6ab2-a2c-3ac2 -2b3-2abc       
+      3a3                 24a2b          3ab2 0              3ab2+24a2c      
+      0                   0              0    3a3            12a2b           
+      0                   0              0    0              0               
+      -----------------------------------------------------------------------
+      -c3   0         -4b2c          -6b2c           0       0             
+      -4bc2 3ab2-4ac2 9abc-4c3       9abc-6c3        -2abc   -4abc-4b2c    
+      -b2c  -3ac2     -4bc2          -6bc2           -c3     c3            
+      12abc 3a2b      16ab2+3a2c+ac2 24ab2+3a2c+2ac2 b3-4a2c -b3-8a2c-16abc
+      0     8a2c      -3a2b+abc-2ac2 -3a2b+2abc      2a2b    4a2b+8ab2     
+      -3a2b 0         0              0               a3      2a3+8a2b      
+      -----------------------------------------------------------------------
+      0                 0    0                0              0       
+      -6b2c             0    8c3              0              0       
+      0                 0    0                0              0       
+      -12abc-48b2c+c3   3b2c -2ac2+2bc2       48b2c-3c3      2c3     
+      6ab2+12b3+bc2-6c3 0    2b2c-16ac2+12bc2 -12b3-3bc2+6c3 0       
+      3a2b+24ab2        ab2  a2c              -24ab2+abc     2b2c-ac2
+      -----------------------------------------------------------------------
+      0           0    |
+      2bc2        0    |
+      0           0    |
+      4ac2        0    |
+      -2abc       0    |
+      2b3-a2c+ac2 2bc2 |
+
+              6       24
+o32 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i33 : f2 * f3
+
+o33 = | -10bc3                0                          
+      | 0                     0                          
+      | 10b3c                 0                          
+      | -48abc2+26ac3         -72b2c2+124bc3             
+      | -60abc2               -40b3c+240b2c2             
+      | 12ab3-42ab2c-24ac3    8b4+12b3c+24bc3            
+      | 24ab2c+18abc2         36b3c-168b2c2              
+      | -24ab3+60ab2c         -16b4-120b3c               
+      | -14ab3+12abc2         24b4-12b2c2                
+      | 0                     -210ac3                    
+      | 108a2bc-144a2c2       72ab2c+144abc2             
+      | -36a2b2+36a2bc-72a2c2 -24ab3-36ab2c+72abc2       
+      | 90a2bc+54a2c2         180ab2c-54abc2             
+      | -36a2b2+144a2bc       96ab3-504ab2c              
+      | 72a2b2+72a2bc+36a2c2  -72ab3-72ab2c-60a2c2-36abc2
+      | -18a2b2-126a2bc       -72ab3+396ab2c             
+      | 0                     0                          
+      | 0                     60a2bc                     
+      | -32a3c                192a2bc+360a2c2            
+      | 20a3b-90a3c           0                          
+      | 48a3b+180a3c          -288a2b2                   
+      | -72a3b+72a3c          72a2b2-5a3c-72a2bc         
+      | -576a3b               576a2b2                    
+      | 0                     10a3b+120a3c               
+      | 4a4                   -24a3b                     
+      | 36a4                  -36a3b                     
+      | 0                     5a4                        
+      -----------------------------------------------------------------------
+      0                      |
+      0                      |
+      0                      |
+      12bc3-9c4              |
+      -60bc3                 |
+      -3b3c+3b2c2-4c4        |
+      -6b2c2+18bc3           |
+      6b3c+30b2c2            |
+      -19b3c+2bc3            |
+      0                      |
+      18abc2-54ac3           |
+      9ab2c-9abc2-27ac3      |
+      -45abc2+54ac3          |
+      -36ab2c+144abc2        |
+      72ab2c+27abc2+6ac3     |
+      27ab2c-81abc2          |
+      0                      |
+      -15ab3                 |
+      -72a2c2                |
+      15ab2c-90a2c2          |
+      108a2bc-90ab2c+180a2c2 |
+      45ab3-72a2bc+27a2c2    |
+      180ab3-576a2bc         |
+      0                      |
+      9a3c+15a2bc            |
+      -30a2b2+31a3c          |
+      15a3b                  |
+
+              27       3
+o33 : Matrix R   &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i34 : ker f1 == image f2
+
+o34 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i35 : ker f2 == image f3
+
+o35 = false</code></pre>
+</td>          </tr>
+        </table>
+These do not piece together well. The reason is that <a title="computes a matrix representation for a Pieri inclusion of representations of a general linear group" href="_pieri.html">pieri</a> changes the bases of the free modules in a way which is not invertible (over ZZ) when the ground field has positive characteristic.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes a matrix representation for a Pieri inclusion of representations of a general linear group" href="_pieri.html">pieri</a> -- computes a matrix representation for a Pieri inclusion of representations of a general linear group</span>          </li>
+          <li>
+<span><a title="computes a GL(V)-equivariant map whose resolution is pure, or the reduction mod p of such a map" href="_pure__Free.html">pureFree</a> -- computes a GL(V)-equivariant map whose resolution is pure, or the reduction mod p of such a map</span>          </li>
+          <li>
+<span><a title="computes the dimension of the irreducible GL(QQ^n) representation associated to a partition" href="_schur__Rank.html">schurRank</a> -- computes the dimension of the irreducible GL(QQ^n) representation associated to a partition</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://math.mit.edu/~ssam/">Steven V Sam</a><span> &lt;<a href="mailto:ssam@math.mit.edu">ssam@math.mit.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>1.0</b> of this package was accepted for publication in <a href="http://j-sag.org/Volume1/">volume 1</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry: Macaulay2</a> on 2009-06-27, in the article <a href="http://j-sag.org/Volume1/jsag-2-2009.pdf">Computing inclusions of Schur modules</a>. That version can be obtained from <a href="http://j-sag.org/Volume1/PieriMaps.m2">the journal</a> or from <a href="https://github.com/Macaulay2/M2/blob/38e96fec660168d488ad0449f8632e6608cc9ede/M2/Macaulay2/packages/PieriMaps.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.0</b> of PieriMaps.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/PieriMaps.m2">PieriMaps.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="computes a matrix representation for a Pieri inclusion of representations of a general linear group" href="_pieri.html">pieri</a> -- computes a matrix representation for a Pieri inclusion of representations of a general linear group</span>                  </li>
+                  <li>
+<span><a title="computes a GL(V)-equivariant map whose resolution is pure, or the reduction mod p of such a map" href="_pure__Free.html">pureFree</a> -- computes a GL(V)-equivariant map whose resolution is pure, or the reduction mod p of such a map</span>                  </li>
+                  <li>
+<span><a title="computes the dimension of the irreducible GL(QQ^n) representation associated to a partition" href="_schur__Rank.html">schurRank</a> -- computes the dimension of the irreducible GL(QQ^n) representation associated to a partition</span>                  </li>
+                  <li>
+<span><a title="list all standard tableaux of a certain shape with bounded labels" href="_standard__Tableaux.html">standardTableaux</a> -- list all standard tableaux of a certain shape with bounded labels</span>                  </li>
+                  <li>
+<span><a title="computes straightening of a tableau" href="_straighten.html">straighten</a> -- computes straightening of a tableau</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;pieri(List,List,PolynomialRing)&quot;</tt> -- see <span><a title="computes a matrix representation for a Pieri inclusion of representations of a general linear group" href="_pieri.html">pieri</a> -- computes a matrix representation for a Pieri inclusion of representations of a general linear group</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pureFree(List,PolynomialRing)&quot;</tt> -- see <span><a title="computes a GL(V)-equivariant map whose resolution is pure, or the reduction mod p of such a map" href="_pure__Free.html">pureFree</a> -- computes a GL(V)-equivariant map whose resolution is pure, or the reduction mod p of such a map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;schurRank(ZZ,List)&quot;</tt> -- see <span><a title="computes the dimension of the irreducible GL(QQ^n) representation associated to a partition" href="_schur__Rank.html">schurRank</a> -- computes the dimension of the irreducible GL(QQ^n) representation associated to a partition</span></span>                  </li>
+                  <li>
+<span><tt>&quot;standardTableaux(ZZ,List)&quot;</tt> -- see <span><a title="list all standard tableaux of a certain shape with bounded labels" href="_standard__Tableaux.html">standardTableaux</a> -- list all standard tableaux of a certain shape with bounded labels</span></span>                  </li>
+                  <li>
+<span><tt>&quot;straighten(List)&quot;</tt> -- see <span><a title="computes straightening of a tableau" href="_straighten.html">straighten</a> -- computes straightening of a tableau</span></span>                  </li>
+                  <li>
+<span><tt>&quot;straighten(List,MutableHashTable)&quot;</tt> -- see <span><a title="computes straightening of a tableau" href="_straighten.html">straighten</a> -- computes straightening of a tableau</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Pieri inclusions" href="index.html">PieriMaps</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

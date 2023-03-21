@@ -1,0 +1,101 @@
+-- -*- M2-comint -*- hash: 1313868870
+
+i1 : M = matrix {{1,1,-1,-1},{1,-1,1,-1}}
+
+o1 = | 1 1  -1 -1 |
+     | 1 -1 1  -1 |
+
+              2        4
+o1 : Matrix ZZ  <--- ZZ
+
+i2 : P = convexHull M
+
+o2 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o2 : Polyhedron
+
+i3 : r = matrix {{1},{2}}
+
+o3 = | 1 |
+     | 2 |
+
+              2        1
+o3 : Matrix ZZ  <--- ZZ
+
+i4 : P =convexHull(M,r)
+
+o4 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 4
+      number of rays => 1
+      number of vertices => 3
+
+o4 : Polyhedron
+
+i5 : N = matrix {{-2,-2,0},{0,-2,-2}}
+
+o5 = | -2 -2 0  |
+     | 0  -2 -2 |
+
+              2        3
+o5 : Matrix ZZ  <--- ZZ
+
+i6 : Q = convexHull(M|N)
+
+o6 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 6
+      number of rays => 0
+      number of vertices => 6
+
+o6 : Polyhedron
+
+i7 : Q1 = convexHull(M|N,r)
+
+o7 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 5
+      number of rays => 1
+      number of vertices => 4
+
+o7 : Polyhedron
+
+i8 : P1 = convexHull {P,N}
+
+o8 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 5
+      number of rays => 1
+      number of vertices => 4
+
+o8 : Polyhedron
+
+i9 : P1 == Q1
+
+o9 = true
+
+i10 : P1 = convexHull(P,Q)
+
+o10 = {ambient dimension => 2           }
+       dimension of lineality space => 0
+       dimension of polyhedron => 2
+       number of facets => 5
+       number of rays => 1
+       number of vertices => 4
+
+o10 : Polyhedron
+
+i11 : P1 == Q1
+
+o11 = true
+
+i12 : 

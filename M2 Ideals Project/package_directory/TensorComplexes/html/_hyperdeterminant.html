@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hyperdeterminant -- computes the hyperdeterminant of a boundary format tensor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_hyperdeterminant__Matrix.html">next</a> | <a href="_from__Ordinal.html">previous</a> | <a href="_hyperdeterminant__Matrix.html">forward</a> | <a href="_from__Ordinal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="multilinear algebra for the construction of tensor complexes" href="index.html">TensorComplexes</a> :: <a title="computes the hyperdeterminant of a boundary format tensor" href="_hyperdeterminant.html">hyperdeterminant</a>    </div>
+    <hr/>
+    <div>
+      <h1>hyperdeterminant -- computes the hyperdeterminant of a boundary format tensor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">hyperdeterminant f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of maps between LabeledModules" href="___Labeled__Module__Map.html">map of labeled modules</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This constructs the hyperdeterminant of a tensor of <em>boundary format</em>, where we say that a $a\times b_1\times \dots \times b_n$ has boundary format if $$ a-\sum_{i=1}^n (b_i-1)=1. $$ We construct the hyperdeterminant as the determinant of a certain square matrix derived from $f$.  The <tt>hyperdeterminant</tt> function outputs the hyperdeterminant itself, whereas the <a title="computes a matrix whose determinant equals the hyperdeterminant of a boundary format tensor" href="_hyperdeterminant__Matrix.html">hyperdeterminantMatrix</a> function outputs the matrix used to compute the hyperdeterminant.  (For background on computing hyperdeterminants, see Section 14.3 of the book ``Discriminants, resultants, and multidimensional determinants '' by Gelfand-Kapranov-Zelevinsky.)</p>
+          <p>The following constructs the generic hyperdeterminant of format $3\times 2\times 2$, which is a polynomial of degree 6 consisting of 66 monomials.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : f=flattenedGenericTensor({3,2,2},QQ);
+
+                                4                          3
+o1 : Matrix (QQ[x     ..x     ])  &lt;--- (QQ[x     ..x     ])
+                 0,0,0   2,1,1              0,0,0   2,1,1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S=ring f;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : h=hyperdeterminant f;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : degree h
+
+o4 = {6}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : #terms h
+
+o5 = 66</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>There is bug involving the graded structure of the output. Namely, the code assumes that all entries of <tt>f</tt> have degree 1, and gives the wrong graded structure if this is not the case. If <tt>ring f</tt> is not graded, then the code gives an error.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes a matrix whose determinant equals the hyperdeterminant of a boundary format tensor" href="_hyperdeterminant__Matrix.html">hyperdeterminantMatrix</a> -- computes a matrix whose determinant equals the hyperdeterminant of a boundary format tensor</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hyperdeterminant</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hyperdeterminant(LabeledModuleMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the hyperdeterminant of a boundary format tensor" href="_hyperdeterminant.html">hyperdeterminant</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,97 @@
+-- -*- M2-comint -*- hash: -319458886
+
+i1 : setRandomSeed 2021;
+
+i2 : R=CC[x,y,z];
+
+i3 : F=random(3,R);
+-- warning: experimental computation over inexact field begun
+--          results not reliable (one warning given per session)
+
+i4 : P=sum apply(gens R,g->diff(g,F)*random CC);
+
+i5 : PS = polySystem {F,P,random(1,R)-1};
+
+i6 : sols = sparseMonodromySolve(PS, Verbose=>true)
+initializing graph
+starting to track monodromy loops 
+============================================================
+-------------------------------------------------
+ start node 0 : 1 known sols 
+ targ. node 1 : 1 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 1 known sols 
+ targ. node 1 : 2 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 1 : 2 known sols 
+ targ. node 0 : 2 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 2 known sols 
+ targ. node 1 : 3 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 1 : 3 known sols 
+ targ. node 0 : 3 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 3 known sols 
+ targ. node 1 : 4 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 1 : 4 known sols 
+ targ. node 0 : 4 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 4 known sols 
+ targ. node 1 : 5 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 1 : 5 known sols 
+ targ. node 0 : 5 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 5 known sols 
+ targ. node 1 : 5 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 5 known sols 
+ targ. node 1 : 6 known sols 
+ trackedPaths : 5
+-------------------------------------------------
+ start node 1 : 6 known sols 
+ targ. node 0 : 6 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 6 known sols 
+ targ. node 1 : 6 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 6 known sols 
+ targ. node 1 : 6 known sols 
+ trackedPaths : 1
+-------------------------------------------------
+ start node 0 : 6 known sols 
+ targ. node 1 : 6 known sols 
+ trackedPaths : 6
+
+o6 = {{1.59294+.844634*ii, .974745+.371238*ii, .95757+.675674*ii}, {.183748-.343322*ii, -.338902-.249028*ii, -.135342+.364013*ii}, {.542091+.343809*ii, -.0120525+.0819453*ii, .344477+.556235*ii}, {.777967-.242655*ii, -.135539+.702387*ii, -.80129+.167553*ii}, {.324943+.0562366*ii, -.291124-.655721*ii, .69536+.302367*ii}, {.539844-.401488*ii, .0899151-.461492*ii, .172865+.392447*ii}, PointArray( 6 points: 1 5 4 3 2 0 )}
+
+
+o6 : PointArray
+
+i7 : length points sols
+
+o7 = 6
+
+i8 : for i from 0 to 5 list norm evaluate(PS, sols#i)
+
+o8 = {2.22045e-15, 1.08104e-14, 2.48253e-16, 5.93346e-16, 2.78592e-13,
+     ------------------------------------------------------------------------
+     2.48253e-16}
+
+o8 : List
+
+i9 : 

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>phyloToricRandom -- compute a random invariant of a group-based phylogenetic model</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_p__Ring.html">next</a> | <a href="_phylo__Toric__Quads.html">previous</a> | <a href="_p__Ring.html">forward</a> | <a href="_phylo__Toric__Quads.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a> :: <a title="compute a random invariant of a group-based phylogenetic model" href="_phylo__Toric__Random.html">phyloToricRandom</a>    </div>
+    <hr/>
+    <div>
+      <h1>phyloToricRandom -- compute a random invariant of a group-based phylogenetic model</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">phyloToricRandom(T,M)</code></dd>
+              <dd><code class="language-macaulay2">phyloToricRandom(n,E,M)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>an instance of the type <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a></span>, </span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the number of leaves</span>              </li>
+              <li>
+<span><tt>E</tt>, <span>an instance of the type <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a></span>, the internal edges of the tree, given by one part of the bipartition on leaves</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>an instance of the type <a title="a group-based model" href="___Model.html">Model</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="optional argument to specify Fourier coordinate ring" href="___Q__Ring.html">QRing</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, optional argument to specify Fourier coordinate ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a randomly selected binomial invariant</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function computes a random invariant of a group-based phylogenetic tree model using the toric fiber product structure.</p>
+          <p>With equal probability the algorithm decides to return a linear, quadratic, or higher degree binomial.  It then selects one of these at random (but uniformity is not guaranteed).</p>
+          <p>This is a much more efficient way to produce a single generator than listing all of them, which is useful for Monte Carlo random walk algorithms.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : phyloToricRandom(4,{{0,1}},CFNmodel)
+
+o1 = - q       q        + q       q
+        0,0,1,1 1,1,0,0    0,0,0,0 1,1,1,1
+
+o1 : QQ[q       , q       , q       , q       , q       , q       , q       , q       ]
+         0,0,0,0   0,0,1,1   0,1,0,1   0,1,1,0   1,0,0,1   1,0,1,0   1,1,0,0   1,1,1,1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>We currently do not guarantee a uniform distribution on the generators, even after the choice of linear, quadratic or higher degree.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the invariants of a group-based phylogenetic model with toric fiber products" href="_phylo__Toric__F__P.html">phyloToricFP</a> -- compute the invariants of a group-based phylogenetic model with toric fiber products</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>phyloToricRandom</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;phyloToricRandom(LeafTree,Model)&quot;</tt>          </li>
+          <li>
+<tt>&quot;phyloToricRandom(ZZ,List,Model)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute a random invariant of a group-based phylogenetic model" href="_phylo__Toric__Random.html">phyloToricRandom</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

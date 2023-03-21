@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>findRegion -- finds minimal multidegree(s) in a given region where an ideal or module satisfies a Boolean function</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_partial__Regularities.html">next</a> | <a href="_find__Mins.html">previous</a> | <a href="_partial__Regularities.html">forward</a> | <a href="_find__Mins.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="truncations of a multigraded module that give linear resolutions" href="index.html">LinearTruncations</a> > <a title="finds minimal multidegree(s) in a given region where an ideal or module satisfies a Boolean function" href="_find__Region.html">findRegion</a>    </div>
+    <hr/>
+    <div>
+      <h1>findRegion -- finds minimal multidegree(s) in a given region where an ideal or module satisfies a Boolean function</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">findRegion({L1,L2},M,f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L1</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the minimum multidegree to check</span>              </li>
+              <li>
+<span><tt>L2</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, the maximum multidegree to check</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span> or <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all functions" href="../../Macaulay2Doc/html/___Function.html">function</a></span>, a function that takes a List and an Ideal or Module and returns a Boolean value</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, minimal multidegrees</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>$M$ should be an ideal or a module over a $\ZZ^r$-graded ring and <tt>f</tt> a function so that <tt>f(d,M)</tt> is a Boolean value for <tt>d</tt> in $\ZZ^r$ and <tt>f(d,M)</tt> implies <tt>f(d+e,M)</tt> for <tt>e</tt> in $\NN^r$. Given a list <tt>{L1, L2}</tt>, this function will return the minimal multidegrees <tt>d</tt> between <tt>L1</tt> and <tt>L2</tt> satisfying <tt>f(d,M)</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[x,y,Degrees=>{{1,0},{0,1}}]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x*y^2,x^3*y)
+
+               2   3
+o2 = ideal (x*y , x y)
+
+o2 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = S^1/I
+
+o3 = cokernel | xy2 x3y |
+
+                            1
+o3 : S-module, quotient of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f = (d,M) -> truncate(d,M)==0
+
+o4 = f
+
+o4 : FunctionClosure</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : findRegion({{0,0},{4,4}},M,f)
+
+o5 = {{1, 2}, {3, 1}}
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>If some degrees <tt>d</tt> are known to satisfy <tt>f(d,M)</tt>, then they can be specified using the option <tt>Inner</tt> in order to expedite the computation.  Similarly, degrees not above those given in <tt>Outer</tt> will be assumed not to satisfy <tt>f(d,M)</tt>. If <tt>f</tt> takes options these can also be given to <tt>findRegion</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : elapsedTime findRegion({{0,0},{4,4}},M,f)
+ -- 0.117757 seconds elapsed
+
+o6 = {{1, 2}, {3, 1}}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : elapsedTime findRegion({{0,0},{4,4}},M,f,Inner=>{{1,2},{3,1}},Outer=>{{1,1}})
+ -- 0.0390928 seconds elapsed
+
+o7 = {{1, 2}, {3, 1}}
+
+o7 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Contributors</h2>
+        <div>
+          <p>Mahrud Sayrafi contributed to the code for this function.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Use the option <tt>Outer</tt> with care if <tt>f</tt> is not invariant under positive translation.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="calculates the minimal elements of a subset of ZZ^r" href="_find__Mins.html">findMins</a> -- calculates the minimal elements of a subset of ZZ^r</span>          </li>
+          <li>
+<span><a title="computes the minimal elements of the multigraded regularity of a module over a multigraded ring" href="../../VirtualResolutions/html/_multigraded__Regularity.html">multigradedRegularity</a> -- computes the minimal elements of the multigraded regularity of a module over a multigraded ring</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>findRegion</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;findRegion(List,Ideal,Function)&quot;</tt>          </li>
+          <li>
+<tt>&quot;findRegion(List,Module,Function)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="finds minimal multidegree(s) in a given region where an ideal or module satisfies a Boolean function" href="_find__Region.html">findRegion</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

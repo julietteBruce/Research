@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Constructor Overview -- a summary of the many ways of making graphs and hypergraphs</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_cover__Ideal.html">next</a> | <a href="_connected__Graph__Components.html">previous</a> | <a href="_cover__Ideal.html">forward</a> | <a href="_connected__Graph__Components.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="a summary of the many ways of making graphs and hypergraphs" href="___Constructor_sp__Overview.html">Constructor Overview</a>    </div>
+    <hr/>
+    <div>
+      <h1>Constructor Overview -- a summary of the many ways of making graphs and hypergraphs</h1>
+      <div>
+        <p>The following is separated into four sections:</p>
+        <ul>
+          <li>
+Basic Constructors          </li>
+          <li>
+Converting Types          </li>
+          <li>
+Special Graphs          </li>
+          <li>
+Random (Hyper)Graphs          </li>
+        </ul>
+        <h2>Basic Constructors</h2>
+        <p>The main way of constructing <a title="a class for graphs" href="___Graph.html">Graph</a> and <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a> objects is to use the <a title="constructor for Graph" href="_graph.html">graph</a> and <a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> methods. These methods are overridden to provide many ways of specifying edges.</p>
+        <p>For the purposes of the EdgeIdeals package, every graph and hypergraph is associated to a ring whose variables correspond to the vertices of the (hyper)graph. Thus, the most explicit way to make a graph or hypergraph is by <a title="constructor for Graph" href="_graph.html">graph(PolynomialRing,List)</a> and <a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph(PolynomialRing,List)</a>.The list parameter must contain edges which themselves are lists of variables in the ring.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = graph(R, {{x,y},{x,z},{y,z},{x,w}})
+
+o2 = Graph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+           ring => R
+           vertices => {x, y, z, w}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : H = hyperGraph(R, {{x,y,z},{x,w}})
+
+o3 = HyperGraph{edges => {{x, y, z}, {x, w}}}
+                ring => R
+                vertices => {x, y, z, w}
+
+o3 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <p>Probably the most convenient way of specifying edges is as a list of monomials. Using the <a title="constructor for Graph" href="_graph.html">graph(List)</a> and <a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph(List)</a> methods implicitly defines the ring of the (hyper)graph to be the ring containing the monomials  in the <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a>. The following example gives the same hypergraphs as before.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : G = graph {x*y, x*z, y*z, x*w}
+
+o5 = Graph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+           ring => R
+           vertices => {x, y, z, w}
+
+o5 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : H = hyperGraph {x*y*z, x*w}
+
+o6 = HyperGraph{edges => {{x, y, z}, {x, w}}}
+                ring => R
+                vertices => {x, y, z, w}
+
+o6 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <p>The <a title="constructor for Graph" href="_graph.html">graph</a> and <a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> constructors can also be used to make (hyper)graphs from square-free monomial ideals.The minimal generators of the ideal become the edges of the (hyper)graph. The ideal must be generated by quadratics if the <a title="constructor for Graph" href="_graph.html">graph</a> constructor is used.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : G = graph ideal(x*y, x*z, y*z, x*w)
+
+o7 = Graph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+           ring => R
+           vertices => {x, y, z, w}
+
+o7 : Graph</code></pre>
+</td>          </tr>
+        </table>
+        <h2>Converting Types</h2>
+        <p>In this section, we will see how to convert between <a title="the class of all abstract simplicial complexes" href="../../SimplicialComplexes/html/___Simplicial__Complex.html">SimplicialComplex</a>es and <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a>s, as well as between <a title="a class for graphs" href="___Graph.html">Graph</a>s and <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a>s.</p>
+        <p>The methods <a title="makes a (hyper)graph from a simplicial complex" href="_simplicial__Complex__To__Hyper__Graph.html">simplicialComplexToHyperGraph</a> and <a title="makes a simplicial complex from a (hyper)graph" href="_hyper__Graph__To__Simplicial__Complex.html">hyperGraphToSimplicialComplex</a> accomplish the former conversion in the following way. In <a title="makes a (hyper)graph from a simplicial complex" href="_simplicial__Complex__To__Hyper__Graph.html">simplicialComplexToHyperGraph</a> facets of the simplicial complex become the edges of the hypergraph, while in <a title="makes a simplicial complex from a (hyper)graph" href="_hyper__Graph__To__Simplicial__Complex.html">hyperGraphToSimplicialComplex</a> the edges of the hypergraph become the facets of the new simplicial complex.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : H = hyperGraph {x*y*z,x*w};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : D = hyperGraphToSimplicialComplex H
+
+o10 = simplicialComplex | xw xyz |
+
+o10 : SimplicialComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : simplicialComplexToHyperGraph D
+
+o11 = HyperGraph{edges => {{x, y, z}, {x, w}}}
+                 ring => R
+                 vertices => {x, y, z, w}
+
+o11 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <p>The conversion of a graph into a hypergraph and vice versa use the constructors <a title="constructor for Graph" href="_graph.html">graph</a> and <a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a>. Any graph can be converted to a hyperGraph, but when a hyperGraph is converted into a graph, a check is run to ensure that the edges are all of size two. An error will be produced if this is not the case.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : G = graph {x*y, x*z, y*z, x*w};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : H = hyperGraph G
+
+o14 = HyperGraph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+                 ring => R
+                 vertices => {x, y, z, w}
+
+o14 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : graph H
+
+o15 = Graph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o15 : Graph</code></pre>
+</td>          </tr>
+        </table>
+        <p>Since the <a title="a class for graphs" href="___Graph.html">Graph</a> type is a subclass of <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a>, any method that takes a <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a> will also work on <a title="a class for graphs" href="___Graph.html">Graph</a>s. So the conversion from graph to hypergraph is seldom needed; it is only needed when a method works differently on graphs than on hypergraphs (see <a title="returns the complement of a graph or hypergraph" href="_complement__Graph.html">complementGraph</a> for an example).</p>
+        <p>On the other hand, the conversion from hypergraph to graph is very important as many methods are only defined on graphs. In the following example, we use the <a title="determines if a graph is chordal" href="_is__Chordal.html">isChordal</a> method which only applies to graphs and hence necessitates a conversion of types.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : D = simplicialComplex {x*y, x*z, y*z, x*w};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : H = simplicialComplexToHyperGraph D
+
+o18 = HyperGraph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+                 ring => R
+                 vertices => {x, y, z, w}
+
+o18 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : G = graph H
+
+o19 = Graph{edges => {{x, y}, {x, z}, {y, z}, {x, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o19 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : isChordal G 
+
+o20 = true</code></pre>
+</td>          </tr>
+        </table>
+        <h2>Special Graphs</h2>
+        <p>In addition to the more general constructors, there a number of methods which produce certain special graphs.</p>
+        <p><em>Cycles</em> can be constructed using <a title="returns a graph cycle" href="_cycle.html">cycle</a> which, depending on the parameters, uses all or some of the variables in the ring to define a graph cycle.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : cycle R
+
+o22 = Graph{edges => {{x, y}, {y, z}, {z, w}, {x, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o22 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : cycle(R,3)
+
+o23 = Graph{edges => {{x, y}, {y, z}, {x, z}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o23 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i24 : cycle {x,y,w} 
+
+o24 = Graph{edges => {{x, y}, {y, w}, {x, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o24 : Graph</code></pre>
+</td>          </tr>
+        </table>
+        <p><em>Anti-Cycles</em>, the graph complements of cycles, can be constructed using <a title="returns a graph of an anticycle" href="_anti__Cycle.html">antiCycle</a>, which takes parameters similar to those of <a title="returns a graph cycle" href="_cycle.html">cycle</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i25 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i26 : antiCycle R
+
+o26 = Graph{edges => {{x, z}, {y, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o26 : Graph</code></pre>
+</td>          </tr>
+        </table>
+        <p><em>Complete graphs</em> can be constructed using <a title="returns a complete graph" href="_complete__Graph.html">completeGraph</a>, which defines a graph with every possible edge between a given set a vertices.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i27 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i28 : completeGraph R
+
+o28 = Graph{edges => {{x, y}, {x, z}, {x, w}, {y, z}, {y, w}, {z, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o28 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i29 : completeGraph(R,3)
+
+o29 = Graph{edges => {{x, y}, {x, z}, {y, z}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o29 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i30 : completeGraph {x,y,w} 
+
+o30 = Graph{edges => {{x, y}, {x, w}, {y, w}}}
+            ring => R
+            vertices => {x, y, z, w}
+
+o30 : Graph</code></pre>
+</td>          </tr>
+        </table>
+        <p><em>Complete multipartite graphs</em> can be constructed using <a title="returns a complete multipartite graph" href="_complete__Multi__Partite.html">completeMultiPartite</a>, which defines a graph with every possible edge between certain partitions of the vertices. See <a title="returns a complete multipartite graph" href="_complete__Multi__Partite.html">completeMultiPartite</a> for more details.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i31 : R = QQ[a,b,x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i32 : completeMultiPartite(R,2,2)
+
+o32 = Graph{edges => {{a, x}, {a, y}, {b, x}, {b, y}}}
+            ring => R
+            vertices => {a, b, x, y}
+
+o32 : Graph</code></pre>
+</td>          </tr>
+        </table>
+        <h2>Random (Hyper)Graphs</h2>
+        <p>Three methods are provided for the construction of random (hyper)graphs.</p>
+        <ul>
+          <li>
+<span><a title="returns a random graph" href="_random__Graph.html">randomGraph</a> -- returns a random graph</span>          </li>
+          <li>
+<span><a title="returns a random uniform hypergraph" href="_random__Uniform__Hyper__Graph.html">randomUniformHyperGraph</a> -- returns a random uniform hypergraph</span>          </li>
+          <li>
+<span><a title="returns a random hypergraph" href="_random__Hyper__Graph.html">randomHyperGraph</a> -- returns a random hypergraph</span>          </li>
+        </ul>
+        <p>Each method allows you to specify the number of edges desired. For the random hypergraph methods, the sizes of the edges must also be specified.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i33 : R = QQ[x,y,z,u,v];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i34 : randomGraph(R,3)
+
+o34 = Graph{edges => {{z, u}, {x, u}, {x, v}}}
+            ring => R
+            vertices => {x, y, z, u, v}
+
+o34 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i35 : randomUniformHyperGraph(R,2,3)
+
+o35 = HyperGraph{edges => {{y, u}, {x, u}, {x, y}}}
+                 ring => R
+                 vertices => {x, y, z, u, v}
+
+o35 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i36 : randomHyperGraph(R,{3,2,1})
+
+o36 = HyperGraph{edges => {{x, y, z}, {z, u}, {v}}}
+                 ring => R
+                 vertices => {x, y, z, u, v}
+
+o36 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <p>The <a title="returns a random hypergraph" href="_random__Hyper__Graph.html">randomHyperGraph</a> method is not guaranteed to return a hypergraph; sometimes it returns null. Please see the documentation of this method for more details.</p>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="an extended example using EdgeIdeals" href="___Extended_sp__Example.html">Extended Example</a> -- an extended example using EdgeIdeals</span>          </li>
+          <li>
+<span><a title="a class for graphs" href="___Graph.html">Graph</a> -- a class for graphs</span>          </li>
+          <li>
+<span><a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a> -- a class for hypergraphs</span>          </li>
+          <li>
+<span><a title="constructor for Graph" href="_graph.html">graph</a> -- constructor for Graph</span>          </li>
+          <li>
+<span><a title="constructor for HyperGraph" href="_hyper__Graph.html">hyperGraph</a> -- constructor for HyperGraph</span>          </li>
+          <li>
+<span><a title="makes a (hyper)graph from a simplicial complex" href="_simplicial__Complex__To__Hyper__Graph.html">simplicialComplexToHyperGraph</a> -- makes a (hyper)graph from a simplicial complex</span>          </li>
+          <li>
+<span><a title="makes a simplicial complex from a (hyper)graph" href="_hyper__Graph__To__Simplicial__Complex.html">hyperGraphToSimplicialComplex</a> -- makes a simplicial complex from a (hyper)graph</span>          </li>
+          <li>
+<span><a title="returns a graph cycle" href="_cycle.html">cycle</a> -- returns a graph cycle</span>          </li>
+          <li>
+<span><a title="returns a graph of an anticycle" href="_anti__Cycle.html">antiCycle</a> -- returns a graph of an anticycle</span>          </li>
+          <li>
+<span><a title="returns a complete graph" href="_complete__Graph.html">completeGraph</a> -- returns a complete graph</span>          </li>
+          <li>
+<span><a title="returns a complete multipartite graph" href="_complete__Multi__Partite.html">completeMultiPartite</a> -- returns a complete multipartite graph</span>          </li>
+          <li>
+<span><a title="returns a random graph" href="_random__Graph.html">randomGraph</a> -- returns a random graph</span>          </li>
+          <li>
+<span><a title="returns a random uniform hypergraph" href="_random__Uniform__Hyper__Graph.html">randomUniformHyperGraph</a> -- returns a random uniform hypergraph</span>          </li>
+          <li>
+<span><a title="returns a random hypergraph" href="_random__Hyper__Graph.html">randomHyperGraph</a> -- returns a random hypergraph</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

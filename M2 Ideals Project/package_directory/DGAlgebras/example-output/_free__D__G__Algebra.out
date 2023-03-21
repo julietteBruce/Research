@@ -1,0 +1,87 @@
+-- -*- M2-comint -*- hash: -341861369
+
+i1 : R = ZZ/101[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing
+
+i2 : A = freeDGAlgebra(R,{{1},{1},{1},{3}})
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => null
+
+o2 : DGAlgebra
+
+i3 : A.natural
+
+o3 = R[T ..T ]
+        1   4
+
+o3 : PolynomialRing, 4 skew commutative variables
+
+i4 : setDiff(A,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+o4 = {Ring => R                                          }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => {x, y, z, z*T T  - y*T T  + x*T T }
+                                   1 2      1 3      2 3
+
+o4 : DGAlgebra
+
+i5 : isHomogeneous(A)
+
+o5 = false
+
+i6 : Add = toComplex A
+
+      1      3      3      2      3      3      1
+o6 = R  <-- R  <-- R  <-- R  <-- R  <-- R  <-- R
+                                                
+     0      1      2      3      4      5      6
+
+o6 : ChainComplex
+
+i7 : B = freeDGAlgebra(R,{{1,1},{1,1},{1,1},{3,3}})
+
+o7 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => null
+
+o7 : DGAlgebra
+
+i8 : B.natural
+
+o8 = R[T ..T ]
+        1   4
+
+o8 : PolynomialRing, 4 skew commutative variables
+
+i9 : setDiff(B,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+o9 = {Ring => R                                          }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => {x, y, z, z*T T  - y*T T  + x*T T }
+                                   1 2      1 3      2 3
+
+o9 : DGAlgebra
+
+i10 : isHomogeneous(B)
+
+o10 = true
+
+i11 : Bdd = toComplex B
+
+       1      3      3      2      3      3      1
+o11 = R  <-- R  <-- R  <-- R  <-- R  <-- R  <-- R
+                                                 
+      0      1      2      3      4      5      6
+
+o11 : ChainComplex
+
+i12 : 

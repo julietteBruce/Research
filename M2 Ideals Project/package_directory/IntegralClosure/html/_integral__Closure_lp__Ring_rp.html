@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>integralClosure(Ring) -- compute the integral closure (normalization) of an affine domain</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_integral__Closure_lp__Ring_cm__Ring_rp.html">next</a> | <a href="_integral__Closure_lp__Ideal_cm__Ring__Element_cm__Z__Z_rp.html">previous</a> | <a href="_integral__Closure_lp__Ring_cm__Ring_rp.html">forward</a> | <a href="_integral__Closure_lp__Ideal_cm__Ring__Element_cm__Z__Z_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="routines for integral closure of affine domains and ideals" href="index.html">IntegralClosure</a> :: <a title="compute the integral closure (normalization) of an affine domain" href="_integral__Closure_lp__Ring_rp.html">integralClosure(Ring)</a>    </div>
+    <hr/>
+    <div>
+      <h1>integralClosure(Ring) -- compute the integral closure (normalization) of an affine domain</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="integral closure of an ideal or a domain" href="_integral__Closure.html">integralClosure</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">R' = integralClosure R</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, a quotient of a polynomial ring over a field</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="list ring generators which should not be simplified away" href="_integral__Closure_lp..._cm__Keep_eq_gt..._rp.html">Keep</a><tt> => </tt><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, <span>default value null</span>, of variables of R</span>              </li>
+              <li>
+<span><a title="do a partial integral closure" href="_integral__Closure_lp..._cm__Limit_eq_gt..._rp.html">Limit</a><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value infinity</span>, do a partial integral closure</span>              </li>
+              <li>
+<span><a title="set the base letter for the indexed variables introduced while computing the integral closure" href="_integral__Closure_lp..._cm__Variable_eq_gt..._rp.html">Variable</a><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value &quot;w&quot;</span>, set the base letter for the indexed variables introduced while computing the integral closure</span>              </li>
+              <li>
+<span><a title="display a certain amount of detail about the computation" href="_integral__Closure_lp..._cm__Verbosity_eq_gt..._rp.html">Verbosity</a><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 0</span>, display a certain amount of detail about the computation</span>              </li>
+              <li>
+<span><a title="control the algorithm used" href="_integral__Closure_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, <span>default value {}</span>, of some of the symbols: AllCodimensions, Radical, RadicalCodim1, Vasconcelos, StartWithOneminor, SimplifyFractions</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>R'</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the integral closure of <tt>R</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+The inclusion map $R \rightarrow R'$ can be obtained with <a title="natural map from an affine domain into its integral closure" href="_ic__Map.html">icMap</a>.                </li>
+                <li>
+The fractions corresponding to the variables of the ring <tt>R'</tt> can be found with <a title="fractions integral over an affine domain" href="_ic__Fractions.html">icFractions</a>                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The integral closure of a domain is the subring of the fraction field consisting of all fractions integral over the domain.  For example,</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]/ideal(x^6-z^6-y^2*z^4-z^3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R' = integralClosure R
+
+o2 = R'
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : gens R'
+
+o3 = {w   , x, y, z}
+       3,0
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : icFractions R
+
+       2
+      x
+o4 = {--, x, y, z}
+       z
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : icMap R
+
+o5 = map (R', R, {x, y, z})
+
+o5 : RingMap R' &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : I = trim ideal R'
+
+                     2   3      2     3
+o6 = ideal (w   z - x , w    - y z - z  - 1)
+             3,0         3,0
+
+o6 : Ideal of QQ[w   , x..z]
+                  3,0</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Sometimes using <a title="minimize generators and relations" href="../../Macaulay2Doc/html/_trim.html">trim</a> provides a cleaner set of generators.</p>
+        </div>
+        <div>
+          <p>If $R$ is not a domain, first decompose it, and collect all of the integral closures.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : S = ZZ/101[a..d]/ideal(a*(b-c),c*(b-d),b*(c-d));</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : C = decompose ideal S
+
+o8 = {ideal (c, b), ideal (c - d, b - d), ideal (d, c, a), ideal (d, b, a)}
+
+o8 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : Rs = apply(C, I -> (ring I)/I);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : Rs/integralClosure
+
+        ZZ            ZZ           ZZ         ZZ
+       ---[a..d]     ---[a..d]    ---[a..d]  ---[a..d]
+       101           101          101        101
+o10 = {---------, --------------, ---------, ---------}
+         (c, b)   (c - d, b - d)  (d, c, a)  (d, b, a)
+
+o10 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : oo/prune
+
+        ZZ         ZZ         ZZ      ZZ
+o11 = {---[a, d], ---[a, d], ---[b], ---[c]}
+       101        101        101     101
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>This function is roughly based on Theo De Jong's paper, <em>An Algorithm for Computing the Integral Closure</em>, J. Symbolic Computation, (1998) 26, 273-277. This algorithm is similar to the round two algorithm of Zassenhaus in algebraic number theory.</p>
+        </div>
+        <div>
+          <p>There are several optional parameters which allows the user to control the way the integral closure is computed.  These options may change in the future.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This function requires that the degree of the field extension (over a pure transcendental subfield) be greater than the characteristic of the base field.  If not, use <a title="compute the integral closure in prime characteristic" href="_ic__Frac__P.html">icFracP</a>. This function requires that the ring be finitely generated over a ring.  If not (e.g. if it is f.g. over the integers), then the result is integral, but not necessarily the entire integral closure. Finally, if the ring is not a domain, then the answers will often be incorrect, or an obscure error will occur.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="natural map from an affine domain into its integral closure" href="_ic__Map.html">icMap</a> -- natural map from an affine domain into its integral closure</span>          </li>
+          <li>
+<span><a title="fractions integral over an affine domain" href="_ic__Fractions.html">icFractions</a> -- fractions integral over an affine domain</span>          </li>
+          <li>
+<span><a title="the conductor of a finite ring map" href="_conductor.html">conductor</a> -- the conductor of a finite ring map</span>          </li>
+          <li>
+<span><a title="compute the integral closure in prime characteristic" href="_ic__Frac__P.html">icFracP</a> -- compute the integral closure in prime characteristic</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="compute the integral closure (normalization) of an affine domain" href="_integral__Closure_lp__Ring_rp.html">integralClosure(Ring)</a> -- compute the integral closure (normalization) of an affine domain</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

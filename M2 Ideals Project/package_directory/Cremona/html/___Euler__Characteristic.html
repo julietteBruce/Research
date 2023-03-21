@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>EulerCharacteristic -- topological Euler characteristic of a (smooth) projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_exceptional__Locus.html">next</a> | <a href="_entries_lp__Rational__Map_rp.html">previous</a> | <a href="_exceptional__Locus.html">forward</a> | <a href="_entries_lp__Rational__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="topological Euler characteristic of a (smooth) projective variety" href="___Euler__Characteristic.html">EulerCharacteristic</a>    </div>
+    <hr/>
+    <div>
+      <h1>EulerCharacteristic -- topological Euler characteristic of a (smooth) projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">EulerCharacteristic I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a homogeneous ideal defining a smooth projective variety $X\subset\mathbb{P}^n$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a href="___Blow__Up__Strategy.html">BlowUpStrategy</a><tt> => </tt><tt>...</tt>, <span>default value &quot;Eliminate&quot;</span>, </span>              </li>
+              <li>
+<span><a title="whether to ensure correctness of output" href="___Certify.html">Certify</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, whether to ensure correctness of output</span>              </li>
+              <li>
+<span><a href="_inverse__Map_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the topological Euler characteristics of $X$.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is an application of the method <a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a>. See also the corresponding methods in the packages <a href="http://www.math.fsu.edu/~aluffi/CSM/CSM.html">CSM-A</a>, by P. Aluffi, and <a href="http://www.math.uiuc.edu/Macaulay2/doc/Macaulay2-1.16/share/doc/Macaulay2/CharacteristicClasses/html/">CharacteristicClasses</a>, by M. Helmer and C. Jost.</p>
+        <p>In general, even if the input ideal defines a singular variety $X$, the returned value equals the degree of the component of dimension 0 of the Chern-Fulton class of $X$. The Euler characteristic of a singular variety can be computed via the method <a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a>.</p>
+        <p>In the example below, we compute the Euler characteristic of $\mathbb{G}(1,4)\subset\mathbb{P}^{9}$, using both a probabilistic and a non-probabilistic approach.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : I = Grassmannian(1,4,CoefficientRing=>ZZ/190181);
+
+                ZZ
+o1 : Ideal of ------[p   ..p   , p   , p   , p   , p   , p   , p   , p   , p   ]
+              190181  0,1   0,2   1,2   0,3   1,3   2,3   0,4   1,4   2,4   3,4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : time EulerCharacteristic I
+     -- used 0.18137 seconds
+
+o2 = 10</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time EulerCharacteristic(I,Certify=>true)
+Certify: output certified!
+     -- used 0.0430098 seconds
+
+o3 = 10</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+No test is made to see if the projective variety is smooth.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="topological Euler characteristic of a (smooth) projective variety" href="../../Macaulay2Doc/html/_euler_lp__Projective__Variety_rp.html">euler(ProjectiveVariety)</a> -- topological Euler characteristic of a (smooth) projective variety</span>          </li>
+          <li>
+<span><a title="Chern-Schwartz-MacPherson class of a projective scheme" href="___Chern__Schwartz__Mac__Pherson.html">ChernSchwartzMacPherson</a> -- Chern-Schwartz-MacPherson class of a projective scheme</span>          </li>
+          <li>
+<span><a title="Segre class of a closed subscheme of a projective variety" href="___Segre__Class.html">SegreClass</a> -- Segre class of a closed subscheme of a projective variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>EulerCharacteristic</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;EulerCharacteristic(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="topological Euler characteristic of a (smooth) projective variety" href="___Euler__Characteristic.html">EulerCharacteristic</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

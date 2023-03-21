@@ -1,0 +1,46 @@
+-- -*- M2-comint -*- hash: -581370386
+
+i1 : R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3-d^4}
+
+o1 = R
+
+o1 : QuotientRing
+
+i2 : A = koszulComplexDGA(R)
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => {a, b, c, d}
+
+o2 : DGAlgebra
+
+i3 : A.diff
+
+o3 = map (R[T ..T ], R[T ..T ], {a, b, c, d, a, b, c, d})
+             1   4      1   4
+
+o3 : RingMap R[T ..T ] <--- R[T ..T ]
+                1   4          1   4
+
+i4 : B = killCycles(A)
+
+o4 = {Ring => R                                              }
+      Underlying algebra => R[T ..T ]
+                               1   7
+                                    2     2       2      3
+      Differential => {a, b, c, d, a T , b T , - c T  + d T }
+                                      1     2       3      4
+
+o4 : DGAlgebra
+
+i5 : B.diff
+
+                                              2     2       2      3
+o5 = map (R[T ..T ], R[T ..T ], {a, b, c, d, a T , b T , - c T  + d T , a, b, c, d})
+             1   7      1   7                   1     2       3      4
+
+o5 : RingMap R[T ..T ] <--- R[T ..T ]
+                1   7          1   7
+
+i6 : 

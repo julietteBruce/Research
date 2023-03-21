@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanGroebnerCone -- polyhedral information about a Groebner cone</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__Homogeneity__Space.html">next</a> | <a href="_gfan__Functions.html">previous</a> | <a href="_gfan__Homogeneity__Space.html">forward</a> | <a href="_gfan__Functions.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanGroebnerCone -- polyhedral information about a Groebner cone</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(M)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(L)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(I)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(K, M)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(K, L)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(K, I)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(N, M)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(N, L)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(N, I)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(J, M)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(J, L)</code></dd>
+              <dd><code class="language-macaulay2">S = gfanGroebnerCone(J, I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>K</tt>, <span>a <a href="___Marked__Polynomial__List.html">marked polynomial list</a></span>, a marked reduced Groebner basis, or a minimal basis.</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a href="___Marked__Polynomial__List.html">marked polynomial list</a></span>, a marked reduced Groebner basis.</span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of reduced Groebner basis, or a minimal basis.</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of reduced Groebner basis.</span>              </li>
+              <li>
+<span><tt>J</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal of reduced Groebner basis, or a minimal basis.</span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal of reduced Grobner basis.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>asfan</tt></span>              </li>
+              <li>
+<span><tt>pair</tt></span>              </li>
+              <li>
+<span><tt>restrict</tt></span>              </li>
+              <li>
+<span><tt>vectorinput</tt></span>              </li>
+              <li>
+<span><tt>xml</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, a description of the Groebner cone of <tt>M</tt> or <tt>I</tt> or <tt>L</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method computes the Grobener cone of the input in the case where <tt>M</tt>, <tt>L</tt>, <tt>I</tt> are reduced Groebner bases. If <tt>M</tt>, <tt>L</tt>, <tt>I</tt> are only minimal bases, then a smaller cone is produced.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : gfanGroebnerCone( markedPolynomialList {{x}, {x+y}} )
+
+o2 = Fan{...1...}
+
+o2 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>In the above example any weights <em>w = a(1,1) + p (1,-1)</em> for <em>a</em> a real number and <em>p >= 0</em> give <em>(x)</em> as the initial ideal of <em>(x+y)</em> with respect to <em>w</em>.</p>
+          <p>When both <tt>K</tt> and <tt>M</tt> are given as input and are compatible marked reduced Groebner bases in the sense that <tt>K</tt> is an initial ideal of <tt>M</tt> then <tt>gfanGroebnerCone(K,M)</tt> computes the cone of <tt>K</tt> in the fan of <tt>M</tt>. For example, the cone on which <em>(x+y)</em> is its own initial ideal is simply the line <em>w = a(1,1)</em> for <em>a</em> a real number.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : gfanGroebnerCone( markedPolynomialList {{x}, {x+y}}, markedPolynomialList {{x}, {x+y}} )
+
+o4 = Fan{...1...}
+
+o4 : Fan</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>Note that the <tt>pair</tt> option will automatically be specified when two marked Groebner bases are given.</p>
+          <p><strong>gfan Documentation</strong> This program computes a Groebner cone. Three different cases are handled. The input may be a marked reduced Groebner basis in which case its Groebner cone is computed. The input may be just a marked minimal basis in which case the cone computed is not a Groebner cone in the usual sense but smaller. (These cones are described in [Fukuda, Jensen, Lauritzen, Thomas]). The third possible case is that the Groebner cone is possibly lower dimensional and given by a pair of Groebner bases as it is useful to do for tropical varieties, see option --pair. The facets of the cone can be read off in section FACETS and the equations in section IMPLIED_EQUATIONS.Options:--restrict: Add an inequality for each coordinate, so that the the cone is restricted to the non-negative orthant.--pair: The Groebner cone is given by a pair of compatible Groebner bases. The first basis is for the initial ideal and the second for the ideal itself. See the tropical section of the manual.--asfan: Writes the cone as a polyhedral fan with all its faces instead. In this way the extreme rays of the cone are also computed.--vectorinput: Compute a cone given list of inequalities rather than a Groebner cone. The input is an integer which specifies the dimension of the ambient space, a list of inequalities given as vectors and a list of equations.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfanGroebnerCone</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfanGroebnerCone(Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(Ideal,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(Ideal,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(Ideal,MarkedPolynomialList)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(List,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(List,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(List,MarkedPolynomialList)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(MarkedPolynomialList)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(MarkedPolynomialList,Ideal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(MarkedPolynomialList,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanGroebnerCone(MarkedPolynomialList,MarkedPolynomialList)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="polyhedral information about a Groebner cone" href="_gfan__Groebner__Cone.html">gfanGroebnerCone</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomCurveP1P2 -- creates the ideal of a random curve in P^1xP^2</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__Monomial__Curve.html">next</a> | <a href="___Preserve__Degree.html">previous</a> | <a href="_random__Monomial__Curve.html">forward</a> | <a href="___Preserve__Degree.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computing virtual resolutions" href="index.html">VirtualResolutions</a> :: <a title="creates the ideal of a random curve in P^1xP^2" href="_random__Curve__P1__P2.html">randomCurveP1P2</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomCurveP1P2 -- creates the ideal of a random curve in P^1xP^2</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">randomCurveP1P2(d,g,F)</code></dd>
+              <dd><code class="language-macaulay2">randomCurveP1P2(d,g)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, degree of the curve.</span>              </li>
+              <li>
+<span><tt>g</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, genus of the curve.</span>              </li>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, base ring.</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="limit number of attempts for randomCurveP1P2" href="___Attempt.html">Attempt</a><tt> => </tt><tt>...</tt>, <span>default value 1000</span>, limit number of attempts for randomCurveP1P2</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, defining random curve $\PP^1\times\PP^2$ from a curve of degree <tt>d</tt> and genus <tt>g</tt> in $\PP^3$ over <tt>F</tt>.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a positive integer <tt>d</tt>, a non-negative integer <tt>g</tt>, and a ring <tt>F</tt>, <tt>randomCurveP1P2</tt> produces a random curve of bi-degree <tt>(d,d)</tt> and genus <tt>g</tt> in $\PP^1\times\PP^2$. This is done by using the <a title="generates a random curve" href="../../SpaceCurves/html/_curve.html">curve</a> function from the <a title="generation of space curves" href="../../SpaceCurves/html/index.html">SpaceCurves</a> package to first generate a random curve of degree <tt>d</tt> and genus <tt>g</tt> in $\PP^1\times\PP^2$, and then applying <a title="creates the ideal of a curve in P^1xP^2 from the ideal of a curve in P^3" href="_curve__From__P3to__P1__P2.html">curveFromP3toP1P2</a> to produce a curve in $\PP^1\times\PP^2$.</p>
+          <p>Since <a title="creates the ideal of a curve in P^1xP^2 from the ideal of a curve in P^3" href="_curve__From__P3to__P1__P2.html">curveFromP3toP1P2</a> relies on projecting from the point $[0:0:0:1]$ and the line $[0:0:s:t]$, <tt>randomCurveP1P2</tt> attempts to find a curve in $\PP^3$, which does not intersect the base locus of these projections. If the curve did intersect the base locus the resulting curve in $\PP^1\times\PP^2$ would not have degree <tt>(d,d)</tt>. The number of attempts used to try to find such curves is controlled by the <a title="limit number of attempts for randomCurveP1P2" href="___Attempt.html">randomCurveP1P2(...,Attempt=>...)</a> option, which by default is set to 1000.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : randomCurveP1P2(3,0);
+
+               ZZ
+o1 : Ideal of ---[x   ..x   , x   ..x   ]
+              101  0,0   0,1   1,0   1,2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : randomCurveP1P2(3,0,QQ);
+
+o2 : Ideal of QQ[x   ..x   , x   ..x   ]
+                  0,0   0,1   1,0   1,2</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This creates a ring $F[x_{0,0},x_{0,1},x_{1,0},x_{1,1},x_{1,2}]$ in which the resulting ideal is defined.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>randomCurveP1P2</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;randomCurveP1P2(ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;randomCurveP1P2(ZZ,ZZ,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates the ideal of a random curve in P^1xP^2" href="_random__Curve__P1__P2.html">randomCurveP1P2</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

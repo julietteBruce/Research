@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isFRational -- whether a ring is F-rational</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__F__Regular.html">next</a> | <a href="_is__F__Pure.html">previous</a> | <a href="_is__F__Regular.html">forward</a> | <a href="_is__F__Pure.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for calculations of singularities in positive characteristic " href="index.html">TestIdeals</a> :: <a title="whether a ring is F-rational" href="_is__F__Rational.html">isFRational</a>    </div>
+    <hr/>
+    <div>
+      <h1>isFRational -- whether a ring is F-rational</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isFRational(R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>AtOrigin</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, specifies that $F$-rationality be checked only at the origin, and that the Cohen-Macaulayness test be done with the <tt>isCM</tt> command, from the <tt>Depth</tt> package</span>              </li>
+              <li>
+<span><tt>AssumeCM</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, assumes the ring is Cohen-Macaulay</span>              </li>
+              <li>
+<span><tt>AssumeDomain</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, assumes the ring is an integral domain</span>              </li>
+              <li>
+<span><tt>FrobeniusRootStrategy</tt><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value Substitution</span>, selects the strategy for internal <tt>frobeniusRoot</tt> calls</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The function <tt>isFRational</tt> determines whether a ring is $F$-rational. If the option <tt>AtOrigin</tt> (default value <tt>false</tt>) is set to <tt>true</tt>, it will only check if the ring is $F$-rational at the origin (this can be slower). If the option <tt>AssumeCM</tt> (default value <tt>false</tt>) is set to <tt>true</tt>, it will not verify that the ring is Cohen-Macaulay.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : T = ZZ/5[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = ZZ/5[a,b,c,d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : g = map(T, S, {x^3, x^2*y, x*y^2, y^3});
+
+o3 : RingMap T &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = S/(ker g);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isFRational(R)
+
+o5 = true</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R = ZZ/7[x,y,z]/(x^3 + y^3 + z^3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isFRational(R)
+
+o7 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Below is a more interesting example, of a ring that is $F$-rational but not $F$-regular. This example first appeared in A. K. Singh's work on deformation of $F$-regularity.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : S = ZZ/3[a,b,c,d,t];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : M = matrix{{a^2 + t^4, b, d}, {c, a^2, b^3 - d}};
+
+             2       3
+o9 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : I = minors(2, M);
+
+o10 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : R = S/I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : isFRational(R)
+
+o12 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The option <tt>AssumeDomain</tt> is used when computing a test element.  The option <tt>FrobeniusRootStrategy</tt> is passed to internal <a title="compute a Frobenius root" href="_frobenius__Root.html">frobeniusRoot</a> calls.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This function assumes that the spectrum of the ring is connected. Like <tt>isCohenMacaulay</tt>, if given a non-equidimensional $F$-rational ring (e.g., a ring whose spectrum has two connected components of different dimensions), <tt>isFRational</tt> will return <tt>false</tt>.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isFRational</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isFRational(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether a ring is F-rational" href="_is__F__Rational.html">isFRational</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

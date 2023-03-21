@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>highSyzygy -- Returns a syzygy module one beyond the regularity of Ext(M,k)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_h__Maps.html">next</a> | <a href="_hf__Module__As__Ext.html">previous</a> | <a href="_h__Maps.html">forward</a> | <a href="_hf__Module__As__Ext.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="&quot;Resolution over a Complete Intersection&quot;" href="index.html">CompleteIntersectionResolutions</a> :: <a title="Returns a syzygy module one beyond the regularity of Ext(M,k)" href="_high__Syzygy.html">highSyzygy</a>    </div>
+    <hr/>
+    <div>
+      <h1>highSyzygy -- Returns a syzygy module one beyond the regularity of Ext(M,k)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">M = highSyzygy M0</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M0</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, over a complete intersection ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Optimism</tt><tt> => </tt><tt>...</tt>, <span>default value 0</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, a syzygy module of M0</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A &quot;high syzygy&quot; over a complete intersection is one such that general ci-operators have split kernels when applied recursively on cosyzygy chains of previous kernels.</p>
+          <p>If p = mfBound M0, then highSyzygy M0 returns the p-th syzygy of M0. (if F is a resolution of M this is the cokernel of F.dd_{p+1}). Optimism => r as optional argument, highSyzygy(M0,Optimism=>r) returns the (p-r)-th syzygy. The script is useful with matrixFactorization(ff, highSyzygy M0).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setRandomSeed 100
+
+o1 = 100</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = ZZ/101[x,y,z]
+
+o2 = S
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f = matrix&quot;x3,y3+x3,z3+x3+y3&quot;
+
+o3 = | x3 x3+y3 x3+y3+z3 |
+
+             1       3
+o3 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : ff = f*random(source f, source f)
+
+o4 = | 10x3-22y3-4z3 -20x3-20y3-6z3 -27x3-41y3+z3 |
+
+             1       3
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R = S/ideal f
+
+o5 = R
+
+o5 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : M0 = R^1/ideal&quot;x2z2,xyz&quot;
+
+o6 = cokernel | x2z2 xyz |
+
+                            1
+o6 : R-module, quotient of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti res (M0, LengthLimit => 7)
+
+            0 1 2  3  4  5  6  7
+o7 = total: 1 2 6 11 18 26 36 47
+         0: 1 . .  .  .  .  .  .
+         1: . . .  .  .  .  .  .
+         2: . 1 .  .  .  .  .  .
+         3: . 1 6  6  .  .  .  .
+         4: . . .  5 18 14  .  .
+         5: . . .  .  . 12 36 25
+         6: . . .  .  .  .  . 22
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : mfBound M0
+
+o8 = 3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : M = betti res highSyzygy M0
+
+             0  1  2  3  4
+o9 = total: 11 18 26 36 47
+         6:  6  .  .  .  .
+         7:  5 18 14  .  .
+         8:  .  . 12 36 25
+         9:  .  .  .  . 22
+
+o9 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : netList BRanks matrixFactorization(ff, highSyzygy M0)
+
+      +-+-+
+o10 = |6|6|
+      +-+-+
+      |3|6|
+      +-+-+
+      |2|6|
+      +-+-+</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In this case as in all others we have examined, greater &quot;Optimism&quot; is not justified, and thus matrixFactorization(ff, highSyzygy(M0, Optimism=>1)); would produce an error.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>A bug in the total Ext script means that the oddExtModule is sometimes zero, and this can cause a wrong value to be returned.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="even part of Ext^*(M,k) over a complete intersection as module over CI operator ring" href="_even__Ext__Module.html">evenExtModule</a> -- even part of Ext^*(M,k) over a complete intersection as module over CI operator ring</span>          </li>
+          <li>
+<span><a title="odd part of Ext^*(M,k) over a complete intersection as module over CI operator ring" href="_odd__Ext__Module.html">oddExtModule</a> -- odd part of Ext^*(M,k) over a complete intersection as module over CI operator ring</span>          </li>
+          <li>
+<span><a title="determines how high a syzygy to take for &quot;matrixFactorization&quot;" href="_mf__Bound.html">mfBound</a> -- determines how high a syzygy to take for &quot;matrixFactorization&quot;</span>          </li>
+          <li>
+<span><a title="Maps in a higher codimension matrix factorization" href="_matrix__Factorization.html">matrixFactorization</a> -- Maps in a higher codimension matrix factorization</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>highSyzygy</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;highSyzygy(Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Returns a syzygy module one beyond the regularity of Ext(M,k)" href="_high__Syzygy.html">highSyzygy</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

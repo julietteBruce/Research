@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>assignDegrees -- Weights entries of a matrix to make associated map of free modules graded</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_base__Name_lp__N__C__Ring__Element_rp.html">next</a> | <a href="_ambient_lp__N__C__Ring__Map_rp.html">previous</a> | <a href="_base__Name_lp__N__C__Ring__Element_rp.html">forward</a> | <a href="_ambient_lp__N__C__Ring__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">NCAlgebra</a> :: <a title="Weights entries of a matrix to make associated map of free modules graded" href="_assign__Degrees.html">assignDegrees</a>    </div>
+    <hr/>
+    <div>
+      <h1>assignDegrees -- Weights entries of a matrix to make associated map of free modules graded</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">assignDegrees(M) or assignDegrees(M,targetDegs,sourceDegs)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>an instance of the type <a title="Type of a matrix over a noncommutative ring" href="___N__C__Matrix.html">NCMatrix</a></span>, </span>              </li>
+              <li>
+<span><tt>targetDegs</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of integer weights for the target basis vectors</span>              </li>
+              <li>
+<span><tt>sourceDegs</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of integer weights for the source basis vectors</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="Type of a matrix over a noncommutative ring" href="___N__C__Matrix.html">NCMatrix</a></span>, the same matrix M with source and target keys specified and isHomogeneous flag true</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A matrix M with homogeneous entries in an NCRing can determine a homomorphism of graded free modules if the entries satisfy certain consistency conditions. Finding a set of degrees for source and target basis vectors such that M determines a graded module map is an integer programming problem. This method does not solve the problem in general.</p>
+          <p></p>
+        </div>
+        <div>
+          <p>With only one input, this method checks to see if the entries in each column all have the same homogeneous degree. If so, the method assigns source and target degrees in the natural way and the <a title="whether something is homogeneous (graded)" href="../../Macaulay2Doc/html/_is__Homogeneous.html">isHomogeneous</a> flag is set for M. If not, all degrees are set to 0 and the flag is not set. This method is called any time a matrix is created.</p>
+          <p></p>
+        </div>
+        <div>
+          <p>With three inputs, the user may specify the desired degree shifts on inputs and outputs such that the associated module map is graded.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : B = threeDimSklyanin(QQ,{1,1,-1},{x,y,z})
+--Calling Bergman for NCGB calculation.
+Complete!
+
+o1 = B
+
+o1 : NCQuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = ncMatrix {{x,y,z,0}, {-y*z-2*x^2,-y*x,z*x-x*z,x},{x*y-2*y*x,x*z,-x^2,y}, {-y^2-z*x,x^2,-x*y,z}}
+
+o2 = | x          y    z         0 |
+     | -y*z-2*x^2 -y*x y^2-2*x*z x |
+     | -2*y*x+x*y x*z  -x^2      y |
+     | -2*y^2+x*z x^2  -x*y      z |
+
+o2 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isHomogeneous M
+
+o3 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : assignDegrees(M,{1,0,0,0},{2,2,2,1})
+
+o4 = | x          y    z         0 |
+     | -y*z-2*x^2 -y*x y^2-2*x*z x |
+     | -2*y*x+x*y x*z  -x^2      y |
+     | -2*y^2+x*z x^2  -x*y      z |
+
+o4 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isHomogeneous M
+
+o5 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : N = ncMatrix {gens B}
+
+o6 = | x y z |
+
+o6 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isHomogeneous N
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether something is homogeneous (graded)" href="../../Macaulay2Doc/html/_is__Homogeneous.html">isHomogeneous</a> -- whether something is homogeneous (graded)</span>          </li>
+          <li>
+<span><a title="Methods for computing kernels of matrices over noncommutative rings using Bergman" href="_right__Kernel__Bergman.html">rightKernelBergman</a> -- Methods for computing kernels of matrices over noncommutative rings using Bergman</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>assignDegrees</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;assignDegrees(NCMatrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;assignDegrees(NCMatrix,List,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Weights entries of a matrix to make associated map of free modules graded" href="_assign__Degrees.html">assignDegrees</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Strategy => &quot;MacaulayMatrix&quot; -- strategy for computing Noetherian operators</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Strategy_sp_eq_gt_sp_dq__Punctual__Quot_dq.html">next</a> | <a href="___Strategy_sp_eq_gt_sp_dq__Hybrid_dq.html">previous</a> | <a href="___Strategy_sp_eq_gt_sp_dq__Punctual__Quot_dq.html">forward</a> | <a href="___Strategy_sp_eq_gt_sp_dq__Hybrid_dq.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for computing local dual spaces and sets of Noetherian operators" href="index.html">NoetherianOperators</a> :: <a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Macaulay__Matrix_dq.html">Strategy => &quot;MacaulayMatrix&quot;</a>    </div>
+    <hr/>
+    <div>
+      <h1>Strategy => &quot;MacaulayMatrix&quot; -- strategy for computing Noetherian operators</h1>
+      <div>
+        <div>
+          <p>This strategy implements Algorithm 2 in the paper <a href="https://arxiv.org/abs/2006.13881">Noetherian Operators and Primary Decomposition</a>, and supports computing Noetherian operators of either primary ideals (<a title="Noetherian operators of a primary ideal" href="_noetherian__Operators_lp__Ideal_rp.html">noetherianOperators(Ideal)</a>), or primary components of unmixed ideals (<a title="Noetherian operators of a primary component" href="_noetherian__Operators_lp__Ideal_cm__Ideal_rp.html">noetherianOperators(Ideal,Ideal)</a>).</p>
+          <p>The strategy relies on computing the kernel of successively larger Macaulay matrices. The behavior can be controlled with optional arguments:</p>
+          <p><tt>DegreeLimit => ...</tt>: takes an integer $d$, and stops computation at degree $d$. Note that if $d$ is set too low, this may lead to an incomplete answer. If unset, stops computation when the dimension of the kernel stabilizes.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = (ideal(x,y,z))^3;
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : noetherianOperators(I, Strategy => &quot;MacaulayMatrix&quot;)
+
+o3 = {| 1 |, | dz |, | dy |, | dx |, | dz^2 |, | dydz |, | dxdz |, | dy^2 |,
+     ------------------------------------------------------------------------
+     | dxdy |, | dx^2 |}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : noetherianOperators(I, Strategy => &quot;MacaulayMatrix&quot;, DegreeLimit => 1)
+
+o4 = {| 1 |, | dz |, | dy |, | dx |}
+
+o4 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p><tt>KernelStrategy => ...</tt>: takes a string <tt>&quot;Default&quot;</tt> or <tt>&quot;Gaussian&quot;</tt>. The <tt>&quot;Default&quot;</tt> strategy uses the Macaulay2 builtin function <a title="kernel of a ringmap, matrix, or chain complex" href="../../Macaulay2Doc/html/_kernel.html">kernel</a> to compute kernels (via Grobner bases). The strategy <tt>&quot;Gaussian&quot;</tt> computes kernels directly via a Gaussian reduction, and may offer performance improvements compared to <tt>&quot;Default&quot;</tt>.</p>
+          <p><tt>IntegralStrategy => ...</tt>: takes a boolean value. If <tt>true</tt>, uses the Mourrain algorithm to compute the kernel of the MacaulayMatrix, which constructs columns of the Macaulay matrix by taking integrals of the columns in the previous step. If <tt>false</tt>, uses the method outlined in Algorithm 1 in the paper <a href="https://arxiv.org/abs/2006.13881">Noetherian Operators and Primary Decomposition</a>. If unset, will choose automatically. See: B. Mourrain. Isolated points, duality and residues. <em>J. Pure Appl. Algebra</em>, 117/118:469-493, 1997. Algorithms for algebra (Eindhoven, 1996).</p>
+          <p><tt>DependentSet => ...</tt>: takes a list of variables. For details, see <a title="option for computing Noetherian operators" href="___Dependent__Set.html">DependentSet</a>.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Hybrid_dq.html">Strategy => &quot;Hybrid&quot;</a> -- strategy for computing Noetherian operators</span>          </li>
+          <li>
+<span><a title="strategy for computing Noetherian operators" href="___Strategy_sp_eq_gt_sp_dq__Punctual__Quot_dq.html">Strategy => &quot;PunctualQuot&quot;</a> -- strategy for computing Noetherian operators</span>          </li>
+          <li>
+<span><a title="option for computing Noetherian operators" href="___Dependent__Set.html">DependentSet</a> -- option for computing Noetherian operators</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

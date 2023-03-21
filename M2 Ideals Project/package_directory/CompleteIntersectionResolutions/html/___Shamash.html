@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Shamash -- Computes the Shamash Complex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_splittings.html">next</a> | <a href="___S2.html">previous</a> | <a href="_splittings.html">forward</a> | <a href="___S2.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="&quot;Resolution over a Complete Intersection&quot;" href="index.html">CompleteIntersectionResolutions</a> :: <a title="Computes the Shamash Complex" href="___Shamash.html">Shamash</a>    </div>
+    <hr/>
+    <div>
+      <h1>Shamash -- Computes the Shamash Complex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">FF = Shamash(ff,F,len)</code></dd>
+              <dd><code class="language-macaulay2">FF = Shamash(Rbar,F,len)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>ff</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, 1 x 1 Matrix over ring F.</span>              </li>
+              <li>
+<span><tt>Rbar</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, ring F mod ideal ff</span>              </li>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, defined over ring ff</span>              </li>
+              <li>
+<span><tt>len</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>FF</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, chain complex over (ring F)/(ideal ff)</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let R = ring F = ring ff, and Rbar = R/(ideal f), where ff = matrix{{f}} is a 1x1 matrix whose entry is a nonzerodivisor in R. The complex F should admit a system of higher homotopies for the entry of ff, returned by the call makeHomotopies(ff,F).</p>
+          <p>The complex FF has terms</p>
+          <p>FF_{2*i} = Rbar**(F_0 ++ F_2 ++ .. ++ F_i)</p>
+          <p>FF_{2*i+1} = Rbar**(F_1 ++ F_3 ++..++F_{2*i+1})</p>
+          <p>and maps made from the higher homotopies.</p>
+          <p>For the case of a complete intersection of higher codimension, or to see the components of the resolution as summands of FF_j, use the routine EisenbudShamash instead.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[x,y,z]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = S/ideal&quot;x3,y3&quot;
+
+o2 = R
+
+o2 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = R^1/ideal(x,y,z)
+
+o3 = cokernel | x y z |
+
+                            1
+o3 : R-module, quotient of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : F = res M
+
+      1      3      5      7      9
+o4 = R  &lt;-- R  &lt;-- R  &lt;-- R  &lt;-- R
+                                  
+     0      1      2      3      4
+
+o4 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : ff = matrix{{z^3}}
+
+o5 = | z3 |
+
+             1       1
+o5 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : R1 = R/ideal ff
+
+o6 = R1
+
+o6 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti F
+
+            0 1 2 3 4
+o7 = total: 1 3 5 7 9
+         0: 1 3 3 1 .
+         1: . . 2 6 6
+         2: . . . . 3
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : FF = Shamash(ff,F,4)
+
+     / R\1     / R\3     / R\6     / R\10     / R\15
+o8 = |--|  &lt;-- |--|  &lt;-- |--|  &lt;-- |--|   &lt;-- |--|
+     | 3|      | 3|      | 3|      | 3|       | 3|
+     \z /      \z /      \z /      \z /       \z /
+                                               
+     0         1         2         3          4
+
+o8 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : GG = Shamash(R1,F,4)
+
+       1       3       6       10       15
+o9 = R1  &lt;-- R1  &lt;-- R1  &lt;-- R1   &lt;-- R1
+                                       
+     0       1       2       3        4
+
+o9 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : betti FF
+
+             0 1 2  3  4
+o10 = total: 1 3 6 10 15
+          0: 1 3 3  1  .
+          1: . . 3  9  9
+          2: . . .  .  6
+
+o10 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : betti GG
+
+             0 1 2  3  4
+o11 = total: 1 3 6 10 15
+          0: 1 3 3  1  .
+          1: . . 3  9  9
+          2: . . .  .  6
+
+o11 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : ring GG
+
+o12 = R1
+
+o12 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : apply(length GG, i->prune HH_i FF)
+
+o13 = {cokernel | z y x |, 0, 0, 0}
+
+o13 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>F is assumed to be a homological complex starting from F_0. The matrix ff must be 1x1.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Computes the Eisenbud-Shamash Complex" href="___Eisenbud__Shamash.html">EisenbudShamash</a> -- Computes the Eisenbud-Shamash Complex</span>          </li>
+          <li>
+<span><a title="returns a system of higher homotopies" href="_make__Homotopies.html">makeHomotopies</a> -- returns a system of higher homotopies</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>Shamash</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;Shamash(Matrix,ChainComplex,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;Shamash(Ring,ChainComplex,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes the Shamash Complex" href="___Shamash.html">Shamash</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

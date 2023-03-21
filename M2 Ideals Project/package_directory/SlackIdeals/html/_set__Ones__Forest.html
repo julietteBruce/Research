@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>setOnesForest -- sets to 1 variables in a symbolic slack matrix which corresponding to edges of a spanning forest</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_slack__From__Gale__Circuits.html">next</a> | <a href="___Saturate.html">previous</a> | <a href="_slack__From__Gale__Circuits.html">forward</a> | <a href="___Saturate.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for slack ideals of polytopes and matroids" href="index.html">SlackIdeals</a> :: <a title="sets to 1 variables in a symbolic slack matrix which corresponding to edges of a spanning forest" href="_set__Ones__Forest.html">setOnesForest</a>    </div>
+    <hr/>
+    <div>
+      <h1>setOnesForest -- sets to 1 variables in a symbolic slack matrix which corresponding to edges of a spanning forest</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(Y, F) = setOnesForest X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a symbolic slack matrix</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Y</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the matrix X with the variables corresponding to the edges of a spanning forest set to 1</span>              </li>
+              <li>
+<span><tt>F</tt>, <span>a <a title="a class for graphs" href="../../EdgeIdeals/html/___Graph.html">graph</a></span>, spanning forest of the bipartite (non-incidence) graph whose vertices are the vertices and facets of a polytope P, and whose edges are the vertex-facet pairs of P such that the vertex is not on the facet</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Since row and column scaling operations preserve the projective equivalence class of a slack matrix, it is sometimes advantageous to choose a certain equivalence class representative by setting some variables in a slack matrix to 1. This reduces the computational time of calculating the slack ideal, for example.</p>
+          <p>This function automates the selection of a spanning forest in the bipartite graph corresponding to S and sets the associated variables to 1.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : V = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X = symbolicSlackMatrix V
+
+Order of vertices is 
+{{0, 0}, {1, 0}, {0, 1}, {1, 1}}
+
+o2 = | 0   x_0 0   x_1 |
+     | x_2 0   0   x_3 |
+     | 0   x_4 x_5 0   |
+     | x_6 0   x_7 0   |
+
+                        4                  4
+o2 : Matrix (QQ[x ..x ])  &lt;--- (QQ[x ..x ])
+                 0   7              0   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (Y, F) = setOnesForest X
+
+o3 = (| 0 1 0   1 |, Graph{edges => {{y , y }, {y , y }, {y , y }, {y , y },
+      | 1 0 0   1 |                    1   4     3   4     0   5     2   5  
+      | 0 1 1   0 |        ring => QQ[y ..y ]
+      | 1 0 x_7 0 |                    0   7
+                           vertices => {y , y , y , y , y , y , y , y }
+                                         0   1   2   3   4   5   6   7
+     ------------------------------------------------------------------------
+     {y , y }, {y , y }, {y , y }}})
+       2   6     0   7     1   7
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix" href="_graph__From__Slack__Matrix.html">graphFromSlackMatrix</a> -- creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix</span>          </li>
+          <li>
+<span><a title="computes the slack ideal" href="_slack__Ideal.html">slackIdeal</a> -- computes the slack ideal</span>          </li>
+          <li>
+<span><a title="computes the symbolic slack matrix" href="_symbolic__Slack__Matrix.html">symbolicSlackMatrix</a> -- computes the symbolic slack matrix</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>setOnesForest</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;setOnesForest(Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="sets to 1 variables in a symbolic slack matrix which corresponding to edges of a spanning forest" href="_set__Ones__Forest.html">setOnesForest</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

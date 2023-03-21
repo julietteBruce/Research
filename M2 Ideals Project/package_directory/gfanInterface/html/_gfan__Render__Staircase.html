@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>gfanRenderStaircase -- render the staircase of a monomial initial ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gfan__Resultant__Fan.html">next</a> | <a href="_gfan__Render.html">previous</a> | <a href="_gfan__Resultant__Fan.html">forward</a> | <a href="_gfan__Render.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a Macaulay2 interface to gfan" href="index.html">gfanInterface</a> :: <a title="render the staircase of a monomial initial ideal" href="_gfan__Render__Staircase.html">gfanRenderStaircase</a>    </div>
+    <hr/>
+    <div>
+      <h1>gfanRenderStaircase -- render the staircase of a monomial initial ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">gfanRenderStaircase(L)</code></dd>
+              <dd><code class="language-macaulay2">gfanRenderStaircase(fileName, L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>fileName</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, the name of the file to be output, given without an extension</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a <a href="___Marked__Polynomial__List.html">marked Groebner basis</a> or lists of <a href="___Marked__Polynomial__List.html">marked Groebner bases</a> (for use with the <tt>m</tt> option)</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>d</tt></span>              </li>
+              <li>
+<span><tt>m</tt></span>              </li>
+              <li>
+<span><tt>w</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method renders the staircase of the monomial initial ideal of the given Groebner basis (or bases in the case of the <tt>m</tt> option). The rendered image is written to a <tt>.fig</tt> file. If <tt>fig2dev</tt> is installed then the <tt>.fig</tt> file will be converted to <tt>.png</tt> and displayed. The names of the <tt>.fig</tt> and <tt>.png</tt> files are printed on standard out.</p>
+          <p>This method may support more options in the future to control rendering, conversion, and display. It may also eventually output file names in a list.</p>
+          <p><strong>gfan Documentation</strong> This program renders a staircase diagram of a monomial initial ideal to an xfig file. The input is a Groebner basis of a (not necessarily monomial) polynomial ideal. The initial ideal is given by the leading terms in the Groebner basis. Using the -m option it is possible to render more than one staircase diagram. The program only works for ideals in a polynomial ring with three variables.Options:-m: Read multiple ideals from the input. The ideals are given as a list of lists of polynomials. For each polynomial list in the list a staircase diagram is drawn.-d value: Specifies the number of boxes being shown along each axis. Be sure that this number is large enough to give a correct picture of the standard monomials. The default value is 8.-w value: Width. Specifies the number of staircase diagrams per row in the xfig file. The default value is 5.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>gfanRenderStaircase</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;gfanRenderStaircase(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;gfanRenderStaircase(String,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="render the staircase of a monomial initial ideal" href="_gfan__Render__Staircase.html">gfanRenderStaircase</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>SVDComplex -- Compute the SVD decomposition of a chainComplex over RR</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___S__V__D__Homology.html">next</a> | <a href="_pseudo__Inverse1.html">previous</a> | <a href="___S__V__D__Homology.html">forward</a> | <a href="_pseudo__Inverse1.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="support for computing homology, ranks and SVD complexes, for a chain complex over the real numbers" href="index.html">SVDComplexes</a> :: <a title="Compute the SVD decomposition of a chainComplex over RR" href="___S__V__D__Complex.html">SVDComplex</a>    </div>
+    <hr/>
+    <div>
+      <h1>SVDComplex -- Compute the SVD decomposition of a chainComplex over RR</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(h,U)=SVDComplex C or</code></dd>
+              <dd><code class="language-macaulay2">(h,U)=SVDComplex(C,C')</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, over RR_{53}</span>              </li>
+              <li>
+<span><tt>C'</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, in a lower precision</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>default value Projection</span>, Laplacian or Projection for the method used</span>              </li>
+              <li>
+<span><tt>Threshold</tt><tt> => </tt><span>a <a title="the class of all real numbers" href="../../Macaulay2Doc/html/___R__R.html">real number</a></span>, <span>default value .0001</span>, the relative threshold used to detect the zero singular values</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>h</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, the dimensions of the homology groups HH C</span>              </li>
+              <li>
+<span><tt>U</tt>, <span>a <a title="the class of all maps between chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex__Map.html">chain complex map</a></span>, a map C &lt;- Sigma where the source is the chainComplex of the singular value matrices and U is given by orthogonal matrices</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>We compute the singular value decomposition either by the iterated Projections or by the Laplacian method. In case the input consists of two chainComplexes we use the iterated Projection method, and identify the stable singular values.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : needsPackage &quot;RandomComplexes&quot;
+
+o1 = RandomComplexes
+
+o1 : Package</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : h={1,3,5,2,1}
+
+o2 = {1, 3, 5, 2, 1}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : r={5,11,3,2}
+
+o3 = {5, 11, 3, 2}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : elapsedTime C=randomChainComplex(h,r,Height=>4)
+ -- 0.0176355 seconds elapsed
+
+       6       19       19       7       3
+o4 = ZZ  &lt;-- ZZ   &lt;-- ZZ   &lt;-- ZZ  &lt;-- ZZ
+                                        
+     0       1        2        3       4
+
+o4 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C.dd^2
+
+           6          19
+o5 = 0 : ZZ  &lt;----- ZZ   : 2
+                0
+
+           19          7
+     1 : ZZ   &lt;----- ZZ  : 3
+                 0
+
+           19          3
+     2 : ZZ   &lt;----- ZZ  : 4
+                 0
+
+o5 : ChainComplexMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : CR=(C**RR_53)[1]
+
+         6         19         19         7         3
+o6 = RR    &lt;-- RR     &lt;-- RR     &lt;-- RR    &lt;-- RR
+       53        53         53         53        53
+                                                
+     -1        0          1          2         3
+
+o6 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : elapsedTime (h,U)=SVDComplex CR;
+ -- 0.0126808 seconds elapsed</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : h
+
+o8 = HashTable{-1 => 1}
+               0 => 3
+               1 => 5
+               2 => 2
+               3 => 1
+
+o8 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : Sigma =source U
+
+         6         19         19         7         3
+o9 = RR    &lt;-- RR     &lt;-- RR     &lt;-- RR    &lt;-- RR
+       53        53         53         53        53
+                                                
+     -1        0          1          2         3
+
+o9 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : Sigma.dd_0
+
+o10 = | 20.7789 0       0       0       0       0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+      | 0       18.3883 0       0       0       0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+      | 0       0       9.51991 0       0       0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+      | 0       0       0       7.19109 0       0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+      | 0       0       0       0       2.40088 0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+      | 0       0       0       0       0       0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+
+                 6          19
+o10 : Matrix RR    &lt;--- RR
+               53         53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : errors=apply(toList(min CR+1..max CR),ell->CR.dd_ell-U_(ell-1)*Sigma.dd_ell*transpose U_ell);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : maximalEntry chainComplex errors
+
+o12 = {6.21725e-15, 1.7053e-13, 4.9738e-14, 7.10543e-15}
+
+o12 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : elapsedTime (hL,U)=SVDComplex(CR,Strategy=>Laplacian);
+ -- 0.00864202 seconds elapsed</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : hL === h
+
+o14 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : SigmaL =source U;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : for i from min CR+1 to max CR list maximalEntry(SigmaL.dd_i -Sigma.dd_i)
+
+o16 = {1.42109e-14, 1.13687e-13, 8.52651e-14, 3.55271e-15}
+
+o16 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : errors=apply(toList(min C+1..max C),ell->CR.dd_ell-U_(ell-1)*SigmaL.dd_ell*transpose U_ell);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : maximalEntry chainComplex errors
+
+o18 = {1.73195e-13, 6.39488e-14, 3.05644e-13, -infinity}
+
+o18 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The optional argument</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The algorithm might fail if the condition numbers of the differential are too bad</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>SVDComplex</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;SVDComplex(ChainComplex)&quot;</tt>          </li>
+          <li>
+<tt>&quot;SVDComplex(ChainComplex,ChainComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute the SVD decomposition of a chainComplex over RR" href="___S__V__D__Complex.html">SVDComplex</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

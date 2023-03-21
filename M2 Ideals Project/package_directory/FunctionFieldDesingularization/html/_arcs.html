@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>arcs -- prints node labels for the desingularization tree</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_neg__Lex__Matrix.html">next</a> | <a href="index.html">previous</a> | <a href="_neg__Lex__Matrix.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Strong desingularization of a function field in arbitrary characteristic and dimension" href="index.html">FunctionFieldDesingularization</a> :: <a title="prints node labels for the desingularization tree" href="_arcs.html">arcs</a>    </div>
+    <hr/>
+    <div>
+      <h1>arcs -- prints node labels for the desingularization tree</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(prevlist,levellist,clist,blist,nlist,elist,philist,leaflist,Philist) = arcs(b0,n0e0,fout)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>polyb</tt>, irreducible polynomial for the domain A_k</span>              </li>
+              <li>
+<span><tt>ineq</tt>, list of inequality constraints for the part</span>              </li>
+              <li>
+<span><tt>eq</tt>, ideal of equality constraints for the part</span>              </li>
+              <li>
+<span><tt>fout</tt>, output file to which results are written</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>prevlist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, previous node in tree list</span>              </li>
+              <li>
+<span><tt>levellist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, level determines the rings being used</span>              </li>
+              <li>
+<span><tt>clist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, irreducible mod x_d</span>              </li>
+              <li>
+<span><tt>blist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, irreducible</span>              </li>
+              <li>
+<span><tt>nlist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, inequality constraints</span>              </li>
+              <li>
+<span><tt>elist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, ideal of equality constraints</span>              </li>
+              <li>
+<span><tt>philist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, birational change of variables maps between node and previous node</span>              </li>
+              <li>
+<span><tt>leaflist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, leaf of tree or not</span>              </li>
+              <li>
+<span><tt>Philist</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, birational change of variables maps between node and root node</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : fout = openOut &quot;curve_example0&quot;;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F = QQ;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : d = 1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : P0 = F[a_{0,0}..a_{0,d}];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : R0 = P0[x_{0,0}..x_{0,d},
+     Weights=> entries negLexMatrix(d),Global=>false];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : b0 = x_{0,0}^3+x_{0,0}*x_{0,1}+x_{0,1}^5;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : n0 = {};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : e0 = ideal(a_{0,0}^3+a_{0,0}*a_{0,1}+a_{0,1}^5);
+
+o8 : Ideal of P0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : tree = arcs(b0,e0,n0,fout);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : b1 = x_{0,0}^3+x_{0,0}^2*x_{0,1}^4+x_{0,1}^5;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : n1 = {};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : e1 = ideal(a_{0,0},a_{0,1});
+
+o12 : Ideal of P0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : tree = arcs(b1,e1,n1,fout);     </code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : fout &lt;&lt; close;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : </code></pre>
+</td>          </tr>
+        </table>
+        <p>Each node is described by an irreducible polynomial bnew, cnew its reduction mod x_d, a list of inequality constraints, an ideal of equality constraints, a birational change-of-variables from its previous node, and one from the root as well. See the test examples for syntax.</p>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>arcs</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>arcs(RingElement,Ideal,List,File)</tt> (missing documentation)<!--tag: (arcs,RingElement,Ideal,List,File)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="prints node labels for the desingularization tree" href="_arcs.html">arcs</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

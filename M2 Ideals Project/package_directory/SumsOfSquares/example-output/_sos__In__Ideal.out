@@ -1,0 +1,44 @@
+-- -*- M2-comint -*- hash: 838562057
+
+i1 : R = QQ[x,y,z];
+
+i2 : h = matrix {{x^2-4*x+2*y^2, 2*z^2-y^2+2}};
+
+             1       2
+o2 : Matrix R  <--- R
+
+i3 : (sol,mult) = sosInIdeal (h, 2);
+
+i4 : sosPoly sol
+
+      327    1      2    327    2
+o4 = (---)(- -x + 1)  + (---)(z)
+       2     2            2
+
+o4 : SOSPoly
+
+i5 : h * mult == sosPoly sol
+
+o5 = true
+
+i6 : S = R/ideal h;
+
+i7 : sol = sosInIdeal (S, 2);
+
+i8 : sosPoly sol
+
+      23    1      2    23    2
+o8 = (--)(- -x + 1)  + (--)(z)
+       4    2            4
+
+o8 : SOSPoly
+
+i9 : sosPoly sol
+
+      23    1      2    23    2
+o9 = (--)(- -x + 1)  + (--)(z)
+       4    2            4
+
+o9 : SOSPoly
+
+i10 : 

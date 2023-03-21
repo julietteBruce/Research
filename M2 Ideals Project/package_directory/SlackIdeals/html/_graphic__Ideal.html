@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>graphicIdeal -- creates the toric ideal of the non-incidence graph of a polytope</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_graphic__Ideal_lp..._cm__Coefficient__Ring_eq_gt..._rp.html">next</a> | <a href="_graph__From__Slack__Matrix.html">previous</a> | <a href="_graphic__Ideal_lp..._cm__Coefficient__Ring_eq_gt..._rp.html">forward</a> | <a href="_graph__From__Slack__Matrix.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for slack ideals of polytopes and matroids" href="index.html">SlackIdeals</a> :: <a title="creates the toric ideal of the non-incidence graph of a polytope" href="_graphic__Ideal.html">graphicIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>graphicIdeal -- creates the toric ideal of the non-incidence graph of a polytope</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">T = graphicIdeal V</code></dd>
+              <dd><code class="language-macaulay2">T = graphicIdeal P</code></dd>
+              <dd><code class="language-macaulay2">T = graphicIdeal S</code></dd>
+              <dd><code class="language-macaulay2">T = graphicIdeal M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>V</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of vertices or of facet sets</span>              </li>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all convex polyhedra" href="../../Polyhedra/html/___Polyhedron.html">convex polyhedron</a></span>, a polytope</span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a (symbolic) slack matrix of a polytope</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="../../Matroids/html/___Matroid.html">matroid</a></span>, a matroid</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="specifies the coefficient ring of the underlying ring of the ideal" href="_graphic__Ideal_lp..._cm__Coefficient__Ring_eq_gt..._rp.html">CoefficientRing</a><tt> => </tt><tt>...</tt>, <span>default value QQ</span>, specifies the coefficient ring of the underlying ring of the ideal</span>              </li>
+              <li>
+<span><a title="specify combinatorial object" href="_graphic__Ideal_lp..._cm__Object_eq_gt..._rp.html">Object</a><tt> => </tt><tt>...</tt>, <span>default value &quot;polytope&quot;</span>, specify combinatorial object</span>              </li>
+              <li>
+<span><a title="specifies saturation strategy to be used" href="_graphic__Ideal_lp..._cm__Saturate_eq_gt..._rp.html">Saturate</a><tt> => </tt><tt>...</tt>, <span>default value &quot;all&quot;</span>, specifies saturation strategy to be used</span>              </li>
+              <li>
+<span><a title="specifies saturation strategy to be used" href="_graphic__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value Eliminate</span>, specifies saturation strategy to be used</span>              </li>
+              <li>
+<span><a title="specifies the variables to use to create the underlying ring of the ideal" href="_graphic__Ideal_lp..._cm__Vars_eq_gt..._rp.html">Vars</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, specifies the variables to use to create the underlying ring of the ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the toric ideal of the non-incidence graph</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The graphic ideal associated to a polytope is the toric ideal of the vector configuration consisting of the columns of the vertex-edge incidence matrix of the non-incidence (of vertices and facets) graph of the polytope.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = convexHull(matrix{{0, 0, 1, 1}, {0, 1, 0, 1}});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : T = graphicIdeal P
+
+Order of vertices is 
+{{0, 0}, {1, 0}, {0, 1}, {1, 1}}
+Graph computed from symbolic adjacency matrix: | 0   y_1 0   y_2 |
+                                               | y_3 0   0   y_4 |
+                                               | 0   y_5 y_6 0   |
+                                               | y_7 0   y_8 0   |
+
+o2 = ideal(y y y y  - y y y y )
+            0 3 5 6    1 2 4 7
+
+o2 : Ideal of QQ[y ..y ]
+                  0   7</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>If S is not a symbolic slack matrix, the ideal will have variables indexed as in <a title="computes the symbolic slack matrix" href="_symbolic__Slack__Matrix.html">symbolicSlackMatrix</a> (from left to right in order by rows of S).</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix" href="_graph__From__Slack__Matrix.html">graphFromSlackMatrix</a> -- creates the vertex-edge incidence matrix for the bipartite non-incidence graph with adjacency matrix the given slack matrix</span>          </li>
+          <li>
+<span><a title="constructs the cycle ideal of a realization" href="_cycle__Ideal.html">cycleIdeal</a> -- constructs the cycle ideal of a realization</span>          </li>
+          <li>
+<span><a title="computes the symbolic slack matrix" href="_symbolic__Slack__Matrix.html">symbolicSlackMatrix</a> -- computes the symbolic slack matrix</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>graphicIdeal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;graphicIdeal(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graphicIdeal(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graphicIdeal(Matroid)&quot;</tt>          </li>
+          <li>
+<tt>&quot;graphicIdeal(Polyhedron)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates the toric ideal of the non-incidence graph of a polytope" href="_graphic__Ideal.html">graphicIdeal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

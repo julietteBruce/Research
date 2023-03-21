@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>inducedMap(FilteredComplex,ZZ) -- the i th inclusion map in a filtered complex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_max_lp__Filtered__Complex_rp.html">next</a> | <a href="___Identifying_spanti-podal_sppoints_spof_spthe_sptwo_spsphere.html">previous</a> | <a href="_max_lp__Filtered__Complex_rp.html">forward</a> | <a href="___Identifying_spanti-podal_sppoints_spof_spthe_sptwo_spsphere.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for working with filtered complexes and spectral sequences" href="index.html">SpectralSequences</a> :: <a title="the i th inclusion map in a filtered complex" href="_induced__Map_lp__Filtered__Complex_cm__Z__Z_rp.html">inducedMap(FilteredComplex,ZZ)</a>    </div>
+    <hr/>
+    <div>
+      <h1>inducedMap(FilteredComplex,ZZ) -- the i th inclusion map in a filtered complex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="compute an induced map" href="../../Macaulay2Doc/html/_induced__Map.html">inducedMap</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">f = inducedMap(K,i)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>K</tt>, <span>a <a title="the type of all filtered complexes" href="___Filtered__Complex.html">filtered chain complex</a></span>, </span>              </li>
+              <li>
+<span><tt>i</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="specify the degree of a map" href="../../Macaulay2Doc/html/_induced__Map_lp..._cm__Degree_eq_gt..._rp.html">Degree</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a title="verify that a map is well-defined" href="../../Macaulay2Doc/html/_induced__Map_lp..._cm__Verify_eq_gt..._rp.html">Verify</a><tt> => </tt><tt>...</tt>, <span>default value true</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all maps between chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex__Map.html">chain complex map</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Returns the chain complex map specifying the inclusion of the i piece of the filtered complex to the ambient chain complex.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : C = koszul vars A;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : K = filteredComplex C
+
+o3 = -1 : image 0 &lt;-- image 0 &lt;-- image 0
+                                   
+          0           1           2
+
+     0 : image | 1 | &lt;-- image 0 &lt;-- image 0
+                                      
+         0               1           2
+
+     1 : image | 1 | &lt;-- image {1} | 1 0 | &lt;-- image 0
+                               {1} | 0 1 |      
+         0                                     2
+                         1
+
+          1      2      1
+     2 : A  &lt;-- A  &lt;-- A
+                        
+         0      1      2
+
+o3 : FilteredComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : inducedMap(K,1)
+
+          1
+o4 = 0 : A  &lt;--------- image | 1 | : 0
+               | 1 |
+
+          2
+     1 : A  &lt;--------------- image {1} | 1 0 | : 1
+               {1} | 1 0 |         {1} | 0 1 |
+               {1} | 0 1 |
+
+          1
+     2 : A  &lt;----- image 0 : 2
+               0
+
+o4 : ChainComplexMap</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="the i th inclusion map in a filtered complex" href="_induced__Map_lp__Filtered__Complex_cm__Z__Z_rp.html">inducedMap(FilteredComplex,ZZ)</a> -- the i th inclusion map in a filtered complex</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

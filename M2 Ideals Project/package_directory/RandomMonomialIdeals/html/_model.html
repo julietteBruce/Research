@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>model -- creates a new model for random objects with a given list of parameters and generating function</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Model__Name.html">next</a> | <a href="___Model.html">previous</a> | <a href="___Model__Name.html">forward</a> | <a href="___Model.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for generating Erdos-Renyi-type random monomial ideals and variations" href="index.html">RandomMonomialIdeals</a> :: <a title="creates a new model for random objects with a given list of parameters and generating function" href="_model.html">model</a>    </div>
+    <hr/>
+    <div>
+      <h1>model -- creates a new model for random objects with a given list of parameters and generating function</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">model(L,f,name)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of parameter values chosen for the model</span>              </li>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>, function that generates random elements in this model</span>              </li>
+              <li>
+<span><tt>name</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, of the model constructed</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="a type used to store a statistical model and its parameters" href="___Model.html">Model</a></span>, with those fixed parameter values</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>To create your own model for random polynomials or other algebraic objects, use the model method as follows. Suppose you wish to construct a set of M random polynomials in 3 variables of degree 2. You may use <em>Macaulay2</em>'s built-in random function:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : f=(D,n,M)->(R=QQ[x_1..x_n];apply(M,i->random(D,R)))
+
+o1 = f
+
+o1 : FunctionClosure</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>To formalize the study of these random polynomials, embed this function into an object of type <a title="a type used to store a statistical model and its parameters" href="___Model.html">Model</a>:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : myModel = model({2,3,4},f,&quot;rand(D,n,M): M random polynomials in n variables of degree D&quot;)
+
+o2 = Model{Generate => -*Function[../../macaulay2-20230205-25510-hsiem6/M2-release-1.21/M2/Macaulay2/packages/RandomMonomialIdeals.m2:116:24-116:40]*-}
+           Name => rand(D,n,M): M random polynomials in n variables of degree D
+           Parameters => {2, 3, 4}
+
+o2 : Model</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Now obtain the data about such random polynomials from the sample (that is, the actual sample in the statistical sense) as follows:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : N=2;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : mySample = sample(myModel,N);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : peek mySample
+
+o5 = Sample{ModelName => rand(D,n,M): M random polynomials in n variables of degree D                                                                                                                                                                                                                                                                             }
+            Parameters => {2, 3, 4}
+            SampleSize => 2
+                      9 2   1       1 2   9              3 2  3 2   3       7 2   7        7       1 2   7 2   7       3 2           5       6 2  2 2            2           5       2 2      2    3       3 2                  10 2  1 2              2           3       4 2  7 2   5       2 2           5       7 2  2 2   6       5 2   5       5       5 2
+            Data => {{-x  + -x x  + -x  + -x x  + x x  + -x , -x  + -x x  + -x  + -x x  + --x x  + -x , --x  + -x x  + -x  + 7x x  + -x x  + -x , -x  + x x  + 6x  + 2x x  + -x x  + -x }, {5x  + --x x  + -x  + x x  + 5x x  + --x , -x  + 10x x  + 3x  + 3x x  + -x x  + -x , -x  + -x x  + -x  + 5x x  + -x x  + -x , -x  + -x x  + -x  + -x x  + -x x  + -x }}
+                      2 1   2 1 2   2 2   4 1 3    2 3   4 3  2 1   4 1 2   9 2   4 1 3   10 2 3   2 3  10 1   3 1 2   7 2     1 3   2 2 3   7 3  3 1    1 2     2     1 3   4 2 3   9 3      1   10 1 2   7 2    1 3     2 3    9 3  2 1      1 2     2     1 3   2 2 3   3 3  8 1   6 1 2   5 2     1 3   3 2 3   2 3  5 1   5 1 2   7 2   4 1 3   9 2 3   3 3</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="generates a sample from the given model" href="_sample.html">sample</a> -- generates a sample from the given model</span>          </li>
+          <li>
+<span><a title="generate statistics for a sample" href="_statistics.html">statistics</a> -- generate statistics for a sample</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>model</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;model(List,FunctionClosure,String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates a new model for random objects with a given list of parameters and generating function" href="_model.html">model</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

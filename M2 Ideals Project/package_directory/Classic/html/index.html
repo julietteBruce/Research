@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Classic -- a parser for classic Macaulay syntax</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_monomial__Ideal_lp__String_rp.html">next</a> | previous | <a href="_poly_lp__String_rp.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a parser for classic Macaulay syntax" href="index.html">Classic</a> :: <a title="a parser for classic Macaulay syntax" href="index.html">Classic</a>    </div>
+    <hr/>
+    <div>
+      <h1>Classic -- a parser for classic Macaulay syntax</h1>
+      <div>
+        <h2>Description</h2>
+        <p>This package provides a parser for polynomials in the classic Macaulay format.  Some users prefer it, for ease and speed of typing polynomials, ideals, and matrices.</p>
+        <p>Only ring variables that are single letters, or single letters indexed by a sequence of numbers can be handled with this parser.</p>
+        <p>The rules for creating polynomials using the classic parser include:</p>
+        <ul>
+          <li>
+Spaces, tabs, and newline characters are completely ignored.          </li>
+          <li>
+A variable is either (1) a single letter, (2) a subscripted variable, or (3) a polynomial enclosed in parentheses.          </li>
+          <li>
+Subscripted variables, e.g., <tt>y_(1,1)</tt>, are written using brackets, as in <tt>y[1,1]</tt>. Instead of explicit numbers for subscripted variables, Macaulay2 user variables that have an integer value may be used.          </li>
+          <li>
+Coefficients are either integers or rational numbers, starting with a + or - (which may be omitted for the first monomial).  Over finite fields, the division is performed in that field.          </li>
+          <li>
+A monomial is written without symbols for multiplication or exponentiation, where the (optional) coefficient comes first.          </li>
+          <li>
+A polynomial is a collection of monomials one after the other.          </li>
+          <li>
+Parenthesized subexpressions are allowed.          </li>
+          <li>
+Except for indices for subscripted variables, integers must be explicitly given.          </li>
+          <li>
+All of the variables used must already belong to a specific ring.  If in doubt, first type <tt>use R</tt> to ensure that all the symbols of <tt>R</tt> are in use.          </li>
+        </ul>
+        <p>The source code for this parser is relatively short, since it is based on the package <a title="a framework for building parsers" href="../../Parsing/html/index.html">Parsing</a>.  Here it is.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre>export &quot;poly&quot;
+symbolP = (x -> (
+          if not isGlobalSymbol x then error(&quot;symbol &quot;,x,&quot; undefined&quot;);
+          getGlobalSymbol x)) % letterParser
+seqP = (comma, parser) -> prepend % parser @ * (last % comma @ parser)
+variableP = value % symbolP
+intP = NNParser | variableP
+subscriptP = ((lb,x,rb) -> x) % andP( &quot;[&quot;, unsequence % seqP_&quot;,&quot; intP, &quot;]&quot; )
+ringVariableP = ((x,n) -> value if n === nil then x else x_n) % 
+                symbolP @ optP subscriptP
+numberP = ZZParser | QQParser
+powerP = ((x,n) -> if n === nil then x else x^n) % 
+         (futureParser parenExprP | ringVariableP) @ optP NNParser
+monomialP = times @@ deepSplice % 
+            optionalSignParser @ (numberP @ *powerP | +powerP )
+polyP = plus @@ deepSplice % +monomialP | terminalParser 0
+parenExprP = ((l,x,r) -> x) % andP(&quot;(&quot;, futureParser parenExprP | polyP, &quot;)&quot;)
+listPolyP = toList % seqP_&quot;,&quot; polyP
+arrayPolyP = toList % seqP_&quot;;&quot; listPolyP
+poly = method()
+polyParser = polyP : nonspaceAnalyzer
+poly String :=  RingElement => x -> polyParser x
+idealParser = ideal % listPolyP : nonspaceAnalyzer
+ideal String := Ideal => x -> idealParser x
+monomialIdealParser = monomialIdeal % listPolyP : nonspaceAnalyzer
+monomialIdeal String := MonomialIdeal => x -> monomialIdealParser x
+matrix String := Matrix => 
+                 opts -> matrix_opts % arrayPolyP : nonspaceAnalyzer</pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+<a href="http://www.math.uiuc.edu/~dan/">Daniel R. Grayson</a><span> &lt;<a href="mailto:dan@math.uiuc.edu">dan@math.uiuc.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.0</b> of Classic.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/Classic.m2">Classic.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><tt>&quot;poly&quot;</tt> -- see <span><a title="make a polynomial using classic Macaulay syntax" href="_poly_lp__String_rp.html">poly(String)</a> -- make a polynomial using classic Macaulay syntax</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><a title="make an ideal using classic Macaulay syntax" href="_ideal_lp__String_rp.html">ideal(String)</a> -- make an ideal using classic Macaulay syntax</span>                  </li>
+                  <li>
+<span><a title="make a matrix using classic Macaulay syntax" href="_matrix_lp__String_rp.html">matrix(String)</a> -- make a matrix using classic Macaulay syntax</span>                  </li>
+                  <li>
+<span><a title="make a monomial ideal using classic Macaulay syntax" href="_monomial__Ideal_lp__String_rp.html">monomialIdeal(String)</a> -- make a monomial ideal using classic Macaulay syntax</span>                  </li>
+                  <li>
+<span><a title="make a polynomial using classic Macaulay syntax" href="_poly_lp__String_rp.html">poly(String)</a> -- make a polynomial using classic Macaulay syntax</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a parser for classic Macaulay syntax" href="index.html">Classic</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+      <div>
+        <h3>Menu</h3>
+        <ul>
+          <li>
+<span><a title="make a polynomial using classic Macaulay syntax" href="_poly_lp__String_rp.html">poly(String)</a> -- make a polynomial using classic Macaulay syntax</span>          </li>
+          <li>
+<span><a title="make an ideal using classic Macaulay syntax" href="_ideal_lp__String_rp.html">ideal(String)</a></span>          </li>
+          <li>
+<span><a title="make a matrix using classic Macaulay syntax" href="_matrix_lp__String_rp.html">matrix(String)</a></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

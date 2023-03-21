@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PT1 -- Compute the deformation polytope associated to a Stanley-Reisner complex.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_rays__P__Pn.html">next</a> | <a href="_pre__Image.html">previous</a> | <a href="_rays__P__Pn.html">forward</a> | <a href="_pre__Image.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Deformations of Stanley-Reisner rings and related computations." href="index.html">SRdeformations</a> :: <a title="Compute the deformation polytope associated to a Stanley-Reisner complex." href="___P__T1.html">PT1</a>    </div>
+    <hr/>
+    <div>
+      <h1>PT1 -- Compute the deformation polytope associated to a Stanley-Reisner complex.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">PT1(C)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>an <a title="The class of all embedded complexes." href="___Complex.html">embedded complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="Store result of a computation in a file." href="_file.html">file</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, Store result of a computation in a file.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="The class of all embedded complexes." href="___Complex.html">embedded complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Compute the deformation polytope of C, i.e., the convex hull of all homogeneous (i.e., <a title="The small torus degree of a deformation." href="_degree_lp__First__Order__Deformation_rp.html">degree(FirstOrderDeformation)</a> zero) deformations associated to C, considering them as lattice monomials (i.e., their preimages under C.grading).</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x_0..x_3]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I=ideal(x_0*x_1,x_2*x_3)
+
+o2 = ideal (x x , x x )
+             0 1   2 3
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C=idealToComplex I
+
+o3 = 1: x x  x x  x x  x x  
+         0 2  1 2  0 3  1 3
+
+o3 : complex of dim 1 embedded in dim 3 (printing facets)
+     equidimensional, simplicial, F-vector {1, 4, 4, 0, 0}, Euler = -1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : PT1C=PT1 C
+
+o4 = 3: y y y y y y y y  
+         0 1 2 3 4 5 6 7
+
+o4 : complex of dim 3 embedded in dim 3 (printing facets)
+     equidimensional, non-simplicial, F-vector {1, 8, 14, 8, 1}, Euler = 0</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>To homogenize the denominators of deformations (which are supported inside the link) we use globalSections to deal with the toric case. The speed of this should be improved. For ordinary projective space homogenization with support on F is done much faster.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Compute the deformations associated to a face." href="_deformations__Face.html">deformationsFace</a> -- Compute the deformations associated to a face.</span>          </li>
+          <li>
+<span><a title="The link of a face of a complex." href="_link.html">link</a> -- The link of a face of a complex.</span>          </li>
+          <li>
+<span><a title="The global sections of a toric divisor." href="_global__Sections.html">globalSections</a> -- The global sections of a toric divisor.</span>          </li>
+          <li>
+<span><a title="The co-complex of tropical faces of the deformation polytope." href="_trop__Def.html">tropDef</a> -- The co-complex of tropical faces of the deformation polytope.</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>PT1</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;PT1(Complex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute the deformation polytope associated to a Stanley-Reisner complex." href="___P__T1.html">PT1</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

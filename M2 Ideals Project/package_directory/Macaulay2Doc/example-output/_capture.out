@@ -1,0 +1,63 @@
+-- -*- M2-comint -*- hash: 2074994170
+
+i1 : (err, output) = capture examples(resolution, Ideal) 
+
+o1 = (false,                                          )
+             i1 : R = ZZ[a..d]
+
+             o1 = R
+
+             o1 : PolynomialRing
+
+             i2 : I = ideal(a,b,c,d)
+
+             o2 = ideal (a, b, c, d)
+
+             o2 : Ideal of R
+
+             i3 : C = res I
+
+                   1      4      6      4      1
+             o3 = R  <-- R  <-- R  <-- R  <-- R  <-- 0
+                                                      
+                  0      1      2      3      4      5
+
+             o3 : ChainComplex
+
+             i4 : C_2
+
+                   6
+             o4 = R
+
+             o4 : R-module, free, degrees {6:2}
+
+             i5 : C.dd_2
+
+             o5 = {1} | -b 0  -c 0  0  -d |
+                  {1} | a  -c 0  0  -d 0  |
+                  {1} | 0  b  a  -d 0  0  |
+                  {1} | 0  0  0  c  b  a  |
+
+                          4       6
+             o5 : Matrix R  <--- R
+
+             i6 : 
+
+
+o1 : Sequence
+
+i2 : assert not err
+
+i3 : (err, output) = capture /// stderr << "Checking a false statement:" << endl; 1/0 ///
+
+o3 = (true,                                                            )
+            i1 :  stderr << "Checking a false statement:" << endl; 1/0 
+            Checking a false statement:
+            currentString:1:52:(3):[3]: error: division by zero
+
+
+o3 : Sequence
+
+i4 : assert err
+
+i5 : 

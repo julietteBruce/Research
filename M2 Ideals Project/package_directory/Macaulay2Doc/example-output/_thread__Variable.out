@@ -1,0 +1,29 @@
+-- -*- M2-comint -*- hash: -127551447
+
+i1 : threadVariable x
+
+o1 = x
+
+o1 : Symbol
+
+i2 : x = 1
+
+o2 = 1
+
+i3 : t = schedule ( () -> ( x = 2 ; x ) )
+
+o3 = <<task, result available, task done>>
+
+o3 : Task
+
+i4 : while not isReady t do null
+
+i5 : taskResult t
+
+o5 = 2
+
+i6 : x
+
+o6 = 1
+
+i7 : 

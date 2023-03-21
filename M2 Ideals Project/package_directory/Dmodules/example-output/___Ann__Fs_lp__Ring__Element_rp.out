@@ -1,0 +1,34 @@
+-- -*- M2-comint -*- hash: -868274903
+
+i1 : R = QQ[x_1..x_4, z, d_1..d_4, Dz, WeylAlgebra => toList(1..4)/(i -> x_i => d_i) | {z=>Dz}]
+
+o1 = R
+
+o1 : PolynomialRing, 5 differential variables
+
+i2 : f = x_1 + x_2 * z + x_3 * z^2 + x_4 * z^3
+
+        3      2
+o2 = x z  + x z  + x z + x
+      4      3      2     1
+
+o2 : R
+
+i3 : AnnFs f
+
+             2                                  2                          
+o3 = ideal (d  - d d , d d  - d d , z*d  - d , d  - d d , z*d  - d , x d  +
+             3    2 4   2 3    1 4     3    4   2    1 3     2    3   2 2  
+     ------------------------------------------------------------------------
+                                                                            
+     2x d  + 3x d  - z*Dz, z*d  - d , x d  + 2x d  + 3x d  - Dz, x d  - x d 
+       3 3     4 4            1    2   2 1     3 2     4 3        1 1    3 3
+     ------------------------------------------------------------------------
+                                    2
+     - 2x d  + z*Dz - s, 3x z*d  - z Dz + x d  + 2x d )
+         4 4               4   4           2 3     3 4
+
+o3 : Ideal of QQ[x ..x , z, d ..d , Dz, s]
+                  1   4      1   4
+
+i4 : 

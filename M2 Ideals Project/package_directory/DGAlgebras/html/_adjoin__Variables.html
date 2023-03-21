@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>adjoinVariables -- Adjoins variables to make the specified cycles boundaries.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Assert__Well__Defined.html">next</a> | <a href="_acyclic__Closure_lp__Ring_rp.html">previous</a> | <a href="___Assert__Well__Defined.html">forward</a> | <a href="_acyclic__Closure_lp__Ring_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Data types and basic functions on differential graded (DG) Algebras." href="index.html">DGAlgebras</a> :: <a title="Adjoins variables to make the specified cycles boundaries." href="_adjoin__Variables.html">adjoinVariables</a>    </div>
+    <hr/>
+    <div>
+      <h1>adjoinVariables -- Adjoins variables to make the specified cycles boundaries.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">B = adjoinVariables(A,cycleList)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>an instance of the type <a title="The class of all DGAlgebras" href="___D__G__Algebra.html">DGAlgebra</a></span>, </span>              </li>
+              <li>
+<span><tt>cycleList</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>B</tt>, <span>an instance of the type <a title="The class of all DGAlgebras" href="___D__G__Algebra.html">DGAlgebra</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3-d^4}
+
+o1 = R
+
+o1 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : A = koszulComplexDGA(R)
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   4
+      Differential => {a, b, c, d}
+
+o2 : DGAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : A.diff
+
+o3 = map (R[T ..T ], R[T ..T ], {a, b, c, d, a, b, c, d})
+             1   4      1   4
+
+o3 : RingMap R[T ..T ] &lt;--- R[T ..T ]
+                1   4          1   4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : prune homology(1,A)
+
+o4 = cokernel | d c b a 0 0 0 0 0 0 0 0 |
+              | 0 0 0 0 d c b a 0 0 0 0 |
+              | 0 0 0 0 0 0 0 0 d c b a |
+
+                            3
+o4 : R-module, quotient of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : B = adjoinVariables(A,{a^2*T_1})
+
+o5 = {Ring => R                         }
+      Underlying algebra => R[T ..T ]
+                               1   5
+                                    2
+      Differential => {a, b, c, d, a T }
+                                      1
+
+o5 : DGAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : B.diff
+
+                                              2
+o6 = map (R[T ..T ], R[T ..T ], {a, b, c, d, a T , a, b, c, d})
+             1   5      1   5                   1
+
+o6 : RingMap R[T ..T ] &lt;--- R[T ..T ]
+                1   5          1   5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : prune homology(1,B)
+
+o7 = cokernel | d c b a 0 0 0 0 |
+              | 0 0 0 0 d c b a |
+
+                            2
+o7 : R-module, quotient of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>adjoinVariables</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;adjoinVariables(DGAlgebra,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Adjoins variables to make the specified cycles boundaries." href="_adjoin__Variables.html">adjoinVariables</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

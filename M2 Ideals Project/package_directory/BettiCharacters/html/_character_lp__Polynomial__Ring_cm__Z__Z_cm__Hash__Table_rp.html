@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>character(PolynomialRing,ZZ,HashTable) -- construct a character</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_character_lp__Character__Decomposition_cm__Character__Table_rp.html">next</a> | <a href="_character_lp__Action__On__Graded__Module_cm__List_rp.html">previous</a> | <a href="_character_lp__Character__Decomposition_cm__Character__Table_rp.html">forward</a> | <a href="_character_lp__Action__On__Graded__Module_cm__List_rp.html">backward</a> | <a href="_character.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="finite group characters on free resolutions and graded modules" href="index.html">BettiCharacters</a> > <a title="compute characters of finite group action" href="_character.html">character</a> > <a title="construct a character" href="_character_lp__Polynomial__Ring_cm__Z__Z_cm__Hash__Table_rp.html">character(PolynomialRing,ZZ,HashTable)</a>    </div>
+    <hr/>
+    <div>
+      <h1>character(PolynomialRing,ZZ,HashTable) -- construct a character</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="compute characters of finite group action" href="_character.html">character</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">character(R,l,H)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, over a field</span>              </li>
+              <li>
+<span><tt>l</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, character length</span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, raw character data</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="the class of all characters of finite group representations" href="___Character.html">Character</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function is provided by the package <a title="finite group characters on free resolutions and graded modules" href="index.html">BettiCharacters</a>.</p>
+          <p>The <a title="compute characters of finite group action" href="_character.html">character</a> method is mainly designed to compute characters of finite group actions defined via <a title="define finite group action" href="_action.html">action</a>. The user who wishes to define characters by hand may do so with this particular application of the method.</p>
+          <p>The first argument is the polynomial ring the character values will live in; this makes it possible to compare or combine the hand-constructed character with other characters over the same ring. The second argument is the length of the character, i.e., the number of conjugacy classes of the group whose representations the character is coming from. The third argument is a hash table containing the &quot;raw&quot; character data. The hash table entries are in the format <tt>(i,d) => c</tt>, where <tt>i</tt> is an integer representing homological degree, <tt>d</tt> is a list representing the internal (multi)degree, and <tt>c</tt> is a list containing the values of the character in the given degrees. Note that the values of the character are elements in the ring given as the first argument.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_3]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : regRep = character(R,3, hashTable {
+             (0,{0}) => matrix{{1,1,1}},
+             (0,{1}) => matrix{{-1,0,2}},
+             (0,{2}) => matrix{{-1,0,2}},
+             (0,{3}) => matrix{{1,-1,1}},
+             })
+
+o2 = Character over R
+      
+     (0, {0}) => | 1 1 1 |
+     (0, {1}) => | -1 0 2 |
+     (0, {2}) => | -1 0 2 |
+     (0, {3}) => | 1 -1 1 |
+
+o2 : Character</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : I = ideal(x_1+x_2+x_3,x_1*x_2+x_1*x_3+x_2*x_3,x_1*x_2*x_3)
+
+o3 = ideal (x  + x  + x , x x  + x x  + x x , x x x )
+             1    2    3   1 2    1 3    2 3   1 2 3
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S3 = {matrix{{x_2,x_3,x_1}},
+           matrix{{x_2,x_1,x_3}},
+           matrix{{x_1,x_2,x_3}} }
+
+o4 = {| x_2 x_3 x_1 |, | x_2 x_1 x_3 |, | x_1 x_2 x_3 |}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Q = R/I
+
+o5 = Q
+
+o5 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = action(Q,S3)
+
+o6 = QuotientRing with 3 actors
+
+o6 : ActionOnGradedModule</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : character(A,0,3) === regRep
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This constructor implements basic consistency checks, but it is still be possible to construct objects that are not actually characters (not even virtual).</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute characters of finite group action" href="_character.html">character</a> -- compute characters of finite group action</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="construct a character" href="_character_lp__Polynomial__Ring_cm__Z__Z_cm__Hash__Table_rp.html">character(PolynomialRing,ZZ,HashTable)</a> -- construct a character</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

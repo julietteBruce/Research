@@ -1,0 +1,36 @@
+-- -*- M2-comint -*- hash: -800216886
+
+i1 : x = new HashTable from { val => 1000, cache => new CacheTable }
+
+o1 = HashTable{cache => CacheTable{}}
+               val => 1000
+
+o1 : HashTable
+
+i2 : f = (t -> (print "hi there"; t.val^4))
+
+o2 = f
+
+o2 : FunctionClosure
+
+i3 : h = (cacheValue VALUE) f
+
+o3 = -*a cache function*-
+
+o3 : CacheFunction
+
+i4 : h x
+hi there
+
+o4 = 1000000000000
+
+i5 : h x
+
+o5 = 1000000000000
+
+i6 : peek'_2 x
+
+o6 = HashTable{cache => CacheTable{VALUE => 1000000000000}}
+               val => 1000
+
+i7 : 

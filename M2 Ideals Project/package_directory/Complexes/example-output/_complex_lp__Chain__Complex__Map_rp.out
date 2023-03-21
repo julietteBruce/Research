@@ -1,0 +1,177 @@
+-- -*- M2-comint -*- hash: -305995018
+
+i1 : R = ZZ/32003[a..d];
+
+i2 : I = monomialCurveIdeal(R, {1,2,3})
+
+             2                    2
+o2 = ideal (c  - b*d, b*c - a*d, b  - a*c)
+
+o2 : Ideal of R
+
+i3 : M = R^1/I
+
+o3 = cokernel | c2-bd bc-ad b2-ac |
+
+                            1
+o3 : R-module, quotient of R
+
+i4 : C = resolution M
+
+      1      3      2
+o4 = R  <-- R  <-- R  <-- 0
+                           
+     0      1      2      3
+
+o4 : ChainComplex
+
+i5 : f = C.dd
+
+          1                             3
+o5 = 0 : R  <------------------------- R  : 1
+               | b2-ac bc-ad c2-bd |
+
+          3                     2
+     1 : R  <----------------- R  : 2
+               {2} | -c d  |
+               {2} | b  -c |
+               {2} | -a b  |
+
+          2
+     2 : R  <----- 0 : 3
+               0
+
+o5 : ChainComplexMap
+
+i6 : g = complex f
+
+          1                             3
+o6 = 0 : R  <------------------------- R  : 1
+               | b2-ac bc-ad c2-bd |
+
+          3                     2
+     1 : R  <----------------- R  : 2
+               {2} | -c d  |
+               {2} | b  -c |
+               {2} | -a b  |
+
+o6 : ComplexMap
+
+i7 : isWellDefined g
+
+o7 = true
+
+i8 : D = freeResolution M
+
+      1      3      2
+o8 = R  <-- R  <-- R
+                    
+     0      1      2
+
+o8 : Complex
+
+i9 : assert(D.dd == g)
+
+i10 : J = ideal vars R
+
+o10 = ideal (a, b, c, d)
+
+o10 : Ideal of R
+
+i11 : C1 = resolution(R^1/J)
+
+       1      4      6      4      1
+o11 = R  <-- R  <-- R  <-- R  <-- R  <-- 0
+                                          
+      0      1      2      3      4      5
+
+o11 : ChainComplex
+
+i12 : D1 = freeResolution(R^1/J)
+
+       1      4      6      4      1
+o12 = R  <-- R  <-- R  <-- R  <-- R
+                                   
+      0      1      2      3      4
+
+o12 : Complex
+
+i13 : f = extend(C1, C, matrix{{1_R}})
+
+           1             1
+o13 = 0 : R  <--------- R  : 0
+                | 1 |
+
+           4                        3
+      1 : R  <-------------------- R  : 1
+                {1} | 0  0  0  |
+                {1} | b  0  0  |
+                {1} | -a b  c  |
+                {1} | 0  -a -b |
+
+           6                    2
+      2 : R  <---------------- R  : 2
+                {2} | 0 0  |
+                {2} | 0 0  |
+                {2} | b 0  |
+                {2} | 0 0  |
+                {2} | 0 -b |
+                {2} | 0 a  |
+
+           4
+      3 : R  <----- 0 : 3
+                0
+
+o13 : ChainComplexMap
+
+i14 : g = complex f
+
+           1             1
+o14 = 0 : R  <--------- R  : 0
+                | 1 |
+
+           4                        3
+      1 : R  <-------------------- R  : 1
+                {1} | 0  0  0  |
+                {1} | b  0  0  |
+                {1} | -a b  c  |
+                {1} | 0  -a -b |
+
+           6                    2
+      2 : R  <---------------- R  : 2
+                {2} | 0 0  |
+                {2} | 0 0  |
+                {2} | b 0  |
+                {2} | 0 0  |
+                {2} | 0 -b |
+                {2} | 0 a  |
+
+o14 : ComplexMap
+
+i15 : g1 = extend(D1, D, matrix{{1_R}})
+
+           1             1
+o15 = 0 : R  <--------- R  : 0
+                | 1 |
+
+           4                        3
+      1 : R  <-------------------- R  : 1
+                {1} | 0  0  0  |
+                {1} | b  0  0  |
+                {1} | -a b  c  |
+                {1} | 0  -a -b |
+
+           6                    2
+      2 : R  <---------------- R  : 2
+                {2} | 0 0  |
+                {2} | 0 0  |
+                {2} | b 0  |
+                {2} | 0 0  |
+                {2} | 0 -b |
+                {2} | 0 a  |
+
+o15 : ComplexMap
+
+i16 : assert(g == g1)
+
+i17 : 

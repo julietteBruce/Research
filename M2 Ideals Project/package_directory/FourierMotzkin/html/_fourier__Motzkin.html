@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>fourierMotzkin -- interchange inequality/generator representation of a polyhedral cone</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="___Finding_spthe_spfacets_spof_spthe_sppermutahedron.html">previous</a> | forward | <a href="___Finding_spthe_spfacets_spof_spthe_sppermutahedron.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for convex hull and vertex enumeration" href="index.html">FourierMotzkin</a> :: <a title="interchange inequality/generator representation of a polyhedral cone" href="_fourier__Motzkin.html">fourierMotzkin</a>    </div>
+    <hr/>
+    <div>
+      <h1>fourierMotzkin -- interchange inequality/generator representation of a polyhedral cone</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(A',B') = fourierMotzkin(A,B)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">Matrix</a> with entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+              <li>
+<span><tt>B</tt>, a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">Matrix</a> with entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>(this input is optional)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>A'</tt>, a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">Matrix</a> with entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+              <li>
+<span><tt>B'</tt>, a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">Matrix</a> with entries in <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">ZZ</a> or <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+The input pair <tt>(A,B)</tt> describes a rational polyhedral cone generated by nonnegative linear combinations of the column vectors of <tt>A</tt> and containing the linear space generated by the column vectors of <tt>B</tt>.  Dually, the pair <tt>(A,B)</tt> describes a rational polyhedral cone as the intersection of closed halfspaces; the set of vectors <tt>x</tt> satisfying <tt>(transpose A) * x &lt;= 0</tt> and <tt>(transpose B) * x == 0</tt>.  If the convex cone spans its ambient affine space, then the input <tt>B</tt> may be omitted.        <p/>
+The output pair <tt>(A',B')</tt> is the dual description of the same cone.  In particular, the output pair <tt>(A',B')</tt> is valid input.  If the convex cone spans its ambient affine space, then the output <tt>B'</tt> will be zero.        <p/>
+For example, consider the convex cone generated by the 26 columns of the following matrix.  Using Fourier-Motzkin elimination, we see that this cone is the intersection of 6 halfspaces and spans 3-space.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : rays = transpose matrix(QQ, {{1,1,6},{1,2,4},{1,2,5},
+     	       {1,2,6},{1,3,4},{1,3,5},{1,3,6},{1,4,4},{1,4,5},
+     	       {1,4,6},{1,5,4},{1,5,5},{1,5,6},{1,5,7},{1,6,3},
+     	       {1,6,4},{1,6,5},{1,6,6},{1,6,7},{1,7,4},{1,7,5},
+     	       {1,7,6},{1,7,8},{1,8,4},{1,8,5},{1,8,6}})
+
+o1 = | 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 |
+     | 1 2 2 2 3 3 3 4 4 4 5 5 5 5 6 6 6 6 6 7 7 7 7 8 8 8 |
+     | 6 4 5 6 4 5 6 4 5 6 4 5 6 7 3 4 5 6 7 4 5 6 8 4 5 6 |
+
+              3        26
+o1 : Matrix QQ  &lt;--- QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : halfspaces = fourierMotzkin rays
+
+o2 = (| -8 18 0  8  -22 -17 |, 0)
+      | 1  -1 1  -2 2   -1  |
+      | 0  -4 -2 -1 1   3   |
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : numgens source halfspaces#0
+
+o3 = 6</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : extremalRays = fourierMotzkin halfspaces
+
+o4 = (| 1 1 1 1 1 1 |, 0)
+      | 6 2 8 1 8 7 |
+      | 3 4 4 6 6 8 |
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : numgens source extremalRays#0
+
+o5 = 6</code></pre>
+</td>          </tr>
+        </table>
+Using Fourier-Motzkin elimination a second time, we see that this cone is in fact generated by 6 vectors.        <p/>
+Here are some further examples illustrating fourierMotzkin elimination.        <ul>
+          <li>
+<a href="___Finding_spthe_spfacets_spof_spthe_spcyclic_sppolytope.html">Finding the facets of the cyclic polytope</a>          </li>
+          <li>
+<a href="___Finding_spthe_spfacets_spof_spthe_sppermutahedron.html">Finding the facets of the permutahedron</a>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>fourierMotzkin</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;fourierMotzkin(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;fourierMotzkin(Matrix,Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="interchange inequality/generator representation of a polyhedral cone" href="_fourier__Motzkin.html">fourierMotzkin</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>digraph(LeafTree,List) -- convert a LeafTree to a Digraph</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_edge__Contract.html">next</a> | <a href="___C__F__Nmodel.html">previous</a> | <a href="_edge__Contract.html">forward</a> | <a href="___C__F__Nmodel.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package to compute phylogenetic invariants associated to group-based models" href="index.html">PhylogeneticTrees</a> :: <a title="convert a LeafTree to a Digraph" href="_digraph_lp__Leaf__Tree_cm__List_rp.html">digraph(LeafTree,List)</a>    </div>
+    <hr/>
+    <div>
+      <h1>digraph(LeafTree,List) -- convert a LeafTree to a Digraph</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="Constructs a digraph" href="../../Graphs/html/_digraph.html">digraph</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">digraph(T,r)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>an instance of the type <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a></span>, </span>              </li>
+              <li>
+<span><tt>r</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, representing a vertex</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>EntryMode</tt> (missing documentation)<!--tag: [digraph, EntryMode]-->
+<tt> => </tt><tt>...</tt>, <span>default value &quot;auto&quot;</span>, </span>              </li>
+              <li>
+<span><tt>Singletons</tt> (missing documentation)<!--tag: [digraph, Singletons]-->
+<tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a href="../../Graphs/html/___Digraph.html">digraph</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A rooted tree can be represented by an object of class <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a> and a choice of vertex to be the root. This function converts such a representation of a rooted tree into an object of class <a href="../../Graphs/html/___Digraph.html">Digraph</a> with edges oriented away from the root.</p>
+          <p>The internal vertices of an object of class <a title="a tree described in terms of its leaves" href="___Leaf__Tree.html">LeafTree</a> are not named, so each vertex is specified by the partition of the set of leaves formed by removing the vertex.  Each partition is given as a list of sets.  This is also how the root vertex should be passed to the function.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : T = leafTree(4,{{0,1}})
+
+o1 = {{0, 1, 2, 3}, {set {0, 1}, set {0}, set {1}, set {2}, set {3}}}
+
+o1 : LeafTree</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : r = {set{0,1}, set{2}, set{3}}
+
+o2 = {set {0, 1}, set {2}, set {3}}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D = digraph(T,r)
+
+o3 = Digraph{set {set {0, 1, 2}} => {}                                                                                           }
+             set {set {0, 1, 3}} => {}
+             set {set {0, 1}, set {2}, set {3}} => {set {set {0}, set {1}, set {2, 3}}, set {set {0, 1, 2}}, set {set {0, 1, 3}}}
+             set {set {0, 2, 3}} => {}
+             set {set {0}, set {1}, set {2, 3}} => {set {set {1, 2, 3}}, set {set {0, 2, 3}}}
+             set {set {1, 2, 3}} => {}
+
+o3 : Digraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : adjacencyMatrix D
+
+o4 = | 0 1 1 0 0 0 |
+     | 0 0 0 0 0 0 |
+     | 0 0 0 0 0 0 |
+     | 1 0 0 0 1 1 |
+     | 0 0 0 0 0 0 |
+     | 0 0 0 0 0 0 |
+
+              6        6
+o4 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="convert a LeafTree to a Digraph" href="_digraph_lp__Leaf__Tree_cm__List_rp.html">digraph(LeafTree,List)</a> -- convert a LeafTree to a Digraph</span>          </li>
+          <li>
+<tt>&quot;digraph(LeafTree,Set)&quot;</tt>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

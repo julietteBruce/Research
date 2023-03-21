@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isWellDefined(ZZ,LieAlgebraMap) -- whether a Lie map is well defined</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Well__Defined_lp__Z__Z_cm__Lie__Derivation_rp.html">next</a> | <a href="_is__Surjective_lp__Lie__Algebra__Map_rp.html">previous</a> | <a href="_is__Well__Defined_lp__Z__Z_cm__Lie__Derivation_rp.html">forward</a> | <a href="_is__Surjective_lp__Lie__Algebra__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for doing computations in graded Lie algebras" href="index.html">GradedLieAlgebras</a> :: <a title="whether a Lie map is well defined" href="_is__Well__Defined_lp__Z__Z_cm__Lie__Algebra__Map_rp.html">isWellDefined(ZZ,LieAlgebraMap)</a>    </div>
+    <hr/>
+    <div>
+      <h1>isWellDefined(ZZ,LieAlgebraMap) -- whether a Lie map is well defined</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="whether a map is well defined" href="../../Macaulay2Doc/html/_is__Well__Defined.html">isWellDefined</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">b=isWellDefined(n,f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree</span>              </li>
+              <li>
+<span><tt>f</tt>, <span>an instance of the type <a title="the class of all Lie algebra homomorphisms" href="___Lie__Algebra__Map.html">LieAlgebraMap</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>b</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <tt>true</tt> if $f$ is well defined and commutes with the differentials up to degree $n$, <tt>false</tt> otherwise</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>It is checked that the map $f: M \ \to\  L$ maps the relations in $M$ to 0 up to degree $n$ and that $f$ commutes with the differentials in $M$ and $L$. If $n$ is big enough and <tt>ideal(M)</tt> is of type <tt>List</tt>, then it is possible to get that $f$ maps all relations to 0, which is noted as the message &quot;the map is well defined for all degrees&quot;. This may happen even if the map does not commute with the differential (see <tt>g</tt> in the example below).</p>
+          <p></p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : L=lieAlgebra({a,b},Signs=>1,LastWeightHomological=>true,
+         Weights=>{{1,0},{2,1}})
+
+o1 = L
+
+o1 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : F=lieAlgebra({a,b,c},
+         Weights=>{{1,0},{2,1},{5,2}},Signs=>1,LastWeightHomological=>true)
+
+o2 = F
+
+o2 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : D=differentialLieAlgebra{0_F,a a,a a a b}
+
+o3 = D
+
+o3 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Q1=D/{a a a a b,a b a b + a c}
+
+o4 = Q1
+
+o4 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : use F</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : Q2=F/{a a a a b,a b a b + a c}
+
+o6 = Q2
+
+o6 : LieAlgebra</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : f=map(D,Q1)
+warning: the map might not be well defined, 
+           use isWellDefined
+
+o7 = f
+
+o7 : LieAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isWellDefined(6,f)
+the map is not well defined
+the map commutes with the differential for all degrees
+
+o8 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : g=map(Q1,Q2)
+warning: the map might not be well defined, 
+           use isWellDefined
+
+o9 = g
+
+o9 : LieAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : isWellDefined(6,g)
+the map is well defined for all degrees
+the map does not commute with the differential
+
+o10 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : h=map(Q1,D)
+
+o11 = h
+
+o11 : LieAlgebraMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : isWellDefined(6,h)
+the map is well defined for all degrees
+the map commutes with the differential for all degrees
+
+o12 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether a Lie derivation is well defined" href="_is__Well__Defined_lp__Z__Z_cm__Lie__Derivation_rp.html">isWellDefined(ZZ,LieDerivation)</a> -- whether a Lie derivation is well defined</span>          </li>
+          <li>
+<span><a title="whether a Lie map is an isomorphism" href="_is__Isomorphism_lp__Lie__Algebra__Map_rp.html">isIsomorphism(LieAlgebraMap)</a> -- whether a Lie map is an isomorphism</span>          </li>
+          <li>
+<span><a title="make a Lie algebra homomorphism" href="_map_lp__Lie__Algebra_cm__Lie__Algebra_cm__List_rp.html">map(LieAlgebra,LieAlgebra,List)</a> -- make a Lie algebra homomorphism</span>          </li>
+          <li>
+<span><a href="___Homomorphisms_spand_spderivations.html">Homomorphisms and derivations</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="whether a Lie map is well defined" href="_is__Well__Defined_lp__Z__Z_cm__Lie__Algebra__Map_rp.html">isWellDefined(ZZ,LieAlgebraMap)</a> -- whether a Lie map is well defined</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

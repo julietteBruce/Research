@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>carpet -- Ideal of the unique Gorenstein double structure on a 2-dimensional scroll</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_carpet__Betti__Table.html">next</a> | <a href="_canonical__Homotopies.html">previous</a> | <a href="_carpet__Betti__Table.html">forward</a> | <a href="_canonical__Homotopies.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="The unique Gorenstein double structure on a surface scroll" href="index.html">K3Carpets</a> :: <a title="Ideal of the unique Gorenstein double structure on a 2-dimensional scroll" href="_carpet.html">carpet</a>    </div>
+    <hr/>
+    <div>
+      <h1>carpet -- Ideal of the unique Gorenstein double structure on a 2-dimensional scroll</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">I = carpet(a1,a2)</code></dd>
+              <dd><code class="language-macaulay2">I = carpet(a1,a2,m)</code></dd>
+              <dd><code class="language-macaulay2">(I,xmat,ymat) = carpet(a1,a2,Scrolls=>true)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>a1</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>a2</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, a1 and a2 should be positive</span>              </li>
+              <li>
+<span><tt>m</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a 2xn matrix for some $n \ge{} a1+a2$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Characteristic</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 32003</span>, the characteristic of the ground field</span>              </li>
+              <li>
+<span><tt>Scrolls</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, if true return in addition the matrices defining the sections</span>              </li>
+              <li>
+<span><tt>FineGrading</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, if true then I is defined over the ring with $\ZZ^4$-grading</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>xmat</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>ymat</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the matrices of the sections of the scroll</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+If no matrix m is present then the script creates a type a1,a2 K3-carpet over a new ring. If m is given, then an ideal made from certain minors and sums of minors of m is produced. The characteristic is given by the option, defaulting to 32003. If the option FineGrading is set to true, then the ideal is returned with the natural $\ZZ^4$ grading (the default is FineGrading => false). This last may not work unless the matrix is of scroll type (or not given!) If Scrolls=>true, then a sequence of three items is returned, the second and third being the smaller and larger scroll matrices.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The routine carpet(a1,a2,m) sets a = min(a1,a2), b = max(a1,a2), and forms two matrices from m: X:the 2 x a matrix that is the first a cols of m; Y:the 2 x b matrix that is the nex b cols of m–that is, cols a1..a1+a2-1 of m; Let Ix, Iy be the ideals of 2 x 2 minors of X and Y. If $a,b\geq 2$,the routine returns Ix+Iy+Imixed, where Imixed consists of the quadrics &quot;outside minor - inside minor&quot;, that is, $det(X_{\{i\}},Y_{\{j+1\}})-det(X_{\{i+1\}}|Y_{\{j\}})$, for each pair of (i,i+1), (j,j+1) in the ranges a1 and a2.</p>
+          <p>If m is usual ideal of the scroll of type (a,b), then carpet(a,b,m) produces the same ideal (over a different ring) as carpet(a,b). This is the ideal of the 2-dimensional rational normal scroll Scroll(a1,a2) is the ideal of 2 x 2 minors of X|Y. The ideal I to be constructed is the ideal of the unique (numerically) K3 scheme that is a double structure on the scroll S(a1,a2).</p>
+          <p>When a,b > 1, the carpet ideal I is the sum $Ix+Iy$ plus the ideal Imixed</p>
+          <p>When a = b = 1, I is the square of the determinant of X|Y.</p>
+          <p>When a = 1, b>1 (or symmetrically), I is defined as in the case a,b>1, after replacing $$ X = \begin{pmatrix} x_0 \\ x_1 \end{pmatrix} $$</p>
+          <p>by the 2 x 2 matrix $$ \begin{pmatrix} x_0^2    &amp;  x_0*x_1 \\ x_0*x_1  &amp;  x_1^2 \end{pmatrix} $$ and changing $a$ to 2.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : betti res carpet(2,5)
+
+            0  1  2  3  4  5 6
+o1 = total: 1 15 49 70 49 15 1
+         0: 1  .  .  .  .  . .
+         1: . 15 35 35 14  . .
+         2: .  . 14 35 35 15 .
+         3: .  .  .  .  .  . 1
+
+o1 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = ZZ/101[a..j]
+
+o2 = S
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : m = genericMatrix(S,a,2,5)
+
+o3 = | a c e g i |
+     | b d f h j |
+
+             2       5
+o3 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : I = carpet(2,3,m)
+
+o4 = ideal (b*c - a*d, b*e - a*f, d*e - c*f, d*g - c*h - b*i + a*j, f*g - e*h
+     ------------------------------------------------------------------------
+     - d*i + c*j, h*i - g*j)
+
+o4 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : L = primaryDecomposition I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : betti res L_0
+
+            0  1  2  3 4
+o6 = total: 1 10 20 15 4
+         0: 1  .  .  . .
+         1: . 10 20 15 4
+
+o6 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti res L_1
+
+            0  1  2  3  4 5
+o7 = total: 1 15 40 45 24 5
+         0: 1  .  .  .  . .
+         1: . 15 40 45 24 5
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>We require $a1,a2 \ge 1$. If $a1>a2$ then the blocks are reversed, so that the smaller block always comes first. The script generalizeScroll is a more general tool that can do the same things.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Carpet of given genus and Clifford index" href="_canonical__Carpet.html">canonicalCarpet</a> -- Carpet of given genus and Clifford index</span>          </li>
+          <li>
+<span><a title="attempts to produce a Gorenstein double structure J subset I" href="_gorenstein__Double.html">gorensteinDouble</a> -- attempts to produce a Gorenstein double structure J subset I</span>          </li>
+          <li>
+<span><a title="Union of planes joining points of rational normal curves according to a given correspondence" href="_correspondence__Scroll.html">correspondenceScroll</a> -- Union of planes joining points of rational normal curves according to a given correspondence</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>carpet</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;carpet(ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;carpet(ZZ,ZZ,Matrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Ideal of the unique Gorenstein double structure on a 2-dimensional scroll" href="_carpet.html">carpet</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

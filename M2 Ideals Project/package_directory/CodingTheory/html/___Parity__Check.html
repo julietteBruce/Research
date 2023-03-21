@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ParityCheck -- an optional input for the linearCode constructor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__Code.html">next</a> | <a href="_locally__Recoverable__Code.html">previous</a> | <a href="_generator__To__Parity__Check.html">forward</a> | <a href="_get__L__R__Cencoding__Polynomial.html">backward</a> | <a href="_linear__Code.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="tools for Coding Theory" href="index.html">CodingTheory</a> > <a title="class of linear codes" href="___Linear__Code.html">LinearCode</a> > <a title="functions to construct linear codes over Galois fields" href="_linear__Code.html">linearCode</a> > <a title="an optional input for the linearCode constructor" href="___Parity__Check.html">ParityCheck</a>    </div>
+    <hr/>
+    <div>
+      <h1>ParityCheck -- an optional input for the linearCode constructor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">linearCode(..., ParityCheck => ...)</code></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This is a Boolean symbol, returns value false or true. The default value is false.</p>
+        </div>
+        <div>
+          <p>This symbol is provided by the package <a title="tools for Coding Theory" href="index.html">CodingTheory</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : F = GF(4,Variable => a);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : L = {{1,0,a,0,0},{0,a,a+1,1,0},{1,1,1,a,0}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = matrix L;
+
+             3       5
+o3 : Matrix F  &lt;--- F</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : C = linearCode(F,L,ParityCheck => true);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C.GeneratorMatrix;
+
+             2       5
+o5 : Matrix F  &lt;--- F</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C.ParityCheckMatrix
+
+o6 = | 1 0 a   0 0 |
+     | 0 a a+1 1 0 |
+     | 1 1 1   a 0 |
+
+             3       5
+o6 : Matrix F  &lt;--- F</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>ParityCheck</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;linearCode(...,ParityCheck=>...)&quot;</tt> -- see <span><a title="functions to construct linear codes over Galois fields" href="_linear__Code.html">linearCode</a> -- functions to construct linear codes over Galois fields</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="an optional input for the linearCode constructor" href="___Parity__Check.html">ParityCheck</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+      <div>
+        <h3>Menu</h3>
+        <h4>Related functions and symbols:</h4>
+        <ul>
+          <li>
+<span><a title="parity check matrix of a linear code" href="_generator__To__Parity__Check.html">generatorToParityCheck</a> -- parity check matrix of a linear code</span>          </li>
+          <li>
+<span><a title="a parity check matrix of a code" href="___Parity__Check__Matrix.html">ParityCheckMatrix</a> -- a parity check matrix of a code</span>          </li>
+          <li>
+<span><a title="rows of a parity check matrix of a code" href="___Parity__Check__Rows.html">ParityCheckRows</a> -- rows of a parity check matrix of a code</span>          </li>
+          <li>
+<span><a title="generator matrix given a parity check matrix" href="_parity__Check__To__Generator.html">parityCheckToGenerator</a> -- generator matrix given a parity check matrix</span>          </li>
+          <li>
+<span><a title="low density parity check matrix" href="_rand__L__D__P__C.html">randLDPC</a> -- low density parity check matrix</span>          </li>
+          <li>
+<span><a title="outputs the tanner graph associated with the given parity check matrix" href="_tanner__Graph.html">tannerGraph</a> -- outputs the tanner graph associated with the given parity check matrix</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>sylvesterMatrix</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="___Sparse__Resultant_sp__Thing.html">previous</a> | forward | <a href="___Sparse__Resultant_sp__Thing.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computations with sparse resultants" href="index.html">SparseResultants</a> :: <a title="Sylvester-type matrix for the hyperdeterminant of a matrix of boundary shape" href="_sylvester__Matrix.html">sylvesterMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>sylvesterMatrix -- Sylvester-type matrix for the hyperdeterminant of a matrix of boundary shape</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">sylvesterMatrix M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all multidimensional matrices" href="___Multidimensional__Matrix.html">multidimensional matrix</a></span>, an $n$-dimensional matrix of boundary shape $(k_1+1)\times\cdots\times (k_n+1)$ (that is, $2 max\{k_1,\ldots,k_n\} = k_1+\ldots+k_n$).</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a particular square matrix whose determinant is $det(M)$ (up to sign), introduced by Gelfand, Kapranov, and Zelevinsky.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is an implementation of Theorem 3.3, Chapter 14, in <a href="http://link.springer.com/book/10.1007%2F978-0-8176-4771-1">Discriminants, Resultants, and Multidimensional Determinants</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = randomMultidimensionalMatrix {4,2,3}
+
+o1 = {{{8, 1, 3}, {7, 8, 3}}, {{3, 7, 8}, {8, 5, 7}}, {{8, 5, 2}, {3, 6, 3}},
+     ------------------------------------------------------------------------
+     {{6, 8, 6}, {9, 3, 7}}}
+
+o1 : 3-dimensional matrix of shape 4 x 2 x 3 over ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = sylvesterMatrix M
+
+o2 = | 8 1 3 0 0 0 7 8 3 0 0 0 |
+     | 0 8 0 1 3 0 0 7 0 8 3 0 |
+     | 0 0 8 0 1 3 0 0 7 0 8 3 |
+     | 3 7 8 0 0 0 8 5 7 0 0 0 |
+     | 0 3 0 7 8 0 0 8 0 5 7 0 |
+     | 0 0 3 0 7 8 0 0 8 0 5 7 |
+     | 8 5 2 0 0 0 3 6 3 0 0 0 |
+     | 0 8 0 5 2 0 0 3 0 6 3 0 |
+     | 0 0 8 0 5 2 0 0 3 0 6 3 |
+     | 6 8 6 0 0 0 9 3 7 0 0 0 |
+     | 0 6 0 8 6 0 0 9 0 3 7 0 |
+     | 0 0 6 0 8 6 0 0 9 0 3 7 |
+
+              12        12
+o2 : Matrix ZZ   &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : det M
+
+o3 = 910015877</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : det S
+
+o4 = 910015877</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : assert(oo == ooo or oo == -ooo)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="hyperdeterminant of a multidimensional matrix" href="_determinant_lp__Multidimensional__Matrix_rp.html">determinant(MultidimensionalMatrix)</a> -- hyperdeterminant of a multidimensional matrix</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>sylvesterMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;sylvesterMatrix(MultidimensionalMatrix)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Sylvester-type matrix for the hyperdeterminant of a matrix of boundary shape" href="_sylvester__Matrix.html">sylvesterMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

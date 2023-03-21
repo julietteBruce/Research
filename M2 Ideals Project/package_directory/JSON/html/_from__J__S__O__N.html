@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>fromJSON -- decode JSON data into Macaulay2 things</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_nil.html">next</a> | <a href="index.html">previous</a> | <a href="_nil.html">forward</a> | <a href="index.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="JSON encoding and decoding" href="index.html">JSON</a> :: <a title="decode JSON data into Macaulay2 things" href="_from__J__S__O__N.html">fromJSON</a>    </div>
+    <hr/>
+    <div>
+      <h1>fromJSON -- decode JSON data into Macaulay2 things</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">fromJSON s</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>s</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span> or <span>a <a title="the class of all files" href="../../Macaulay2Doc/html/___File.html">file</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">thing</a></span>, the Macaulay2 equivalent of the given data; </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The JSON data provided in the given string or file is parsed using the <a title="a framework for building parsers" href="../../Parsing/html/index.html">Parsing</a> package with the context-free grammar specified by <a href="https://datatracker.ietf.org/doc/html/rfc8259">RFC 8259</a>. The type of the return value will vary depending on the data.</p>
+          <p>Numbers will result in <tt>ZZ</tt> or <tt>RR</tt> objects, as appropriate.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : fromJSON &quot;2&quot;
+
+o1 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : fromJSON &quot;2.71828&quot;
+
+o2 = 2.71828
+
+o2 : RR (of precision 53)</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Strings will result in strings.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : fromJSON &quot;\&quot;Hello, world!\&quot;&quot;
+
+o3 = Hello, world!</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>JSON's <tt>true</tt> and <tt>false</tt> will result in the corresponding Macaulay2 booleans.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : fromJSON &quot;true&quot;
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : fromJSON &quot;false&quot;
+
+o5 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Due to the implementation of the <tt>Parsing</tt> package, <a title="the unique member of the empty class" href="../../Macaulay2Doc/html/_null.html">null</a> cannot be a return value, and so the symbol <a title="a symbol a parser may return to indicate acceptance of the empty string of tokens" href="../../Parsing/html/_nil.html">nil</a> is returned when JSON's <tt>null</tt> is given.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : fromJSON &quot;null&quot;
+
+o6 = nil
+
+o6 : Symbol</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Objects will result in hash tables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : fromJSON &quot;{\&quot;foo\&quot;: 1, \&quot;bar\&quot;: 2}&quot;
+
+o7 = HashTable{bar => 2}
+               foo => 1
+
+o7 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Arrays will result in lists.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : fromJSON &quot;[1, 2, 3]&quot;
+
+o8 = {1, 2, 3}
+
+o8 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The input may also be a file containing JSON data.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : jsonFile = temporaryFileName() | &quot;.json&quot;
+
+o9 = /private/tmp/M2-29413-0/0.json</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : jsonFile &lt;&lt; &quot;[1, 2, 3]&quot; &lt;&lt; endl &lt;&lt; close
+
+o10 = /private/tmp/M2-29413-0/0.json
+
+o10 : File</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : fromJSON openIn jsonFile
+
+o11 = {1, 2, 3}
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>fromJSON</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;fromJSON(File)&quot;</tt>          </li>
+          <li>
+<tt>&quot;fromJSON(String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="decode JSON data into Macaulay2 things" href="_from__J__S__O__N.html">fromJSON</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>syzygyModule -- Produces the k-th syzygy module (k \in ZZ)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Total.html">next</a> | <a href="_socle__Degrees.html">previous</a> | <a href="___Total.html">forward</a> | <a href="_socle__Degrees.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Maximal Cohen-Macaulay Approximations and Complete Intersections" href="index.html">MCMApproximations</a> :: <a title="Produces the k-th syzygy module (k \\in ZZ)" href="_syzygy__Module.html">syzygyModule</a>    </div>
+    <hr/>
+    <div>
+      <h1>syzygyModule -- Produces the k-th syzygy module (k \in ZZ)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">N = syzygyModule(k,M)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, which syzygy</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>CoDepth</tt><tt> => </tt><tt>...</tt>, <span>default value -1</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>If k==0 then the N=M. If k>0 then the syzygy module is computed from the resolution. If k&lt;0 then the program returns the dual of the (n-k)-th syzygy of the dual of the k-th syzygy, where n is one more than Codepth if that option is specified, and else n is the number of variables of ring M. Of course the resulting N is 0 if ring M is regular, and otherwise correct only if ring M is Gorenstein. In the Gorenstein case, syzygyModule(-k, syzygyModule(k, M)) -is the non-free part of the source of the MCM approximation of M.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = setupRings(4,3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = coker vars R_2;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : betti res M
+
+            0 1 2  3  4  5
+o3 = total: 1 4 8 12 16 20
+         0: 1 4 6  4  1  .
+         1: . . 2  8 12  8
+         2: . . .  .  3 12
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : betti syzygyModule(2,M)
+
+            0  1
+o4 = total: 8 12
+         2: 6  4
+         3: 2  8
+
+o4 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : betti (N2 = syzygyModule(-2,M))
+
+             0 1
+o5 = total: 12 8
+        -6:  8 2
+        -5:  4 6
+
+o5 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : betti res N2
+
+             0 1 2 3 4  5
+o6 = total: 12 8 5 5 8 12
+        -6:  8 2 . . .  .
+        -5:  4 6 4 1 .  .
+        -4:  . . . . .  .
+        -3:  . . . . .  .
+        -2:  . . 1 4 6  4
+        -1:  . . . . 2  8
+
+o6 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti syzygyModule(-2,M,CoDepth=>2)
+
+           
+o7 = total:
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>ring M must be Gorenstein, and the program does not check</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Sets up a complete intersection for experiments" href="_setup__Rings.html">setupRings</a> -- Sets up a complete intersection for experiments</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>syzygyModule</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;syzygyModule(ZZ,Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Produces the k-th syzygy module (k \\in ZZ)" href="_syzygy__Module.html">syzygyModule</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>independenceComplex(Matroid) -- independence complex of matroid</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">next</a> | <a href="_ideal__Orlik__Solomon__Algebra.html">previous</a> | <a href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">forward</a> | <a href="_ideal__Orlik__Solomon__Algebra.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="independence complex of matroid" href="_independence__Complex_lp__Matroid_rp.html">independenceComplex(Matroid)</a>    </div>
+    <hr/>
+    <div>
+      <h1>independenceComplex(Matroid) -- independence complex of matroid</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="constructs the independence complex of a graph" href="../../Graphs/html/_independence__Complex.html">independenceComplex</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">independenceComplex M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all abstract simplicial complexes" href="../../SimplicialComplexes/html/___Simplicial__Complex.html">abstract simplicial complex</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The independence complex of a matroid is the simplicial complex associated (via the Stanley-Reisner correspondence) to the circuit ideal of the matroid (which is a squarefree monomial ideal). This method uses the <a title="exploring abstract simplicial complexes within commutative algebra" href="../../SimplicialComplexes/html/index.html">SimplicialComplexes</a> package to return an object of type <a title="the class of all abstract simplicial complexes" href="../../SimplicialComplexes/html/___Simplicial__Complex.html">SimplicialComplex</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = matroid({{0,1},{0,2},{0,3},{1,2},{2,3}})
+
+o1 = a &quot;matroid&quot; of rank 2 on 4 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : independenceComplex M
+
+o2 = simplicialComplex | x_2x_3 x_0x_3 x_1x_2 x_0x_2 x_0x_1 |
+
+o2 : SimplicialComplex</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="independent subsets of a matroid" href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">independentSets(Matroid)</a> -- independent subsets of a matroid</span>          </li>
+          <li>
+<span><a title="Stanley-Reisner (circuit) ideal of matroid" href="_ideal_lp__Matroid_rp.html">ideal(Matroid)</a> -- Stanley-Reisner (circuit) ideal of matroid</span>          </li>
+          <li>
+<span><a title="matrix of basis polytope" href="_basis__Indicator__Matrix.html">basisIndicatorMatrix(Matroid)</a> -- matrix of basis polytope</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="independence complex of matroid" href="_independence__Complex_lp__Matroid_rp.html">independenceComplex(Matroid)</a> -- independence complex of matroid</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

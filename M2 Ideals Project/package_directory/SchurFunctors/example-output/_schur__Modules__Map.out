@@ -1,0 +1,41 @@
+-- -*- M2-comint -*- hash: -94077570
+
+i1 : n = 4;      --j-th differential of the Koszul Complex on the variables of R
+
+i2 : j = 2;
+
+i3 : mu1=apply(j,j->1)
+
+o3 = {1, 1}
+
+o3 : List
+
+i4 : mu2=apply(j+1,j->1)
+
+o4 = {1, 1, 1}
+
+o4 : List
+
+i5 : R = QQ[x_1..x_n];
+
+i6 : M=schurModule(mu1,R^n);
+
+i7 : N=schurModule(mu2,R^n);
+
+i8 : F = T -> apply(numgens R, j -> (R_j, augmentFilling(T,0,j)))
+
+o8 = F
+
+o8 : FunctionClosure
+
+i9 : schurModulesMap(N,M,F)
+
+o9 = | x_3 -x_2 x_1 0    0    0   |
+     | x_4 0    0   -x_2 x_1  0   |
+     | 0   x_4  0   -x_3 0    x_1 |
+     | 0   0    x_4 0    -x_3 x_2 |
+
+             4       6
+o9 : Matrix R  <--- R
+
+i10 : 

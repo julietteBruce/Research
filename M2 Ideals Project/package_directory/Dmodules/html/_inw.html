@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>inw -- initial form/ideal w.r.t. a weight</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Holonomic.html">next</a> | <a href="___Int__Ring.html">previous</a> | <a href="_is__Holonomic.html">forward</a> | <a href="___Int__Ring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a>    </div>
+    <hr/>
+    <div>
+      <h1>inw -- initial form/ideal w.r.t. a weight</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">inw(F,w)</code></dd>
+              <dd><code class="language-macaulay2">inw(I,w)</code></dd>
+              <dd><code class="language-macaulay2">inw(M,w)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, </span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+              <li>
+<span><tt>w</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of weights</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>inF</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the initial form of <em>F</em> with respect to the weight vector</span>              </li>
+              <li>
+<span><tt>inI</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the initial ideal of <em>I</em> with respect to the weight vector</span>              </li>
+              <li>
+<span><tt>inM</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, with the columns generating the initial module of the image of <em>M</em> with respect to the weight vector</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This routine computes the initial ideal of a left ideal <em>I</em> of the Weyl algebra with respect to a weight vector <em>w = (u,v)</em> where <em>u+v >= 0</em>. In the case where <em>u+v > 0</em>, then the ideal lives in the associated graded ring which is a commutative ring. In the case where u+v = 0, then the ideal lives in the associated graded ring which is again the Weyl algebra. In the general case <em>u+v >= 0</em> the associated graded ring is somewhere between. There are two strategies to compute the initial ideal. One is to homogenize to an ideal of the homogeneous Weyl algebra. The other is to homogenize with respect to the weight vector <em>w</em>. For more details, see [<a href="https://mathscinet.ams.org/mathscinet/pdf/1734566.pdf">SST</a>, Sections 1.1 and 1.2].</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : makeWA(QQ[x,y])
+
+o1 = QQ[x..y, dx, dy]
+
+o1 : PolynomialRing, 2 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal (x*dx+2*y*dy-3, dx^2-dy)
+
+                                2
+o2 = ideal (x*dx + 2y*dy - 3, dx  - dy)
+
+o2 : Ideal of QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : inw(I, {1,3,3,-1})
+
+                    2              2  2
+o3 = ideal (x*dx, dx , 2y*dx*dy, 4y dy  + 2x*dx)
+
+o3 : Ideal of QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : inw(I, {-1,-3,1,3})
+
+o4 = ideal (x*dx + 2y*dy - 3, dy)
+
+o4 : Ideal of QQ[x..y, dx, dy]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The weight vector <em>w = (u,v)</em> must have <em>u+v>=0</em>.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Groebner bases w.r.t. a weight" href="_gbw.html">gbw</a> -- Groebner bases w.r.t. a weight</span>          </li>
+          <li>
+<span><a title="toggles the use of homogeneous Weyl algebra" href="_set__Hom__Switch_lp__Boolean_rp.html">setHomSwitch</a> -- toggles the use of homogeneous Weyl algebra</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>inw</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;inw(Ideal,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;inw(Matrix,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;inw(RingElement,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="initial form/ideal w.r.t. a weight" href="_inw.html">inw</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

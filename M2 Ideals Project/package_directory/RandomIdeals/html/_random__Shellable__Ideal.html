@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomShellableIdeal -- Produces a ideal from a random shellable simplicial complex</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__Shellable__Ideal__Chain.html">next</a> | <a href="_random__Pure__Binomial__Ideal.html">previous</a> | <a href="_random__Shellable__Ideal__Chain.html">forward</a> | <a href="_random__Pure__Binomial__Ideal.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package to construct various sorts of random ideals" href="index.html">RandomIdeals</a> :: <a title="Produces a ideal from a random shellable simplicial complex" href="_random__Shellable__Ideal.html">randomShellableIdeal</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomShellableIdeal -- Produces a ideal from a random shellable simplicial complex</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">I = randomShellableIdeal(R,m,k)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, a polynomial ring</span>              </li>
+              <li>
+<span><tt>m</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, dimension of facets in shellable complex</span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree of the shellable complex</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>a <a title="the class of all monomial ideals handled by the engine" href="../../Macaulay2Doc/html/___Monomial__Ideal.html">monomial ideal</a></span>, the Stanley-Reisner ideal of a random shellable complex</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The Stanley-Reisner ideal of a shellable simplicial complex is always Cohen-Macaulay; the converse is not true, although, to paraphrase Arnol'd, square-free monomial ideals that have a serious reason to be Cohen-Macaulay generally do come from shellable complexes.</p>
+          <p>The program makes a (Cohen-Macaulay) square-free monomial ideal from the Stanley-Reisner ideal of a random shellable simplicial complex. simplicial complex relies on the code for producing random shellable simplicial complexes; see randomShelling for a description.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/101[x_0..x_4];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = randomShellableIdeal(R,2,6)
+
+o2 = monomialIdeal (x x , x x x , x x x x )
+                     0 2   0 3 4   1 2 3 4
+
+o2 : MonomialIdeal of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>No claim is made on the distribution of the ideal.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="produces a random chain of shellable complexes" href="_random__Shelling.html">randomShelling</a> -- produces a random chain of shellable complexes</span>          </li>
+          <li>
+<span><a title="Produces an ideal from a shelling" href="_ideal__From__Shelling.html">idealFromShelling</a> -- Produces an ideal from a shelling</span>          </li>
+          <li>
+<span><a title="Produces chains of ideals from a shelling." href="_ideal__Chain__From__Shelling.html">idealChainFromShelling</a> -- Produces chains of ideals from a shelling.</span>          </li>
+          <li>
+<span><a title="Produces a chain of ideals from a random shelling" href="_random__Shellable__Ideal__Chain.html">randomShellableIdealChain</a> -- Produces a chain of ideals from a random shelling</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>randomShellableIdeal</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;randomShellableIdeal(Ring,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Produces a ideal from a random shellable simplicial complex" href="_random__Shellable__Ideal.html">randomShellableIdeal</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

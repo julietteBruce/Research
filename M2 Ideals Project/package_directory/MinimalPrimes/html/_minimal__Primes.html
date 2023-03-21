@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>minimalPrimes -- minimal primes of an ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Prime_lp__Ideal_rp.html">next</a> | previous | <a href="_is__Prime_lp__Ideal_rp.html">forward</a> | <a href="index.html">backward</a> | <a href="index.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="minimal primes and radical routines for ideals" href="index.html">MinimalPrimes</a> > <a title="minimal primes of an ideal" href="_minimal__Primes.html">minimalPrimes</a>    </div>
+    <hr/>
+    <div>
+      <h1>minimalPrimes -- minimal primes of an ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">minimalPrimes I</code></dd>
+              <dd><code class="language-macaulay2">minprimes I</code></dd>
+              <dd><code class="language-macaulay2">decompose I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Verbosity</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value 0</span>, a larger number will print more information during the computation</span>              </li>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value null</span>, specifies the computation strategy to use. If it is slow, try <tt>Legacy</tt>, <tt>Birational</tt>, or <tt>NoBirational</tt>. The strategies might change in the future, and there are other undocumented ways to fine-tune the algorithm.</span>              </li>
+              <li>
+<span><tt>CodimensionLimit</tt><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value infinity</span>, stop after finding primes of codimension less than or equal to this value</span>              </li>
+              <li>
+<span><tt>MinimalGenerators</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, if false, the minimal primes will not be minimalized</span>              </li>
+              <li>
+<span><tt>CheckPrimeOnly</tt></span>              </li>
+              <li>
+<span><tt>SquarefreeFactorSize</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, with entries the minimal associated primes of <tt>I</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given an ideal in a polynomial ring, or a quotient of a polynomial ring whose base ring is either <tt>QQ</tt> or <tt>ZZ/p</tt>, this function computes the minimal associated primes of the ideal <tt>I</tt>. Geometrically, it decomposes the algebraic set defined by <tt>I</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/32003[a..e]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal&quot;a2b-c3,abd-c2e,ade-ce2&quot;
+
+             2     3           2              2
+o2 = ideal (a b - c , a*b*d - c e, a*d*e - c*e )
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C = minprimes I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : netList C
+
+     +---------------------------+
+o4 = |ideal (c, a)               |
+     +---------------------------+
+     |              2     3      |
+     |ideal (e, d, a b - c )     |
+     +---------------------------+
+     |ideal (e, c, b)            |
+     +---------------------------+
+     |ideal (d, c, b)            |
+     +---------------------------+
+     |ideal (d - e, b - c, a - c)|
+     +---------------------------+
+     |ideal (d + e, b - c, a + c)|
+     +---------------------------+</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C2 = minprimes(I, Strategy=>&quot;NoBirational&quot;, Verbosity=>2)
+
+                                  2     3
+o5 = {ideal (c, a), ideal (e, d, a b - c ), ideal (e, c, b), ideal (d, c, b),
+     ------------------------------------------------------------------------
+     ideal (d - e, b - c, a - c), ideal (d + e, b - c, a + c)}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C1 = minprimes(I, Strategy=>&quot;Birational&quot;, Verbosity=>2)
+
+                                  2     3
+o6 = {ideal (c, a), ideal (e, d, a b - c ), ideal (e, c, b), ideal (d, c, b),
+     ------------------------------------------------------------------------
+     ideal (d - e, b - c, a - c), ideal (d + e, b - c, a + c)}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Example. The homogenized equations of the affine twisted cubic curve define the union of the projective twisted cubic curve and a line at infinity:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : R = QQ[w,x,y,z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : I=ideal(x^2-y*w, x^3-z*w^2)
+
+             2         3    2
+o8 = ideal (x  - w*y, x  - w z)
+
+o8 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : minimalPrimes I
+
+                            2                    2
+o9 = {ideal (x, w), ideal (y  - x*z, x*y - w*z, x  - w*y)}
+
+o9 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that the ideal is decomposed over the given field of coefficients and not over the extension field where the decomposition into absolutely irreducible factors occurs:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : I = ideal(x^2 + y^2)
+
+             2    2
+o10 = ideal(x  + y )
+
+o10 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : minimalPrimes I
+
+              2    2
+o11 = {ideal(x  + y )}
+
+o11 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>For monomial ideals, the method used is essentially what is shown in the example.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : I = monomialIdeal ideal&quot;wxy,xz,yz&quot;
+
+o12 = monomialIdeal (w*x*y, x*z, y*z)
+
+o12 : MonomialIdeal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : minimalPrimes I
+
+o13 = {monomialIdeal (x, y), monomialIdeal (w, z), monomialIdeal (x, z),
+      -----------------------------------------------------------------------
+      monomialIdeal (y, z)}
+
+o13 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : P = intersect(monomialIdeal(w,x,y), monomialIdeal(x,z), monomialIdeal(y,z))
+
+o14 = monomialIdeal (x*y, w*z, x*z, y*z)
+
+o14 : MonomialIdeal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : minI = apply(P_*, monomialIdeal @@ support)
+
+o15 = {monomialIdeal (x, y), monomialIdeal (w, z), monomialIdeal (x, z),
+      -----------------------------------------------------------------------
+      monomialIdeal (y, z)}
+
+o15 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>It is sometimes useful to compute <tt>P</tt> instead, where each generator encodes a single minimal prime. This can be obtained directly, as in the following code.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : dual radical I
+
+o16 = monomialIdeal (x*y, w*z, x*z, y*z)
+
+o16 : MonomialIdeal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : P == oo
+
+o17 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether an ideal is prime" href="_is__Prime_lp__Ideal_rp.html">isPrime(Ideal)</a></span>          </li>
+          <li>
+<span><a title="compute top dimensional component of an ideal or module" href="../../PrimaryDecomposition/html/_top__Components.html">topComponents</a> -- compute top dimensional component of an ideal or module</span>          </li>
+          <li>
+<span><a title="remove components of lowest dimension" href="../../PrimaryDecomposition/html/_remove__Lowest__Dimension.html">removeLowestDimension</a> -- remove components of lowest dimension</span>          </li>
+          <li>
+<span><a title="the radical of an ideal" href="_radical.html">radical</a> -- the radical of an ideal</span>          </li>
+          <li>
+<span><a title="irreducible characteristic series of an ideal" href="../../Macaulay2Doc/html/_irreducible__Characteristic__Series.html">irreducibleCharacteristicSeries</a> -- irreducible characteristic series of an ideal</span>          </li>
+          <li>
+<span><a title="the Alexander dual of a monomial ideal" href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_rp.html">dual(MonomialIdeal)</a> -- the Alexander dual of a monomial ideal</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>minimalPrimes</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;minimalPrimes(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="minimal primes of an ideal" href="_minimal__Primes.html">minimalPrimes</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

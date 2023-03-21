@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isIsomorphic -- Probabilistic test for isomorphism of modules</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Quism.html">next</a> | <a href="_is__Action.html">previous</a> | <a href="_is__Quism.html">forward</a> | <a href="_is__Action.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computation of parts of the Tate resolution on products" href="index.html">TateOnProducts</a> :: <a title="probabilistic test for homogeneous isomorphism" href="_is__Isomorphic.html">isIsomorphic</a>    </div>
+    <hr/>
+    <div>
+      <h1>isIsomorphic -- probabilistic test for homogeneous isomorphism</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">v = isIsomorphic(A,B)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>First checks that the generator degrees are the same. Then computes a random degree 0 map A --> B and B --> A, and returns true iff both are surjections.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/11[a,b]
+
+o1 = S
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = coker random(S^{-2,0,1,2}, S^{3:-3})
+
+o2 = cokernel {2}  | -3a-4b                         a-3b                     3a-b                         |
+              {0}  | 3a3-3a2b-4ab2+2b3              3a3-3a2b-3ab2+3b3        -4a3+5a2b+5ab2-5b3           |
+              {-1} | 3a4-a3b+3a2b2-2ab3-5b4         -5a4-5a3b-4a2b2-5ab3     -3a4-2a3b-5a2b2+2ab3+2b4     |
+              {-2} | -5a5+5a4b+5a3b2-2a2b3+5ab4+3b5 -2a5-5a4b-4a3b2+4a2b3+b5 3a5+3a4b-4a3b2-a2b3+4ab4-3b5 |
+
+                            4
+o2 : S-module, quotient of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : N = coker (random(cover M, cover M)*presentation M)
+
+o3 = cokernel {2}  | -5a-3b                        -2a-5b                   5a+2b                         |
+              {0}  | -2a3-2a2b-2ab2                a3-2a2b-4ab2-4b3         a3+3a2b-5ab2                  |
+              {-1} | -4a4-3a3b-3a2b2-3ab3+4b4      4a4+4a3b-3a2b2+5ab3+2b4  -3a4-2a3b-3ab3-5b4            |
+              {-2} | -a5-2a4b-2a3b2+4a2b3-2ab4-4b5 3a5+a4b-4a3b2+5a2b3-3ab4 2a5-4a4b+3a3b2-5a2b3+3ab4+5b5 |
+
+                            4
+o3 : S-module, quotient of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : tally apply(100, j->isIsomorphic(M,N))
+
+o4 = Tally{false => 13}
+           true => 87
+
+o4 : Tally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>If the function returns true then the modules ARE isomorphic. But if it returns false they may be isomorphic anyway.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isIsomorphic</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isIsomorphic(Module,Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="probabilistic test for homogeneous isomorphism" href="_is__Isomorphic.html">isIsomorphic</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

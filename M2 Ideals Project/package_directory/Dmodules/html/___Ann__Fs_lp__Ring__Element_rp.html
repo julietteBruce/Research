@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>AnnFs(RingElement) -- the annihilating ideal of f^s</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Ann__G.html">next</a> | <a href="___Ann__Fs_lp__List_rp.html">previous</a> | <a href="___Ann__G.html">forward</a> | <a href="___Ann__Fs_lp__List_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="algorithms for D-modules" href="index.html">Dmodules</a> :: <a title="the annihilating ideal of f^s" href="___Ann__Fs_lp__Ring__Element_rp.html">AnnFs(RingElement)</a>    </div>
+    <hr/>
+    <div>
+      <h1>AnnFs(RingElement) -- the annihilating ideal of f^s</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="the annihilating ideal of f^s" href="___Ann__Fs.html">AnnFs</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">AnnFs f</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial in a Weyl algebra <em>A<sub>n</sub></em> (should contain no differential variables)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal of <em>A<sub>n</sub>[s]</em></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+The annihilator ideal is needed to compute a D-module representation of the localization of <em>k[x<sub>1</sub>,...,x<sub>n</sub>]</em> at <em>f</em>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_4, z, d_1..d_4, Dz, WeylAlgebra => toList(1..4)/(i -> x_i => d_i) | {z=>Dz}]
+
+o1 = R
+
+o1 : PolynomialRing, 5 differential variables</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f = x_1 + x_2 * z + x_3 * z^2 + x_4 * z^3
+
+        3      2
+o2 = x z  + x z  + x z + x
+      4      3      2     1
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : AnnFs f
+
+             2                                  2                          
+o3 = ideal (d  - d d , d d  - d d , z*d  - d , d  - d d , z*d  - d , x d  +
+             3    2 4   2 3    1 4     3    4   2    1 3     2    3   2 2  
+     ------------------------------------------------------------------------
+                                                                            
+     2x d  + 3x d  - z*Dz, z*d  - d , x d  + 2x d  + 3x d  - Dz, x d  - x d 
+       3 3     4 4            1    2   2 1     3 2     4 3        1 1    3 3
+     ------------------------------------------------------------------------
+                                    2
+     - 2x d  + z*Dz - s, 3x z*d  - z Dz + x d  + 2x d )
+         4 4               4   4           2 3     3 4
+
+o3 : Ideal of QQ[x ..x , z, d ..d , Dz, s]
+                  1   4      1   4</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+The ring of <tt>f</tt> should not have any parameters, i.e., it should be a pure Weyl algebra. Also this ring should not be a homogeneous Weyl algebra.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the annihilating ideal of f^s for an arbitrary D-module" href="___Ann__I__Fs_lp__Ideal_cm__Ring__Element_rp.html">AnnIFs</a> -- the annihilating ideal of f^s for an arbitrary D-module</span>          </li>
+          <li>
+<span><a title="an optional argument" href="../../Macaulay2Doc/html/___Weyl__Algebra.html">WeylAlgebra</a> -- an optional argument</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="the annihilating ideal of f^s" href="___Ann__Fs_lp__Ring__Element_rp.html">AnnFs(RingElement)</a> -- the annihilating ideal of f^s</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

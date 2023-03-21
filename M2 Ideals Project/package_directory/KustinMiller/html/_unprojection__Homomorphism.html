@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>unprojectionHomomorphism -- Compute the homomorphism associated to an unprojection pair</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_vertices_lp__Face_rp.html">next</a> | <a href="___Tom.html">previous</a> | <a href="_vertices_lp__Face_rp.html">forward</a> | <a href="___Tom.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Unprojection and the Kustin-Miller complex construction" href="index.html">KustinMiller</a> :: <a title="Compute the homomorphism associated to an unprojection pair" href="_unprojection__Homomorphism.html">unprojectionHomomorphism</a>    </div>
+    <hr/>
+    <div>
+      <h1>unprojectionHomomorphism -- Compute the homomorphism associated to an unprojection pair</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">unprojectionHomomorphism(I,J)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>J</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, with R/J Gorenstein</span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, contained in J with R/I Gorenstein and dim(R/J)=dim(R/I)-1.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Compute the deformation associated to the unprojection of $I \subset J$ (or equivalently of $J'\subset R/I$ where $R$ = <a title="get the associated ring of an object" href="../../Macaulay2Doc/html/_ring.html">ring</a> $I$ and $J'=$<a title="substituting values for variables" href="../../Macaulay2Doc/html/_substitute.html">substitute</a>$(J,R/I)$), i.e., a homomorphism</p>
+          <p>$\phi : J' \to R/I$</p>
+          <p>such that the unprojected ideal $U\subset R[T]$ is the inverse image of</p>
+          <p>$U' = (T*u - \phi(u)  |  u \in J' ) \subset (R/I)[T]$</p>
+          <p>under the natural map $R[T]\to(R/I)[T]$.</p>
+          <p>The result is represented by a matrix $f$ with <a title="source of a map" href="../../Macaulay2Doc/html/_source.html">source</a> $f$ = J' and <a title="target of a map" href="../../Macaulay2Doc/html/_target.html">target</a> $f$ = (R/I)^1.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x_1..x_4,z_1..z_4, T]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(z_2*z_3-z_1*z_4,x_4*z_3-x_3*z_4,x_2*z_2-x_1*z_4,x_4*z_1-x_3*z_2,x_2*z_1-x_1*z_3)
+
+o2 = ideal (z z  - z z , x z  - x z , x z  - x z , x z  - x z , x z  - x z )
+             2 3    1 4   4 3    3 4   2 2    1 4   4 1    3 2   2 1    1 3
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : J = ideal (z_1..z_4)
+
+o3 = ideal (z , z , z , z )
+             1   2   3   4
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : phi = unprojectionHomomorphism(I,J)
+
+o4 = | x_2x_4 x_2x_3 x_1x_4 x_1x_3 |
+
+o4 : Matrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S = ring target phi;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : I == ideal S
+
+o6 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : source phi
+
+o7 = image | z_4 z_3 z_2 z_1 |
+
+                             1
+o7 : S-module, submodule of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : target phi
+
+      1
+o8 = S
+
+o8 : S-module, free</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Compute Kustin-Miller resolution of the unprojection of I in J" href="_kustin__Miller__Complex.html">kustinMillerComplex</a> -- Compute Kustin-Miller resolution of the unprojection of I in J</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>unprojectionHomomorphism</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;unprojectionHomomorphism(Ideal,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Compute the homomorphism associated to an unprojection pair" href="_unprojection__Homomorphism.html">unprojectionHomomorphism</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

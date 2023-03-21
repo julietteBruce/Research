@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>randomSocleModule(List,ZZ) -- random finite length module with prescribed number of socle elements in single degree</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Realization__Modules.html">next</a> | <a href="_random__Module_lp__List_cm__Z__Z_rp.html">previous</a> | <a href="___Realization__Modules.html">forward</a> | <a href="_random__Module_lp__List_cm__Z__Z_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Betti diagram routines" href="index.html">BoijSoederberg</a> :: <a title="random finite length module with prescribed number of socle elements in single degree" href="_random__Socle__Module_lp__List_cm__Z__Z_rp.html">randomSocleModule(List,ZZ)</a>    </div>
+    <hr/>
+    <div>
+      <h1>randomSocleModule(List,ZZ) -- random finite length module with prescribed number of socle elements in single degree</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="random finite length module with prescribed number of socle elements in single degree" href="_random__Socle__Module_lp__List_cm__Z__Z_rp.html">randomSocleModule</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">randomSocleModule(L,m)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a strictly increasing degree sequence of integers</span>              </li>
+              <li>
+<span><tt>m</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>CoefficientRing</tt> (missing documentation)<!--tag: [randomSocleModule, CoefficientRing]-->
+<tt> => </tt><tt>...</tt>, <span>default value ZZ/101</span>, The base field for the resulting module</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, randomly generated having m b_c socle generators in degree L_c and m b_0 generators, where b = pureBetti L, and c = length L</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+There are many cases where these produce pure resolutions of the minimal size.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : L={0,2,3,7}
+
+o1 = {0, 2, 3, 7}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : B = pureBetti L
+
+o2 = {10, 42, 35, 3}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : betti res randomSocleModule(L,1)
+
+             0  1  2 3
+o3 = total: 10 42 35 3
+         0: 10  .  . .
+         1:  . 42 35 .
+         2:  .  .  . .
+         3:  .  .  . .
+         4:  .  .  . 3
+
+o3 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : betti res randomModule(L,1)
+
+             0  1  2  3
+o4 = total: 10 42 50 18
+         0: 10  .  .  .
+         1:  . 42 26  .
+         2:  .  . 24 18
+
+o4 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+The method used is roughly the following: Given a strictly increasing degree sequence L and a number of generators m, this routine produces a generic module of finite length with the m generators and number of socle elements  and regularity corresponding to the pure resolution with degree sequence L. The module is constructed by taking a certain number of generic elements inside an appropriate direct sum of copies of a zero-dimensional complete intersection. We use the fact that in a polynomial ring in c variables, modulo the r+1 st power of each variable, the part of generated in degree (c-1)r looks like the part of the injective hull of the residue class field generated in degree -r.      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="module with random relations in prescribed degrees" href="_random__Module_lp__List_cm__Z__Z_rp.html">randomModule</a> -- module with random relations in prescribed degrees</span>          </li>
+          <li>
+<span><a title="list of smallest integral Betti numbers corresponding to a degree sequence" href="_pure__Betti_lp__List_rp.html">pureBetti</a> -- list of smallest integral Betti numbers corresponding to a degree sequence</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="random finite length module with prescribed number of socle elements in single degree" href="_random__Socle__Module_lp__List_cm__Z__Z_rp.html">randomSocleModule(List,ZZ)</a> -- random finite length module with prescribed number of socle elements in single degree</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

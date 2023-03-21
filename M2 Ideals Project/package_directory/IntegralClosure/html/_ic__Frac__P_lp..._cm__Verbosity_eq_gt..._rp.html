@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>icFracP(...,Verbosity=>...) -- Prints out the conductor element and the number of intermediate modules it computed.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ic__Fractions.html">next</a> | <a href="_ic__Frac__P_lp..._cm__Limit_eq_gt..._rp.html">previous</a> | <a href="_ic__Fractions.html">forward</a> | <a href="_ic__Frac__P_lp..._cm__Limit_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="routines for integral closure of affine domains and ideals" href="index.html">IntegralClosure</a> :: <a title="Prints out the conductor element and the number of intermediate modules it computed." href="_ic__Frac__P_lp..._cm__Verbosity_eq_gt..._rp.html">icFracP(...,Verbosity=>...)</a>    </div>
+    <hr/>
+    <div>
+      <h1>icFracP(...,Verbosity=>...) -- Prints out the conductor element and the number of intermediate modules it computed.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">icFracP(R, Verbosity => ZZ)</code></dd>
+            </dl>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+The main use of the extra information is in computing the integral closure of principal ideals in <tt>R</tt>, via <a title="compute the integral closure in prime characteristic of a principal ideal" href="_ic__P__Ideal.html">icPIdeal</a>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=ZZ/3[u,v,x,y]/ideal(u*x^2-v*y^2);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : icFracP(R, Verbosity => 1)
+Number of steps: 3,  Conductor Element: x^2
+
+         u*x
+o2 = {1, ---}
+          y
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = ZZ/3[x,y,u,v];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = S/kernel map(S,S,{x-y,x+y^2,x*y,x^2});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : icFracP(R, Verbosity => 1)
+Number of steps: 4,  Conductor Element: x*u*v^2-x*v^3
+
+      u - v  x + y - v
+o5 = {-----, ---------, 1}
+        x      x + 1
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Further information</h2>
+        <ul>
+          <li>
+<span>Default value: <tt>0</tt></span>          </li>
+          <li>
+<span>Function: <span><a title="compute the integral closure in prime characteristic" href="_ic__Frac__P.html">icFracP</a> -- compute the integral closure in prime characteristic</span></span>          </li>
+          <li>
+<span>Option key: <span><a title="an optional argument" href="../../Macaulay2Doc/html/___Verbosity.html">Verbosity</a> -- an optional argument</span></span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Verbosity</tt> :</h2>
+        <ul>
+          <li>
+<span><a title="Prints out the conductor element and the number of intermediate modules it computed." href="_ic__Frac__P_lp..._cm__Verbosity_eq_gt..._rp.html">icFracP(...,Verbosity=>...)</a> -- Prints out the conductor element and the number of intermediate modules it computed.</span>          </li>
+          <li>
+<span><tt>&quot;idealizer(...,Verbosity=>...)&quot;</tt> -- see <span><a title="compute Hom(I,I) as a quotient ring" href="_idealizer.html">idealizer</a> -- compute Hom(I,I) as a quotient ring</span></span>          </li>
+          <li>
+<span><a title="display a certain amount of detail about the computation" href="_integral__Closure_lp..._cm__Verbosity_eq_gt..._rp.html">integralClosure(...,Verbosity=>...)</a> -- display a certain amount of detail about the computation</span>          </li>
+          <li>
+<span><tt>&quot;isPrime(Ideal,Verbosity=>...)&quot;</tt> -- see <span><a title="whether an ideal is prime" href="../../MinimalPrimes/html/_is__Prime_lp__Ideal_rp.html">isPrime(Ideal)</a> -- whether an ideal is prime</span></span>          </li>
+          <li>
+<span><tt>&quot;makeS2(...,Verbosity=>...)&quot;</tt> -- see <span><a title="compute the S2ification of a reduced ring" href="_make__S2.html">makeS2</a> -- compute the S2ification of a reduced ring</span></span>          </li>
+          <li>
+<span><tt>&quot;decompose(Ideal,Verbosity=>...)&quot;</tt> -- see <span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;minimalPrimes(...,Verbosity=>...)&quot;</tt> -- see <span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;ringFromFractions(...,Verbosity=>...)&quot;</tt> -- see <span><a title="find presentation for f.g. ring" href="_ring__From__Fractions.html">ringFromFractions</a> -- find presentation for f.g. ring</span></span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

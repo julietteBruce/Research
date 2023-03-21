@@ -1,0 +1,20 @@
+-- -*- M2-comint -*- hash: -1932744947
+
+i1 : debug MinimalPrimes
+
+i2 : R = ZZ/101[w..z];
+
+i3 : I = ideal(w*x^2-42*y*z, x^6+12*w*y+x^3*z, w^2-47*x^4*z-47*x*z^2);
+
+o3 : Ideal of R
+
+i4 : elapsedTime minimalPrimes(ideal I_*, Strategy => Hybrid{Linear,Birational,Factorization,DecomposeMonomials}, Verbosity => 2);
+  Strategy: Linear            (time .0012385)  #primes = 0 #prunedViaCodim = 0
+  Strategy: Birational        (time .0221435)  #primes = 0 #prunedViaCodim = 0
+  Strategy: Factorization     (time .000431986)  #primes = 0 #prunedViaCodim = 0
+  Strategy: DecomposeMonomials -- Converting annotated ideals to ideals and selecting minimal primes...
+ --  Time taken : .000863826
+ -- 0.0680529 seconds elapsed
+(time .000019958)  #primes = 1 #prunedViaCodim = 0
+
+i5 : 

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>whitneyStratify -- Computes a Whitney stratification of the complex variety in affine or projective space.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_conormal__Ring.html">previous</a> | forward | <a href="_conormal__Ring.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computes Whitney Statifications of complex varieties." href="index.html">WhitneyStratifications</a> :: <a title="Computes a Whitney stratification of the complex variety in affine or projective space." href="_whitney__Stratify.html">whitneyStratify</a>    </div>
+    <hr/>
+    <div>
+      <h1>whitneyStratify -- Computes a Whitney stratification of the complex variety in affine or projective space.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">whitneyStratify(I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal defining a closed subvariety of $\CC^n$ or $\PP^{n}$.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>WS</tt>, <span>a <a title="the class of all mutable hash tables" href="../../Macaulay2Doc/html/___Mutable__Hash__Table.html">mutable hash table</a></span>, a hash table indexed by dimension, with the entry of dimension $i$ consisting of a list of prime ideals. The variety of each prime ideal defines a connected open stratum of $V(I)$ obtained by removing the varieties of all lower dimensional entries of the hash table.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>For a affine or projective complex variety $X$ this command computes a Whitney stratification WS where WS#i is a list of strata closures in dimension $i$; for a prime ideal $P$ in WS#i the associated open (connected) strata is given by $V(P)-Z$ where $Z$ is the union of the varieties defined by the entries of WS#(i-1). We demonstrate the method for the affine Whitney umbrella and its projective closure below.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x..z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I=ideal(y^2*z-x^2)
+
+            2     2
+o2 = ideal(y z - x )
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : WS=whitneyStratify I
+
+o3 = MutableHashTable{...3...}
+
+o3 : MutableHashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : peek WS
+
+o4 = MutableHashTable{0 => {ideal (z, y, x)}}
+                      1 => {ideal (y, x)}
+                                   2     2
+                      2 => {ideal(y z - x )}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Now the projective version.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : S=QQ[x..z,w]
+
+o5 = S
+
+o5 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : I=ideal(y^2*z-x^2*w)
+
+            2     2
+o6 = ideal(y z - x w)
+
+o6 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : WS=whitneyStratify I
+
+o7 = MutableHashTable{...3...}
+
+o7 : MutableHashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : peek WS
+
+o8 = MutableHashTable{0 => {ideal (z, y, x), ideal (w, y, x)}}
+                      1 => {ideal (y, x)}
+                                   2     2
+                      2 => {ideal(y z - x w)}</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Another projective example.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : R=QQ[a_0..a_4]
+
+o9 = R
+
+o9 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : I=ideal(a_0^2*a_4-a_1*a_2^2+a_3^3-a_3*a_0^2-a_4^2*a_3)
+
+                 2    2      3    2        2
+o10 = ideal(- a a  - a a  + a  + a a  - a a )
+               1 2    0 3    3    0 4    3 4
+
+o10 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : V=whitneyStratify I
+
+o11 = MutableHashTable{...4...}
+
+o11 : MutableHashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : peek V
+
+                                                      2     2
+o12 = MutableHashTable{0 => {ideal (a  - a , a , a , a  - 2a ), ideal (a , a , a , a )}}
+                                     3    4   2   1   0     4           4   3   2   0
+                                                  2     2
+                       1 => {ideal (a  - a , a , a  - 2a )}
+                                     3    4   2   0     4
+                                                  2     2
+                       2 => {ideal (a  - a , a , a  - 2a )}
+                                     3    4   2   0     4
+                                      2    2      3    2        2
+                       3 => {ideal(a a  + a a  - a  - a a  + a a )}
+                                    1 2    0 3    3    0 4    3 4</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that as with the Whitney umbrella, simply taking successive singular loci will not yield the correct stratification, in particular one would miss the two points defined by the second entry of V#0.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : J=radical (I+minors(codim I, jacobian I))
+
+                           2     2
+o13 = ideal (a  - a , a , a  - 2a )
+              3    4   2   0     4
+
+o13 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : J2=radical (J+minors(codim J, jacobian J))
+
+o14 = ideal (a , a , a , a )
+              4   3   2   0
+
+o14 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>whitneyStratify</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;whitneyStratify(Ideal)&quot;</tt>          </li>
+          <li>
+<span><tt>whitneyStratify(Ideal,Ring,Ring)</tt> (missing documentation)<!--tag: (whitneyStratify,Ideal,Ring,Ring)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes a Whitney stratification of the complex variety in affine or projective space." href="_whitney__Stratify.html">whitneyStratify</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

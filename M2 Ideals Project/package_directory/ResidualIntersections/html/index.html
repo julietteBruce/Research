@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ResidualIntersections -- Tests for the conditions used in the theory of residual intersections</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_depths__Of__Powers.html">next</a> | previous | <a href="_depths__Of__Powers.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Tests for the conditions used in the theory of residual intersections" href="index.html">ResidualIntersections</a> :: <a title="Tests for the conditions used in the theory of residual intersections" href="index.html">ResidualIntersections</a>    </div>
+    <hr/>
+    <div>
+      <h1>ResidualIntersections -- Tests for the conditions used in the theory of residual intersections</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Definition: If I \subset S is an ideal in a polynomial ring (or Gorenstein ring) and a_1..a_s are elements of I, then K = (a_1..a_s):I is called an s-residual intersection of I if the codimension of K is at least s.</p>
+          <p>In the simplest case, s == codim I, the ideal K is said to be linked to I if also I = (a_1..a_s):K; this is automatic when S/I is Cohen-Macaulay, and in this case S/K is also Cohen-Macaulay; see Peskine-Szpiro, Liaison des variétés algébriques. I. Invent. Math. 26 (1974), 271–302).</p>
+          <p>The theory for s>c, which has been used in algebraic geometry since the 19th century, was initiated in a commutative algebra setting by Artin and Nagata in the paper Residual intersections in Cohen-Macaulay rings. J. Math. Kyoto Univ. 12 (1972), 307–323.</p>
+          <p>Craig Huneke (Strongly Cohen-Macaulay schemes and residual intersections, Trans. Amer. Math. Soc. 277 (1983), no. 2, 739–763) proved that an s-residual intersection K is Cohen-Macaulay if I satisfies the G_d condition and is strongly Cohen-Macaulay, and successive authors have weakened the latter condition to sliding depth, and, most recently, Bernd Ulrich (Artin-Nagata properties and reductions of ideals. Commutative algebra: syzygies, multiplicities, and birational algebra, Contemp. Math., 159, 1994) showed that the weaker condition depth( S/(I^t) ) >= dim(S/I) - (t-1) for t = 1..s-codim I +1 suffices. All these properties are true if I is licci.</p>
+          <p>This package implements tests for most of these properties.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Tests whether an ideal is licci" href="_is__Licci.html">isLicci</a> -- Tests whether an ideal is licci</span>          </li>
+          <li>
+<span><a title="a list of possible residual intersection codimensions" href="_residual__Codims.html">residualCodims</a> -- a list of possible residual intersection codimensions</span>          </li>
+          <li>
+<span><a title="Computes generic residual intersections of an ideal" href="_generic__Residual.html">genericResidual</a> -- Computes generic residual intersections of an ideal</span>          </li>
+          <li>
+<span><a title="a list of possible residual intersection codimensions" href="_residual__Codims.html">residualCodims</a> -- a list of possible residual intersection codimensions</span>          </li>
+          <li>
+<span><a title="Generic Artin nagata" href="_generic__Artin__Nagata.html">genericArtinNagata</a> -- Generic Artin nagata</span>          </li>
+          <li>
+<span><a title="maximum number of generators of localizations of a monomial ideal" href="_numgens__By__Codim.html">numgensByCodim</a> -- maximum number of generators of localizations of a monomial ideal</span>          </li>
+          <li>
+<span><a title="maximum G_s of a monomial ideal" href="_max__Gs.html">maxGs</a> -- maximum G_s of a monomial ideal</span>          </li>
+          <li>
+<span><a title="Computes the depths of the Koszul homology" href="_koszul__Depth.html">koszulDepth</a> -- Computes the depths of the Koszul homology</span>          </li>
+          <li>
+<span><a title="Checks if an ideal has the sliding depth property" href="_has__Sliding__Depth.html">hasSlidingDepth</a> -- Checks if an ideal has the sliding depth property</span>          </li>
+          <li>
+<span><a title="Checks if the given ideal is Strongly Cohen Macaulay" href="_is__Strongly__C__M.html">isStronglyCM</a> -- Checks if the given ideal is Strongly Cohen Macaulay</span>          </li>
+          <li>
+<span><a title="Computes depth of powers of an ideal" href="_depths__Of__Powers.html">depthsOfPowers</a> -- Computes depth of powers of an ideal</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+Katie Ansaldi<span> &lt;<a href="mailto:kansaldi@gmail.com">kansaldi@gmail.com</a>></span>            </li>
+            <li>
+<a href="http://www.msri.org/~de">David Eisenbud</a><span> &lt;<a href="mailto:de@msri.org">de@msri.org</a>></span>            </li>
+            <li>
+<a href="http://rckr.one">Robert Krone</a><span> &lt;<a href="mailto:rckrone@gmail.com">rckrone@gmail.com</a>></span>            </li>
+            <li>
+Jay Yang<span> &lt;<a href="mailto:jkelleyy@gmail.com">jkelleyy@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.1</b> of ResidualIntersections.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/ResidualIntersections.m2">ResidualIntersections.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="Computes depth of powers of an ideal" href="_depths__Of__Powers.html">depthsOfPowers</a> -- Computes depth of powers of an ideal</span>                  </li>
+                  <li>
+<span><a title="Generic Artin nagata" href="_generic__Artin__Nagata.html">genericArtinNagata</a> -- Generic Artin nagata</span>                  </li>
+                  <li>
+<span><a title="Computes generic residual intersections of an ideal" href="_generic__Residual.html">genericResidual</a> -- Computes generic residual intersections of an ideal</span>                  </li>
+                  <li>
+<span><a title="Checks if an ideal has the sliding depth property" href="_has__Sliding__Depth.html">hasSlidingDepth</a> -- Checks if an ideal has the sliding depth property</span>                  </li>
+                  <li>
+<span><a title="Tests whether an ideal is licci" href="_is__Licci.html">isLicci</a> -- Tests whether an ideal is licci</span>                  </li>
+                  <li>
+<span><a title="Checks if the given ideal is Strongly Cohen Macaulay" href="_is__Strongly__C__M.html">isStronglyCM</a> -- Checks if the given ideal is Strongly Cohen Macaulay</span>                  </li>
+                  <li>
+<span><a title="Computes the depths of the Koszul homology" href="_koszul__Depth.html">koszulDepth</a> -- Computes the depths of the Koszul homology</span>                  </li>
+                  <li>
+<span><a title="computes a bound on the number of general links of an ideal to test the licci property" href="_linkage__Bound.html">linkageBound</a> -- computes a bound on the number of general links of an ideal to test the licci property</span>                  </li>
+                  <li>
+<span><a title="maximum G_s of a monomial ideal" href="_max__Gs.html">maxGs</a> -- maximum G_s of a monomial ideal</span>                  </li>
+                  <li>
+<span><a title="maximum number of generators of localizations of a monomial ideal" href="_numgens__By__Codim.html">numgensByCodim</a> -- maximum number of generators of localizations of a monomial ideal</span>                  </li>
+                  <li>
+<span><a title="a list of possible residual intersection codimensions" href="_residual__Codims.html">residualCodims</a> -- a list of possible residual intersection codimensions</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;depthsOfPowers(ZZ,Ideal)&quot;</tt> -- see <span><a title="Computes depth of powers of an ideal" href="_depths__Of__Powers.html">depthsOfPowers</a> -- Computes depth of powers of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;depthsOfPowers(ZZ,ZZ,Ideal)&quot;</tt> -- see <span><a title="Computes depth of powers of an ideal" href="_depths__Of__Powers.html">depthsOfPowers</a> -- Computes depth of powers of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;genericArtinNagata(ZZ,Ideal)&quot;</tt> -- see <span><a title="Generic Artin nagata" href="_generic__Artin__Nagata.html">genericArtinNagata</a> -- Generic Artin nagata</span></span>                  </li>
+                  <li>
+<span><tt>&quot;genericResidual(ZZ,Ideal)&quot;</tt> -- see <span><a title="Computes generic residual intersections of an ideal" href="_generic__Residual.html">genericResidual</a> -- Computes generic residual intersections of an ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hasSlidingDepth(ZZ,Ideal)&quot;</tt> -- see <span><a title="Checks if an ideal has the sliding depth property" href="_has__Sliding__Depth.html">hasSlidingDepth</a> -- Checks if an ideal has the sliding depth property</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLicci(Ideal)&quot;</tt> -- see <span><a title="Tests whether an ideal is licci" href="_is__Licci.html">isLicci</a> -- Tests whether an ideal is licci</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLicci(ZZ,Ideal)&quot;</tt> -- see <span><a title="Tests whether an ideal is licci" href="_is__Licci.html">isLicci</a> -- Tests whether an ideal is licci</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLicci(ZZ,ZZ,Ideal)&quot;</tt> -- see <span><a title="Tests whether an ideal is licci" href="_is__Licci.html">isLicci</a> -- Tests whether an ideal is licci</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isStronglyCM(Ideal)&quot;</tt> -- see <span><a title="Checks if the given ideal is Strongly Cohen Macaulay" href="_is__Strongly__C__M.html">isStronglyCM</a> -- Checks if the given ideal is Strongly Cohen Macaulay</span></span>                  </li>
+                  <li>
+<span><tt>&quot;koszulDepth(Ideal)&quot;</tt> -- see <span><a title="Computes the depths of the Koszul homology" href="_koszul__Depth.html">koszulDepth</a> -- Computes the depths of the Koszul homology</span></span>                  </li>
+                  <li>
+<span><tt>&quot;koszulDepth(ZZ,Ideal)&quot;</tt> -- see <span><a title="Computes the depths of the Koszul homology" href="_koszul__Depth.html">koszulDepth</a> -- Computes the depths of the Koszul homology</span></span>                  </li>
+                  <li>
+<span><tt>&quot;linkageBound(Ideal)&quot;</tt> -- see <span><a title="computes a bound on the number of general links of an ideal to test the licci property" href="_linkage__Bound.html">linkageBound</a> -- computes a bound on the number of general links of an ideal to test the licci property</span></span>                  </li>
+                  <li>
+<span><tt>&quot;maxGs(MonomialIdeal)&quot;</tt> -- see <span><a title="maximum G_s of a monomial ideal" href="_max__Gs.html">maxGs</a> -- maximum G_s of a monomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numgensByCodim(MonomialIdeal)&quot;</tt> -- see <span><a title="maximum number of generators of localizations of a monomial ideal" href="_numgens__By__Codim.html">numgensByCodim</a> -- maximum number of generators of localizations of a monomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;numgensByCodim(MonomialIdeal,ZZ)&quot;</tt> -- see <span><a title="maximum number of generators of localizations of a monomial ideal" href="_numgens__By__Codim.html">numgensByCodim</a> -- maximum number of generators of localizations of a monomial ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;residualCodims(MonomialIdeal)&quot;</tt> -- see <span><a title="a list of possible residual intersection codimensions" href="_residual__Codims.html">residualCodims</a> -- a list of possible residual intersection codimensions</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="option for linkageBound and isLicci" href="___Use__Normal__Module.html">UseNormalModule</a> -- option for linkageBound and isLicci</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Tests for the conditions used in the theory of residual intersections" href="index.html">ResidualIntersections</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

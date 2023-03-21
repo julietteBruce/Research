@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toricMarkov -- calculates a generating set of the toric ideal I_A, given A; invokes &quot;markov&quot; from 4ti2</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="_toric__Groebner.html">previous</a> | forward | <a href="_toric__Groebner.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Interface for 4ti2" href="index.html">FourTiTwo</a> :: <a title="calculates a generating set of the toric ideal I_A, given A; invokes &quot;markov&quot; from 4ti2" href="_toric__Markov.html">toricMarkov</a>    </div>
+    <hr/>
+    <div>
+      <h1>toricMarkov -- calculates a generating set of the toric ideal I_A, given A; invokes &quot;markov&quot; from 4ti2</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toricMarkov(A) or toricMarkov(A, InputType => &quot;lattice&quot;) or toricMarkov(A,R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>A</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, whose columns parametrize the toric variety; the toric ideal is the kernel of the map defined by <tt>A</tt>. Otherwise, if InputType is set to &quot;lattice&quot;, the rows of <tt>A</tt> are a lattice basis and the toric ideal is the saturation of the lattice basis ideal.</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, polynomial ring in which the toric ideal $I_A$ should live</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>InputType</tt><tt> => </tt><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>default value null</span>, which is the string &quot;lattice&quot; if rows of <tt>A</tt> specify a lattice basis</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, whose rows form a Markov Basis of the lattice $\{z {\rm integral} : A z = 0\}$ or the lattice spanned by the rows of <tt>A</tt> if the option <tt>InputType => &quot;lattice&quot;</tt> is used</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Suppose we would like to comput the toric ideal defining the variety parametrized by the following matrix:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = matrix&quot;1,1,1,1;0,1,2,3&quot;
+
+o1 = | 1 1 1 1 |
+     | 0 1 2 3 |
+
+              2        4
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Since there are 4 columns, the ideal will live in the polynomial ring with 4 variables.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = QQ[a..d]
+
+o2 = R
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M = toricMarkov(A)
+
+o3 = | 0 1  -2 1 |
+     | 1 -2 1  0 |
+     | 1 -1 -1 1 |
+
+              3        4
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that rows of M are the exponents of minimal generators of $I_A$.  To get the ideal, we can do the following:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : I = toBinomial(M,R)
+
+               2           2
+o4 = ideal (- c  + b*d, - b  + a*c, - b*c + a*d)
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Alternately, we might wish to give a lattice basis ideal instead of the matrix A. The lattice basis will be specified by a matrix, as follows:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : B = syz A
+
+o5 = | -1 2  |
+     | 2  -3 |
+     | -1 0  |
+     | 0  1  |
+
+              4        2
+o5 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : N = toricMarkov(transpose B, InputType => &quot;lattice&quot;)
+
+o6 = | 0 1  -2 1 |
+     | 1 -2 1  0 |
+     | 1 -1 -1 1 |
+
+              3        4
+o6 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : J = toBinomial(N,R) -- toricMarkov(transpose B, R, InputType => &quot;lattice&quot;)
+
+               2           2
+o7 = ideal (- c  + b*d, - b  + a*c, - b*c + a*d)
+
+o7 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We can see that the two ideals are equal:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : I == J
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Also, notice that instead of the sequence of commands above, we could have used the following:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : toricMarkov(A,R)
+
+               2           2
+o9 = ideal (- c  + b*d, - b  + a*c, - b*c + a*d)
+
+o9 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toricMarkov</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toricMarkov(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;toricMarkov(Matrix,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="calculates a generating set of the toric ideal I_A, given A; invokes &quot;markov&quot; from 4ti2" href="_toric__Markov.html">toricMarkov</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

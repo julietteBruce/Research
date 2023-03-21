@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Bertini input file declarations: random numbers -- an option which designates symbols/strings/variables that will be set to be a random real number or random complex number</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_bertini__Component__Member__Test.html">next</a> | <a href="___Bertini_spinput_spconfiguration.html">previous</a> | <a href="_bertini__Component__Member__Test.html">forward</a> | <a href="___Bertini_spinput_spconfiguration.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="software for numerical algebraic geometry" href="index.html">Bertini</a> :: <a title="an option which designates symbols/strings/variables that will be set to be a random real number or random complex number" href="___Bertini_spinput_spfile_spdeclarations_co_sprandom_spnumbers.html">Bertini input file declarations: random numbers</a>    </div>
+    <hr/>
+    <div>
+      <h1>Bertini input file declarations: random numbers -- an option which designates symbols/strings/variables that will be set to be a random real number or random complex number</h1>
+      <div>
+        <div>
+          <p>This option should be set to a list of symbols, strings, or variables. Elements of this list will be fixed to random real/complex numbers when Bertini is called.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[x,y,c1,c2]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : makeB'InputFile(storeBM2Files,
+              AffVariableGroup=>{{x,y}},
+              RandomReal=>{c1,c2},--c1=.1212, c2=.4132 may be written to the input file.
+              B'Polynomials=>{x-c1,y-c2});</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : R=QQ[x,y,c1,c2]
+
+o3 = R
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : makeB'InputFile(storeBM2Files,
+              AffVariableGroup=>{{x,y}},
+              RandomComplex=>{c1,c2},--c1=.1212+ii*.1344, c2=.4132-ii*.2144 are written to the input file.
+              B'Polynomials=>{x-c1,y-c2});</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>AFTER Bertini is run, the random values are stored in a file named &quot;random_values&quot;.</p>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

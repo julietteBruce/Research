@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isStable -- determines if a subquiver is semistable with respect to a given weight</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Tight.html">next</a> | <a href="_is__Semistable.html">previous</a> | <a href="_is__Tight.html">forward</a> | <a href="_is__Semistable.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="creating and manipulating Toric Quivers" href="index.html">ThinSincereQuivers</a> :: <a title="determines if a subquiver is semistable with respect to a given weight" href="_is__Stable.html">isStable</a>    </div>
+    <hr/>
+    <div>
+      <h1>isStable -- determines if a subquiver is semistable with respect to a given weight</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isStable (L, Q)</code></dd>
+              <dd><code class="language-macaulay2">isStable (SQ, Q)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of the indices of arrows in <tt>Q</tt> that make up the subquiver in question</span>              </li>
+              <li>
+<span><tt>Q</tt>, <span>an instance of the type <a title="the ToricQuiver datatype" href="___Toric__Quiver.html">ToricQuiver</a></span>, </span>              </li>
+              <li>
+<span><tt>SQ</tt>, <span>an instance of the type <a title="the ToricQuiver datatype" href="___Toric__Quiver.html">ToricQuiver</a></span>, A subquiver of the quiver <tt>Q</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function determines if a given subquiver is stable with respect to the weight saved on <tt>Q</tt>. A subquiver <tt>SQ</tt> of the quiver <tt>Q</tt> is stable if for every subset <tt>V</tt> of the vertices of <tt>Q</tt> that is also <tt>SQ</tt>-successor closed, the sum of the weights associated to <tt>V</tt> is positive.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q = bipartiteQuiver(2, 3);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : P = Q^{0,1,4,5};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isStable(P, Q)
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isStable ({0, 1}, bipartiteQuiver(2, 3))
+
+o4 = false</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Q = bipartiteQuiver(2, 3)
+
+o5 = ToricQuiver{flow => {1, 1, 1, 1, 1, 1}                            }
+                 IncidenceMatrix => | -1 -1 -1 0  0  0  |
+                                    | 0  0  0  -1 -1 -1 |
+                                    | 1  0  0  1  0  0  |
+                                    | 0  1  0  0  1  0  |
+                                    | 0  0  1  0  0  1  |
+                 Q0 => {0, 1, 2, 3, 4}
+                 Q1 => {{0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}}
+                 weights => {-3, -3, 2, 2, 2}
+
+o5 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : S = first(subquivers(Q, Format=>&quot;quiver&quot;, AsSubquiver=>true))
+
+o6 = ToricQuiver{flow => {1, 0, 0, 0, 0, 0}                            }
+                 IncidenceMatrix => | -1 -1 -1 0  0  0  |
+                                    | 0  0  0  -1 -1 -1 |
+                                    | 1  0  0  1  0  0  |
+                                    | 0  1  0  0  1  0  |
+                                    | 0  0  1  0  0  1  |
+                 Q0 => {0, 1, 2, 3, 4}
+                 Q1 => {{0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}}
+                 weights => {-1, 0, 1, 0, 0}
+
+o6 : ToricQuiver</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isStable (S, Q)
+
+o7 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isStable</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isStable(List,ToricQuiver)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isStable(ToricQuiver,ToricQuiver)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="determines if a subquiver is semistable with respect to a given weight" href="_is__Stable.html">isStable</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

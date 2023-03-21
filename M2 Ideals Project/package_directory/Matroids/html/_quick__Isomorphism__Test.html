@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>quickIsomorphismTest -- quick checks for isomorphism between matroids</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_rank_lp__Matroid_rp.html">next</a> | <a href="_projective__Geometry.html">previous</a> | <a href="_rank_lp__Matroid_rp.html">forward</a> | <a href="_projective__Geometry.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="quick checks for isomorphism between matroids" href="_quick__Isomorphism__Test.html">quickIsomorphismTest</a>    </div>
+    <hr/>
+    <div>
+      <h1>quickIsomorphismTest -- quick checks for isomorphism between matroids</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">quickIsomorphismTest(M, N)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, either &quot;true&quot; or &quot;false&quot; or &quot;Could be isomorphic&quot;</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method performs relatively quick tests to determine whether or not two matroids are isomorphic. A result of &quot;false&quot; is definitive proof that the matroids are not isomorphic, a result of &quot;true&quot; is definitive proof that the matroids are isomorphic, and a result of &quot;Could be isomorphic&quot; is evidence that the matroids may be isomorphic (although there are nonisomorphic matroids which cannot be detected by this method).</p>
+          <p>If &quot;true&quot; or &quot;false&quot; is returned, use <a title="evaluate" href="../../Macaulay2Doc/html/_value.html">value</a> to convert to a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M0 = matroid(toList(a..z)/toString,{{&quot;m&quot;,&quot;a&quot;,&quot;t&quot;,&quot;r&quot;,&quot;o&quot;,&quot;i&quot;,&quot;d&quot;}})
+
+o1 = a &quot;matroid&quot; of rank 7 on 26 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M1 = matroid(toList(0..25), {{random(ZZ),23,15,12,19,20,11}})
+
+o2 = a &quot;matroid&quot; of rank 7 on 26 elements
+
+o2 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : quickIsomorphismTest(M0, M1)
+
+o3 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : quickIsomorphismTest(matroid random(ZZ^5,ZZ^8), uniformMatroid(5, 8))
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : quickIsomorphismTest(uniformMatroid(5, 9), uniformMatroid(4, 9))
+
+o5 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : M0 = matroid graph({{a,b},{b,c},{c,d},{d,e},{e,f},{f,g},{f,h},{c,h},{c,f},{a,g},{d,g}})
+
+o6 = a &quot;matroid&quot; of rank 7 on 11 elements
+
+o6 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : M1 = matroid graph({{a,b},{b,c},{c,d},{d,e},{e,f},{f,g},{f,h},{c,h},{c,f},{a,g},{a,h}})
+
+o7 = a &quot;matroid&quot; of rank 7 on 11 elements
+
+o7 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R = ZZ[x,y]; tuttePolynomial(M0, R) == tuttePolynomial(M1, R)
+
+o9 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : time quickIsomorphismTest(M0, M1)
+     -- used 0.000648717 seconds
+
+o10 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : value oo === false
+
+o11 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism(Matroid,Matroid)</a> -- computes an isomorphism between isomorphic matroids</span>          </li>
+          <li>
+<span><a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a> -- all isomorphisms between two matroids</span>          </li>
+          <li>
+<span><a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">areIsomorphic(Matroid,Matroid)</a> -- whether two matroids are isomorphic</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>quickIsomorphismTest</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;quickIsomorphismTest(Matroid,Matroid)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="quick checks for isomorphism between matroids" href="_quick__Isomorphism__Test.html">quickIsomorphismTest</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,57 @@
+-- -*- M2-comint -*- hash: 1159647173
+
+i1 : R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+o1 = R
+
+o1 : QuotientRing
+
+i2 : A = koszulComplexDGA(R)
+
+o2 = {Ring => R                      }
+      Underlying algebra => R[T ..T ]
+                               1   3
+      Differential => {a, b, c}
+
+o2 : DGAlgebra
+
+i3 : complexA = toComplex A
+
+      1      3      3      1
+o3 = R  <-- R  <-- R  <-- R
+                           
+     0      1      2      3
+
+o3 : ChainComplex
+
+i4 : complexA.dd
+
+          1                 3
+o4 = 0 : R  <------------- R  : 1
+               | a b c |
+
+          3                        3
+     1 : R  <-------------------- R  : 2
+               {1} | -b -c 0  |
+               {1} | a  0  -c |
+               {1} | 0  a  b  |
+
+          3                  1
+     2 : R  <-------------- R  : 3
+               {2} | c  |
+               {2} | -b |
+               {2} | a  |
+
+o4 : ChainComplexMap
+
+i5 : ranks = apply(4, i -> numgens prune HH_i(complexA))
+
+o5 = {1, 3, 3, 1}
+
+o5 : List
+
+i6 : ranks == apply(4, i -> numgens prune HH_i(koszul vars R))
+
+o6 = true
+
+i7 : 

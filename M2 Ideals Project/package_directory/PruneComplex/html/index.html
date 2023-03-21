@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>PruneComplex -- Pruning chain complexes over polynomial and local rings</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Direction.html">next</a> | previous | <a href="___Direction.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Pruning chain complexes over polynomial and local rings" href="index.html">PruneComplex</a> :: <a title="Pruning chain complexes over polynomial and local rings" href="index.html">PruneComplex</a>    </div>
+    <hr/>
+    <div>
+      <h1>PruneComplex -- Pruning chain complexes over polynomial and local rings</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This package includes various methods for pruning chain complexes over polynomial and local rings. In particular, in the local or graded case the output is guaranteed to be a minimal free resolution.</p>
+          <p>Algorithms in this package are also implemented using C++ in e/mutablecomplex.hpp for speed.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/32003[vars(0..17)];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : m1 = genericMatrix(R,a,3,3)
+
+o2 = | a d g |
+     | b e h |
+     | c f i |
+
+             3       3
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : m2 = genericMatrix(R,j,3,3)
+
+o3 = | j m p |
+     | k n q |
+     | l o r |
+
+             3       3
+o3 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : I = ideal(m1*m2-m2*m1)
+
+o4 = ideal (d*k + g*l - b*m - c*p, b*j - a*k + e*k + h*l - b*n - c*q, c*j +
+     ------------------------------------------------------------------------
+     f*k - a*l + i*l - b*o - c*r, - d*j + a*m - e*m + d*n + g*o - f*p, - d*k
+     ------------------------------------------------------------------------
+     + b*m + h*o - f*q, - d*l + c*m + f*n - e*o + i*o - f*r, - g*j - h*m +
+     ------------------------------------------------------------------------
+     a*p - i*p + d*q + g*r, - g*k - h*n + b*p + e*q - i*q + h*r, - g*l - h*o
+     ------------------------------------------------------------------------
+     + c*p + f*q)
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Here we produce an intentionally nonminimal resolution:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : C = res(I, FastNonminimal=>true)
+
+      1      26      108      208      221      132      41      5
+o5 = R  &lt;-- R   &lt;-- R    &lt;-- R    &lt;-- R    &lt;-- R    &lt;-- R   &lt;-- R  &lt;-- 0
+                                                                        
+     0      1       2        3        4        5        6       7      8
+
+o5 : ChainComplex</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Now we prune the resolution above to get a minimal resolution:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : D = pruneComplex(C, UnitTest => isScalar)
+
+      1      8      33      60      61      32      5
+o6 = R  &lt;-- R  &lt;-- R   &lt;-- R   &lt;-- R   &lt;-- R   &lt;-- R
+                                                    
+     0      1      2       3       4       5       6
+
+o6 : ChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isCommutative D.cache.pruningMap
+
+o7 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : betti D == betti res I
+
+o8 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Only supports localization at prime ideals.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Localizations of polynomial rings at prime ideals" href="../../LocalRings/html/index.html">LocalRings</a> -- Localizations of polynomial rings at prime ideals</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://ocf.berkeley.edu/~mahrud/">Mahrud Sayrafi</a><span> &lt;<a href="mailto:mahrud@berkeley.edu">mahrud@berkeley.edu</a>></span>            </li>
+            <li>
+<a href="http://www.math.cornell.edu/~mike/">Mike Stillman</a><span> &lt;<a href="mailto:mike@math.cornell.edu">mike@math.cornell.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.0</b> of PruneComplex.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/PruneComplex.m2">PruneComplex.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/PruneComplex/">PruneComplex/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="check whether a ring element is a scalar" href="_is__Scalar.html">isScalar</a> -- check whether a ring element is a scalar</span>                  </li>
+                  <li>
+<span><a title="Prunes a chain complex or list of mutable matrices" href="_prune__Complex.html">pruneComplex</a> -- Prunes a chain complex or list of mutable matrices</span>                  </li>
+                  <li>
+<span><a title="Prunes a single differential in a chain complex or list of mutable matrices" href="_prune__Diff.html">pruneDiff</a> -- Prunes a single differential in a chain complex or list of mutable matrices</span>                  </li>
+                  <li>
+<span><a title="Prunes a unit of a differential in a list of mutable matrices" href="_prune__Unit.html">pruneUnit</a> -- Prunes a unit of a differential in a list of mutable matrices</span>                  </li>
+                  <li>
+<span><a title="Converts a list of mutable matrices into a ChainComplex." href="_to__Chain__Complex.html">toChainComplex</a> -- Converts a list of mutable matrices into a ChainComplex.</span>                  </li>
+                  <li>
+<span><a title="Converts a chain complex into a list of mutable matrices." href="_to__Mutable__Complex.html">toMutableComplex</a> -- Converts a chain complex into a list of mutable matrices.</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;isScalar(RingElement)&quot;</tt> -- see <span><a title="check whether a ring element is a scalar" href="_is__Scalar.html">isScalar</a> -- check whether a ring element is a scalar</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneComplex(ChainComplex)&quot;</tt> -- see <span><a title="Prunes a chain complex or list of mutable matrices" href="_prune__Complex.html">pruneComplex</a> -- Prunes a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneComplex(ChainComplex,ZZ)&quot;</tt> -- see <span><a title="Prunes a chain complex or list of mutable matrices" href="_prune__Complex.html">pruneComplex</a> -- Prunes a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneComplex(List)&quot;</tt> -- see <span><a title="Prunes a chain complex or list of mutable matrices" href="_prune__Complex.html">pruneComplex</a> -- Prunes a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneComplex(List,ZZ)&quot;</tt> -- see <span><a title="Prunes a chain complex or list of mutable matrices" href="_prune__Complex.html">pruneComplex</a> -- Prunes a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneDiff(ChainComplex,ZZ)&quot;</tt> -- see <span><a title="Prunes a single differential in a chain complex or list of mutable matrices" href="_prune__Diff.html">pruneDiff</a> -- Prunes a single differential in a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneDiff(ChainComplex,ZZ,List)&quot;</tt> -- see <span><a title="Prunes a single differential in a chain complex or list of mutable matrices" href="_prune__Diff.html">pruneDiff</a> -- Prunes a single differential in a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneDiff(List,ZZ)&quot;</tt> -- see <span><a title="Prunes a single differential in a chain complex or list of mutable matrices" href="_prune__Diff.html">pruneDiff</a> -- Prunes a single differential in a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneDiff(List,ZZ,List)&quot;</tt> -- see <span><a title="Prunes a single differential in a chain complex or list of mutable matrices" href="_prune__Diff.html">pruneDiff</a> -- Prunes a single differential in a chain complex or list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;pruneUnit(List,ZZ,Sequence,List)&quot;</tt> -- see <span><a title="Prunes a unit of a differential in a list of mutable matrices" href="_prune__Unit.html">pruneUnit</a> -- Prunes a unit of a differential in a list of mutable matrices</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toChainComplex(List)&quot;</tt> -- see <span><a title="Converts a list of mutable matrices into a ChainComplex." href="_to__Chain__Complex.html">toChainComplex</a> -- Converts a list of mutable matrices into a ChainComplex.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toChainComplex(List,Module)&quot;</tt> -- see <span><a title="Converts a list of mutable matrices into a ChainComplex." href="_to__Chain__Complex.html">toChainComplex</a> -- Converts a list of mutable matrices into a ChainComplex.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toMutableComplex(ChainComplex)&quot;</tt> -- see <span><a title="Converts a chain complex into a list of mutable matrices." href="_to__Mutable__Complex.html">toMutableComplex</a> -- Converts a chain complex into a list of mutable matrices.</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="Determines the direction with which the matrices in the complex is pruned" href="___Direction.html">Direction</a> -- Determines the direction with which the matrices in the complex is pruned</span>                  </li>
+                  <li>
+<span><a title="Whether to compute a morphism of complexes" href="___Pruning__Map.html">PruningMap</a> -- Whether to compute a morphism of complexes</span>                  </li>
+                  <li>
+<span><a title="Limit which units are to be pruned" href="___Unit__Test.html">UnitTest</a> -- Limit which units are to be pruned</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Pruning chain complexes over polynomial and local rings" href="index.html">PruneComplex</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

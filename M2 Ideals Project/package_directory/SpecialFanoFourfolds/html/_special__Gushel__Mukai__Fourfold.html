@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>specialGushelMukaiFourfold -- make a special Gushel-Mukai fourfold</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_special__Gushel__Mukai__Fourfold_lp__Array_cm__Array_cm__String_cm__Thing_rp.html">next</a> | <a href="___Special__Gushel__Mukai__Fourfold.html">previous</a> | <a href="_special__Gushel__Mukai__Fourfold_lp__Array_cm__Array_cm__String_cm__Thing_rp.html">forward</a> | <a href="___Special__Gushel__Mukai__Fourfold.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with Hodge-special fourfolds" href="index.html">SpecialFanoFourfolds</a> :: <a title="make a special Gushel-Mukai fourfold" href="_special__Gushel__Mukai__Fourfold.html">specialGushelMukaiFourfold</a>    </div>
+    <hr/>
+    <div>
+      <h1>specialGushelMukaiFourfold -- make a special Gushel-Mukai fourfold</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">specialGushelMukaiFourfold(S,X)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>an <a title="the class of all embedded projective varieties" href="../../MultiprojectiveVarieties/html/___Embedded__Projective__Variety.html">embedded projective variety</a></span>, a smooth irreducible surface $S\subset\mathbb{P}^8$</span>              </li>
+              <li>
+<span><tt>X</tt>, <span>an <a title="the class of all embedded projective varieties" href="../../MultiprojectiveVarieties/html/___Embedded__Projective__Variety.html">embedded projective variety</a></span>, a smooth prime Fano fourfold $X\subset \mathbb{P}^8$ of degree 10 and sectional genus 6, which contains the surface $S$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>InputCheck</tt><tt> => </tt><tt>...</tt>, <span>default value 1</span></span>              </li>
+              <li>
+<span><a title="request verbose feedback" href="___Verbose.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, request verbose feedback</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all special Gushel-Mukai fourfolds" href="___Special__Gushel__Mukai__Fourfold.html">special Gushel-Mukai fourfold</a></span>, the special Gushel-Mukai fourfold corresponding to the pair $(S,X)$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>In the following example, we define a Gushel-Mukai fourfold containing a so-called $\tau$-quadric.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : K = ZZ/33331; x = gens ring PP_K^8;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = projectiveVariety ideal(x_6-x_7, x_5, x_3-x_4, x_1, x_0-x_4, x_2*x_7-x_4*x_8);
+
+o3 : ProjectiveVariety, surface in PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : X = projectiveVariety ideal(x_4*x_6-x_3*x_7+x_1*x_8, x_4*x_5-x_2*x_7+x_0*x_8, x_3*x_5-x_2*x_6+x_0*x_8+x_1*x_8-x_5*x_8, x_1*x_5-x_0*x_6+x_0*x_7+x_1*x_7-x_5*x_7, x_1*x_2-x_0*x_3+x_0*x_4+x_1*x_4-x_2*x_7+x_0*x_8, x_0^2+x_0*x_1+x_1^2+x_0*x_2+2*x_0*x_3+x_1*x_3+x_2*x_3+x_3^2-x_0*x_4-x_1*x_4-2*x_2*x_4-x_3*x_4-2*x_4^2+x_0*x_5+x_2*x_5+x_5^2+2*x_0*x_6+x_1*x_6+2*x_2*x_6+x_3*x_6+x_5*x_6+x_6^2-3*x_4*x_7+2*x_5*x_7-x_7^2+x_1*x_8+x_3*x_8-3*x_4*x_8+2*x_5*x_8+x_6*x_8-x_7*x_8);
+
+o4 : ProjectiveVariety, 4-dimensional subvariety of PP^8</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time F = specialGushelMukaiFourfold(S,X);
+     -- used 2.00452 seconds
+
+o5 : ProjectiveVariety, GM fourfold containing a surface of degree 2 and sectional genus 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time describe F
+     -- used 4.26275 seconds
+
+o6 = Special Gushel-Mukai fourfold of discriminant 10(')
+     containing a surface in PP^8 of degree 2 and sectional genus 0
+     cut out by 6 hypersurfaces of degrees (1,1,1,1,1,2)
+     and with class in G(1,4) given by s_(3,1)+s_(2,2)
+     Type: ordinary
+     (case 1 of Table 1 in arXiv:2002.07026)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : assert(F == X)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="random special Gushel-Mukai fourfold" href="_special__Gushel__Mukai__Fourfold_lp__Embedded__Projective__Variety_rp.html">specialGushelMukaiFourfold(EmbeddedProjectiveVariety)</a> -- random special Gushel-Mukai fourfold</span>          </li>
+          <li>
+<span><a title="random special Gushel-Mukai fourfold of a given type" href="_special__Gushel__Mukai__Fourfold_lp__String_cm__Ring_rp.html">specialGushelMukaiFourfold(String,Ring)</a> -- random special Gushel-Mukai fourfold of a given type</span>          </li>
+          <li>
+<span><a title="make a Hodge-special fourfold" href="_special__Fourfold.html">specialFourfold</a> -- make a Hodge-special fourfold</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>specialGushelMukaiFourfold</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;specialGushelMukaiFourfold(EmbeddedProjectiveVariety,EmbeddedProjectiveVariety)&quot;</tt>          </li>
+          <li>
+<tt>&quot;specialGushelMukaiFourfold(Ideal,Ideal)&quot;</tt>          </li>
+          <li>
+<span><tt>&quot;specialGushelMukaiFourfold(Array,Array)&quot;</tt> -- see <span><a title="construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6" href="_special__Gushel__Mukai__Fourfold_lp__Array_cm__Array_cm__String_cm__Thing_rp.html">specialGushelMukaiFourfold(Array,Array,String,Thing)</a> -- construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6</span></span>          </li>
+          <li>
+<span><tt>&quot;specialGushelMukaiFourfold(Array,Array,String)&quot;</tt> -- see <span><a title="construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6" href="_special__Gushel__Mukai__Fourfold_lp__Array_cm__Array_cm__String_cm__Thing_rp.html">specialGushelMukaiFourfold(Array,Array,String,Thing)</a> -- construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6</span></span>          </li>
+          <li>
+<span><a title="construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6" href="_special__Gushel__Mukai__Fourfold_lp__Array_cm__Array_cm__String_cm__Thing_rp.html">specialGushelMukaiFourfold(Array,Array,String,Thing)</a> -- construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6</span>          </li>
+          <li>
+<span><tt>&quot;specialGushelMukaiFourfold(Array,Array,Thing)&quot;</tt> -- see <span><a title="construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6" href="_special__Gushel__Mukai__Fourfold_lp__Array_cm__Array_cm__String_cm__Thing_rp.html">specialGushelMukaiFourfold(Array,Array,String,Thing)</a> -- construct GM fourfolds by gluing cubic or quartic scrolls to surfaces in PP^6</span></span>          </li>
+          <li>
+<span><a title="random special Gushel-Mukai fourfold" href="_special__Gushel__Mukai__Fourfold_lp__Embedded__Projective__Variety_rp.html">specialGushelMukaiFourfold(EmbeddedProjectiveVariety)</a> -- random special Gushel-Mukai fourfold</span>          </li>
+          <li>
+<span><tt>&quot;specialGushelMukaiFourfold(Ideal)&quot;</tt> -- see <span><a title="random special Gushel-Mukai fourfold" href="_special__Gushel__Mukai__Fourfold_lp__Embedded__Projective__Variety_rp.html">specialGushelMukaiFourfold(EmbeddedProjectiveVariety)</a> -- random special Gushel-Mukai fourfold</span></span>          </li>
+          <li>
+<span><tt>&quot;specialGushelMukaiFourfold(String)&quot;</tt> -- see <span><a title="random special Gushel-Mukai fourfold of a given type" href="_special__Gushel__Mukai__Fourfold_lp__String_cm__Ring_rp.html">specialGushelMukaiFourfold(String,Ring)</a> -- random special Gushel-Mukai fourfold of a given type</span></span>          </li>
+          <li>
+<span><a title="random special Gushel-Mukai fourfold of a given type" href="_special__Gushel__Mukai__Fourfold_lp__String_cm__Ring_rp.html">specialGushelMukaiFourfold(String,Ring)</a> -- random special Gushel-Mukai fourfold of a given type</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="make a special Gushel-Mukai fourfold" href="_special__Gushel__Mukai__Fourfold.html">specialGushelMukaiFourfold</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

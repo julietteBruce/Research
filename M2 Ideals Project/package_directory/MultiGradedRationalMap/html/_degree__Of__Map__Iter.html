@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>degreeOfMapIter -- computes the degree of a rational map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_gens__Sat__Special__Fib.html">next</a> | <a href="_degree__Of__Map_lp..._cm__Strategy_eq_gt..._rp.html">previous</a> | <a href="_gens__Sat__Special__Fib.html">forward</a> | <a href="_degree__Of__Map_lp..._cm__Strategy_eq_gt..._rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">MultiGradedRationalMap</a> :: <a title="computes the degree of a rational map" href="_degree__Of__Map__Iter.html">degreeOfMapIter</a>    </div>
+    <hr/>
+    <div>
+      <h1>degreeOfMapIter -- computes the degree of a rational map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">degreeOfMapIter(I, nsteps)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal defining the map</span>              </li>
+              <li>
+<span><tt>nsteps</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the number of steps used for computing the saturated special fiber ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree of the corresponding rational map</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let $R$ be the multi-homogeneous polynomial ring $R=k[x_{1,0},x_{1,1},...,x_{1,r_1}, x_{2,0},x_{2,1},...,x_{2,r_2}, ......, x_{m,0},x_{m,1},...,x_{m,r_m}]$ and $I$ be the multi-homogeneous ideal $I=(f_0,f_1,...,f_s)$ where the polynomials $f_i$'s have the same multi-degree. We compute the degree of the rational map $\mathbb{F}: \mathbb{P}^{r_1} \times \mathbb{P}^{r_2} \times ... \times \mathbb{P}^{r_m}  \to \mathbb{P}^s$ defined by $$ (x_{1,0} : ... : x_{1,r_1}; ...... ;x_{m,0} : ... : x_{m,r_m}) \to (f_0(x_{1,0},...,x_{1,r_1}, ...... ,x_{m,0},...,x_{m,r_m}), ..... , f_0(x_{1,0},...,x_{1,r_1}, ...... ,x_{m,0},...,x_{m,r_m})). $$ This method calls &quot;satSpecialFiber(I, nsteps)&quot; in order to obtain the saturated special fiber ring and then computes the degree of $\mathbb{F}$ from the multiplicity of the saturated special fiber ring.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,u,v, Degrees => {{1,0}, {1,0}, {0,1}, {0,1}}]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(x*u, y*u, y*v) -- a birational map
+
+o2 = ideal (x*u, y*u, y*v)
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : degreeOfMapIter(I, 5)
+
+o3 = 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : I = ideal(x*u, y*v, x*v + y*u) -- a non birational map
+
+o4 = ideal (x*u, y*v, y*u + x*v)
+
+o4 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : degreeOfMapIter(I, 5)
+
+o5 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : A = matrix{ {x^5*u,  x^2*v^2},
+                 {y^5*v, x^2*u^2},
+                 {0,     y^2*v^2}
+               };
+
+             3       2
+o6 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : I = minors(2, A)  -- a non birational
+
+             7 3    2 5 3   5 2   2   7 3
+o7 = ideal (x u  - x y v , x y u*v , y v )
+
+o7 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : degreeOfMapIter(I, 5)
+
+o8 = 10</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>It only gives the correct answer if nteps is big enough to attain all the generators of the saturated special fiber ring.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>degreeOfMapIter</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;degreeOfMapIter(Ideal,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the degree of a rational map" href="_degree__Of__Map__Iter.html">degreeOfMapIter</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

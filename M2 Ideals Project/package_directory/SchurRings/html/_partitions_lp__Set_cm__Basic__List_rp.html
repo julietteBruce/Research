@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>partitions(Set,BasicList) -- Partitions of a set</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_plethysm.html">next</a> | <a href="_numgens_lp__Schur__Ring_rp.html">previous</a> | <a href="_plethysm.html">forward</a> | <a href="_numgens_lp__Schur__Ring_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Rings representing irreducible representations of general linear or symmetric groups" href="index.html">SchurRings</a> :: <a title="Partitions of a set" href="_partitions_lp__Set_cm__Basic__List_rp.html">partitions(Set,BasicList)</a>    </div>
+    <hr/>
+    <div>
+      <h1>partitions(Set,BasicList) -- Partitions of a set</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="list the partitions of an integer" href="../../Macaulay2Doc/html/_partitions.html">partitions</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">par = partitions(S,L)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all sets" href="../../Macaulay2Doc/html/___Set.html">set</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all basic lists" href="../../Macaulay2Doc/html/___Basic__List.html">basic list</a></span>, a nonincreasing list of integers, or a partition</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>par</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p></p>
+          <p>Given a set <tt>S</tt> and a partition <tt>L=\{l_1\geq l_2\cdots\}</tt>, the method returns the list of partitions of the set <tt>S</tt> of type <tt>L</tt>, i.e. representations of <tt>S</tt> as <tt>S=S_1\cup S_2\cup\cdots</tt>, where the <tt>S_i</tt>'s are disjoint subsets of <tt>S</tt> having <tt>t_i</tt> elements.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : partitions(set{1,2,3,4},{2,1,1})
+
+o1 = {set {set {1, 2}, set {3}, set {4}}, set {set {1, 3}, set {2}, set {4}},
+     ------------------------------------------------------------------------
+     set {set {1, 4}, set {2}, set {3}}, set {set {1}, set {2, 3}, set {4}},
+     ------------------------------------------------------------------------
+     set {set {1}, set {2, 4}, set {3}}, set {set {1}, set {2}, set {3, 4}}}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : partitions(set{a,b,c,d,e},new Partition from {3,2})
+
+o2 = {set {set {a, b}, set {c, d, e}}, set {set {a, c, d}, set {b, e}}, set
+     ------------------------------------------------------------------------
+     {set {a, e}, set {b, c, d}}, set {set {a, c, e}, set {b, d}}, set {set
+     ------------------------------------------------------------------------
+     {a, d}, set {b, c, e}}, set {set {a, b, c}, set {d, e}}, set {set {a, d,
+     ------------------------------------------------------------------------
+     e}, set {b, c}}, set {set {a, c}, set {b, d, e}}, set {set {a, b, d},
+     ------------------------------------------------------------------------
+     set {c, e}}, set {set {a, b, e}, set {c, d}}}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Partitions of a set" href="_partitions_lp__Set_cm__Basic__List_rp.html">partitions(Set,BasicList)</a> -- Partitions of a set</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

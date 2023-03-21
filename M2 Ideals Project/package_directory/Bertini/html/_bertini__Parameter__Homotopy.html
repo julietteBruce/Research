@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>bertiniParameterHomotopy -- a main method to perform a parameter homotopy in Bertini</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_bertini__Pos__Dim__Solve.html">next</a> | <a href="_bertini__Component__Member__Test.html">previous</a> | <a href="_bertini__Pos__Dim__Solve.html">forward</a> | <a href="_bertini__Component__Member__Test.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="software for numerical algebraic geometry" href="index.html">Bertini</a> :: <a title="a main method to perform a parameter homotopy in Bertini" href="_bertini__Parameter__Homotopy.html">bertiniParameterHomotopy</a>    </div>
+    <hr/>
+    <div>
+      <h1>bertiniParameterHomotopy -- a main method to perform a parameter homotopy in Bertini</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">S = bertiniParameterHomotopy(F,P,T)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of polynomials</span>              </li>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of parameter indeterminants</span>              </li>
+              <li>
+<span><tt>T</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of lists of target parameter values</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="an option to group variables and use multihomogeneous homotopies" href="___Variable_spgroups.html">AffVariableGroup</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, an option to group variables and use multihomogeneous homotopies</span>              </li>
+              <li>
+<span><a title="an option to designate the constants for a Bertini Input file" href="___B_sq__Constants.html">B'Constants</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, an option to designate the constants for a Bertini Input file</span>              </li>
+              <li>
+<span><tt>B'Functions</tt> (missing documentation)<!--tag: [bertiniParameterHomotopy, B'Functions]-->
+<tt> => </tt><tt>...</tt>, <span>default value {}</span>, </span>              </li>
+              <li>
+<span><tt>BertiniInputConfiguration</tt> (missing documentation)<!--tag: [bertiniParameterHomotopy, BertiniInputConfiguration]-->
+<tt> => </tt><tt>...</tt>, <span>default value {}</span>, </span>              </li>
+              <li>
+<span><a title="an option to group variables and use multihomogeneous homotopies" href="___Variable_spgroups.html">HomVariableGroup</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, an option to group variables and use multihomogeneous homotopies</span>              </li>
+              <li>
+<span><tt>M2Precision</tt> (missing documentation)<!--tag: [bertiniParameterHomotopy, M2Precision]-->
+<tt> => </tt><tt>...</tt>, <span>default value 53</span>, </span>              </li>
+              <li>
+<span><tt>OutputStyle</tt> (missing documentation)<!--tag: [bertiniParameterHomotopy, OutputStyle]-->
+<tt> => </tt><tt>...</tt>, <span>default value &quot;OutPoints&quot;</span>, </span>              </li>
+              <li>
+<span><a title="an option which designates symbols/strings/variables that will be set to be a random real number or random complex number" href="___Bertini_spinput_spfile_spdeclarations_co_sprandom_spnumbers.html">RandomComplex</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, an option which designates symbols/strings/variables that will be set to be a random real number or random complex number</span>              </li>
+              <li>
+<span><a title="an option which designates symbols/strings/variables that will be set to be a random real number or random complex number" href="___Bertini_spinput_spfile_spdeclarations_co_sprandom_spnumbers.html">RandomReal</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, an option which designates symbols/strings/variables that will be set to be a random real number or random complex number</span>              </li>
+              <li>
+<span><a title="Option to change directory for file storage." href="___Top__Directory.html">TopDirectory</a><tt> => </tt><tt>...</tt>, <span>default value &quot;/private/tmp/M2-98724-0/0&quot;</span>, Option to change directory for file storage.</span>              </li>
+              <li>
+<span><a title="Option to silence additional output" href="_bertini__Track__Homotopy_lp..._cm__Verbose_eq_gt..._rp.html">Verbose</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, Option to silence additional output</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list whose entries are lists of solutions for each target system</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method numerically solves several polynomial systems from a parameterized family at once.  The list F is a system of polynomials in ring variables and the parameters listed in P.  The list T is the set of parameter values for which solutions to F are desired.  Both stages of <tt>Bertini</tt>'s parameter homotopy method are called with <tt>bertiniParameterHomotopy</tt>. First, <tt>Bertini</tt> assigns a random complex number to each parameter and solves the resulting system, then, after this initial phase, <tt>Bertini</tt> computes solutions for every given choice of parameters using a number of paths equal to the exact root count in the first stage.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=CC[u1,u2,u3,x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f1=u1*(y-1)+u2*(y-2)+u3*(y-3); --parameters are u1, u2, and u3</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f2=(x-11)*(x-12)*(x-13)-u1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : paramValues0={1,0,0};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : paramValues1={0,1+2*ii,0};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : bPH=bertiniParameterHomotopy( {f1,f2}, {u1,u2,u3},{paramValues0 ,paramValues1 })
+
+o6 = {{{11.3376+.56228*ii, 1}, {13.3247, 1}, {11.3376-.56228*ii, 1}}, {{12,
+     ------------------------------------------------------------------------
+     2}, {13, 2}, {11, 2}}}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : bPH_0--the solutions to the system with parameters set equal to paramValues0
+
+o7 = {{11.3376+.56228*ii, 1}, {13.3247, 1}, {11.3376-.56228*ii, 1}}
+
+o7 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R=CC[x,y,z,u1,u2]
+
+o8 = R
+
+o8 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : f1=x^2+y^2-z^2
+
+      2    2    2
+o9 = x  + y  - z
+
+o9 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : f2=u1*x+u2*y
+
+o10 = x*u1 + y*u2
+
+o10 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : finalParameters0={0,1}
+
+o11 = {0, 1}
+
+o11 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : finalParameters1={1,0}
+
+o12 = {1, 0}
+
+o12 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : bPH=bertiniParameterHomotopy( {f1,f2}, {u1,u2},{finalParameters0 ,finalParameters1 },HomVariableGroup=>{x,y,z})
+
+o13 = {{{1, -2.30252e-16+1.70802e-16*ii, -1}, {1,
+      -----------------------------------------------------------------------
+      -5.73444e-16+3.53557e-16*ii, 1}}, {{-2.9577e-16-1.70683e-16*ii, 1, 1},
+      -----------------------------------------------------------------------
+      {-2.1372e-17-6.80607e-17*ii, 1, -1}}}
+
+o13 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : bPH_0--The two solutions for finalParameters0
+
+o14 = {{1, -2.30252e-16+1.70802e-16*ii, -1}, {1, -5.73444e-16+3.53557e-16*ii,
+      -----------------------------------------------------------------------
+      1}}
+
+o14 : List</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : finParamValues={{1},{2}}
+
+o15 = {{1}, {2}}
+
+o15 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : bPH1=bertiniParameterHomotopy( {&quot;x^2-u1&quot;}, {u1},finParamValues,AffVariableGroup=>{x})
+
+o16 = {{{1}, {-1}}, {{1.41421}, {-1.41421}}}
+
+o16 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : bPH2=bertiniParameterHomotopy( {&quot;x^2-u1&quot;}, {u1},finParamValues,AffVariableGroup=>{x},OutputStyle=>&quot;OutSolutions&quot;)
+
+o17 = {{{1}, {-1}}, {{1.41421}, {-1.41421}}}
+
+o17 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : class bPH1_0_0
+
+o18 = Point
+
+o18 : Type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : class bPH2_0_0
+
+o19 = List
+
+o19 : Type</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : dir1 := temporaryFileName(); -- build a directory to store temporary data</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : makeDirectory dir1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : bPH5=bertiniParameterHomotopy( {&quot;x^2-u1&quot;}, {u1},{{1},{2}},AffVariableGroup=>{x},OutputStyle=>&quot;OutNone&quot;,TopDirectory=>dir1)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i23 : B0=importSolutionsFile(dir1,NameSolutionsFile=>&quot;ph_jade_0&quot;)
+
+o23 = {{1}, {-1}}
+
+o23 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i24 : B1=importSolutionsFile(dir1,NameSolutionsFile=>&quot;ph_jade_1&quot;)
+
+o24 = {{1.41421}, {-1.41421}}
+
+o24 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>bertiniParameterHomotopy</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;bertiniParameterHomotopy(List,List,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a main method to perform a parameter homotopy in Bertini" href="_bertini__Parameter__Homotopy.html">bertiniParameterHomotopy</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

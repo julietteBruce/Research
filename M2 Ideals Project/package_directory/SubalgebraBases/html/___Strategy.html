@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Strategy -- an optional argument</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_subalgebra__Basis.html">next</a> | <a href="___Store__Pending.html">previous</a> | <a href="_subalgebra__Basis.html">forward</a> | <a href="___Store__Pending.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for finding canonical subalgebra bases (Sagbi bases)" href="index.html">SubalgebraBases</a> :: <a title="Update procedure for the Sagbi algorithm" href="___Strategy.html">Strategy</a>    </div>
+    <hr/>
+    <div>
+      <h1>Strategy -- Update procedure for the Sagbi algorithm</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>At the beginning of each loop inside of <a title="Compute a subalgebra basis (sagbi basis)" href="_sagbi.html">sagbi</a>, the main <a title="The type of all sagbi bases" href="___S__A__G__B__I__Basis.html">SAGBIBasis</a> computation object is updated. There are two types of update procedure; they are selected by setting Strategy to either \&quot;DegreeByDegree\&quot; or \&quot;Incremental\&quot;. The \&quot;DegreeByDegree\&quot; strategy computes a partial groebner basis of the <i>reduction ideal</i> from scratch. The \&quot;Incremental\&quot; strategy computes a full groebner basis of the <i>reduction ideal</i> by using the previous full groebner basis together with the data of the new sagbi generators. The \&quot;DegreeByDegree\&quot; strategy is better when many new generators are added during each loop of the Sagbi algorithm. The \&quot;Incremental\&quot; strategy is better when there is little change to the number of sagbi generators. For many examples, it is observed that many new generators are added at the beginning of sagbi basis computations. Then towards the end of the computation, there are very few new generators that are added. By setting Strategy to \&quot;Master\&quot; (default), the \&quot;DegreeByDegree\&quot; strategy is used at the beginning and the strategy switches to \&quot;Incremental\&quot; part of the way through the algorithm.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Compute a subalgebra basis (sagbi basis)" href="_sagbi.html">sagbi</a> -- Compute a subalgebra basis (sagbi basis)</span>          </li>
+          <li>
+<span><a title="Flag for autosubduction before the Sagbi algorithm" href="___Auto__Subduce.html">AutoSubduce</a> -- Flag for autosubduction before the Sagbi algorithm</span>          </li>
+          <li>
+<span><a title="Flag for reducing new generators in Sagbi algorithm" href="___Reduce__New__Generators.html">ReduceNewGenerators</a> -- Flag for reducing new generators in Sagbi algorithm</span>          </li>
+          <li>
+<span><a title="Flag for storing the pending list to the result of the Sagbi algorithm" href="___Store__Pending.html">StorePending</a> -- Flag for storing the pending list to the result of the Sagbi algorithm</span>          </li>
+          <li>
+<span><a title="an optional argument" href="../../Macaulay2Doc/html/___Strategy.html">Strategy</a> -- an optional argument</span>          </li>
+          <li>
+<span><a title="Subduction method for the Sagbi algorithm" href="___Subduction__Method.html">SubductionMethod</a> -- Subduction method for the Sagbi algorithm</span>          </li>
+          <li>
+<span><a title="an optional argument" href="../../Macaulay2Doc/html/___Limit.html">Limit</a> -- an optional argument</span>          </li>
+          <li>
+<span><a title="Subduct sagbi generators at the end of the Sagbi algorithm" href="___Auto__Subduce__On__Partial__Completion.html">AutoSubduceOnPartialCompletion</a> -- Subduct sagbi generators at the end of the Sagbi algorithm</span>          </li>
+          <li>
+<span><a title="Levels of information displayed during Sagbi algorithm" href="___Print__Level.html">PrintLevel</a> -- Levels of information displayed during Sagbi algorithm</span>          </li>
+          <li>
+<span><a title="Flag for restarting a sagbi computation" href="___Recompute.html">Recompute</a> -- Flag for restarting a sagbi computation</span>          </li>
+          <li>
+<span><a title="Flag for reselecting the options for a sagbi computation" href="___Renew__Options.html">RenewOptions</a> -- Flag for reselecting the options for a sagbi computation</span>          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Functions with optional argument named <tt>Strategy</tt> :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;addHook(...,Strategy=>...)&quot;</tt> -- see <span><a title="add a hook function to an object for later processing" href="../../Macaulay2Doc/html/_add__Hook.html">addHook</a> -- add a hook function to an object for later processing</span></span>          </li>
+          <li>
+<span><tt>&quot;annihilator(...,Strategy=>...)&quot;</tt> -- see <span><a title="the annihilator ideal" href="../../Saturation/html/_annihilator.html">annihilator</a> -- the annihilator ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;associatedPrimes(...,Strategy=>...)&quot;</tt> -- see <span><a title="find associated primes" href="../../PrimaryDecomposition/html/_associated__Primes.html">associatedPrimes</a> -- find associated primes</span></span>          </li>
+          <li>
+<span><tt>&quot;basis(...,Strategy=>...)&quot;</tt> -- see <span><a title="basis or generating set of all or part of a ring, ideal or module" href="../../Macaulay2Doc/html/_basis.html">basis</a> -- basis or generating set of all or part of a ring, ideal or module</span></span>          </li>
+          <li>
+<span><tt>&quot;mingens(...,Strategy=>...)&quot;</tt> -- see <span><a title="a Strategy option value" href="../../Macaulay2Doc/html/___Complement.html">Complement</a> -- a Strategy option value</span></span>          </li>
+          <li>
+<span><tt>&quot;trim(...,Strategy=>...)&quot;</tt> -- see <span><a title="a Strategy option value" href="../../Macaulay2Doc/html/___Complement.html">Complement</a> -- a Strategy option value</span></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_determinant_lp..._cm__Strategy_eq_gt..._rp.html">determinant(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;dual(MonomialIdeal,List,Strategy=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span></span>          </li>
+          <li>
+<span><tt>&quot;dual(MonomialIdeal,RingElement,Strategy=>...)&quot;</tt> -- see <span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span></span>          </li>
+          <li>
+<span><a href="../../Macaulay2Doc/html/_dual_lp__Monomial__Ideal_cm__Strategy_eq_gt..._rp.html">dual(MonomialIdeal,Strategy=>...)</a></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_exterior__Power_lp..._cm__Strategy_eq_gt..._rp.html">exteriorPower(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;forceSB(...,Strategy=>...)&quot;</tt> -- see <span><a title="declare the generators of a subring or SAGBIBasis to be a complete sagbi basis" href="_force__S__B.html">forceSB</a> -- declare the generators of a subring or SAGBIBasis to be a complete sagbi basis</span></span>          </li>
+          <li>
+<span><tt>&quot;gb(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute a Gröbner basis" href="../../Macaulay2Doc/html/_gb.html">gb</a> -- compute a Gröbner basis</span></span>          </li>
+          <li>
+<span><tt>gcdLLL(...,Strategy=>...)</tt> (missing documentation)<!--tag: [gcdLLL, Strategy]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;GF(...,Strategy=>...)&quot;</tt> -- see <span><a title="make a finite field" href="../../Macaulay2Doc/html/___G__F.html">GF</a> -- make a finite field</span></span>          </li>
+          <li>
+<span><tt>&quot;groebnerBasis(...,Strategy=>...)&quot;</tt> -- see <span><a title="Gröbner basis, as a matrix" href="../../Macaulay2Doc/html/_groebner__Basis.html">groebnerBasis</a> -- Gröbner basis, as a matrix</span></span>          </li>
+          <li>
+<span><tt>hermite(...,Strategy=>...)</tt> (missing documentation)<!--tag: [hermite, Strategy]-->
+</span>          </li>
+          <li>
+<span><tt>&quot;hooks(...,Strategy=>...)&quot;</tt> -- see <span><a title="list hooks attached to a key" href="../../Macaulay2Doc/html/_hooks.html">hooks</a> -- list hooks attached to a key</span></span>          </li>
+          <li>
+<span><tt>&quot;idealizer(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute Hom(I,I) as a quotient ring" href="../../IntegralClosure/html/_idealizer.html">idealizer</a> -- compute Hom(I,I) as a quotient ring</span></span>          </li>
+          <li>
+<span><a title="control the algorithm used" href="../../IntegralClosure/html/_integral__Closure_lp..._cm__Strategy_eq_gt..._rp.html">integralClosure(...,Strategy=>...)</a> -- control the algorithm used</span>          </li>
+          <li>
+<span><tt>&quot;intersect(Ideal,Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="compute an intersection of a sequence of ideals or modules" href="../../Macaulay2Doc/html/_intersect_lp__Ideal_cm__Ideal_rp.html">intersect(Ideal,Ideal)</a> -- compute an intersection of a sequence of ideals or modules</span></span>          </li>
+          <li>
+<span><tt>&quot;intersect(Module,Module,Strategy=>...)&quot;</tt> -- see <span><a title="compute an intersection of a sequence of ideals or modules" href="../../Macaulay2Doc/html/_intersect_lp__Ideal_cm__Ideal_rp.html">intersect(Ideal,Ideal)</a> -- compute an intersection of a sequence of ideals or modules</span></span>          </li>
+          <li>
+<span><tt>&quot;intersectInP(...,Strategy=>...)&quot;</tt> -- see <span><a title="Option for intersectInP" href="../../ReesAlgebra/html/_intersect__In__P_lp..._cm__Basis__Element__Limit_eq_gt..._rp.html">intersectInP(...,BasisElementLimit=>...)</a> -- Option for intersectInP</span></span>          </li>
+          <li>
+<span><tt>&quot;isPrimary(...,Strategy=>...)&quot;</tt> -- see <span><a title="determine whether a submodule is primary" href="../../PrimaryDecomposition/html/_is__Primary.html">isPrimary</a> -- determine whether a submodule is primary</span></span>          </li>
+          <li>
+<span><tt>&quot;isPrime(Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="whether an ideal is prime" href="../../MinimalPrimes/html/_is__Prime_lp__Ideal_rp.html">isPrime(Ideal)</a> -- whether an ideal is prime</span></span>          </li>
+          <li>
+<span><tt>&quot;isSAGBI(...,Strategy=>...)&quot;</tt> -- see <span><a title="Check if the generators are a sagbi basis" href="_is__S__A__G__B__I.html">isSAGBI</a> -- Check if the generators are a sagbi basis</span></span>          </li>
+          <li>
+<span><a title="choose among different algorithms" href="../../LLLBases/html/___L__L__L_lp..._cm__Strategy_eq_gt..._rp.html">LLL(...,Strategy=>...)</a> -- choose among different algorithms</span>          </li>
+          <li>
+<span><tt>&quot;localize(...,Strategy=>...)&quot;</tt> -- see <span><a title="localize an ideal at a prime ideal" href="../../PrimaryDecomposition/html/_localize.html">localize</a> -- localize an ideal at a prime ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;match(...,Strategy=>...)&quot;</tt> -- see <span><a title="regular expression matching" href="../../Macaulay2Doc/html/_match.html">match</a> -- regular expression matching</span></span>          </li>
+          <li>
+<span><tt>&quot;decompose(Ideal,Strategy=>...)&quot;</tt> -- see <span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;minimalPrimes(...,Strategy=>...)&quot;</tt> -- see <span><a title="minimal primes of an ideal" href="../../MinimalPrimes/html/_minimal__Primes.html">minimalPrimes</a> -- minimal primes of an ideal</span></span>          </li>
+          <li>
+<span><a title="choose between Bareiss, Cofactor and Dynamic algorithms" href="../../Macaulay2Doc/html/_minors_lp..._cm__Strategy_eq_gt..._rp.html">minors(...,Strategy=>...)</a> -- choose between Bareiss, Cofactor and Dynamic algorithms</span>          </li>
+          <li>
+<span><tt>&quot;primaryComponent(...,Strategy=>...)&quot;</tt> -- see <span><a title="find a primary component corresponding to an associated prime" href="../../PrimaryDecomposition/html/_primary__Component.html">primaryComponent</a> -- find a primary component corresponding to an associated prime</span></span>          </li>
+          <li>
+<span><tt>pushForward(...,Strategy=>...)</tt> (missing documentation)<!--tag: [pushForward, Strategy]-->
+</span>          </li>
+          <li>
+<span><a href="../../Saturation/html/_quotient_lp..._cm__Strategy_eq_gt..._rp.html">quotient(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><tt>&quot;radical(...,Strategy=>...)&quot;</tt> -- see <span><a title="the radical of an ideal" href="../../MinimalPrimes/html/_radical.html">radical</a> -- the radical of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;radicalContainment(...,Strategy=>...)&quot;</tt> -- see <span><a title="whether an element is contained in the radical of an ideal" href="../../MinimalPrimes/html/_radical__Containment.html">radicalContainment</a> -- whether an element is contained in the radical of an ideal</span></span>          </li>
+          <li>
+<span><tt>&quot;analyticSpread(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;distinguished(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;isLinearType(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;isReduction(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;minimalReduction(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;multiplicity(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;normalCone(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;reesAlgebra(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span>          </li>
+          <li>
+<span><tt>&quot;specialFiber(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;specialFiberIdeal(...,Strategy=>...)&quot;</tt> -- see <span><a title="Choose a strategy for the saturation step" href="../../ReesAlgebra/html/_rees__Ideal_lp..._cm__Strategy_eq_gt..._rp.html">reesIdeal(...,Strategy=>...)</a> -- Choose a strategy for the saturation step</span></span>          </li>
+          <li>
+<span><tt>&quot;regSeqInIdeal(...,Strategy=>...)&quot;</tt> -- see <span><a title="a regular sequence contained in an ideal" href="../../PrimaryDecomposition/html/_reg__Seq__In__Ideal.html">regSeqInIdeal</a> -- a regular sequence contained in an ideal</span></span>          </li>
+          <li>
+<span><a href="../../Macaulay2Doc/html/_resolution_lp..._cm__Strategy_eq_gt..._rp.html">resolution(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><tt>&quot;sagbi(...,Strategy=>...)&quot;</tt> -- see <span><a title="Compute a subalgebra basis (sagbi basis)" href="_sagbi.html">sagbi</a> -- Compute a subalgebra basis (sagbi basis)</span></span>          </li>
+          <li>
+<span><tt>&quot;sagbiBasis(...,Strategy=>...)&quot;</tt> -- see <span><a title="Constructs a computation object from a subring." href="_sagbi__Basis.html">sagbiBasis</a> -- Constructs a computation object from a subring.</span></span>          </li>
+          <li>
+<span><a href="../../Saturation/html/_saturate_lp..._cm__Strategy_eq_gt..._rp.html">saturate(...,Strategy=>...)</a></span>          </li>
+          <li>
+<span><tt>&quot;primaryDecomposition(...,Strategy=>...)&quot;</tt> -- see <span><a href="../../PrimaryDecomposition/html/_strategies_spfor_spcomputing_spprimary_spdecomposition.html">strategies for computing primary decomposition</a></span></span>          </li>
+          <li>
+<span><tt>&quot;subalgebraBasis(...,Strategy=>...)&quot;</tt> -- see <span><a title="Compute subalgebra basis (sagbi basis) generators" href="_subalgebra__Basis.html">subalgebraBasis</a> -- Compute subalgebra basis (sagbi basis) generators</span></span>          </li>
+          <li>
+<span><tt>&quot;subduction(...,Strategy=>...)&quot;</tt> -- see <span><a title="Subduction of polynomials" href="_subduction.html">subduction</a> -- Subduction of polynomials</span></span>          </li>
+          <li>
+<span><tt>&quot;subringIntersection(...,Strategy=>...)&quot;</tt> -- see <span><a title="Intersection of subrings" href="_subring__Intersection.html">subringIntersection</a> -- Intersection of subrings</span></span>          </li>
+          <li>
+<span><tt>&quot;syz(...,Strategy=>...)&quot;</tt> -- see <span><a title="compute the syzygy matrix" href="../../Macaulay2Doc/html/_syz_lp__Matrix_rp.html">syz(Matrix)</a> -- compute the syzygy matrix</span></span>          </li>
+          <li>
+<span><tt>&quot;tangentCone(...,Strategy=>...)&quot;</tt> -- see <span><a href="../../TangentCone/html/_tangent__Cone_lp__Ideal_rp.html">tangentCone(Ideal)</a></span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="an optional argument" href="../../Macaulay2Doc/html/___Strategy.html">Strategy</a> is <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

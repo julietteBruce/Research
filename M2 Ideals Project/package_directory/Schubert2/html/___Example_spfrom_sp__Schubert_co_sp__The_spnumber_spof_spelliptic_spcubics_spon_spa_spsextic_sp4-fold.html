@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Example from Schubert: The number of elliptic cubics on a sextic 4-fold</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+next | <a href="___Example_spfrom_sp__Schubert_co_sp__Riemann-__Roch_spformulas.html">previous</a> | <a href="___Ideas_spfor_spfuture_spdevelopment.html">forward</a> | <a href="___Example_spfrom_sp__Schubert_co_sp__Riemann-__Roch_spformulas.html">backward</a> | <a href="___Examples_spfrom_sp__Schubert_cm_sptranslated.html">up</a> | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computation in intersection theory" href="index.html">Schubert2</a> > <a href="___Examples_spfrom_sp__Schubert_cm_sptranslated.html">Examples from Schubert, translated</a> > <a href="___Example_spfrom_sp__Schubert_co_sp__The_spnumber_spof_spelliptic_spcubics_spon_spa_spsextic_sp4-fold.html">Example from Schubert: The number of elliptic cubics on a sextic 4-fold</a>    </div>
+    <hr/>
+    <div>
+      <h1>Example from Schubert: The number of elliptic cubics on a sextic 4-fold</h1>
+      <div>
+        <div>
+          <p>We thank Rahul Pandharipande for this classic Schubert example.  See <a href="http://arxiv.org/abs/math/0702189">Enumerative Geometry of Calabi-Yau 4-Folds</a>.</p>
+        </div>
+        <pre>> grass(3,6,c):</pre>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Gc = flagBundle({3,3}, VariableNames => {,c})
+
+o1 = Gc
+
+o1 : a flag bundle with subquotient ranks {2:3}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (Sc,Qc) = bundles Gc
+
+o2 = (Sc, Qc)
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <pre>> B:=Symm(3,Qc):</pre>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : B = symmetricPower_3 Qc
+
+o3 = B
+
+o3 : an abstract sheaf of rank 10 on Gc</code></pre>
+</td>          </tr>
+        </table>
+        <pre>> Proj(X,dual(B),z):</pre>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : X = projectiveBundle'(dual B, VariableNames => {,{z}})
+
+o4 = X
+
+o4 : a flag bundle with subquotient ranks {9, 1}</code></pre>
+</td>          </tr>
+        </table>
+        <pre>> A:=Symm(6,Qc)-Symm(3,Qc)&amp;@o(-z):</pre>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : A = symmetricPower_6 Qc - symmetricPower_3 Qc ** OO(-z)
+
+o5 = A
+
+o5 : an abstract sheaf of rank 18 on X</code></pre>
+</td>          </tr>
+        </table>
+        <pre>> c18:=chern(rank(A),A):
+> lowerstar(X,c18):
+> integral(Gc,%);
+Ans =  2734099200</pre>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : integral chern A
+
+o6 = 2734099200</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toGrass -- Gushel morphism from a GM fourfold to GG(1,4)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_to__Grass_lp__Embedded__Projective__Variety_rp.html">next</a> | <a href="_to__External__String_lp__Hodge__Special__Fourfold_rp.html">previous</a> | <a href="_to__Grass_lp__Embedded__Projective__Variety_rp.html">forward</a> | <a href="_to__External__String_lp__Hodge__Special__Fourfold_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with Hodge-special fourfolds" href="index.html">SpecialFanoFourfolds</a> :: <a title="Gushel morphism from a GM fourfold to GG(1,4)" href="_to__Grass.html">toGrass</a>    </div>
+    <hr/>
+    <div>
+      <h1>toGrass -- Gushel morphism from a GM fourfold to GG(1,4)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">toGrass X</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all special Gushel-Mukai fourfolds" href="___Special__Gushel__Mukai__Fourfold.html">special Gushel-Mukai fourfold</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all multi-rational maps" href="../../MultiprojectiveVarieties/html/___Multirational__Map.html">multi-rational map</a></span>, a linear morphism from $X$ into the <a title="the class of all Grassmannians of linear subspaces of projective spaces" href="../../MultiprojectiveVarieties/html/___Grassmannian__Variety.html">Grassmannian</a> $\mathbb{G}(1,4)\subset\mathbb{P}^9$, Plücker embedded, which is an embedding when $X$ is of ordinary type</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : x = gens ring PP_(ZZ/33331)^8;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X = specialGushelMukaiFourfold(ideal(x_6-x_7, x_5, x_3-x_4, x_1, x_0-x_4, x_2*x_7-x_4*x_8), ideal(x_4*x_6-x_3*x_7+x_1*x_8, x_4*x_5-x_2*x_7+x_0*x_8, x_3*x_5-x_2*x_6+x_0*x_8+x_1*x_8-x_5*x_8, x_1*x_5-x_0*x_6+x_0*x_7+x_1*x_7-x_5*x_7, x_1*x_2-x_0*x_3+x_0*x_4+x_1*x_4-x_2*x_7+x_0*x_8, x_0^2+x_0*x_1+x_1^2+x_0*x_2+2*x_0*x_3+x_1*x_3+x_2*x_3+x_3^2-x_0*x_4-x_1*x_4-2*x_2*x_4-x_3*x_4-2*x_4^2+x_0*x_5+x_2*x_5+x_5^2+2*x_0*x_6+x_1*x_6+2*x_2*x_6+x_3*x_6+x_5*x_6+x_6^2-3*x_4*x_7+2*x_5*x_7-x_7^2+x_1*x_8+x_3*x_8-3*x_4*x_8+2*x_5*x_8+x_6*x_8-x_7*x_8));
+
+o2 : ProjectiveVariety, GM fourfold containing a surface of degree 2 and sectional genus 0</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time toGrass X
+     -- used 3.75141 seconds
+
+o3 = multi-rational map consisting of one single rational map
+     source variety: 4-dimensional subvariety of PP^8 cut out by 6 hypersurfaces of degree 2
+     target variety: GG(1,4) ⊂ PP^9
+
+o3 : MultirationalMap (rational map from X to GG(1,4))</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : show oo
+
+o4 = -- multi-rational map --
+                                  ZZ
+     source: subvariety of Proj(-----[x0 , x0 , x0 , x0 , x0 , x0 , x0 , x0 , x0 ]) defined by
+                                33331   0    1    2    3    4    5    6    7    8
+             {
+              x0 x0  - x0 x0  + x0 x0 ,
+                4  6     3  7     1  8
+              
+              x0 x0  - x0 x0  + x0 x0 ,
+                4  5     2  7     0  8
+              
+              x0 x0  - x0 x0  + x0 x0  + x0 x0  - x0 x0 ,
+                3  5     2  6     0  8     1  8     5  8
+              
+              x0 x0  - x0 x0  + x0 x0  + x0 x0  - x0 x0 ,
+                1  5     0  6     0  7     1  7     5  7
+              
+              x0 x0  - x0 x0  + x0 x0  + x0 x0  - x0 x0  + x0 x0 ,
+                1  2     0  3     0  4     1  4     2  7     0  8
+              
+                2              2                                          2                                           2                       2                                                    2                         2
+              x0  + x0 x0  + x0  + x0 x0  + 2x0 x0  + x0 x0  + x0 x0  + x0  - x0 x0  - x0 x0  - 2x0 x0  - x0 x0  - 2x0  + x0 x0  + x0 x0  + x0  + 2x0 x0  + x0 x0  + 2x0 x0  + x0 x0  + x0 x0  + x0  - 3x0 x0  + 2x0 x0  - x0  + x0 x0  + x0 x0  - 3x0 x0  + 2x0 x0  + x0 x0  - x0 x0
+                0     0  1     1     0  2      0  3     1  3     2  3     3     0  4     1  4      2  4     3  4      4     0  5     2  5     5      0  6     1  6      2  6     3  6     5  6     6      4  7      5  7     7     1  8     3  8      4  8      5  8     6  8     7  8
+             }
+                                  ZZ
+     target: subvariety of Proj(-----[x   , x   , x   , x   , x   , x   , x   , x   , x   , x   ]) defined by
+                                33331  0,1   0,2   1,2   0,3   1,3   2,3   0,4   1,4   2,4   3,4
+             {
+              x   x    - x   x    + x   x   ,
+               2,3 1,4    1,3 2,4    1,2 3,4
+              
+              x   x    - x   x    + x   x   ,
+               2,3 0,4    0,3 2,4    0,2 3,4
+              
+              x   x    - x   x    + x   x   ,
+               1,3 0,4    0,3 1,4    0,1 3,4
+              
+              x   x    - x   x    + x   x   ,
+               1,2 0,4    0,2 1,4    0,1 2,4
+              
+              x   x    - x   x    + x   x
+               1,2 0,3    0,2 1,3    0,1 2,3
+             }
+     -- rational map 1/1 -- 
+     map 1/1, one of its representatives:
+     {
+      5418x0  - 821x0  + 5588x0  - 3585x0  - 1758x0  - 15576x0  + 9147x0  - 14993x0  - 4736x0 ,
+            0        1         2         3         4          5         6          7         8
+      
+      11632x0  - 4732x0  - 10523x0  - 11526x0  - 1991x0  - 1831x0  - 9701x0  + 12320x0  - 2015x0 ,
+             0         1          2          3         4         5         6          7         8
+      
+      16371x0  - 7244x0  + 4935x0  + 15111x0  + 3749x0  - 12977x0  + 15511x0  + 7287x0  + 6751x0 ,
+             0         1         2          3         4          5          6         7         8
+      
+      - 13960x0  - 3219x0  + 8239x0  - 10597x0  + 7747x0  + 273x0  - 6285x0  + 2934x0  - 4471x0 ,
+               0         1         2          3         4        5         6         7         8
+      
+      - 12638x0  - 12017x0  - 2651x0  + 7012x0  - 9505x0  + 3559x0  - 2170x0  - 59x0  - 265x0 ,
+               0          1         2         3         4         5         6       7        8
+      
+      - 4096x0  + 10456x0  - 2284x0  + 11208x0  + 5756x0  - 6263x0  + 599x0  + 7817x0  - 6486x0 ,
+              0          1         2          3         4         5        6         7         8
+      
+      5896x0  + 11711x0  - 9239x0  + 9726x0  + 9682x0  + 2295x0  - 6875x0  - 16024x0  - 7246x0 ,
+            0          1         2         3         4         5         6          7         8
+      
+      - 8687x0  + 14564x0  + 3651x0  - 6141x0  - 7924x0  + 3227x0  - 5479x0  + 13427x0  + 11982x0 ,
+              0          1         2         3         4         5         6          7          8
+      
+      89x0  + 11710x0  + 1284x0  - 12079x0  + 11673x0  - 2256x0  + 12732x0  - 7459x0  - 5231x0 ,
+          0          1         2          3          4         5          6         7         8
+      
+      - 25x0  + 12923x0  + 1000x0  + 871x0  + 15902x0  - 3782x0  - 7479x0  - 5250x0  + 11717x0
+            0          1         2        3          4         5         6         7          8
+     }</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="embedding of an ordinary Gushel-Mukai fourfold or a del Pezzo variety into GG(1,4)" href="_to__Grass_lp__Embedded__Projective__Variety_rp.html">toGrass(EmbeddedProjectiveVariety)</a> -- embedding of an ordinary Gushel-Mukai fourfold or a del Pezzo variety into GG(1,4)</span>          </li>
+          <li>
+<span><a title="try to find an isomorphism between two projective varieties" href="../../MultiprojectiveVarieties/html/___Embedded__Projective__Variety_sp_eq_eq_eq_gt_sp__Embedded__Projective__Variety.html">EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety</a> -- try to find an isomorphism between two projective varieties</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toGrass</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toGrass(SpecialGushelMukaiFourfold)&quot;</tt>          </li>
+          <li>
+<span><a title="embedding of an ordinary Gushel-Mukai fourfold or a del Pezzo variety into GG(1,4)" href="_to__Grass_lp__Embedded__Projective__Variety_rp.html">toGrass(EmbeddedProjectiveVariety)</a> -- embedding of an ordinary Gushel-Mukai fourfold or a del Pezzo variety into GG(1,4)</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Gushel morphism from a GM fourfold to GG(1,4)" href="_to__Grass.html">toGrass</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

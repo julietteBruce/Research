@@ -1,0 +1,79 @@
+-- -*- M2-comint -*- hash: 423116033
+
+i1 : src = temporaryFileName() | "/"
+
+o1 = /private/tmp/M2-59652-0/0/
+
+i2 : dst = temporaryFileName() | "/"
+
+o2 = /private/tmp/M2-59652-0/1/
+
+i3 : makeDirectory (src|"a/")
+
+i4 : makeDirectory (src|"b/")
+
+i5 : makeDirectory (src|"b/c/")
+
+i6 : src|"a/f" << "hi there" << close
+
+o6 = /private/tmp/M2-59652-0/0/a/f
+
+o6 : File
+
+i7 : src|"a/g" << "hi there" << close
+
+o7 = /private/tmp/M2-59652-0/0/a/g
+
+o7 : File
+
+i8 : src|"b/c/g" << "ho there" << close
+
+o8 = /private/tmp/M2-59652-0/0/b/c/g
+
+o8 : File
+
+i9 : stack findFiles src
+
+o9 = /private/tmp/M2-59652-0/0/
+     /private/tmp/M2-59652-0/0/a/
+     /private/tmp/M2-59652-0/0/a/g
+     /private/tmp/M2-59652-0/0/a/f
+     /private/tmp/M2-59652-0/0/b/
+     /private/tmp/M2-59652-0/0/b/c/
+     /private/tmp/M2-59652-0/0/b/c/g
+
+i10 : copyDirectory(src,dst,Verbose=>true)
+ -- copying: /private/tmp/M2-59652-0/0/a/g -> /private/tmp/M2-59652-0/1/a/g
+ -- copying: /private/tmp/M2-59652-0/0/a/f -> /private/tmp/M2-59652-0/1/a/f
+ -- copying: /private/tmp/M2-59652-0/0/b/c/g -> /private/tmp/M2-59652-0/1/b/c/g
+
+i11 : copyDirectory(src,dst,Verbose=>true,UpdateOnly => true)
+ -- skipping: /private/tmp/M2-59652-0/0/a/g not newer than /private/tmp/M2-59652-0/1/a/g
+ -- skipping: /private/tmp/M2-59652-0/0/a/f not newer than /private/tmp/M2-59652-0/1/a/f
+ -- skipping: /private/tmp/M2-59652-0/0/b/c/g not newer than /private/tmp/M2-59652-0/1/b/c/g
+
+i12 : stack findFiles dst
+
+o12 = /private/tmp/M2-59652-0/1/
+      /private/tmp/M2-59652-0/1/a/
+      /private/tmp/M2-59652-0/1/a/g
+      /private/tmp/M2-59652-0/1/a/f
+      /private/tmp/M2-59652-0/1/b/
+      /private/tmp/M2-59652-0/1/b/c/
+      /private/tmp/M2-59652-0/1/b/c/g
+
+i13 : get (dst|"b/c/g")
+
+o13 = ho there
+
+i14 : rm = d -> if isDirectory d then removeDirectory d else removeFile d
+
+o14 = rm
+
+o14 : FunctionClosure
+
+i15 : scan(reverse findFiles src, rm)
+
+i16 : scan(reverse findFiles dst, rm)
+
+i17 : 

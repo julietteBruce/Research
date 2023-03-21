@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hankelMatrix -- matrix with constant anti-diagonal entries</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_irrelevant__Ideal.html">next</a> | <a href="_correspondence__Scroll.html">previous</a> | <a href="_irrelevant__Ideal.html">forward</a> | <a href="_correspondence__Scroll.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Package to compute and analyze examples of Correspondence Scrolls" href="index.html">CorrespondenceScrolls</a> :: <a title="matrix with constant anti-diagonal entries" href="_hankel__Matrix.html">hankelMatrix</a>    </div>
+    <hr/>
+    <div>
+      <h1>hankelMatrix -- matrix with constant anti-diagonal entries</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">m = hankelMatrix(r,p,q)</code></dd>
+              <dd><code class="language-macaulay2">m = hankelMatrix(R,x,p,q)</code></dd>
+              <dd><code class="language-macaulay2">m = hankelMatrix(R,p,q)</code></dd>
+              <dd><code class="language-macaulay2">m = hankelMatrix(p,q)</code></dd>
+              <dd><code class="language-macaulay2">m = hankelMatrix(p,q,s)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>r</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, matrix whose first row will be the entries of m</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, in this case, hankelMatrix will use the variables of R</span>              </li>
+              <li>
+<span><tt>x</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, if present, hankelMatrix will use the variables of R starting with x</span>              </li>
+              <li>
+<span><tt>p</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, number of rows</span>              </li>
+              <li>
+<span><tt>q</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, number of columns</span>              </li>
+              <li>
+<span><tt>s</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, name of the variable to use in the method (hankelMatrix, p,q,s)</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A Hankel matrix (or catalecticant matrix) is a matrix with a repeated element on each anti-diagonal, that is m_(i,j) depends only on i+j. If the matrix r is given, then we set m_(i,j) = r_(0,i+j) if i+j&lt;numcols r, and 0 otherwise. The degrees of the rows of m are set to 0, and the degrees of the columns are set to the degree of r_(0,0); thus the Hankel matrix is homogeneous iff all the entries of the first row of r have the same degree.</p>
+          <p>If no ring or matrix is given, hankelMatrix defines a new ring S with p+q-1 variables X_i, and then calls hankelMatrix(vars S, p,q).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : p = 2;q=3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = ZZ/101[x_0..x_(p+q-2)]
+
+o3 = S
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : hankelMatrix(vars S, p,q)
+
+o4 = | x_0 x_1 x_2 |
+     | x_1 x_2 x_3 |
+
+             2       3
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : r = vars S ** transpose vars S
+
+o5 = {-1} | x_0^2  x_0x_1 x_0x_2 x_0x_3 |
+     {-1} | x_0x_1 x_1^2  x_1x_2 x_1x_3 |
+     {-1} | x_0x_2 x_1x_2 x_2^2  x_2x_3 |
+     {-1} | x_0x_3 x_1x_3 x_2x_3 x_3^2  |
+
+             4       4
+o5 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : hankelMatrix(r, p,q)
+
+o6 = | x_0^2  x_0x_1 x_0x_2 |
+     | x_0x_1 x_0x_2 x_0x_3 |
+
+             2       3
+o6 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : hankelMatrix(S,p,q)
+
+o7 = | x_0 x_1 x_2 |
+     | x_1 x_2 x_3 |
+
+             2       3
+o7 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : hankelMatrix(r, p,q+2)
+
+o8 = | x_0^2  x_0x_1 x_0x_2 x_0x_3 0 |
+     | x_0x_1 x_0x_2 x_0x_3 0      0 |
+
+             2       5
+o8 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : hankelMatrix(p,q+2)
+
+o9 = | X_0 X_1 X_2 X_3 X_4 |
+     | X_1 X_2 X_3 X_4 X_5 |
+
+               ZZ          2         ZZ          5
+o9 : Matrix (-----[X ..X ])  &lt;--- (-----[X ..X ])
+             32003  0   5          32003  0   5</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hankelMatrix</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hankelMatrix(Matrix,ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;hankelMatrix(Ring,RingElement,ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;hankelMatrix(Ring,ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;hankelMatrix(ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;hankelMatrix(ZZ,ZZ,String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="matrix with constant anti-diagonal entries" href="_hankel__Matrix.html">hankelMatrix</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

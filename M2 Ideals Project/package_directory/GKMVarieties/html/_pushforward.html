@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>pushforward -- computes the pushforward map of equivariant K-classes of an equivariant map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_set__Indicator.html">next</a> | <a href="_pullback_lp__Equivariant__Map_rp.html">previous</a> | <a href="_set__Indicator.html">forward</a> | <a href="_pullback_lp__Equivariant__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computations with GKM varieties and moment graphs" href="index.html">GKMVarieties</a> :: <a title="computes the pushforward map of equivariant K-classes of an equivariant map" href="_pushforward.html">pushforward</a>    </div>
+    <hr/>
+    <div>
+      <h1>pushforward -- computes the pushforward map of equivariant K-classes of an equivariant map</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">pushforward(f)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>an <a title="the class of all equivariant morphisms between GKM varieties" href="___Equivariant__Map.html">equivariant map</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all function closures" href="../../Macaulay2Doc/html/___Function__Closure.html">function closure</a></span>, whose input is a <a title="the class of all equivariant K-classes" href="___K__Class.html">KClass</a> on the source <a title="the class of all GKM varieties" href="___G__K__M__Variety.html">GKMVariety</a> of f and output is its pushforward along f</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given two GKM varieties $X$ and $Y$, this method computes the pushforward of a <a title="the class of all equivariant K-classes" href="___K__Class.html">KClass</a> on $X$ along an equivariant morphism $X \to Y$.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = makeCharacterRing 4;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : FlGr = generalizedFlagVariety(&quot;A&quot;,3,{1,2},R)
+
+o2 = a &quot;GKM variety&quot; with an action of a 4-dimensional torus
+
+o2 : GKMVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Gr24 = generalizedFlagVariety(&quot;A&quot;,3,{2},R)
+
+o3 = a &quot;GKM variety&quot; with an action of a 4-dimensional torus
+
+o3 : GKMVariety</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : f = flagMap(FlGr,Gr24)
+
+o4 = an &quot;equivariant map&quot; of GKM varieties 
+
+o4 : EquivariantMap</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : O1 = ampleKClass FlGr
+
+o5 = an &quot;equivariant K-class&quot; on a GKM variety 
+
+o5 : KClass</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : (pushforward f)(O1)
+
+o6 = an &quot;equivariant K-class&quot; on a GKM variety 
+
+o6 : KClass</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates equivariant maps between generalized flag varieties" href="_flag__Map.html">flagMap</a> -- creates equivariant maps between generalized flag varieties</span>          </li>
+          <li>
+<span><a title="computes the pullback map of equivariant K-classes of an equivariant map" href="_pullback_lp__Equivariant__Map_rp.html">pullback(EquivariantMap)</a> -- computes the pullback map of equivariant K-classes of an equivariant map</span>          </li>
+          <li>
+<span><a title="computes the pushforward map of equivariant K-classes of an equivariant map" href="_pushforward.html">pushforward</a> -- computes the pushforward map of equivariant K-classes of an equivariant map</span>          </li>
+          <li>
+<span><a title="computes the equivariant Euler characteristic of an equivariant K-class" href="_euler_lp__K__Class_rp.html">euler(KClass)</a> -- computes the equivariant Euler characteristic of an equivariant K-class</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>pushforward</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;pushforward(EquivariantMap)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the pushforward map of equivariant K-classes of an equivariant map" href="_pushforward.html">pushforward</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

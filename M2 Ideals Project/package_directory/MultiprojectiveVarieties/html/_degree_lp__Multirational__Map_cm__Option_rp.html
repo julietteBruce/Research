@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>degree(MultirationalMap,Option) -- degree of a multi-rational map using a probabilistic approach</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_degrees_lp__Multiprojective__Variety_rp.html">next</a> | <a href="_degree_lp__Multirational__Map_rp.html">previous</a> | <a href="_degrees_lp__Multiprojective__Variety_rp.html">forward</a> | <a href="_degree_lp__Multirational__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="degree of a multi-rational map using a probabilistic approach" href="_degree_lp__Multirational__Map_cm__Option_rp.html">degree(MultirationalMap,Option)</a>    </div>
+    <hr/>
+    <div>
+      <h1>degree(MultirationalMap,Option) -- degree of a multi-rational map using a probabilistic approach</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a href="../../Macaulay2Doc/html/_degree.html">degree</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">degree(Phi,Strategy=>&quot;random point&quot;)</code></dd>
+              <dd><code class="language-macaulay2">degree(Phi,Strategy=>&quot;0-th projective degree&quot;)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>Phi</tt>, <span>a <a title="the class of all multi-rational maps" href="___Multirational__Map.html">multi-rational map</a></span></span>              </li>
+              <li>
+<span><tt>Strategy</tt>, <span>an <a title="the class of all key-value pairs K => V" href="../../Macaulay2Doc/html/___Option.html">option</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree of <tt>Phi</tt>. So this value is 1 if and only if (with high probability) the map is birational onto its image.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = ZZ/33331[x_0..x_4];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Phi = (last graph multirationalMap rationalMap transpose jacobian(-x_2^3+2*x_1*x_2*x_3-x_0*x_3^2-x_1^2*x_4+x_0*x_2*x_4))||projectiveVariety ideal(random(2,R));
+
+o2 : MultirationalMap (rational map from threefold in PP^4 x PP^4 to hypersurface in PP^4)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : ? Phi
+
+o3 = multi-rational map consisting of one single rational map
+     source variety: threefold in PP^4 x PP^4 cut out by 13 hypersurfaces of
+     target variety: hypersurface in PP^4 defined by a form of degree 2
+     ------------------------------------------------------------------------
+     multi-degrees (0,2)^1 (1,1)^3 (2,1)^8 (4,0)^1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time degree(Phi,Strategy=>&quot;random point&quot;)
+     -- used 3.73245 seconds
+
+o4 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time degree(Phi,Strategy=>&quot;0-th projective degree&quot;)
+     -- used 0.322399 seconds
+
+o5 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time degree Phi
+     -- used 0.386013 seconds
+
+o6 = 2</code></pre>
+</td>          </tr>
+        </table>
+        <p>Note, as in the example above, that calculation times may vary depending on the strategy used.</p>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="degree of a multi-rational map" href="_degree_lp__Multirational__Map_rp.html">degree(MultirationalMap)</a> -- degree of a multi-rational map</span>          </li>
+          <li>
+<span><a title="degree of a rational map" href="../../Cremona/html/_degree__Map_lp__Rational__Map_rp.html">degreeMap(RationalMap)</a> -- degree of a rational map</span>          </li>
+          <li>
+<span><a title="i-th projective degree of a multi-rational map using a probabilistic approach" href="_multidegree_lp__Z__Z_cm__Multirational__Map_rp.html">multidegree(ZZ,MultirationalMap)</a> -- i-th projective degree of a multi-rational map using a probabilistic approach</span>          </li>
+          <li>
+<span><a title="pick a random rational point on a multi-projective variety" href="_point_lp__Multiprojective__Variety_rp.html">point(MultiprojectiveVariety)</a> -- pick a random rational point on a multi-projective variety</span>          </li>
+          <li>
+<span><a title="inverse image via a multi-rational map" href="___Multirational__Map_sp^_st_st_sp__Multiprojective__Variety.html">MultirationalMap ^*</a> -- inverse image via a multi-rational map</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="degree of a multi-rational map using a probabilistic approach" href="_degree_lp__Multirational__Map_cm__Option_rp.html">degree(MultirationalMap,Option)</a> -- degree of a multi-rational map using a probabilistic approach</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

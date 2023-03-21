@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>schurModule -- creates Schur module from a partition and free module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_schur__Modules__Map.html">next</a> | <a href="_schur.html">previous</a> | <a href="_schur__Modules__Map.html">forward</a> | <a href="_schur.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computing Schur functors" href="index.html">SchurFunctors</a> :: <a title="creates Schur module from a partition and free module" href="_schur__Module.html">schurModule</a>    </div>
+    <hr/>
+    <div>
+      <h1>schurModule -- creates Schur module from a partition and free module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">schurModule(lambda,E)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>lambda</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of numbers representing a partition; e.g. {3,1} stands for 2 rows of length 3 and 1.</span>              </li>
+              <li>
+<span><tt>E</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, a free module</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, The result of application of the Schur functor associated to lambda to E.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Applies the Schur functor associated to lambda to the free module E. For a detailed definition of the Schur module see p.106 of Fulton &quot;Young Tableaux&quot;.</p>
+          <p>The resulting M comes with cached data M.cache.Schur = {f, finv, AT, ST} where</p>
+          <p>{&quot;f is a map from exterior_mu E to M;&quot;, &quot;finv is a map from M to exterior_mu E;&quot;, &quot;AT is a hash table of all tableaux, whose entries increase in every column;&quot;, &quot;ST is a hash table of all standard tableaux (tableaux in AT, whose entries nondecrease in every row).&quot; }</p>
+          <p>Tableaux are represented with objects of class Filling, which is a double list whose entries are lists giving the fillings of the corresponding columns.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M=QQ^3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : scan(4, i-> &lt;&lt; i+1 &lt;&lt; &quot;-th symmetric power of M = &quot; &lt;&lt; schurModule({i+1},M) &lt;&lt; endl)
+                              3
+1-th symmetric power of M = QQ
+                              6
+2-th symmetric power of M = QQ
+                              10
+3-th symmetric power of M = QQ
+                              15
+4-th symmetric power of M = QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = schurModule({3,2,1}, M);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : v = sum(numgens S, i-> (i+1)*S_i) -- an element of S represented by a vector
+
+o4 = | 1 |
+     | 2 |
+     | 3 |
+     | 4 |
+     | 5 |
+     | 6 |
+     | 7 |
+     | 8 |
+
+       8
+o4 : QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : printSchurModuleElement(v, S);
+  +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+
+1*|0|0|0| 2*|0|0|1| 3*|0|0|2| 4*|0|0|0| 5*|0|0|1| 6*|0|0|2| 7*|0|1|1| 8*|0|1|2| 
+  |1|1| |   |1|1| |   |1|1| |   |1|2| |   |1|2| |   |1|2| |   |1|2| |   |1|2| |
+  |2| | |   |2| | |   |2| | |   |2| | |   |2| | |   |2| | |   |2| | |   |2| | |
+  +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+   +-+-+-+</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>The partition lambda should be a valid nonempty partition.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates a map between Schur modules" href="_schur.html">schur</a> -- creates a map between Schur modules</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>schurModule</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;schurModule(List,Module)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="creates Schur module from a partition and free module" href="_schur__Module.html">schurModule</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

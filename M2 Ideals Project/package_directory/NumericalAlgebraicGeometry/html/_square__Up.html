@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>squareUp -- square up a polynomial system</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_total__Degree__Start__System_lp__List_rp.html">next</a> | <a href="_specialize_lp__Gate__Parameter__Homotopy_cm__Mutable__Matrix_rp.html">previous</a> | <a href="_total__Degree__Start__System_lp__List_rp.html">forward</a> | <a href="_specialize_lp__Gate__Parameter__Homotopy_cm__Mutable__Matrix_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Numerical Algebraic Geometry" href="index.html">NumericalAlgebraicGeometry</a> :: <a title="square up a polynomial system" href="_square__Up.html">squareUp</a>    </div>
+    <hr/>
+    <div>
+      <h1>squareUp -- square up a polynomial system</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = squareUp F\nG = squareUp(F,M)\nsquareUp(F,n)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>F</tt>, <span>a <a title="a polynomial system" href="../../NAGtypes/html/___Poly__System.html">polynomial system</a></span></span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>,  the matrix used to square up the system (by default a random matrix is picked)</span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>,  the number of polynomials to be formed (by default, this equals the number of variables)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="a polynomial system" href="../../NAGtypes/html/___Poly__System.html">polynomial system</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Squares up an overdetermined polynomial system. Attaches keys <a title="square up a polynomial system" href="_square__Up.html">SquareUpMatrix</a> and <a title="square up a polynomial system" href="_square__Up.html">SquaredUpSystem</a> to <tt>F</tt>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : CC[x,y]; F = polySystem {x^2+y^2,x^3+y^3,x^4+y^4}
+
+o2 = F
+
+o2 : PolySystem</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : G := squareUp F
+
+o3 = | (.296025-.479811ii)x4+(.296025-.479811ii)y4+(-.605892-.324075ii)x3+(-.605892-.324075ii)y3+(.448215+.0955171ii)x2+(.448215+.0955171ii)y2 |
+     | (-.085187-.0688326ii)x4+(-.085187-.0688326ii)y4+(.54886+.147995ii)x3+(.54886+.147995ii)y3+(.80766+.111983ii)x2+(.80766+.111983ii)y2     |
+
+o3 : PolySystem</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : peek F
+
+o4 = PolySystem{NumberOfPolys => 3                                                                                                                                            }
+                NumberOfVariables => 2
+                PolyMap => {-2} | x2+y2 |
+                           {-3} | x3+y3 |
+                           {-4} | x4+y4 |
+                SquaredUpSystem => | (.296025-.479811ii)x4+(.296025-.479811ii)y4+(-.605892-.324075ii)x3+(-.605892-.324075ii)y3+(.448215+.0955171ii)x2+(.448215+.0955171ii)y2 |
+                                   | (-.085187-.0688326ii)x4+(-.085187-.0688326ii)y4+(.54886+.147995ii)x3+(.54886+.147995ii)y3+(.80766+.111983ii)x2+(.80766+.111983ii)y2     |
+                SquareUpMatrix => | .448215+.0955171ii -.605892-.324075ii .296025-.479811ii   |
+                                  | .80766+.111983ii   .54886+.147995ii   -.085187-.0688326ii |</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="a polynomial system" href="../../NAGtypes/html/___Poly__System.html">PolySystem</a> -- a polynomial system</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>squareUp</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;squareUp(PolySystem)&quot;</tt>          </li>
+          <li>
+<tt>&quot;squareUp(PolySystem,Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;squareUp(PolySystem,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="square up a polynomial system" href="_square__Up.html">squareUp</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

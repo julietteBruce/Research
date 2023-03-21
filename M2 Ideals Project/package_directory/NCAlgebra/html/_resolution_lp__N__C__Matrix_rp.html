@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>resolution(NCMatrix) -- Compute the resolution of coker M as a map of free right modules</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_right__Kernel.html">next</a> | <a href="_quadratic__Closure.html">previous</a> | <a href="_right__Kernel.html">forward</a> | <a href="_quadratic__Closure.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">NCAlgebra</a> :: <a title="Compute the resolution of coker M as a map of free right modules" href="_resolution_lp__N__C__Matrix_rp.html">resolution(NCMatrix)</a>    </div>
+    <hr/>
+    <div>
+      <h1>resolution(NCMatrix) -- Compute the resolution of coker M as a map of free right modules</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="projective resolution" href="../../Macaulay2Doc/html/_resolution.html">resolution</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">res M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>an instance of the type <a title="Type of a matrix over a noncommutative ring" href="___N__C__Matrix.html">NCMatrix</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="stop when the resolution reaches this length" href="../../Macaulay2Doc/html/_resolution_lp..._cm__Length__Limit_eq_gt..._rp.html">LengthLimit</a><tt> => </tt><span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, <span>default value infinity</span>, The length of the resolution.  This defaults to the number of variables of ring M.</span>              </li>
+              <li>
+<span><a title="compute only up to this degree" href="../../Macaulay2Doc/html/_resolution_lp..._cm__Degree__Limit_eq_gt..._rp.html">DegreeLimit</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a title="compute a non-minimal graded free resolution" href="../../Macaulay2Doc/html/___Fast__Nonminimal.html">FastNonminimal</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, </span>              </li>
+              <li>
+<span><a href="../../Macaulay2Doc/html/_resolution_lp..._cm__Hard__Degree__Limit_eq_gt..._rp.html">HardDegreeLimit</a><tt> => </tt><tt>...</tt>, <span>default value {}</span>, </span>              </li>
+              <li>
+<span><a title="stop when this number of pairs has been handled" href="../../Macaulay2Doc/html/_resolution_lp..._cm__Pair__Limit_eq_gt..._rp.html">PairLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, </span>              </li>
+              <li>
+<span><a href="../../Macaulay2Doc/html/_resolution_lp..._cm__Sort__Strategy_eq_gt..._rp.html">SortStrategy</a><tt> => </tt><tt>...</tt>, <span>default value 0</span>, </span>              </li>
+              <li>
+<span><a title="whether to stop the computation immediately" href="../../Macaulay2Doc/html/_resolution_lp..._cm__Stop__Before__Computation_eq_gt..._rp.html">StopBeforeComputation</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, </span>              </li>
+              <li>
+<span><a href="../../Macaulay2Doc/html/_resolution_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, </span>              </li>
+              <li>
+<span><a title="stop when this number of syzygies is reached" href="../../Macaulay2Doc/html/_resolution_lp..._cm__Syzygy__Limit_eq_gt..._rp.html">SyzygyLimit</a><tt> => </tt><tt>...</tt>, <span>default value infinity</span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="Compute the resolution of coker M as a map of free right modules" href="_resolution_lp__N__C__Matrix_rp.html">NCChainComplex</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function computes a minimal graded free resolution of the cokernel of M, considered as a map of graded right free modules.  M must be homogeneous for this command to work.</p>
+          <p>As of this version, NCChainComplex (the return type) is still quite simple, though <a title="display or modify a Betti diagram" href="../../Macaulay2Doc/html/_betti.html">betti</a> still works on them.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = skewPolynomialRing(QQ,(-1)_QQ,{x,y,z})
+--Calling Bergman for NCGB calculation.
+Complete!
+
+o1 = A
+
+o1 : NCQuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = ncMatrix {{x,y,z}}
+
+o2 = | x y z |
+
+o2 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Mres = res M
+--Calling Bergman for NCGB calculation.
+Complete!
+--Calling Bergman for NCGB calculation.
+Complete!
+--Calling Bergman for NCGB calculation.
+Complete!
+
+      1      3      3      1
+o3 = A  &lt;-- A  &lt;-- A  &lt;-- A
+                           
+     0      1      2      3
+
+o3 : NCChainComplex</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Mres#0
+
+o4 = | x y z |
+
+o4 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Mres#1
+
+o5 = | 0  -z -y |
+     | -z 0  -x |
+     | -y -x 0  |
+
+o5 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : Mres#2
+
+o6 = | -x |
+     | -y |
+     | -z |
+
+o6 : NCMatrix</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : betti Mres
+
+            0 1 2 3
+o7 = total: 1 3 3 1
+         0: 1 3 3 1
+
+o7 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="projective resolution" href="../../Macaulay2Doc/html/_resolution.html">resolution</a> -- projective resolution</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="Compute the resolution of coker M as a map of free right modules" href="_resolution_lp__N__C__Matrix_rp.html">resolution(NCMatrix)</a> -- Compute the resolution of coker M as a map of free right modules</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

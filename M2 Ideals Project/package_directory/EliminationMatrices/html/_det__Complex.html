@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>detComplex -- This function calculates the determinant of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_det__Complex_lp..._cm__Strategy_eq_gt..._rp.html">next</a> | <a href="_deg__Hom__Pol__Map.html">previous</a> | <a href="_det__Complex_lp..._cm__Strategy_eq_gt..._rp.html">forward</a> | <a href="_deg__Hom__Pol__Map.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants" href="index.html">EliminationMatrices</a> :: <a title="This function calculates the determinant of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree." href="_det__Complex.html">detComplex</a>    </div>
+    <hr/>
+    <div>
+      <h1>detComplex -- This function calculates the determinant of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">deteriminantComplex = detComplex(d,v,C)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>c</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, integer corresponding to the degree of the strand of the chain complex.</span>              </li>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, list of variables of the polynomial ring R to take into account for elimination</span>              </li>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, a chain complex of free modules over a polynomial ring</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="choose between Exact and Numeric algorithms" href="_det__Complex_lp..._cm__Strategy_eq_gt..._rp.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, choose between Exact and Numeric algorithms</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>aPolynomialList</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, an element in frac(R) that is the alternate product of the elements in the list 'listDetComplex'</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+This function calculates the determinant of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree. It corresponds to the alternate product of the elements in the list <a title="This function calculates the list with the determinants of some minors of the maps of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree." href="_list__Det__Complex.html">listDetComplex</a>        <p/>
+The input ChainComplex needs to be an exact complex of free modules over a polynomial ring. The polynomial ring must contain the list <tt>v</tt> as variables.        <p/>
+It is recommended not to defines rings as R=QQ[x,y][a,b,c] when the variables to eliminate are '{x,y}'. In this case, see <a title="write a ring as a (quotient of a) polynomial ring" href="../../Macaulay2Doc/html/_flatten__Ring.html">flattenRing</a> for passing from $R=QQ[x,y][a,b,c]$ to QQ[x,y,a,b,c].        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[a,b,c,x,y] 
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : f1 = a*x^2+b*x*y+c*y^2 
+
+        2              2
+o2 = a*x  + b*x*y + c*y
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : f2 = 2*a*x+b*y 
+
+o3 = 2a*x + b*y
+
+o3 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : M = matrix{{f1,f2}} 
+
+o4 = | ax2+bxy+cy2 2ax+by |
+
+             1       2
+o4 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : l = {x,y} 
+
+o5 = {x, y}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : dHPM = detComplex (2,l,koszul M)
+
+          2     2
+o6 = - a*b  + 4a c
+
+o6 : frac R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : dHPM = detComplex (3,l,koszul M)
+
+          2     2
+o7 = - a*b  + 4a c
+
+o7 : frac R</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : R=QQ[a,b,c,d,e,f,g,h,i,x,y,z] 
+
+o8 = R
+
+o8 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : f1 = a*x+b*y+c*z 
+
+o9 = a*x + b*y + c*z
+
+o9 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : f2 = d*x+e*y+f*z 
+
+o10 = d*x + e*y + f*z
+
+o10 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : f3 = g*x+h*y+i*z 
+
+o11 = g*x + h*y + i*z
+
+o11 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : M = matrix{{f1,f2,f3}} 
+
+o12 = | ax+by+cz dx+ey+fz gx+hy+iz |
+
+              1       3
+o12 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : l = {x,y,z} 
+
+o13 = {x, y, z}
+
+o13 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : dHPM = detComplex (1,l,koszul M)
+
+o14 = - c*e*g + b*f*g + c*d*h - a*f*h - b*d*i + a*e*i
+
+o14 : frac R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : dHPM = detComplex (2,l,koszul M)
+
+o15 = - c*e*g + b*f*g + c*d*h - a*f*h - b*d*i + a*e*i
+
+o15 : frac R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : dHPM = detComplex (1,l,koszul M, Strategy => Exact)
+
+o16 = - c*e*g + b*f*g + c*d*h - a*f*h - b*d*i + a*e*i
+
+o16 : frac R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : dHPM = detComplex (1,l,koszul M, Strategy => Numeric)
+
+o17 = - c*e*g + b*f*g + c*d*h - a*f*h - b*d*i + a*e*i
+
+o17 : frac R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="return the base of monomials in a subset of variables, and the matrix of coefficients of a morphism of free modules f:R(d1)+...+R(dn)->R_d with respect to these variables" href="_deg__Hom__Pol__Map.html">degHomPolMap</a> -- return the base of monomials in a subset of variables, and the matrix of coefficients of a morphism of free modules f:R(d1)+...+R(dn)->R_d with respect to these variables</span>          </li>
+          <li>
+<span><a title="This function calculates the list with the determinants of some minors of the maps of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree." href="_list__Det__Complex.html">listDetComplex</a> -- This function calculates the list with the determinants of some minors of the maps of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree.</span>          </li>
+          <li>
+<span><a title="calculate some minors of the maps of a graded ChainComplex in a subset of variables and fixed degree" href="_minors__Complex.html">minorsComplex</a> -- calculate some minors of the maps of a graded ChainComplex in a subset of variables and fixed degree</span>          </li>
+          <li>
+<span><a title="This function calculates the maps of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree." href="_maps__Complex.html">mapsComplex</a> -- This function calculates the maps of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree.</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>detComplex</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;detComplex(ZZ,List,ChainComplex)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="This function calculates the determinant of a graded ChainComplex with respect to a subset of the variables of the polynomial ring in a fixed degree." href="_det__Complex.html">detComplex</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

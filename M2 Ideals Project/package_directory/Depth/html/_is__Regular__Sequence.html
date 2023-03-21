@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isRegularSequence -- whether a list is regular over a ring or module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_regular__Sequence__Check.html">next</a> | <a href="_is__C__M.html">previous</a> | <a href="_regular__Sequence__Check.html">forward</a> | <a href="_is__C__M.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Finds the depth of a module or ideal, and systems of parameters in an ideal" href="index.html">Depth</a> :: <a title="whether a list is regular over a ring or module" href="_is__Regular__Sequence.html">isRegularSequence</a>    </div>
+    <hr/>
+    <div>
+      <h1>isRegularSequence -- whether a list is regular over a ring or module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isRegularSequence(X,A) or isRegularSequence(X) </code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">List</a> or <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">Matrix</a></span>              </li>
+              <li>
+<span><tt>A</tt>, a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">Ring</a> or <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">Module</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Given a list <tt>X</tt>, the function <tt>isRegularSequence</tt> tells if <tt>X</tt> forms a regular sequence. If <tt>X</tt> consists of homogeneous elements, it does this by comparing the Hilbert series of <tt>A</tt> and the Hilbert series of <tt>A/XA</tt>. Otherwise it checks the injectivity of the maps defined by multiplication by the elements of <tt>X</tt> and also checks if <tt>XA = A</tt>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = ZZ/2[x, y, z];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : X1 = {x, y*(x-1), z*(x-1)};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : isRegularSequence X1
+
+o3 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : X2 = {z*(x-1), y*(x-1), x};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isRegularSequence X2
+
+o5 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : X3 = {1_A, x, y};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : isRegularSequence X3
+
+o7 = false</code></pre>
+</td>          </tr>
+        </table>
+        <p>This symbol is provided by the package <a title="Finds the depth of a module or ideal, and systems of parameters in an ideal" href="index.html">Depth</a>.</p>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isRegularSequence</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isRegularSequence(List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isRegularSequence(List,Module)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isRegularSequence(List,Ring)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isRegularSequence(Matrix)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isRegularSequence(Matrix,Module)&quot;</tt>          </li>
+          <li>
+<tt>&quot;isRegularSequence(Matrix,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether a list is regular over a ring or module" href="_is__Regular__Sequence.html">isRegularSequence</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

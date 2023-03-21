@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isInCoisotropic -- test membership in a coisotropic hypersurface</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_macaulay__Formula.html">next</a> | <a href="_is__Coisotropic.html">previous</a> | <a href="_macaulay__Formula.html">forward</a> | <a href="_is__Coisotropic.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants, discriminants, and Chow forms" href="index.html">Resultants</a> :: <a title="test membership in a coisotropic hypersurface" href="_is__In__Coisotropic.html">isInCoisotropic</a>    </div>
+    <hr/>
+    <div>
+      <h1>isInCoisotropic -- test membership in a coisotropic hypersurface</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isInCoisotropic(L,I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the ideal of a $k$-dimensional linear subspace $V(L)\subset\mathbb{P}^n$, which corresponds to a point $p_L\in\mathbb{G}(k,\mathbb{P}^n)$</span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the ideal of a $d$-dimensional projective variety $X=V(I)\subset\mathbb{P}^n$</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="whether to use dual Plücker coordinates" href="___Duality.html">Duality</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, whether to use dual Plücker coordinates</span>              </li>
+              <li>
+<span><a title="pass the singular locus of the variety" href="___Singular__Locus.html">SingularLocus</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, pass the singular locus of the variety</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether $p_L$ belongs to the $s$-th associated subvariety $Z_s(X)\subset\mathbb{G}(k,\mathbb{P}^n)$ with $s = k+d+1-n$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This is equivalent to <tt>isSubset(ideal tangentialChowForm(I,s),plucker L)</tt>, but it does not compute the tangential Chow form.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : use Grass(0,5,ZZ/33331,Variable=>x)
+
+       ZZ
+o1 = -----[x ..x ]
+     33331  0   5
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = minors(2,matrix {{x_0,x_1,x_3,x_4},{x_1,x_2,x_4,x_5}}) -- rational normal scroll surface
+
+               2                                                            
+o2 = ideal (- x  + x x , - x x  + x x , - x x  + x x , - x x  + x x , - x x 
+               1    0 2     1 3    0 4     2 3    1 4     1 4    0 5     2 4
+     ------------------------------------------------------------------------
+                2
+     + x x , - x  + x x )
+        1 5     4    3 5
+
+                ZZ
+o2 : Ideal of -----[x ..x ]
+              33331  0   5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : L = ideal(x_1-12385*x_2-16397*x_3-7761*x_4+827*x_5,x_0+2162*x_2-8686*x_3+2380*x_4+9482*x_5) -- linear 3-dimensional subspace
+
+o3 = ideal (x  - 12385x  - 16397x  - 7761x  + 827x , x  + 2162x  - 8686x  +
+             1         2         3        4       5   0        2        3  
+     ------------------------------------------------------------------------
+     2380x  + 9482x )
+          4        5
+
+                ZZ
+o3 : Ideal of -----[x ..x ]
+              33331  0   5</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : time isInCoisotropic(L,I) -- whether L belongs to Z_1(V(I))
+     -- used 0.0282452 seconds
+
+o4 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="higher Chow forms of a projective variety" href="_tangential__Chow__Form.html">tangentialChowForm</a> -- higher Chow forms of a projective variety</span>          </li>
+          <li>
+<span><a title="get the Plücker coordinates of a linear subspace" href="_plucker.html">plucker</a> -- get the Plücker coordinates of a linear subspace</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isInCoisotropic</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isInCoisotropic(Ideal,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="test membership in a coisotropic hypersurface" href="_is__In__Coisotropic.html">isInCoisotropic</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

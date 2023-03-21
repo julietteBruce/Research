@@ -1,0 +1,31 @@
+-- -*- M2-comint -*- hash: 1043788770
+
+i1 : src = temporaryFileName()
+
+o1 = /private/tmp/M2-53666-0/0
+
+i2 : dst = temporaryFileName()
+
+o2 = /private/tmp/M2-53666-0/1
+
+i3 : src << "hi there" << close
+
+o3 = /private/tmp/M2-53666-0/0
+
+o3 : File
+
+i4 : moveFile(src,dst,Verbose=>true)
+--moving: /private/tmp/M2-53666-0/0 -> /private/tmp/M2-53666-0/1
+
+i5 : get dst
+
+o5 = hi there
+
+i6 : bak = moveFile(dst,Verbose=>true)
+--backup file created: /private/tmp/M2-53666-0/1.bak
+
+o6 = /private/tmp/M2-53666-0/1.bak
+
+i7 : removeFile bak
+
+i8 : 

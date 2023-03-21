@@ -1,0 +1,42 @@
+-- -*- M2-comint -*- hash: 1016625746
+
+i1 : X = specialGushelMukaiFourfold "tau-quadric";
+
+o1 : ProjectiveVariety, GM fourfold containing a surface of degree 2 and sectional genus 0
+
+i2 : describe X
+
+o2 = Special Gushel-Mukai fourfold of discriminant 10(')
+     containing a surface in PP^8 of degree 2 and sectional genus 0
+     cut out by 6 hypersurfaces of degrees (1,1,1,1,1,2)
+     and with class in G(1,4) given by s_(3,1)+s_(2,2)
+     Type: ordinary
+     (case 1 of Table 1 in arXiv:2002.07026)
+
+i3 : time U' = associatedK3surface X;
+     -- used 6.22662 seconds
+
+o3 : ProjectiveVariety, K3 surface associated to X
+
+i4 : (mu,U,C,f) = building U';
+
+i5 : ? mu
+
+o5 = multi-rational map consisting of one single rational map
+     source variety: 5-dimensional subvariety of PP^8 cut out by 5 hypersurfaces of degree 2
+     target variety: PP^4
+     dominance: true
+
+i6 : ? U
+
+o6 = surface in PP^4 cut out by 5 hypersurfaces of degrees 3^1 4^4 
+
+i7 : first C -- two disjoint lines
+
+o7 = curve in PP^4 cut out by 5 hypersurfaces of degrees 1^1 2^4 
+
+o7 : ProjectiveVariety, curve in PP^4 (subvariety of codimension 1 in U)
+
+i8 : assert(image f == U')
+
+i9 : 

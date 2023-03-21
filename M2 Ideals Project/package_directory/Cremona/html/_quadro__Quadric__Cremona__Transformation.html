@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>quadroQuadricCremonaTransformation -- quadro-quadric Cremona transformations</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Rational__Map.html">next</a> | <a href="_projective__Degrees_lp__Rational__Map_rp.html">previous</a> | <a href="___Rational__Map.html">forward</a> | <a href="_projective__Degrees_lp__Rational__Map_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="quadro-quadric Cremona transformations" href="_quadro__Quadric__Cremona__Transformation.html">quadroQuadricCremonaTransformation</a>    </div>
+    <hr/>
+    <div>
+      <h1>quadroQuadricCremonaTransformation -- quadro-quadric Cremona transformations</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">quadroQuadricCremonaTransformation(n,i) </code></dd>
+              <dd><code class="language-macaulay2">quadroQuadricCremonaTransformation(n,i,K)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the dimension of the projective space</span>              </li>
+              <li>
+<span><tt>i</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the <tt>i</tt>-th case in the classification for <tt>P^n</tt> (for instance, if <tt>n=5</tt> then <tt>1&lt;=i&lt;=39</tt>)</span>              </li>
+              <li>
+<span><tt>K</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the ground field (optional, the default value is <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>)</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="___Rational__Map.html">rational map</a></span>, an example of quadro-quadric Cremona transformation over <tt>K</tt>, according to the classifications given in the paper <a href="https://aif.centre-mersenne.org/item/AIF_2014__64_1_71_0/">Quadro-quadric Cremona transformations in low dimensions via the JC-correspondence</a>, by Pirio and Russo.</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : quadroQuadricCremonaTransformation(5,23)
+
+o1 = -- rational map --
+     source: Proj(QQ[x, y, z, t, u, v])
+     target: Proj(QQ[x, y, z, t, u, v])
+     defining forms: {
+                      x*y,
+                      
+                       2
+                      x ,
+                      
+                               2    2
+                      - y*z + t  + u ,
+                      
+                      -x*t,
+                      
+                      -x*u,
+                      
+                      -x*v
+                     }
+
+o1 : RationalMap (Cremona transformation of PP^5 of type (2,2))</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : describe oo
+
+o2 = rational map defined by forms of degree 2
+     source variety: PP^5
+     target variety: PP^5
+     dominance: true
+     birationality: true
+     projective degrees: {1, 2, 2, 2, 2, 1}
+     number of minimal representatives: 1
+     dimension base locus: 3
+     degree base locus: 2
+     coefficient ring: QQ</code></pre>
+</td>          </tr>
+        </table>
+        <p>In addition, the four pairs <tt>(n,i)=(5,1),(8,1),(14,1),(26,1)</tt> correspond to the four examples of special quadro-quadric Cremona transformations:</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : describe quadroQuadricCremonaTransformation(5,1)
+
+o3 = rational map defined by forms of degree 2
+     source variety: PP^5
+     target variety: PP^5
+     dominance: true
+     birationality: true
+     projective degrees: {1, 2, 4, 4, 2, 1}
+     number of minimal representatives: 1
+     dimension base locus: 2
+     degree base locus: 4
+     coefficient ring: QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : describe quadroQuadricCremonaTransformation(8,1)
+
+o4 = rational map defined by forms of degree 2
+     source variety: PP^8
+     target variety: PP^8
+     dominance: true
+     birationality: true
+     number of minimal representatives: 1
+     dimension base locus: 4
+     degree base locus: 6
+     coefficient ring: QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : describe quadroQuadricCremonaTransformation(14,1)
+
+o5 = rational map defined by forms of degree 2
+     source variety: PP^14
+     target variety: PP^14
+     dominance: true
+     birationality: true
+     number of minimal representatives: 1
+     dimension base locus: 8
+     degree base locus: 14
+     coefficient ring: QQ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : describe quadroQuadricCremonaTransformation(26,1)
+
+o6 = rational map defined by forms of degree 2
+     source variety: PP^26
+     target variety: PP^26
+     dominance: true
+     birationality: true
+     number of minimal representatives: 1
+     dimension base locus: 16
+     degree base locus: 78
+     coefficient ring: QQ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="special Cremona transformations whose base locus has dimension at most three" href="_special__Cremona__Transformation.html">specialCremonaTransformation</a> -- special Cremona transformations whose base locus has dimension at most three</span>          </li>
+          <li>
+<span><a title="special quadratic transformations whose base locus has dimension three" href="_special__Quadratic__Transformation.html">specialQuadraticTransformation</a> -- special quadratic transformations whose base locus has dimension three</span>          </li>
+          <li>
+<span><a title="special cubic transformations whose base locus has dimension at most three" href="_special__Cubic__Transformation.html">specialCubicTransformation</a> -- special cubic transformations whose base locus has dimension at most three</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>quadroQuadricCremonaTransformation</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;quadroQuadricCremonaTransformation(Ring,ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;quadroQuadricCremonaTransformation(ZZ,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;quadroQuadricCremonaTransformation(ZZ,ZZ,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="quadro-quadric Cremona transformations" href="_quadro__Quadric__Cremona__Transformation.html">quadroQuadricCremonaTransformation</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

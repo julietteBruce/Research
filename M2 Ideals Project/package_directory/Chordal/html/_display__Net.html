@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>displayNet -- displays a chordal network using Graphivz</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Elim__Tree.html">next</a> | <a href="_display__Graph_lp__String_cm__String_cm__Elim__Tree_rp.html">previous</a> | <a href="___Elim__Tree.html">forward</a> | <a href="_display__Graph_lp__String_cm__String_cm__Elim__Tree_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="exploiting chordal structure in polynomial ideals" href="index.html">Chordal</a> :: <a title="displays a chordal network using Graphivz" href="_display__Net.html">displayNet</a>    </div>
+    <hr/>
+    <div>
+      <h1>displayNet -- displays a chordal network using Graphivz</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">displayNet N</code></dd>
+              <dd><code class="language-macaulay2">displayNet (label, N)</code></dd>
+              <dd><code class="language-macaulay2">displayNet (dotFileName, jpgFileName, label, N)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>N</tt>, <span>an instance of the type <a title="a chordal network" href="___Chordal__Net.html">ChordalNet</a></span></span>              </li>
+              <li>
+<span><tt>label</tt>, <span>a <a title="the class of all functions" href="../../Macaulay2Doc/html/___Function.html">function</a></span> (optional)</span>              </li>
+              <li>
+<span><tt>dotFileName</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span> (optional)</span>              </li>
+              <li>
+<span><tt>jpgFileName</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span> (optional)</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+Displays a chordal network using Graphviz.<br/><br/>The text displayed in each of the nodes can be provided by the optional input <tt>label. </tt>The default is <tt>label:= net. </tt><br/><br/>        <h3>Example</h3>
+Consider the following chordal network.         <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[a..e,MonomialOrder=>Lex];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal {a*b, b*c, c*d, a*e, d*e};
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : N = chordalNet I;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : chordalTria N;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : topComponents N;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : N
+
+o6 = ChordalNet{ a => {a,  }       }
+                 b => {b,  , b}
+                 c => { , c, c,  }
+                 d => {d,  , d}
+                 e => { , e}
+
+o6 : ChordalNet</code></pre>
+</td>          </tr>
+        </table>
+The command <tt>displayNet N  </tt>outputs the following figure. <br/>        <p><img src="../../../../Macaulay2/Chordal/network.jpg" alt="chordal network"/></p>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+If the function does not work, it might be the case that Graphviz is not installed, or that the package Graphs is not configured. See <a title="of the Chordal package" href="_installation_spand_spconfiguration.html">installation and configuration</a>      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="digraph associated to a chordal network" href="_digraph_lp__Chordal__Net_rp.html">digraph(ChordalNet)</a> -- digraph associated to a chordal network</span>          </li>
+          <li>
+<span><a title="displays a digraph or graph using Graphviz" href="../../Graphs/html/_display__Graph.html">displayGraph</a> -- displays a digraph or graph using Graphviz</span>          </li>
+          <li>
+<span><a title="displays an elimination tree using Graphviz" href="_display__Graph_lp__String_cm__String_cm__Elim__Tree_rp.html">displayGraph(ElimTree)</a> -- displays an elimination tree using Graphviz</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>displayNet</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;displayNet(ChordalNet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;displayNet(Function,ChordalNet)&quot;</tt>          </li>
+          <li>
+<tt>&quot;displayNet(String,String,Function,ChordalNet)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="displays a chordal network using Graphivz" href="_display__Net.html">displayNet</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

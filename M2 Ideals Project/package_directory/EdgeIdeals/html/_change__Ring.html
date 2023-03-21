@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>changeRing -- replaces vertices with variables of a different ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_change__Ring_lp..._cm__Maximal__Edges_eq_gt..._rp.html">next</a> | <a href="___Branch__Limit.html">previous</a> | <a href="_change__Ring_lp..._cm__Maximal__Edges_eq_gt..._rp.html">forward</a> | <a href="___Branch__Limit.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for working with the edge ideals of (hyper)graphs" href="index.html">EdgeIdeals</a> :: <a title="replaces vertices with variables of a different ring" href="_change__Ring.html">changeRing</a>    </div>
+    <hr/>
+    <div>
+      <h1>changeRing -- replaces vertices with variables of a different ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = changeRing(H,R,L)</code></dd>
+              <dd><code class="language-macaulay2">G = changeRing(H,R,L, MaximalEdges => B)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>H</tt>, <span>a <a title="a class for hypergraphs" href="___Hyper__Graph.html">hypergraph</a></span>, </span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all ordered monoid rings" href="../../Macaulay2Doc/html/___Polynomial__Ring.html">polynomial ring</a></span>, containing the new vertices as variables</span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of substitutions, one variable in R for each vertex of H</span>              </li>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="optional argument for changeRing" href="_change__Ring_lp..._cm__Maximal__Edges_eq_gt..._rp.html">MaximalEdges</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, optional argument for changeRing</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a title="a class for hypergraphs" href="___Hyper__Graph.html">hypergraph</a></span>, over the ring R with edges obtained by making substitutions into the edges of H</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method is meant for moving a <a title="a class for hypergraphs" href="___Hyper__Graph.html">HyperGraph</a> that is defined over one ring to another ring R. The parameter L must be a list containing variables of R that should replace the vertices of H. For the most basic way to use this method, see the first example:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : H = hyperGraph({a*b,b*c});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : S = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : changeRing(H,S,{x,z,y})
+
+o4 = HyperGraph{edges => {{y, z}, {x, z}}}
+                ring => S
+                vertices => {x, y, z, w}
+
+o4 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>In the example above, <tt>a</tt> is replaced with <tt>x</tt>, <tt>b</tt> is replaced with <tt>z</tt>, and <tt>c</tt> is replaced with <tt>y</tt>. A more complex situation arises when two vertices of <tt>H</tt> are replaced by the same variable.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : P = QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : H = hyperGraph({a*b*c});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : G = hyperGraph({a*b,b*c});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : S = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : changeRing(H,S,{x,y,x})
+
+o9 = HyperGraph{edges => {{x, y}}       }
+                ring => S
+                vertices => {x, y, z, w}
+
+o9 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : changeRing(G,S,{x,y,x})
+
+o10 = HyperGraph{edges => {{x, y}}       }
+                 ring => S
+                 vertices => {x, y, z, w}
+
+o10 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Note that duplicate variables are removed from edges after substitution. Duplicate edges are also reduced to a single edge. As all HyperGraphs in this package have the property that no edge is a subset of any other edge, some edges may need to be dropped after substitution. This happens in the next example.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : P = QQ[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : H = hyperGraph({a*b,b*c});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : S = QQ[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : changeRing(H,S,{x,y,y})
+
+o14 = HyperGraph{edges => {{y}}    }
+                 ring => S
+                 vertices => {x, y}
+
+o14 : HyperGraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : changeRing(H,S,{x,y,y},MaximalEdges=>true)
+
+o15 = HyperGraph{edges => {{x, y}} }
+                 ring => S
+                 vertices => {x, y}
+
+o15 : HyperGraph</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>By default, <tt>changeRing</tt> uses minimal edges that appear after substitution to construct its output. The optional argument <a title="optional argument for changeRing" href="___Maximal__Edges.html">MaximalEdges</a> allows one to get the maximal edges instead.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="returns the induced subgraph of a (hyper)graph" href="_induced__Hyper__Graph.html">inducedHyperGraph</a> -- returns the induced subgraph of a (hyper)graph</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>changeRing</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;changeRing(HyperGraph,PolynomialRing,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="replaces vertices with variables of a different ring" href="_change__Ring.html">changeRing</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

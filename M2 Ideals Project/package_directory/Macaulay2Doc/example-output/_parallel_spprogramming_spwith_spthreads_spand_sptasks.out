@@ -1,0 +1,124 @@
+-- -*- M2-comint -*- hash: 200697925
+
+i1 : allowableThreads
+
+o1 = 2
+
+i2 : allowableThreads = 4
+
+o2 = 4
+
+i3 : R = ZZ/101[x,y,z];
+
+i4 : I = (ideal vars R)^2
+
+             2             2        2
+o4 = ideal (x , x*y, x*z, y , y*z, z )
+
+o4 : Ideal of R
+
+i5 : dogb = I -> () -> res quotient module I
+
+o5 = dogb
+
+o5 : FunctionClosure
+
+i6 : f = dogb I
+
+o6 = f
+
+o6 : FunctionClosure
+
+i7 : t = schedule f
+
+o7 = <<task, running>>
+
+o7 : Task
+
+i8 : t
+
+o8 = <<task, running>>
+
+o8 : Task
+
+i9 : isReady t
+
+o9 = false
+
+i10 : while not isReady t do sleep 1
+
+i11 : taskResult t
+
+       1      6      8      3
+o11 = R  <-- R  <-- R  <-- R  <-- 0
+                                   
+      0      1      2      3      4
+
+o11 : ChainComplex
+
+i12 : assert instance(oo,ChainComplex)
+
+i13 : t' = createTask f
+
+o13 = <<task, created>>
+
+o13 : Task
+
+i14 : t'
+
+o14 = <<task, created>>
+
+o14 : Task
+
+i15 : schedule t';
+
+i16 : t'
+
+o16 = <<task, running>>
+
+o16 : Task
+
+i17 : while not isReady t' do sleep 1
+
+i18 : taskResult t'
+
+       1      6      8      3
+o18 = R  <-- R  <-- R  <-- R  <-- 0
+                                   
+      0      1      2      3      4
+
+o18 : ChainComplex
+
+i19 : F = createTask(() -> "result of F")
+
+o19 = <<task, created>>
+
+o19 : Task
+
+i20 : G = createTask(() -> "result of G")
+
+o20 = <<task, created>>
+
+o20 : Task
+
+i21 : addStartTask(F,G)
+
+i22 : schedule F
+
+o22 = <<task, result available, task done>>
+
+o22 : Task
+
+i23 : while not isReady F do sleep 1
+
+i24 : taskResult F
+
+o24 = result of F
+
+i25 : while not isReady G do sleep 1
+
+i26 : taskResult G
+
+o26 = result of G
+
+i27 : 

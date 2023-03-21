@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>univariateEliminant -- the univariate eliminant of an element of an Artinian ring</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_variations.html">next</a> | <a href="_trace__Form.html">previous</a> | <a href="_variations.html">forward</a> | <a href="_trace__Form.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Package for exploring, counting and locating real solutions to polynomial systems" href="index.html">RealRoots</a> :: <a title="the univariate eliminant of an element of an Artinian ring" href="_univariate__Eliminant.html">univariateEliminant</a>    </div>
+    <hr/>
+    <div>
+      <h1>univariateEliminant -- the univariate eliminant of an element of an Artinian ring</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">univariateEliminant(f)</code></dd>
+              <dd><code class="language-macaulay2">univariateEliminant(g,I)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>f</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, an element of an Artinian ring</span>              </li>
+              <li>
+<span><tt>g</tt>, <span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, a polynomial</span>              </li>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a zero-dimensional ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><tt>...</tt>, <span>default value 0</span>, set method for computing the univariate eliminant</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all ring elements handled by the engine" href="../../Macaulay2Doc/html/___Ring__Element.html">ring element</a></span>, the desired univariate polynomial. See description</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This computes the univariate eliminant of a ring element <tt>f</tt> in the Artinian ring <tt>ring f</tt>, or the univariate eliminant of a polynomial <tt>g</tt> in the Artinian ring <tt>(ring g)/I</tt>. When <tt>f</tt> is a variable in <tt>ring f</tt>, this is the eliminant with respect to that variable. This is computed by finding the minimal polynomial of the corresponding multiplication matrix.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = ideal(y^2 - x^2 - 1,x - y^2 + 4*y - 2)
+
+               2    2         2
+o2 = ideal (- x  + y  - 1, - y  + x + 4y - 2)
+
+o2 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : univariateEliminant(y,I)
+
+      4     3      2
+o3 = Z  - 8Z  + 19Z  - 16Z + 5
+
+o3 : QQ[Z]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S = R/I
+
+o4 = S
+
+o4 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : univariateEliminant(y)
+
+      4     3      2
+o5 = Z  - 8Z  + 19Z  - 16Z + 5
+
+o5 : QQ[Z]</code></pre>
+</td>          </tr>
+        </table>
+        <p>We provide two examples to compute minimal polynomials given by <tt>Strategy => 0</tt> (computes the kernel of $k[T]\to$<tt> ring f</tt> by sending $T$ to <tt>f</tt>) and <tt>Strategy => 1</tt> (a minimal linear combination of powers of the input).</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : univariateEliminant(x,Strategy => 0)
+
+      4     3     2
+o6 = Z  - 2Z  - 9Z  - 6Z - 7
+
+o6 : QQ[Z]</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : univariateEliminant(x,Strategy => 1)
+
+      4     3     2
+o7 = Z  - 2Z  - 9Z  - 6Z - 7
+
+o7 : QQ[Z]</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="the minimal polynomial of an element of an Artinian ring" href="_minimal__Polynomial.html">minimalPolynomial</a> -- the minimal polynomial of an element of an Artinian ring</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>univariateEliminant</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;univariateEliminant(RingElement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;univariateEliminant(RingElement,Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the univariate eliminant of an element of an Artinian ring" href="_univariate__Eliminant.html">univariateEliminant</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,68 @@
+-- -*- M2-comint -*- hash: 2091235679
+
+i1 : P = convexHull matrix{{1,0,0,0},{0,1,0,0},{0,0,1,0}}
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 3
+      number of facets => 4
+      number of rays => 0
+      number of vertices => 4
+
+o1 : Polyhedron
+
+i2 : F = normalFan P
+
+o2 = {ambient dimension => 3         }
+      number of generating cones => 4
+      number of rays => 4
+      top dimension of the cones => 3
+
+o2 : Fan
+
+i3 : F1 = skeleton(2,F)
+
+o3 = {ambient dimension => 3         }
+      number of generating cones => 6
+      number of rays => 4
+      top dimension of the cones => 2
+
+o3 : Fan
+
+i4 : apply(maxCones F1,rays)
+
+o4 = {| 1 0 |, | 0 0 |, | 1 0 |, | -1 0 |, | 1 -1 |, | 0 -1 |}
+      | 0 0 |  | 1 0 |  | 0 1 |  | -1 0 |  | 0 -1 |  | 1 -1 |
+      | 0 1 |  | 0 1 |  | 0 0 |  | -1 1 |  | 0 -1 |  | 0 -1 |
+
+o4 : List
+
+i5 : PC = polyhedralComplex hypercube 3
+
+o5 = {ambient dimension => 3             }
+      number of generating polyhedra => 1
+      top dimension of the polyhedra => 3
+
+o5 : PolyhedralComplex
+
+i6 : PC1 = skeleton(2,PC)
+
+o6 = {ambient dimension => 3             }
+      number of generating polyhedra => 6
+      top dimension of the polyhedra => 2
+
+o6 : PolyhedralComplex
+
+i7 : apply(maxPolyhedra PC1,vertices)
+
+o7 = {| -1 1  -1 1 |, | -1 1  -1 1  |, | -1 -1 -1 -1 |, | -1 1  -1 1 |, | 1 
+      | -1 -1 1  1 |  | -1 -1 1  1  |  | -1 1  -1 1  |  | 1  1  1  1 |  | -1
+      | 1  1  1  1 |  | -1 -1 -1 -1 |  | -1 -1 1  1  |  | -1 -1 1  1 |  | -1
+     ------------------------------------------------------------------------
+     1  1  1 |, | -1 1  -1 1  |}
+     1  -1 1 |  | -1 -1 -1 -1 |
+     -1 1  1 |  | -1 -1 1  1  |
+
+o7 : List
+
+i8 : 

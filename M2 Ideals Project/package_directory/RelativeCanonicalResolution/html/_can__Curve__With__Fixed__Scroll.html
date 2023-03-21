@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>canCurveWithFixedScroll -- Computes a g-nodal canonical curve with a degree k line bundle on a normalized scroll</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_canonical__Multipliers.html">next</a> | <a href="_balanced__Partition.html">previous</a> | <a href="_canonical__Multipliers.html">forward</a> | <a href="_balanced__Partition.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="construction of relative canonical resolutions and Eagon-Northcott type complexes" href="index.html">RelativeCanonicalResolution</a> :: <a title="Computes a g-nodal canonical curve with a degree k line bundle on a normalized scroll" href="_can__Curve__With__Fixed__Scroll.html">canCurveWithFixedScroll</a>    </div>
+    <hr/>
+    <div>
+      <h1>canCurveWithFixedScroll -- Computes a g-nodal canonical curve with a degree k line bundle on a normalized scroll</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Ican=canCurveWithFixedScroll(g,k,n)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>g</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the genus of the curve</span>              </li>
+              <li>
+<span><tt>k</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the degree of the line bundle on C</span>              </li>
+              <li>
+<span><tt>n</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, the integer defining the characteristic p ($\ge n$) of the ground field</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>ICan</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, the ideal of the canonical curve</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This function computes the ideal of a g-nodal canonical curve with a degree k&lt;g line bundle that lies on a normalized scroll. The construction of such curves is based on the Macaulay2 package  <a href="http://www.math.uni-sb.de/ag/schreyer/index.php/people/researchers/75-christian-bopp">kGonalNodalCurves</a></p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : (g,k,n) = (8,5,1000);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : Ican = canCurveWithFixedScroll(g,k,n);
+
+               ZZ
+o2 : Ideal of ----[t ..t ]
+              1009  0   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : genus Ican, degree Ican, dim Ican
+
+o3 = (8, 14, 2)
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : betti res(Ican, DegreeLimit => 1)
+
+            0  1  2  3
+o4 = total: 1 15 35 21
+         0: 1  .  .  .
+         1: . 15 35 21
+
+o4 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Phi = matrix{{t_0,t_2,t_4,t_6},{t_1,t_3,t_5,t_7}}
+
+o5 = | t_0 t_2 t_4 t_6 |
+     | t_1 t_3 t_5 t_7 |
+
+              ZZ          2        ZZ          4
+o5 : Matrix (----[t ..t ])  &lt;--- (----[t ..t ])
+             1009  0   7          1009  0   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : Iscroll = minors(2,Phi);
+
+               ZZ
+o6 : Ideal of ----[t ..t ]
+              1009  0   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : Ican + Iscroll == Ican
+
+o7 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Computes the ideal of a canonical curve on a normalized scroll in terms of generators of the scroll" href="_curve__On__Scroll.html">curveOnScroll</a> -- Computes the ideal of a canonical curve on a normalized scroll in terms of generators of the scroll</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>canCurveWithFixedScroll</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;canCurveWithFixedScroll(ZZ,ZZ,ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computes a g-nodal canonical curve with a degree k line bundle on a normalized scroll" href="_can__Curve__With__Fixed__Scroll.html">canCurveWithFixedScroll</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,285 @@
+-- -*- M2-comint -*- hash: -845174931
+
+i1 : n=3; D=2; p=0.5; N=4;
+
+i5 : L = randomMonomialSets(n,D,p,N)
+
+                      2         2             2   2               2       
+o5 = {{x , x , x x , x , x x , x }, {x , x , x , x }, {x , x x , x , x x ,
+        2   3   1 2   2   2 3   3     2   3   2   3     3   1 3   2   2 3 
+     ------------------------------------------------------------------------
+      2                 2         2         2
+     x }, {x , x , x , x , x x , x , x x , x }}
+      3     1   2   3   1   1 2   2   2 3   3
+
+o5 : List
+
+i6 : n=3; D=2; M=3; N=4;
+
+i10 : L = randomMonomialSets(n,D,M,N)
+
+                 2                       2                     2
+o10 = {{x , x , x }, {x , x x , x x }, {x , x , x x }, {x x , x , x }}
+         2   3   3     3   1 3   2 3     1   1   2 3     2 3   1   3
+
+o10 : List
+
+i11 : n=3; D=2; N=4;
+
+i14 : randomMonomialSets(n,D,{0.0,1.0},N)
+
+         2               2         2     2               2         2     2 
+o14 = {{x , x x , x x , x , x x , x }, {x , x x , x x , x , x x , x }, {x ,
+         1   1 2   1 3   2   2 3   3     1   1 2   1 3   2   2 3   3     1 
+      -----------------------------------------------------------------------
+                   2         2     2               2         2
+      x x , x x , x , x x , x }, {x , x x , x x , x , x x , x }}
+       1 2   1 3   2   2 3   3     1   1 2   1 3   2   2 3   3
+
+o14 : List
+
+i15 : n=3; D=3; N=4;
+
+i18 : randomMonomialSets(n,D,{1,0,3},N)
+
+               2   2       2         2             2           3         
+o18 = {{x , x x , x x , x x }, {x , x x , x x x , x x }, {x , x , x x x ,
+         1   1 2   1 2   2 3     3   2 3   1 2 3   1 2     2   2   1 2 3 
+      -----------------------------------------------------------------------
+       2           3             2
+      x x }, {x , x , x x x , x x }}
+       1 3     2   3   1 2 3   1 3
+
+o18 : List
+
+i19 : n=3; D=3; N=4;
+
+i22 : randomMonomialSets(n,D,{1,0,3},N, Strategy=>"Minimal")
+
+             3   2     3           2   2     3         3   3     2       
+o22 = {{x , x , x x , x }, {x , x x , x x , x }, {x , x , x , x x }, {x ,
+         1   2   2 3   3     3   1 2   1 2   1     2   1   3   1 3     3 
+      -----------------------------------------------------------------------
+         2   2     3
+      x x , x x , x }}
+       1 2   1 2   2
+
+o22 : List
+
+i23 : randomMonomialSets(n,D,{0.0,0.3,0.5},N, Strategy=>"Minimal")
+
+         2       2           3           3   2       2             2   3 
+o23 = {{x x , x x , x x x , x }, {x x , x , x x , x x }, {x x , x x , x ,
+         1 3   1 2   1 2 3   2     1 2   1   2 3   2 3     1 2   1 3   2 
+      -----------------------------------------------------------------------
+         2   3           2   2
+      x x , x }, {x x , x , x x }}
+       2 3   3     2 3   3   1 2
+
+o23 : List
+
+i24 : randomMonomialSets(n,D,0.1,N, Strategy=>"Minimal")
+
+           2     2
+o24 = {{x x }, {x x }, {x }, {x x x }}
+         1 2     1 3     1     1 2 3
+
+o24 : List
+
+i25 : ideals=idealsFromGeneratingSets(L)
+
+                                                                          
+o25 = {monomialIdeal (x , x ), monomialIdeal x , monomialIdeal (x , x x ),
+                       2   3                  3                  1   2 3  
+      -----------------------------------------------------------------------
+                      2
+      monomialIdeal (x , x )}
+                      1   3
+
+o25 : List
+
+i26 : dimStats(ideals,ShowTally=>true)
+
+o26 = (1.25, .433013, Tally{1 => 3})
+                            2 => 1
+
+o26 : Sequence
+
+i27 : mingenStats ideals
+
+o27 = (1.75, .433013, 1.5, .5)
+
+o27 : Sequence
+
+i28 : bettiStats ideals
+
+              0   1   2         0    1   2               1       2
+o28 = (total: 1 1.5 .75, total: 1 1.75 .75, total: .933013 .933013)
+           0: 1   1 .25      0: 1 1.25 .25      0: .433013 .433013
+           1: .  .5  .5      1: .   .5  .5      1:      .5      .5
+
+o28 : Sequence
+
+i29 : sample1 = sample(ER(QQ[y,w],4,0.5),10)
+
+o29 = Sample{...4...}
+
+o29 : Sample
+
+i30 : sample2 = sample(ER(ZZ/101[z_1..z_8],2,{0.25,0.75}),15)
+
+o30 = Sample{...4...}
+
+o30 : Sample
+
+i31 : keys sample1
+
+o31 = {SampleSize, ModelName, Data, Parameters}
+
+o31 : List
+
+i32 : sample2.Parameters
+
+        ZZ
+o32 = (---[z ..z ], 2, {.25, .75})
+       101  1   8
+
+o32 : Sequence
+
+i33 : myData = getData(sample1);
+
+i34 : myData_0
+
+           2          2   3   4   2 2     3
+o34 = {w, y , y*w, y*w , w , y , y w , y*w }
+
+o34 : List
+
+i35 : statistics(sample(ER(CC[z_1..z_8],5,0.1),100), degree@@ideal)
+-- warning: experimental computation over inexact field begun
+--          results not reliable (one warning given per session)
+
+o35 = HashTable{Histogram => Tally{1 => 11}}
+                                   2 => 11
+                                   3 => 6
+                                   4 => 10
+                                   5 => 4
+                                   6 => 6
+                                   7 => 4
+                                   8 => 5
+                                   9 => 4
+                                   10 => 2
+                                   11 => 4
+                                   12 => 3
+                                   13 => 3
+                                   14 => 1
+                                   15 => 4
+                                   16 => 1
+                                   17 => 2
+                                   18 => 1
+                                   19 => 1
+                                   20 => 2
+                                   21 => 3
+                                   25 => 1
+                                   26 => 1
+                                   28 => 1
+                                   34 => 1
+                                   36 => 1
+                                   40 => 1
+                                   45 => 1
+                                   47 => 1
+                                   49 => 1
+                                   52 => 1
+                                   67 => 1
+                                   77 => 1
+                        59
+                Mean => --
+                         5
+                StdDev => 14.0556
+
+o35 : HashTable
+
+i36 : R=ZZ/101[a..e];
+
+i37 : randomMonomialSets(R,D,p,N)
+
+                                       2                       2   2   3 
+o37 = {{a, b, c, d, e, a*b, a*c, a*d, b , b*d, b*e, c*d, c*e, d , e , a ,
+      -----------------------------------------------------------------------
+       2      2   3   2    2      2     2          3   2             2   3 
+      a b, a*b , b , b c, b d, b*c , b*d , b*d*e, c , c e, c*d*e, c*e , d ,
+      -----------------------------------------------------------------------
+       2      2                          2        2        2   3   2    2  
+      d e, d*e }, {a, e, b*c, b*d, b*e, c , c*d, d , d*e, e , a , a c, a e,
+      -----------------------------------------------------------------------
+                              2     2   2    2    2      2            2   3 
+      a*b*e, a*c*d, a*c*e, a*d , a*e , b c, b d, b e, b*d , b*d*e, b*e , c ,
+      -----------------------------------------------------------------------
+       2      2            2   3     2                                   
+      c d, c*d , c*d*e, c*e , d , d*e }, {a, b, c, d, a*b, a*c, a*e, b*c,
+      -----------------------------------------------------------------------
+                           2   2      2                          2   3 
+      b*d, b*e, c*d, d*e, e , a e, a*c , a*c*d, a*c*e, a*d*e, a*e , b ,
+      -----------------------------------------------------------------------
+                       2   2    2      2     2   3                         
+      b*c*d, b*c*e, b*d , c d, c e, c*e , d*e , e }, {a, c, d, e, a*b, b*c,
+      -----------------------------------------------------------------------
+                      2   3   2    2      2                   2     2        
+      b*d, b*e, c*e, e , a , a d, a e, a*b , a*b*c, a*b*e, a*c , a*d , a*d*e,
+      -----------------------------------------------------------------------
+       3   2      2                   2   3   2    2             2   2  
+      b , b c, b*c , b*c*d, b*c*e, b*e , c , c d, c e, c*d*e, c*e , d e,
+      -----------------------------------------------------------------------
+         2
+      d*e }}
+
+o37 : List
+
+i38 : randomMonomialSets(n,D,p,N,VariableName=>"t")
+
+                     2         2           2   2     3             2       
+o38 = {{t , t , t , t , t t , t , t t , t t , t t , t }, {t , t , t , t t ,
+         1   2   3   1   1 3   2   2 3   1 2   2 3   3     1   2   1   1 2 
+      -----------------------------------------------------------------------
+             3   2       2                     2               2   3     2 
+      t t , t , t t , t t , t t t }, {t , t , t , t t , t t , t , t , t t ,
+       1 3   1   1 3   1 2   1 2 3     1   3   1   1 2   2 3   3   1   1 2 
+      -----------------------------------------------------------------------
+         2   3     2   3         2         3   2       2   3   2
+      t t , t , t t , t }, {t , t , t t , t , t t , t t , t , t t }}
+       1 3   2   2 3   3     3   1   1 2   1   1 3   1 2   2   2 3
+
+o38 : List
+
+i39 : randomMonomialSets(3,4,1.0,1)
+
+                     2               2         2   3   2     2       2 
+o39 = {{x , x , x , x , x x , x x , x , x x , x , x , x x , x x , x x ,
+         1   2   3   1   1 2   1 3   2   2 3   3   1   1 2   1 3   1 2 
+      -----------------------------------------------------------------------
+                 2   3   2       2   3   4   3     3     2 2   2       2 2 
+      x x x , x x , x , x x , x x , x , x , x x , x x , x x , x x x , x x ,
+       1 2 3   1 3   2   2 3   2 3   3   1   1 2   1 3   1 2   1 2 3   1 3 
+      -----------------------------------------------------------------------
+         3     2         2     3   4   3     2 2     3   4
+      x x , x x x , x x x , x x , x , x x , x x , x x , x }}
+       1 2   1 2 3   1 2 3   1 3   2   2 3   2 3   2 3   3
+
+o39 : List
+
+i40 : monomialIdeal flatten oo
+
+o40 = monomialIdeal (x , x , x )
+                      1   2   3
+
+o40 : MonomialIdeal of QQ[x ..x ]
+                           1   3
+
+i41 : randomMonomialIdeals(3,4,1.0,1)
+
+o41 = {monomialIdeal (x , x , x )}
+                       1   2   3
+
+o41 : List
+
+i42 : 

@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>MultiprojectiveVarieties -- Multi-projective varieties and multi-rational maps</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_∏.html">next</a> | previous | <a href="___Multiprojective__Variety.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> :: <a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a>    </div>
+    <hr/>
+    <div>
+      <h1>MultiprojectiveVarieties -- Multi-projective varieties and multi-rational maps</h1>
+      <div>
+        <h2>Description</h2>
+        <p>This is a package for handling multi-projective varieties, that is, closed subvarieties of products of projective spaces, and rational maps between them. This extends the package <a title="package for some computations on rational maps between projective varieties" href="../../Cremona/html/index.html">Cremona</a>, which treats <a title="the class of all rational maps between absolutely irreducible projective varieties over a field" href="../../Cremona/html/___Rational__Map.html">rational maps</a> from multi-projective varieties to <em>standard</em> projective varieties, $X\subseteq \mathbb{P}^{k_1}\times\mathbb{P}^{k_2}\times\cdots\times\mathbb{P}^{k_n}\dashrightarrow Y\subseteq\mathbb{P}^N$.</p>
+      </div>
+      <div>
+        <h2>References</h2>
+ArXiv preprint: <a href="https://arxiv.org/abs/2101.04503">Computations with rational maps between multi-projective varieties</a>.      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+Giovanni Staglianò<span> &lt;<a href="mailto:giovannistagliano@gmail.com">giovannistagliano@gmail.com</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>2.3</b> of this package was accepted for publication in <a href="https://msp.org/jsag/2021/11-1/">volume 11</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 31 August 2021, in the article <a href="https://msp.org/jsag/2021/11-1/p14.xhtml">Computations with rational maps between multi-projective varieties</a>. That version can be obtained from <a href="https://msp.org/jsag/2021/11-1/jsag-v11-n1-x14-MultiprojectiveVarieties.m2">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/5831dc6b020fae7365f257256b92539d5d496954/M2/Macaulay2/packages/MultiprojectiveVarieties.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>2.6</b> of MultiprojectiveVarieties.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/MultiprojectiveVarieties.m2">MultiprojectiveVarieties.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="the class of all embedded projective varieties" href="___Embedded__Projective__Variety.html">EmbeddedProjectiveVariety</a> -- the class of all embedded projective varieties</span>                  </li>
+                  <li>
+<span><a title="the class of all Grassmannians of linear subspaces of projective spaces" href="___Grassmannian__Variety.html">GrassmannianVariety</a> -- the class of all Grassmannians of linear subspaces of projective spaces</span>                  </li>
+                  <li>
+<span><a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">MultiprojectiveVariety</a> -- the class of all multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="the class of all multi-rational maps" href="___Multirational__Map.html">MultirationalMap</a> -- the class of all multi-rational maps</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="product of multi-projective varieties" href="_∏.html">∏</a> -- product of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="intersection of multi-projective varieties" href="_⋂.html">⋂</a> -- intersection of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="union of multi-projective varieties" href="_⋃.html">⋃</a> -- union of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="the ambient variety of a projective subvariety" href="_ambient__Variety.html">ambientVariety</a> -- the ambient variety of a projective subvariety</span>                  </li>
+                  <li>
+<span><a title="the base locus of a multi-rational map" href="_base__Locus.html">baseLocus</a> -- the base locus of a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="cone of lines on a subvariety passing through a point" href="_cone__Of__Lines.html">coneOfLines</a> -- cone of lines on a subvariety passing through a point</span>                  </li>
+                  <li>
+<span><a title="determine the expression of the class of a cycle as a linear combination of Schubert classes" href="_cycle__Class.html">cycleClass</a> -- determine the expression of the class of a cycle as a linear combination of Schubert classes</span>                  </li>
+                  <li>
+<span><a title="the (multi)-degree sequence of a (multi)-rational map" href="_degree__Sequence.html">degreeSequence</a> -- the (multi)-degree sequence of a (multi)-rational map</span>                  </li>
+                  <li>
+<span><a title="fiber product of multi-projective varieties" href="_fiber__Product.html">fiberProduct</a> -- fiber product of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span>                  </li>
+                  <li>
+<span><a title="inverse of a birational map using a faster algorithm for a special class of maps" href="_inverse2.html">inverse2</a> -- inverse of a birational map using a faster algorithm for a special class of maps</span>                  </li>
+                  <li>
+<span><a title="get the linearly normal embedding" href="_linearly__Normal__Embedding.html">linearlyNormalEmbedding</a> -- get the linearly normal embedding</span>                  </li>
+                  <li>
+<span><a title="the linear span of an embedded projective variety" href="_linear__Span.html">linearSpan</a> -- the linear span of an embedded projective variety</span>                  </li>
+                  <li>
+<span><a title="the multi-rational map defined by a list of rational maps" href="_multirational__Map.html">multirationalMap</a> -- the multi-rational map defined by a list of rational maps</span>                  </li>
+                  <li>
+<span><a title="projections of a multi-projective variety" href="_projections.html">projections</a> -- projections of a multi-projective variety</span>                  </li>
+                  <li>
+<span><a title="the closed multi-projective subvariety defined by a multi-homogeneous ideal" href="_projective__Variety.html">projectiveVariety</a> -- the closed multi-projective subvariety defined by a multi-homogeneous ideal</span>                  </li>
+                  <li>
+<span><a title="take a random Schubert cycle" href="_schubert__Cycle.html">schubertCycle</a> -- take a random Schubert cycle</span>                  </li>
+                  <li>
+<span><a title="the sectional genus of an embedded projective variety" href="_sectional__Genus.html">sectionalGenus</a> -- the sectional genus of an embedded projective variety</span>                  </li>
+                  <li>
+<span><a title="the Segre embedding of the variety" href="_segre__Embedding.html">segreEmbedding</a> -- the Segre embedding of the variety</span>                  </li>
+                  <li>
+<span><a title="tangent space to a projective variety at a point" href="_tangent__Space.html">tangentSpace</a> -- tangent space to a projective variety at a point</span>                  </li>
+                  <li>
+<span><a title="convert a multi-rational map consisting of a single rational map to a standard rational map" href="_to__Rational__Map.html">toRationalMap</a> -- convert a multi-rational map consisting of a single rational map to a standard rational map</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;∏(List)&quot;</tt> -- see <span><a title="product of multi-projective varieties" href="_∏.html">∏</a> -- product of multi-projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;⋂(List)&quot;</tt> -- see <span><a title="intersection of multi-projective varieties" href="_⋂.html">⋂</a> -- intersection of multi-projective varieties</span></span>                  </li>
+                  <li>
+<span><tt>&quot;⋃(List)&quot;</tt> -- see <span><a title="union of multi-projective varieties" href="_⋃.html">⋃</a> -- union of multi-projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="the ambient multi-projective space of the variety" href="_ambient_lp__Multiprojective__Variety_rp.html">ambient(MultiprojectiveVariety)</a> -- the ambient multi-projective space of the variety</span>                  </li>
+                  <li>
+<span><tt>&quot;ambientVariety(MultiprojectiveVariety)&quot;</tt> -- see <span><a title="the ambient variety of a projective subvariety" href="_ambient__Variety.html">ambientVariety</a> -- the ambient variety of a projective subvariety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;baseLocus(MultirationalMap)&quot;</tt> -- see <span><a title="the base locus of a multi-rational map" href="_base__Locus.html">baseLocus</a> -- the base locus of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;baseLocus(RationalMap)&quot;</tt> -- see <span><a title="the base locus of a multi-rational map" href="_base__Locus.html">baseLocus</a> -- the base locus of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="check that a multi-rational map is well-defined" href="_check_lp__Multirational__Map_rp.html">check(MultirationalMap)</a> -- check that a multi-rational map is well-defined</span>                  </li>
+                  <li>
+<span><a title="chow forms of a projective variety" href="_chow__Form_lp__Embedded__Projective__Variety_rp.html">chowForm(EmbeddedProjectiveVariety)</a> -- chow forms of a projective variety</span>                  </li>
+                  <li>
+<span><a title="clean the internal information of a multi-rational map" href="_clean_lp__Multirational__Map_rp.html">clean(MultirationalMap)</a> -- clean the internal information of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;clean(RationalMap)&quot;</tt> -- see <span><a title="clean the internal information of a multi-rational map" href="_clean_lp__Multirational__Map_rp.html">clean(MultirationalMap)</a> -- clean the internal information of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="the codimension of the variety" href="_codim_lp__Multiprojective__Variety_rp.html">codim(MultiprojectiveVariety)</a> -- the codimension of the variety</span>                  </li>
+                  <li>
+<span><a title="the coefficient ring of the variety" href="_coefficient__Ring_lp__Multiprojective__Variety_rp.html">coefficientRing(MultiprojectiveVariety)</a> -- the coefficient ring of the variety</span>                  </li>
+                  <li>
+<span><a title="the coefficient ring of a multi-rational map" href="_coefficient__Ring_lp__Multirational__Map_rp.html">coefficientRing(MultirationalMap)</a> -- the coefficient ring of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;coneOfLines(EmbeddedProjectiveVariety,EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="cone of lines on a subvariety passing through a point" href="_cone__Of__Lines.html">coneOfLines</a> -- cone of lines on a subvariety passing through a point</span></span>                  </li>
+                  <li>
+<span><a title="the conormal variety of a projective variety" href="_conormal__Variety_lp__Embedded__Projective__Variety_rp.html">conormalVariety(EmbeddedProjectiveVariety)</a> -- the conormal variety of a projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;cycleClass(EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="determine the expression of the class of a cycle as a linear combination of Schubert classes" href="_cycle__Class.html">cycleClass</a> -- determine the expression of the class of a cycle as a linear combination of Schubert classes</span></span>                  </li>
+                  <li>
+<span><a title="irreducible components of a variety" href="_decompose_lp__Multiprojective__Variety_rp.html">decompose(MultiprojectiveVariety)</a> -- irreducible components of a variety</span>                  </li>
+                  <li>
+<span><a title="the degree of the variety" href="_degree_lp__Multiprojective__Variety_rp.html">degree(MultiprojectiveVariety)</a> -- the degree of the variety</span>                  </li>
+                  <li>
+<span><a title="degree of a multi-rational map" href="_degree_lp__Multirational__Map_rp.html">degree(MultirationalMap)</a> -- degree of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;degreeMap(MultirationalMap)&quot;</tt> -- see <span><a title="degree of a multi-rational map" href="_degree_lp__Multirational__Map_rp.html">degree(MultirationalMap)</a> -- degree of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="degree of a multi-rational map using a probabilistic approach" href="_degree_lp__Multirational__Map_cm__Option_rp.html">degree(MultirationalMap,Option)</a> -- degree of a multi-rational map using a probabilistic approach</span>                  </li>
+                  <li>
+<span><a title="degrees for the minimal generators" href="_degrees_lp__Multiprojective__Variety_rp.html">degrees(MultiprojectiveVariety)</a> -- degrees for the minimal generators</span>                  </li>
+                  <li>
+<span><tt>&quot;degreeSequence(MultirationalMap)&quot;</tt> -- see <span><a title="the (multi)-degree sequence of a (multi)-rational map" href="_degree__Sequence.html">degreeSequence</a> -- the (multi)-degree sequence of a (multi)-rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;degreeSequence(RationalMap)&quot;</tt> -- see <span><a title="the (multi)-degree sequence of a (multi)-rational map" href="_degree__Sequence.html">degreeSequence</a> -- the (multi)-degree sequence of a (multi)-rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;? MultiprojectiveVariety&quot;</tt> -- see <span><a title="describe a multi-projective variety" href="_describe_lp__Multiprojective__Variety_rp.html">describe(MultiprojectiveVariety)</a> -- describe a multi-projective variety</span></span>                  </li>
+                  <li>
+<span><a title="describe a multi-projective variety" href="_describe_lp__Multiprojective__Variety_rp.html">describe(MultiprojectiveVariety)</a> -- describe a multi-projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;? MultirationalMap&quot;</tt> -- see <span><a title="describe a multi-rational map" href="_describe_lp__Multirational__Map_rp.html">describe(MultirationalMap)</a> -- describe a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="describe a multi-rational map" href="_describe_lp__Multirational__Map_rp.html">describe(MultirationalMap)</a> -- describe a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="the dimension of the variety" href="_dim_lp__Multiprojective__Variety_rp.html">dim(MultiprojectiveVariety)</a> -- the dimension of the variety</span>                  </li>
+                  <li>
+<span><a title="the variety projectively dual to an embedded projective variety" href="_dual_lp__Embedded__Projective__Variety_rp.html">dual(EmbeddedProjectiveVariety)</a> -- the variety projectively dual to an embedded projective variety</span>                  </li>
+                  <li>
+<span><a title="print a more detailed description of an embedded projective variety" href="___Embedded__Projective__Variety_sp!.html">EmbeddedProjectiveVariety !</a> -- print a more detailed description of an embedded projective variety</span>                  </li>
+                  <li>
+<span><a title="join of projective varieties" href="___Embedded__Projective__Variety_sp_pl_pl_sp__Embedded__Projective__Variety.html">EmbeddedProjectiveVariety ++ EmbeddedProjectiveVariety</a> -- join of projective varieties</span>                  </li>
+                  <li>
+<span><tt>&quot;EmbeddedProjectiveVariety &lt;=== EmbeddedProjectiveVariety&quot;</tt> -- see <span><a title="try to find an isomorphism between two projective varieties" href="___Embedded__Projective__Variety_sp_eq_eq_eq_gt_sp__Embedded__Projective__Variety.html">EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety</a> -- try to find an isomorphism between two projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="try to find an isomorphism between two projective varieties" href="___Embedded__Projective__Variety_sp_eq_eq_eq_gt_sp__Embedded__Projective__Variety.html">EmbeddedProjectiveVariety ===> EmbeddedProjectiveVariety</a> -- try to find an isomorphism between two projective varieties</span>                  </li>
+                  <li>
+<span><a title="topological Euler characteristic of a (smooth) multi-projective variety" href="_euler_lp__Multiprojective__Variety_rp.html">euler(MultiprojectiveVariety)</a> -- topological Euler characteristic of a (smooth) multi-projective variety</span>                  </li>
+                  <li>
+<span><a title="the list of rational maps defining a multi-rational map" href="_factor_lp__Multirational__Map_rp.html">factor(MultirationalMap)</a> -- the list of rational maps defining a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;Fano(EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="Fano scheme of a projective variety" href="___Fano_lp__Z__Z_cm__Embedded__Projective__Variety_rp.html">Fano(ZZ,EmbeddedProjectiveVariety)</a> -- Fano scheme of a projective variety</span></span>                  </li>
+                  <li>
+<span><a title="Fano scheme of a projective variety" href="___Fano_lp__Z__Z_cm__Embedded__Projective__Variety_rp.html">Fano(ZZ,EmbeddedProjectiveVariety)</a> -- Fano scheme of a projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;fiberProduct(RationalMap,RationalMap)&quot;</tt> -- see <span><a title="fiber product of multi-projective varieties" href="_fiber__Product.html">fiberProduct</a> -- fiber product of multi-projective varieties</span></span>                  </li>
+                  <li>
+<span><a title="declare which is the image of a multi-rational map" href="_force__Image_lp__Multirational__Map_cm__Multiprojective__Variety_rp.html">forceImage(MultirationalMap,MultiprojectiveVariety)</a> -- declare which is the image of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;forceImage(MultirationalMap,ZZ)&quot;</tt> -- see <span><a title="declare which is the image of a multi-rational map" href="_force__Image_lp__Multirational__Map_cm__Multiprojective__Variety_rp.html">forceImage(MultirationalMap,MultiprojectiveVariety)</a> -- declare which is the image of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;GG(EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;GG(Ring)&quot;</tt> -- see <span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;GG(Ring,ZZ,ZZ)&quot;</tt> -- see <span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;GG(ZZ,EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span></span>                  </li>
+                  <li>
+<span><tt>&quot;GG(ZZ,ZZ)&quot;</tt> -- see <span><a title="the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space" href="___G__G.html">GG</a> -- the Grassmannian of k-dimensional linear subspaces of an n-dimensional projective space</span></span>                  </li>
+                  <li>
+<span><a title="induced automorphism of the Grassmannian" href="___G__G_lp__Z__Z_cm__Multirational__Map_rp.html">GG(ZZ,MultirationalMap)</a> -- induced automorphism of the Grassmannian</span>                  </li>
+                  <li>
+<span><tt>&quot;GG(ZZ,RationalMap)&quot;</tt> -- see <span><a title="induced automorphism of the Grassmannian" href="___G__G_lp__Z__Z_cm__Multirational__Map_rp.html">GG(ZZ,MultirationalMap)</a> -- induced automorphism of the Grassmannian</span></span>                  </li>
+                  <li>
+<span><a title="the graph of a multi-rational map" href="_graph_lp__Multirational__Map_rp.html">graph(MultirationalMap)</a> -- the graph of a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="the Hilbert polynomial of the variety" href="_hilbert__Polynomial_lp__Embedded__Projective__Variety_rp.html">hilbertPolynomial(EmbeddedProjectiveVariety)</a> -- the Hilbert polynomial of the variety</span>                  </li>
+                  <li>
+<span><a title="the defining ideal of the variety" href="_ideal_lp__Multiprojective__Variety_rp.html">ideal(MultiprojectiveVariety)</a> -- the defining ideal of the variety</span>                  </li>
+                  <li>
+<span><a title="image of a multi-rational map" href="_image_lp__Multirational__Map_rp.html">image(MultirationalMap)</a> -- image of a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="inverse of a birational map" href="_inverse_lp__Multirational__Map_rp.html">inverse(MultirationalMap)</a> -- inverse of a birational map</span>                  </li>
+                  <li>
+<span><tt>&quot;inverse2(MultirationalMap)&quot;</tt> -- see <span><a title="inverse of a birational map using a faster algorithm for a special class of maps" href="_inverse2.html">inverse2</a> -- inverse of a birational map using a faster algorithm for a special class of maps</span></span>                  </li>
+                  <li>
+<span><a title="whether a birational map is an isomorphism" href="_is__Isomorphism_lp__Multirational__Map_rp.html">isIsomorphism(MultirationalMap)</a> -- whether a birational map is an isomorphism</span>                  </li>
+                  <li>
+<span><a title="whether a multi-rational map is a morphism" href="_is__Morphism_lp__Multirational__Map_rp.html">isMorphism(MultirationalMap)</a> -- whether a multi-rational map is a morphism</span>                  </li>
+                  <li>
+<span><a title="whether one variety is a subvariety of another" href="_is__Subset_lp__Multiprojective__Variety_cm__Multiprojective__Variety_rp.html">isSubset(MultiprojectiveVariety,MultiprojectiveVariety)</a> -- whether one variety is a subvariety of another</span>                  </li>
+                  <li>
+<span><a title="whether a multi-rational map is well-defined" href="_is__Well__Defined_lp__Multirational__Map_rp.html">isWellDefined(MultirationalMap)</a> -- whether a multi-rational map is well-defined</span>                  </li>
+                  <li>
+<span><tt>&quot;linearlyNormalEmbedding(EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="get the linearly normal embedding" href="_linearly__Normal__Embedding.html">linearlyNormalEmbedding</a> -- get the linearly normal embedding</span></span>                  </li>
+                  <li>
+<span><tt>&quot;linearSpan(EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="the linear span of an embedded projective variety" href="_linear__Span.html">linearSpan</a> -- the linear span of an embedded projective variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;linearSpan(List)&quot;</tt> -- see <span><a title="the linear span of an embedded projective variety" href="_linear__Span.html">linearSpan</a> -- the linear span of an embedded projective variety</span></span>                  </li>
+                  <li>
+<span><a title="the multidegree of the variety" href="_multidegree_lp__Multiprojective__Variety_rp.html">multidegree(MultiprojectiveVariety)</a> -- the multidegree of the variety</span>                  </li>
+                  <li>
+<span><a title="projective degrees of a multi-rational map" href="_multidegree_lp__Multirational__Map_rp.html">multidegree(MultirationalMap)</a> -- projective degrees of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveDegrees(MultirationalMap)&quot;</tt> -- see <span><a title="projective degrees of a multi-rational map" href="_multidegree_lp__Multirational__Map_rp.html">multidegree(MultirationalMap)</a> -- projective degrees of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="i-th projective degree of a multi-rational map using a probabilistic approach" href="_multidegree_lp__Z__Z_cm__Multirational__Map_rp.html">multidegree(ZZ,MultirationalMap)</a> -- i-th projective degree of a multi-rational map using a probabilistic approach</span>                  </li>
+                  <li>
+<span><a title="subvariety of a projective variety" href="___Multiprojective__Variety_sp_pc_sp__Multiprojective__Variety.html">MultiprojectiveVariety % MultiprojectiveVariety</a> -- subvariety of a projective variety</span>                  </li>
+                  <li>
+<span><a title="intersection of two multi-projective varieties" href="___Multiprojective__Variety_sp_st_sp__Multiprojective__Variety.html">MultiprojectiveVariety * MultiprojectiveVariety</a> -- intersection of two multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="product of two multi-projective varieties" href="___Multiprojective__Variety_sp_st_st_sp__Multiprojective__Variety.html">MultiprojectiveVariety ** MultiprojectiveVariety</a> -- product of two multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="change the coefficient ring of a multi-projective variety" href="___Multiprojective__Variety_sp_st_st_sp__Ring.html">MultiprojectiveVariety ** Ring</a> -- change the coefficient ring of a multi-projective variety</span>                  </li>
+                  <li>
+<span><a title="union of two multi-projective varieties" href="___Multiprojective__Variety_sp_pl_sp__Multiprojective__Variety.html">MultiprojectiveVariety + MultiprojectiveVariety</a> -- union of two multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="equality of multi-projective varieties" href="___Multiprojective__Variety_sp_eq_eq_sp__Multiprojective__Variety.html">MultiprojectiveVariety == MultiprojectiveVariety</a> -- equality of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="difference of multi-projective varieties" href="___Multiprojective__Variety_sp_bs_sp__Multiprojective__Variety.html">MultiprojectiveVariety \ MultiprojectiveVariety</a> -- difference of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="difference of multi-projective varieties" href="___Multiprojective__Variety_sp_bs_bs_sp__Multiprojective__Variety.html">MultiprojectiveVariety \\ MultiprojectiveVariety</a> -- difference of multi-projective varieties</span>                  </li>
+                  <li>
+<span><a title="power of a multi-projective variety" href="___Multiprojective__Variety_sp^_sp__Z__Z.html">MultiprojectiveVariety ^ ZZ</a> -- power of a multi-projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;multirationalMap(List)&quot;</tt> -- see <span><a title="the multi-rational map defined by a list of rational maps" href="_multirational__Map.html">multirationalMap</a> -- the multi-rational map defined by a list of rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;multirationalMap(List,MultiprojectiveVariety)&quot;</tt> -- see <span><a title="the multi-rational map defined by a list of rational maps" href="_multirational__Map.html">multirationalMap</a> -- the multi-rational map defined by a list of rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;compose(MultirationalMap,MultirationalMap)&quot;</tt> -- see <span><a title="composition of multi-rational maps" href="___Multirational__Map_sp_st_sp__Multirational__Map.html">MultirationalMap * MultirationalMap</a> -- composition of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><a title="composition of multi-rational maps" href="___Multirational__Map_sp_st_sp__Multirational__Map.html">MultirationalMap * MultirationalMap</a> -- composition of multi-rational maps</span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap * RationalMap&quot;</tt> -- see <span><a title="composition of multi-rational maps" href="___Multirational__Map_sp_st_sp__Multirational__Map.html">MultirationalMap * MultirationalMap</a> -- composition of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap ^ ZZ&quot;</tt> -- see <span><a title="composition of multi-rational maps" href="___Multirational__Map_sp_st_sp__Multirational__Map.html">MultirationalMap * MultirationalMap</a> -- composition of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap * MultirationalMap&quot;</tt> -- see <span><a title="composition of multi-rational maps" href="___Multirational__Map_sp_st_sp__Multirational__Map.html">MultirationalMap * MultirationalMap</a> -- composition of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><a title="change the coefficient ring of a multi-rational map" href="___Multirational__Map_sp_st_st_sp__Ring.html">MultirationalMap ** Ring</a> -- change the coefficient ring of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;MultiprojectiveVariety &lt;&lt; MultiprojectiveVariety&quot;</tt> -- see <span><a title="force the change of the target in a multi-rational map" href="___Multirational__Map_sp_lt_lt_sp__Multiprojective__Variety.html">MultirationalMap &lt;&lt; MultiprojectiveVariety</a> -- force the change of the target in a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="force the change of the target in a multi-rational map" href="___Multirational__Map_sp_lt_lt_sp__Multiprojective__Variety.html">MultirationalMap &lt;&lt; MultiprojectiveVariety</a> -- force the change of the target in a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="equality of multi-rational maps with checks on internal data" href="___Multirational__Map_sp_lt_eq_eq_gt_sp__Multirational__Map.html">MultirationalMap &lt;==> MultirationalMap</a> -- equality of multi-rational maps with checks on internal data</span>                  </li>
+                  <li>
+<span><a title="equality of multi-rational maps" href="___Multirational__Map_sp_eq_eq_sp__Multirational__Map.html">MultirationalMap == MultirationalMap</a> -- equality of multi-rational maps</span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap == RationalMap&quot;</tt> -- see <span><a title="equality of multi-rational maps" href="___Multirational__Map_sp_eq_eq_sp__Multirational__Map.html">MultirationalMap == MultirationalMap</a> -- equality of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap == ZZ&quot;</tt> -- see <span><a title="equality of multi-rational maps" href="___Multirational__Map_sp_eq_eq_sp__Multirational__Map.html">MultirationalMap == MultirationalMap</a> -- equality of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap == MultirationalMap&quot;</tt> -- see <span><a title="equality of multi-rational maps" href="___Multirational__Map_sp_eq_eq_sp__Multirational__Map.html">MultirationalMap == MultirationalMap</a> -- equality of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ZZ == MultirationalMap&quot;</tt> -- see <span><a title="equality of multi-rational maps" href="___Multirational__Map_sp_eq_eq_sp__Multirational__Map.html">MultirationalMap == MultirationalMap</a> -- equality of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap ^*&quot;</tt> -- see <span><a title="inverse image via a multi-rational map" href="___Multirational__Map_sp^_st_st_sp__Multiprojective__Variety.html">MultirationalMap ^** MultiprojectiveVariety</a> -- inverse image via a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="inverse image via a multi-rational map" href="___Multirational__Map_sp^_st_st_sp__Multiprojective__Variety.html">MultirationalMap ^** MultiprojectiveVariety</a> -- inverse image via a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap ^** EmbeddedProjectiveVariety&quot;</tt> -- see <span><a title="inverse image via a multi-rational map" href="___Multirational__Map_sp^_st_st_sp__Multiprojective__Variety.html">MultirationalMap ^** MultiprojectiveVariety</a> -- inverse image via a multi-rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap | List&quot;</tt> -- see <span><a title="restriction of a multi-rational map" href="___Multirational__Map_sp_vb_sp__Multiprojective__Variety.html">MultirationalMap | MultiprojectiveVariety</a> -- restriction of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="restriction of a multi-rational map" href="___Multirational__Map_sp_vb_sp__Multiprojective__Variety.html">MultirationalMap | MultiprojectiveVariety</a> -- restriction of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap | MultiprojectiveVariety&quot;</tt> -- see <span><a title="restriction of a multi-rational map" href="___Multirational__Map_sp_vb_sp__Multiprojective__Variety.html">MultirationalMap | MultiprojectiveVariety</a> -- restriction of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_sp__Multirational__Map.html">MultirationalMap | MultirationalMap</a> -- product of multi-rational maps</span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap | RationalMap&quot;</tt> -- see <span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_sp__Multirational__Map.html">MultirationalMap | MultirationalMap</a> -- product of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap | MultirationalMap&quot;</tt> -- see <span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_sp__Multirational__Map.html">MultirationalMap | MultirationalMap</a> -- product of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap | RationalMap&quot;</tt> -- see <span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_sp__Multirational__Map.html">MultirationalMap | MultirationalMap</a> -- product of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap || List&quot;</tt> -- see <span><a title="restriction of a multi-rational map" href="___Multirational__Map_sp_vb_vb_sp__Multiprojective__Variety.html">MultirationalMap || MultiprojectiveVariety</a> -- restriction of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="restriction of a multi-rational map" href="___Multirational__Map_sp_vb_vb_sp__Multiprojective__Variety.html">MultirationalMap || MultiprojectiveVariety</a> -- restriction of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap || MultiprojectiveVariety&quot;</tt> -- see <span><a title="restriction of a multi-rational map" href="___Multirational__Map_sp_vb_vb_sp__Multiprojective__Variety.html">MultirationalMap || MultiprojectiveVariety</a> -- restriction of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_vb_sp__Multirational__Map.html">MultirationalMap || MultirationalMap</a> -- product of multi-rational maps</span>                  </li>
+                  <li>
+<span><tt>&quot;MultirationalMap || RationalMap&quot;</tt> -- see <span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_vb_sp__Multirational__Map.html">MultirationalMap || MultirationalMap</a> -- product of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap || MultirationalMap&quot;</tt> -- see <span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_vb_sp__Multirational__Map.html">MultirationalMap || MultirationalMap</a> -- product of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap || RationalMap&quot;</tt> -- see <span><a title="product of multi-rational maps" href="___Multirational__Map_sp_vb_vb_sp__Multirational__Map.html">MultirationalMap || MultirationalMap</a> -- product of multi-rational maps</span></span>                  </li>
+                  <li>
+<span><a title="direct image via a multi-rational map" href="___Multirational__Map_sp__Multiprojective__Variety.html">MultirationalMap MultiprojectiveVariety</a> -- direct image via a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;RationalMap MultiprojectiveVariety&quot;</tt> -- see <span><a title="direct image via a multi-rational map" href="___Multirational__Map_sp__Multiprojective__Variety.html">MultirationalMap MultiprojectiveVariety</a> -- direct image via a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="identity map" href="_multirational__Map_lp__Multiprojective__Variety_rp.html">multirationalMap(MultiprojectiveVariety)</a> -- identity map</span>                  </li>
+                  <li>
+<span><tt>&quot;ZZ _ MultiprojectiveVariety&quot;</tt> -- see <span><a title="identity map" href="_multirational__Map_lp__Multiprojective__Variety_rp.html">multirationalMap(MultiprojectiveVariety)</a> -- identity map</span></span>                  </li>
+                  <li>
+<span><a title="get the natural inclusion" href="_multirational__Map_lp__Multiprojective__Variety_cm__Multiprojective__Variety_rp.html">multirationalMap(MultiprojectiveVariety,MultiprojectiveVariety)</a> -- get the natural inclusion</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultiprojectiveVariety,MultiprojectiveVariety)&quot;</tt> -- see <span><a title="get the natural inclusion" href="_multirational__Map_lp__Multiprojective__Variety_cm__Multiprojective__Variety_rp.html">multirationalMap(MultiprojectiveVariety,MultiprojectiveVariety)</a> -- get the natural inclusion</span></span>                  </li>
+                  <li>
+<span><a title="change the target of a multi-rational map" href="_multirational__Map_lp__Multirational__Map_cm__Multiprojective__Variety_rp.html">multirationalMap(MultirationalMap,MultiprojectiveVariety)</a> -- change the target of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultirationalMap,MultiprojectiveVariety)&quot;</tt> -- see <span><a title="change the target of a multi-rational map" href="_multirational__Map_lp__Multirational__Map_cm__Multiprojective__Variety_rp.html">multirationalMap(MultirationalMap,MultiprojectiveVariety)</a> -- change the target of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="try to get a parametrization of a multi-projective variety" href="_parametrize_lp__Multiprojective__Variety_rp.html">parametrize(MultiprojectiveVariety)</a> -- try to get a parametrization of a multi-projective variety</span>                  </li>
+                  <li>
+<span><a title="permute the factors of the ambient multi-projective space" href="_permute_lp__Multiprojective__Variety_cm__List_rp.html">permute(MultiprojectiveVariety,List)</a> -- permute the factors of the ambient multi-projective space</span>                  </li>
+                  <li>
+<span><tt>&quot;|- MultiprojectiveVariety&quot;</tt> -- see <span><a title="pick a random rational point on a multi-projective variety" href="_point_lp__Multiprojective__Variety_rp.html">point(MultiprojectiveVariety)</a> -- pick a random rational point on a multi-projective variety</span></span>                  </li>
+                  <li>
+<span><a title="pick a random rational point on a multi-projective variety" href="_point_lp__Multiprojective__Variety_rp.html">point(MultiprojectiveVariety)</a> -- pick a random rational point on a multi-projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;projections(MultiprojectiveVariety)&quot;</tt> -- see <span><a title="projections of a multi-projective variety" href="_projections.html">projections</a> -- projections of a multi-projective variety</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveVariety(Ideal)&quot;</tt> -- see <span><a title="the closed multi-projective subvariety defined by a multi-homogeneous ideal" href="_projective__Variety.html">projectiveVariety</a> -- the closed multi-projective subvariety defined by a multi-homogeneous ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveVariety(Matrix)&quot;</tt> -- see <span><a title="the closed multi-projective subvariety defined by a multi-homogeneous ideal" href="_projective__Variety.html">projectiveVariety</a> -- the closed multi-projective subvariety defined by a multi-homogeneous ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveVariety(Ring)&quot;</tt> -- see <span><a title="the closed multi-projective subvariety defined by a multi-homogeneous ideal" href="_projective__Variety.html">projectiveVariety</a> -- the closed multi-projective subvariety defined by a multi-homogeneous ideal</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveVariety(RingElement)&quot;</tt> -- see <span><a title="the closed multi-projective subvariety defined by a multi-homogeneous ideal" href="_projective__Variety.html">projectiveVariety</a> -- the closed multi-projective subvariety defined by a multi-homogeneous ideal</span></span>                  </li>
+                  <li>
+<span><a title="the Segre-Veronese variety" href="_projective__Variety_lp__List_cm__List_cm__Ring_rp.html">projectiveVariety(List,List,Ring)</a> -- the Segre-Veronese variety</span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveVariety(ZZ,ZZ,Ring)&quot;</tt> -- see <span><a title="the Segre-Veronese variety" href="_projective__Variety_lp__List_cm__List_cm__Ring_rp.html">projectiveVariety(List,List,Ring)</a> -- the Segre-Veronese variety</span></span>                  </li>
+                  <li>
+<span><a title="product of projective spaces" href="_projective__Variety_lp__List_cm__Ring_rp.html">projectiveVariety(List,Ring)</a> -- product of projective spaces</span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveVariety(ZZ,Ring)&quot;</tt> -- see <span><a title="product of projective spaces" href="_projective__Variety_lp__List_cm__Ring_rp.html">projectiveVariety(List,Ring)</a> -- product of projective spaces</span></span>                  </li>
+                  <li>
+<span><a title="the multi-projective variety defined by a multi-dimensional matrix" href="_projective__Variety_lp__Multidimensional__Matrix_rp.html">projectiveVariety(MultidimensionalMatrix)</a> -- the multi-projective variety defined by a multi-dimensional matrix</span>                  </li>
+                  <li>
+<span><a title="get a random hypersurface of given multi-degree containing a multi-projective variety" href="_random_lp__List_cm__Multiprojective__Variety_rp.html">random(List,MultiprojectiveVariety)</a> -- get a random hypersurface of given multi-degree containing a multi-projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;random(ZZ,MultiprojectiveVariety)&quot;</tt> -- see <span><a title="get a random hypersurface of given multi-degree containing a multi-projective variety" href="_random_lp__List_cm__Multiprojective__Variety_rp.html">random(List,MultiprojectiveVariety)</a> -- get a random hypersurface of given multi-degree containing a multi-projective variety</span></span>                  </li>
+                  <li>
+<span><a title="apply a random automorphism of the ambient multi-projective space" href="_random_lp__Multiprojective__Variety_rp.html">random(MultiprojectiveVariety)</a> -- apply a random automorphism of the ambient multi-projective space</span>                  </li>
+                  <li>
+<span><a title="the multi-rational map defined by a list of rational maps" href="_rational__Map_lp__List_cm__Multiprojective__Variety_rp.html">rationalMap(List,MultiprojectiveVariety)</a> -- the multi-rational map defined by a list of rational maps</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultirationalMap)&quot;</tt> -- see <span><a title="the multi-rational map defined by a list of rational maps" href="_rational__Map_lp__List_cm__Multiprojective__Variety_rp.html">rationalMap(List,MultiprojectiveVariety)</a> -- the multi-rational map defined by a list of rational maps</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(EmbeddedProjectiveVariety,Tally,ZZ)&quot;</tt> -- see <span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Multiprojective__Variety_cm__Tally_rp.html">rationalMap(MultiprojectiveVariety,Tally)</a> -- rational map defined by an effective divisor</span></span>                  </li>
+                  <li>
+<span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Multiprojective__Variety_cm__Tally_rp.html">rationalMap(MultiprojectiveVariety,Tally)</a> -- rational map defined by an effective divisor</span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultiprojectiveVariety,Tally,List)&quot;</tt> -- see <span><a title="rational map defined by an effective divisor" href="_rational__Map_lp__Multiprojective__Variety_cm__Tally_rp.html">rationalMap(MultiprojectiveVariety,Tally)</a> -- rational map defined by an effective divisor</span></span>                  </li>
+                  <li>
+<span><a title="the coordinate ring of the variety" href="_ring_lp__Multiprojective__Variety_rp.html">ring(MultiprojectiveVariety)</a> -- the coordinate ring of the variety</span>                  </li>
+                  <li>
+<span><tt>&quot;schubertCycle(VisibleList,GrassmannianVariety)&quot;</tt> -- see <span><a title="take a random Schubert cycle" href="_schubert__Cycle.html">schubertCycle</a> -- take a random Schubert cycle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sectionalGenus(EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="the sectional genus of an embedded projective variety" href="_sectional__Genus.html">sectionalGenus</a> -- the sectional genus of an embedded projective variety</span></span>                  </li>
+                  <li>
+<span><a title="the Segre embedding of the variety" href="_segre_lp__Multiprojective__Variety_rp.html">segre(MultiprojectiveVariety)</a> -- the Segre embedding of the variety</span>                  </li>
+                  <li>
+<span><a title="the composition of a multi-rational map with the Segre embedding of the target" href="_segre_lp__Multirational__Map_rp.html">segre(MultirationalMap)</a> -- the composition of a multi-rational map with the Segre embedding of the target</span>                  </li>
+                  <li>
+<span><tt>&quot;segreEmbedding(MultiprojectiveVariety)&quot;</tt> -- see <span><a title="the Segre embedding of the variety" href="_segre__Embedding.html">segreEmbedding</a> -- the Segre embedding of the variety</span></span>                  </li>
+                  <li>
+<span><a title="shape of the ambient multi-projective space of a multi-projective variety" href="_shape_lp__Multiprojective__Variety_rp.html">shape(MultiprojectiveVariety)</a> -- shape of the ambient multi-projective space of a multi-projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;multirationalMap(RationalMap)&quot;</tt> -- see <span><a title="Some convenient shortcuts for multi-rational maps consisting of a single rational map" href="_shortcuts.html">shortcuts</a> -- Some convenient shortcuts for multi-rational maps consisting of a single rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultiprojectiveVariety)&quot;</tt> -- see <span><a title="Some convenient shortcuts for multi-rational maps consisting of a single rational map" href="_shortcuts.html">shortcuts</a> -- Some convenient shortcuts for multi-rational maps consisting of a single rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultiprojectiveVariety,List)&quot;</tt> -- see <span><a title="Some convenient shortcuts for multi-rational maps consisting of a single rational map" href="_shortcuts.html">shortcuts</a> -- Some convenient shortcuts for multi-rational maps consisting of a single rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultiprojectiveVariety,ZZ)&quot;</tt> -- see <span><a title="Some convenient shortcuts for multi-rational maps consisting of a single rational map" href="_shortcuts.html">shortcuts</a> -- Some convenient shortcuts for multi-rational maps consisting of a single rational map</span></span>                  </li>
+                  <li>
+<span><tt>&quot;rationalMap(MultiprojectiveVariety,ZZ,ZZ)&quot;</tt> -- see <span><a title="Some convenient shortcuts for multi-rational maps consisting of a single rational map" href="_shortcuts.html">shortcuts</a> -- Some convenient shortcuts for multi-rational maps consisting of a single rational map</span></span>                  </li>
+                  <li>
+<span><a title="display a multi-rational map" href="_show_lp__Multirational__Map_rp.html">show(MultirationalMap)</a> -- display a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;show(RationalMap)&quot;</tt> -- see <span><a title="display a multi-rational map" href="_show_lp__Multirational__Map_rp.html">show(MultirationalMap)</a> -- display a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="the singular locus of the variety" href="_singular__Locus_lp__Multiprojective__Variety_rp.html">singularLocus(MultiprojectiveVariety)</a> -- the singular locus of the variety</span>                  </li>
+                  <li>
+<span><a title="the source for a multi-rational map" href="_source_lp__Multirational__Map_rp.html">source(MultirationalMap)</a> -- the source for a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="get the multi-rational map whose target is a product of projective spaces" href="_super_lp__Multirational__Map_rp.html">super(MultirationalMap)</a> -- get the multi-rational map whose target is a product of projective spaces</span>                  </li>
+                  <li>
+<span><a title="support of a multi-projective variety" href="_support_lp__Multiprojective__Variety_rp.html">support(MultiprojectiveVariety)</a> -- support of a multi-projective variety</span>                  </li>
+                  <li>
+<span><a title="tangent cone to a projective variety at a point" href="_tangent__Cone_lp__Embedded__Projective__Variety_cm__Embedded__Projective__Variety_rp.html">tangentCone(EmbeddedProjectiveVariety,EmbeddedProjectiveVariety)</a> -- tangent cone to a projective variety at a point</span>                  </li>
+                  <li>
+<span><a title="higher Chow forms of a projective variety" href="_tangential__Chow__Form_lp__Embedded__Projective__Variety_cm__Z__Z_rp.html">tangentialChowForm(EmbeddedProjectiveVariety,ZZ)</a> -- higher Chow forms of a projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;tangentSpace(EmbeddedProjectiveVariety,EmbeddedProjectiveVariety)&quot;</tt> -- see <span><a title="tangent space to a projective variety at a point" href="_tangent__Space.html">tangentSpace</a> -- tangent space to a projective variety at a point</span></span>                  </li>
+                  <li>
+<span><a title="the target for a multi-rational map" href="_target_lp__Multirational__Map_rp.html">target(MultirationalMap)</a> -- the target for a multi-rational map</span>                  </li>
+                  <li>
+<span><a title="union of the top dimensional components of a multi-projective variety" href="_top__Components_lp__Multiprojective__Variety_rp.html">topComponents(MultiprojectiveVariety)</a> -- union of the top dimensional components of a multi-projective variety</span>                  </li>
+                  <li>
+<span><tt>&quot;toRationalMap(MultirationalMap)&quot;</tt> -- see <span><a title="convert a multi-rational map consisting of a single rational map to a standard rational map" href="_to__Rational__Map.html">toRationalMap</a> -- convert a multi-rational map consisting of a single rational map to a standard rational map</span></span>                  </li>
+                  <li>
+<span><a title="trim the target of a multi-rational map" href="_trim_lp__Multirational__Map_rp.html">trim(MultirationalMap)</a> -- trim the target of a multi-rational map</span>                  </li>
+                  <li>
+<span><tt>&quot;trim(RationalMap)&quot;</tt> -- see <span><a title="trim the target of a multi-rational map" href="_trim_lp__Multirational__Map_rp.html">trim(MultirationalMap)</a> -- trim the target of a multi-rational map</span></span>                  </li>
+                  <li>
+<span><a title="convert an embedded projective variety into a built-in projective variety" href="_variety_lp__Embedded__Projective__Variety_rp.html">variety(EmbeddedProjectiveVariety)</a> -- convert an embedded projective variety into a built-in projective variety</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="whether to compute the multi-saturation of the ideal (intended for internal use only)" href="___Saturate.html">Saturate</a> -- whether to compute the multi-saturation of the ideal (intended for internal use only)</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Other things                <ul>
+                  <li>
+<span><a title="product of projective spaces" href="_projective__Variety_lp__List_cm__Ring_rp.html">PP</a> -- product of projective spaces</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Multi-projective varieties and multi-rational maps" href="index.html">MultiprojectiveVarieties</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+      <div>
+        <h3>Menu</h3>
+        <ul>
+          <li>
+<span><a title="the class of all multi-projective varieties" href="___Multiprojective__Variety.html">MultiprojectiveVariety</a> -- the class of all multi-projective varieties</span>          </li>
+          <li>
+<span><a title="the class of all multi-rational maps" href="___Multirational__Map.html">MultirationalMap</a> -- the class of all multi-rational maps</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

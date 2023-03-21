@@ -1,0 +1,206 @@
+-- -*- M2-comint -*- hash: 1205924467
+
+i1 : needsPackage "Dmodules"
+
+o1 = Dmodules
+
+o1 : Package
+
+i2 : R1 = QQ[z]
+
+o2 = R1
+
+o2 : PolynomialRing
+
+i3 : W1 = makeWA R1
+
+o3 = W1
+
+o3 : PolynomialRing, 1 differential variables
+
+i4 : a=1/2
+
+     1
+o4 = -
+     2
+
+o4 : QQ
+
+i5 : b=3
+
+o5 = 3
+
+i6 : c=5/3
+
+     5
+o6 = -
+     3
+
+o6 : QQ
+
+i7 : J = ideal(z*(1-z)*dz^2+(c-(a+b+1)*z)*dz-a*b) -- the Gauss hypergeometric equation, exponents 0, 1-c
+
+              2  2       2   9       5     3
+o7 = ideal(- z dz  + z*dz  - -z*dz + -dz - -)
+                             2       3     2
+
+o7 : Ideal of W1
+
+i8 : cssExpts(J,{1})
+
+              2
+o8 = {{0}, {- -}}
+              3
+
+o8 : List
+
+i9 : inw(J,{-1,1})
+
+                2
+o9 = ideal(6z*dz  + 10dz)
+
+o9 : Ideal of W1
+
+i10 : distraction(oo,QQ[s])
+
+              2
+o10 = ideal(6s  + 4s)
+
+o10 : Ideal of QQ[s]
+
+i11 : factor oo_0
+
+o11 = (s)(3s + 2)(2)
+
+o11 : Expression of class Product
+
+i12 : c=1  -- Now we have a single exponent of multiplicity 2
+
+o12 = 1
+
+i13 : J = ideal(z*(1-z)*dz^2+(c-(a+b+1)*z)*dz-a*b)
+
+               2  2       2   9            3
+o13 = ideal(- z dz  + z*dz  - -z*dz + dz - -)
+                              2            2
+
+o13 : Ideal of W1
+
+i14 : cssExpts(J,{1})
+
+o14 = {{0}}
+
+o14 : List
+
+i15 : cssExptsMult(J,{1})
+
+o15 = {{2, {0}}}
+
+o15 : List
+
+i16 : R2 = QQ[x_1..x_3]
+
+o16 = R2
+
+o16 : PolynomialRing
+
+i17 : W2 = makeWA R2
+
+o17 = W2
+
+o17 : PolynomialRing, 3 differential variables
+
+i18 : gens W2
+
+o18 = {x , x , x , dx , dx , dx }
+        1   2   3    1    2    3
+
+o18 : List
+
+i19 : thetaRing = QQ[t_1,t_2,t_3] -- sets variable names t_i = x_i\dx_i
+
+o19 = thetaRing
+
+o19 : PolynomialRing
+
+i20 : f1= x_1*dx_1 -- this element already belongs to thetaRing
+
+o20 = x dx
+       1  1
+
+o20 : W2
+
+i21 : genToDistractionGens(f1,thetaRing)  -- checks out
+
+o21 = t
+       1
+
+o21 : thetaRing
+
+i22 : f2 = x_1^3*dx_1^3 -- this is a descending factorial in the theta variables
+
+       3  3
+o22 = x dx
+       1  1
+
+o22 : W2
+
+i23 : genToDistractionGens(f2,thetaRing)
+
+       3     2
+o23 = t  - 3t  + 2t
+       1     1     1
+
+o23 : thetaRing
+
+i24 : factor oo	  -- now it looks like a descending factorial
+
+o24 = (t )(t  - 2)(t  - 1)
+        1   1       1
+
+o24 : Expression of class Product
+
+i25 : f = x_1^2*x_2^2*x_3*dx_1*dx_2^2*dx_3^2
+
+       2 2       2  2
+o25 = x x x dx dx dx
+       1 2 3  1  2  3
+
+o25 : W2
+
+i26 : genToDistractionGens(f,thetaRing)
+
+         2 2      2          2
+o26 = t t t  - t t t  - t t t  + t t t
+       1 2 3    1 2 3    1 2 3    1 2 3
+
+o26 : thetaRing
+
+i27 : A = matrix{{1,1,1},{0,1,2}}
+
+o27 = | 1 1 1 |
+      | 0 1 2 |
+
+               2        3
+o27 : Matrix ZZ  <--- ZZ
+
+i28 : I = gkz(A,{10,8})
+
+                                                           2
+o28 = ideal (x D  + x D  + x D  - 10, x D  + 2x D  - 8, - D  + D D )
+              1 1    2 2    3 3        2 2     3 3         2    1 3
+
+o28 : Ideal of QQ[x ..x , D ..D ]
+                   1   3   1   3
+
+i29 : holonomicRank(I)
+
+o29 = 2
+
+i30 : cssExpts(I,{1,0,0})
+
+o30 = {{2, 8, 0}, {0, 12, -2}}
+
+o30 : List
+
+i31 : 

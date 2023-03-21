@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>rays -- displays all rays of a Cone, a Fan, or a Polyhedron</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_save__Session.html">next</a> | <a href="___Q__Q_sp_st_sp__Polyhedron.html">previous</a> | <a href="_save__Session.html">forward</a> | <a href="___Q__Q_sp_st_sp__Polyhedron.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="displays all rays of a Cone, a Fan, or a Polyhedron" href="_rays.html">rays</a>    </div>
+    <hr/>
+    <div>
+      <h1>rays -- displays all rays of a Cone, a Fan, or a Polyhedron</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">R = rays C </code></dd>
+              <dd><code class="language-macaulay2">R = rays F </code></dd>
+              <dd><code class="language-macaulay2">R = rays P</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all rational convex polyhedral cones" href="___Cone.html">convex rational cone</a></span></span>              </li>
+              <li>
+<span><tt>F</tt>, <span>an instance of the type <a title="the class of all fans" href="___Fan.html">Fan</a></span></span>              </li>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+<tt>rays</tt> returns the rays of the input as the columns of the matrix <tt>R</tt>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = convexHull(matrix {{1,-1,2,-2},{1,1,2,2}}, matrix {{0},{1}})
+
+o1 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 5
+      number of rays => 1
+      number of vertices => 4
+
+o1 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : rays P
+
+o2 = | 0 |
+     | 1 |
+
+              2        1
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C = posHull P
+
+o3 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of the cone => 2
+      number of facets => 2
+      number of rays => 2
+
+o3 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : rays C
+
+o4 = | -1 1 |
+     | 1  1 |
+
+              2        2
+o4 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : F = normalFan P
+
+o5 = {ambient dimension => 2         }
+      number of generating cones => 4
+      number of rays => 5
+      top dimension of the cones => 2
+
+o5 : Fan</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : rays F
+
+o6 = {| -1 |, | 1 |, | 0 |, | -1 |, | 1 |}
+      | 1  |  | 1 |  | 1 |  | 0  |  | 0 |
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>rays</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;rays(Cone)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rays(Fan)&quot;</tt>          </li>
+          <li>
+<tt>&quot;rays(Polyhedron)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="displays all rays of a Cone, a Fan, or a Polyhedron" href="_rays.html">rays</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

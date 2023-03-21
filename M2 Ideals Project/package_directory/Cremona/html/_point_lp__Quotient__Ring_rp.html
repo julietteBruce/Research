@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>point(QuotientRing) -- pick a random rational point on a projective variety</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_projective__Degrees.html">next</a> | <a href="_point.html">previous</a> | <a href="_projective__Degrees.html">forward</a> | <a href="_point.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="package for some computations on rational maps between projective varieties" href="index.html">Cremona</a> :: <a title="pick a random rational point on a projective variety" href="_point_lp__Quotient__Ring_rp.html">point(QuotientRing)</a>    </div>
+    <hr/>
+    <div>
+      <h1>point(QuotientRing) -- pick a random rational point on a projective variety</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="pick a random rational point on a projective variety" href="_point.html">point</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">point R</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all quotient rings" href="../../Macaulay2Doc/html/___Quotient__Ring.html">quotient ring</a></span>, the homogeneous coordinate ring of a closed subscheme $X\subseteq\mathbb{P}^n$ over a finite ground field</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, an ideal in <tt>R</tt> defining a point on $X$</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>This function is a variant of the <a title="Pick a random K rational point on the scheme X defined by I" href="../../Macaulay2Doc/html/_random__K__Rational__Point.html">randomKRationalPoint</a> function, which has been further improved and extended in the package <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/MultiprojectiveVarieties/html/index.html">MultiprojectiveVarieties</a>, see <a href="https://faculty.math.illinois.edu/Macaulay2/doc/Macaulay2/share/doc/Macaulay2/MultiprojectiveVarieties/html/_point_lp__Multiprojective__Variety_rp.html"><tt>point(MultiprojectiveVariety)</tt></a>.</p>
+        <p>Below we verify the birationality of a rational map.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : f = inverseMap specialQuadraticTransformation(9,ZZ/33331);
+
+o1 : RationalMap (cubic rational map from 8-dimensional subvariety of PP^11 to PP^8)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : time p = point source f
+     -- used 0.169788 seconds
+
+o2 = ideal (y   - 9235y  , y  + 11075y  , y  - 5847y  , y  + 7396y  , y  +
+             10        11   9         11   8        11   7        11   6  
+     ------------------------------------------------------------------------
+     13530y  , y  + 4359y  , y  - 2924y  , y  + 13040y  , y  + 6904y  , y  -
+           11   5        11   4        11   3         11   2        11   1  
+     ------------------------------------------------------------------------
+     12227y  , y  - 5653y  )
+           11   0        11
+
+                                                             ZZ
+                                                           -----[y ..y  ]
+                                                           33331  0   11
+o2 : Ideal of -------------------------------------------------------------------------------------------------------
+              (y y  - y y  + y y  , y y  - y y  + y y  , y y  - y y  + y y  , y y  - y y  + y y , y y  - y y  + y y )
+                6 7    5 8    4 11   3 7    2 8    1 11   3 5    2 6    0 11   3 4    1 6    0 8   2 4    1 5    0 7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time p == f^* f p
+     -- used 0.156595 seconds
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="Pick a random K rational point on the scheme X defined by I" href="../../Macaulay2Doc/html/_random__K__Rational__Point.html">randomKRationalPoint</a> -- Pick a random K rational point on the scheme X defined by I</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<tt>&quot;point(PolynomialRing)&quot;</tt>          </li>
+          <li>
+<span><a title="pick a random rational point on a projective variety" href="_point_lp__Quotient__Ring_rp.html">point(QuotientRing)</a> -- pick a random rational point on a projective variety</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

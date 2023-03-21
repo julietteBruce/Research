@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>probabilistic algorithm</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Segre.html">next</a> | <a href="___Output.html">previous</a> | <a href="___Segre.html">forward</a> | <a href="___Output.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Chern classes and other characteristic classes of subschemes of certain smooth toric varieties, including products of projective spaces" href="index.html">CharacteristicClasses</a> :: <a href="_probabilistic_spalgorithm.html">probabilistic algorithm</a>    </div>
+    <hr/>
+    <div>
+      <h1>probabilistic algorithm</h1>
+      <div>
+        <div>
+          <p>The algorithms used for the computation of characteristic classes are probabilistic. Theoretically, they calculate the classes correctly for a general choice of certain polynomials. That is, there is an open dense Zariski set for which the algorithm yields the correct class, i.e., the correct class is calculated with probability 1. However, since the implementation works over a discrete probability space there is a very small, but non-zero, probability of not computing the correct class. Skeptical users should repeat calculations several times to increase the probability of computing the correct class.</p>
+          <p>In the case of the symbolic implementation of the ProjectiveDegree method practical experience and algorithm testing indicate that a finite field with over 25000 elements is more than sufficient to expect a correct result with high probability, i.e. using the finite field kk=ZZ/25073 the experimental chance of failure with the ProjectiveDegree algorithm on a variety of examples was less than 1/2000. Using the finite field kk=ZZ/32749 resulted in no failures in over 10000 attempts of several different examples.</p>
+          <p>We illustrate the probabilistic behaviour with an example where the chosen random seed leads to a wrong result in the first calculation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : setRandomSeed 121;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = QQ[x,y,z,w]
+
+o2 = R
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : I = minors(2,matrix{{x,y,z},{y,z,w}})
+
+               2                        2
+o3 = ideal (- y  + x*z, - y*z + x*w, - z  + y*w)
+
+o3 : Ideal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : Chern (I,CompMethod=>PnResidual)
+
+       2
+o4 = 4H
+
+     ZZ[H]
+o4 : -----
+        4
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : Chern (I,CompMethod=>PnResidual)
+
+       3     2
+o5 = 2H  + 3H
+
+     ZZ[H]
+o5 : -----
+        4
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : Chern (I,CompMethod=>PnResidual)
+
+       3     2
+o6 = 2H  + 3H
+
+     ZZ[H]
+o6 : -----
+        4
+       H</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : Chern(I,CompMethod=>ProjectiveDegree)
+
+       3     2
+o7 = 2h  + 3h
+       1     1
+
+     ZZ[h ]
+         1
+o7 : ------
+        4
+       h
+        1</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>SemidefiniteProgramming -- A package for solving semidefinite programs</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_change__Solver.html">next</a> | previous | <a href="_change__Solver.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="A package for solving semidefinite programs" href="index.html">SemidefiniteProgramming</a> :: <a title="A package for solving semidefinite programs" href="index.html">SemidefiniteProgramming</a>    </div>
+    <hr/>
+    <div>
+      <h1>SemidefiniteProgramming -- A package for solving semidefinite programs</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This is a package for solving semidefinite programming (SDP) problems.</p>
+          <p>Given symmetric matrices $C, A_i$ and a vector $b$, the primal SDP problem is</p>
+          <p>$$min_{X} \, C \bullet X \,\,\, s.t. \,\,\, A_i \bullet X = b_i \, and \, X \geq 0$$</p>
+          <p>and the dual SDP problem is</p>
+          <p>$$max_{y,Z} \, \sum_i b_i y_i \,\,\, s.t. \,\,\, Z = C - \sum_i y_i A_i \, and \, Z \geq 0$$</p>
+          <p>We can construct a semidefinite program using the method <a title="construct a semidefinite program" href="___S__D__P.html">sdp</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = sdp(matrix{{1,0},{0,2}}, matrix{{0,1},{1,0}}, matrix{{-1}})
+
+o1 = SDP{A => 1 : (| 0 1 |)}
+                   | 1 0 |
+         b => | -1 |
+         C => | 1 0 |
+              | 0 2 |
+
+o1 : SDP</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The semidefinite program can be solved numerically using the method <a title="solve a semidefinite program" href="_optimize.html">optimize</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (X,y,Z,stat) = optimize P;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (X,y)
+
+o3 = (| .706989 -.5     |, | -1.41421 |)
+      | -.5     .353612 |
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>See <a title="picking a semidefinite programming solver" href="___Solver.html">Solver</a> for a discussion of the available SDP solvers. The method <a title="refine an SDP solution" href="_refine_lp__S__D__P_cm__Sequence_rp.html">refine</a> can be used to improve the precision of the solution.</p>
+          <p>In small cases it is possible to solve the SDP symbolically, by forming the ideal of <a title="ideal of critical equations of a semidefinite program" href="_critical__Ideal.html">critical equations</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (I,X,y,Z) = criticalIdeal P;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : radical I
+
+                                          2
+o5 = ideal (4x  + y , 2x  + 1, 2x  + y , y  - 2)
+              2    0    1        0    0   0
+
+o5 : Ideal of QQ[x ..x , y ]
+                  0   2   0</code></pre>
+</td>          </tr>
+        </table>
+        <pre></pre>
+      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://www.mit.edu/~diegcif/">Diego Cifuentes</a><span> &lt;<a href="mailto:diegcif@mit.edu">diegcif@mit.edu</a>></span>            </li>
+            <li>
+<a href="https://thomas-kahle.de/">Thomas Kahle</a><span> &lt;<a href="mailto:thomas.kahle@ovgu.de">thomas.kahle@ovgu.de</a>></span>            </li>
+            <li>
+<a href="http://www.mit.edu/~parrilo/">Pablo A. Parrilo</a><span> &lt;<a href="mailto:parrilo@mit.edu">parrilo@mit.edu</a>></span>            </li>
+            <li>
+<a href="https://scholar.google.com/citations?user=cFOV7nYAAAAJ&amp;hl=de">Helfried Peyrl</a><span> &lt;<a href="mailto:peyrl@control.ee.ethz.ch">peyrl@control.ee.ethz.ch</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.3</b> of SemidefiniteProgramming.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/SemidefiniteProgramming.m2">SemidefiniteProgramming.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/SemidefiniteProgramming/">SemidefiniteProgramming/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="construct a semidefinite program" href="___S__D__P.html">SDP</a> -- construct a semidefinite program</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="change the SDP solver" href="_change__Solver.html">changeSolver</a> -- change the SDP solver</span>                  </li>
+                  <li>
+<span><a title="check an SDP solver" href="_check__Optimize.html">checkOptimize</a> -- check an SDP solver</span>                  </li>
+                  <li>
+<span><a title="ideal of critical equations of a semidefinite program" href="_critical__Ideal.html">criticalIdeal</a> -- ideal of critical equations of a semidefinite program</span>                  </li>
+                  <li>
+<span><a title="solve a semidefinite program" href="_optimize.html">optimize</a> -- solve a semidefinite program</span>                  </li>
+                  <li>
+<span><a title="factorization of a positive semidefinite matrix" href="___P__S__Ddecomposition.html">PSDdecomposition</a> -- factorization of a positive semidefinite matrix</span>                  </li>
+                  <li>
+<span><a title="rational rounding of a PSD matrix" href="_round__P__S__Dmatrix.html">roundPSDmatrix</a> -- rational rounding of a PSD matrix</span>                  </li>
+                  <li>
+<span><tt>&quot;sdp&quot;</tt> -- see <span><a title="construct a semidefinite program" href="___S__D__P.html">SDP</a> -- construct a semidefinite program</span></span>                  </li>
+                  <li>
+<span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span>                  </li>
+                  <li>
+<span><tt>&quot;vec2smat&quot;</tt> -- see <span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;checkOptimize(String)&quot;</tt> -- see <span><a title="check an SDP solver" href="_check__Optimize.html">checkOptimize</a> -- check an SDP solver</span></span>                  </li>
+                  <li>
+<span><tt>&quot;criticalIdeal(SDP)&quot;</tt> -- see <span><a title="ideal of critical equations of a semidefinite program" href="_critical__Ideal.html">criticalIdeal</a> -- ideal of critical equations of a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;criticalIdeal(SDP,ZZ)&quot;</tt> -- see <span><a title="ideal of critical equations of a semidefinite program" href="_critical__Ideal.html">criticalIdeal</a> -- ideal of critical equations of a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;optimize(SDP)&quot;</tt> -- see <span><a title="solve a semidefinite program" href="_optimize.html">optimize</a> -- solve a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;optimize(SDP,Matrix)&quot;</tt> -- see <span><a title="solve a semidefinite program" href="_optimize.html">optimize</a> -- solve a semidefinite program</span></span>                  </li>
+                  <li>
+<span><a title="refine an SDP solution" href="_refine_lp__S__D__P_cm__Sequence_rp.html">refine(SDP,Sequence)</a> -- refine an SDP solution</span>                  </li>
+                  <li>
+<span><tt>&quot;ring(SDP)&quot;</tt> -- see <span><a title="construct a semidefinite program" href="___S__D__P.html">SDP</a> -- construct a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sdp(List,Matrix,RingElement)&quot;</tt> -- see <span><a title="construct a semidefinite program" href="___S__D__P.html">SDP</a> -- construct a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sdp(Matrix,Matrix,Matrix)&quot;</tt> -- see <span><a title="construct a semidefinite program" href="___S__D__P.html">SDP</a> -- construct a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sdp(Matrix,Sequence,Matrix)&quot;</tt> -- see <span><a title="construct a semidefinite program" href="___S__D__P.html">SDP</a> -- construct a semidefinite program</span></span>                  </li>
+                  <li>
+<span><tt>&quot;smat2vec(List)&quot;</tt> -- see <span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span></span>                  </li>
+                  <li>
+<span><tt>&quot;smat2vec(Matrix)&quot;</tt> -- see <span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vec2smat(List)&quot;</tt> -- see <span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span></span>                  </li>
+                  <li>
+<span><tt>&quot;vec2smat(Matrix)&quot;</tt> -- see <span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><tt>&quot;Scaling&quot;</tt> -- see <span><a title="vectorization of a symmetric matrix" href="_smat2vec.html">smat2vec</a> -- vectorization of a symmetric matrix</span></span>                  </li>
+                  <li>
+<span><a title="picking a semidefinite programming solver" href="___Solver.html">Solver</a> -- picking a semidefinite programming solver</span>                  </li>
+                  <li>
+<span><a title="control the level of information printed" href="___Verbosity.html">Verbosity</a> -- control the level of information printed</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="A package for solving semidefinite programs" href="index.html">SemidefiniteProgramming</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

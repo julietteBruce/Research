@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>eliminationMatrix(ZZ,List,Matrix) -- returns a matrix corresponding to the determinantal resultant, in particular the Macaulay resultant</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Exact.html">next</a> | <a href="_elimination__Matrix_lp__List_cm__Matrix_cm__Matrix_rp.html">previous</a> | <a href="___Exact.html">forward</a> | <a href="_elimination__Matrix_lp__List_cm__Matrix_cm__Matrix_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="resultants" href="index.html">EliminationMatrices</a> :: <a title="returns a matrix corresponding to the determinantal resultant, in particular the Macaulay resultant" href="_elimination__Matrix_lp__Z__Z_cm__List_cm__Matrix_rp.html">eliminationMatrix(ZZ,List,Matrix)</a>    </div>
+    <hr/>
+    <div>
+      <h1>eliminationMatrix(ZZ,List,Matrix) -- returns a matrix corresponding to the determinantal resultant, in particular the Macaulay resultant</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="returns a matrix that represents the image of the map" href="_elimination__Matrix.html">eliminationMatrix</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">eliminationMatrix(r, v, m)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>r</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, corresponding to the regularity index used to form the determinantal resultant</span>              </li>
+              <li>
+<span><tt>v</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>,  a list of homogeneous variables that are to be eliminated</span>              </li>
+              <li>
+<span><tt>m</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a polynomial matrix</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="returns a matrix that represents the image of the map" href="_elimination__Matrix.html">Strategy</a><tt> => </tt><tt>...</tt>, <span>default value null</span>, returns a matrix that represents the image of the map</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a matrix corresponding to the determinantal resultant</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+ Compute the determinantal resultant of an (n,m)-matrix (n&lt;m) of homogeneous polynomials over the projective space of dimension (m-r)(n-r), i.e. a condition on the parameters of these polynomials to have rank(M)&lt;r+1.<tt>M</tt>        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R=QQ[a_0..a_5,b_0..b_5,x,y]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M:=matrix{{a_0*x+a_1*y,a_2*x+a_3*y,a_4*x+a_5*y},{b_0*x+b_1*y,b_2*x+b_3*y,b_4*x+b_5*y}}
+
+o2 = | a_0x+a_1y a_2x+a_3y a_4x+a_5y |
+     | b_0x+b_1y b_2x+b_3y b_4x+b_5y |
+
+             2       3
+o2 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : eliminationMatrix(1,{x,y},M, Strategy => determinantal)
+
+o3 = {2} | -a_2b_0+a_0b_2               -a_4b_0+a_0b_4              
+     {2} | -a_3b_0-a_2b_1+a_1b_2+a_0b_3 -a_5b_0-a_4b_1+a_1b_4+a_0b_5
+     {2} | -a_3b_1+a_1b_3               -a_5b_1+a_1b_5              
+     ------------------------------------------------------------------------
+     -a_4b_2+a_2b_4               |
+     -a_5b_2-a_4b_3+a_3b_4+a_2b_5 |
+     -a_5b_3+a_3b_5               |
+
+             3       3
+o3 : Matrix R  &lt;--- R</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="returns two matrices such that the ratio of their determinants is the Macaulay resultant" href="_macaulay__Formula.html">macaulayFormula</a> -- returns two matrices such that the ratio of their determinants is the Macaulay resultant</span>          </li>
+          <li>
+<span><a title="returns a matrix associated to generalized resultants" href="_bezoutian__Matrix.html">bezoutianMatrix</a> -- returns a matrix associated to generalized resultants</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="returns a matrix corresponding to the determinantal resultant, in particular the Macaulay resultant" href="_elimination__Matrix_lp__Z__Z_cm__List_cm__Matrix_rp.html">eliminationMatrix(ZZ,List,Matrix)</a> -- returns a matrix corresponding to the determinantal resultant, in particular the Macaulay resultant</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

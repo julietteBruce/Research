@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>base -- make an abstract variety from nothing, equipped with some parameters and some bundles</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_blowup.html">next</a> | <a href="___Base.html">previous</a> | <a href="_blowup.html">forward</a> | <a href="___Base.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="computation in intersection theory" href="index.html">Schubert2</a> :: <a title="make an abstract variety from nothing, equipped with some parameters and some bundles" href="_base.html">base</a>    </div>
+    <hr/>
+    <div>
+      <h1>base -- make an abstract variety from nothing, equipped with some parameters and some bundles</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">X = base()</code></dd>
+              <dd><code class="language-macaulay2">X = base(p)</code></dd>
+              <dd><code class="language-macaulay2">X = base(d,p)</code></dd>
+              <dd><code class="language-macaulay2">X = base(d,p,...,Bundle=>(B,r,b),...)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>d</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, if omitted, the value $0$ is used</span>              </li>
+              <li>
+<span><tt>p</tt>, <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, </span>              </li>
+              <li>
+<span><tt>B</tt>, <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, </span>              </li>
+              <li>
+<span><tt>r</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+              <li>
+<span><tt>b</tt>, either <span>a <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbol</a></span>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span> of <a title="the class of all symbols" href="../../Macaulay2Doc/html/___Symbol.html">symbols</a>, <a title="the class of all indexed variables" href="../../Macaulay2Doc/html/___Indexed__Variable.html">indexed variables</a>, or <a title="the class of all Chern class variables" href="___Chern__Class__Variable.html">Chern class variables</a></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an <a title="the class of all abstract varieties" href="___Abstract__Variety.html">abstract variety</a></span>, a variety of dimension $d$ with an intersection ring containing specified variables and specified Chern classes of abstract sheaves</span>              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+Consequences:              <ul>
+                <li>
+Variables $p$, ..., of degree 0 are in the intersection ring of the variety. They are usable as (integer) variables (auxiliary parameters) in intersection ring computations.                </li>
+                <li>
+For each option <tt>Bundle=>(B,r,b)</tt>, an abstract sheaf of rank <tt>r</tt> is created and assigned to the variable <tt>B</tt>. If <tt>b</tt> is a symbol, then the Chern classes of $B$ are assigned to the indexed variables <tt>b_1, ..., b_k</tt>, where $k = min(r,d)$. If <tt>b</tt> is a string, <tt>&quot;d&quot;</tt>, say, then the Chern classes of $B$ are assigned to the variables whose names are <tt>d1</tt>, <tt>d2</tt>, <tt>d3</tt>, ... . If <tt>b</tt> is a list of length $k$, then the Chern classes are assigned to its elements.                </li>
+                <li>
+A default method for integration of elements of the intersection ring is installed, which returns a formal <a title="the class of all expressions" href="../../Macaulay2Doc/html/___Expression.html">expression</a> representing the integral of the degree $d$ part of the element when $d$ is greater than zero, and simply returns the degree 0 part of the element when $d$ is zero.                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>First we make a base variety and illustrate a computation with its two abstract sheaves:</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = base(2,p,q, Bundle =>(A,1,a), Bundle => (B,2,&quot;b&quot;))
+
+o1 = S
+
+o1 : an abstract variety of dimension 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : intersectionRing S
+
+o2 = QQ[p..q, a , b1, b2]
+               1
+
+o2 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : degrees oo
+
+o3 = {{0}, {0}, {1}, {1}, {2}}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : chern (A*B)
+
+                        2
+o4 = 1 + (2a  + b1) + (a  + a b1 + b2)
+            1           1    1
+
+o4 : QQ[p..q, a , b1, b2]
+               1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : integral oo
+
+               2
+o5 = integral(a  + a b1 + b2)
+               1    1
+
+o5 : Expression of class Adjacent</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Then we make a projective space over it and use the auxiliary parameters <tt>p</tt> and <tt>q</tt> in a computation that checks the projection formula.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : X = abstractProjectiveSpace'(3,S,VariableName => H)
+warning: clearing value of symbol H to allow access to subscripted variables based on it
+       : debug with expression   debug 204   or with command line option   --debug 204
+
+o6 = X
+
+o6 : a flag bundle with subquotient ranks {3, 1}</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : intersectionRing X
+
+              QQ[p..q, a , b1, b2][H   ..H   , H]
+                        1           1,1   1,3
+o7 = ----------------------------------------------------
+     (- H    - H, - H    - H   H, - H    - H   H, -H   H)
+         1,1         1,2    1,1      1,3    1,2     1,3
+
+o7 : QuotientRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : f = X.StructureMap
+
+o8 = f
+
+o8 : a map to S from X</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : x = chern f_* (f^* OO_S(p*a_1) * OO_X(q*H))
+
+          1   3        2     11                   1 2 6 2   1 2 5 2  
+o9 = 1 + (-p*q a  + p*q a  + --p*q*a  + p*a ) + (--p q a  + -p q a  +
+          6     1        1    6     1      1     72     1   6     1  
+     ------------------------------------------------------------------------
+     29 2 4 2   23 2 3 2   157 2 2 2   11 2   2
+     --p q a  + --p q a  + ---p q a  + --p q*a )
+     36     1   12     1    72     1   12     1
+
+o9 : QQ[p..q, a , b1, b2]
+               1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : y = chern f_* OO_X((f^*(p*a_1))+q*H)
+
+           1   3        2     11                   1 2 6 2   1 2 5 2  
+o10 = 1 + (-p*q a  + p*q a  + --p*q*a  + p*a ) + (--p q a  + -p q a  +
+           6     1        1    6     1      1     72     1   6     1  
+      -----------------------------------------------------------------------
+      29 2 4 2   23 2 3 2   157 2 2 2   11 2   2
+      --p q a  + --p q a  + ---p q a  + --p q*a )
+      36     1   12     1    72     1   12     1
+
+o10 : QQ[p..q, a , b1, b2]
+                1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : x == y
+
+o11 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="make a projective space" href="_abstract__Projective__Space_sq.html">abstractProjectiveSpace'</a> -- make a projective space</span>          </li>
+          <li>
+<span><a title="make an abstract variety from nothing, equipped with some parameters and some bundles" href="_base.html">base</a> -- make an abstract variety from nothing, equipped with some parameters and some bundles</span>          </li>
+          <li>
+<span><a title="get the structure map of an abstract variety" href="___Structure__Map.html">StructureMap</a> -- get the structure map of an abstract variety</span>          </li>
+          <li>
+<span><a title="compute Chern classes of a sheaf" href="_chern.html">chern</a> -- compute Chern classes of a sheaf</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>base</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;base(Sequence)&quot;</tt>          </li>
+          <li>
+<tt>&quot;base(Thing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="make an abstract variety from nothing, equipped with some parameters and some bundles" href="_base.html">base</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__Single.html">method function with a single argument</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

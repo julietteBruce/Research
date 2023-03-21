@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>normaliz(List) -- calls Normaliz with several input matrices</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_normaliz_lp__Matrix_cm__String_rp.html">next</a> | <a href="_normaliz.html">previous</a> | <a href="_normaliz_lp__Matrix_cm__String_rp.html">forward</a> | <a href="_normaliz.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="an interface to use Normaliz in Macaulay 2" href="index.html">Normaliz</a> :: <a title="calls Normaliz with several input matrices" href="_normaliz_lp__List_rp.html">normaliz(List)</a>    </div>
+    <hr/>
+    <div>
+      <h1>normaliz(List) -- calls Normaliz with several input matrices</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="calls Normaliz" href="_normaliz.html">normaliz</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">normaliz L</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, a list of pairs (mat,nmzType)</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>allComputations</tt><tt> => </tt><tt>...</tt>, <span>default value false</span></span>              </li>
+              <li>
+<span><tt>grading</tt><tt> => </tt><tt>...</tt>, <span>default value {}</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>an instance of the type <a title="class of rational cones" href="___Rational__Cone.html">RationalCone</a></span>, generators of the integral closure and optional output from <tt>Normaliz</tt></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+This function applies <tt>Normaliz</tt> to all <tt>mat</tt> each in the type set by the second parameter <tt>nmzType</tt>. The function returns an object of type <a title="class of rational cones" href="___Rational__Cone.html">RationalCone</a> defined by the file with suffix <tt>gen</tt> , if computed, and possibly some additional information.It is possibly to give several matrices of the same type. All matrices of one type are then appended to one matrix by <tt>Normaliz</tt>.        <p/>
+By default, the cone returned contains only the content of the output file .gen, under the key &quot;gen&quot;, i.e. the generators that have been computed, line by line and the content of the output file .inv, under the key &quot;inv&quot;.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : hy=matrix {{-1,0,-1,0,3,0,0,0,0},{-1,0,1,0,1,0,0,0,0},{1,0,1,0,-1,0,0,0,0},{1,0,-1,0,1,0,0,0,0}};
+
+              4        9
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : eq=matrix {{1,1,1,-1,-1,-1,0,0,0},{1,1,1,0,0,0,-1,-1,-1},{0,1,1,-1,0, 0,-1,0,0},{1,0,1,0,-1,0,0,-1,0},{1,1,0,0,0,-1,0,0,-1},{0,1,1,0,-1,0,0,0,-1},{1,1,0,0,-1,0,-1,0,0}};
+
+              7        9
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : cg=matrix {{1,0,0,0,0,0,0,0,0,2},{0,0,1,0,0,0,0,0,0,2},{0,0,0,0,0,0,1,0,0,2},{0,0,0,0,0,0,0,0,1,2}};
+
+              4        10
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : rc=normaliz({(hy,&quot;inequalities&quot;),(eq,&quot;equations&quot;),(cg,&quot;congruences&quot;)});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : rc#&quot;gen&quot;
+
+o5 = | 0 4 2 4 2 0 2 0 4 |
+     | 2 0 4 4 2 0 0 4 2 |
+     | 2 2 2 2 2 2 2 2 2 |
+     | 2 3 4 5 3 1 2 3 4 |
+     | 2 4 0 0 2 4 4 0 2 |
+     | 2 5 2 3 3 3 4 1 4 |
+     | 4 0 2 0 2 4 2 4 0 |
+     | 4 1 4 3 3 3 2 5 2 |
+     | 4 3 2 1 3 5 4 3 2 |
+
+              9        9
+o5 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+To obtain all the information written by <tt>Normaliz</tt> set the option <a href="_all__Computations.html">allComputations</a> to true (to decide which information shall be written by <tt>Normaliz</tt> use the options for <tt>Normaliz</tt>, see <a title="sets a command line option for Normaliz" href="_set__Nmz__Option.html">setNmzOption</a>). Then the method returns an object of type RationalCone whose keys are the suffixes of all the output files written, with value the content of the corresponding output file, which is an matrix whose rows contain the data computed, except for the suffix <tt>inv</tt>, for which the type is a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> (see also <a title="returns the numerical invariants computed" href="_get__Num__Invs.html">getNumInvs</a>). It can also be used with the option <a href="_grading.html">grading</a>.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : setNmzOption(&quot;allf&quot;,true);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : arc=normaliz(allComputations=>true,{(hy,&quot;inequalities&quot;),(eq,&quot;equations&quot;),(cg,&quot;congruences&quot;)});</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : arc#&quot;gen&quot;
+
+o8 = | 0 4 2 4 2 0 2 0 4 |
+     | 2 0 4 4 2 0 0 4 2 |
+     | 2 2 2 2 2 2 2 2 2 |
+     | 2 3 4 5 3 1 2 3 4 |
+     | 2 4 0 0 2 4 4 0 2 |
+     | 2 5 2 3 3 3 4 1 4 |
+     | 4 0 2 0 2 4 2 4 0 |
+     | 4 1 4 3 3 3 2 5 2 |
+     | 4 3 2 1 3 5 4 3 2 |
+
+              9        9
+o8 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : arc#&quot;ext&quot;
+
+o9 = | 0 4 2 4 2 0 2 0 4 |
+     | 2 0 4 4 2 0 0 4 2 |
+     | 2 4 0 0 2 4 4 0 2 |
+     | 4 0 2 0 2 4 2 4 0 |
+
+              4        9
+o9 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : arc#&quot;inv&quot;
+
+o10 = HashTable{class group => (1, 4, 4)       }
+                dim max subspace => 0
+                embedding dim => 9
+                external index => 4
+                graded => false
+                hilbert basis elements => 9
+                inhomogeneous => false
+                number extreme rays => 4
+                number support hyperplanes => 4
+                rank => 3
+                size triangulation => 2
+                sum dets => 8
+
+o10 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="class of rational cones" href="___Rational__Cone.html">RationalCone</a> -- class of rational cones</span>          </li>
+          <li>
+<span><a title="reads an output file of Normaliz containing one matrix" href="_read__Nmz__Data.html">readNmzData</a> -- reads an output file of Normaliz containing one matrix</span>          </li>
+          <li>
+<span><a href="___Keeping_spresults_spof_spthe_spcomputation_spby_sp__Normaliz.html">Keeping results of the computation by Normaliz</a></span>          </li>
+          <li>
+<span><a href="_output_spfiles_spwritten_spby_sp__Normaliz.html">output files written by Normaliz</a></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="calls Normaliz with several input matrices" href="_normaliz_lp__List_rp.html">normaliz(List)</a> -- calls Normaliz with several input matrices</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

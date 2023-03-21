@@ -1,0 +1,83 @@
+-- -*- M2-comint -*- hash: -755294217
+
+i1 : R = QQ[x,y]
+
+o1 = R
+
+o1 : PolynomialRing
+
+i2 : D8 = { matrix{{x,y}},
+            matrix{{-x,-y}},
+            matrix{{-y,x}},
+            matrix{{x,-y}},
+            matrix{{y,x}} }
+
+o2 = {| x y |, | -x -y |, | -y x |, | x -y |, | y x |}
+
+o2 : List
+
+i3 : M = matrix {{1,1,1,1,1},
+         {1,1,1,-1,-1},
+         {1,1,-1,1,-1},
+         {1,1,-1,-1,1},
+         {2,-2,0,0,0}};
+
+              5        5
+o3 : Matrix ZZ  <--- ZZ
+
+i4 : T = characterTable({1,1,2,2,2},M,R,{1,2,3,4,5},
+         Labels=>{"triv","rho1","rho2","rho3","dim2"})
+
+o4 = Character table over R
+      
+           |  1   1   2   2   2
+     ------+-------------------
+     triv  |  1   1   1   1   1
+     rho1  |  1   1   1  -1  -1
+     rho2  |  1   1  -1   1  -1
+     rho3  |  1   1  -1  -1   1
+     dim2  |  2  -2   0   0   0
+
+o4 : CharacterTable
+
+i5 : A = action(R,D8)
+
+o5 = PolynomialRing with 5 actors
+
+o5 : ActionOnGradedModule
+
+i6 : c = character(A,0,8)
+
+o6 = Character over R
+      
+     (0, {0}) => | 1 1 1 1 1 |
+     (0, {1}) => | 2 -2 0 0 0 |
+     (0, {2}) => | 3 3 -1 1 1 |
+     (0, {3}) => | 4 -4 0 0 0 |
+     (0, {4}) => | 5 5 1 1 1 |
+     (0, {5}) => | 6 -6 0 0 0 |
+     (0, {6}) => | 7 7 -1 1 1 |
+     (0, {7}) => | 8 -8 0 0 0 |
+     (0, {8}) => | 9 9 1 1 1 |
+
+o6 : Character
+
+i7 : decomposeCharacter(c,T)
+
+o7 = Decomposition table
+      
+               |  triv  rho1  rho2  rho3  dim2
+     ----------+------------------------------
+     (0, {0})  |     1     0     0     0     0
+     (0, {1})  |     0     0     0     0     1
+     (0, {2})  |     1     0     1     1     0
+     (0, {3})  |     0     0     0     0     2
+     (0, {4})  |     2     1     1     1     0
+     (0, {5})  |     0     0     0     0     3
+     (0, {6})  |     2     1     2     2     0
+     (0, {7})  |     0     0     0     0     4
+     (0, {8})  |     3     2     2     2     0
+
+o7 : CharacterDecomposition
+
+i8 : 

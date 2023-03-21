@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>minkSummandCone -- computes the Cone of all Minkowski summands and the minimal decompositions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_mixed__Volume.html">next</a> | <a href="_minkowski__Sum.html">previous</a> | <a href="_mixed__Volume.html">forward</a> | <a href="_minkowski__Sum.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="computes the Cone of all Minkowski summands and the minimal decompositions" href="_mink__Summand__Cone.html">minkSummandCone</a>    </div>
+    <hr/>
+    <div>
+      <h1>minkSummandCone -- computes the Cone of all Minkowski summands and the minimal decompositions</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(C,L,M) = minkSummandCone P</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>P</tt>, <span>a <a title="the class of all convex polyhedra" href="___Polyhedron.html">convex polyhedron</a></span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all rational convex polyhedral cones" href="___Cone.html">convex rational cone</a></span></span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>,  containing Polyhedra</span>              </li>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span></span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p/>
+For the Minkowski summand cone one takes <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>^d where d is the number of edges of the input polyhedron <tt>P</tt>. Every Minkowski summand of <tt>P</tt> has only edges that are edges of <tt>P</tt>, so it can be constructed by rescaling every edge of <tt>P</tt>, i.e. is represented by a point in <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>^d. But not every point in <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>^d gives a polyhedron via this method. This is the case if on the one hand the point lies in the positive orthant and on the other hand for every compact two dimensional face of <tt>P</tt> the rescaled edges of such a face give a two dimensional polytope, i.e. the sum of the ordered rescaled edge directions is zero. Therefore, every compact two dimensional face of <tt>P</tt> gives a set of linear equalities on a part of the variables in <a title="the class of all rational numbers" href="../../Macaulay2Doc/html/___Q__Q.html">QQ</a>^d. The Minkowski Summand Cone <tt>C</tt> is the intersection of the positive orthant with these equations. Thus, every point in <tt>C</tt> corresponds to a Minkowski summand (probably after rescaling). The corresponding polyhedron to every minimal generator of <tt>C</tt> is saved in the hash table <tt>L</tt>. Finally, all possible minimal decompositions of <tt>P</tt> are saved as columns in the matrix <tt>M</tt>.        <p/>
+For example, consider the Minkowski summand cone of the hexagon.        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = convexHull matrix{{2,1,-1,-2,-1,1},{0,1,1,0,-1,-1}}
+
+o1 = {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 6
+      number of rays => 0
+      number of vertices => 6
+
+o1 : Polyhedron</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (C,L,M) = minkSummandCone P
+
+o2 = ({ambient dimension => 6           }, HashTable{0 =>
+       dimension of lineality space => 0                 
+       dimension of the cone => 4                        
+       number of facets => 6                             
+       number of rays => 5                               
+                                                         
+                                                     1 =>
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                     2 =>
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                     3 =>
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                     4 =>
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+     ------------------------------------------------------------------------
+     {ambient dimension => 2           }}, | 1 0 |)
+      dimension of lineality space => 0    | 0 1 |
+      dimension of polyhedron => 1         | 1 0 |
+      number of facets => 2                | 1 0 |
+      number of rays => 0                  | 0 1 |
+      number of vertices => 2
+     {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 3
+      number of rays => 0
+      number of vertices => 3
+     {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 1
+      number of facets => 2
+      number of rays => 0
+      number of vertices => 2
+     {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 1
+      number of facets => 2
+      number of rays => 0
+      number of vertices => 2
+     {ambient dimension => 2           }
+      dimension of lineality space => 0
+      dimension of polyhedron => 2
+      number of facets => 3
+      number of rays => 0
+      number of vertices => 3
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+Thus, we see that the minimal Minkowski summands of the hexagon are two triangles and three lines and that there are two minimal decompositions, i.e. the hexagon is the sum of the two triangles or the three lines:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : rays C
+
+o3 = | 1 0 0 0 1 |
+     | 0 1 0 1 0 |
+     | 0 1 1 0 0 |
+     | 1 1 0 0 0 |
+     | 0 0 1 0 1 |
+     | 0 0 0 1 1 |
+
+              6        5
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : apply(values L,vertices)
+
+o4 = {| 0 2 |, | 0 2 1  |, | 0 1 |, | 0 1  |, | 0 2 1 |}
+      | 0 0 |  | 0 0 -1 |  | 0 1 |  | 0 -1 |  | 0 0 1 |
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : M
+
+o5 = | 1 0 |
+     | 0 1 |
+     | 1 0 |
+     | 1 0 |
+     | 0 1 |
+
+              5        2
+o5 : Matrix QQ  &lt;--- QQ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>minkSummandCone</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;minkSummandCone(Polyhedron)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the Cone of all Minkowski summands and the minimal decompositions" href="_mink__Summand__Cone.html">minkSummandCone</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>toricPolytope -- computes the polytope whose toric ideal is the given ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_universal__Ideal.html">next</a> | <a href="___Tolerance.html">previous</a> | <a href="_universal__Ideal.html">forward</a> | <a href="___Tolerance.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for slack ideals of polytopes and matroids" href="index.html">SlackIdeals</a> :: <a title="computes the polytope whose toric ideal is the given ideal" href="_toric__Polytope.html">toricPolytope</a>    </div>
+    <hr/>
+    <div>
+      <h1>toricPolytope -- computes the polytope whose toric ideal is the given ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">Q = toricPolytope I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, a toric ideal</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>Q</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a matrix whose columns are the vectors of a configuration whose toric ideal is I</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Every toric ideal comes as the ideal of some vector configuration. This function gives one such vector configuration whose ideal is the given ideal.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : V = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = slackIdeal V
+
+Order of vertices is 
+{{0, 0}, {1, 0}, {0, 1}, {1, 1}}
+
+o2 = ideal(x x x x  - x x x x )
+            0 3 5 6    1 2 4 7
+
+o2 : Ideal of QQ[x ..x ]
+                  0   7</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : Q = toricPolytope I
+
+o3 = | 1 0 0 0 1  0  0 0 |
+     | 0 1 0 0 0  1  0 0 |
+     | 0 0 0 0 1  1  0 0 |
+     | 0 0 0 0 1  0  1 0 |
+     | 0 0 1 0 -1 0  0 0 |
+     | 0 0 0 0 0  1  0 1 |
+     | 0 0 0 1 0  -1 0 0 |
+
+              7        8
+o3 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This function does not test for binomiality. If it is given an ideal which is not toric, it will return the polytope of the ideal whose generators are the first two terms of each generator of the input ideal. If the input toric ideal is scaled (lattice ideal with not all coefficients one) the toric polytope of the unscaled ideal is returned.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="creates the toric ideal of the non-incidence graph of a polytope" href="_graphic__Ideal.html">graphicIdeal</a> -- creates the toric ideal of the non-incidence graph of a polytope</span>          </li>
+          <li>
+<span><a title="constructs the cycle ideal of a realization" href="_cycle__Ideal.html">cycleIdeal</a> -- constructs the cycle ideal of a realization</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>toricPolytope</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;toricPolytope(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="computes the polytope whose toric ideal is the given ideal" href="_toric__Polytope.html">toricPolytope</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

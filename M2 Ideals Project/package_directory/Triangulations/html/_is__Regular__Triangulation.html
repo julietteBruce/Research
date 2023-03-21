@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isRegularTriangulation -- determine if a given triangulation is a regular triangulation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Star.html">next</a> | <a href="_is__Fine.html">previous</a> | <a href="_is__Star.html">forward</a> | <a href="_is__Fine.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="generating and manipulating triangulations of point or vector configurations" href="index.html">Triangulations</a> :: <a title="determine if a given triangulation is a regular triangulation" href="_is__Regular__Triangulation.html">isRegularTriangulation</a>    </div>
+    <hr/>
+    <div>
+      <h1>isRegularTriangulation -- determine if a given triangulation is a regular triangulation</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isRegularTriangulation T</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>T</tt>, <span>an instance of the type <tt>Triangulation</tt> (missing documentation)<!--tag: Triangulation-->
+</span>, A triangulation of a point or vector configuration</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Homogenize</tt> (missing documentation)<!--tag: [isRegularTriangulation, Homogenize]-->
+<tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value true</span>, unused for this method</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether the given triangulation is regular</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A triangulation is called regular if it can be constructed in the following way: place the point set in one higher dimension at various heights in the new variable.  Compute the convex hull.  Collect the list of facets with downward pointing normal (last coordinate of normal vector is negative).  If each of these is a simplex, then these form a triangulation of the original point set.  A triangulation which arises this way is called <i>regular</i>.  See the book [deLoera et al] for more details and many beautiful properties of such triangulations.</p>
+        </div>
+        <div>
+          <p>The following example is one of the simplest examples of a non-regular triangulation.  Notice that <tt>tri</tt> is a triangulation of the polytope which is the convex hull of the columns of $A$, which are the only points allowed in the triangulation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : A = transpose matrix {{0,3},{0,1},{-1,-1},{1,-1},{-4,-2},{4,-2}}
+
+o1 = | 0 0 -1 1  -4 4  |
+     | 3 1 -1 -1 -2 -2 |
+
+              2        6
+o1 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : tri = {{0,1,2}, {1,3,5}, {2,3,4}, {0,1,5},
+         {0,2,4}, {3,4,5}, {1,2,3}}
+
+o2 = {{0, 1, 2}, {1, 3, 5}, {2, 3, 4}, {0, 1, 5}, {0, 2, 4}, {3, 4, 5}, {1,
+     ------------------------------------------------------------------------
+     2, 3}}
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : T = triangulation(A, tri)
+
+o3 = triangulation {{0, 1, 2}, {0, 1, 5}, {0, 2, 4}, {1, 2, 3}, {1, 3, 5}, {2, 3, 4}, {3, 4, 5}}
+
+o3 : Triangulation</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We check that <tt>T</tt> is indeed a triangulation, and whether it is a regular triangulation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isWellDefined T
+
+o4 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : isRegularTriangulation T
+
+o5 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Many of the functions in this package are wrappers for topcom functions. Setting the global variable <tt>debugLevel</tt> to either 1,2, or 5 will give more detail about what files are written to Topcom, and what the executable is. Setting <tt>debugLevel</tt> to 0 means that the function will run silently.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>Does topcom check that the triangulation is actually well defined?  I'm not sure...  This is why we call <tt>isWellDefined(Triangulation)</tt> (missing documentation)<!--tag: (isWellDefined,Triangulation)-->
+ first.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><tt>regularTriangulationWeights(Triangulation)</tt> (missing documentation)<!--tag: (regularTriangulationWeights,Triangulation)-->
+</span>          </li>
+          <li>
+<span><tt>regularFineTriangulation</tt> (missing documentation)<!--tag: regularFineTriangulation-->
+</span>          </li>
+          <li>
+<span><tt>isWellDefined(Triangulation)</tt> (missing documentation)<!--tag: (isWellDefined,Triangulation)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isRegularTriangulation</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isRegularTriangulation(Triangulation)&quot;</tt>          </li>
+          <li>
+<span><tt>isRegularTriangulation(Matrix,List)</tt> (missing documentation)<!--tag: (isRegularTriangulation,Matrix,List)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="determine if a given triangulation is a regular triangulation" href="_is__Regular__Triangulation.html">isRegularTriangulation</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

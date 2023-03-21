@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Cone -- the class of all rational convex polyhedral cones</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Cone_sp_st_sp__Cone.html">next</a> | <a href="_common__Face.html">previous</a> | <a href="___Cone_sp_st_sp__Cone.html">forward</a> | <a href="_common__Face.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="for computations with convex polyhedra, cones, and fans" href="index.html">OldPolyhedra</a> :: <a title="the class of all rational convex polyhedral cones" href="___Cone.html">Cone</a>    </div>
+    <hr/>
+    <div>
+      <h1>Cone -- the class of all rational convex polyhedral cones</h1>
+      <div>
+        <h2>Description</h2>
+A Cone represents a rational convex polyhedral cone. It need not be full dimensional or may contain a proper linear subspace. It can be zero dimensional, i.e. the origin. It is saved as a hash table which contains the generating rays and the basis of the lineality space of the cone as well as the defining half-spaces and hyperplanes. The output of a Cone looks like this:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : posHull matrix {{0,0,-1,-1,1},{2,-2,1,-1,0},{1,1,1,1,0}}
+
+o1 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 5
+      number of rays => 5
+
+o1 : Cone</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+This table displays a short summary of the properties of the Cone. The number of rays is modulo the lineality space. However, one can not access the above information directly, because this is just a virtual hash table generated for the output. The data describing a Cone is extracted by the functions included in this package. A Cone can be constructed as the positive hull (<a title="computes the positive hull of rays, cones, and the cone over a polyhedron" href="_pos__Hull.html">posHull</a>)of a set of rays or as the intersection (<a title="computes the intersection of half-spaces, hyperplanes, cones, and polyhedra" href="_intersection.html">intersection</a>) of a set of linear half-spaces and linear hyperplanes.        <p/>
+As examples for the positive hull consider the following cones:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : R = matrix{{1,2,3,1},{2,3,1,1},{3,1,2,1}}
+
+o2 = | 1 2 3 1 |
+     | 2 3 1 1 |
+     | 3 1 2 1 |
+
+              3        4
+o2 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : C = posHull R
+
+o3 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o3 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : rays C
+
+o4 = | 2 3 1 |
+     | 3 1 2 |
+     | 1 2 3 |
+
+              3        3
+o4 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : LS = matrix{{1},{1},{-2}}
+
+o5 = | 1  |
+     | 1  |
+     | -2 |
+
+              3        1
+o5 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : C = posHull(R,LS)
+
+o6 = {ambient dimension => 3           }
+      dimension of lineality space => 1
+      dimension of the cone => 3
+      number of facets => 2
+      number of rays => 2
+
+o6 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : rays C
+
+o7 = | 3 3 |
+     | 1 5 |
+     | 2 4 |
+
+              3        2
+o7 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+On the other hand, we can use these matrices as defining half-spaces and hyperplanes for the intersection:        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : HS = transpose R
+
+o8 = | 1 2 3 |
+     | 2 3 1 |
+     | 3 1 2 |
+     | 1 1 1 |
+
+              4        3
+o8 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : C = intersection HS
+
+o9 = {ambient dimension => 3           }
+      dimension of lineality space => 0
+      dimension of the cone => 3
+      number of facets => 3
+      number of rays => 3
+
+o9 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : rays C
+
+o10 = | 1  7  -5 |
+      | 7  -5 1  |
+      | -5 1  7  |
+
+               3        3
+o10 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : HP = transpose LS
+
+o11 = | 1 1 -2 |
+
+               1        3
+o11 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : C = intersection(HS,HP)
+
+o12 = {ambient dimension => 3           }
+       dimension of lineality space => 0
+       dimension of the cone => 2
+       number of facets => 2
+       number of rays => 2
+
+o12 : Cone</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : rays C
+
+o13 = | 7  -2 |
+      | -5 4  |
+      | 1  1  |
+
+               3        2
+o13 : Matrix ZZ  &lt;--- ZZ</code></pre>
+</td>          </tr>
+        </table>
+        <p/>
+See also<a href="___Working_spwith_spcones.html">Working with cones</a>.      </div>
+      <div class="waystouse">
+        <h2>Functions and methods returning a convex rational cone :</h2>
+        <ul>
+          <li>
+<span><a title=" computes the dual Cone" href="_dual__Cone.html">dualCone</a> --  computes the dual Cone</span>          </li>
+          <li>
+<span><a title="computes the normal cone of a face of a polyhedron" href="_normal__Cone_lp__Polyhedron_cm__Polyhedron_rp.html">normalCone(Polyhedron,Polyhedron)</a> -- computes the normal cone of a face of a polyhedron</span>          </li>
+          <li>
+<span><a title="computes the positive hull of rays, cones, and the cone over a polyhedron" href="_pos__Hull.html">posHull</a> -- computes the positive hull of rays, cones, and the cone over a polyhedron</span>          </li>
+          <li>
+<span><a title="generates the positive orthant in n-space" href="_pos__Orthant.html">posOrthant</a> -- generates the positive orthant in n-space</span>          </li>
+          <li>
+<span><a title="computes the tail/recession cone of a polyhedron" href="_tail__Cone.html">tailCone</a> -- computes the tail/recession cone of a polyhedron</span>          </li>
+        </ul>
+        <h2>Methods that use a convex rational cone :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;addCone(Cone,Fan)&quot;</tt> -- see <span><a title="adds cones to a Fan" href="_add__Cone.html">addCone</a> -- adds cones to a Fan</span></span>          </li>
+          <li>
+<span><tt>&quot;affineImage(Cone,Matrix)&quot;</tt> -- see <span><a title="computes the affine image of a cone" href="_affine__Image_lp__Matrix_cm__Cone_cm__Matrix_rp.html">affineImage(Matrix,Cone,Matrix)</a> -- computes the affine image of a cone</span></span>          </li>
+          <li>
+<span><tt>&quot;affineImage(Matrix,Cone)&quot;</tt> -- see <span><a title="computes the affine image of a cone" href="_affine__Image_lp__Matrix_cm__Cone_cm__Matrix_rp.html">affineImage(Matrix,Cone,Matrix)</a> -- computes the affine image of a cone</span></span>          </li>
+          <li>
+<span><a title="computes the affine image of a cone" href="_affine__Image_lp__Matrix_cm__Cone_cm__Matrix_rp.html">affineImage(Matrix,Cone,Matrix)</a> -- computes the affine image of a cone</span>          </li>
+          <li>
+<span><tt>&quot;affinePreimage(Cone,Matrix)&quot;</tt> -- see <span><a title="computes the affine preimage of a cone" href="_affine__Preimage_lp__Matrix_cm__Cone_cm__Matrix_rp.html">affinePreimage(Matrix,Cone,Matrix)</a> -- computes the affine preimage of a cone</span></span>          </li>
+          <li>
+<span><tt>&quot;affinePreimage(Matrix,Cone)&quot;</tt> -- see <span><a title="computes the affine preimage of a cone" href="_affine__Preimage_lp__Matrix_cm__Cone_cm__Matrix_rp.html">affinePreimage(Matrix,Cone,Matrix)</a> -- computes the affine preimage of a cone</span></span>          </li>
+          <li>
+<span><a title="computes the affine preimage of a cone" href="_affine__Preimage_lp__Matrix_cm__Cone_cm__Matrix_rp.html">affinePreimage(Matrix,Cone,Matrix)</a> -- computes the affine preimage of a cone</span>          </li>
+          <li>
+<span><tt>&quot;areCompatible(Cone,Cone)&quot;</tt> -- see <span><a title="checks if the intersection of two cones/polyhedra is a face of each" href="_are__Compatible.html">areCompatible</a> -- checks if the intersection of two cones/polyhedra is a face of each</span></span>          </li>
+          <li>
+<span><tt>&quot;commonFace(Cone,Cone)&quot;</tt> -- see <span><a title="checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans" href="_common__Face.html">commonFace</a> -- checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans</span></span>          </li>
+          <li>
+<span><tt>&quot;commonFace(Cone,Fan)&quot;</tt> -- see <span><a title="checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans" href="_common__Face.html">commonFace</a> -- checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans</span></span>          </li>
+          <li>
+<span><tt>&quot;commonFace(Fan,Cone)&quot;</tt> -- see <span><a title="checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans" href="_common__Face.html">commonFace</a> -- checks if the intersection is a face of both Cones or Polyhedra, or of cones with fans</span></span>          </li>
+          <li>
+<span><a title="computes the direct product of two cones" href="___Cone_sp_st_sp__Cone.html">Cone * Cone</a> -- computes the direct product of two cones</span>          </li>
+          <li>
+<span><a title="computes the direct product of a cone and a polyhedron" href="___Cone_sp_st_sp__Polyhedron.html">Cone * Polyhedron</a> -- computes the direct product of a cone and a polyhedron</span>          </li>
+          <li>
+<span><a title="computes the Minkowski sum of two cones" href="___Cone_sp_pl_sp__Cone.html">Cone + Cone</a> -- computes the Minkowski sum of two cones</span>          </li>
+          <li>
+<span><a title="computes the Minkowski sum of a cone and a polyhedron" href="___Cone_sp_pl_sp__Polyhedron.html">Cone + Polyhedron</a> -- computes the Minkowski sum of a cone and a polyhedron</span>          </li>
+          <li>
+<span><a title="equality" href="___Cone_sp_eq_eq_sp__Cone.html">Cone == Cone</a> -- equality</span>          </li>
+          <li>
+<span><a title="compares the Cones" href="___Cone_sp_qu_sp__Cone.html">Cone ? Cone</a> -- compares the Cones</span>          </li>
+          <li>
+<span><tt>&quot;coneToPolyhedron(Cone)&quot;</tt> -- see <span><a title="converts a cone to class Polyhedron" href="_cone__To__Polyhedron.html">coneToPolyhedron</a> -- converts a cone to class Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(Cone,Cone)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(Cone,Matrix)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(Cone,Polyhedron)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(Fan,Cone)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(List,Cone)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><tt>&quot;contains(Polyhedron,Cone)&quot;</tt> -- see <span><a title="checks if the first argument contains the second argument" href="_contains.html">contains</a> -- checks if the first argument contains the second argument</span></span>          </li>
+          <li>
+<span><a title="computes the dimension of a cone" href="_dim_lp__Cone_rp.html">dim(Cone)</a> -- computes the dimension of a cone</span>          </li>
+          <li>
+<span><a title="computes the direct product of polyhedra and cones" href="_direct__Product_lp__Cone_cm__Cone_rp.html">directProduct(Cone,Cone)</a> -- computes the direct product of polyhedra and cones</span>          </li>
+          <li>
+<span><tt>&quot;directProduct(Cone,Polyhedron)&quot;</tt> -- see <span><a title="computes the direct product of polyhedra and cones" href="_direct__Product_lp__Cone_cm__Cone_rp.html">directProduct(Cone,Cone)</a> -- computes the direct product of polyhedra and cones</span></span>          </li>
+          <li>
+<span><tt>&quot;directProduct(Polyhedron,Cone)&quot;</tt> -- see <span><a title="computes the direct product of polyhedra and cones" href="_direct__Product_lp__Cone_cm__Cone_rp.html">directProduct(Cone,Cone)</a> -- computes the direct product of polyhedra and cones</span></span>          </li>
+          <li>
+<span><tt>&quot;dualCone(Cone)&quot;</tt> -- see <span><a title=" computes the dual Cone" href="_dual__Cone.html">dualCone</a> --  computes the dual Cone</span></span>          </li>
+          <li>
+<span><tt>&quot;dualFaceLattice(Cone)&quot;</tt> -- see <span><a title="computes the dual face lattice of a cone" href="_dual__Face__Lattice_lp__Z__Z_cm__Cone_rp.html">dualFaceLattice(ZZ,Cone)</a> -- computes the dual face lattice of a cone</span></span>          </li>
+          <li>
+<span><a title="computes the dual face lattice of a cone" href="_dual__Face__Lattice_lp__Z__Z_cm__Cone_rp.html">dualFaceLattice(ZZ,Cone)</a> -- computes the dual face lattice of a cone</span>          </li>
+          <li>
+<span><tt>&quot;faceLattice(Cone)&quot;</tt> -- see <span><a title="computes the face lattice of a cone" href="_face__Lattice_lp__Z__Z_cm__Cone_rp.html">faceLattice(ZZ,Cone)</a> -- computes the face lattice of a cone</span></span>          </li>
+          <li>
+<span><a title="computes the face lattice of a cone" href="_face__Lattice_lp__Z__Z_cm__Cone_rp.html">faceLattice(ZZ,Cone)</a> -- computes the face lattice of a cone</span>          </li>
+          <li>
+<span><tt>&quot;faces(ZZ,Cone)&quot;</tt> -- see <span><a title="computes all faces of a certain codimension of a Cone or Polyhedron" href="_faces.html">faces</a> -- computes all faces of a certain codimension of a Cone or Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;fan(Cone)&quot;</tt> -- see <span><a title="generates a Fan" href="_fan.html">fan</a> -- generates a Fan</span></span>          </li>
+          <li>
+<span><tt>&quot;fVector(Cone)&quot;</tt> -- see <span><a title="computes the f-vector of a Cone or Polyhedron" href="_f__Vector.html">fVector</a> -- computes the f-vector of a Cone or Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;halfspaces(Cone)&quot;</tt> -- see <span><a title="computes the defining half-spaces of a Cone or a Polyhedron" href="_halfspaces.html">halfspaces</a> -- computes the defining half-spaces of a Cone or a Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;hilbertBasis(Cone)&quot;</tt> -- see <span><a title="computes the Hilbert basis of a Cone" href="_hilbert__Basis.html">hilbertBasis</a> -- computes the Hilbert basis of a Cone</span></span>          </li>
+          <li>
+<span><tt>&quot;hyperplanes(Cone)&quot;</tt> -- see <span><a title="computes the defining hyperplanes of a Cone or a Polyhedron" href="_hyperplanes.html">hyperplanes</a> -- computes the defining hyperplanes of a Cone or a Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;imageFan(Matrix,Cone)&quot;</tt> -- see <span><a title=" computes the fan of the image" href="_image__Fan.html">imageFan</a> --  computes the fan of the image</span></span>          </li>
+          <li>
+<span><tt>&quot;incompCones(Cone,Fan)&quot;</tt> -- see <span><a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a> -- returns the pairs of incompatible cones</span></span>          </li>
+          <li>
+<span><tt>&quot;incompCones(Fan,Cone)&quot;</tt> -- see <span><a title="returns the pairs of incompatible cones" href="_incomp__Cones.html">incompCones</a> -- returns the pairs of incompatible cones</span></span>          </li>
+          <li>
+<span><tt>&quot;inInterior(Matrix,Cone)&quot;</tt> -- see <span><a title="checks if a point lies in the relative interior of a Cone/Polyhedron" href="_in__Interior.html">inInterior</a> -- checks if a point lies in the relative interior of a Cone/Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;interiorVector(Cone)&quot;</tt> -- see <span><a title="computes a vector in the relative interior of a Cone" href="_interior__Vector.html">interiorVector</a> -- computes a vector in the relative interior of a Cone</span></span>          </li>
+          <li>
+<span><tt>&quot;intersection(Cone,Cone)&quot;</tt> -- see <span><a title="computes the intersection of half-spaces, hyperplanes, cones, and polyhedra" href="_intersection.html">intersection</a> -- computes the intersection of half-spaces, hyperplanes, cones, and polyhedra</span></span>          </li>
+          <li>
+<span><tt>&quot;intersection(Cone,Polyhedron)&quot;</tt> -- see <span><a title="computes the intersection of half-spaces, hyperplanes, cones, and polyhedra" href="_intersection.html">intersection</a> -- computes the intersection of half-spaces, hyperplanes, cones, and polyhedra</span></span>          </li>
+          <li>
+<span><tt>&quot;intersection(Polyhedron,Cone)&quot;</tt> -- see <span><a title="computes the intersection of half-spaces, hyperplanes, cones, and polyhedra" href="_intersection.html">intersection</a> -- computes the intersection of half-spaces, hyperplanes, cones, and polyhedra</span></span>          </li>
+          <li>
+<span><tt>&quot;isFace(Cone,Cone)&quot;</tt> -- see <span><a title="tests if the first argument is a face of the second" href="_is__Face.html">isFace</a> -- tests if the first argument is a face of the second</span></span>          </li>
+          <li>
+<span><tt>&quot;isPointed(Cone)&quot;</tt> -- see <span><a title="checks if a Cone or Fan is pointed" href="_is__Pointed.html">isPointed</a> -- checks if a Cone or Fan is pointed</span></span>          </li>
+          <li>
+<span><tt>&quot;isSmooth(Cone)&quot;</tt> -- see <span><a title="checks if a Cone or Fan is smooth" href="_is__Smooth.html">isSmooth</a> -- checks if a Cone or Fan is smooth</span></span>          </li>
+          <li>
+<span><tt>&quot;linSpace(Cone)&quot;</tt> -- see <span><a title="computes a basis of the lineality space" href="_lin__Space.html">linSpace</a> -- computes a basis of the lineality space</span></span>          </li>
+          <li>
+<span><tt>&quot;maxFace(Matrix,Cone)&quot;</tt> -- see <span><a title="computes the face of a Polyhedron or Cone where a weight attains its maximum" href="_max__Face.html">maxFace</a> -- computes the face of a Polyhedron or Cone where a weight attains its maximum</span></span>          </li>
+          <li>
+<span><tt>&quot;minFace(Matrix,Cone)&quot;</tt> -- see <span><a title="computes the face of a Polyhedron or Cone where a weight attains its minimum" href="_min__Face.html">minFace</a> -- computes the face of a Polyhedron or Cone where a weight attains its minimum</span></span>          </li>
+          <li>
+<span><tt>&quot;minkowskiSum(Cone,Cone)&quot;</tt> -- see <span><a title=" computes the Minkowski sum of two convex objects" href="_minkowski__Sum.html">minkowskiSum</a> --  computes the Minkowski sum of two convex objects</span></span>          </li>
+          <li>
+<span><tt>&quot;minkowskiSum(Cone,Polyhedron)&quot;</tt> -- see <span><a title=" computes the Minkowski sum of two convex objects" href="_minkowski__Sum.html">minkowskiSum</a> --  computes the Minkowski sum of two convex objects</span></span>          </li>
+          <li>
+<span><tt>&quot;minkowskiSum(Polyhedron,Cone)&quot;</tt> -- see <span><a title=" computes the Minkowski sum of two convex objects" href="_minkowski__Sum.html">minkowskiSum</a> --  computes the Minkowski sum of two convex objects</span></span>          </li>
+          <li>
+<span><a title="displays characteristics of a cone" href="_net_lp__Cone_rp.html">net(Cone)</a> -- displays characteristics of a cone</span>          </li>
+          <li>
+<span><a title="computes the direct product of a polyhedron and a cone" href="___Polyhedron_sp_st_sp__Cone.html">Polyhedron * Cone</a> -- computes the direct product of a polyhedron and a cone</span>          </li>
+          <li>
+<span><a title="computes the Minkowski sum of a polyhedron and a cone" href="___Polyhedron_sp_pl_sp__Cone.html">Polyhedron + Cone</a> -- computes the Minkowski sum of a polyhedron and a cone</span>          </li>
+          <li>
+<span><tt>&quot;posHull(Cone,Cone)&quot;</tt> -- see <span><a title="computes the positive hull of rays, cones, and the cone over a polyhedron" href="_pos__Hull.html">posHull</a> -- computes the positive hull of rays, cones, and the cone over a polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;proximum(Matrix,Cone)&quot;</tt> -- see <span><a title="computes the proximum of the Polyhedron/Cone to a point in euclidian metric" href="_proximum.html">proximum</a> -- computes the proximum of the Polyhedron/Cone to a point in euclidian metric</span></span>          </li>
+          <li>
+<span><tt>&quot;rays(Cone)&quot;</tt> -- see <span><a title="displays all rays of a Cone, a Fan, or a Polyhedron" href="_rays.html">rays</a> -- displays all rays of a Cone, a Fan, or a Polyhedron</span></span>          </li>
+          <li>
+<span><tt>&quot;smallestFace(Matrix,Cone)&quot;</tt> -- see <span><a title="determines the smallest face of the Cone/Polyhedron containing a point" href="_smallest__Face.html">smallestFace</a> -- determines the smallest face of the Cone/Polyhedron containing a point</span></span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the class of all rational convex polyhedral cones" href="___Cone.html">Cone</a> is <span>a <a title="the class of all types" href="../../Macaulay2Doc/html/___Type.html">type</a></span>, with ancestor classes <a title="the class of all polyhedral objects in Polyhedra" href="___Polyhedral__Object.html">PolyhedralObject</a> &lt; <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a> &lt; <a title="the class of all things" href="../../Macaulay2Doc/html/___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>CC' -- the parent class of all rings of complex numbers</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_ceiling.html">next</a> | <a href="___C__C.html">previous</a> | <a href="_ceiling.html">forward</a> | <a href="___C__C.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Macaulay2 documentation" href="index.html">Macaulay2Doc</a> :: <a title="the parent class of all rings of complex numbers" href="___C__C_sq.html">CC'</a>    </div>
+    <hr/>
+    <div>
+      <h1>CC' -- the parent class of all rings of complex numbers</h1>
+      <div>
+        <h2>Description</h2>
+        <p>Floating point complex numbers are treated in a special way.  Recall first to create a polynomial, one must first create a polynomial ring to contain it.  And then, the polynomial ring is the class of the polynomial.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z]
+
+o1 = R
+
+o1 : PolynomialRing</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : x^2
+
+      2
+o2 = x
+
+o2 : R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : class x^2
+
+o3 = R
+
+o3 : PolynomialRing</code></pre>
+</td>          </tr>
+        </table>
+        <p>Floating point complex numbers, however, can be created directly, as follows, without creating a ring.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : r = 4.5 * ii
+
+o4 = 4.5*ii
+
+o4 : CC (of precision 53)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : s = 4.3p300 * ii
+
+o5 = 4.3*ii
+
+o5 : CC (of precision 300)</code></pre>
+</td>          </tr>
+        </table>
+        <p>The floating point numbers created above have different precisions, and thus are regarded as being elements of different rings, whose elements all have the same precision.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : precision r
+
+o6 = 53</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : precision s
+
+o7 = 300</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : ring r
+
+o8 = CC
+       53
+
+o8 : ComplexField</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : ring s
+
+o9 = CC
+       300
+
+o9 : ComplexField</code></pre>
+</td>          </tr>
+        </table>
+        <p>In order to make it convenient to define methods that apply to all such rings, those rings have a common parent, namely <tt>CC'</tt>.  Notice that <tt>CC'</tt> is printed in a special way.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : CC'
+
+o10 = CC
+        *
+
+o10 : Type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : parent ring r     
+
+o11 = CC
+        *
+
+o11 : Type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : parent ring s
+
+o12 = CC
+        *
+
+o12 : Type</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : parent ring s === CC'
+
+o13 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Methods that use an object of class CC_* :</h2>
+        <ul>
+          <li>
+<span><tt>&quot;lift(Matrix,type of CC_*,type of QQ)&quot;</tt> -- see <span><a title="lift to another ring" href="_lift.html">lift</a> -- lift to another ring</span></span>          </li>
+          <li>
+<span><tt>&quot;lift(Matrix,type of CC_*,type of RR_*)&quot;</tt> -- see <span><a title="lift to another ring" href="_lift.html">lift</a> -- lift to another ring</span></span>          </li>
+          <li>
+<span><tt>&quot;lift(Matrix,type of CC_*,type of ZZ)&quot;</tt> -- see <span><a title="lift to another ring" href="_lift.html">lift</a> -- lift to another ring</span></span>          </li>
+          <li>
+<span><tt>lift(Matrix,type of CC_*,type of CC_*)</tt> (missing documentation)<!--tag: (lift,Matrix,CC_*,CC_*)-->
+</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="the parent class of all rings of complex numbers" href="___C__C_sq.html">CC'</a> is <span>a <a title="the class of all types" href="___Type.html">type</a></span>, with ancestor classes <a href="___Inexact__Number_sq.html">InexactNumber'</a> &lt; <a title="the empty class" href="___Nothing.html">Nothing</a> &lt; <a title="the class of all things" href="___Thing.html">Thing</a>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

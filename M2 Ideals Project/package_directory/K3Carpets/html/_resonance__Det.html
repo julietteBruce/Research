@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>resonanceDet -- compute the resonance determinant of the crucial constant strand of a degenerate K3 X_e(a,a)</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_resonance__Scroll.html">next</a> | <a href="_relative__Resolution__Twists.html">previous</a> | <a href="_resonance__Scroll.html">forward</a> | <a href="_relative__Resolution__Twists.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="The unique Gorenstein double structure on a surface scroll" href="index.html">K3Carpets</a> :: <a title="compute the resonance determinant of the crucial constant strand of a degenerate K3 X_e(a,a)" href="_resonance__Det.html">resonanceDet</a>    </div>
+    <hr/>
+    <div>
+      <h1>resonanceDet -- compute the resonance determinant of the crucial constant strand of a degenerate K3 X_e(a,a)</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(d1,d2) = resonanceDet(a)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>a</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>d1</tt>, <span>a <a title="the class of all product expressions" href="../../Macaulay2Doc/html/___Product.html">product expression</a></span>, the integer factor</span>              </li>
+              <li>
+<span><tt>d2</tt>, <span>a <a title="the class of all product expressions" href="../../Macaulay2Doc/html/___Product.html">product expression</a></span>, the resonance factor in ZZ[e_1,e_2]</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>We compute the minimal resolution F of degenerate K3 X_e(a,a) over ZZ[e_1,e_2] where deg e_i =i and the variables x_0,..x_a,y_0..y_b have degrees deg x_i=i+1 and deg y_i=1. The equations of X_e(a,b) are homogeneous with respect to this grading. Viewed as a resolution over QQ(e_1,e_2), this resolution is non-minimal and carries further gradings. We decompose the crucial map of the a-th strand into blocks, compute their determinants, and factor the product.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : a=4
+
+o1 = 4</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (d1,d2)=resonanceDet(a)
+ -- 0.0300631 seconds elapsed
+ -- 0.000034869 seconds elapsed
+ -- 0.000087749 seconds elapsed
+ -- 0.000076893 seconds elapsed
+ -- 0.000135292 seconds elapsed
+ -- 0.000109271 seconds elapsed
+ -- 0.000123018 seconds elapsed
+ -- 0.000027009 seconds elapsed
+ -- 0.000080699 seconds elapsed
+ -- 0.000099458 seconds elapsed
+ -- 0.000104487 seconds elapsed
+ -- 0.000100558 seconds elapsed
+ -- 0.000096021 seconds elapsed
+ -- 0.000086075 seconds elapsed
+ -- 0.000113539 seconds elapsed
+ -- 0.00007773 seconds elapsed
+ -- 0.000026766 seconds elapsed
+ -- 0.000078996 seconds elapsed
+ -- 0.000026386 seconds elapsed
+(number of blocks= , 18)
+(size of the matrices, Tally{1 => 4})
+                             2 => 6
+                             3 => 2
+                             4 => 6
+       0 1
+total: 1 1
+    7: 1 1
+(e )(-1)
+  1
+       0 1
+total: 2 2
+    7: 2 .
+    8: . 2
+    2
+(e ) (e )(-1)
+  1    2
+       0 1
+total: 2 2
+    7: 2 .
+    8: . .
+    9: . 2
+    2    2
+(e ) (e )
+  1    2
+       0 1
+total: 3 3
+    7: 2 .
+    8: 1 .
+    9: . 1
+   10: . 2
+    2    4
+(e ) (e ) (-3)
+  1    2
+       0 1
+total: 4 4
+    7: 1 .
+    8: 1 .
+    9: 2 2
+   10: . 1
+   11: . 1
+    2    4
+(e ) (e ) (3)
+  1    2
+       0 1
+total: 4 4
+    8: 1 .
+    9: 2 1
+   10: 1 2
+   11: . 1
+    2    3
+(e ) (e ) (3)
+  1    2
+       0 1
+total: 1 1
+    9: 1 1
+(e )(-1)
+  1
+       0 1
+total: 2 2
+    9: 1 1
+   10: 1 1
+    2
+(e )
+  1
+       0 1
+total: 4 4
+    9: 2 1
+   10: 1 1
+   11: 1 2
+    2    2
+(e ) (e ) (-1)
+  1    2
+       0 1
+total: 4 4
+    9: 1 .
+   10: 2 1
+   11: 1 2
+   12: . 1
+    2    3
+(e ) (e ) (3)
+  1    2
+       0 1
+total: 4 4
+    9: 1 .
+   10: 1 .
+   11: 2 2
+   12: . 1
+   13: . 1
+    2    4
+(e ) (e ) (3)
+  1    2
+       0 1
+total: 4 4
+    9: 2 1
+   10: 1 1
+   11: 1 2
+    2    2
+(e ) (e ) (-1)
+  1    2
+       0 1
+total: 3 3
+   10: 2 .
+   11: 1 .
+   12: . 1
+   13: . 2
+    2    4
+(e ) (e ) (3)
+  1    2
+       0 1
+total: 2 2
+   10: 1 1
+   11: 1 1
+    2
+(e )
+  1
+       0 1
+total: 2 2
+   11: 2 .
+   12: . .
+   13: . 2
+    2    2
+(e ) (e )
+  1    2
+       0 1
+total: 1 1
+   11: 1 1
+(e )
+  1
+       0 1
+total: 2 2
+   12: 2 .
+   13: . 2
+    2
+(e ) (e )(-1)
+  1    2
+       0 1
+total: 1 1
+   13: 1 1
+(e )
+  1
+
+       6      32    32
+o2 = (3 , (e )  (e )  )
+            1     2
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the determinant of the crucial constant strand of a carpet X(a,b)" href="_carpet__Det.html">carpetDet</a> -- compute the determinant of the crucial constant strand of a carpet X(a,b)</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>resonanceDet</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;resonanceDet(ZZ)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="compute the resonance determinant of the crucial constant strand of a degenerate K3 X_e(a,a)" href="_resonance__Det.html">resonanceDet</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

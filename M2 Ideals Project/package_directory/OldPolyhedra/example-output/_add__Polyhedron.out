@@ -1,0 +1,47 @@
+-- -*- M2-comint -*- hash: 137858269
+
+i1 : P = convexHull matrix {{1,1,1,1,2,2,2,2},{0,0,1,1,0,0,1,1},{0,1,0,1,0,1,0,1}};
+
+i2 : PC = polyhedralComplex P
+
+o2 = {ambient dimension => 3             }
+      number of generating polyhedra => 1
+      top dimension of the polyhedra => 3
+
+o2 : PolyhedralComplex
+
+i3 : P = hypercube 3;
+
+i4 : incompPolyhedra(P,PC)
+
+o4 = {({ambient dimension => 3           }, {ambient dimension => 3         
+        dimension of lineality space => 0    dimension of lineality space =>
+        dimension of polyhedron => 3         dimension of polyhedron => 3
+        number of facets => 6                number of facets => 6
+        number of rays => 0                  number of rays => 0
+        number of vertices => 8              number of vertices => 8
+     ------------------------------------------------------------------------
+      })}
+     0
+
+o4 : List
+
+i5 : P1 = convexHull matrix {{1,1,1,1,-1,-1,-1,-1},{0,0,1,1,0,0,1,1},{0,1,0,1,0,1,0,1}};
+
+i6 : P2 = convexHull matrix {{1,1,1,1,-1,-1,-1,-1},{0,1,1,-1,0,1,1,-1},{0,0,-1,-1,0,0,-1,-1}};
+
+i7 : P3 = convexHull matrix {{1,1,1,1,-1,-1,-1,-1},{0,0,-1,-1,0,0,-1,-1},{0,1,1,-1,0,1,1,-1}};
+
+i8 : P == convexHull {P1,P2,P3}
+
+o8 = true
+
+i9 : PC = addPolyhedron({P1,P2,P3},PC)
+
+o9 = {ambient dimension => 3             }
+      number of generating polyhedra => 4
+      top dimension of the polyhedra => 3
+
+o9 : PolyhedralComplex
+
+i10 : 

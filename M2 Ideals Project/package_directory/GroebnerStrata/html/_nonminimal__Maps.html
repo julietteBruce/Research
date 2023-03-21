@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>nonminimalMaps -- find the degree zero maps in the Schreyer resolution of an ideal</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_random__Point__On__Rational__Variety_lp__Ideal_rp.html">next</a> | <a href="___Minimalize.html">previous</a> | <a href="_random__Point__On__Rational__Variety_lp__Ideal_rp.html">forward</a> | <a href="___Minimalize.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for creating families of ideals with the same initial ideal" href="index.html">GroebnerStrata</a> :: <a title="find the degree zero maps in the Schreyer resolution of an ideal" href="_nonminimal__Maps.html">nonminimalMaps</a>    </div>
+    <hr/>
+    <div>
+      <h1>nonminimalMaps -- find the degree zero maps in the Schreyer resolution of an ideal</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">(C, H) = nonminimalMaps I</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>I</tt>, <span>an <a title="the class of all ideals" href="../../Macaulay2Doc/html/___Ideal.html">ideal</a></span>, in a polynomial ring $S$ over a base field or coefficient ring $A$.  The lead terms of the generators of $I$ should be the initial ideal of $I$, and should be monic.</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>C</tt>, <span>a <a title="the class of all chain complexes" href="../../Macaulay2Doc/html/___Chain__Complex.html">chain complex</a></span>, A complex over a polynomial ring where any parameters in the base ring are set to have degree 0, and the variables of the ring of $I$ are set to have degree one.</span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, Whose keys describe which submatrix in the resolution this is, and whose values are those submatrices (placed into the original coefficient ring $A$)</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The Schreyer resolution of $I$ (which is generally non-minimal) is computed. The nonminimal parts are the submatrices in this resolution which do not involve the variables in $S$.  They are elements in the base ring $A$.  For instance, <tt>H#(\ell, d)</tt> is the submatrix of the matrix from $C_{\ell+1} \to C_{\ell}$ sending degree $d$ to degree $d$.</p>
+        </div>
+        <div>
+          <p>The ranks of these matrices for a specific parameter value determine exactly the minimal Betti table for the ideal $I$, evaluated at that parameter point.</p>
+        </div>
+        <div>
+          <p>Now for our example.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : kk = ZZ/101;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = kk[a..d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : F = groebnerFamily ideal&quot;a2,ab,ac,b2,bc2,c3&quot;
+
+             2                      2                      2               
+o3 = ideal (a  + t b*c + t a*d + t c  + t b*d + t c*d + t d , a*b + t b*c +
+                  1       3       2      4       5       6           7     
+     ------------------------------------------------------------------------
+                2                         2                              2  
+     t a*d + t c  + t  b*d + t  c*d + t  d , a*c + t  b*c + t  a*d + t  c  +
+      9       8      10       11       12           13       15       14    
+     ------------------------------------------------------------------------
+                           2   2                         2                  
+     t  b*d + t  c*d + t  d , b  + t  b*c + t  a*d + t  c  + t  b*d + t  c*d
+      16       17       18          19       21       20      22       23   
+     ------------------------------------------------------------------------
+           2     2                    2       2          2         2       3 
+     + t  d , b*c  + t  b*c*d + t  a*d  + t  c d + t  b*d  + t  c*d  + t  d ,
+        24            25         27        26       28        29        30   
+     ------------------------------------------------------------------------
+      3                    2       2          2         2       3
+     c  + t  b*c*d + t  a*d  + t  c d + t  b*d  + t  c*d  + t  d )
+           31         33        32       34        35        36
+
+o3 : Ideal of kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ][a..d]
+                  6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (C, H) = nonminimalMaps F;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : betti(C, Weights => {1,1,1,1})
+
+            0 1  2 3 4
+o5 = total: 1 6 10 6 1
+         0: 1 .  . . .
+         1: . 4  4 2 .
+         2: . 2  5 3 1
+         3: . .  1 1 .
+
+o5 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We see that there are 4 maps that are nonminimal (of sizes $2 \times 4$, $5 \times 2$, $1 \times 3$, and $1 \times 1$).</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : keys H
+
+o6 = {(3, 4), (3, 5), (4, 6), (2, 3)}
+
+o6 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : H#(2,3)
+
+o7 = {3} | -t_8-t_20t_13      t_7t_20-t_14t_20+t_20t_13t_19            
+     {3} | -t_7+t_14-t_13t_19 -t_8-t_20t_13+t_7t_19-t_14t_19+t_13t_19^2
+     ------------------------------------------------------------------------
+     -t_2-t_14^2+t_20t_13^2    -t_8t_14+t_1t_20+t_7t_20t_13             |
+     -t_1-2t_14t_13+t_13^2t_19 -t_2-t_7t_14-t_8t_13+t_1t_19+t_7t_13t_19 |
+
+                                                                                                                                                                                           2                                                                                                                                                                                     4
+o7 : Matrix (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])  &lt;--- (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])
+                 6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31              6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : H#(3,4)
+
+o8 = {4} | -t_20                                   
+     {4} | -1                                      
+     {4} | t_8+t_20t_13-t_7t_19+t_14t_19-t_13t_19^2
+     {4} | -t_7+t_14-t_13t_19                      
+     {4} | 0                                       
+     ------------------------------------------------------------------------
+     -t_8                                    |
+     t_13                                    |
+     t_2+t_7t_14+t_8t_13-t_1t_19-t_7t_13t_19 |
+     -t_1-2t_14t_13+t_13^2t_19               |
+     t_7-t_14+t_13t_19                       |
+
+                                                                                                                                                                                           5                                                                                                                                                                                     2
+o8 : Matrix (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])  &lt;--- (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])
+                 6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31              6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : H#(3,5)
+
+o9 = {5} | -1 t_13 -t_14 |
+
+                                                                                                                                                                                           1                                                                                                                                                                                     3
+o9 : Matrix (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])  &lt;--- (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])
+                 6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31              6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : H#(4,6)
+
+o10 = {6} | -1 |
+
+                                                                                                                                                                                            1                                                                                                                                                                                     1
+o10 : Matrix (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])  &lt;--- (kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ])
+                  6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31              6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>Let's impose the condition that the map <tt>H#(2,3)</tt> vanishes (so has rank 0). The Betti diagram of such ideals is not the one for a set of 6 generic points in $\PP^3$.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : J = trim(minors(1, H#(2,3)) + groebnerStratum F);
+
+o11 : Ideal of kk[t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t , t  , t  , t  , t , t  , t , t  , t  , t  , t , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  , t  ]
+                   6   12   5   30   18   4   24   36   11   2   29   3   10   17   1   23   28   35   8   16   9   22   26   34   7   14   27   15   20   25   32   13   21   33   19   31</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : compsJ = decompose J;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : #compsJ
+
+o13 = 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : pt1 = randomPointOnRationalVariety compsJ_0
+
+o14 = | 43 35 -43 7 38 31 47 48 46 21 8 10 6 -30 -40 10 -27 -10 -50 30 -21
+      -----------------------------------------------------------------------
+      -38 -16 -29 31 -36 39 -29 19 24 -24 -8 19 -29 21 -22 |
+
+               1        36
+o14 : Matrix kk  &lt;--- kk</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : pt2 = randomPointOnRationalVariety compsJ_1
+
+o15 = | 18 13 -48 10 27 -33 13 4 37 33 -15 46 42 -47 -35 23 45 -13 33 -43 1 7
+      -----------------------------------------------------------------------
+      2 -47 46 19 16 14 -18 34 38 -15 0 -39 22 -28 |
+
+               1        36
+o15 : Matrix kk  &lt;--- kk</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : F1 = sub(F, (vars S)|pt1)
+
+              2              2                              2               
+o16 = ideal (a  - 40b*c + 21c  + 10a*d + 31b*d - 43c*d + 43d , a*b + 31b*c -
+      -----------------------------------------------------------------------
+         2                             2                  2                  
+      50c  - 21a*d + 6b*d + 46c*d + 35d , a*c - 8b*c - 36c  - 29a*d + 30b*d -
+      -----------------------------------------------------------------------
+                 2   2              2                              2     2  
+      30c*d + 38d , b  + 21b*c + 19c  + 19a*d - 38b*d + 10c*d + 47d , b*c  +
+      -----------------------------------------------------------------------
+                   2         2        2       2     3   3                2   
+      24b*c*d - 16c d + 39a*d  - 27b*d  + 8c*d  + 7d , c  - 22b*c*d - 24c d -
+      -----------------------------------------------------------------------
+           2        2        2      3
+      29a*d  - 29b*d  - 10c*d  + 48d )
+
+o16 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : betti res F1
+
+             0 1 2 3
+o17 = total: 1 6 8 3
+          0: 1 . . .
+          1: . 4 4 1
+          2: . 2 4 2
+
+o17 : BettiTally</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : F2 = sub(F, (vars S)|pt2)
+
+              2              2                              2               
+o18 = ideal (a  - 35b*c + 33c  + 46a*d - 33b*d - 48c*d + 18d , a*b + 46b*c +
+      -----------------------------------------------------------------------
+         2                            2                   2                  
+      33c  + a*d + 42b*d + 37c*d + 13d , a*c - 15b*c + 19c  + 14a*d - 43b*d -
+      -----------------------------------------------------------------------
+                 2   2              2                     2     2            
+      47c*d + 27d , b  + 22b*c - 18c  + 7b*d + 23c*d + 13d , b*c  + 34b*c*d +
+      -----------------------------------------------------------------------
+        2         2        2        2      3   3                2         2  
+      2c d + 16a*d  + 45b*d  - 15c*d  + 10d , c  - 28b*c*d + 38c d - 39a*d  -
+      -----------------------------------------------------------------------
+           2        2     3
+      47b*d  - 13c*d  + 4d )
+
+o18 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : betti res F2
+
+             0 1 2 3
+o19 = total: 1 6 8 3
+          0: 1 . . .
+          1: . 4 4 1
+          2: . 2 4 2
+
+o19 : BettiTally</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>What are the ideals F1 and F2?</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : netList decompose F1
+
+      +----------------------------------------------------------------------------------------------------------+
+o20 = |ideal (c - 16d, b + 31d, a + 12d)                                                                         |
+      +----------------------------------------------------------------------------------------------------------+
+      |ideal (c - 29d, b + 29d, a - 27d)                                                                         |
+      +----------------------------------------------------------------------------------------------------------+
+      |ideal (c + 41d, b + 35d, a - 25d)                                                                         |
+      +----------------------------------------------------------------------------------------------------------+
+      |                            2                     2                          2   2                      2 |
+      |ideal (a - 8b - 36c + 37d, c  - 5b*d + 46c*d + 41d , b*c + 30b*d - 24c*d - 9d , b  - 17b*d + 21c*d - 34d )|
+      +----------------------------------------------------------------------------------------------------------+</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : netList decompose F2
+
+      +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+      |                        2                              2   2              2                     2                   2                            2   2              2                              2   3                2         2        2        2     3     2               2         2        2        2      3 |
+o21 = |ideal (a*c - 15b*c + 19c  + 14a*d - 43b*d - 47c*d + 27d , b  + 22b*c - 18c  + 7b*d + 23c*d + 13d , a*b + 46b*c + 33c  + a*d + 42b*d + 37c*d + 13d , a  - 35b*c + 33c  + 46a*d - 33b*d - 48c*d + 18d , c  - 28b*c*d + 38c d - 39a*d  - 47b*d  - 13c*d  + 4d , b*c  + 34b*c*d + 2c d + 16a*d  + 45b*d  - 15c*d  + 10d )|
+      +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We can determine what these represent.  One should be a set of 6 points, where 5 lie on a plane.  The other should be 6 points with 3 points on one line, and the other 3 points on a skew line.</p>
+        </div>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="find a random point on a variety that can be detected to be rational" href="_random__Point__On__Rational__Variety_lp__Ideal_rp.html">randomPointOnRationalVariety</a> -- find a random point on a variety that can be detected to be rational</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>nonminimalMaps</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;nonminimalMaps(Ideal)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="find the degree zero maps in the Schreyer resolution of an ideal" href="_nonminimal__Maps.html">nonminimalMaps</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>solutionsToAffineCoords -- writes solutions in global coords to affine coordinates.</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_solve__Schubert__Problem.html">next</a> | <a href="_set__Verbose__Level.html">previous</a> | <a href="_solve__Schubert__Problem.html">forward</a> | <a href="_set__Verbose__Level.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Numerical Algorithms for Schubert Calculus" href="index.html">NumericalSchubertCalculus</a> :: <a title="writes solutions in global coords to affine coordinates." href="_solutions__To__Affine__Coords.html">solutionsToAffineCoords</a>    </div>
+    <hr/>
+    <div>
+      <h1>solutionsToAffineCoords -- writes solutions in global coords to affine coordinates.</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">S' = solutionsToAffineCoords S</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, solutions to a Schubert problem in global coordinates</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>S'</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, solutions in coordinates of an affine patch with an identity in the bottom</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Takes a list of solutions $s\in Gr(k,n)$ in global coordinates and writes them as solutions in coordinates of the affine patch that has an identity matrix in the last $k$ rows.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Pblm = {
+         ({2,1}, random(RR^6,RR^6)),
+         ({2,1}, random(RR^6,RR^6)),
+         ({2,1}, random(RR^6,RR^6))
+         }
+
+o1 = {({2, 1}, | .892712  .89189  .0741835 .741046 .830833 .191734  |), ({2,
+               | .673395  .231053 .808694  .108386 .538554 .403215  |       
+               | .29398   .461944 .362835  .348931 .873665 .615911  |       
+               | .632944  .775187 .706096  .562428 .415912 .0147867 |       
+               | .0258884 .909047 .127435  .246268 .606588 .223028  |       
+               | .714827  .314897 .254482  .153346 .848005 .388829  |       
+     ------------------------------------------------------------------------
+     1}, | .557119 .96518  .0647412 .174853 .444183 .184779 |), ({2, 1}, |
+         | .873708 .681683 .877846  .626892 .644366 .370833 |            |
+         | .7037   .914199 .0340514 .350611 .194945 .339222 |            |
+         | .681869 .887381 .507989  .379495 .518585 .062212 |            |
+         | .276259 .169813 .150294  .237252 .987173 .465736 |            |
+         | .605659 .965004 .656391  .116721 .568273 .40273  |            |
+     ------------------------------------------------------------------------
+     .164647 .562839  .0645275 .501243 .205375  .0821679 |)}
+     .713493 .629991  .283709  .154289 .276652  .10394   |
+     .909537 .479826  .977573  .467203 .0958269 .280679  |
+     .566034 .815167  .212436  .765564 .605398  .475179  |
+     .305423 .97723   .592747  .305946 .883549  .130004  |
+     .732358 .0595849 .831802  .53632  .942865  .522285  |
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = solveSchubertProblem(Pblm, 3,6)
+
+o2 = {| .362674+1.2327e-16ii   5.87881+2.97425e-14ii .067722-9.01983e-17ii |,
+      | -.168148+9.29853e-17ii 10.2268+5.44749e-14ii .359604-1.18969e-16ii | 
+      | .287667+4.05941e-17ii  5.41301+2.76829e-14ii .178413-1.05689e-16ii | 
+      | .399967+8.73997e-17ii  10.4365+5.39029e-14ii .172408-1.02452e-16ii | 
+      | .893699+3.57479e-18ii  2.90938+1.5283e-14ii  .127632-3.63809e-17ii | 
+      | -.108865+9.87064e-17ii 5.44614+2.94139e-14ii .099289-9.57795e-17ii | 
+     ------------------------------------------------------------------------
+     | .675164+1.2692e-15ii  .770431+2.49223e-15ii -.0909566-8.88941e-16ii 
+     | .0675706+9.5739e-16ii .870501+4.56466e-15ii .150312-1.17248e-15ii   
+     | .390574+4.17962e-16ii .658364+2.31966e-15ii -.00751668-1.04161e-15ii
+     | .621526+8.99879e-16ii 1.17845+4.51673e-15ii -.0078269-1.0097e-15ii  
+     | .902762+3.68065e-17ii .284467+1.28062e-15ii .0636297-3.58549e-16ii  
+     | .141356+1.01629e-15ii .394186+2.46471e-15ii -.0692081-9.43946e-16ii 
+     ------------------------------------------------------------------------
+     |}
+     |
+     |
+     |
+     |
+     |
+
+o2 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : solutionsToAffineCoords S
+
+o3 = {| 1.17594  -.247384 -1.04186 |, | -.0717886 .515973  1.79675  |}
+      | -2.59821 1.69933  5.94898  |  | 1.97727   -.796664 -3.12795 |
+      | -.743029 .890962  1.94183  |  | .504284   .067644  .113771  |
+      | 1        0        0        |  | 1         0        0        |
+      | 0        1        0        |  | 0         1        0        |
+      | 0        0        1        |  | 0         0        1        |
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This function may fail if the solutions are not in general position (if they cannot fit the specific local coordinates) One way to avoid this is by applying a random linear transformation to the solutions before calling this function</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>solutionsToAffineCoords</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;solutionsToAffineCoords(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="writes solutions in global coords to affine coordinates." href="_solutions__To__Affine__Coords.html">solutionsToAffineCoords</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>
