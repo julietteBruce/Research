@@ -1,11 +1,3 @@
-loadPackage "VirtualResolutions"
-load "test_output.txt"
-load "VirRes-test.txt"
-
-restart
-load "NTV-test.txt"
-
-
 
 compareTypeToList = method();
 compareTypeToList(Thing,List) := (t,L) -> (
@@ -17,11 +9,15 @@ parentRing(Thing) := (t) -> (
     if compareTypeToList(t,{PolynomialRing,QuotientRing}) then (
 	ambient t
 	)
-    else (
+    else if compareTypeToList(t,{Ideal,MonomialIdeal,GradedModule,Module}) then (
 	ring t
+	)
+    else (
+	t
 	)
     )
 
+    
 isAmbientOK = method();
 isAmbientOK(Thing) := (t) -> (
     toInclude := {PolynomialRing,QuotientRing};
@@ -33,30 +29,39 @@ isOfDesiredType(Thing,List) := (t,L) -> (
     compareTypeToList(t,L) and isAmbientOK(t)
     )
 
-uniformizeRing = method();
-uniformizeRing(Thing) := (t) -> (
-    if isOfDesiredType(t,ringTypes) == true then (
-	if class t === QuotientRing then (
-	    S = newRing(ambient t);
-	    K := image sub(presentation t,S);
-	    S/K
-	    )
-	else (
-	    t
-	    )
+uniformizePolyQuotThings = method();
+uniformizePolyQuotThings(Thing) := (t) -> (
+    S = newRing parentRing(t);
+    if class t === QuotientRing then (
+	presentationOfT := presentation t;
+	K := image sub(presentationOfT, S);
+	S/K
+	)
+    else if class t === PolynomialRing then (
+	t
 	)
     else (
-	S = newRing(ring t);
 	sub(t,S)
 	)
     )
+
+uniformizeThing = method();
+uniformizeThing(Thing) := (t) -> (
+    if isAmbientOK(t) then (
+	uniformizePolyQuotThings(t)
+	)
+    else (
+	t
+	)
+    )
+
 
 buildDatabaseEntryForExample = method();
 buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
     hashTable {
 	    "objectType" => (class t),
 	    "objectRing" => toExternalString parentRing(t),
-	    "object" => toExternalString uniformizeRing(t),
+	    "object" => toExternalString uniformizeThing(t),
 	    "objectSource" => packageName
 	    }
     )
@@ -81,8 +86,7 @@ buildExampleFromEntry(HashTable) := (H) -> (
     value H#"object"
     )
 
-desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing}
-ringTypes = {PolynomialRing,QuotientRing}
+desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing,Ring,EngineRing}
 filePath = "VirRes-test.txt"
 packageName = "VirtualResolutions"
 packageNumber = "P2"
@@ -100,27 +104,52 @@ I = ideal(x^2)
 M = module I
 Q = R/I
 
-H = buildDatabaseEntryForExample(I,"Test")
-S = value H#"objectRing"
-value H#"object"
-buildExampleFromEntry(H)
+H1 = buildDatabaseEntryForExample(I,"Test")
+H2 = buildDatabaseEntryForExample(M,"Test")
+H3 = buildDatabaseEntryForExample(Q,"Test")
+H4 = buildDatabaseEntryForExample(R,"Test")
 
-H = buildDatabaseEntryForExample(M,"Test")
-S = value H#"objectRing"
-value H#"object"
-buildExampleFromEntry(H)
+S = value H1#"objectRing"
+value H1#"object"
+buildExampleFromEntry(H1)
 
+S = value H2#"objectRing"
+value H2#"object"
+buildExampleFromEntry(H2)
 
-H = buildDatabaseEntryForExample(Q,"Test")
-S = value H#"objectRing"
-value H#"object"
-buildExampleFromEntry(H)
+S = value H3#"objectRing"
+value H3#"object"
+buildExampleFromEntry(H3)
 
-H = buildDatabaseEntryForExample(R,"Test")
-S = value H#"objectRing"
-value H#"object"
-buildExampleFromEntry(H)
+S = value H4#"objectRing"
+value H4#"object"
+buildExampleFromEntry(H4)
 
 
 R = ZZ
-H = buildDatabaseEntryForExample(R,"Test")
+I = ideal(11)
+M = ZZ^2
+Q = R/I
+
+H1 = buildDatabaseEntryForExample(I,"Test")
+H2 = buildDatabaseEntryForExample(M,"Test")
+H3 = buildDatabaseEntryForExample(Q,"Test")
+H4 = buildDatabaseEntryForExample(R,"Test")
+buildExampleFromEntry(H1)
+buildExampleFromEntry(H2)
+buildExampleFromEntry(H3)
+buildExampleFromEntry(H4)
+
+R = QQ
+M = QQ^11
+H1 = buildDatabaseEntryForExample(M,"Test")
+H2 = buildDatabaseEntryForExample(R,"Test")
+buildExampleFromEntry(H1)
+buildExampleFromEntry(H2)
+
+F = GF(81,Variable=>a)
+R = F[x,y,z]
+H1 = buildDatabaseEntryForExample(F,"Test")
+H2 = buildDatabaseEntryForExample(R,"Test")
+buildExampleFromEntry(H1)
+buildExampleFromEntry(H2)
