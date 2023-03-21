@@ -1,0 +1,333 @@
+needsPackage "package_directory/FrobeniusThresholds/example-output"
+
+F0E0 =  p = 131;
+
+F0E1 =  R = ZZ/p[x,y];
+
+F0E2 =  f = x^13 - y^5;
+
+F0E3 =  c = fpt(f)
+
+F0E4 =  compareFPT(c - 1/p^2, f)
+
+F0E5 =  compareFPT(c, f)
+
+F0E6 =  compareFPT(c + 1/p, f)
+
+F0E7 =  isFJumpingExponent(36/65, f)
+
+F1E0 =  R = ZZ/5[x,y];
+
+F1E1 =  f = x^7*y^5*(x + y)^5*(x^2 + y^3)^4;
+
+F1E2 =  fpt(f, DepthOfSearch => 3, Attempts => 5)
+
+F1E3 =  fpt(f, DepthOfSearch => 3, Attempts => 5, Bounds => oo)
+
+F2E0 =  R = ZZ/11[x,y];
+
+F2E1 =  I = ideal(x^2 + y^3, x*y);
+
+F2E2 =  J = ideal(x^2, y^3);
+
+F2E3 =  frobeniusNu(1, I, J)
+
+F2E4 =  f = x*y*(x^2 + y^2);
+
+F2E5 =  frobeniusNu(3, f, J)
+
+F2E6 =  frobeniusNu(1, 0_R, J)
+
+F2E7 =  frobeniusNu(1, 1_R, J)
+
+F2E8 =  R = ZZ/17[x,y,z];
+
+F2E9 =  f = x^3 + y^4 + z^5;
+
+F2E10 =  frobeniusNu(2, f)
+
+F2E11 =  frobeniusNu(2, f, ideal(x, y, z))
+
+F2E12 =  R = ZZ/17[x,y,z];
+
+F2E13 =  f = x^3 + y^4 + z^5; -- a diagonal polynomial
+
+F2E14 =  time frobeniusNu(3, f)
+
+F2E15 =  time frobeniusNu(3, f, UseSpecialAlgorithms => false)
+
+F2E16 =  R = ZZ/5[x,y,z];
+
+F2E17 =  f = x^3 + y^3 + z^3 + x*y*z;
+
+F2E18 =  time frobeniusNu(4, f) -- ContainmentTest is set to FrobeniusRoot, by default
+
+F2E19 =  time frobeniusNu(4, f, ContainmentTest => StandardPower)
+
+F2E20 =  R = ZZ/3[x,y];
+
+F2E21 =  M = ideal(x, y);
+
+F2E22 =  frobeniusNu(3, M^5)
+
+F2E23 =  frobeniusNu(3, M^5, ContainmentTest => FrobeniusPower)
+
+F2E24 =  R = ZZ/5[x,y,z];
+
+F2E25 =  f = x^2*y^4 + y^2*z^7 + z^2*x^8;
+
+F2E26 =  time frobeniusNu(5, f) -- uses binary search (default)
+
+F2E27 =  time frobeniusNu(5, f, Search => Linear)
+
+F2E28 =  M = ideal(x, y, z);
+
+F2E29 =  time frobeniusNu(2, M, M^2) -- uses binary search (default)
+
+F2E30 =  time frobeniusNu(2, M, M^2, Search => Linear) -- but linear search gets luckier
+
+F2E31 =  R = ZZ/7[x,y];
+
+F2E32 =  f = (x - 1)^3 - (y - 2)^2;
+
+F2E33 =  frobeniusNu(1, f)
+
+F2E34 =  frobeniusNu(1, f, AtOrigin => false)
+
+F2E35 =  R = ZZ/5[x,y,z];
+
+F2E36 =  f = x^2*y^4 + y^2*z^7 + z^2*x^8;
+
+F2E37 =  frobeniusNu(5, f, ReturnList => true)
+
+F2E38 =  frobeniusNu(5, f, Verbose => true)
+
+F3E0 =  R = ZZ/7[x,y];
+
+F3E1 =  f =  x^3 - y^2;
+
+F3E2 =  compareFPT(1/2, f)
+
+F3E3 =  compareFPT(5/6, f)
+
+F3E4 =  compareFPT(6/7, f)
+
+F3E5 =  R = ZZ/5[x,y,z]/(x*y - z^2);
+
+F3E6 =  compareFPT(1/3, x)
+
+F3E7 =  compareFPT(1/2, x)
+
+F3E8 =  compareFPT(13/25, x)
+
+F3E9 =  T = ZZ/5[a,b];
+
+F3E10 =  S = ZZ/5[x,y,z,w];
+
+F3E11 =  f = map(T, S, {a^3, a^2*b, a*b^2, b^3});
+
+F3E12 =  R = S/ker f;
+
+F3E13 =  g = x^7 - w^3;
+
+F3E14 =  h = f(sub(g, S))
+
+F3E15 =  compareFPT(19/125, g)
+
+F3E16 =  compareFPT(19/125, h)
+
+F3E17 =  compareFPT(19/124, g)
+
+F3E18 =  compareFPT(19/125 - 1/1000, g)
+
+F3E19 =  R = ZZ/7[x,y];
+
+F3E20 =  f = (x + 1)^3 - (y + 3)^2;
+
+F3E21 =  compareFPT(5/6, f)
+
+F3E22 =  compareFPT(5/6, f, AtOrigin => true)
+
+F4E0 =  R = ZZ/11[x,y];
+
+F4E1 =  f = x^3 + y^2;
+
+F4E2 =  isFPT(9/11, f)
+
+F4E3 =  isFPT(9/12, f)
+
+F4E4 =  T = ZZ/7[a,b];
+
+F4E5 =  S = ZZ/7[x,y,z,w];
+
+F4E6 =  f = map(T, S, {a^3, a^2*b, a*b^2, b^3});
+
+F4E7 =  R = S/ker f;
+
+F4E8 =  isFPT(1/3, x)
+
+F4E9 =  isFPT(1/3 + 1/10000, x)
+
+F4E10 =  isFPT(1/3 - 1/10000, x)
+
+F4E11 =  R = ZZ/11[x,y,z]/(x^2 - y*(z - 1));
+
+F4E12 =  isFPT(1/2, z - 1)
+
+F4E13 =  isFPT(1/2, z - 1, AtOrigin => true)
+
+F5E0 =  ZZ/5[x,y,z];
+
+F5E1 =  fpt(x^3 + y^3 + z^3 + x*y*z)
+
+F5E2 =  fpt(x^5 + y^6 + z^7 + (x*y*z)^3)
+
+F5E3 =  fpt(x^17 + y^20 + z^24) -- a diagonal polynomial
+
+F5E4 =  fpt(x^2*y^6*z^10 + x^10*y^5*z^3) -- a binomial
+
+F5E5 =  fpt(x^5*(x + y)^7*(x + y + z)^10) -- SNC
+
+F5E6 =  ZZ/5[x,y];
+
+F5E7 =  fpt(x^2*y^6*(x + y)^9*(x + 3*y)^10) -- a form in two variables
+
+F5E8 =  fpt({x, y, x + y, x + 3*y}, {2, 6, 9, 10}) == oo
+
+F5E9 =  f = x^2*(x + y)^3*(x + 3*y^2)^5;
+
+F5E10 =  fpt(f, Attempts => 0) -- a bad estimate
+
+F5E11 =  fpt(f, Attempts => 0, DepthOfSearch => 3) -- a better estimate
+
+F5E12 =  fpt(f, Attempts => 1, DepthOfSearch => 3) -- the right-hand endpoint (ν+1)/p^e is the fpt
+
+F5E13 =  f = x^6*y^4 + x^4*y^9 + (x^2 + y^3)^3;
+
+F5E14 =  fpt(f, Attempts => 1, DepthOfSearch => 3)
+
+F5E15 =  fpt(f, Attempts => 2, DepthOfSearch => 3) -- the left-hand endpoint ν/(p^e-1) is the fpt
+
+F5E16 =  f = x^3*y^11*(x + y)^8*(x^2 + y^3)^8;
+
+F5E17 =  fpt(f, DepthOfSearch => 3, Attempts => 4)
+
+F5E18 =  fpt(f, DepthOfSearch => 3, Attempts => 6)
+
+F5E19 =  fpt(f, DepthOfSearch => 3, Attempts => 8)
+
+F5E20 =  f = x^7*y^5*(x + y)^5*(x^2 + y^3)^4;
+
+F5E21 =  fpt(f, DepthOfSearch => 3, Attempts => 5)
+
+F5E22 =  fpt(f, DepthOfSearch => 3, Attempts => 5, Bounds => oo)
+
+F5E23 =  f = 2*x^10*y^8+x^4*y^7-2*x^3*y^8;
+
+F5E24 =  numeric fpt(f, DepthOfSearch => 3)
+
+F5E25 =  numeric fpt(f, DepthOfSearch => 3, FinalAttempt => true) -- FinalAttempt improves the estimate slightly
+
+F5E26 =  time numeric fpt(f, DepthOfSearch => 3, FinalAttempt => true)
+
+F5E27 =  time fpt(f, DepthOfSearch => 3, Attempts => 7)
+
+F5E28 =  time fpt(f, DepthOfSearch => 4)
+
+F5E29 =  fpt(f, DepthOfSearch => 3, FinalAttempt => true, Verbose => true)
+
+F5E30 =  R = ZZ/7[x,y];
+
+F5E31 =  f = x*(y - 1)^2 - y*(x - 1)^3;
+
+F5E32 =  fpt(f)
+
+F5E33 =  fpt(f, AtOrigin => false)
+
+F5E34 =  f = x*y^2*(x - 1)^3*(y - 1)^4;
+
+F5E35 =  fpt(f)
+
+F5E36 =  fpt(f, AtOrigin => false)
+
+F6E0 =  R = ZZ/7[x,y,z];
+
+F6E1 =  isSimpleNormalCrossing(x^3*y^2)
+
+F6E2 =  isSimpleNormalCrossing(x^2 - y^2)
+
+F6E3 =  isSimpleNormalCrossing(x*y*(x - y))
+
+F6E4 =  isSimpleNormalCrossing(x^2 - y*z)
+
+F6E5 =  R = QQ[x,y,z];
+
+F6E6 =  f = (y - (x - 1)^2)*y^2; --SNC at the origin, but not globally
+
+F6E7 =  isSimpleNormalCrossing(f)
+
+F6E8 =  isSimpleNormalCrossing(f, AtOrigin => false)
+
+F6E9 =  g = (y - 1)^2 + (x - 7)^2; --doesn't even pass through the origin
+
+F6E10 =  isSimpleNormalCrossing(g)
+
+F6E11 =  isSimpleNormalCrossing(g, AtOrigin => false)
+
+F6E12 =  h = x*y^2*(x + 1)^3*(y - 1)^4; --SNC everywhere
+
+F6E13 =  isSimpleNormalCrossing(h)
+
+F6E14 =  isSimpleNormalCrossing(h, AtOrigin => false)
+
+F7E0 =  R = ZZ/5[x,y];
+
+F7E1 =  f =  x^4 + y^3 + x^2*y^2;
+
+F7E2 =  isFJumpingExponent(7/12, f)
+
+F7E3 =  isFJumpingExponent(4/5, f)
+
+F7E4 =  isFJumpingExponent(5/6, f)
+
+F7E5 =  isFJumpingExponent(11/12, f)
+
+F7E6 =  R = ZZ/11[x,y,z]/(x*y - z^2);
+
+F7E7 =  f = x^2;
+
+F7E8 =  isFJumpingExponent(1/4, f)
+
+F7E9 =  isFJumpingExponent(3/8, f)
+
+F7E10 =  isFJumpingExponent(1/2, f)
+
+F7E11 =  isFJumpingExponent(2/3, f)
+
+F7E12 =  isFJumpingExponent(3/4, f)
+
+F7E13 =  R = ZZ/13[x,y];
+
+F7E14 =  f = y*((y + 1) - (x - 1)^2)*(x - 2)*(x + y - 2);
+
+F7E15 =  isFJumpingExponent(3/4, f)
+
+F7E16 =  isFJumpingExponent(3/4, f, AtOrigin => true)
+
+F8E0 =  R = ZZ/11[x,y];
+
+F8E1 =  f = 6*x^6*y^7 + 8*x^4*y^7 + 8*x^3*y^7 + 6*x^6*y^3 + 5*x^5*y^4 + 4*x^3*y^6 +4*x^3*y^5
+
+F8E2 =  fpt(f, Attempts => 5, DepthOfSearch => 3)
+
+F8E3 =  fpt(f, Attempts => 5, DepthOfSearch => 3, GuessStrategy => {0, 1, 0})
+
+F8E4 =  R = ZZ/5[x,y];
+
+F8E5 =  f = x^3*y^11*(x + y)^8*(x^2 + y^3)^8;
+
+F8E6 =  fpt(f, DepthOfSearch => 3, Attempts => 7)
+
+F8E7 =  fpt(f, DepthOfSearch => 3, Attempts => 4, GuessStrategy => denominator)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F2E15", "F2E16", "F2E17", "F2E18", "F2E19", "F2E20", "F2E21", "F2E22", "F2E23", "F2E24", "F2E25", "F2E26", "F2E27", "F2E28", "F2E29", "F2E30", "F2E31", "F2E32", "F2E33", "F2E34", "F2E35", "F2E36", "F2E37", "F2E38", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F3E18", "F3E19", "F3E20", "F3E21", "F3E22", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F4E12", "F4E13", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16", "F5E17", "F5E18", "F5E19", "F5E20", "F5E21", "F5E22", "F5E23", "F5E24", "F5E25", "F5E26", "F5E27", "F5E28", "F5E29", "F5E30", "F5E31", "F5E32", "F5E33", "F5E34", "F5E35", "F5E36", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7"}

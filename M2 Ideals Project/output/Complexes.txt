@@ -1,0 +1,4533 @@
+needsPackage "package_directory/Complexes/example-output"
+
+F0E0 =  R = ZZ/101[a..d];
+
+F0E1 =  C1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F0E2 =  C2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F0E3 =  D1 = (freeResolution coker matrix{{a,b,c}})
+
+F0E4 =  D2 = freeResolution coker matrix{{a^2, b^2, c^2}}[-1]
+
+F0E5 =  f = randomComplexMap(D1, C1, Cycle => true)
+
+F0E6 =  g = randomComplexMap(D2, C2, Cycle => true)
+
+F0E7 =  h = f ++ g
+
+F0E8 =  h_[0] == h * (C1 ++ C2)_[0]
+
+F0E9 =  h_[1] == h * (C1 ++ C2)_[1]
+
+F0E10 =  h^[0] == (D1 ++ D2)^[0] * h
+
+F0E11 =  h^[1] == (D1 ++ D2)^[1] * h
+
+F0E12 =  h_[0]^[0] == f
+
+F0E13 =  h_[1]^[1] == g
+
+F0E14 =  h_[0]^[1] == 0
+
+F0E15 =  h_[1]^[0] == 0
+
+F0E16 =  assert(h == map(D1 ++ D2, C1 ++ C2, {{f,0},{0,g}}))
+
+F0E17 =  h = (mike => f) ++ (greg => g)
+
+F0E18 =  h_[mike]^[mike] == f
+
+F0E19 =  h_[greg]^[greg] == g
+
+F1E0 =  S = ZZ/101[a,b,c];
+
+F1E1 =  C1 = freeResolution coker vars S
+
+F1E2 =  C2 = complex (ideal(a,b,c))
+
+F1E3 =  D = C1 ++ C2
+
+F1E4 =  D_[0]
+
+F1E5 =  D_[1]
+
+F1E6 =  D^[0] * D_[0] == 1
+
+F1E7 =  D^[1] * D_[1] == 1
+
+F1E8 =  D^[0] * D_[1] == 0
+
+F1E9 =  D^[1] * D_[0] == 0
+
+F1E10 =  D_[0] * D^[0] + D_[1] * D^[1] == 1
+
+F1E11 =  E = (mike => C1) ++ (greg => C2)
+
+F1E12 =  E_[mike]
+
+F1E13 =  E_[greg]
+
+F1E14 =  E^[mike] * E_[mike] == 1
+
+F1E15 =  E^[greg] * E_[greg] == 1
+
+F1E16 =  E^[mike] * E_[greg] == 0
+
+F1E17 =  E^[greg] * E_[mike] == 0
+
+F1E18 =  E_[mike] * E^[mike] + E_[greg] * E^[greg] == 1
+
+F1E19 =  F = directSum(C1, C2, (complex S^13)[-4])
+
+F1E20 =  F^[0,1]
+
+F1E21 =  F_[0,2]
+
+F2E0 =  R = ZZ/101[a,b,c];
+
+F2E1 =  h = random(R^3, R^{4:-1})
+
+F2E2 =  f = inducedMap(target h, image h)
+
+F2E3 =  g = inducedMap(cokernel h, target h)
+
+F2E4 =  assert isShortExactSequence(g,f)
+
+F2E5 =  I = ideal(a^3, b^3, c^3)
+
+F2E6 =  J = I + ideal(a*b*c)
+
+F2E7 =  K = I : ideal(a*b*c)
+
+F2E8 =  g = map(comodule J, comodule I, 1)
+
+F2E9 =  f = map(comodule I, (comodule K) ** R^{-3}, {{a*b*c}})
+
+F2E10 =  assert isShortExactSequence(g,f)
+
+F3E0 =  S = ZZ/101[a..c];
+
+F3E1 =  C = freeResolution coker vars S
+
+F3E2 =  concentration C
+
+F3E3 =  D = C ++ C[5]
+
+F3E4 =  concentration D
+
+F3E5 =  min D
+
+F3E6 =  max D
+
+F3E7 =  assert((min D, max D) === concentration D)
+
+F3E8 =  C_-1
+
+F3E9 =  D_4
+
+F3E10 =  f1 = a*id_C
+
+F3E11 =  E = ker f1
+
+F3E12 =  concentration E
+
+F3E13 =  concentration prune E
+
+F3E14 =  C0 = (complex S^0)[4]
+
+F3E15 =  concentration C0
+
+F3E16 =  prune C0
+
+F3E17 =  concentration oo
+
+F4E0 =  S = QQ[a..d]
+
+F4E1 =  koszulComplex {a}
+
+F4E2 =  C = koszulComplex {a^2+b^2,c^3}
+
+F4E3 =  dd^C
+
+F4E4 =  K4 = koszulComplex vars S
+
+F4E5 =  dd^K4
+
+F4E6 =  assert isWellDefined K4
+
+F4E7 =  koszulComplex(vars S, Concentration => (2,3))
+
+F4E8 =  koszulComplex(vars S, Concentration => (-1,5))
+
+F4E9 =  C = koszulComplex {d} ** (koszulComplex {c} ** (koszulComplex {b} ** koszulComplex {a}))
+
+F4E10 =  K = koszulComplex {a,b,c,d}
+
+F4E11 =  netList {{dd^C, dd^K}}
+
+F5E0 =  R = ZZ/101[a,b,c,d,e];
+
+F5E1 =  I = intersect(ideal(a,b),ideal(c,d,e))
+
+F5E2 =  C = freeResolution I
+
+F5E3 =  naiveTruncation(C, 1, 2)
+
+F5E4 =  C16 = naiveTruncation(C, 1, 6)
+
+F5E5 =  isWellDefined C16
+
+F5E6 =  naiveTruncation(C, 1, infinity)
+
+F5E7 =  naiveTruncation(C, -13, 2)
+
+F5E8 =  naiveTruncation(C, -infinity, 2)
+
+F5E9 =  naiveTruncation(C, , 2)
+
+F5E10 =  C' = naiveTruncation(C,, 1)
+
+F5E11 =  C'' = naiveTruncation(C, 2, infinity)
+
+F5E12 =  f = inducedMap(C, C')
+
+F5E13 =  g = inducedMap(C'', C)
+
+F5E14 =  assert isShortExactSequence(g,f)
+
+F6E0 =  R = QQ[a,b,c,d];
+
+F6E1 =  S = QQ[s,t];
+
+F6E2 =  phi = map(S, R, {s, s+t, t, s-t})
+
+F6E3 =  I = ideal(a*b, b*c, c*d)
+
+F6E4 =  J = I + ideal(a^2, b^2, c^2, d^2)
+
+F6E5 =  CI = freeResolution I
+
+F6E6 =  CJ = freeResolution J
+
+F6E7 =  f = extend(CJ, CI, map(CJ_0, CI_0, 1))
+
+F6E8 =  assert isWellDefined f
+
+F6E9 =  g = phi f
+
+F6E10 =  assert isWellDefined g
+
+F6E11 =  dd^(source g)
+
+F6E12 =  dd^(target g)
+
+F6E13 =  prune HH g
+
+F7E0 =  R = ZZ/101[a..d];
+
+F7E1 =  C = freeResolution coker matrix{{a*b, a*c^2, b*c*d^3, a^3}}
+
+F7E2 =  D = freeResolution coker matrix{{a*b, a*c^2, b*c*d^3, a^3, a*c*d}}
+
+F7E3 =  f = randomComplexMap(D, C, Cycle => true)
+
+F7E4 =  g = randomComplexMap(D, C, Boundary => true)
+
+F7E5 =  f+g
+
+F7E6 =  f-g
+
+F7E7 =  -f
+
+F7E8 =  3*f
+
+F7E9 =  0*f
+
+F7E10 =  a*f
+
+F7E11 =  assert(0*f == 0)
+
+F7E12 =  assert(1*f == f)
+
+F7E13 =  assert((-1)*f == -f)
+
+F7E14 =  assert(-(f-g) == g-f)
+
+F7E15 =  assert((a+b)*f == a*f + b*f)
+
+F7E16 =  assert(a*(f+g) == a*f + a*g)
+
+F7E17 =  assert isComplexMorphism (f+g)
+
+F7E18 =  h = randomComplexMap(C, C)
+
+F7E19 =  h+1
+
+F7E20 =  assert(h+1 == h + id_C)
+
+F7E21 =  assert(h+a == h + a*id_C)
+
+F7E22 =  assert(1-h == id_C - h)
+
+F7E23 =  assert(b-c*h == -c*h + b*id_C)
+
+F7E24 =  assert(b-h*c == -h*c + id_C*b)
+
+F7E25 =  E = complex(-dd^C)
+
+F7E26 =  isWellDefined E
+
+F7E27 =  assert(dd^E == map(E, E, -dd^C))
+
+F8E0 =  S = ZZ/101[a..c]
+
+F8E1 =  C = freeResolution coker vars S
+
+F8E2 =  f = id_C
+
+F8E3 =  assert(f == 1)
+
+F8E4 =  f === id_C[-1][1]
+
+F8E5 =  f == id_C[-1][1]
+
+F8E6 =  assert(0 * id_C == 0)
+
+F8E7 =  g = randomComplexMap(C, C)
+
+F8E8 =  h = canonicalMap(coker g, target g)
+
+F8E9 =  assert(h == 0)
+
+F8E10 =  g = randomComplexMap(C, C, InternalDegree=>1, Cycle=>true)
+
+F8E11 =  h = canonicalMap(coker g, target g)
+
+F8E12 =  assert(h != 1)
+
+F8E13 =  D = prune image g
+
+F8E14 =  p = D.cache.pruningMap
+
+F8E15 =  p == 1
+
+F8E16 =  assert(coker p == 0 and ker p == 0)
+
+F8E17 =  assert(prune p == 1)
+
+F9E0 =  S = ZZ/101[a,b,c,d,e];
+
+F9E1 =  I = ideal(a,b) * ideal(c,d,e)
+
+F9E2 =  F = dual freeResolution I
+
+F9E3 =  C = HH F
+
+F9E4 =  D = prune C
+
+F9E5 =  g = D.cache.pruningMap
+
+F9E6 =  assert isWellDefined g
+
+F9E7 =  assert isComplexMorphism g
+
+F9E8 =  assert (target g == C)
+
+F9E9 =  assert (source g == D)
+
+F9E10 =  g^-1
+
+F9E11 =  assert(g*g^-1 == 1 and g^-1*g == 1)
+
+F9E12 =  S = ZZ/101[a,b,c];
+
+F9E13 =  I = ideal(a^2,b^2,c^2);
+
+F9E14 =  J = I + ideal(a*b*c);
+
+F9E15 =  FI = freeResolution I
+
+F9E16 =  FJ = freeResolution J
+
+F9E17 =  f = randomComplexMap(FJ, FI ** S^{-1}, Cycle => true)
+
+F9E18 =  C = image f
+
+F9E19 =  D = prune C
+
+F9E20 =  g = D.cache.pruningMap
+
+F9E21 =  assert isWellDefined g
+
+F9E22 =  assert isComplexMorphism g
+
+F9E23 =  assert (target g == C)
+
+F9E24 =  assert (source g == D)
+
+F9E25 =  g^-1
+
+F9E26 =  assert(g*g^-1 == 1 and g^-1*g == 1)
+
+F9E27 =  h = prune f
+
+F9E28 =  assert(source h === prune source f)
+
+F9E29 =  assert(target h === prune target f)
+
+F10E0 =  S = ZZ/101[a,b,c];
+
+F10E1 =  C1 = freeResolution coker vars S
+
+F10E2 =  C1 ++ complex(S^13)[-2]
+
+F10E3 =  C2 = complex (ideal(a,b,c))
+
+F10E4 =  C1 ++ C2
+
+F10E5 =  assert isWellDefined(C1 ++ C2)
+
+F10E6 =  C3 = directSum(C1,C2,C2[-2])
+
+F10E7 =  assert isWellDefined C3
+
+F10E8 =  C4 = directSum(first => C1, second => C2)
+
+F10E9 =  C4_[first] -- inclusion map C1 --> C4
+
+F10E10 =  C4^[first] -- projection map C4 --> C1
+
+F10E11 =  C4^[first] * C4_[first] == 1
+
+F10E12 =  C4^[second] * C4_[second] == 1
+
+F10E13 =  C4^[first] * C4_[second] == 0
+
+F10E14 =  C4^[second] * C4_[first] == 0
+
+F10E15 =  C4_[first] * C4^[first] + C4_[second] * C4^[second] == 1
+
+F10E16 =  isShortExactSequence(C4^[first], C4_[second])
+
+F10E17 =  isShortExactSequence(C4^[second], C4_[first])
+
+F10E18 =  components C3
+
+F10E19 =  indices C3
+
+F10E20 =  components C4
+
+F10E21 =  indices C4
+
+F11E0 =  S = ZZ/101[a,b,c,d];
+
+F11E1 =  I = minors(2, matrix{{a,b,c},{b,c,d}})
+
+F11E2 =  C = freeResolution (S^1/I)
+
+F11E3 =  isHomogeneous C
+
+F11E4 =  J = minors(2, matrix{{a,b,c},{b,c,d^2}})
+
+F11E5 =  D = freeResolution (S^1/J)
+
+F11E6 =  isHomogeneous D
+
+F12E0 =  R = ZZ/101[a..d];
+
+F12E1 =  I = ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F12E2 =  C = freeResolution(R^1/I)
+
+F12E3 =  betti C
+
+F12E4 =  regularity C
+
+F12E5 =  regularity I
+
+F12E6 =  regularity (R^1/I)
+
+F12E7 =  assert(regularity C === regularity(R^1/I))
+
+F12E8 =  betti C
+
+F12E9 =  betti(C[3])
+
+F12E10 =  regularity(C[3])
+
+F12E11 =  J = ideal(a^3, b^3, c^3, d^3, (a+b+c+d)^3);
+
+F12E12 =  FJ = freeResolution J
+
+F12E13 =  betti FJ
+
+F12E14 =  regularity FJ
+
+F13E0 =  R = ZZ/101[a,b,c];
+
+F13E1 =  C = freeResolution ideal"a,b,c"
+
+F13E2 =  D = freeResolution ideal"a2,b2,c2"
+
+F13E3 =  E = Hom(C,D)
+
+F13E4 =  f = random(E_2, R^{-5})
+
+F13E5 =  g = homomorphism(2, f, E)
+
+F13E6 =  assert isWellDefined g
+
+F13E7 =  assert not isCommutative g
+
+F13E8 =  h = randomComplexMap(E, complex R^{-2}, Cycle => true, Degree => -1)
+
+F13E9 =  f = h_0
+
+F13E10 =  g = homomorphism(-1, f, E)
+
+F13E11 =  assert isWellDefined g
+
+F13E12 =  assert isCommutative g
+
+F13E13 =  assert(degree g === -1)
+
+F13E14 =  assert(source g === C)
+
+F13E15 =  assert(target g === D)
+
+F13E16 =  assert(homomorphism' g == h)
+
+F14E0 =  S = ZZ/101[vars(0..17)]
+
+F14E1 =  m1 = genericMatrix(S,a,3,3)
+
+F14E2 =  m2 = genericMatrix(S,j,3,3)
+
+F14E3 =  J = ideal(m1*m2-m2*m1)
+
+F14E4 =  C0 = freeResolution J
+
+F14E5 =  betti C0
+
+F14E6 =  length C0
+
+F14E7 =  pdim betti C0
+
+F14E8 =  regularity betti C0
+
+F14E9 =  betti dual C0
+
+F14E10 =  C1 = Hom(C0, image matrix{{a,b}});
+
+F14E11 =  betti C1
+
+F14E12 =  C1_-6
+
+F14E13 =  R = ZZ/101[a,b,c,Degrees=>{-1,-2,-3}];
+
+F14E14 =  heft R
+
+F14E15 =  C2 = freeResolution coker vars R
+
+F14E16 =  betti C2
+
+F14E17 =  betti(C2, Weights => {1})
+
+F14E18 =  T = QQ[a,b,c,d,Degrees=>{{1,0},{-2,1},{1,0},{0,1}}];
+
+F14E19 =  B = intersect(ideal(a,c),ideal(b,d))
+
+F14E20 =  C3 = freeResolution B
+
+F14E21 =  dd^C3
+
+F14E22 =  heft T
+
+F14E23 =  betti C3
+
+F14E24 =  betti(C3, Weights => {1,0})
+
+F14E25 =  betti(C3, Weights => {0,1})
+
+F14E26 =  degrees C3_1
+
+F15E0 =  S = ZZ/101[a,b,c];
+
+F15E1 =  C = freeResolution coker vars S
+
+F15E2 =  D = C ** C
+
+F15E3 =  f1 = randomComplexMap(D, C, Boundary => true, InternalDegree => 1)
+
+F15E4 =  isComplexMorphism f1
+
+F15E5 =  assert(degree f1 == 0)
+
+F15E6 =  assert isNullHomotopic f1
+
+F15E7 =  assert(source f1 == C and target f1 == D)
+
+F15E8 =  f2 = randomComplexMap(D, C, Cycle => true)
+
+F15E9 =  isComplexMorphism f2
+
+F15E10 =  assert(degree f2 == 0)
+
+F15E11 =  assert isComplexMorphism f2
+
+F15E12 =  f3 = randomComplexMap(D, C, Cycle => true, Degree=>1, InternalDegree => 1)
+
+F15E13 =  assert(degree f3 == 1)
+
+F15E14 =  isComplexMorphism f3
+
+F15E15 =  debugLevel = 1
+
+F15E16 =  isComplexMorphism f3
+
+F15E17 =  assert isCommutative f3
+
+F15E18 =  f4 = randomComplexMap(D, C)
+
+F15E19 =  assert(degree f4 == 0)
+
+F15E20 =  debugLevel = 0
+
+F15E21 =  isComplexMorphism f4
+
+F15E22 =  debugLevel = 1
+
+F15E23 =  isComplexMorphism f4
+
+F16E0 =  S = ZZ/101[a..d, Degrees=>{2:{1,0},2:{0,1}}];
+
+F16E1 =  h = a*c^2 + a*c*d + b*d^2;
+
+F16E2 =  I = (ideal(a,b) * ideal(c,d))^[2]
+
+F16E3 =  g = map(S^1/h, S^1, 1)
+
+F16E4 =  f = map(S^1, S^{-degree h}, {{h}})
+
+F16E5 =  assert isShortExactSequence(g,f)
+
+F16E6 =  delta = connectingExtMap(S^1/I, g, f)
+
+F16E7 =  assert isWellDefined delta
+
+F16E8 =  assert(degree delta == 0)
+
+F16E9 =  assert(source delta_(-1) == Ext^1(comodule I, S^1/h))
+
+F16E10 =  assert(target delta_(-1) == Ext^2(comodule I, S^{{-1,-2}}))
+
+F16E11 =  S = ZZ/101[a..d];
+
+F16E12 =  I = ideal(c^3-b*d^2, b*c-a*d)
+
+F16E13 =  J = ideal(a*c^2-b^2*d, b^3-a^2*c)
+
+F16E14 =  g = map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}})
+
+F16E15 =  f = map(S^1/I ++ S^1/J, S^1/intersect(I,J), {{1},{-1}})
+
+F16E16 =  assert isShortExactSequence(g,f)
+
+F16E17 =  delta = connectingExtMap(g, f, S^1)
+
+F16E18 =  assert isWellDefined delta
+
+F16E19 =  assert(source delta_-2 == Ext^2(comodule intersect(I,J), S))
+
+F16E20 =  assert(target delta_-2 == Ext^3(comodule (I+J), S))
+
+F17E0 =  S = ZZ/101[a,b,c,d];
+
+F17E1 =  I = minors(2, matrix{{a,b,c},{b,c,d}})
+
+F17E2 =  C = freeResolution (S^1/I)
+
+F17E3 =  assert isHomogeneous dd^C
+
+F17E4 =  f = randomComplexMap(C, C, Degree => -1)
+
+F17E5 =  assert isHomogeneous f
+
+F17E6 =  f = randomComplexMap(C, C, InternalDegree => 2)
+
+F17E7 =  assert isHomogeneous f
+
+F17E8 =  phi = map(S, S, {1,b,c,d})
+
+F17E9 =  D = phi C
+
+F17E10 =  dd^D
+
+F17E11 =  assert not isHomogeneous dd^D
+
+F17E12 =  g = randomComplexMap(D, D, InternalDegree => 1)
+
+F17E13 =  assert isHomogeneous g
+
+F18E0 =  S = ZZ/101[a..d]
+
+F18E1 =  I = ideal"a2,ab,ac,b3"
+
+F18E2 =  E = Ext^1(I, S^1/I)
+
+F18E3 =  B = basis(0, E)
+
+F18E4 =  f0 = B * random(S^16, S^1)
+
+F18E5 =  g = yonedaMap f0
+
+F18E6 =  assert(degree g === -1)
+
+F18E7 =  f = yonedaMap' g
+
+F18E8 =  assert isWellDefined f
+
+F18E9 =  assert(degree f == {0})
+
+F18E10 =  assert isHomogeneous f
+
+F18E11 =  source f === S^1
+
+F18E12 =  target f === E
+
+F18E13 =  assert(f == f0)
+
+F18E14 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F18E15 =  M = truncate(1,R^1)
+
+F18E16 =  B = basis(-4, Ext^3(M, M))
+
+F18E17 =  f0 = B_{2}
+
+F18E18 =  g = yonedaMap(f0, LengthLimit => 8)
+
+F18E19 =  f = yonedaMap' g
+
+F18E20 =  assert isWellDefined f
+
+F18E21 =  assert isHomogeneous f
+
+F18E22 =  assert(degree f === {-4})
+
+F18E23 =  assert(f != f0)
+
+F18E24 =  assert(yonedaMap(f, LengthLimit => 8) == g)
+
+F19E0 =  R = ZZ/101[a..d];
+
+F19E1 =  I = ideal(a^2, b^2, c^2)
+
+F19E2 =  FI = freeResolution I
+
+F19E3 =  assert(degree dd^FI == -1)
+
+F19E4 =  FJ = freeResolution (I + ideal(a*b*c))
+
+F19E5 =  f = randomComplexMap(FJ, FI, Cycle=>true, Degree => -2)
+
+F19E6 =  assert(degree f == -2)
+
+F20E0 =  R = ZZ/101[x,y];
+
+F20E1 =  M = R^2
+
+F20E2 =  N = R^3
+
+F20E3 =  f = tensorCommutativity(M, N)
+
+F20E4 =  assert isWellDefined f
+
+F20E5 =  assert isIsomorphism f
+
+F20E6 =  M = R^{1,2}
+
+F20E7 =  N = R^{100,200,300}
+
+F20E8 =  M ** N
+
+F20E9 =  N ** M
+
+F20E10 =  tensorCommutativity(M, N)
+
+F20E11 =  g = tensorCommutativity(coker vars R ++ coker vars R, image vars R)
+
+F20E12 =  source g
+
+F20E13 =  target g
+
+F20E14 =  assert isWellDefined g
+
+F20E15 =  assert isIsomorphism g
+
+F21E0 =  S = ZZ/101[x_0..x_11]
+
+F21E1 =  C = complex{genericMatrix(S,x_0,2,1)}
+
+F21E2 =  D = complex{genericMatrix(S,x_4,1,2)}
+
+F21E3 =  E = complex{genericMatrix(S,x_8,2,2)}
+
+F21E4 =  F = (C ** D) ** E
+
+F21E5 =  G = C ** (D ** E)
+
+F21E6 =  f = tensorAssociativity(C,D,E)
+
+F21E7 =  assert isWellDefined f
+
+F21E8 =  assert(source f === G)
+
+F21E9 =  assert(target f === F)
+
+F21E10 =  f_1
+
+F21E11 =  assert(f_1 != id_(source f_1))
+
+F21E12 =  assert(prune ker f == 0)
+
+F21E13 =  assert(prune coker f == 0)
+
+F21E14 =  g = f^-1
+
+F21E15 =  assert isWellDefined g
+
+F21E16 =  assert(g * f == 1)
+
+F21E17 =  assert(f * g == 1)
+
+F21E18 =  ses = (I,J) -> (
+
+          complex{
+
+              map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}}),
+
+              map(S^1/I ++ S^1/J, S^1/(intersect(I,J)), {{1},{-1}})
+
+              }
+
+          )
+
+F21E19 =  C = ses(ideal(x_0,x_1), ideal(x_1,x_2))
+
+F21E20 =  D = ses(ideal(x_3,x_4,x_5), ideal(x_6,x_7,x_8))
+
+F21E21 =  E = ses(ideal(x_1^2, x_1*x_2), ideal(x_1*x_3,x_9^2))
+
+F21E22 =  h = tensorAssociativity(C, D, E);
+
+F21E23 =  assert isWellDefined h
+
+F21E24 =  assert(ker h == 0)
+
+F21E25 =  assert(coker h == 0)
+
+F21E26 =  k = h^-1;
+
+F21E27 =  assert(h*k == 1)
+
+F21E28 =  assert(k*h == 1)
+
+F21E29 =  h_2
+
+F21E30 =  assert(source h_2 != target h_2)
+
+F22E0 =  S = ZZ/101[x_0..x_8];
+
+F22E1 =  C = complex{genericMatrix(S,x_0,2,1)}
+
+F22E2 =  D = complex{genericMatrix(S,x_2,1,2)}
+
+F22E3 =  F = C ** D
+
+F22E4 =  G = D ** C
+
+F22E5 =  f = tensorCommutativity(C,D)
+
+F22E6 =  assert isWellDefined f
+
+F22E7 =  assert isComplexMorphism f
+
+F22E8 =  assert(source f === F)
+
+F22E9 =  assert(target f === G)
+
+F22E10 =  assert(f_1 != id_(source f_1))
+
+F22E11 =  assert(prune ker f == 0)
+
+F22E12 =  assert(prune coker f == 0)
+
+F22E13 =  g = f^-1
+
+F22E14 =  assert isWellDefined g
+
+F22E15 =  assert(g * f == 1)
+
+F22E16 =  assert(f * g == 1)
+
+F22E17 =  ses = (I,J) -> (
+
+          complex{
+
+              map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}}),
+
+              map(S^1/I ++ S^1/J, S^1/(intersect(I,J)), {{1},{-1}})
+
+              }
+
+          )
+
+F22E18 =  C = ses(ideal(x_0,x_1), ideal(x_1,x_2))
+
+F22E19 =  D = ses(ideal(x_3,x_4,x_5), ideal(x_6,x_7,x_8))
+
+F22E20 =  h = tensorCommutativity(C, D);
+
+F22E21 =  assert isWellDefined h
+
+F22E22 =  assert isComplexMorphism h
+
+F22E23 =  assert(ker h == 0)
+
+F22E24 =  assert(coker h == 0)
+
+F22E25 =  k = h^-1;
+
+F22E26 =  assert(h*k == 1)
+
+F22E27 =  assert(k*h == 1)
+
+F22E28 =  h_2
+
+F22E29 =  assert(source h_2 != target h_2)
+
+F22E30 =  h1 = tensorCommutativity(D, C)
+
+F22E31 =  assert isComplexMorphism h1
+
+F22E32 =  assert(h1*h == id_(C**D))
+
+F22E33 =  assert(h*h1 == id_(D**C))
+
+F22E34 =  C = freeResolution ideal(x_0^2, x_1^2)
+
+F22E35 =  D = freeResolution ideal(x_0, x_1)
+
+F22E36 =  f = extend(D, C, map(D_0, C_0, 1))
+
+F22E37 =  E = freeResolution ideal(x_2^3, x_3^3, x_4^3)
+
+F22E38 =  F = freeResolution ideal(x_2, x_3, x_4)
+
+F22E39 =  g = extend(F, E, map(F_0, E_0, 1))
+
+F22E40 =  assert(tensorCommutativity(D,F) * (f**g) == (g**f) * tensorCommutativity(C,E))
+
+F22E41 =  assert isComplexMorphism tensorCommutativity(D,F)
+
+F22E42 =  assert isComplexMorphism tensorCommutativity(C,E)
+
+F23E0 =  S = ZZ/101[a..d]
+
+F23E1 =  I = ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F23E2 =  F1 = map(S^1,,matrix{{I_0, I_1, I_2}})
+
+F23E3 =  F2 = map(source F1,,matrix{
+
+             {0, I_2, -I_1},
+
+             {-I_2, 0, I_0},
+
+             {I_1, -I_0, 0}
+
+             })
+
+F23E4 =  F3 = map(source F2,,matrix{{I_0}, {I_1}, {I_2}})
+
+F23E5 =  C = complex {F1, F2, F3}
+
+F23E6 =  isWellDefined C
+
+F23E7 =  C1 = complex({F1, F2, F3}, Base => 1)
+
+F23E8 =  isWellDefined C1
+
+F23E9 =  dd^C1
+
+F23E10 =  dd^(C[-1])
+
+F23E11 =  C_2
+
+F23E12 =  C^(-1)
+
+F23E13 =  C^(-1) == C_1
+
+F23E14 =  C_7
+
+F23E15 =  dd^C
+
+F23E16 =  dd^C_2
+
+F23E17 =  length C
+
+F23E18 =  HH C
+
+F23E19 =  prune HH C
+
+F23E20 =  prune HH_1 C
+
+F24E0 =  R = ZZ/101[x,y,z];
+
+F24E1 =  M = cokernel matrix{{x,y,z^2}, {y^2,z,x^2}}
+
+F24E2 =  C = complex {id_M}
+
+F24E3 =  assert isNullHomotopic id_C
+
+F24E4 =  h = nullHomotopy id_C
+
+F24E5 =  assert(h_0 == id_M)
+
+F24E6 =  assert isNullHomotopyOf(h, id_C)
+
+F24E7 =  C = (freeResolution M) ** R^1/ideal(x^3, z^3-x)
+
+F24E8 =  f = randomComplexMap(C, C[1], Boundary => true)
+
+F24E9 =  assert isNullHomotopic f
+
+F24E10 =  h = nullHomotopy f
+
+F24E11 =  assert isNullHomotopyOf(h, f)
+
+F24E12 =  g = randomComplexMap(C, C[1])
+
+F24E13 =  assert not isNullHomotopic g
+
+F24E14 =  h' = nullHomotopy g
+
+F24E15 =  assert isWellDefined h'
+
+F24E16 =  assert(degree h' === degree g + 1)
+
+F24E17 =  assert not isNullHomotopyOf(h', g)
+
+F25E0 =  S = ZZ/101[a..c]
+
+F25E1 =  C = freeResolution coker vars S
+
+F25E2 =  D = Hom(C,C)
+
+F25E3 =  dd^D
+
+F25E4 =  assert isWellDefined D
+
+F25E5 =  prune HH D == Hom(C, coker vars S)
+
+F25E6 =  E = Hom(C, S^2)
+
+F25E7 =  prune HH E
+
+F25E8 =  Hom(C[3], C) == D[-3]
+
+F25E9 =  Hom(C, C[-2]) == D[-2]
+
+F25E10 =  Hom(C, C[-3]) != D[-3]
+
+F25E11 =  Hom(C, C[-3]) == complex(- dd^(D[-3]))
+
+F25E12 =  indices D_-1
+
+F25E13 =  components D_-1
+
+F25E14 =  indices D_-2
+
+F25E15 =  components D_-2
+
+F26E0 =  R = ZZ/101[a,b,c]
+
+F26E1 =  C = freeResolution ideal"a,b,c"
+
+F26E2 =  D = freeResolution ideal"a2,b2,c2"
+
+F26E3 =  g = randomComplexMap(D, C, InternalDegree => 2)
+
+F26E4 =  isWellDefined g
+
+F26E5 =  f = homomorphism' g
+
+F26E6 =  isWellDefined f
+
+F26E7 =  g = randomComplexMap(D, C, Cycle => true, InternalDegree => 3)
+
+F26E8 =  isWellDefined g
+
+F26E9 =  f = homomorphism' g
+
+F26E10 =  isWellDefined f
+
+F26E11 =  assert isCommutative g
+
+F26E12 =  assert(degree f === 0)
+
+F26E13 =  assert(source f == complex(R^{-3}))
+
+F26E14 =  assert(target g === D)
+
+F26E15 =  assert(homomorphism f == g)
+
+F27E0 =  S = ZZ/32003[a,b];
+
+F27E1 =  I = ideal(a^2-b^2, a*b)
+
+F27E2 =  C = freeResolution(I, FastNonminimal=>true)
+
+F27E3 =  betti C
+
+F27E4 =  D = minimize C
+
+F27E5 =  assert(isWellDefined D and isHomogeneous D)
+
+F27E6 =  betti D
+
+F27E7 =  g = D.cache.minimizingMap
+
+F27E8 =  assert isWellDefined g
+
+F27E9 =  assert(isComplexMorphism g and isQuasiIsomorphism g)
+
+F27E10 =  assert(source g == C)
+
+F27E11 =  assert(target g == D)
+
+F27E12 =  assert(coker g == 0)
+
+F27E13 =  f = liftMapAlongQuasiIsomorphism(id_D, g)
+
+F27E14 =  g*f == id_D
+
+F27E15 =  assert(source f == D)
+
+F27E16 =  assert(target f == C)
+
+F27E17 =  assert(ker f == 0)
+
+F27E18 =  f*g
+
+F27E19 =  h = prune canonicalMap(C, ker g)
+
+F27E20 =  assert isShortExactSequence(g, h)
+
+F27E21 =  S = ZZ/32003[a..d]
+
+F27E22 =  J = ideal(a*b*c-b*c, a*d-c, a^3-d^2*c)
+
+F27E23 =  CJ = freeResolution J
+
+F27E24 =  assert not isHomogeneous CJ
+
+F27E25 =  D = minimize CJ
+
+F27E26 =  isWellDefined D
+
+F27E27 =  prune HH D == prune HH CJ
+
+F28E0 =  S = ZZ/101[a,b,c];
+
+F28E1 =  C = freeResolution coker vars S
+
+F28E2 =  D = C ** C
+
+F28E3 =  f1 = randomComplexMap(D, C, Boundary => true, InternalDegree => 1)
+
+F28E4 =  isCommutative f1
+
+F28E5 =  assert(degree f1 == 0)
+
+F28E6 =  assert isNullHomotopic f1
+
+F28E7 =  assert(source f1 == C and target f1 == D)
+
+F28E8 =  f2 = randomComplexMap(D, C, Cycle => true)
+
+F28E9 =  isCommutative f2
+
+F28E10 =  assert(degree f2 == 0)
+
+F28E11 =  assert isComplexMorphism f2
+
+F28E12 =  f3 = randomComplexMap(D, C, Cycle => true, Degree=>1, InternalDegree => 1)
+
+F28E13 =  isCommutative f3
+
+F28E14 =  assert(degree f3 == 1)
+
+F28E15 =  part1 = dd^D_3 * f3_2
+
+F28E16 =  part2 = f3_1 * dd^C_2
+
+F28E17 =  assert(part1 + part2 == 0)
+
+F28E18 =  f4 = randomComplexMap(D, C)
+
+F28E19 =  isCommutative f4
+
+F28E20 =  debugLevel = 1
+
+F28E21 =  isCommutative f4
+
+F29E0 =  R = ZZ/101[a,b,c];
+
+F29E1 =  B = freeResolution coker matrix{{a^2*b, a*b*c, c^3}}
+
+F29E2 =  C = freeResolution coker vars R
+
+F29E3 =  h = randomComplexMap(C, B, Cycle => true)
+
+F29E4 =  f = canonicalMap(C, image h)
+
+F29E5 =  g = canonicalMap(coker h, C)
+
+F29E6 =  assert isShortExactSequence(g,f)
+
+F29E7 =  I = ideal(a^3, b^3, c^3)
+
+F29E8 =  J = I + ideal(a*b*c)
+
+F29E9 =  K = I : ideal(a*b*c)
+
+F29E10 =  SES = complex{
+
+          map(comodule J, comodule I, 1),
+
+          map(comodule I, (comodule K) ** R^{-3}, {{a*b*c}})
+
+          }
+
+F29E11 =  assert isWellDefined SES
+
+F29E12 =  assert isShortExactSequence(dd^SES_1, dd^SES_2)
+
+F29E13 =  (g,f) = horseshoeResolution SES
+
+F29E14 =  assert isShortExactSequence(g,f)
+
+F30E0 =  R = ZZ/101[x,y,z];
+
+F30E1 =  M = cokernel matrix{{x,y,z^2}, {y^2,z,x^2}}
+
+F30E2 =  C = complex {id_M}
+
+F30E3 =  assert isNullHomotopic id_C
+
+F30E4 =  h = nullHomotopy id_C
+
+F30E5 =  assert(h_0 == id_M)
+
+F30E6 =  assert isNullHomotopyOf(h, id_C)
+
+F30E7 =  C = (freeResolution M) ** R^1/ideal(x^3, z^3-x)
+
+F30E8 =  f = randomComplexMap(C, C[1], Boundary => true)
+
+F30E9 =  assert isNullHomotopic f
+
+F30E10 =  h = nullHomotopy f
+
+F30E11 =  assert isNullHomotopyOf(h, f)
+
+F30E12 =  g = randomComplexMap(C, C[1])
+
+F30E13 =  assert not isNullHomotopic g
+
+F30E14 =  f = randomComplexMap(C, C[2], Boundary => true, Degree => 1)
+
+F30E15 =  assert isNullHomotopic f
+
+F30E16 =  h = nullHomotopy f
+
+F30E17 =  assert isNullHomotopyOf(h, f)
+
+F31E0 =  S = ZZ/101[a..c]
+
+F31E1 =  C = freeResolution coker vars S
+
+F31E2 =  concentration id_C
+
+F31E3 =  D = C ++ C[5]
+
+F31E4 =  concentration id_D
+
+F31E5 =  f = randomComplexMap(D, C)
+
+F31E6 =  concentration f
+
+F31E7 =  f_-1
+
+F31E8 =  (id_D)_4
+
+F31E9 =  (id_D)_-1
+
+F31E10 =  C0 = (complex S^0)[4]
+
+F31E11 =  g = id_C0
+
+F31E12 =  concentration g
+
+F31E13 =  prune g
+
+F31E14 =  concentration oo
+
+F32E0 =  R = ZZ/101[a,b,c];
+
+F32E1 =  I = ideal(a^2, a*b, b*c)
+
+F32E2 =  C = Hom(freeResolution I, R^1/I)
+
+F32E3 =  assert all(min C .. max C, i -> not isFreeModule C_i)
+
+F32E4 =  fC = resolutionMap C
+
+F32E5 =  FC = resolution C
+
+F32E6 =  prune HH FC
+
+F32E7 =  assert isQuasiIsomorphism fC
+
+F32E8 =  assert isFree FC
+
+F32E9 =  assert isWellDefined fC
+
+F32E10 =  assert(0 == coker fC) -- showing that fC is surjective.
+
+F32E11 =  J = ideal(a,b)
+
+F32E12 =  K = ideal(b^2,c)
+
+F32E13 =  g1 = map(R^1/(J+K), R^1/J ++ R^1/K, {{1,-1}})
+
+F32E14 =  g2 = map(R^1/J ++ R^1/K, R^1/(intersect(J,K)), {{1},{1}})
+
+F32E15 =  D = complex{g1, g2}
+
+F32E16 =  assert isWellDefined D
+
+F32E17 =  assert isShortExactSequence(g1,g2)
+
+F32E18 =  fD = resolutionMap D
+
+F32E19 =  assert isWellDefined fD
+
+F32E20 =  assert isQuasiIsomorphism fD
+
+F32E21 =  assert(0 == source fD) -- so fD is certainly not surjective!
+
+F33E0 =  S = ZZ/32003[x,y,z];
+
+F33E1 =  M = ideal vars S
+
+F33E2 =  B = freeResolution(S^1/M^2)
+
+F33E3 =  C = freeResolution(S^1/M)
+
+F33E4 =  f = extend(C,B,id_(S^1))
+
+F33E5 =  Cf = cone f
+
+F33E6 =  dd^Cf
+
+F33E7 =  prune HH Cf
+
+F33E8 =  assert(prune HH_1 Cf == prune(M/M^2))
+
+F33E9 =  g = canonicalMap(Cf,C)
+
+F33E10 =  h = canonicalMap(B[-1],Cf)
+
+F33E11 =  assert(isWellDefined g and isWellDefined h)
+
+F33E12 =  assert(isShortExactSequence(h,g))
+
+F33E13 =  aug = augmentationMap C
+
+F33E14 =  assert isWellDefined aug
+
+F33E15 =  cone aug
+
+F33E16 =  assert(0 == prune HH cone aug)
+
+F33E17 =  assert isQuasiIsomorphism aug
+
+F33E18 =  S = ZZ/32003[a..d]
+
+F33E19 =  I = monomialCurveIdeal(S, {1,2,3})
+
+F33E20 =  K = ideal((gens I) * random(source gens I, S^{-3,-3}))
+
+F33E21 =  C = freeResolution(S^1/I)
+
+F33E22 =  B = freeResolution(S^1/K)
+
+F33E23 =  f = dual extend(C,B,id_(S^1))
+
+F33E24 =  Cf = (cone f)[-2]
+
+F33E25 =  prune HH Cf
+
+F33E26 =  Cf' = minimize Cf
+
+F33E27 =  J = ideal dd^Cf'_1
+
+F33E28 =  freeResolution J
+
+F33E29 =  assert(degree J == 6)
+
+F34E0 =  S = ZZ/101[a..d];
+
+F34E1 =  I = ideal(c^3-b*d^2, b*c-a*d)
+
+F34E2 =  J = ideal(a*c^2-b^2*d, b^3-a^2*c)
+
+F34E3 =  g = map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}});
+
+F34E4 =  f = map(S^1/I ++ S^1/J, S^1/intersect(I,J), {{1},{-1}});
+
+F34E5 =  assert isShortExactSequence(g,f)
+
+F34E6 =  kk = coker vars S
+
+F34E7 =  delta = connectingTorMap(kk, g, f)
+
+F34E8 =  assert isWellDefined delta
+
+F34E9 =  assert(source delta_2 == Tor_2(kk, target g))
+
+F34E10 =  assert(target delta_2 == Tor_1(kk, source f))
+
+F34E11 =  prune delta
+
+F34E12 =  F = freeResolution kk;
+
+F34E13 =  LES = longExactSequence(F ** g, F ** f);
+
+F34E14 =  assert all(3, i -> dd^LES_(3*(i+1)) == delta_(i+1))
+
+F34E15 =  assert(HH LES == 0)
+
+F34E16 =  delta' = connectingTorMap(g, f, kk)
+
+F34E17 =  assert isWellDefined delta'
+
+F34E18 =  (g',f') = horseshoeResolution(g,f);
+
+F34E19 =  assert isShortExactSequence(g',f')
+
+F34E20 =  LES' = longExactSequence(g' ** kk, f' ** kk);
+
+F34E21 =  assert(HH LES' == 0)
+
+F34E22 =  assert all(3, i -> dd^LES'_(3*(i+1)) == delta'_(i+1))
+
+F35E0 =  S = ZZ/101[a..d]
+
+F35E1 =  C0 = complex S^2
+
+F35E2 =  f = dd^C0
+
+F35E3 =  source f, target f
+
+F35E4 =  f == 0
+
+F35E5 =  isWellDefined C0
+
+F35E6 =  C0 == 0
+
+F35E7 =  length C0
+
+F35E8 =  C1 = complex(S^2, Base=>3)
+
+F35E9 =  C1 == C0[-3]
+
+F35E10 =  C1_3
+
+F35E11 =  C1_0
+
+F35E12 =  C2 = complex S
+
+F35E13 =  I = ideal(a^2-b, c^3)
+
+F35E14 =  C3 = complex I
+
+F35E15 =  C4 = complex (S/I)
+
+F35E16 =  (ring C3, ring C4)
+
+F35E17 =  C5 = complex S^0
+
+F35E18 =  C5 == 0
+
+F35E19 =  dd^C5 == 0
+
+F35E20 =  C5_0
+
+F36E0 =  R = ZZ/101[a..d]
+
+F36E1 =  I = ideal(a^2, b^2, c^2)
+
+F36E2 =  J = I + ideal(a*b*c)
+
+F36E3 =  FI = freeResolution I
+
+F36E4 =  FJ = freeResolution J
+
+F36E5 =  f = randomComplexMap(FJ, FI, Cycle=>true)
+
+F36E6 =  source f
+
+F36E7 =  assert isWellDefined f
+
+F36E8 =  assert isComplexMorphism f
+
+F36E9 =  assert(source f == FI)
+
+F36E10 =  assert(target f == FJ)
+
+F36E11 =  kk = coker vars R
+
+F36E12 =  F = freeResolution kk
+
+F36E13 =  source dd^F == F
+
+F36E14 =  target dd^F == F
+
+F36E15 =  degree dd^F == -1
+
+F37E0 =  R = ZZ/101[a,b,c];
+
+F37E1 =  I = ideal(a^2, a*b, b*c)
+
+F37E2 =  C = freeResolution I
+
+F37E3 =  f = augmentationMap C
+
+F37E4 =  assert isWellDefined f
+
+F37E5 =  assert isComplexMorphism f
+
+F37E6 =  assert isQuasiIsomorphism f
+
+F37E7 =  g = resolutionMap complex comodule I
+
+F37E8 =  assert(f == g)
+
+F38E0 =  R = ZZ/32003[a..d];
+
+F38E1 =  I = monomialCurveIdeal(R, {1,2,3})
+
+F38E2 =  M = R^1/I
+
+F38E3 =  C = resolution M
+
+F38E4 =  f = C.dd
+
+F38E5 =  g = complex f
+
+F38E6 =  isWellDefined g
+
+F38E7 =  D = freeResolution M
+
+F38E8 =  assert(D.dd == g)
+
+F38E9 =  J = ideal vars R
+
+F38E10 =  C1 = resolution(R^1/J)
+
+F38E11 =  D1 = freeResolution(R^1/J)
+
+F38E12 =  f = extend(C1, C, matrix{{1_R}})
+
+F38E13 =  g = complex f
+
+F38E14 =  g1 = extend(D1, D, matrix{{1_R}})
+
+F38E15 =  assert(g == g1)
+
+F39E0 =  S = ZZ/101[a,b,c,d];
+
+F39E1 =  C = freeResolution ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F39E2 =  D = freeResolution ideal(a,b,c)
+
+F39E3 =  f = randomComplexMap(D, C, Cycle => true, InternalDegree => 0)
+
+F39E4 =  Cf = cone f
+
+F39E5 =  g = canonicalMap(Cf, D)
+
+F39E6 =  h = canonicalMap(C[-1], Cf)
+
+F39E7 =  prune coker g == C[-1]
+
+F39E8 =  coker h == 0
+
+F39E9 =  g1 = canonicalMap(coker g, target g)
+
+F39E10 =  coker g == image g1
+
+F39E11 =  coker g1 == 0
+
+F40E0 =  S = ZZ/101[a..d, Degrees=>{2:{1,0},2:{0,1}}];
+
+F40E1 =  h = a*c^2 + a*c*d + b*d^2;
+
+F40E2 =  I = (ideal(a,b) * ideal(c,d))^[2]
+
+F40E3 =  F = freeResolution comodule I;
+
+F40E4 =  g = Hom(F, map(S^1/h, S^1, 1))
+
+F40E5 =  f = Hom(F, map(S^1, S^{-degree h}, {{h}}))
+
+F40E6 =  assert isWellDefined g
+
+F40E7 =  assert isWellDefined f
+
+F40E8 =  assert isShortExactSequence(g, f)
+
+F40E9 =  delta = connectingMap(g, f)
+
+F40E10 =  assert isWellDefined delta
+
+F40E11 =  assert(degree delta == 0)
+
+F40E12 =  assert(source delta_(-1) == Ext^1(comodule I, S^1/h))
+
+F40E13 =  assert(target delta_(-1) == Ext^2(comodule I, S^{{-1,-2}}))
+
+F40E14 =  L = longExactSequence(g,f)
+
+F40E15 =  assert isWellDefined L
+
+F40E16 =  assert(HH L == 0)
+
+F40E17 =  assert(dd^L_-9 === delta_-3)
+
+F40E18 =  assert(dd^L_-8 === HH_-3 g)
+
+F40E19 =  assert(dd^L_-7 === HH_-3 f)
+
+F40E20 =  assert(dd^L_-6 === delta_-2)
+
+F40E21 =  assert(dd^L_-5 === HH_-2 g)
+
+F40E22 =  assert(dd^L_-4 === HH_-2 f)
+
+F40E23 =  assert(dd^L_-3 === delta_-1)
+
+F40E24 =  S = ZZ/101[a..d];
+
+F40E25 =  I = ideal(c^3-b*d^2, b*c-a*d)
+
+F40E26 =  J = ideal(a*c^2-b^2*d, b^3-a^2*c)
+
+F40E27 =  ses = complex{
+
+          map(S^1/(I+J), S^1/I ++ S^1/J, {{1,1}}),
+
+          map(S^1/I ++ S^1/J, S^1/intersect(I,J), {{1},{-1}})
+
+          }
+
+F40E28 =  assert isWellDefined ses
+
+F40E29 =  assert(HH ses == 0)
+
+F40E30 =  (g,f) = horseshoeResolution ses
+
+F40E31 =  assert isShortExactSequence(g,f)
+
+F40E32 =  (Hf, Hg) = (Hom(f, S), Hom(g, S));
+
+F40E33 =  assert isShortExactSequence(Hf, Hg)
+
+F40E34 =  delta = connectingMap(Hf, Hg)
+
+F40E35 =  assert isWellDefined delta
+
+F40E36 =  assert isComplexMorphism delta
+
+F40E37 =  assert(source delta_-2 == Ext^2(comodule intersect(I,J), S))
+
+F40E38 =  assert(target delta_-2 == Ext^3(comodule (I+J), S))
+
+F40E39 =  L = longExactSequence(Hf, Hg)
+
+F40E40 =  assert isWellDefined L
+
+F40E41 =  assert(HH L == 0)
+
+F40E42 =  assert(dd^L_-6 === delta_-3)
+
+F40E43 =  assert(dd^L_-5 === HH_-3 Hf)
+
+F40E44 =  assert(dd^L_-4 === HH_-3 Hg)
+
+F40E45 =  assert(dd^L_-3 === delta_-2)
+
+F40E46 =  assert(dd^L_-2 === HH_-2 Hf)
+
+F40E47 =  assert(dd^L_-1 === HH_-2 Hg)
+
+F40E48 =  assert(dd^L_0 === delta_-1)
+
+F41E0 =  kk = ZZ/7
+
+F41E1 =  R = kk[a,b,c,d];
+
+F41E2 =  I = ideal(a*b, a*c, b*c, a*d)
+
+F41E3 =  J = I + ideal(b^3)
+
+F41E4 =  C = freeResolution I
+
+F41E5 =  D = freeResolution ((R^1/J) ** R^{{1}})
+
+F41E6 =  f = randomComplexMap(D,C, Cycle=>true)
+
+F41E7 =  g = part(2,f)
+
+F41E8 =  assert(part(2, HH f) ==  prune HH part(2, f))
+
+F42E0 =  R = ZZ/101[a..d];
+
+F42E1 =  C = (freeResolution coker matrix{{a,b,c}})[1]
+
+F42E2 =  D = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F42E3 =  E = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F42E4 =  f = randomComplexMap(D, C)
+
+F42E5 =  g = randomComplexMap(E, D)
+
+F42E6 =  h = g * f
+
+F42E7 =  tf = canonicalTruncation(f, (0, 1))
+
+F42E8 =  tg = canonicalTruncation(g, (0, 1))
+
+F42E9 =  th = canonicalTruncation(h, (0, 1))
+
+F42E10 =  assert all({tf, tg, th}, isWellDefined)
+
+F42E11 =  assert(th == tg * tf)
+
+F42E12 =  t2f = canonicalTruncation(f, (-infinity, 1))
+
+F42E13 =  assert(t2f == canonicalTruncation(f, (, 1)))
+
+F42E14 =  assert(tf != t2f)
+
+F43E0 =  S = ZZ/101[a..d]
+
+F43E1 =  I = ideal(a*b, a*d, c*b, c*d)
+
+F43E2 =  C = (dual freeResolution I)[1]
+
+F43E3 =  D = dual complex for i from 0 to 4 list koszul(i,gens I)
+
+F43E4 =  assert isWellDefined D
+
+F43E5 =  f = randomComplexMap(D, C, Cycle => true)
+
+F43E6 =  assert isCommutative f
+
+F43E7 =  h = HH f
+
+F43E8 =  assert isWellDefined h
+
+F43E9 =  prune h
+
+F43E10 =  assert(source h == HH C)
+
+F43E11 =  assert(target h == HH D)
+
+F43E12 =  f2 = randomComplexMap(D, C, Cycle => true, Degree => -1)
+
+F43E13 =  h2 = HH f2
+
+F43E14 =  assert isWellDefined h2
+
+F43E15 =  prune h2
+
+F43E16 =  f3 = randomComplexMap(D, C, Boundary => true)
+
+F43E17 =  h3 = HH f3
+
+F43E18 =  assert isWellDefined h3
+
+F43E19 =  assert(h3 == 0)
+
+F44E0 =  R = ZZ/32003[a..f];
+
+F44E1 =  K = koszulComplex vars R
+
+F44E2 =  betti K
+
+F44E3 =  p = poincareN K
+
+F44E4 =  factor p
+
+F44E5 =  C = freeResolution ideal(a*b, b*c*d, c*d*e^2)
+
+F44E6 =  betti C
+
+F44E7 =  poincareN C
+
+F44E8 =  S = ZZ/101[x,y,z, DegreeRank => 3];
+
+F44E9 =  L = koszulComplex vars S
+
+F44E10 =  poincareN L
+
+F44E11 =  D = C ** coker vars R
+
+F44E12 =  poincareN D
+
+F44E13 =  betti D
+
+F45E0 =  R = ZZ/101[x,y]/(x^3, y^3)
+
+F45E1 =  C = freeResolution(coker vars R, LengthLimit=>6)
+
+F45E2 =  f = id_C
+
+F45E3 =  assert isWellDefined f
+
+F45E4 =  assert isComplexMorphism f
+
+F45E5 =  R = ZZ/101[a,b,c]
+
+F45E6 =  I = ideal(a^2, b^2, b*c, c^3)
+
+F45E7 =  C = freeResolution I
+
+F45E8 =  D = Hom(C, C)
+
+F45E9 =  homomorphism' id_C
+
+F46E0 =  S = ZZ/101[x_1..x_4];
+
+F46E1 =  F = freeResolution coker vars S
+
+F46E2 =  d = randomComplexMap(F, F, Cycle => true, InternalDegree => -1, Degree => -1)
+
+F46E3 =  d^2
+
+F46E4 =  C = complex d
+
+F46E5 =  assert isWellDefined C
+
+F46E6 =  assert all(0..4, i -> dd^C_i == d_i)
+
+F46E7 =  e = randomComplexMap(F, F, InternalDegree => -1, Degree => -1)
+
+F46E8 =  D = complex e
+
+F46E9 =  debugLevel = 1
+
+F46E10 =  assert not isWellDefined D
+
+F47E0 =  R = ZZ/101[a,b,c,d];
+
+F47E1 =  D = freeResolution coker vars R
+
+F47E2 =  C = (freeResolution coker matrix"a,b,c")[1]
+
+F47E3 =  f = randomComplexMap(D, C, Cycle=>true)
+
+F47E4 =  assert isComplexMorphism f
+
+F47E5 =  K1 = kernel f
+
+F47E6 =  g = canonicalMap(source f, K1)
+
+F47E7 =  degree g
+
+F47E8 =  assert(isWellDefined g and isComplexMorphism g)
+
+F47E9 =  f2 = randomComplexMap(D, C)
+
+F47E10 =  assert not isComplexMorphism f2
+
+F47E11 =  K2 = kernel f2
+
+F47E12 =  g2 = canonicalMap(source f2, K2)
+
+F47E13 =  assert(isWellDefined g2 and isComplexMorphism g2)
+
+F47E14 =  Q = cokernel f
+
+F47E15 =  g3 = canonicalMap(Q, target f)
+
+F47E16 =  assert(isWellDefined g3 and isComplexMorphism g3)
+
+F47E17 =  I = image f
+
+F47E18 =  g4 = canonicalMap(target f, I)
+
+F47E19 =  assert(isWellDefined g4 and isComplexMorphism g4)
+
+F47E20 =  J = coimage f
+
+F47E21 =  g5 = canonicalMap(J, source f)
+
+F47E22 =  assert(isWellDefined g5 and isComplexMorphism g5)
+
+F47E23 =  J2 = coimage f2
+
+F47E24 =  g6 = canonicalMap(J2, source f2)
+
+F47E25 =  assert(isWellDefined g6 and isComplexMorphism g6)
+
+F47E26 =  E = cone f
+
+F47E27 =  g = canonicalMap(E, target f)
+
+F47E28 =  h = canonicalMap((source f)[-1], E)
+
+F47E29 =  assert(isWellDefined g and isWellDefined h)
+
+F47E30 =  assert(isComplexMorphism g and isComplexMorphism h)
+
+F47E31 =  assert isShortExactSequence(h,g)
+
+F47E32 =  F = cylinder f
+
+F47E33 =  g = canonicalMap(F, source f)
+
+F47E34 =  h = canonicalMap(E, F)
+
+F47E35 =  assert(isWellDefined g and isWellDefined h)
+
+F47E36 =  assert(isComplexMorphism g and isComplexMorphism h)
+
+F47E37 =  assert isShortExactSequence(h,g)
+
+F47E38 =  g' = canonicalMap(F, target f)
+
+F47E39 =  h' = canonicalMap(target f, F)
+
+F47E40 =  assert(isWellDefined g' and isWellDefined h')
+
+F47E41 =  assert(isComplexMorphism g' and isComplexMorphism h')
+
+F47E42 =  assert not isShortExactSequence(h',g')
+
+F47E43 =  f' = id_C
+
+F47E44 =  F' = cylinder f'
+
+F47E45 =  g = canonicalMap(F', C, UseTarget=>true)
+
+F47E46 =  h = canonicalMap(F', C, UseTarget=>false)
+
+F47E47 =  assert(isWellDefined g and isWellDefined h)
+
+F47E48 =  assert(g != h)
+
+F47E49 =  assert(isComplexMorphism g and isComplexMorphism h)
+
+F48E0 =  R = ZZ/101[a,b,c];
+
+F48E1 =  C = freeResolution coker matrix{{a^2-b^2,b^3-c^3,c^4}}
+
+F48E2 =  D = freeResolution coker vars R
+
+F48E3 =  H = hashTable { 0 => map(D_0, C_0, 1),
+
+         1 => map(D_1, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+         2 => map(D_2, C_2, {{a*b^2, 0, 0}, {-a*c^2, a*c^3, 0}, {b*c^2, -b*c^3, b^2*c^3}}),
+
+         3 => map(D_3, C_3, {{a*b^2*c^3}})
+
+         }
+
+F48E4 =  f = map(D, C, H)
+
+F48E5 =  assert isWellDefined f
+
+F48E6 =  assert isHomogeneous f
+
+F48E7 =  assert(degree f == 0)
+
+F48E8 =  assert isComplexMorphism f
+
+F48E9 =  g = randomComplexMap(D,C)
+
+F48E10 =  assert isWellDefined g
+
+F48E11 =  assert not isCommutative g
+
+F48E12 =  h = randomComplexMap(D,C, Cycle => true)
+
+F48E13 =  assert isWellDefined h
+
+F48E14 =  assert isComplexMorphism h
+
+F49E0 =  R = ZZ/32003[a..f];
+
+F49E1 =  K = koszulComplex vars R
+
+F49E2 =  betti K
+
+F49E3 =  p = poincare K
+
+F49E4 =  factor p
+
+F49E5 =  C = freeResolution ideal(a*b, b*c*d, c*d*e^2)
+
+F49E6 =  betti C
+
+F49E7 =  poincare C
+
+F49E8 =  S = ZZ/101[x,y,z, DegreeRank => 3];
+
+F49E9 =  L = koszulComplex vars S
+
+F49E10 =  poincare L
+
+F49E11 =  D = C ** coker vars R
+
+F49E12 =  poincare D
+
+F49E13 =  betti D
+
+F49E14 =  poincare betti D
+
+F50E0 =  S = ZZ/101[a..c];
+
+F50E1 =  C = freeResolution coker vars S
+
+F50E2 =  D = (freeResolution coker matrix{{a^2,a*b,b^3}})[-1]
+
+F50E3 =  f = randomComplexMap(D,C)
+
+F50E4 =  E = (dual C)[-3]
+
+F50E5 =  F = (dual D)[-3]
+
+F50E6 =  g = randomComplexMap(F,E)
+
+F50E7 =  h = Hom(f,g)
+
+F50E8 =  assert isWellDefined h
+
+F50E9 =  assert(source h === Hom(D,E))
+
+F50E10 =  assert(target h === Hom(C,F))
+
+F50E11 =  e = randomComplexMap(source h, complex(S^1))
+
+F50E12 =  phi = homomorphism e
+
+F50E13 =  psi = homomorphism'(g * phi * f)
+
+F50E14 =  assert(h*e == psi)
+
+F50E15 =  assert(Hom(f, C) == Hom(f, id_C))
+
+F50E16 =  assert(Hom(C, f) == Hom(id_C, f))
+
+F50E17 =  assert(Hom(f, S) == Hom(f, id_(complex S)))
+
+F50E18 =  assert(Hom(S, f) == Hom(id_(complex S), f))
+
+F50E19 =  M = S^1/(a^2, b^2, c^2)
+
+F50E20 =  assert(Hom(f, M) == Hom(f, id _ (complex M)))
+
+F50E21 =  assert(Hom(M, f) == Hom(id _ (complex M), f))
+
+F50E22 =  m = vars S;
+
+F50E23 =  h1 = Hom(f, m)
+
+F50E24 =  assert(h1 == Hom(f, map(complex target m, complex source m, i -> m)))
+
+F50E25 =  m = vars S;
+
+F50E26 =  h2 = Hom(m, f)
+
+F50E27 =  assert(h2 == Hom(map(complex target m, complex source m, i -> m), f))
+
+F50E28 =  e = randomComplexMap(source h, complex(S^1, Base => -1))
+
+F50E29 =  phi = homomorphism e
+
+F50E30 =  assert(degree phi == -1)
+
+F50E31 =  psi = homomorphism'(g * phi * f)
+
+F50E32 =  i = map(complex S^1, source e, id_(source e), Degree => 1)
+
+F50E33 =  assert(h*e == psi*i)
+
+F50E34 =  assert((degree h, degree e, degree psi, degree i) === (0, 0, -1, 1))
+
+F50E35 =  D' = (freeResolution coker matrix{{a^2,a*b,c^3}})[-1]
+
+F50E36 =  f' = randomComplexMap(D', D)
+
+F50E37 =  Hom(f' * f, g) == Hom(f, id_F) * Hom(f', g)
+
+F50E38 =  Hom(f' * f, g) == Hom(f, g) * Hom(f', id_E)
+
+F50E39 =  F' = dual (freeResolution coker matrix{{a^2,a*b,a*c,b^3}})[-3]
+
+F50E40 =  g' = randomComplexMap(F', F)
+
+F50E41 =  Hom(f, g' * g) == Hom(f, g') * Hom(id_D, g)
+
+F50E42 =  Hom(f, g' * g) == Hom(id_C, g') * Hom(f, g)
+
+F51E0 =  S = ZZ/101[a..d]
+
+F51E1 =  I = ideal"a2,ab,ac,b3"
+
+F51E2 =  E = Ext^1(I, S^1/I)
+
+F51E3 =  B = basis(0, E)
+
+F51E4 =  f = B * random(S^16, S^1)
+
+F51E5 =  g = yonedaMap f
+
+F51E6 =  assert isWellDefined g
+
+F51E7 =  assert(degree g === -1)
+
+F51E8 =  assert isCommutative g
+
+F51E9 =  assert isHomogeneous g
+
+F51E10 =  source g -- free resolution of I
+
+F51E11 =  target g -- free resolution of S/I
+
+F51E12 =  assert(yonedaMap' g == f)
+
+F51E13 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F51E14 =  M = truncate(1,R^1)
+
+F51E15 =  prune Ext^3(M, M)
+
+F51E16 =  B = basis(-4, Ext^3(M, M))
+
+F51E17 =  f = B_{2}
+
+F51E18 =  g = yonedaMap(f, LengthLimit => 8)
+
+F51E19 =  assert isHomogeneous g
+
+F51E20 =  assert isWellDefined g
+
+F51E21 =  assert isCommutative g
+
+F51E22 =  assert(degree g === -3)
+
+F51E23 =  assert(yonedaMap' g == map(target f, R^1, f, Degree => -4))
+
+F51E24 =  assert(isHomogeneous yonedaMap' g)
+
+F52E0 =  S = ZZ/101[x_0..x_3];
+
+F52E1 =  I = borel monomialIdeal(x_1*x_2)
+
+F52E2 =  E1 = Ext^1(S^1/I, S^1/I)
+
+F52E3 =  (f, g) = (E1_{6}, E1_{9})
+
+F52E4 =  h = yonedaProduct(f, g)
+
+F52E5 =  assert isWellDefined h
+
+F52E6 =  assert(target h == Ext^2(S^1/I, S^1/I))
+
+F52E7 =  C = yonedaExtension h
+
+F52E8 =  assert isWellDefined C
+
+F52E9 =  assert isHomogeneous C
+
+F52E10 =  assert(HH C == 0)
+
+F52E11 =  assert(coker yonedaProduct(E1,E1) == 0)
+
+F52E12 =  R = S/(x_0*x_1, x_2*x_3);
+
+F52E13 =  E1 = Ext^1(R^1/(x_0, x_2), R^1/(x_0, x_2, x_3))
+
+F52E14 =  E2 = Ext^2(R^1/(x_0, x_2, x_3), R^1/(x_0, x_1, x_2, x_3))
+
+F52E15 =  E3 = Ext^3(R^1/(x_0, x_2), R^1/(x_0, x_1, x_2, x_3))
+
+F52E16 =  h = yonedaProduct(E1_{0}, E2_{1})
+
+F52E17 =  assert isWellDefined h
+
+F52E18 =  assert(target h == E3)
+
+F52E19 =  C = yonedaExtension h
+
+F52E20 =  assert isWellDefined C
+
+F52E21 =  assert isHomogeneous C
+
+F52E22 =  assert(HH C == 0)
+
+F52E23 =  assert(coker yonedaProduct(E1, E2) != 0)
+
+F53E0 =  R = QQ[a..d]
+
+F53E1 =  I = ideal(c^2-b*d, b*c-a*d, b^2-a*c)
+
+F53E2 =  M = R^1/I
+
+F53E3 =  C = freeResolution M
+
+F53E4 =  betti C
+
+F53E5 =  length C
+
+F53E6 =  dd^C
+
+F53E7 =  assert isWellDefined C
+
+F53E8 =  assert(prune HH C == complex M)
+
+F53E9 =  assert(freeResolution I == C)
+
+F53E10 =  resolution complex M == freeResolution M
+
+F53E11 =  S = ZZ/101[a,b]
+
+F53E12 =  R = S/(a^3+b^3)
+
+F53E13 =  C = freeResolution (coker vars R, LengthLimit => 7)
+
+F53E14 =  dd^C
+
+F54E0 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F54E1 =  M = truncate(1,R^1)
+
+F54E2 =  N = R^1;
+
+F54E3 =  E = coker map(R^{3:-1} ++ R^1,,{
+
+             {y, x, 0, 0},
+
+             {-z, 0, x, -y*z},
+
+             {0, -z, -y, x^2-3*x*z+2*z^2},
+
+             {x^2-3*x*z+2*z^2, y*z, 0, 0}
+
+             })
+
+F54E4 =  d1 = map(M, E, (cover E)^[0])
+
+F54E5 =  d2 = map(E, N, (cover E)_[1])
+
+F54E6 =  C = complex{d1,d2}
+
+F54E7 =  assert isWellDefined C
+
+F54E8 =  assert isHomogeneous C
+
+F54E9 =  assert(HH C == 0)
+
+F54E10 =  f = yonedaExtension' C
+
+F54E11 =  assert(C == yonedaExtension f)
+
+F54E12 =  assert(basis(0, Ext^1(M,N)) == f)
+
+F54E13 =  R = ZZ/101[a,b,c,d,e];
+
+F54E14 =  M = coker matrix"a,b,d,e"
+
+F54E15 =  N = coker matrix"c,d,e"
+
+F54E16 =  Ext^3(M,N)
+
+F54E17 =  C = complex{id_M, map(M, R^0, 0), map(R^0, N, 0), id_N}
+
+F54E18 =  assert isWellDefined C
+
+F54E19 =  assert(HH C == 0)
+
+F54E20 =  f = yonedaExtension' C
+
+F54E21 =  assert(target f === Ext^3(M,N))
+
+F54E22 =  assert(f == 0)
+
+F54E23 =  D = yonedaExtension f
+
+F54E24 =  assert(C != D)
+
+F55E0 =  S = ZZ/101[a..d]
+
+F55E1 =  C = freeResolution coker vars S
+
+F55E2 =  D = complex(C, Base => 1)
+
+F55E3 =  E = complex(D, Base => -11)
+
+F55E4 =  dd^D_2 == dd^C_1
+
+F55E5 =  dd^E_-9 == dd^C_2
+
+F55E6 =  F = C[-1]
+
+F55E7 =  for i from min F to max F list
+
+F56E0 =  S = ZZ/101[a..c];
+
+F56E1 =  C = freeResolution coker matrix{{a^2, b^2, c^2}}
+
+F56E2 =  D = freeResolution coker vars S
+
+F56E3 =  f = randomComplexMap(D, C)
+
+F56E4 =  f_2
+
+F56E5 =  f_0
+
+F56E6 =  concentration f
+
+F56E7 =  f_-1
+
+F56E8 =  f_3
+
+F56E9 =  f_4
+
+F57E0 =  R = QQ[a,b,c,d];
+
+F57E1 =  S = QQ[s,t];
+
+F57E2 =  phi = map(S, R, {s, s+t, t, s-t})
+
+F57E3 =  I = ideal(a*b, b*c, c*d)
+
+F57E4 =  J = I + ideal(a^2, b^2, c^2, d^2)
+
+F57E5 =  CI = freeResolution I
+
+F57E6 =  CJ = freeResolution J
+
+F57E7 =  f = extend(CJ, CI, map(CJ_0, CI_0, 1))
+
+F57E8 =  assert isWellDefined f
+
+F57E9 =  g = phi ** f
+
+F57E10 =  assert isWellDefined g
+
+F57E11 =  dd^(source g)
+
+F57E12 =  dd^(target g)
+
+F57E13 =  prune HH g
+
+F58E0 =  S = ZZ/101[a,b,c];
+
+F58E1 =  C = freeResolution coker vars S
+
+F58E2 =  g1 = id_C
+
+F58E3 =  g2 = randomComplexMap(C[1], C[2], Boundary => true)
+
+F58E4 =  f = g1 ++ g2
+
+F58E5 =  assert isWellDefined f
+
+F58E6 =  L = components f
+
+F58E7 =  L_0 === g1
+
+F58E8 =  L_1 === g2
+
+F58E9 =  indices f
+
+F58E10 =  f' = (greg => g1) ++ (mike => g2)
+
+F58E11 =  components f'
+
+F58E12 =  indices f'
+
+F58E13 =  f'_[mike]
+
+F58E14 =  f'^[greg]
+
+F58E15 =  f^[0]
+
+F58E16 =  f_[0]
+
+F59E0 =  R = ZZ/101[x,y,z]/(y^2*z-x*(x-z)*(x-2*z));
+
+F59E1 =  M = truncate(1,R^1)
+
+F59E2 =  f = basis(0, Ext^1(M, R^1))
+
+F59E3 =  C = yonedaExtension f
+
+F59E4 =  assert isWellDefined C
+
+F59E5 =  assert isShortExactSequence(dd^C_1, dd^C_2)
+
+F59E6 =  E = C_1
+
+F59E7 =  fittingIdeal(1, E)
+
+F59E8 =  saturate fittingIdeal(2, E)
+
+F59E9 =  x = symbol x;
+
+F59E10 =  S = ZZ/101[x_0..x_5];
+
+F59E11 =  I = borel monomialIdeal(x_2*x_3)
+
+F59E12 =  E = Ext^4(S^1/I, S^{-5})
+
+F59E13 =  f = E_{0}
+
+F59E14 =  assert(isHomogeneous f and degree f === {0})
+
+F59E15 =  C = yonedaExtension f
+
+F59E16 =  assert isWellDefined C
+
+F59E17 =  assert isHomogeneous C
+
+F59E18 =  assert(HH C == 0)
+
+F59E19 =  f' = yonedaExtension' C
+
+F59E20 =  assert(f' == f)
+
+F60E0 =  R = ZZ/101[a,b,c];
+
+F60E1 =  I = ideal(a^2, a*b, b*c)
+
+F60E2 =  C = Hom(freeResolution I, R^1/I)
+
+F60E3 =  assert all(min C .. max C, i -> not isFreeModule C_i)
+
+F60E4 =  fC = resolutionMap C
+
+F60E5 =  FC = resolution C
+
+F60E6 =  prune HH FC
+
+F60E7 =  assert isQuasiIsomorphism fC
+
+F60E8 =  assert isFree FC
+
+F60E9 =  assert isWellDefined fC
+
+F60E10 =  assert(0 == coker fC) -- showing that fC is surjective.
+
+F60E11 =  J = ideal(a,b)
+
+F60E12 =  K = ideal(b^2,c)
+
+F60E13 =  g1 = map(R^1/(J+K), R^1/J ++ R^1/K, {{1,-1}})
+
+F60E14 =  g2 = map(R^1/J ++ R^1/K, R^1/(intersect(J,K)), {{1},{1}})
+
+F60E15 =  D = complex{g1, g2}
+
+F60E16 =  assert isWellDefined D
+
+F60E17 =  assert isShortExactSequence(g1,g2)
+
+F60E18 =  fD = resolutionMap D
+
+F60E19 =  assert isWellDefined fD
+
+F60E20 =  assert isQuasiIsomorphism fD
+
+F60E21 =  assert(0 == source fD) -- so fD is certainly not surjective!
+
+F61E0 =  R = QQ[a,b,c];
+
+F61E1 =  C = freeResolution ideal(a*b, a*c, b*c)
+
+F61E2 =  D = (freeResolution ideal(a*b, a*c, b*c, a^2-b^2))[-1]
+
+F61E3 =  f = randomComplexMap(D,C, Cycle => true)
+
+F61E4 =  g = truncate(3,f)
+
+F61E5 =  assert isWellDefined g
+
+F61E6 =  assert (source g == truncate(3, source f))
+
+F61E7 =  assert (target g == truncate(3, target f))
+
+F61E8 =  assert(f == truncate(0, f))
+
+F61E9 =  A = ZZ/101[x_0, x_1, y_0, y_1, y_2, Degrees => {2:{1,0}, 3:{0,1}}];
+
+F61E10 =  I = intersect(ideal(x_0, x_1), ideal(y_0, y_1, y_2))
+
+F61E11 =  C = freeResolution I
+
+F61E12 =  J = intersect(ideal(x_0^2, x_1^2), ideal(y_0^2, y_1^2, y_2^2))
+
+F61E13 =  D = freeResolution J
+
+F61E14 =  f = extend(C, D, id_(A^1))
+
+F61E15 =  g1 = prune truncate({{1,1}}, f)
+
+F61E16 =  g2 = truncate({{1,0}}, f)
+
+F61E17 =  g3 = truncate({{0,1}}, f)
+
+F61E18 =  g4 = truncate({{1,0},{0,1}}, f)
+
+F61E19 =  g5 = truncate({{2,2}}, f)
+
+F61E20 =  assert all({g1,g2,g3,g4,g5}, isWellDefined)
+
+F62E0 =  S = ZZ/101[a..c]
+
+F62E1 =  C = freeResolution coker vars S
+
+F62E2 =  D = (freeResolution coker matrix{{a^2,a*b,b^3}})[-1]
+
+F62E3 =  f = randomComplexMap(D,C)
+
+F62E4 =  E = (dual C)[-3]
+
+F62E5 =  F = (dual D)[-3]
+
+F62E6 =  g = randomComplexMap(F,E)
+
+F62E7 =  h = f ** g
+
+F62E8 =  assert isWellDefined h
+
+F62E9 =  assert(source h === C ** E)
+
+F62E10 =  assert(target h === D ** F)
+
+F62E11 =  fE = f ** E
+
+F62E12 =  assert(fE === f ** id_E)
+
+F62E13 =  k = coker vars S
+
+F62E14 =  gk = g ** k
+
+F62E15 =  assert(gk == g ** id_(complex k))
+
+F62E16 =  D' = (freeResolution coker matrix{{a^2,a*b,c^3}})[-1]
+
+F62E17 =  f' = randomComplexMap(D', D)
+
+F62E18 =  (f' * f) ** g == (f' ** g) * (f ** id_E)
+
+F62E19 =  (f' * f) ** g == (f' ** id_F) * (f ** g)
+
+F62E20 =  F' = dual (freeResolution coker matrix{{a^2,a*b,a*c,b^3}})[-3]
+
+F62E21 =  g' = randomComplexMap(F', F)
+
+F62E22 =  f ** (g' * g) == (f ** g') * (id_C ** g)
+
+F62E23 =  f ** (g' * g) == (id_D ** g') * (f ** g)
+
+F63E0 =  R = ZZ/101[a,b,c];
+
+F63E1 =  C = freeResolution coker matrix{{a^2-b^2,b^3-c^3,c^4}}
+
+F63E2 =  D = freeResolution coker vars R
+
+F63E3 =  H = hashTable { 0 => map(D_0, C_0, 1),
+
+         1 => map(D_1, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+         2 => map(D_2, C_2, {{a*b^2, 0, 0}, {-a*c^2, a*c^3, 0}, {b*c^2, -b*c^3, b^2*c^3}}),
+
+         3 => map(D_3, C_3, {{a*b^2*c^3}})
+
+         }
+
+F63E4 =  f = map(D, C, H)
+
+F63E5 =  assert isWellDefined f
+
+F63E6 =  assert isHomogeneous f
+
+F63E7 =  assert(degree f == 0)
+
+F63E8 =  assert isComplexMorphism f
+
+F63E9 =  E = D[-3]
+
+F63E10 =  H = hashTable { 0 => map(E_3, C_0, 1),
+
+          1 => map(E_4, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+          3 => map(E_6, C_3, {{a*b^2*c^3}})
+
+          }
+
+F63E11 =  g = map(E, C, H, Degree => 3)
+
+F63E12 =  g_2
+
+F63E13 =  assert(g_1 == f_1)
+
+F63E14 =  assert(g != f)
+
+F63E15 =  assert isWellDefined g
+
+F63E16 =  assert isHomogeneous g
+
+F63E17 =  assert(degree g == 3)
+
+F63E18 =  assert not isComplexMorphism g
+
+F63E19 =  assert not isCommutative g
+
+F63E20 =  assert(source g == C)
+
+F63E21 =  assert(target g == E)
+
+F64E0 =  R = ZZ/101[a..d];
+
+F64E1 =  L = R^1/ideal(a^2, b^2, c^2, a*c, b*d)
+
+F64E2 =  N = R^1/ideal(a^2, b^2, c^2, a*c, b*d, a*b)
+
+F64E3 =  f = map(N,L,1)
+
+F64E4 =  M = coker vars R
+
+F64E5 =  betti freeResolution L
+
+F64E6 =  betti freeResolution N
+
+F64E7 =  g1 = Tor_1(f, M)
+
+F64E8 =  g2 = Tor_2(f, M)
+
+F64E9 =  g3 = Tor_3(f, M)
+
+F64E10 =  g4 = Tor_4(f, M)
+
+F64E11 =  assert(source g2 === Tor_2(L, M))
+
+F64E12 =  assert(target g2 === Tor_2(N, M))
+
+F64E13 =  prune ker g3
+
+F64E14 =  prune coker g3
+
+F64E15 =  M = R^1/ideal(a^2,b^2,c^3,b*d)
+
+F64E16 =  h1 = Tor_1(M, f)
+
+F64E17 =  h1' = Tor_1(f, M)
+
+F64E18 =  Tor_1(L, M)
+
+F64E19 =  Tor_1(M, L)
+
+F64E20 =  assert(source h1 == Tor_1(M, L))
+
+F64E21 =  assert(source h1' == Tor_1(L, M))
+
+F64E22 =  h2 = Tor_2(M, f)
+
+F64E23 =  h2' = Tor_2(f, M)
+
+F64E24 =  prune h2
+
+F64E25 =  prune h2'
+
+F65E0 =  R = ZZ/101[a,b,c];
+
+F65E1 =  C = freeResolution coker vars R
+
+F65E2 =  f = map(C[-1], C, dd^C, Degree => 0)
+
+F65E3 =  assert isWellDefined f
+
+F65E4 =  assert(degree f == 0)
+
+F65E5 =  assert isCommutative f
+
+F65E6 =  assert isComplexMorphism f
+
+F65E7 =  assert not isComplexMorphism dd^C
+
+F66E0 =  S = ZZ/101[a,b,c];
+
+F66E1 =  I = ideal(a^3, b^3, c^3)
+
+F66E2 =  J = I + ideal(a*b*c)
+
+F66E3 =  K = I : ideal(a*b*c)
+
+F66E4 =  C = complex{
+
+         map(comodule J, comodule I, 1),
+
+         map(comodule I, (comodule K) ** S^{-3}, {{a*b*c}})
+
+         }
+
+F66E5 =  assert isShortExactSequence C
+
+F66E6 =  (beta, alpha) = horseshoeResolution C
+
+F66E7 =  assert isShortExactSequence(beta, alpha)
+
+F66E8 =  assert(prune HH source alpha == complex C_2)
+
+F66E9 =  assert(prune HH target alpha == complex C_1)
+
+F66E10 =  assert(prune HH target beta == complex C_0)
+
+F66E11 =  assert isFree target alpha
+
+F66E12 =  target alpha
+
+F66E13 =  freeResolution C_1
+
+F66E14 =  minimize target alpha
+
+F66E15 =  (beta, alpha) = horseshoeResolution(C, LengthLimit => 2)
+
+F66E16 =  assert isShortExactSequence(beta, alpha)
+
+F66E17 =  prune HH source alpha
+
+F66E18 =  assert isFree target alpha
+
+F67E0 =  R = ZZ/101[a,b,c]
+
+F67E1 =  C = freeResolution ideal"a,b,c"
+
+F67E2 =  D = freeResolution ideal"a2,b2,c2"
+
+F67E3 =  H = Hom(C,D)
+
+F67E4 =  f = randomComplexMap(H, complex R^{-2})
+
+F67E5 =  isWellDefined f
+
+F67E6 =  g = homomorphism f
+
+F67E7 =  isWellDefined g
+
+F67E8 =  assert not isCommutative g
+
+F67E9 =  f = randomComplexMap(H, complex R^{-2}, Cycle => true)
+
+F67E10 =  isWellDefined f
+
+F67E11 =  g = homomorphism f
+
+F67E12 =  isWellDefined g
+
+F67E13 =  assert isCommutative g
+
+F67E14 =  assert(degree g === 0)
+
+F67E15 =  assert(source g === C)
+
+F67E16 =  assert(target g === D)
+
+F67E17 =  assert(homomorphism' g == f)
+
+F67E18 =  f1 = randomComplexMap(H, complex R^1, Degree => -2)
+
+F67E19 =  f2 = map(target f1, (source f1)[2], i -> f1_(i+2))
+
+F67E20 =  assert isWellDefined f2
+
+F67E21 =  g1 = homomorphism f1
+
+F67E22 =  g2 = homomorphism f2
+
+F67E23 =  assert(g1 == g2)
+
+F67E24 =  assert isWellDefined g1
+
+F67E25 =  assert isWellDefined g2
+
+F67E26 =  homomorphism' g1 == f1
+
+F67E27 =  homomorphism' g2 == f1
+
+F68E0 =  R = ZZ/101[a..d];
+
+F68E1 =  C1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F68E2 =  C2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F68E3 =  D = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F68E4 =  f = randomComplexMap(D, C1)
+
+F68E5 =  g = randomComplexMap(D, C2)
+
+F68E6 =  h = f|g
+
+F68E7 =  assert isWellDefined h
+
+F68E8 =  assert(source h === source f ++ source g)
+
+F68E9 =  assert(target h === target f)
+
+F68E10 =  assert(h === map(D, C1 ++ C2, {{f,g}}))
+
+F69E0 =  R = ZZ/101[a..d];
+
+F69E1 =  C1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F69E2 =  C2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F69E3 =  D1 = (freeResolution coker matrix{{a,b,c}})
+
+F69E4 =  D2 = freeResolution coker matrix{{a^2, b^2, c^2}}[-1]
+
+F69E5 =  f = randomComplexMap(D1, C1, Cycle => true)
+
+F69E6 =  g = randomComplexMap(D2, C2, Cycle => true)
+
+F69E7 =  h = f ++ g
+
+F69E8 =  assert isWellDefined h
+
+F69E9 =  assert(h == map(D1 ++ D2, C1 ++ C2, {{f,0},{0,g}}))
+
+F69E10 =  directSum(f, g, f[2])
+
+F69E11 =  h2 = directSum(mike => f, greg => g, dan => f[2])
+
+F69E12 =  h2_[greg,dan]
+
+F69E13 =  assert(source oo == C2 ++ C1[2])
+
+F69E14 =  h_[0]^[0] == f
+
+F69E15 =  h_[1]^[1] == g
+
+F69E16 =  h_[0]^[1] == 0
+
+F69E17 =  h_[1]^[0] == 0
+
+F69E18 =  h_[0] == h * (C1 ++ C2)_[0]
+
+F69E19 =  h_[1] == h * (C1 ++ C2)_[1]
+
+F69E20 =  h^[0] == (D1 ++ D2)^[0] * h
+
+F69E21 =  h^[1] == (D1 ++ D2)^[1] * h
+
+F70E0 =  S = ZZ/101[a..d]
+
+F70E1 =  C = freeResolution coker vars S
+
+F70E2 =  dd^C_3
+
+F70E3 =  D = C[1]
+
+F70E4 =  assert isWellDefined D
+
+F70E5 =  assert(dd^D_2 == -dd^C_3)
+
+F70E6 =  E = complex(C, Base => -1)
+
+F70E7 =  assert isWellDefined E
+
+F70E8 =  assert(dd^E_2 == dd^C_3)
+
+F70E9 =  C2 = freeResolution (S^1/(a^2, b^2, c^2, d^2))
+
+F70E10 =  C3 = freeResolution (S^1/(a^2, b^3, c^4, d^5))
+
+F70E11 =  f2 = extend(C, C2, map(C_0, C2_0, 1))
+
+F70E12 =  f3 = extend(C2, C3, map(C2_0, C3_0, 1))
+
+F70E13 =  assert((f2*f3)[1] == (f2[1]) * (f3[1]))
+
+F70E14 =  assert(source(f2[1]) == C2[1])
+
+F70E15 =  assert(target(f2[1]) == C[1])
+
+F71E0 =  S = ZZ/101[a..c]
+
+F71E1 =  C = freeResolution coker vars S
+
+F71E2 =  D = C[3][-3]
+
+F71E3 =  C === D
+
+F71E4 =  C == D
+
+F71E5 =  (lo,hi) = concentration C
+
+F71E6 =  E = complex for i from lo+1 to hi list 0*dd^C_i
+
+F71E7 =  dd^E
+
+F71E8 =  C == E
+
+F71E9 =  E == 0
+
+F71E10 =  f = id_C
+
+F71E11 =  D = coker f
+
+F71E12 =  D == 0
+
+F71E13 =  C0 = complex S^0
+
+F71E14 =  C1 = C0[4]
+
+F71E15 =  concentration C0 == concentration C1
+
+F71E16 =  C0 == C1
+
+F71E17 =  C0 == 0
+
+F71E18 =  C1 == 0
+
+F71E19 =  R = QQ[a..d];
+
+F71E20 =  f0 = matrix {{-b^2+a*c, b*c-a*d, -c^2+b*d}}
+
+F71E21 =  f1 = map(source f0,, {{d, c}, {c, b}, {b, a}})
+
+F71E22 =  C = complex {f0, f1}
+
+F71E23 =  HH C != complex coker f0
+
+F71E24 =  prune HH C == complex coker f0
+
+F72E0 =  R = ZZ/101[a..d]
+
+F72E1 =  I = ideal(a^2, b^2, c^2)
+
+F72E2 =  J = I + ideal(a*b*c)
+
+F72E3 =  FI = freeResolution I
+
+F72E4 =  FJ = freeResolution J
+
+F72E5 =  f = randomComplexMap(FJ, FI, Cycle=>true)
+
+F72E6 =  target f
+
+F72E7 =  assert isWellDefined f
+
+F72E8 =  assert isComplexMorphism f
+
+F72E9 =  assert(target f == FJ)
+
+F72E10 =  assert(source f == FI)
+
+F72E11 =  kk = coker vars R
+
+F72E12 =  F = freeResolution kk
+
+F72E13 =  target dd^F == F
+
+F72E14 =  source dd^F == F
+
+F72E15 =  degree dd^F == -1
+
+F73E0 =  S = ZZ/101[a..d];
+
+F73E1 =  B = intersect(ideal(a,c),ideal(b,d))
+
+F73E2 =  C1 = freeResolution B
+
+F73E3 =  C2 = dual C1
+
+F73E4 =  assert(C2 == Hom(C1, S^1))
+
+F73E5 =  C1 == dual dual C1
+
+F73E6 =  prune HH C2
+
+F73E7 =  I = ideal(a^2, a*b, b^2)
+
+F73E8 =  J = ideal(b^3, b*c, c^3)
+
+F73E9 =  K = intersect(I,J)
+
+F73E10 =  f = map(S^1/I ++ S^1/J, S^1/K, {{1},{1}})
+
+F73E11 =  g = map(S^1/(I+J), S^1/I ++ S^1/J, {{1,-1}})
+
+F73E12 =  C = complex{g,f}
+
+F73E13 =  assert isWellDefined C
+
+F73E14 =  assert isExact C
+
+F73E15 =  assert(dual C == 0)
+
+F73E16 =  assert(C != dual dual C)
+
+F74E0 =  R = QQ[x,y,z];
+
+F74E1 =  S = QQ[s,t];
+
+F74E2 =  phi = map(S, R, {s, s+t, t})
+
+F74E3 =  I = ideal(x^3, x^2*y, x*y^4, y*z^5)
+
+F74E4 =  C = freeResolution I
+
+F74E5 =  D = phi ** C
+
+F74E6 =  assert isWellDefined D
+
+F74E7 =  dd^D
+
+F74E8 =  prune HH D
+
+F74E9 =  A = R/(x^2+y^2+z^2);
+
+F74E10 =  C ** A
+
+F74E11 =  assert(map(A,R) ** C == C ** A)
+
+F74E12 =  assert(D == C ** phi)
+
+F74E13 =  assert(C ** A == A ** C)
+
+F74E14 =  use R
+
+F74E15 =  I = ideal(x*y, x*z, y*z);
+
+F74E16 =  J = I + ideal(x^2, y^2);
+
+F74E17 =  g = inducedMap(module J, module I)
+
+F74E18 =  assert isWellDefined g
+
+F74E19 =  C = complex {g}
+
+F74E20 =  D1 = phi C
+
+F74E21 =  assert isWellDefined D1
+
+F74E22 =  D2 = phi ** C
+
+F74E23 =  assert isWellDefined D2
+
+F74E24 =  prune D1
+
+F74E25 =  prune D2
+
+F74E26 =  R = ZZ/101[a..d];
+
+F74E27 =  S = ZZ/101[s,t];
+
+F74E28 =  f = map(S, R, {s^4, s^3*t, s*t^3, t^4}, DegreeMap => i -> 4*i)
+
+F74E29 =  C = freeResolution coker vars R
+
+F74E30 =  D = f ** C
+
+F74E31 =  D == f C
+
+F74E32 =  assert isWellDefined D
+
+F74E33 =  assert isHomogeneous D
+
+F74E34 =  prune HH D
+
+F74E35 =  C1 = Hom(C, image vars R)
+
+F74E36 =  D1 = f ** C1
+
+F74E37 =  isWellDefined D1
+
+F74E38 =  assert isHomogeneous D1
+
+F75E0 =  kk = ZZ/32003
+
+F75E1 =  R = kk[a,b,c]
+
+F75E2 =  F = freeResolution (ideal gens R)^2
+
+F75E3 =  C1 = truncate(3, F)
+
+F75E4 =  C2 = truncate(4, F)
+
+F75E5 =  assert isWellDefined C1
+
+F75E6 =  assert isWellDefined C2
+
+F75E7 =  f = inducedMap(C1, C2)
+
+F75E8 =  assert isWellDefined f
+
+F75E9 =  f1 = inducedMap(F, C1)
+
+F75E10 =  f2 = inducedMap(F, C2)
+
+F75E11 =  assert isWellDefined f1
+
+F75E12 =  assert isWellDefined f2
+
+F75E13 =  assert(f2 == f1 * f)
+
+F76E0 =  S = ZZ/101[a,b,c,d];
+
+F76E1 =  C = freeResolution ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F76E2 =  D = freeResolution ideal(a,b,c)
+
+F76E3 =  f = randomComplexMap(D, C, Cycle => true, InternalDegree => 0)
+
+F76E4 =  Cf = cone f
+
+F76E5 =  g = canonicalMap(Cf, D)
+
+F76E6 =  h = canonicalMap(C[-1], Cf)
+
+F76E7 =  coimage g == D
+
+F76E8 =  prune coimage h == C[-1]
+
+F76E9 =  g1 = canonicalMap(coimage g, source g)
+
+F76E10 =  coimage g1 == coimage g
+
+F76E11 =  coker g1 == 0
+
+F76E12 =  h1 = canonicalMap(coimage h, source h)
+
+F76E13 =  coimage h1 == coimage h
+
+F76E14 =  coker h1 == 0
+
+F77E0 =  S = ZZ/101[a..c]
+
+F77E1 =  Ca = complex {matrix{{a}}}
+
+F77E2 =  Cb = complex {matrix{{b}}}
+
+F77E3 =  Cc = complex {matrix{{c}}}
+
+F77E4 =  Cab = Cb ** Ca
+
+F77E5 =  dd^Cab
+
+F77E6 =  assert isWellDefined Cab
+
+F77E7 =  Cabc = Cc ** Cab
+
+F77E8 =  Cc ** Cb ** Ca
+
+F77E9 =  dd^Cabc
+
+F77E10 =  assert isWellDefined Cabc
+
+F77E11 =  Cabc ** (S^1/(a,b,c))
+
+F77E12 =  S^2 ** Cabc
+
+F77E13 =  indices Cabc_1
+
+F77E14 =  components Cabc_1
+
+F77E15 =  Cabc_1_[{1,0}]
+
+F77E16 =  indices Cabc_2
+
+F77E17 =  components Cabc_2
+
+F77E18 =  Cabc_2_[{0,2}]
+
+F78E0 =  d1 = matrix {
+
+         {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+
+         {-1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
+
+         {0, -1, 0, 0, 0, -1, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+
+         {0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 1, 1, 0},
+
+         {0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, -1, 0, 1},
+
+         {0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, -1, -1}}
+
+F78E1 =  d2 = matrix {
+
+         {-1, -1, 0, 0, 0, 0, 0, 0, 0, 0},
+
+         {0, 0, -1, -1, 0, 0, 0, 0, 0, 0},
+
+         {1, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+
+         {0, 1, 0, 0, -1, 0, 0, 0, 0, 0},
+
+         {0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+
+         {0, 0, 0, 0, 0, -1, -1, 0, 0, 0},
+
+         {-1, 0, 0, 0, 0, 0, 0, -1, 0, 0},
+
+         {0, -1, 0, 0, 0, 1, 0, 0, 0, 0},
+
+         {0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
+
+         {0, 0, -1, 0, 0, 0, 0, 0, -1, 0},
+
+         {0, 0, 0, 0, 0, -1, 0, 0, 1, 0},
+
+         {0, 0, 0, -1, 0, 0, -1, 0, 0, 0},
+
+         {0, 0, 0, 0, 0, 0, 0, 0, -1, -1},
+
+         {0, 0, 0, 0, 0, 0, 0, -1, 0, 1},
+
+         {0, 0, 0, 0, -1, 0, 0, 0, 0, -1}}
+
+F78E2 =  C = complex {d1,d2}
+
+F78E3 =  dd^C
+
+F78E4 =  H = HH C
+
+F78E5 =  dd^H == 0
+
+F78E6 =  Hpruned = prune HH C
+
+F78E7 =  dd^Hpruned == 0
+
+F78E8 =  S = ZZ/101[a..d, DegreeRank=>4];
+
+F78E9 =  I = intersect(ideal(a,b),ideal(c,d))
+
+F78E10 =  C = freeResolution (S^1/I)
+
+F78E11 =  prune HH C
+
+F78E12 =  Cdual = dual C
+
+F78E13 =  prune HH Cdual
+
+F78E14 =  prune HH_(-2) Cdual
+
+F79E0 =  S = ZZ/101[a..d];
+
+F79E1 =  I = monomialCurveIdeal(S, {1,3,4})
+
+F79E2 =  C = freeResolution I
+
+F79E3 =  prune HH C
+
+F79E4 =  assert not isExact C
+
+F79E5 =  assert isExact(C, 1, infinity)
+
+F79E6 =  C' = cone inducedMap(complex(S^1/I), C)[1]
+
+F79E7 =  prune HH C'
+
+F79E8 =  assert isExact C'
+
+F80E0 =  S = ZZ/101[a,b,c,d];
+
+F80E1 =  C = freeResolution coker vars S
+
+F80E2 =  ring C
+
+F80E3 =  assert(ring C === S)
+
+F80E4 =  ring id_C
+
+F80E5 =  assert(ring id_C === S)
+
+F81E0 =  R = ZZ/101[x,y,z];
+
+F81E1 =  M = cokernel matrix{{x,y,z^2}, {y^2,z,x^2}}
+
+F81E2 =  C = complex {id_M}
+
+F81E3 =  h = map(C, C, i -> if i == 0 then id_M, Degree => 1)
+
+F81E4 =  isWellDefined h
+
+F81E5 =  assert isNullHomotopyOf(h, id_C)
+
+F81E6 =  assert isNullHomotopic id_C
+
+F81E7 =  C = (freeResolution M) ** R^1/ideal(x^3, z^3-x)
+
+F81E8 =  f = randomComplexMap(C, C[1], Boundary => true)
+
+F81E9 =  assert isNullHomotopic f
+
+F81E10 =  h = nullHomotopy f
+
+F81E11 =  assert isNullHomotopyOf(h, f)
+
+F81E12 =  g1 = randomComplexMap(C, C[1], Degree => 1)
+
+F81E13 =  g2 = randomComplexMap(C, C[1], Degree => -1)
+
+F81E14 =  debugLevel = 1
+
+F81E15 =  assert not isNullHomotopyOf(g1, f)
+
+F81E16 =  assert not isNullHomotopyOf(g2, f)
+
+F82E0 =  S = ZZ/101[a,b,c,d];
+
+F82E1 =  J = ideal(a*b, a*d, b*c);
+
+F82E2 =  I = J + ideal(c^3);
+
+F82E3 =  C = prune Hom(S^{2} ** freeResolution I, S^1/I)
+
+F82E4 =  D = prune Hom(freeResolution J, S^1/J)
+
+F82E5 =  r = randomComplexMap(D,C,Cycle=>true)
+
+F82E6 =  f = r * resolutionMap C
+
+F82E7 =  g = resolutionMap D
+
+F82E8 =  assert isQuasiIsomorphism g
+
+F82E9 =  f' = liftMapAlongQuasiIsomorphism(f, g)
+
+F82E10 =  assert(f' == f//g)
+
+F82E11 =  assert isWellDefined f'
+
+F82E12 =  assert isComplexMorphism f'
+
+F82E13 =  h = homotopyMap f'
+
+F82E14 =  isNullHomotopyOf(h, g * (f//g) - f)
+
+F83E0 =  S = ZZ/101[a..c]
+
+F83E1 =  C = freeResolution coker vars S
+
+F83E2 =  D = (freeResolution coker matrix{{a^2,a*b,b^3}})[-1]
+
+F83E3 =  f = randomComplexMap(D,C)
+
+F83E4 =  h = dual f
+
+F83E5 =  assert isWellDefined h
+
+F83E6 =  assert(h == Hom(f, S^1))
+
+F83E7 =  assert(source h == Hom(D,S^1))
+
+F83E8 =  assert(target h == Hom(C,S^1))
+
+F83E9 =  D' = (freeResolution coker matrix{{a^2,a*b,c^3}})[-1]
+
+F83E10 =  f' = randomComplexMap(D', D)
+
+F83E11 =  dual(f' * f) == dual f * dual f'
+
+F84E0 =  R = ZZ/101[a..d];
+
+F84E1 =  I = ideal(c^2-b*d, b*c-a*d, b^2-a*c)
+
+F84E2 =  J = ideal(I_0, I_1)
+
+F84E3 =  C = koszulComplex vars R
+
+F84E4 =  f = map(R^1/I, R^1/J, 1)
+
+F84E5 =  C ** f
+
+F84E6 =  f ** C
+
+F84E7 =  f' = random(R^2, R^{-1, -1, -1})
+
+F84E8 =  C ** f'
+
+F84E9 =  f' ** C
+
+F84E10 =  assert isWellDefined(C ** f')
+
+F84E11 =  assert isWellDefined(f' ** C)
+
+F84E12 =  f'' = random(source f', R^{-2,-2})
+
+F84E13 =  assert((C ** f') * (C ** f'') == C ** (f' * f''))
+
+F84E14 =  assert(C ** id_(R^{-1,-2,-3}) == id_(C ** R^{-1,-2,-3}))
+
+F85E0 =  S = ZZ/101[a,b,c,d];
+
+F85E1 =  C = freeResolution ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F85E2 =  D = freeResolution ideal(a,b,c)
+
+F85E3 =  f = randomComplexMap(D, C, Cycle => true, InternalDegree => 0)
+
+F85E4 =  Cf = cone f
+
+F85E5 =  g = canonicalMap(Cf, D)
+
+F85E6 =  h = canonicalMap(C[-1], Cf)
+
+F85E7 =  prune image g == D
+
+F85E8 =  prune image h == C[-1]
+
+F85E9 =  g1 = canonicalMap(target g, image g)
+
+F85E10 =  ker g1 == 0
+
+F85E11 =  image g1 == image g
+
+F85E12 =  h1 = canonicalMap(target h, image h)
+
+F85E13 =  ker h1 == 0
+
+F85E14 =  image h1 == image h
+
+F86E0 =  R = ZZ/101[a..d];
+
+F86E1 =  C = (freeResolution coker matrix{{a,b,c}})[1]
+
+F86E2 =  D = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F86E3 =  E = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F86E4 =  f = randomComplexMap(D, C)
+
+F86E5 =  g = randomComplexMap(E, D)
+
+F86E6 =  h = g * f
+
+F86E7 =  tf = naiveTruncation(f, 0, 1)
+
+F86E8 =  tg = naiveTruncation(g, (0, 1))
+
+F86E9 =  th = naiveTruncation(h, (0, 1))
+
+F86E10 =  assert all({tf, tg, th}, isWellDefined)
+
+F86E11 =  assert(th == tg * tf)
+
+F86E12 =  t2f = naiveTruncation(f, -infinity, 1)
+
+F86E13 =  assert(t2f == naiveTruncation(f,, 1))
+
+F86E14 =  assert(tf != t2f)
+
+F86E15 =  t2f = naiveTruncation(f, (0,1), (1,2))
+
+F86E16 =  assert(source t2f == naiveTruncation(C, (1,2)))
+
+F86E17 =  assert(target t2f == naiveTruncation(D, (0,1)))
+
+F87E0 =  S = ZZ/101[a..d, Degrees=>{2:{1,0},2:{0,1}}];
+
+F87E1 =  h = a*c^2 + a*c*d + b*d^2;
+
+F87E2 =  I = (ideal(a,b) * ideal(c,d))^[2]
+
+F87E3 =  F = freeResolution comodule I;
+
+F87E4 =  g = Hom(F, map(S^1/h, S^1, 1))
+
+F87E5 =  f = Hom(F, map(S^1, S^{-degree h}, {{h}}))
+
+F87E6 =  assert isWellDefined g
+
+F87E7 =  assert isWellDefined f
+
+F87E8 =  assert isShortExactSequence(g, f)
+
+F87E9 =  L = longExactSequence(g,f)
+
+F87E10 =  assert isWellDefined L
+
+F87E11 =  assert(HH L == 0)
+
+F87E12 =  delta = connectingMap(g, f);
+
+F87E13 =  assert(dd^L_-9 === delta_-3)
+
+F87E14 =  assert(dd^L_-8 === HH_-3 g)
+
+F87E15 =  assert(dd^L_-7 === HH_-3 f)
+
+F87E16 =  assert(dd^L_-6 === delta_-2)
+
+F87E17 =  assert(dd^L_-5 === HH_-2 g)
+
+F87E18 =  assert(dd^L_-4 === HH_-2 f)
+
+F87E19 =  assert(dd^L_-3 === delta_-1)
+
+F88E0 =  S = ZZ/101[a,b,c,d];
+
+F88E1 =  C = freeResolution ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F88E2 =  D = freeResolution ideal(a,b,c)
+
+F88E3 =  f = randomComplexMap(D, C, Cycle => true, InternalDegree => 0)
+
+F88E4 =  Cf = cone f
+
+F88E5 =  g = canonicalMap(Cf, D)
+
+F88E6 =  h = canonicalMap(C[-1], Cf)
+
+F88E7 =  ker g == 0
+
+F88E8 =  prune ker h == D
+
+F88E9 =  h1 = canonicalMap(source h, ker h)
+
+F88E10 =  ker h == image h1
+
+F88E11 =  ker h1 == 0
+
+F89E0 =  S = ZZ/32003[x,y,z];
+
+F89E1 =  M = ideal vars S
+
+F89E2 =  B = freeResolution(S^1/M^2)
+
+F89E3 =  C = freeResolution(S^1/M)
+
+F89E4 =  f = extend(C,B,id_(S^1))
+
+F89E5 =  cylf = cylinder f
+
+F89E6 =  dd^cylf
+
+F89E7 =  assert isWellDefined cylf
+
+F89E8 =  Cf = cone f
+
+F89E9 =  g = canonicalMap(cylf, B)
+
+F89E10 =  h = canonicalMap(Cf, cylf)
+
+F89E11 =  assert(isWellDefined g and isWellDefined h)
+
+F89E12 =  assert(isShortExactSequence(h,g))
+
+F89E13 =  g = map(B ++ C, B, {{-id_B},{f}})
+
+F89E14 =  cone g == cylf
+
+F90E0 =  R = QQ[a,b,c]
+
+F90E1 =  C = freeResolution coker vars R
+
+F90E2 =  D = freeResolution coker matrix{{a^2, b^2, c^2}}
+
+F90E3 =  f = map(D, C, 0)
+
+F90E4 =  assert isWellDefined f
+
+F90E5 =  assert isComplexMorphism f
+
+F90E6 =  g = map(C, C, 0, Degree => 13)
+
+F90E7 =  assert isWellDefined g
+
+F90E8 =  assert(degree g == 13)
+
+F90E9 =  assert not isComplexMorphism g
+
+F90E10 =  assert isCommutative g
+
+F90E11 =  assert isHomogeneous g
+
+F90E12 =  assert(source g == C)
+
+F90E13 =  assert(target g == C)
+
+F90E14 =  assert(map(C, C, 1) === id_C)
+
+F91E0 =  S = ZZ/101[a..c]
+
+F91E1 =  C = freeResolution coker matrix{{a*b, a*c, b*c}}
+
+F91E2 =  D = freeResolution coker vars S
+
+F91E3 =  f = randomComplexMap(D,C)
+
+F91E4 =  assert isWellDefined f
+
+F91E5 =  assert not isCommutative f
+
+F91E6 =  assert not isNullHomotopic f
+
+F91E7 =  g = randomComplexMap(D,C, Cycle => true)
+
+F91E8 =  assert isWellDefined g
+
+F91E9 =  assert isCommutative g
+
+F91E10 =  assert isComplexMorphism g
+
+F91E11 =  assert not isNullHomotopic g
+
+F91E12 =  h = randomComplexMap(D,C, Boundary => true)
+
+F91E13 =  assert isWellDefined h
+
+F91E14 =  assert isCommutative h
+
+F91E15 =  assert isComplexMorphism h
+
+F91E16 =  assert isNullHomotopic h
+
+F91E17 =  nullHomotopy h
+
+F91E18 =  p = randomComplexMap(D, C, Cycle => true, Degree => -1)
+
+F91E19 =  assert isWellDefined p
+
+F91E20 =  assert isCommutative p
+
+F91E21 =  assert not isComplexMorphism p
+
+F91E22 =  assert(degree p === -1)
+
+F91E23 =  q = randomComplexMap(D, C, Boundary => true, InternalDegree => 2)
+
+F91E24 =  assert all({0,1,2}, i -> degree q_i === {2})
+
+F91E25 =  assert isHomogeneous q
+
+F91E26 =  assert isWellDefined q
+
+F91E27 =  assert isCommutative q
+
+F91E28 =  assert isComplexMorphism q
+
+F91E29 =  source q === C
+
+F91E30 =  target q === D
+
+F91E31 =  assert isNullHomotopic q
+
+F92E0 =  R = ZZ/101[a,b,c,d,e];
+
+F92E1 =  I = intersect(ideal(a,b),ideal(c,d,e))
+
+F92E2 =  C = (dual freeResolution I)[-4]
+
+F92E3 =  C1 = canonicalTruncation(C, 1, 2)
+
+F92E4 =  assert isWellDefined C1
+
+F92E5 =  HH C1
+
+F92E6 =  naiveTruncation(HH C, 1, 2) == HH C1
+
+F92E7 =  prune HH C1
+
+F92E8 =  C2 = canonicalTruncation(C, 1, 6)
+
+F92E9 =  assert isWellDefined C2
+
+F92E10 =  C3 = canonicalTruncation(C, 1, infinity)
+
+F92E11 =  C2 == C3
+
+F92E12 =  C4 = canonicalTruncation(C, -13, 2)
+
+F92E13 =  C5 = canonicalTruncation(C, -infinity, 2)
+
+F92E14 =  C4 == C5
+
+F92E15 =  C6 = canonicalTruncation(C, , 2)
+
+F92E16 =  C4 == C6
+
+F92E17 =  assert(canonicalTruncation(C, 1, 1) == naiveTruncation(HH C, 1, 1))
+
+F92E18 =  f = inducedMap(C, C3)
+
+F92E19 =  assert isWellDefined f
+
+F92E20 =  assert(ker f == 0)
+
+F92E21 =  prune coker f
+
+F92E22 =  C7 = canonicalTruncation(C, -infinity, 1)
+
+F92E23 =  C7 != coker f
+
+F92E24 =  g = inducedMap(C5, C)
+
+F92E25 =  assert isWellDefined g
+
+F92E26 =  assert(coker g == 0)
+
+F92E27 =  C8 = canonicalTruncation(C, 2, infinity)
+
+F92E28 =  prune C8
+
+F92E29 =  prune ker g
+
+F93E0 =  S = ZZ/101[a..c];
+
+F93E1 =  C = freeResolution coker matrix{{a^2, b^2, c^2}}
+
+F93E2 =  f = dd^C
+
+F93E3 =  f^2
+
+F93E4 =  assert(source f == target f)
+
+F93E5 =  assert(degree f == -1)
+
+F93E6 =  assert(degree f^2 == -2)
+
+F93E7 =  g = randomComplexMap(C, C, Degree => -1)
+
+F93E8 =  g^2
+
+F93E9 =  g^3
+
+F93E10 =  assert(g^4 == 0)
+
+F93E11 =  f^0 == id_C
+
+F93E12 =  g^0 == id_C
+
+F93E13 =  h = randomComplexMap(C, C)
+
+F93E14 =  h^-1
+
+F93E15 =  assert(h * h^-1 == id_C)
+
+F93E16 =  h^-4
+
+F93E17 =  assert(h^-4 * h^4 == id_C)
+
+F94E0 =  S = ZZ/101[a..d]
+
+F94E1 =  I = ideal(b^2-a*c, b*c-a*d, c^2-b*d)
+
+F94E2 =  F1 = map(S^1,,matrix{{I_0, I_1, I_2}})
+
+F94E3 =  F2 = map(source F1,,matrix{
+
+             {0, I_2, -I_1},
+
+             {-I_2, 0, I_0},
+
+             {I_1, -I_0, 0}
+
+             })
+
+F94E4 =  F3 = map(source F2,,matrix{{I_0}, {I_1}, {I_2}})
+
+F94E5 =  C = complex hashTable{1 => F1, 2 => F2, 3 => F3}
+
+F94E6 =  isWellDefined C
+
+F95E0 =  R = QQ[a..d];
+
+F95E1 =  f0 = matrix {{-b^2+a*c, b*c-a*d, -c^2+b*d}}
+
+F95E2 =  f1 = map(source f0,, {{d, c}, {c, b}, {b, a}})
+
+F95E3 =  C = complex {f0, f1}
+
+F95E4 =  isWellDefined C
+
+F95E5 =  dd^C
+
+F95E6 =  (dd^C)^2
+
+F95E7 =  C = complex R^0
+
+F95E8 =  isWellDefined C
+
+F95E9 =  g1 = map(source f0,, {{-d, c}, {c, b}, {b, a}})
+
+F95E10 =  C = complex {f0, g1}
+
+F95E11 =  isWellDefined C
+
+F95E12 =  debugLevel = 1
+
+F95E13 =  isWellDefined C
+
+F95E14 =  (dd^C)^2
+
+F96E0 =  R = QQ[x,y,z]
+
+F96E1 =  S = QQ[s,t]
+
+F96E2 =  phi = map(S, R, {s, s+t, t})
+
+F96E3 =  I = ideal(x^3, x^2*y, x*y^4, y*z^5)
+
+F96E4 =  C = freeResolution I
+
+F96E5 =  D = phi C
+
+F96E6 =  isWellDefined D
+
+F96E7 =  dd^D
+
+F96E8 =  prune HH D
+
+F96E9 =  R = ZZ/101[a..d]
+
+F96E10 =  S = ZZ/101[s,t]
+
+F96E11 =  phi = map(S, R, {s^4, s^3*t, s*t^3, t^4}, DegreeMap => i -> 4*i)
+
+F96E12 =  C = freeResolution coker vars R
+
+F96E13 =  D = phi C
+
+F96E14 =  assert isWellDefined D
+
+F96E15 =  assert isHomogeneous D
+
+F96E16 =  prune HH D
+
+F97E0 =  R = ZZ/32003[a..d];
+
+F97E1 =  I = monomialCurveIdeal(R, {1,2,3})
+
+F97E2 =  M = R^1/I
+
+F97E3 =  C = resolution M
+
+F97E4 =  D = complex C
+
+F97E5 =  D1 = freeResolution M
+
+F97E6 =  assert(D == D1)
+
+F97E7 =  C1 = Hom(C, R^1)
+
+F97E8 =  D1 = complex C1
+
+F97E9 =  D2 = Hom(D, R^1)
+
+F97E10 =  D1.dd_-1
+
+F97E11 =  D2.dd_-1
+
+F97E12 =  assert(D1 != D2)
+
+F98E0 =  R = ZZ/101[a..d];
+
+F98E1 =  I = monomialCurveIdeal(R, {1,2,3})
+
+F98E2 =  M = R^1/I
+
+F98E3 =  D = freeResolution M
+
+F98E4 =  C = resolution M
+
+F98E5 =  g = D.dd
+
+F98E6 =  f = chainComplex g
+
+F98E7 =  assert(f == C.dd)
+
+F98E8 =  J = ideal vars R
+
+F98E9 =  C1 = resolution(R^1/J)
+
+F98E10 =  D1 = freeResolution(R^1/J)
+
+F98E11 =  g = randomComplexMap(D1, D, Cycle => true)
+
+F98E12 =  f = chainComplex g
+
+F98E13 =  assert(g == complex f)
+
+F98E14 =  assert(isComplexMorphism g)
+
+F99E0 =  R = ZZ/101[a,b,c];
+
+F99E1 =  C = freeResolution coker matrix{{a^2-b^2,b^3-c^3,c^4}}
+
+F99E2 =  D = freeResolution coker vars R
+
+F99E3 =  L = {map(D_0, C_0, 1),
+
+         map(D_1, C_1, {{a, 0, 0}, {-b, b^2, 0}, {0, -c^2, c^3}}),
+
+         map(D_2, C_2, {{a*b^2, 0, 0}, {-a*c^2, a*c^3, 0}, {b*c^2, -b*c^3, b^2*c^3}}),
+
+         map(D_3, C_3, {{a*b^2*c^3}})
+
+         }
+
+F99E4 =  f = map(D, C, L)
+
+F99E5 =  assert isWellDefined f
+
+F99E6 =  assert isHomogeneous f
+
+F99E7 =  assert(degree f == 0)
+
+F99E8 =  assert isComplexMorphism f
+
+F99E9 =  f = extend(D,C,id_(R^1))
+
+F99E10 =  assert(degree f == 0)
+
+F99E11 =  g = map(D, C[-1], f[-1], Degree => -1) -- a variant of f having degree -1
+
+F99E12 =  cf = map(E = C[-1] ++ D, E, {
+
+              {dd^(C[-1]),    0},
+
+              {         g, dd^D}
+
+              })
+
+F99E13 =  assert isWellDefined cf
+
+F99E14 =  assert(degree cf == -1)
+
+F99E15 =  conef = complex cf
+
+F99E16 =  assert isWellDefined conef
+
+F99E17 =  assert(conef == cone f)
+
+F100E0 =  R = ZZ/101[a..d]
+
+F100E1 =  C = freeResolution coker vars R
+
+F100E2 =  3 * dd^C
+
+F100E3 =  0 * dd^C
+
+F100E4 =  dd^C * dd^C
+
+F101E0 =  S = ZZ/101[a,b];
+
+F101E1 =  M = kernel vars S
+
+F101E2 =  assert not isFreeModule M
+
+F101E3 =  assert isFreeModule prune M
+
+F101E4 =  C = freeResolution M
+
+F101E5 =  assert isFree C
+
+F101E6 =  C' = cone map(complex M, C, i -> map(M, C_0, 1))[1]
+
+F101E7 =  isWellDefined C'
+
+F101E8 =  assert not isFree C'
+
+F101E9 =  prune C'
+
+F101E10 =  assert isFree prune C'
+
+F102E0 =  R = ZZ/101[a,b,c];
+
+F102E1 =  h = random(R^3, R^{4:-1})
+
+F102E2 =  f = inducedMap(target h, image h)
+
+F102E3 =  g = inducedMap(cokernel h, target h)
+
+F102E4 =  C = complex {g, f}
+
+F102E5 =  isWellDefined C
+
+F102E6 =  assert isShortExactSequence C
+
+F102E7 =  assert isShortExactSequence(C[10])
+
+F102E8 =  assert not isShortExactSequence(C ++ C[6])
+
+F102E9 =  D = complex(R^1, Base=>4) ++ complex(R^1, Base=>2)
+
+F102E10 =  assert not isShortExactSequence D
+
+F103E0 =  R = QQ[a..d];
+
+F103E1 =  I = ideal(c^2-b*d, b*c-a*d, b^2-a*c)
+
+F103E2 =  J = ideal(I_0, I_1)
+
+F103E3 =  M = R^1/J
+
+F103E4 =  N = R^1/I
+
+F103E5 =  f = map(N, M, 1)
+
+F103E6 =  g = freeResolution f
+
+F103E7 =  assert isWellDefined g
+
+F103E8 =  assert isComplexMorphism g
+
+F103E9 =  assert(source g === freeResolution M)
+
+F103E10 =  assert(target g === freeResolution N)
+
+F103E11 =  K = ideal(I_0)
+
+F103E12 =  L = R^1/K
+
+F103E13 =  f' = map(M, L, 1)
+
+F103E14 =  g' = freeResolution f'
+
+F103E15 =  g'' = freeResolution(f * f')
+
+F103E16 =  assert(g'' === g * g')
+
+F103E17 =  assert(freeResolution id_N === id_(freeResolution N))
+
+F103E18 =  S = ZZ/101[a,b]
+
+F103E19 =  R = S/(a^3+b^3)
+
+F103E20 =  f = map(R^1/(a,b), R^1/(a^2, b^2), 1)
+
+F103E21 =  g = freeResolution(f, LengthLimit => 7)
+
+F103E22 =  assert isWellDefined g
+
+F103E23 =  assert isComplexMorphism g
+
+F104E0 =  R = ZZ/101[x]/x^3;
+
+F104E1 =  M = coker vars R
+
+F104E2 =  C = freeResolution(M, LengthLimit => 6)
+
+F104E3 =  D = C[1]
+
+F104E4 =  f = map(D, C, i ->
+
+         if odd i then
+
+             map(D_i, C_i, {{x}})
+
+         else map(D_i, C_i, {{x^2}})
+
+         )
+
+F104E5 =  assert isWellDefined f
+
+F104E6 =  assert isCommutative f
+
+F104E7 =  assert(source f == C)
+
+F104E8 =  assert(target f == D)
+
+F105E0 =  S = ZZ/101[a..d];
+
+F105E1 =  I = ideal(a*b*c, b*c*d, a*d^2)
+
+F105E2 =  C = S^{{-3}} ** freeResolution (I:a*c*d)
+
+F105E3 =  D = freeResolution I
+
+F105E4 =  f = map(D_0, C_0, matrix{{a*c*d}})
+
+F105E5 =  g = extend(D, C, f)
+
+F105E6 =  assert isWellDefined g
+
+F105E7 =  assert isComplexMorphism g
+
+F105E8 =  assert(g_0 == f)
+
+F105E9 =  E = cone g
+
+F105E10 =  dd^E
+
+F105E11 =  I = monomialCurveIdeal(S, {1,2,3})
+
+F105E12 =  K = ideal(I_1^2, I_2^2)
+
+F105E13 =  FI = freeResolution I
+
+F105E14 =  FK = freeResolution K
+
+F105E15 =  f = map(FI_0, FK_0, 1)
+
+F105E16 =  g = extend(FI, FK, f)
+
+F105E17 =  assert isWellDefined g
+
+F105E18 =  assert isComplexMorphism g
+
+F105E19 =  assert(g_0 == f)
+
+F105E20 =  C = cone (dual g)[- codim K]
+
+F105E21 =  dd^C
+
+F105E22 =  dd^(minimize C)
+
+F105E23 =  assert(ideal relations HH_0 C == K:I)
+
+F105E24 =  f = map(FK_0, FI_1, matrix {{a*c^2-a*b*d, -b*c^2+a*c*d, -c^3+a*d^2}}, Degree => 1)
+
+F105E25 =  assert isHomogeneous f
+
+F105E26 =  assert isWellDefined f
+
+F105E27 =  g = extend(FK, FI, f, (0,1))
+
+F105E28 =  assert isWellDefined g
+
+F105E29 =  assert isCommutative g
+
+F105E30 =  assert(degree g === -1)
+
+F105E31 =  assert isHomogeneous g
+
+F106E0 =  S = ZZ/101[a..c]
+
+F106E1 =  C = freeResolution coker vars S
+
+F106E2 =  C_2
+
+F106E3 =  C^(-2)
+
+F106E4 =  C_2 == C^(-2)
+
+F106E5 =  C_-7
+
+F107E0 =  R = QQ[a,b,c,d];
+
+F107E1 =  I = ideal(a*b, a*c, b*c, a*d)
+
+F107E2 =  C = freeResolution I
+
+F107E3 =  D = part(4,C)
+
+F107E4 =  prune HH D == part(4, HH C)
+
+F107E5 =  prune HH D == part(4, complex(R^1/I))
+
+F107E6 =  S = QQ[a..d, DegreeRank=>4];
+
+F107E7 =  I = intersect(ideal(a,b), ideal(c,d))
+
+F107E8 =  C = dual freeResolution I
+
+F107E9 =  prune HH (part({-1,-1,-1,-1}, C)) -- empty quadrilateral
+
+F107E10 =  prune HH part({-1,-1,0,0}, C) -- 2 points
+
+F107E11 =  prune HH part({0,0,-1,-1}, C) -- 2 points
+
+F107E12 =  prune HH part({0,0,0,0}, C) -- solid quadrilateral
+
+F108E0 =  R = QQ[a..d];
+
+F108E1 =  I = ideal(a*d-b*c, b^2-a*c, c^2-b*d);
+
+F108E2 =  C = freeResolution(R^1/I)
+
+F108E3 =  dd^C
+
+F108E4 =  C.dd
+
+F108E5 =  assert(dd^C === C.dd)
+
+F108E6 =  assert(source dd^C === C)
+
+F108E7 =  assert(target dd^C === C)
+
+F108E8 =  assert(degree dd^C === -1)
+
+F108E9 =  (dd^C)^2 == 0
+
+F108E10 =  dd^C_2
+
+F108E11 =  assert(source dd^C_2 === C_2)
+
+F108E12 =  assert(target dd^C_2 === C_1)
+
+F109E0 =  S = ZZ/101[a,b,c];
+
+F109E1 =  C1 = freeResolution coker vars S
+
+F109E2 =  C2 = complex (ideal(a,b,c))
+
+F109E3 =  D = C1 ++ C2
+
+F109E4 =  L = components D
+
+F109E5 =  L_0 === C1
+
+F109E6 =  L_1 === C2
+
+F109E7 =  E = (mike => C1) ++ (greg => C2)
+
+F109E8 =  components E
+
+F109E9 =  indices D
+
+F109E10 =  D^[0]
+
+F109E11 =  indices E
+
+F109E12 =  E_[greg]
+
+F110E0 =  d1 = matrix {
+
+         {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+
+         {-1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
+
+         {0, -1, 0, 0, 0, -1, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+
+         {0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 1, 1, 0},
+
+         {0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, -1, 0, 1},
+
+         {0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, -1, -1}};
+
+F110E1 =  d2 = matrix {
+
+         {-1, -1, 0, 0, 0, 0, 0, 0, 0, 0},
+
+         {0, 0, -1, -1, 0, 0, 0, 0, 0, 0},
+
+         {1, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+
+         {0, 1, 0, 0, -1, 0, 0, 0, 0, 0},
+
+         {0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+
+         {0, 0, 0, 0, 0, -1, -1, 0, 0, 0},
+
+         {-1, 0, 0, 0, 0, 0, 0, -1, 0, 0},
+
+         {0, -1, 0, 0, 0, 1, 0, 0, 0, 0},
+
+         {0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
+
+         {0, 0, -1, 0, 0, 0, 0, 0, -1, 0},
+
+         {0, 0, 0, 0, 0, -1, 0, 0, 1, 0},
+
+         {0, 0, 0, -1, 0, 0, -1, 0, 0, 0},
+
+         {0, 0, 0, 0, 0, 0, 0, 0, -1, -1},
+
+         {0, 0, 0, 0, 0, 0, 0, -1, 0, 1},
+
+         {0, 0, 0, 0, -1, 0, 0, 0, 0, -1}};
+
+F110E2 =  C = complex {d1,d2}
+
+F110E3 =  dd^C
+
+F110E4 =  HH C
+
+F110E5 =  prune HH_0 C
+
+F110E6 =  prune HH_1 C
+
+F110E7 =  prune HH_2 C
+
+F110E8 =  S = ZZ/101[a..d, DegreeRank=>4];
+
+F110E9 =  I = intersect(ideal(a,b),ideal(c,d))
+
+F110E10 =  C = dual freeResolution (S^1/I)
+
+F110E11 =  prune HH^1 C
+
+F110E12 =  prune HH^2 C
+
+F110E13 =  prune HH^3 C
+
+F111E0 =  S = ZZ/101[x_0..x_3];
+
+F111E1 =  I = borel monomialIdeal(x_1*x_2)
+
+F111E2 =  E1 = Ext^1(S^1/I, S^1/I)
+
+F111E3 =  h = yonedaProduct(E1, E1)
+
+F111E4 =  assert isWellDefined h
+
+F111E5 =  assert(target h == Ext^2(S^1/I, S^1/I))
+
+F111E6 =  coker h == 0
+
+F111E7 =  R = S/(x_0*x_1, x_2*x_3);
+
+F111E8 =  E1 = Ext^1(R^1/(x_0, x_2), R^1/(x_0, x_2, x_3))
+
+F111E9 =  E2 = Ext^2(R^1/(x_0, x_2, x_3), R^1/(x_0, x_1, x_2, x_3))
+
+F111E10 =  E3 = Ext^3(R^1/(x_0, x_2), R^1/(x_0, x_1, x_2, x_3))
+
+F111E11 =  h = yonedaProduct(E1, E2)
+
+F111E12 =  assert isWellDefined h
+
+F111E13 =  assert(target h == E3)
+
+F111E14 =  prune coker h
+
+F112E0 =  R = ZZ/101[a..d];
+
+F112E1 =  D1 = (freeResolution coker matrix{{a,b,c}})[1]
+
+F112E2 =  D2 = freeResolution coker matrix{{a*b,a*c,b*c}}
+
+F112E3 =  C = freeResolution coker matrix{{a^2,b^2,c*d}}
+
+F112E4 =  f = randomComplexMap(D1, C)
+
+F112E5 =  g = randomComplexMap(D2, C)
+
+F112E6 =  h = f||g
+
+F112E7 =  assert isWellDefined h
+
+F112E8 =  assert(target h === target f ++ target g)
+
+F112E9 =  assert(source h === source f)
+
+F112E10 =  assert(h === map(D1 ++ D2, C, {{f},{g}}))
+
+F113E0 =  S = ZZ/101[a,b,c,d];
+
+F113E1 =  C1 = freeResolution coker vars S
+
+F113E2 =  length C1
+
+F113E3 =  C2 = C1[5]
+
+F113E4 =  length C2
+
+F113E5 =  C3 = C1 ++ C1[6]
+
+F113E6 =  length C3
+
+F113E7 =  M1 = S^1/(a*b, c*d, a*c, b*c)
+
+F113E8 =  M2 = S^1/(a*b, c*d, a*c)
+
+F113E9 =  C4 = freeResolution M1
+
+F113E10 =  C5 = freeResolution M2
+
+F113E11 =  f = map(M1, M2, 1)
+
+F113E12 =  C6 = coker extend(C4, C5, matrix f)
+
+F113E13 =  concentration C6
+
+F113E14 =  length C6
+
+F113E15 =  prune C6
+
+F113E16 =  concentration prune C6
+
+F114E0 =  R = QQ[a,b,c];
+
+F114E1 =  I = ideal(a*b, a*c, b*c)
+
+F114E2 =  C = freeResolution I
+
+F114E3 =  D = truncate(3,C)
+
+F114E4 =  assert isWellDefined D
+
+F114E5 =  prune HH D
+
+F114E6 =  assert(C == truncate(0, C))
+
+F114E7 =  A = ZZ/101[x_0, x_1, y_0, y_1, y_2, Degrees => {2:{1,0}, 3:{0,1}}];
+
+F114E8 =  I = intersect(ideal(x_0, x_1), ideal(y_0, y_1, y_2))
+
+F114E9 =  C = freeResolution I
+
+F114E10 =  D1 = prune truncate({{1,1}}, C)
+
+F114E11 =  D2 = truncate({{1,0}}, C)
+
+F114E12 =  D3 = truncate({{0,1}}, C)
+
+F114E13 =  D4 = truncate({{1,0},{0,1}}, C)
+
+F114E14 =  D5 = truncate({{2,2}}, C)
+
+F114E15 =  assert all({D1,D2,D3,D4,D5}, isWellDefined)
+
+F115E0 =  S = ZZ/32003[x,y,z];
+
+F115E1 =  C = freeResolution coker vars S
+
+F115E2 =  f = augmentationMap C
+
+F115E3 =  assert isQuasiIsomorphism f
+
+F115E4 =  assert(0 == prune HH cone f)
+
+F115E5 =  assert isIsomorphism HH_0 f
+
+F115E6 =  assert isIsomorphism HH_1 f
+
+F115E7 =  D = complex{random(S^2, S^{-3,-3,-4})}
+
+F115E8 =  prune HH D
+
+F116E0 =  R = ZZ/101[a,b,c,d,e];
+
+F116E1 =  I = intersect(ideal(a,b),ideal(c,d,e))
+
+F116E2 =  C = (dual freeResolution I)[-4]
+
+F116E3 =  dd^C
+
+F116E4 =  G = gradedModule C
+
+F116E5 =  dd^G
+
+F116E6 =  assert(isWellDefined G)
+
+F116E7 =  assert(G != C)
+
+F116E8 =  H = HH C
+
+F116E9 =  prune H
+
+F116E10 =  dd^H == 0
+
+F116E11 =  assert(H == gradedModule H)
+
+F117E0 =  S = ZZ/101[a..f];
+
+F117E1 =  I = trim minors(2, genericSymmetricMatrix(S, 3))
+
+F117E2 =  M = S^1/I;
+
+F117E3 =  N = coker vars S
+
+F117E4 =  f1 = torSymmetry(1,M,N)
+
+F117E5 =  f2 = torSymmetry(1,N,M)
+
+F117E6 =  assert(f1 * f2 == 1)
+
+F117E7 =  assert(f2 * f1 == 1)
+
+F117E8 =  g1 = torSymmetry(2,M,N);
+
+F117E9 =  g2 = torSymmetry(2,N,M);
+
+F117E10 =  assert(g1 * g2 == 1)
+
+F117E11 =  assert(g2 * g1 == 1)
+
+F117E12 =  h1 = torSymmetry(3,M,N);
+
+F117E13 =  h2 = torSymmetry(3,N,M);
+
+F117E14 =  assert(h1 * h2 == 1)
+
+F117E15 =  assert(h2 * h1 == 1)
+
+F117E16 =  p1 = prune f1
+
+F117E17 =  p2 = prune f2
+
+F117E18 =  assert(p1 * p2 == 1)
+
+F118E0 =  R = ZZ/32003[a..d];
+
+F118E1 =  I = monomialCurveIdeal(R, {1,2,3})
+
+F118E2 =  M = R^1/I
+
+F118E3 =  C = resolution M
+
+F118E4 =  D = freeResolution M
+
+F118E5 =  C1 = chainComplex D
+
+F118E6 =  assert(C == C1)
+
+F118E7 =  D2 = D ** D
+
+F118E8 =  C2 = chainComplex D2
+
+F118E9 =  assert(C2 == C1 ** C1)
+
+F119E0 =  S = ZZ/101[a,b,c];
+
+F119E1 =  C = koszulComplex {a,b,c}
+
+F119E2 =  sum C
+
+F119E3 =  assert(rank sum C == 2^3)
+
+F119E4 =  f = randomComplexMap(C, C, InternalDegree => 1, Cycle => true)
+
+F119E5 =  g = sum f
+
+F119E6 =  assert(g^2 === sum f^2)
+
+F119E7 =  assert(target g === sum target f)
+
+F119E8 =  assert(source g === sum source f)
+
+F119E9 =  h = sum dd^C
+
+F119E10 =  assert(h^2 == 0)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F1E16", "F1E17", "F1E18", "F1E19", "F1E20", "F1E21", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F3E16", "F3E17", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F4E11", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F7E17", "F7E18", "F7E19", "F7E20", "F7E21", "F7E22", "F7E23", "F7E24", "F7E25", "F7E26", "F7E27", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F8E12", "F8E13", "F8E14", "F8E15", "F8E16", "F8E17", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F9E21", "F9E22", "F9E23", "F9E24", "F9E25", "F9E26", "F9E27", "F9E28", "F9E29", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F10E9", "F10E10", "F10E11", "F10E12", "F10E13", "F10E14", "F10E15", "F10E16", "F10E17", "F10E18", "F10E19", "F10E20", "F10E21", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F12E9", "F12E10", "F12E11", "F12E12", "F12E13", "F12E14", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F13E9", "F13E10", "F13E11", "F13E12", "F13E13", "F13E14", "F13E15", "F13E16", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F14E18", "F14E19", "F14E20", "F14E21", "F14E22", "F14E23", "F14E24", "F14E25", "F14E26", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16", "F15E17", "F15E18", "F15E19", "F15E20", "F15E21", "F15E22", "F15E23", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17", "F16E18", "F16E19", "F16E20", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F17E12", "F17E13", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14", "F18E15", "F18E16", "F18E17", "F18E18", "F18E19", "F18E20", "F18E21", "F18E22", "F18E23", "F18E24", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13", "F20E14", "F20E15", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F21E10", "F21E11", "F21E12", "F21E13", "F21E14", "F21E15", "F21E16", "F21E17", "F21E18", "F21E19", "F21E20", "F21E21", "F21E22", "F21E23", "F21E24", "F21E25", "F21E26", "F21E27", "F21E28", "F21E29", "F21E30", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F22E14", "F22E15", "F22E16", "F22E17", "F22E18", "F22E19", "F22E20", "F22E21", "F22E22", "F22E23", "F22E24", "F22E25", "F22E26", "F22E27", "F22E28", "F22E29", "F22E30", "F22E31", "F22E32", "F22E33", "F22E34", "F22E35", "F22E36", "F22E37", "F22E38", "F22E39", "F22E40", "F22E41", "F22E42", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7", "F23E8", "F23E9", "F23E10", "F23E11", "F23E12", "F23E13", "F23E14", "F23E15", "F23E16", "F23E17", "F23E18", "F23E19", "F23E20", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F24E7", "F24E8", "F24E9", "F24E10", "F24E11", "F24E12", "F24E13", "F24E14", "F24E15", "F24E16", "F24E17", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F25E5", "F25E6", "F25E7", "F25E8", "F25E9", "F25E10", "F25E11", "F25E12", "F25E13", "F25E14", "F25E15", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F26E11", "F26E12", "F26E13", "F26E14", "F26E15", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F27E6", "F27E7", "F27E8", "F27E9", "F27E10", "F27E11", "F27E12", "F27E13", "F27E14", "F27E15", "F27E16", "F27E17", "F27E18", "F27E19", "F27E20", "F27E21", "F27E22", "F27E23", "F27E24", "F27E25", "F27E26", "F27E27", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F28E8", "F28E9", "F28E10", "F28E11", "F28E12", "F28E13", "F28E14", "F28E15", "F28E16", "F28E17", "F28E18", "F28E19", "F28E20", "F28E21", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F29E7", "F29E8", "F29E9", "F29E10", "F29E11", "F29E12", "F29E13", "F29E14", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F31E7", "F31E8", "F31E9", "F31E10", "F31E11", "F31E12", "F31E13", "F31E14", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F32E11", "F32E12", "F32E13", "F32E14", "F32E15", "F32E16", "F32E17", "F32E18", "F32E19", "F32E20", "F32E21", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F33E7", "F33E8", "F33E9", "F33E10", "F33E11", "F33E12", "F33E13", "F33E14", "F33E15", "F33E16", "F33E17", "F33E18", "F33E19", "F33E20", "F33E21", "F33E22", "F33E23", "F33E24", "F33E25", "F33E26", "F33E27", "F33E28", "F33E29", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15", "F34E16", "F34E17", "F34E18", "F34E19", "F34E20", "F34E21", "F34E22", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F35E6", "F35E7", "F35E8", "F35E9", "F35E10", "F35E11", "F35E12", "F35E13", "F35E14", "F35E15", "F35E16", "F35E17", "F35E18", "F35E19", "F35E20", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F36E7", "F36E8", "F36E9", "F36E10", "F36E11", "F36E12", "F36E13", "F36E14", "F36E15", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F38E11", "F38E12", "F38E13", "F38E14", "F38E15", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F39E6", "F39E7", "F39E8", "F39E9", "F39E10", "F39E11", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F40E10", "F40E11", "F40E12", "F40E13", "F40E14", "F40E15", "F40E16", "F40E17", "F40E18", "F40E19", "F40E20", "F40E21", "F40E22", "F40E23", "F40E24", "F40E25", "F40E26", "F40E27", "F40E28", "F40E29", "F40E30", "F40E31", "F40E32", "F40E33", "F40E34", "F40E35", "F40E36", "F40E37", "F40E38", "F40E39", "F40E40", "F40E41", "F40E42", "F40E43", "F40E44", "F40E45", "F40E46", "F40E47", "F40E48", "F41E0", "F41E1", "F41E2", "F41E3", "F41E4", "F41E5", "F41E6", "F41E7", "F41E8", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F42E6", "F42E7", "F42E8", "F42E9", "F42E10", "F42E11", "F42E12", "F42E13", "F42E14", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F43E5", "F43E6", "F43E7", "F43E8", "F43E9", "F43E10", "F43E11", "F43E12", "F43E13", "F43E14", "F43E15", "F43E16", "F43E17", "F43E18", "F43E19", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F44E5", "F44E6", "F44E7", "F44E8", "F44E9", "F44E10", "F44E11", "F44E12", "F44E13", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F45E7", "F45E8", "F45E9", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F46E5", "F46E6", "F46E7", "F46E8", "F46E9", "F46E10", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4", "F47E5", "F47E6", "F47E7", "F47E8", "F47E9", "F47E10", "F47E11", "F47E12", "F47E13", "F47E14", "F47E15", "F47E16", "F47E17", "F47E18", "F47E19", "F47E20", "F47E21", "F47E22", "F47E23", "F47E24", "F47E25", "F47E26", "F47E27", "F47E28", "F47E29", "F47E30", "F47E31", "F47E32", "F47E33", "F47E34", "F47E35", "F47E36", "F47E37", "F47E38", "F47E39", "F47E40", "F47E41", "F47E42", "F47E43", "F47E44", "F47E45", "F47E46", "F47E47", "F47E48", "F47E49", "F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F48E6", "F48E7", "F48E8", "F48E9", "F48E10", "F48E11", "F48E12", "F48E13", "F48E14", "F49E0", "F49E1", "F49E2", "F49E3", "F49E4", "F49E5", "F49E6", "F49E7", "F49E8", "F49E9", "F49E10", "F49E11", "F49E12", "F49E13", "F49E14", "F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F50E5", "F50E6", "F50E7", "F50E8", "F50E9", "F50E10", "F50E11", "F50E12", "F50E13", "F50E14", "F50E15", "F50E16", "F50E17", "F50E18", "F50E19", "F50E20", "F50E21", "F50E22", "F50E23", "F50E24", "F50E25", "F50E26", "F50E27", "F50E28", "F50E29", "F50E30", "F50E31", "F50E32", "F50E33", "F50E34", "F50E35", "F50E36", "F50E37", "F50E38", "F50E39", "F50E40", "F50E41", "F50E42", "F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F51E9", "F51E10", "F51E11", "F51E12", "F51E13", "F51E14", "F51E15", "F51E16", "F51E17", "F51E18", "F51E19", "F51E20", "F51E21", "F51E22", "F51E23", "F51E24", "F52E0", "F52E1", "F52E2", "F52E3", "F52E4", "F52E5", "F52E6", "F52E7", "F52E8", "F52E9", "F52E10", "F52E11", "F52E12", "F52E13", "F52E14", "F52E15", "F52E16", "F52E17", "F52E18", "F52E19", "F52E20", "F52E21", "F52E22", "F52E23", "F53E0", "F53E1", "F53E2", "F53E3", "F53E4", "F53E5", "F53E6", "F53E7", "F53E8", "F53E9", "F53E10", "F53E11", "F53E12", "F53E13", "F53E14", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F54E10", "F54E11", "F54E12", "F54E13", "F54E14", "F54E15", "F54E16", "F54E17", "F54E18", "F54E19", "F54E20", "F54E21", "F54E22", "F54E23", "F54E24", "F55E0", "F55E1", "F55E2", "F55E3", "F55E4", "F55E5", "F55E6", "F55E7", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F56E8", "F56E9", "F57E0", "F57E1", "F57E2", "F57E3", "F57E4", "F57E5", "F57E6", "F57E7", "F57E8", "F57E9", "F57E10", "F57E11", "F57E12", "F57E13", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F58E6", "F58E7", "F58E8", "F58E9", "F58E10", "F58E11", "F58E12", "F58E13", "F58E14", "F58E15", "F58E16", "F59E0", "F59E1", "F59E2", "F59E3", "F59E4", "F59E5", "F59E6", "F59E7", "F59E8", "F59E9", "F59E10", "F59E11", "F59E12", "F59E13", "F59E14", "F59E15", "F59E16", "F59E17", "F59E18", "F59E19", "F59E20", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F60E6", "F60E7", "F60E8", "F60E9", "F60E10", "F60E11", "F60E12", "F60E13", "F60E14", "F60E15", "F60E16", "F60E17", "F60E18", "F60E19", "F60E20", "F60E21", "F61E0", "F61E1", "F61E2", "F61E3", "F61E4", "F61E5", "F61E6", "F61E7", "F61E8", "F61E9", "F61E10", "F61E11", "F61E12", "F61E13", "F61E14", "F61E15", "F61E16", "F61E17", "F61E18", "F61E19", "F61E20", "F62E0", "F62E1", "F62E2", "F62E3", "F62E4", "F62E5", "F62E6", "F62E7", "F62E8", "F62E9", "F62E10", "F62E11", "F62E12", "F62E13", "F62E14", "F62E15", "F62E16", "F62E17", "F62E18", "F62E19", "F62E20", "F62E21", "F62E22", "F62E23", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F63E7", "F63E8", "F63E9", "F63E10", "F63E11", "F63E12", "F63E13", "F63E14", "F63E15", "F63E16", "F63E17", "F63E18", "F63E19", "F63E20", "F63E21", "F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F64E5", "F64E6", "F64E7", "F64E8", "F64E9", "F64E10", "F64E11", "F64E12", "F64E13", "F64E14", "F64E15", "F64E16", "F64E17", "F64E18", "F64E19", "F64E20", "F64E21", "F64E22", "F64E23", "F64E24", "F64E25", "F65E0", "F65E1", "F65E2", "F65E3", "F65E4", "F65E5", "F65E6", "F65E7", "F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F66E7", "F66E8", "F66E9", "F66E10", "F66E11", "F66E12", "F66E13", "F66E14", "F66E15", "F66E16", "F66E17", "F66E18", "F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F67E5", "F67E6", "F67E7", "F67E8", "F67E9", "F67E10", "F67E11", "F67E12", "F67E13", "F67E14", "F67E15", "F67E16", "F67E17", "F67E18", "F67E19", "F67E20", "F67E21", "F67E22", "F67E23", "F67E24", "F67E25", "F67E26", "F67E27", "F68E0", "F68E1", "F68E2", "F68E3", "F68E4", "F68E5", "F68E6", "F68E7", "F68E8", "F68E9", "F68E10", "F69E0", "F69E1", "F69E2", "F69E3", "F69E4", "F69E5", "F69E6", "F69E7", "F69E8", "F69E9", "F69E10", "F69E11", "F69E12", "F69E13", "F69E14", "F69E15", "F69E16", "F69E17", "F69E18", "F69E19", "F69E20", "F69E21", "F70E0", "F70E1", "F70E2", "F70E3", "F70E4", "F70E5", "F70E6", "F70E7", "F70E8", "F70E9", "F70E10", "F70E11", "F70E12", "F70E13", "F70E14", "F70E15", "F71E0", "F71E1", "F71E2", "F71E3", "F71E4", "F71E5", "F71E6", "F71E7", "F71E8", "F71E9", "F71E10", "F71E11", "F71E12", "F71E13", "F71E14", "F71E15", "F71E16", "F71E17", "F71E18", "F71E19", "F71E20", "F71E21", "F71E22", "F71E23", "F71E24", "F72E0", "F72E1", "F72E2", "F72E3", "F72E4", "F72E5", "F72E6", "F72E7", "F72E8", "F72E9", "F72E10", "F72E11", "F72E12", "F72E13", "F72E14", "F72E15", "F73E0", "F73E1", "F73E2", "F73E3", "F73E4", "F73E5", "F73E6", "F73E7", "F73E8", "F73E9", "F73E10", "F73E11", "F73E12", "F73E13", "F73E14", "F73E15", "F73E16", "F74E0", "F74E1", "F74E2", "F74E3", "F74E4", "F74E5", "F74E6", "F74E7", "F74E8", "F74E9", "F74E10", "F74E11", "F74E12", "F74E13", "F74E14", "F74E15", "F74E16", "F74E17", "F74E18", "F74E19", "F74E20", "F74E21", "F74E22", "F74E23", "F74E24", "F74E25", "F74E26", "F74E27", "F74E28", "F74E29", "F74E30", "F74E31", "F74E32", "F74E33", "F74E34", "F74E35", "F74E36", "F74E37", "F74E38", "F75E0", "F75E1", "F75E2", "F75E3", "F75E4", "F75E5", "F75E6", "F75E7", "F75E8", "F75E9", "F75E10", "F75E11", "F75E12", "F75E13", "F76E0", "F76E1", "F76E2", "F76E3", "F76E4", "F76E5", "F76E6", "F76E7", "F76E8", "F76E9", "F76E10", "F76E11", "F76E12", "F76E13", "F76E14", "F77E0", "F77E1", "F77E2", "F77E3", "F77E4", "F77E5", "F77E6", "F77E7", "F77E8", "F77E9", "F77E10", "F77E11", "F77E12", "F77E13", "F77E14", "F77E15", "F77E16", "F77E17", "F77E18", "F78E0", "F78E1", "F78E2", "F78E3", "F78E4", "F78E5", "F78E6", "F78E7", "F78E8", "F78E9", "F78E10", "F78E11", "F78E12", "F78E13", "F78E14", "F79E0", "F79E1", "F79E2", "F79E3", "F79E4", "F79E5", "F79E6", "F79E7", "F79E8", "F80E0", "F80E1", "F80E2", "F80E3", "F80E4", "F80E5", "F81E0", "F81E1", "F81E2", "F81E3", "F81E4", "F81E5", "F81E6", "F81E7", "F81E8", "F81E9", "F81E10", "F81E11", "F81E12", "F81E13", "F81E14", "F81E15", "F81E16", "F82E0", "F82E1", "F82E2", "F82E3", "F82E4", "F82E5", "F82E6", "F82E7", "F82E8", "F82E9", "F82E10", "F82E11", "F82E12", "F82E13", "F82E14", "F83E0", "F83E1", "F83E2", "F83E3", "F83E4", "F83E5", "F83E6", "F83E7", "F83E8", "F83E9", "F83E10", "F83E11", "F84E0", "F84E1", "F84E2", "F84E3", "F84E4", "F84E5", "F84E6", "F84E7", "F84E8", "F84E9", "F84E10", "F84E11", "F84E12", "F84E13", "F84E14", "F85E0", "F85E1", "F85E2", "F85E3", "F85E4", "F85E5", "F85E6", "F85E7", "F85E8", "F85E9", "F85E10", "F85E11", "F85E12", "F85E13", "F85E14", "F86E0", "F86E1", "F86E2", "F86E3", "F86E4", "F86E5", "F86E6", "F86E7", "F86E8", "F86E9", "F86E10", "F86E11", "F86E12", "F86E13", "F86E14", "F86E15", "F86E16", "F86E17", "F87E0", "F87E1", "F87E2", "F87E3", "F87E4", "F87E5", "F87E6", "F87E7", "F87E8", "F87E9", "F87E10", "F87E11", "F87E12", "F87E13", "F87E14", "F87E15", "F87E16", "F87E17", "F87E18", "F87E19", "F88E0", "F88E1", "F88E2", "F88E3", "F88E4", "F88E5", "F88E6", "F88E7", "F88E8", "F88E9", "F88E10", "F88E11", "F89E0", "F89E1", "F89E2", "F89E3", "F89E4", "F89E5", "F89E6", "F89E7", "F89E8", "F89E9", "F89E10", "F89E11", "F89E12", "F89E13", "F89E14", "F90E0", "F90E1", "F90E2", "F90E3", "F90E4", "F90E5", "F90E6", "F90E7", "F90E8", "F90E9", "F90E10", "F90E11", "F90E12", "F90E13", "F90E14", "F91E0", "F91E1", "F91E2", "F91E3", "F91E4", "F91E5", "F91E6", "F91E7", "F91E8", "F91E9", "F91E10", "F91E11", "F91E12", "F91E13", "F91E14", "F91E15", "F91E16", "F91E17", "F91E18", "F91E19", "F91E20", "F91E21", "F91E22", "F91E23", "F91E24", "F91E25", "F91E26", "F91E27", "F91E28", "F91E29", "F91E30", "F91E31", "F92E0", "F92E1", "F92E2", "F92E3", "F92E4", "F92E5", "F92E6", "F92E7", "F92E8", "F92E9", "F92E10", "F92E11", "F92E12", "F92E13", "F92E14", "F92E15", "F92E16", "F92E17", "F92E18", "F92E19", "F92E20", "F92E21", "F92E22", "F92E23", "F92E24", "F92E25", "F92E26", "F92E27", "F92E28", "F92E29", "F93E0", "F93E1", "F93E2", "F93E3", "F93E4", "F93E5", "F93E6", "F93E7", "F93E8", "F93E9", "F93E10", "F93E11", "F93E12", "F93E13", "F93E14", "F93E15", "F93E16", "F93E17", "F94E0", "F94E1", "F94E2", "F94E3", "F94E4", "F94E5", "F94E6", "F95E0", "F95E1", "F95E2", "F95E3", "F95E4", "F95E5", "F95E6", "F95E7", "F95E8", "F95E9", "F95E10", "F95E11", "F95E12", "F95E13", "F95E14", "F96E0", "F96E1", "F96E2", "F96E3", "F96E4", "F96E5", "F96E6", "F96E7", "F96E8", "F96E9", "F96E10", "F96E11", "F96E12", "F96E13", "F96E14", "F96E15", "F96E16", "F97E0", "F97E1", "F97E2", "F97E3", "F97E4", "F97E5", "F97E6", "F97E7", "F97E8", "F97E9", "F97E10", "F97E11", "F97E12", "F98E0", "F98E1", "F98E2", "F98E3", "F98E4", "F98E5", "F98E6", "F98E7", "F98E8", "F98E9", "F98E10", "F98E11", "F98E12", "F98E13", "F98E14", "F99E0", "F99E1", "F99E2", "F99E3", "F99E4", "F99E5", "F99E6", "F99E7", "F99E8", "F99E9", "F99E10", "F99E11", "F99E12", "F99E13", "F99E14", "F99E15", "F99E16", "F99E17", "F100E0", "F100E1", "F100E2", "F100E3", "F100E4", "F101E0", "F101E1", "F101E2", "F101E3", "F101E4", "F101E5", "F101E6", "F101E7", "F101E8", "F101E9", "F101E10", "F102E0", "F102E1", "F102E2", "F102E3", "F102E4", "F102E5", "F102E6", "F102E7", "F102E8", "F102E9", "F102E10", "F103E0", "F103E1", "F103E2", "F103E3", "F103E4", "F103E5", "F103E6", "F103E7", "F103E8", "F103E9", "F103E10", "F103E11", "F103E12", "F103E13", "F103E14", "F103E15", "F103E16", "F103E17", "F103E18", "F103E19", "F103E20", "F103E21", "F103E22", "F103E23", "F104E0", "F104E1", "F104E2", "F104E3", "F104E4", "F104E5", "F104E6", "F104E7", "F104E8", "F105E0", "F105E1", "F105E2", "F105E3", "F105E4", "F105E5", "F105E6", "F105E7", "F105E8", "F105E9", "F105E10", "F105E11", "F105E12", "F105E13", "F105E14", "F105E15", "F105E16", "F105E17", "F105E18", "F105E19", "F105E20", "F105E21", "F105E22", "F105E23", "F105E24", "F105E25", "F105E26", "F105E27", "F105E28", "F105E29", "F105E30", "F105E31", "F106E0", "F106E1", "F106E2", "F106E3", "F106E4", "F106E5", "F107E0", "F107E1", "F107E2", "F107E3", "F107E4", "F107E5", "F107E6", "F107E7", "F107E8", "F107E9", "F107E10", "F107E11", "F107E12", "F108E0", "F108E1", "F108E2", "F108E3", "F108E4", "F108E5", "F108E6", "F108E7", "F108E8", "F108E9", "F108E10", "F108E11", "F108E12", "F109E0", "F109E1", "F109E2", "F109E3", "F109E4", "F109E5", "F109E6", "F109E7", "F109E8", "F109E9", "F109E10", "F109E11", "F109E12", "F110E0", "F110E1", "F110E2", "F110E3", "F110E4", "F110E5", "F110E6", "F110E7", "F110E8", "F110E9", "F110E10", "F110E11", "F110E12", "F110E13", "F111E0", "F111E1", "F111E2", "F111E3", "F111E4", "F111E5", "F111E6", "F111E7", "F111E8", "F111E9", "F111E10", "F111E11", "F111E12", "F111E13", "F111E14", "F112E0", "F112E1", "F112E2", "F112E3", "F112E4", "F112E5", "F112E6", "F112E7", "F112E8", "F112E9", "F112E10", "F113E0", "F113E1", "F113E2", "F113E3", "F113E4", "F113E5", "F113E6", "F113E7", "F113E8", "F113E9", "F113E10", "F113E11", "F113E12", "F113E13", "F113E14", "F113E15", "F113E16", "F114E0", "F114E1", "F114E2", "F114E3", "F114E4", "F114E5", "F114E6", "F114E7", "F114E8", "F114E9", "F114E10", "F114E11", "F114E12", "F114E13", "F114E14", "F114E15", "F115E0", "F115E1", "F115E2", "F115E3", "F115E4", "F115E5", "F115E6", "F115E7", "F115E8", "F116E0", "F116E1", "F116E2", "F116E3", "F116E4", "F116E5", "F116E6", "F116E7", "F116E8", "F116E9", "F116E10", "F116E11", "F117E0", "F117E1", "F117E2", "F117E3", "F117E4", "F117E5", "F117E6", "F117E7", "F117E8", "F117E9", "F117E10", "F117E11", "F117E12", "F117E13", "F117E14", "F117E15", "F117E16", "F117E17", "F117E18", "F118E0", "F118E1", "F118E2", "F118E3", "F118E4", "F118E5", "F118E6", "F118E7", "F118E8", "F118E9", "F119E0", "F119E1", "F119E2", "F119E3", "F119E4", "F119E5", "F119E6", "F119E7", "F119E8", "F119E9", "F119E10"}

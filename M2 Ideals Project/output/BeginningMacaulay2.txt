@@ -1,0 +1,253 @@
+needsPackage "package_directory/BeginningMacaulay2/example-output"
+
+F0E0 =  2+2
+
+F0E1 =  107*431
+
+F0E2 =  25!
+
+F0E3 =  binomial(5,4)
+
+F0E4 =  factor 32004
+
+F0E5 =  ZZ/101
+
+F0E6 =  QQ
+
+F0E7 =  GF 2^5
+
+F0E8 =  k = toField (QQ[i]/(i^2+1))
+
+F0E9 =  1/i
+
+F0E10 =  kk=ZZ/101
+
+F0E11 =  S=kk[x_1..x_5]
+
+F0E12 =  S=kk[a,b,c,d,e]
+
+F0E13 =  (3*a^2+1)^5
+
+F0E14 =  I=ideal(a^3-b^3, a+b+c+d+e)
+
+F0E15 =  R=S/I
+
+F0E16 =  use S
+
+F0E17 =  I=ideal"3(a+b)3, 4c5"
+
+F0E18 =  I^2
+
+F0E19 =  I*I
+
+F0E20 =  I+ideal"a2"
+
+F0E21 =  M= matrix{{a,b,c},{b,c,d},{c,d,e}}
+
+F0E22 =  M^2
+
+F0E23 =  determinant M
+
+F0E24 =  trace M
+
+F0E25 =  M-transpose M
+
+F0E26 =  entries M
+
+F0E27 =  flatten entries M
+
+F0E28 =  M_(0,0)
+
+F0E29 =  I_0
+
+F0E30 =  I_*
+
+F0E31 =  coker M
+
+F0E32 =  image M
+
+F0E33 =  kernel matrix"a,b,0;0,a,b"
+
+F0E34 =  N = matrix{{a,b},{b,c},{c,d}}
+
+F0E35 =  (image M)/(image N)
+
+F0E36 =  subquotient(M,N)
+
+F0E37 =  kk = ZZ/32003
+
+F0E38 =  R = kk[x,y,z,w]
+
+F0E39 =  I = ideal(x^2*y,x*y^2+x^3)
+
+F0E40 =  J = groebnerBasis I
+
+F0E41 =  I= intersect (ideal"x2,y3", ideal"y2,z3", (ideal"x,y,z")^4)
+
+F0E42 =  primaryDecomposition I
+
+F0E43 =  decompose I
+
+F0E44 =  R = kk[a..d]
+
+F0E45 =  phi = map(kk[s,t],R,{s^4, s^3*t, s*t^3, t^4})
+
+F0E46 =  I = ker phi
+
+F0E47 =  I = monomialCurveIdeal(R,{1,3,4})
+
+F0E48 =  dim I
+
+F0E49 =  codim I
+
+F0E50 =  degree I
+
+F0E51 =  hilbertPolynomial(R/I)
+
+F0E52 =  hilbertPolynomial(R/I, Projective => false)
+
+F0E53 =  hilbertPolynomial(R/I, Projective => true)
+
+F0E54 =  hilbertSeries (R/I)
+
+F0E55 =  reduceHilbert hilbertSeries (R/I)
+
+F0E56 =  M=R^1/I
+
+F0E57 =  Mres = res M
+
+F0E58 =  betti Mres
+
+F0E59 =  pdim M
+
+F0E60 =  regularity M
+
+F0E61 =  R = kk[a..i]
+
+F0E62 =  M = genericMatrix(R,a,3,3)
+
+F0E63 =  I = ideal M^3
+
+F0E64 =  Tr = trace M
+
+F0E65 =  for p from 1 to 10 do print (Tr^p % I)
+
+F0E66 =  Tr^7//(gens I)
+
+F0E67 =  x = symbol x
+
+F0E68 =  R = kk[x_0..x_3]
+
+F0E69 =  M = map(R^2, 3, (i,j)->x_(i+j))
+
+F0E70 =  I = minors(2,M)
+
+F0E71 =  pideal = ideal(x_0+x_3, x_1, x_2)
+
+F0E72 =  Rbar = R/I
+
+F0E73 =  pideal = substitute(pideal, Rbar)
+
+F0E74 =  S = kk[u,v,w]
+
+F0E75 =  J=kernel map (Rbar, S, gens pideal)
+
+F0E76 =  K = ideal singularLocus(J)
+
+F0E77 =  saturate K
+
+F0E78 =  saturate (ideal"u3w,uv", ideal"u")
+
+F0E79 =  ideal"u3w,uv":ideal"u"
+
+F0E80 =  Collatz = n ->
+
+F0E81 =  Collatz 27
+
+F0E82 =  tally for n from 1 to 30 list length Collatz n
+
+F0E83 =  record = length Collatz 1
+
+F0E84 =  L = for n from 2 to 1000 list (
+
+              l := length Collatz n;
+
+              if l > record
+
+                then (record = l; (n,l))
+
+                else continue)
+
+F0E85 =  L/last
+
+F0E86 =  loadPackage "EdgeIdeals"
+
+F0E87 =  R = kk[vars(0..10)]
+
+F0E88 =  G=randomGraph (R,20)
+
+F0E89 =  K=edgeIdeal G
+
+F0E90 =  hilbertSeries K
+
+F0E91 =  betti res K
+
+F0E92 =  R = ZZ/2[vars(0..10)]
+
+F0E93 =  L=for j from 1 to 100 list(
+
+          I = edgeIdeal randomGraph (R,5);
+
+          (codim I, degree I, betti res I));
+
+F0E94 =  tally L
+
+F0E95 =  #tally L
+
+F0E96 =  S^{-2,-3}
+
+F0E97 =  S = kk[x,y]
+
+F0E98 =  phi1 = map(S^1, S^{-2,-3}, matrix"x2,xy2")
+
+F0E99 =  phi2 = map(S^{-2,-3}, S^{-5}, matrix"xy2;-x2")
+
+F0E100 =  phi1*phi2
+
+F0E101 =  (ker phi1)/(image phi2)
+
+F0E102 =  FF = chainComplex(phi1,phi2)
+
+F0E103 =  FF.dd
+
+F0E104 =  homology FF
+
+F0E105 =  presentation (homology FF)_1
+
+F0E106 =  FF = chainComplex matrix {{x^2}} ** chainComplex matrix {{x*y^2}}
+
+F0E107 =  FF.dd
+
+F0E108 =  FF = koszul matrix {{x^2, x*y^2}}
+
+F0E109 =  FF.dd
+
+F0E110 =  S=kk[a,b,c,d]
+
+F0E111 =  IX = intersect(ideal(a,b), ideal(c,d))
+
+F0E112 =  IY = ideal(a-c, b-d)
+
+F0E113 =  degree ((S^1/IX) ** (S^1/IY))
+
+F0E114 =  for j from 0 to 4 list degree Tor_j(S^1/IX, S^1/IY)
+
+F0E115 =  sum(0..4, j-> (-1)^j * degree Tor_j(S^1/IX, S^1/IY))
+
+F0E116 =  Hom(IX, S^1/IX)
+
+F0E117 =  Ext^1(IX, S^1/IX)
+
+F0E118 =  HH^1 (sheaf (S^{-2}**(S^1/IX)))
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F0E13", "F0E14", "F0E15", "F0E16", "F0E17", "F0E18", "F0E19", "F0E20", "F0E21", "F0E22", "F0E23", "F0E24", "F0E25", "F0E26", "F0E27", "F0E28", "F0E29", "F0E30", "F0E31", "F0E32", "F0E33", "F0E34", "F0E35", "F0E36", "F0E37", "F0E38", "F0E39", "F0E40", "F0E41", "F0E42", "F0E43", "F0E44", "F0E45", "F0E46", "F0E47", "F0E48", "F0E49", "F0E50", "F0E51", "F0E52", "F0E53", "F0E54", "F0E55", "F0E56", "F0E57", "F0E58", "F0E59", "F0E60", "F0E61", "F0E62", "F0E63", "F0E64", "F0E65", "F0E66", "F0E67", "F0E68", "F0E69", "F0E70", "F0E71", "F0E72", "F0E73", "F0E74", "F0E75", "F0E76", "F0E77", "F0E78", "F0E79", "F0E80", "F0E81", "F0E82", "F0E83", "F0E84", "F0E85", "F0E86", "F0E87", "F0E88", "F0E89", "F0E90", "F0E91", "F0E92", "F0E93", "F0E94", "F0E95", "F0E96", "F0E97", "F0E98", "F0E99", "F0E100", "F0E101", "F0E102", "F0E103", "F0E104", "F0E105", "F0E106", "F0E107", "F0E108", "F0E109", "F0E110", "F0E111", "F0E112", "F0E113", "F0E114", "F0E115", "F0E116", "F0E117", "F0E118"}

@@ -1,0 +1,609 @@
+needsPackage "package_directory/BettiCharacters/example-output"
+
+F0E0 =  R = QQ[x_1..x_3]
+
+F0E1 =  I = ideal(x_1+x_2+x_3)
+
+F0E2 =  J = ideal(x_1-x_2,x_1-x_3)
+
+F0E3 =  S3 = {matrix{{x_2,x_3,x_1}},
+
+           matrix{{x_2,x_1,x_3}},
+
+           matrix{{x_1,x_2,x_3}} }
+
+F0E4 =  A = action(I,S3)
+
+F0E5 =  B = action(J,S3)
+
+F0E6 =  a = character(A,1)
+
+F0E7 =  b = character(B,1)
+
+F0E8 =  a ++ b
+
+F0E9 =  K = ideal(x_1,x_2,x_3)
+
+F0E10 =  C = action(K,S3)
+
+F0E11 =  c = character(C,1)
+
+F0E12 =  a ++ b === c
+
+F1E0 =  R=QQ[x_1..x_7]
+
+F1E1 =  I1=ideal apply({4,5,6,7}, i -> (x_1-x_2)*(x_3-x_i));
+
+F1E2 =  I2=ideal apply(subsets({3,4,5,6,7},2), s -> (x_1-x_(s#0))*(x_2-x_(s#1)));
+
+F1E3 =  I=I1+I2
+
+F1E4 =  RI=res I
+
+F1E5 =  betti RI
+
+F1E6 =  S7 = symmetricGroupActors R
+
+F1E7 =  A = action(RI,S7)
+
+F1E8 =  elapsedTime c = character A
+
+F1E9 =  T = symmetricGroupTable R
+
+F1E10 =  decomposeCharacter(c,T)
+
+F1E11 =  sign = character(R,15,hashTable {(0,{7}) =>
+
+              matrix{{1,-1,-1,1,-1,1,-1,1,1,-1,1,-1,1,-1,1}}})
+
+F1E12 =  dual(c,id_QQ)[-5] ** sign === c
+
+F2E0 =  s = {2,3,1}
+
+F2E1 =  M = matrix{{1,1,1},{-1,0,2},{1,-1,1}}
+
+F2E2 =  R = QQ[x_1..x_3]
+
+F2E3 =  P = {1,2,3}
+
+F2E4 =  T = characterTable(s,M,R,P)
+
+F2E5 =  acts = {matrix{{x_2,x_3,x_1}},matrix{{x_2,x_1,x_3}},matrix{{x_1,x_2,x_3}}}
+
+F2E6 =  A = action(R,acts)
+
+F2E7 =  c = character(A,0,10)
+
+F2E8 =  d = c/T
+
+F2E9 =  c === d*T
+
+F3E0 =  R = QQ[x_1..x_4]
+
+F3E1 =  I = ideal apply(subsets(gens R,2),product)
+
+F3E2 =  RI = res I
+
+F3E3 =  G = { (id_(R^4))_{1,2,3,0},
+
+           (id_(R^4))_{1,2,0,3},
+
+           (id_(R^4))_{1,0,3,2},
+
+           (id_(R^4))_{1,0,2,3},
+
+            id_(R^4) }
+
+F3E4 =  A = action(RI,G,Sub=>false)
+
+F3E5 =  ringActors(A,Sub=>false)
+
+F3E6 =  inverseRingActors(A,Sub=>false)
+
+F3E7 =  ringActors(A)
+
+F3E8 =  inverseRingActors(A)
+
+F4E0 =  R=QQ[x_1..x_6]
+
+F4E1 =  I=intersect(apply(subsets(gens R,4),x->(ideal x)^3))
+
+F4E2 =  RI=res I
+
+F4E3 =  betti RI
+
+F4E4 =  S6 = symmetricGroupActors R
+
+F4E5 =  A=action(RI,S6)
+
+F4E6 =  elapsedTime c=character A
+
+F4E7 =  T = symmetricGroupTable R
+
+F4E8 =  decomposeCharacter(c,T)
+
+F5E0 =  kk = toField(QQ[a]/ideal(sum apply(7,i->a^i)))
+
+F5E1 =  R = kk[x,y,z]
+
+F5E2 =  f4 = x^3*y+y^3*z+z^3*x
+
+F5E3 =  H = jacobian transpose jacobian f4
+
+F5E4 =  f6 = -1/54*det(H)
+
+F5E5 =  I = minors(2,jacobian matrix{{f4,f6}})
+
+F5E6 =  RI = res I
+
+F5E7 =  betti RI
+
+F5E8 =  I2 = I^2;
+
+F5E9 =  RI2 = res I2
+
+F5E10 =  betti RI2
+
+F5E11 =  g = matrix{{a^4,0,0},{0,a^2,0},{0,0,a}}
+
+F5E12 =  h = matrix{{0,1,0},{0,0,1},{1,0,0}}
+
+F5E13 =  i = (2*a^4+2*a^2+2*a+1)/7 * matrix{
+
+          {a-a^6,a^2-a^5,a^4-a^3},
+
+          {a^2-a^5,a^4-a^3,a-a^6},
+
+          {a^4-a^3,a-a^6,a^2-a^5}
+
+          }
+
+F5E14 =  j = -1/(2*a^4+2*a^2+2*a+1) * matrix{
+
+          {a^5-a^4,1-a^5,1-a^3},
+
+          {1-a^5,a^6-a^2,1-a^6},
+
+          {1-a^3,1-a^6,a^3-a}
+
+          }
+
+F5E15 =  G = {id_(R^3),i,h,j,g,inverse g};
+
+F5E16 =  A1 = action(RI,G,Sub=>false)
+
+F5E17 =  A2 = action(RI2,G,Sub=>false)
+
+F5E18 =  elapsedTime a1 = character A1
+
+F5E19 =  elapsedTime a2 = character A2
+
+F5E20 =  s = {1,21,56,42,24,24}
+
+F5E21 =  m = matrix{{1,1,1,1,1,1},
+
+          {3,-1,0,1,a^4+a^2+a,-a^4-a^2-a-1},
+
+          {3,-1,0,1,-a^4-a^2-a-1,a^4+a^2+a},
+
+          {6,2,0,0,-1,-1},
+
+          {7,-1,1,-1,0,0},
+
+          {8,0,-1,0,1,1}};
+
+F5E22 =  conj = map(kk,kk,{a^6})
+
+F5E23 =  T = characterTable(s,m,R,conj)
+
+F5E24 =  a1/T
+
+F5E25 =  a2/T
+
+F5E26 =  needsPackage "SymbolicPowers"
+
+F5E27 =  Is2 = symbolicPower(I,2);
+
+F5E28 =  M = Is2 / I2;
+
+F5E29 =  B = action(M,G,Sub=>false)
+
+F5E30 =  elapsedTime b = character(B,21)
+
+F5E31 =  b/T
+
+F6E0 =  R = QQ[x,y,z]
+
+F6E1 =  I = ideal(x+y+z,x*y+x*z+y*z,x*y*z)
+
+F6E2 =  S3 = symmetricGroupActors R
+
+F6E3 =  A = action(R/I,S3)
+
+F6E4 =  a = character(A,0,3)
+
+F6E5 =  sign = character(R,3, hashTable { (0,{3}) => matrix{{1,-1,1}} })
+
+F6E6 =  dual(a,{1,2,3}) ** sign === a
+
+F7E0 =  R = QQ[x_1..x_4]
+
+F7E1 =  I = ideal apply(subsets(gens R,2),product)
+
+F7E2 =  M = module I
+
+F7E3 =  RM = res M
+
+F7E4 =  G = {matrix{{x_2,x_3,x_4,x_1}},
+
+          matrix{{x_2,x_3,x_1,x_4}},
+
+          matrix{{x_2,x_1,x_4,x_3}},
+
+          matrix{{x_2,x_1,x_3,x_4}},
+
+          matrix{{x_1,x_2,x_3,x_4}} }
+
+F7E5 =  G' = { (id_(R^6))_{2,4,5,0,1,3},
+
+            (id_(R^6))_{2,0,1,4,5,3},
+
+            (id_(R^6))_{0,4,3,2,1,5},
+
+            (id_(R^6))_{0,2,1,4,3,5},
+
+             id_(R^6) }
+
+F7E6 =  A = action(RM,G,G',0)
+
+F7E7 =  actors(A)
+
+F7E8 =  B = action(M,G)
+
+F7E9 =  actors(B)
+
+F8E0 =  R=QQ[x_1..x_4]
+
+F8E1 =  symmetricGroupActors(R)
+
+F8E2 =  partitions 4
+
+F9E0 =  s = {2,3,1}
+
+F9E1 =  M = matrix{{1,1,1},{-1,0,2},{1,-1,1}}
+
+F9E2 =  R = QQ[x_1..x_3]
+
+F9E3 =  P = {1,2,3}
+
+F9E4 =  T = characterTable(s,M,R,P)
+
+F9E5 =  acts = {matrix{{x_2,x_3,x_1}},matrix{{x_2,x_1,x_3}},matrix{{x_1,x_2,x_3}}}
+
+F9E6 =  A = action(R,acts)
+
+F9E7 =  c = character(A,0,10)
+
+F9E8 =  decomposeCharacter(c,T)
+
+F10E0 =  R = QQ[x_1..x_4]
+
+F10E1 =  I = ideal apply(subsets(gens R,2),product)
+
+F10E2 =  RI = res I
+
+F10E3 =  G = {matrix{{x_2,x_3,x_4,x_1}},
+
+          matrix{{x_2,x_3,x_1,x_4}},
+
+          matrix{{x_2,x_1,x_4,x_3}},
+
+          matrix{{x_2,x_1,x_3,x_4}},
+
+          matrix{{x_1,x_2,x_3,x_4}} }
+
+F10E4 =  A = action(RI,G)
+
+F10E5 =  actors(A,0)
+
+F10E6 =  actors(A,1)
+
+F10E7 =  actors(A,2)
+
+F10E8 =  actors(A,3)
+
+F11E0 =  R = QQ[x_1..x_4]
+
+F11E1 =  G = {matrix{{x_2,x_3,x_4,x_1}},
+
+          matrix{{x_2,x_3,x_1,x_4}},
+
+          matrix{{x_2,x_1,x_4,x_3}},
+
+          matrix{{x_2,x_1,x_3,x_4}},
+
+          matrix{{x_1,x_2,x_3,x_4}} }
+
+F11E2 =  action(R,G)
+
+F11E3 =  I = ideal apply(subsets(gens R,2),product)
+
+F11E4 =  action(I,G)
+
+F11E5 =  Q = R/I
+
+F11E6 =  A = action(Q,G)
+
+F11E7 =  ringActors A
+
+F11E8 =  numActors A
+
+F11E9 =  E = Ext^3(R^1/I,R^{-4})
+
+F11E10 =  RE = res E
+
+F11E11 =  G'' = toList(5:id_(R^1))
+
+F11E12 =  B = action(RE,G,G'',3)
+
+F11E13 =  G' = actors(B,0)
+
+F11E14 =  action(E,G,G')
+
+F12E0 =  R=QQ[x_1..x_4]
+
+F12E1 =  symmetricGroupTable(R)
+
+F13E0 =  R = QQ[x_1..x_4]
+
+F13E1 =  J = intersect(apply(subsets(gens R,3),x->(ideal x)^2))
+
+F13E2 =  RJ = res J
+
+F13E3 =  G = { matrix{{x_2,x_3,x_4,x_1}},
+
+           matrix{{x_2,x_3,x_1,x_4}},
+
+           matrix{{x_2,x_1,x_4,x_3}},
+
+           matrix{{x_2,x_1,x_3,x_4}},
+
+           matrix{{x_1,x_2,x_3,x_4}} }
+
+F13E4 =  A = action(RJ,G)
+
+F13E5 =  character(A,0)
+
+F13E6 =  character(A,1)
+
+F13E7 =  character(A,2)
+
+F13E8 =  character(A,3)
+
+F14E0 =  R = QQ[x_1..x_4]
+
+F14E1 =  I = ideal apply(subsets(gens R,2),product)
+
+F14E2 =  G = {matrix{{x_2,x_3,x_4,x_1}},
+
+          matrix{{x_2,x_3,x_1,x_4}},
+
+          matrix{{x_2,x_1,x_4,x_3}},
+
+          matrix{{x_2,x_1,x_3,x_4}},
+
+          matrix{{x_1,x_2,x_3,x_4}} }
+
+F14E3 =  Q = R/I
+
+F14E4 =  A = action(R,G)
+
+F14E5 =  B = action(I,G)
+
+F14E6 =  C = action(Q,G)
+
+F14E7 =  character(A,0,5)
+
+F14E8 =  character(B,0,5)
+
+F14E9 =  character(C,0,5)
+
+F14E10 =  character(C,6)
+
+F15E0 =  F = toField(QQ[w]/ideal(1+w+w^2))
+
+F15E1 =  s = {1,3,4,4}
+
+F15E2 =  M = matrix{{1,1,1,1},{1,1,w,w^2},{1,1,w^2,w},{3,-1,0,0}}
+
+F15E3 =  R = F[x_1..x_4]
+
+F15E4 =  conj = map(F,F,{w^2})
+
+F15E5 =  T = characterTable(s,M,R,conj)
+
+F15E6 =  perm = {1,2,4,3}
+
+F15E7 =  T' = characterTable(s,M,R,perm)
+
+F15E8 =  T' === T
+
+F16E0 =  R = QQ[x_1..x_3]
+
+F16E1 =  regRep = character(R,3, hashTable {
+
+             (0,{0}) => matrix{{1,1,1}},
+
+             (0,{1}) => matrix{{-1,0,2}},
+
+             (0,{2}) => matrix{{-1,0,2}},
+
+             (0,{3}) => matrix{{1,-1,1}},
+
+             })
+
+F16E2 =  I = ideal(x_1+x_2+x_3,x_1*x_2+x_1*x_3+x_2*x_3,x_1*x_2*x_3)
+
+F16E3 =  S3 = {matrix{{x_2,x_3,x_1}},
+
+           matrix{{x_2,x_1,x_3}},
+
+           matrix{{x_1,x_2,x_3}} }
+
+F16E4 =  Q = R/I
+
+F16E5 =  A = action(Q,S3)
+
+F16E6 =  character(A,0,3) === regRep
+
+F17E0 =  F = toField(QQ[w]/ideal(1+w+w^2))
+
+F17E1 =  R = F[x_1..x_4]
+
+F17E2 =  conj = map(F,F,{w^2})
+
+F17E3 =  X = character(R,4,hashTable {(1,{2}) => matrix{{1,1,w,w^2}}})
+
+F17E4 =  X' = dual(X,conj)
+
+F17E5 =  perm = {1,2,4,3}
+
+F17E6 =  dual(X,perm) === X'
+
+F18E0 =  R = QQ[x_1..x_4]
+
+F18E1 =  I = ideal apply(subsets(gens R,2),product)
+
+F18E2 =  RI = res I
+
+F18E3 =  G = {matrix{{x_2,x_3,x_4,x_1}},
+
+          matrix{{x_2,x_3,x_1,x_4}},
+
+          matrix{{x_2,x_1,x_4,x_3}},
+
+          matrix{{x_2,x_1,x_3,x_4}},
+
+          matrix{{x_1,x_2,x_3,x_4}} }
+
+F18E4 =  A = action(RI,G)
+
+F18E5 =  ringActors A
+
+F18E6 =  inverseRingActors A
+
+F18E7 =  numActors A
+
+F18E8 =  M = module I
+
+F18E9 =  RM = res M
+
+F18E10 =  G' = { (id_(R^6))_{2,4,5,0,1,3},
+
+             (id_(R^6))_{2,0,1,4,5,3},
+
+             (id_(R^6))_{0,4,3,2,1,5},
+
+             (id_(R^6))_{0,2,1,4,3,5},
+
+              id_(R^6) }
+
+F18E11 =  action(RM,G,G',0)
+
+F18E12 =  E = Ext^3(R^1/I,R^{-4})
+
+F18E13 =  RE = res E
+
+F18E14 =  G'' = toList(5:id_(R^1))
+
+F18E15 =  action(RE,G,G'',3)
+
+F19E0 =  R = QQ[x_1..x_4]
+
+F19E1 =  I = ideal apply(subsets(gens R,2),product)
+
+F19E2 =  G = {matrix{{x_2,x_3,x_4,x_1}},
+
+          matrix{{x_2,x_3,x_1,x_4}},
+
+          matrix{{x_2,x_1,x_4,x_3}},
+
+          matrix{{x_2,x_1,x_3,x_4}},
+
+          matrix{{x_1,x_2,x_3,x_4}} }
+
+F19E3 =  A = action(I,G)
+
+F19E4 =  actors(A,1)
+
+F19E5 =  actors(A,2)
+
+F19E6 =  actors(A,3)
+
+F20E0 =  R = QQ[x_1..x_4]
+
+F20E1 =  J = intersect(apply(subsets(gens R,3),x->(ideal x)^2))
+
+F20E2 =  RJ = res J
+
+F20E3 =  G = { matrix{{x_2,x_3,x_4,x_1}},
+
+           matrix{{x_2,x_3,x_1,x_4}},
+
+           matrix{{x_2,x_1,x_4,x_3}},
+
+           matrix{{x_2,x_1,x_3,x_4}},
+
+           matrix{{x_1,x_2,x_3,x_4}} }
+
+F20E4 =  A = action(RJ,G)
+
+F20E5 =  character(A)
+
+F21E0 =  R = QQ[x,y,z]
+
+F21E1 =  I = ideal(x*y,x*z,y*z)
+
+F21E2 =  RI = res I
+
+F21E3 =  S3 = symmetricGroupActors R
+
+F21E4 =  A = action(RI,S3)
+
+F21E5 =  a = character A
+
+F21E6 =  a[-10]
+
+F22E0 =  R = QQ[x,y]
+
+F22E1 =  D8 = { matrix{{x,y}},
+
+            matrix{{-x,-y}},
+
+            matrix{{-y,x}},
+
+            matrix{{x,-y}},
+
+            matrix{{y,x}} }
+
+F22E2 =  M = matrix {{1,1,1,1,1},
+
+         {1,1,1,-1,-1},
+
+         {1,1,-1,1,-1},
+
+         {1,1,-1,-1,1},
+
+         {2,-2,0,0,0}};
+
+F22E3 =  T = characterTable({1,1,2,2,2},M,R,{1,2,3,4,5},
+
+         Labels=>{"triv","rho1","rho2","rho3","dim2"})
+
+F22E4 =  A = action(R,D8)
+
+F22E5 =  c = character(A,0,8)
+
+F22E6 =  decomposeCharacter(c,T)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F0E11", "F0E12", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16", "F5E17", "F5E18", "F5E19", "F5E20", "F5E21", "F5E22", "F5E23", "F5E24", "F5E25", "F5E26", "F5E27", "F5E28", "F5E29", "F5E30", "F5E31", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F10E7", "F10E8", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F11E8", "F11E9", "F11E10", "F11E11", "F11E12", "F11E13", "F11E14", "F12E0", "F12E1", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F18E9", "F18E10", "F18E11", "F18E12", "F18E13", "F18E14", "F18E15", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6"}

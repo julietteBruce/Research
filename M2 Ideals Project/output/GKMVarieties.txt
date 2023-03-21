@@ -1,0 +1,82 @@
+needsPackage "package_directory/GKMVarieties/example-output"
+
+F0E0 =  X = toricProjectiveSpace 3;
+
+F0E1 =  D = toricDivisor({1,0,0,0},X) -- the class of O(1) on P^3
+
+F0E2 =  Y = makeGKMVariety X; -- The torus is C^3 not C^4
+
+F0E3 =  C = makeKClass(Y,D)
+
+F0E4 =  assert(isWellDefined C)
+
+F0E5 =  peek C
+
+F1E0 =  Gr24 = generalizedFlagVariety("A",3,{2})
+
+F1E1 =  X = generalizedSchubertVariety(Gr24, {set{0,2}})
+
+F1E2 =  cellOrder X
+
+F2E0 =  X = generalizedFlagVariety("A",2,{1,2})
+
+F2E1 =  A = matrix{{1,2,3},{0,2,3}}
+
+F2E2 =  FM = flagMatroid(A,{1,2})
+
+F2E3 =  C1 = makeKClass(X,FM)
+
+F2E4 =  C2 = orbitClosure(X,A)
+
+F2E5 =  C1 === C2
+
+F3E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F3E1 =  isWellDefined FM
+
+F3E2 =  FMbad = flagMatroid {uniformMatroid(2,4), uniformMatroid(1,2)++uniformMatroid(2,2)}
+
+F3E3 =  isWellDefined FMbad
+
+F4E0 =  R = makeCharacterRing 4
+
+F4E1 =  describe R
+
+F5E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F5E1 =  f = diagonalMap X;
+
+F5E2 =  peek f
+
+F6E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F6E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F6E2 =  O2 = O1 * O1
+
+F6E3 =  peek O2
+
+F7E0 =  R = makeCharacterRing 4;
+
+F7E1 =  FlGr = generalizedFlagVariety("A",3,{1,2},R)
+
+F7E2 =  Gr24 = generalizedFlagVariety("A",3,{2},R)
+
+F7E3 =  f = flagMap(FlGr,Gr24)
+
+F7E4 =  O1 = ampleKClass Gr24
+
+F7E5 =  (pullback f)(O1)
+
+F8E0 =  PP4 = projectiveSpace 4;
+
+F8E1 =  peek PP4
+
+F9E0 =  G = momentGraph projectiveSpace 1;
+
+F9E1 =  H = momentGraph generalizedFlagVariety("C",2,{2}); -- The isotropic Grassmannian SpGr(2,4)
+
+F9E2 =  J = G ** H;
+
+F9E3 =  peek J
+

@@ -1,0 +1,1031 @@
+needsPackage "package_directory/EdgeIdeals/example-output"
+
+F0E0 =  R = QQ[a,b,c,d,e];
+
+F0E1 =  c5 = graph {a*b,b*c,c*d,d*e,e*a}; -- graph of the 5-cycle
+
+F0E2 =  complementGraph c5 -- the graph complement of the 5-cycle
+
+F0E3 =  c5hypergraph = hyperGraph c5 -- the 5-cycle, but viewed as a hypergraph
+
+F0E4 =  complementGraph c5hypergraph
+
+F1E0 =  S = QQ[a,b,c,d,e];
+
+F1E1 =  k5 = completeGraph S
+
+F1E2 =  dv = degreeVertex(k5,a)
+
+F1E3 =  n = neighbors(k5,a)
+
+F1E4 =  #n == dv
+
+F1E5 =  degreeVertex(k5,2)
+
+F1E6 =  h = hyperGraph {a*b*c,c*d,a*d*e,b*e,c*e}
+
+F1E7 =  degreeVertex(h,a)
+
+F1E8 =  degreeVertex(h,2) -- degree of c
+
+F2E0 =  S = QQ[a..e];
+
+F2E1 =  g = graph {a*b,b*c,c*d,d*e,a*e} -- the 5-cycle (connected)
+
+F2E2 =  h = graph {a*b,b*c,c*a,d*e} -- a 3-cycle and a disjoint edge (not connected)
+
+F2E3 =  numConnectedComponents g
+
+F2E4 =  numConnectedComponents h
+
+F2E5 =  S = QQ[a..d];
+
+F2E6 =  H = hyperGraph {a*b,c}
+
+F2E7 =  isolatedVertices H
+
+F2E8 =  connectedComponents H
+
+F2E9 =  numConnectedComponents H
+
+F3E0 =  S = QQ[a,b,c,d,e,f];
+
+F3E1 =  k6 = completeGraph S  -- complete graph on 6 vertices
+
+F3E2 =  coverIdeal k6 -- each generator corresponds to a minimal vertex of k6
+
+F3E3 =  h = hyperGraph {a*b*c,c*d,d*e*f}
+
+F3E4 =  coverIdeal h
+
+F3E5 =  dual coverIdeal h == edgeIdeal h
+
+F4E0 =  R = QQ[a..e];
+
+F4E1 =  c4 = graph {a*b,b*c,c*d,d*a} -- 4-cycle plus an isolated vertex!!!!
+
+F4E2 =  c5 = graph {a*b,b*c,c*d,d*e,e*a} -- 5-cycle
+
+F4E3 =  independenceNumber c4
+
+F4E4 =  independenceNumber c5
+
+F4E5 =  dim independenceComplex c4 + 1 == independenceNumber c4
+
+F5E0 =  R = QQ[a..g];
+
+F5E1 =  H = hyperGraph {a*b*c*d, b*c*d*e, c*d*f, d*g, e*f*g};
+
+F5E2 =  edges(H)
+
+F5E3 =  isGoodLeaf(H,0)
+
+F5E4 =  isGoodLeaf(H,1)
+
+F6E0 =  R = QQ[x_1..x_6];
+
+F6E1 =  C = cycle R; -- a 6-cycle
+
+F6E2 =  spanningTree C
+
+F6E3 =  T = graph {x_1*x_2,x_2*x_3, x_1*x_4,x_1*x_5,x_5*x_6}; -- a tree (no cycles)
+
+F6E4 =  T == spanningTree T
+
+F6E5 =  G = graph {x_1*x_2,x_2*x_3,x_3*x_1,x_4*x_5,x_5*x_6,x_6*x_4}; -- two three cycles
+
+F6E6 =  spanningTree G
+
+F7E0 =  R = QQ[a..g];
+
+F7E1 =  H = hyperGraph {a*b*c*d, b*c*d*e, c*d*f, d*g, e*f*g};
+
+F7E2 =  getGoodLeaf(H)
+
+F8E0 =  R = QQ[w,x,y,z];
+
+F8E1 =  G = graph(R, {{w,x},{w,y},{w,z},{y,z}});
+
+F8E2 =  vertices G
+
+F8E3 =  edges G
+
+F8E4 =  ring G
+
+F9E0 =  R = QQ[a,b,c,d,e];
+
+F9E1 =  G = graph {a*b,b*c,c*d,d*e,e*a} -- graph of the 5-cycle
+
+F9E2 =  H1 = inducedHyperGraph(G,{b,c,d,e})
+
+F9E3 =  H2 = inducedHyperGraph(G,{a,b,d,e})
+
+F9E4 =  use ring H1
+
+F9E5 =  inducedHyperGraph(H1,{c,d,e})
+
+F9E6 =  use ring G
+
+F9E7 =  inducedHyperGraph(G,{b,c,d,e},OriginalRing=>true) --H1 but in bigger ring
+
+F9E8 =  R = QQ[a,b,c,d,e];
+
+F9E9 =  G = graph {a*b,b*c,c*d,d*e,e*a} -- graph of the 5-cycle
+
+F9E10 =  H = inducedHyperGraph(G,{b,c,d})
+
+F9E11 =  changeRing(H,R,{b,c,d})
+
+F10E0 =  R = QQ[a..e];
+
+F10E1 =  C = cycle R;
+
+F10E2 =  UnmixedTree = graph {a*b, b*c, c*d};
+
+F10E3 =  MixedTree = graph {a*b, a*c, a*d};
+
+F10E4 =  isCM C
+
+F10E5 =  isCM UnmixedTree
+
+F10E6 =  isCM MixedTree
+
+F11E0 =  R = QQ[a,b,c,x,y,z];
+
+F11E1 =  completeMultiPartite(R,2,3)
+
+F11E2 =  completeMultiPartite(R,{2,4})
+
+F11E3 =  completeMultiPartite(R,{{a,b,c,x},{y,z}})
+
+F11E4 =  R = QQ[a,b,c,d,e];
+
+F11E5 =  t1 = completeMultiPartite(R,5,1)
+
+F11E6 =  t2 = completeGraph R
+
+F11E7 =  t1 == t2
+
+F12E0 =  S = QQ[a..f];
+
+F12E1 =  c4 = cycle(S,4) -- 4-cycle; chromatic number = 2
+
+F12E2 =  c5 = cycle(S,5) -- 5-cycle; chromatic number = 3
+
+F12E3 =  k6 = completeGraph S  -- complete graph on 6 vertices; chromatic number = 6
+
+F12E4 =  chromaticNumber c4
+
+F12E5 =  chromaticNumber c5
+
+F12E6 =  chromaticNumber k6
+
+F13E0 =  T = QQ[x_1..x_9];
+
+F13E1 =  g = graph {x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_6,x_6*x_7,x_7*x_8,x_8*x_9,x_9*x_1} -- a 9-cycle
+
+F13E2 =  smallestCycleSize g
+
+F13E3 =  h = graph {x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_6,x_6*x_7,x_7*x_8,x_8*x_9} -- a tree (no cycles)
+
+F13E4 =  smallestCycleSize h
+
+F13E5 =  l =  graph {x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_5*x_6,x_6*x_7,x_7*x_8,x_8*x_9,x_9*x_1,x_1*x_4}
+
+F13E6 =  smallestCycleSize l
+
+F14E0 =  R = QQ[a..d];
+
+F14E1 =  cliqueNumber completeGraph R
+
+F14E2 =  G = graph({a*b,b*c,a*c,a*d})
+
+F14E3 =  cliqueNumber G
+
+F14E4 =  dim cliqueComplex G + 1 == cliqueNumber G
+
+F15E0 =  R = QQ[a..f];
+
+F15E1 =  E = {{a,b},{b,c},{c,f},{d,a},{e,c},{b,d}}
+
+F15E2 =  g = graph (R,E)
+
+F15E3 =  S = QQ[z_1..z_8];
+
+F15E4 =  E1 = {{z_1,z_2},{z_2,z_3},{z_3,z_4},{z_4,z_5},{z_5,z_6},{z_6,z_7},{z_7,z_8},{z_8,z_1}}
+
+F15E5 =  E2 = {{z_1,z_2},{z_2,z_3}}
+
+F15E6 =  g1 = graph E1
+
+F15E7 =  g2 = graph E2
+
+F15E8 =  T = QQ[w,x,y,z];
+
+F15E9 =  e = {w*x,w*y,w*z,x*y,x*z,y*z}
+
+F15E10 =  g = graph e
+
+F15E11 =  C = QQ[p_1..p_6];
+
+F15E12 =  i = monomialIdeal (p_1*p_2,p_2*p_3,p_3*p_4,p_3*p_5,p_3*p_6)
+
+F15E13 =  graph i
+
+F15E14 =  j = ideal (p_1*p_2,p_1*p_3,p_1*p_4,p_1*p_5,p_1*p_6)
+
+F15E15 =  graph j
+
+F15E16 =  D = QQ[r_1..r_5];
+
+F15E17 =  h = hyperGraph {r_1*r_2,r_2*r_4,r_3*r_5,r_5*r_4,r_1*r_5}
+
+F15E18 =  g = graph h
+
+F15E19 =  E = QQ[m,n,o,p]
+
+F15E20 =  graph(E, {})
+
+F15E21 =  graph monomialIdeal(0_E)  -- the zero element of E (do not use 0)
+
+F15E22 =  graph ideal(0_E)
+
+F16E0 =  R = QQ[a..k];
+
+F16E1 =  G = graph {a*b,b*c,c*d,a*d,f*g,h*i,j*k,h*k}
+
+F16E2 =  L = connectedGraphComponents G
+
+F16E3 =  R = QQ[a,b,c,d];
+
+F16E4 =  G = graph {a*b, b*c}
+
+F16E5 =  connectedGraphComponents G
+
+F16E6 =  isolatedVertices G
+
+F16E7 =  isConnectedGraph G
+
+F17E0 =  R = QQ[a..e];
+
+F17E1 =  G = graph {a*b,a*c,a*d,d*e}
+
+F17E2 =  lineGraph G
+
+F18E0 =  S = QQ[a..e];
+
+F18E1 =  c5 = cycle S
+
+F18E2 =  edgeIdeal c5
+
+F18E3 =  graph flatten entries gens edgeIdeal c5 == c5
+
+F18E4 =  k5 = completeGraph S
+
+F18E5 =  edgeIdeal k5
+
+F18E6 =  S = QQ[z_1..z_8];
+
+F18E7 =  h = hyperGraph {{z_1,z_2,z_3},{z_2,z_3,z_4,z_5},{z_4,z_5,z_6},{z_6,z_7,z_8}}
+
+F18E8 =  edgeIdeal h
+
+F19E0 =  R = QQ[a..d];
+
+F19E1 =  G = completeGraph R
+
+F19E2 =  getCliques(G,3)
+
+F19E3 =  getCliques(G,4)
+
+F19E4 =  getCliques G
+
+F20E0 =  R = QQ[a,b,c,d,e];
+
+F20E1 =  G = graph {a*b,b*c,c*d,d*e,e*a} -- graph of the 5-cycle
+
+F20E2 =  H1 = inducedGraph(G,{b,c,d,e})
+
+F20E3 =  H2 = inducedGraph(G,{a,b,d,e})
+
+F20E4 =  use ring H1
+
+F20E5 =  inducedGraph(H1,{c,d,e})
+
+F20E6 =  use ring G
+
+F20E7 =  inducedGraph(G,{b,c,d,e},OriginalRing=>true) --H1 but in bigger ring
+
+F20E8 =  R = QQ[a,b,c,d,e];
+
+F20E9 =  G = graph {a*b,b*c,c*d,d*e,e*a} -- graph of the 5-cycle
+
+F20E10 =  H = inducedGraph(G,{b,c,d})
+
+F20E11 =  graph changeRing(H,R,{b,c,d})
+
+F21E0 =  S = QQ[a..e];
+
+F21E1 =  t = graph {a*b,b*c,c*d,a*e} -- a tree (and thus, bipartite)
+
+F21E2 =  c5 = cycle S -- 5-cycle (not bipartite)
+
+F21E3 =  isBipartite t
+
+F21E4 =  isBipartite c5
+
+F22E0 =  S = QQ[a..e];
+
+F22E1 =  G = graph {a*b,b*c,c*d,d*e,a*e} -- the 5-cycle (connected)
+
+F22E2 =  H = graph {a*b,b*c,c*a,d*e} -- a 3-cycle and a disjoint edge (not connected)
+
+F22E3 =  isConnectedGraph G
+
+F22E4 =  isConnectedGraph H
+
+F22E5 =  S = QQ[a..e];
+
+F22E6 =  G = graph {a*b,b*c,c*d,a*d} -- 4-cycle with isolated vertex (not connected)
+
+F22E7 =  isolatedVertices G
+
+F22E8 =  isConnectedGraph G
+
+F23E0 =  S = QQ[a..d];
+
+F23E1 =  g = graph {a*b,b*c,c*d,d*a} -- the four cycle
+
+F23E2 =  vertexCoverNumber g
+
+F23E3 =  S = QQ[a..e];
+
+F23E4 =  g = graph {a*b,a*c,a*d,a*e,b*c,b*d,b*e,c*d,c*e,d*e} -- the complete graph K_5
+
+F23E5 =  vertexCoverNumber g
+
+F23E6 =  h = hyperGraph {a*b*c,a*d,c*e,b*d*e}
+
+F23E7 =  vertexCoverNumber(h)
+
+F24E0 =  S = QQ[a..e];
+
+F24E1 =  g = graph {a*b,b*c,c*d,d*e,e*a} -- the 5-cycle
+
+F24E2 =  independenceComplex g
+
+F24E3 =  h = hyperGraph {a*b*c,b*c*d,d*e}
+
+F24E4 =  independenceComplex h
+
+F24E5 =  S = QQ[a..e];
+
+F24E6 =  g = graph {a*b,b*c,a*c,d*e,a*e}
+
+F24E7 =  Delta1 = independenceComplex g
+
+F24E8 =  Delta2 = simplicialComplex edgeIdeal g
+
+F24E9 =  Delta1 === Delta2
+
+F25E0 =  R = QQ[w,x,y,z];
+
+F25E1 =  H = hyperGraph(R, {{w,x},{w,y,z},{x,y,z}});
+
+F25E2 =  vertices H
+
+F25E3 =  edges H
+
+F25E4 =  ring H
+
+F26E0 =  R = QQ[x_1..x_3,y_1..y_3];
+
+F26E1 =  G = graph(R,{x_1*y_1,x_2*y_2,x_3*y_3, x_1*y_2,x_1*y_3,x_2*y_3})
+
+F26E2 =  isCM G and isBipartite G
+
+F26E3 =  L = getGoodLeaf(G)
+
+F26E4 =  degreeVertex(G,y_1)
+
+F26E5 =  H = inducedHyperGraph(G, vertices(G) - set(L))
+
+F26E6 =  K = simplicialComplexToHyperGraph independenceComplex H;
+
+F26E7 =  edges K
+
+F26E8 =  use ring K;
+
+F26E9 =  A = apply(edges(K), e->append(e, y_1));
+
+F26E10 =  B = apply(edges inducedHyperGraph(K, {x_2,x_3}), e-> append(e, x_1));
+
+F26E11 =  shelling = join(A,B)
+
+F26E12 =  independenceComplex(G)
+
+F27E0 =  R = QQ[a,b,c,d,e];
+
+F27E1 =  cycle R
+
+F27E2 =  cycle(R,3)
+
+F27E3 =  cycle {e,c,d,b}
+
+F27E4 =  R = QQ[a,c,d,b,e];-- variables given different order
+
+F27E5 =  cycle R
+
+F28E0 =  R = QQ[a..l];
+
+F28E1 =  H = hyperGraph {a*b*c, c*d, d*e*f, h*i, i*j, l}
+
+F28E2 =  L = connectedComponents H
+
+F28E3 =  apply(L, C -> inducedHyperGraph(H,C))
+
+F28E4 =  R = QQ[a,b,c,d];
+
+F28E5 =  H = hyperGraph {a*b, c}
+
+F28E6 =  connectedComponents H
+
+F28E7 =  isolatedVertices H
+
+F29E0 =  S = QQ[z_1..z_8];
+
+F29E1 =  h = hyperGraph {z_2*z_3*z_4,z_6*z_8,z_7*z_5,z_1*z_6*z_7,z_2*z_4*z_8};
+
+F29E2 =  edges h
+
+F29E3 =  isEdge (h,{z_2,z_4,z_8})
+
+F29E4 =  isEdge (h,z_2*z_3*z_4)
+
+F29E5 =  isEdge (h,{z_1,z_2})
+
+F30E0 =  R = QQ[a..f]
+
+F30E1 =  E = {{a,b,c},{b,c,d},{c,d,e},{e,d,f}}
+
+F30E2 =  h = hyperGraph (R,E)
+
+F30E3 =  S = QQ[z_1..z_8]
+
+F30E4 =  E1 = {{z_1,z_2,z_3},{z_2,z_4,z_5,z_6},{z_4,z_7,z_8},{z_5,z_7,z_8}}
+
+F30E5 =  E2 = {{z_2,z_3,z_4},{z_4,z_5}}
+
+F30E6 =  h1 = hyperGraph E1
+
+F30E7 =  h2 = hyperGraph E2
+
+F30E8 =  T = QQ[w,x,y,z]
+
+F30E9 =  e = {w*x*y,w*x*z,w*y*z,x*y*z}
+
+F30E10 =  h = hyperGraph e
+
+F30E11 =  C = QQ[p_1..p_6]
+
+F30E12 =  i = monomialIdeal (p_1*p_2*p_3,p_3*p_4*p_5,p_3*p_6)
+
+F30E13 =  hyperGraph i
+
+F30E14 =  j = ideal (p_1*p_2,p_3*p_4*p_5,p_6)
+
+F30E15 =  hyperGraph j
+
+F30E16 =  D = QQ[r_1..r_5]
+
+F30E17 =  g = graph {r_1*r_2,r_2*r_4,r_3*r_5,r_5*r_4,r_1*r_5}
+
+F30E18 =  h = hyperGraph g
+
+F30E19 =  E = QQ[m,n,o,p]
+
+F30E20 =  hyperGraph(E, {})
+
+F30E21 =  hyperGraph monomialIdeal(0_E)  -- the zero element of E (do not use 0)
+
+F30E22 =  hyperGraph ideal (0_E)
+
+F31E0 =  R = QQ[a..g];
+
+F31E1 =  H = hyperGraph {b*c*d*e, a*b*c*d, c*d*f, d*g, e*f*g};
+
+F31E2 =  getGoodLeaf(H)
+
+F31E3 =  edges(H)
+
+F31E4 =  getGoodLeafIndex(H)
+
+F32E0 =  R = QQ[a,b,c,d,e];
+
+F32E1 =  G = graph {a*b,c*d}
+
+F32E2 =  isolatedVertices G
+
+F32E3 =  H = hyperGraph {a*b,c}
+
+F32E4 =  isolatedVertices H
+
+F33E0 =  R = QQ[x_1..x_6];
+
+F33E1 =  G = graph({x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_1*x_5,x_1*x_6,x_5*x_6}) --5-cycle and a triangle
+
+F33E2 =  numTriangles G
+
+F33E3 =  H = completeGraph R;
+
+F33E4 =  numTriangles H == binomial(6,3)
+
+F34E0 =  S = QQ[z_1..z_8];
+
+F34E1 =  h = hyperGraph {z_2*z_3*z_4,z_6*z_8,z_7*z_5,z_1*z_6*z_7,z_2*z_4*z_8}
+
+F34E2 =  edges h
+
+F34E3 =  getEdgeIndex (h,{z_2,z_4,z_8})  -- although entered last, edge is internally stored in 4th spot (counting begins at 0)
+
+F34E4 =  getEdge(h,3)
+
+F34E5 =  getEdgeIndex (h,{z_1,z_2}) -- not in the edge list
+
+F35E0 =  S = QQ[a..f];
+
+F35E1 =  G = graph {a*b,a*c,b*c,c*d,d*e,e*f,f*a,a*d}
+
+F35E2 =  t = adjacencyMatrix G
+
+F35E3 =  T = QQ[f,e,d,c,b,a];
+
+F35E4 =  G = graph {a*b,a*c,b*c,c*d,d*e,e*f,f*a,a*d}
+
+F35E5 =  t = adjacencyMatrix G -- although the same graph, matrix is different since variables have different ordering
+
+F36E0 =  QQ[a,b,c,d];
+
+F36E1 =  isGraph(hyperGraph {a*b,b*c,c*d})
+
+F36E2 =  isGraph(hyperGraph {a*b,b*c*d})
+
+F36E3 =  isGraph(hyperGraph {a*b,b*c,d})
+
+F37E0 =  R = QQ[x_1..x_9];
+
+F37E1 =  randomUniformHyperGraph(R,3,4)
+
+F37E2 =  randomUniformHyperGraph(R,4,2)
+
+F38E0 =  R = QQ[a..f];
+
+F38E1 =  G = graph {a*b,b*c,c*a,b*d};
+
+F38E2 =  isLeaf(G, d)
+
+F38E3 =  isLeaf(G, getEdgeIndex(G, {b,d}))
+
+F38E4 =  isLeaf(G, a)
+
+F38E5 =  isLeaf(G, getEdgeIndex(G, {a,b}))
+
+F38E6 =  H = hyperGraph {a*b*c,b*d,c*e,b*c*f};
+
+F38E7 =  K = hyperGraph {a*b*c,b*d,c*e};
+
+F38E8 =  isLeaf(H, a)
+
+F38E9 =  isLeaf(H, getEdgeIndex(H, {a,b,c}))
+
+F38E10 =  isLeaf(K, a)
+
+F38E11 =  isLeaf(K, getEdgeIndex(K, {a,b,c}))
+
+F39E0 =  S = QQ[a..f];
+
+F39E1 =  g = cycle S
+
+F39E2 =  edges g
+
+F39E3 =  getEdge (g,3)  -- counting starts from 0, so the 4th element in the above list
+
+F39E4 =  h = hyperGraph {a*b*c*d,d*e,a*f*c,a*d*f}
+
+F39E5 =  getEdge (h,0) -- first edge
+
+F40E0 =  R = QQ[x_1..x_6];
+
+F40E1 =  G = graph({x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_1*x_5,x_1*x_6,x_5*x_6}) --5-cycle and a triangle
+
+F40E2 =  hasOddHole G
+
+F40E3 =  H = graph({x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_1*x_5,x_1*x_6,x_5*x_6,x_1*x_4}) --no odd holes
+
+F40E4 =  hasOddHole H
+
+F41E0 =  R = QQ[a,b,c,d,e];
+
+F41E1 =  completeGraph R
+
+F41E2 =  completeGraph(R,3)
+
+F41E3 =  completeGraph {a,c,e}
+
+F42E0 =  S = QQ[a,b,c,d,e];
+
+F42E1 =  g = cycle S
+
+F42E2 =  T = {{a,b},{d,e}}
+
+F42E3 =  gprime = deleteEdges (g,T)
+
+F42E4 =  h = hyperGraph {a*b*c,c*d*e,a*e}
+
+F42E5 =  T = edges h
+
+F42E6 =  hprime = deleteEdges (h,T)
+
+F43E0 =  R = QQ[x_1..x_6];
+
+F43E1 =  G = graph({x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_1*x_5,x_1*x_6,x_5*x_6}) --5-cycle and a triangle
+
+F43E2 =  allOddHoles G --only the 5-cycle should appear
+
+F43E3 =  H = graph({x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_1*x_5,x_1*x_6,x_5*x_6,x_1*x_4}) --no odd holes
+
+F43E4 =  allOddHoles H
+
+F44E0 =  S = QQ[a..f];
+
+F44E1 =  t = graph {a*b,a*c,a*e}
+
+F44E2 =  isForest t
+
+F44E3 =  h = hyperGraph {a*b*c,c*d*e,b*d*f}
+
+F44E4 =  isForest h
+
+F45E0 =  R = QQ[a..g];
+
+F45E1 =  H = hyperGraph {b*c*d*e, a*b*c*d, c*d*f, d*g, e*f*g};
+
+F45E2 =  hasGoodLeaf(H)
+
+F45E3 =  getGoodLeaf(H)
+
+F46E0 =  R = QQ[a..d];
+
+F46E1 =  G = completeGraph R
+
+F46E2 =  getMaxCliques G
+
+F46E3 =  H = graph({a*b,b*c,a*c,c*d,b*d})
+
+F46E4 =  getMaxCliques H
+
+F47E0 =  S = QQ[a..f];
+
+F47E1 =  Delta = simplicialComplex {a*b*c,b*c*d,c*d*e,d*e*f}
+
+F47E2 =  H = simplicialComplexToHyperGraph Delta
+
+F48E0 =  R = QQ[x,y,z,w];
+
+F48E1 =  G = graph(R, {{x,y},{x,z},{y,z},{x,w}})
+
+F48E2 =  H = hyperGraph(R, {{x,y,z},{x,w}})
+
+F48E3 =  R = QQ[x,y,z,w];
+
+F48E4 =  G = graph {x*y, x*z, y*z, x*w}
+
+F48E5 =  H = hyperGraph {x*y*z, x*w}
+
+F48E6 =  G = graph ideal(x*y, x*z, y*z, x*w)
+
+F48E7 =  R = QQ[x,y,z,w];
+
+F48E8 =  H = hyperGraph {x*y*z,x*w};
+
+F48E9 =  D = hyperGraphToSimplicialComplex H
+
+F48E10 =  simplicialComplexToHyperGraph D
+
+F48E11 =  R = QQ[x,y,z,w];
+
+F48E12 =  G = graph {x*y, x*z, y*z, x*w};
+
+F48E13 =  H = hyperGraph G
+
+F48E14 =  graph H
+
+F48E15 =  R = QQ[x,y,z,w];
+
+F48E16 =  D = simplicialComplex {x*y, x*z, y*z, x*w};
+
+F48E17 =  H = simplicialComplexToHyperGraph D
+
+F48E18 =  G = graph H
+
+F48E19 =  isChordal G 
+
+F48E20 =  R = QQ[x,y,z,w];
+
+F48E21 =  cycle R
+
+F48E22 =  cycle(R,3)
+
+F48E23 =  cycle {x,y,w} 
+
+F48E24 =  R = QQ[x,y,z,w];
+
+F48E25 =  antiCycle R
+
+F48E26 =  R = QQ[x,y,z,w];
+
+F48E27 =  completeGraph R
+
+F48E28 =  completeGraph(R,3)
+
+F48E29 =  completeGraph {x,y,w} 
+
+F48E30 =  R = QQ[a,b,x,y];
+
+F48E31 =  completeMultiPartite(R,2,2)
+
+F48E32 =  R = QQ[x,y,z,u,v];
+
+F48E33 =  randomGraph(R,3)
+
+F48E34 =  randomUniformHyperGraph(R,2,3)
+
+F48E35 =  randomHyperGraph(R,{3,2,1})
+
+F49E0 =  S = QQ[a..d];
+
+F49E1 =  g = cycle S;
+
+F49E2 =  h = inducedHyperGraph(g,{a,b,c});
+
+F49E3 =  describe ring g
+
+F49E4 =  describe ring h
+
+F50E0 =  R = QQ[a..f];
+
+F50E1 =  G = graph {a*b, a*c, a*d, d*e, d*f};
+
+F50E2 =  neighbors(G,a)
+
+F50E3 =  neighbors(G,0)
+
+F50E4 =  neighbors(G,{a,d})
+
+F50E5 =  neighbors(G,{0,3})
+
+F51E0 =  S = QQ[a..e];
+
+F51E1 =  G = graph {a*b,b*c,c*d,d*e,a*e} -- the 5-cycle (connected)
+
+F51E2 =  H = graph {a*b,b*c,c*a,d*e} -- a 3-cycle and a disjoint edge (not connected)
+
+F51E3 =  isConnected G
+
+F51E4 =  isConnected H
+
+F51E5 =  S = QQ[a,b,c,d];
+
+F51E6 =  G = graph {a*b,b*c}
+
+F51E7 =  isolatedVertices G
+
+F51E8 =  isConnected G
+
+F52E0 =  R = QQ[a,b,c,d,e];
+
+F52E1 =  antiCycle R
+
+F52E2 =  antiCycle(R,4)
+
+F52E3 =  antiCycle {e,c,d,b}
+
+F52E4 =  complementGraph antiCycle R == cycle R
+
+F53E0 =  R = QQ[a..f];
+
+F53E1 =  G = cycle(R,4)
+
+F53E2 =  isSCM G
+
+F53E3 =  H = graph(monomialIdeal(a*b,b*c,c*d,a*d,a*e)); --4-cycle with whisker
+
+F53E4 =  isSCM H
+
+F53E5 =  isSCM(H,Gins=>true) --use Gins technique
+
+F54E0 =  P = QQ[a,b,c];
+
+F54E1 =  H = hyperGraph({a*b,b*c});
+
+F54E2 =  S = QQ[x,y,z,w];
+
+F54E3 =  changeRing(H,S,{x,z,y})
+
+F54E4 =  P = QQ[a,b,c];
+
+F54E5 =  H = hyperGraph({a*b*c});
+
+F54E6 =  G = hyperGraph({a*b,b*c});
+
+F54E7 =  S = QQ[x,y,z,w];
+
+F54E8 =  changeRing(H,S,{x,y,x})
+
+F54E9 =  changeRing(G,S,{x,y,x})
+
+F54E10 =  P = QQ[a,b,c];
+
+F54E11 =  H = hyperGraph({a*b,b*c});
+
+F54E12 =  S = QQ[x,y];
+
+F54E13 =  changeRing(H,S,{x,y,y})
+
+F54E14 =  changeRing(H,S,{x,y,y},MaximalEdges=>true)
+
+F55E0 =  S = QQ[a..d];
+
+F55E1 =  g = graph {a*b,b*c,c*d,d*a} -- the four cycle
+
+F55E2 =  edges g
+
+F55E3 =  h = hyperGraph{a*b*c}
+
+F55E4 =  edges h
+
+F55E5 =  k4 = completeGraph S
+
+F55E6 =  edges k4
+
+F56E0 =  S = QQ[a..d];
+
+F56E1 =  g = graph {a*b,b*c,c*d,d*a} -- the four cycle
+
+F56E2 =  vertexCovers g
+
+F56E3 =  coverIdeal g
+
+F56E4 =  flatten entries gens coverIdeal g == vertexCovers g
+
+F56E5 =  S = QQ[a..e];
+
+F56E6 =  h = hyperGraph {a*b*c,a*d,c*e,b*d*e}
+
+F56E7 =  vertexCovers(h)
+
+F57E0 =  R = QQ[x_1..x_9];
+
+F57E1 =  randomGraph(R,4)
+
+F57E2 =  randomGraph(R,4)
+
+F58E0 =  S = QQ[a..f];
+
+F58E1 =  g = hyperGraph {a*b*c*d,c*e,e*f}
+
+F58E2 =  incidenceMatrix g
+
+F58E3 =  T = QQ[f,e,d,c,b,a];
+
+F58E4 =  h = hyperGraph {a*b*c*d,c*e,e*f}
+
+F58E5 =  incidenceMatrix h -- although the same graph, matrix is different since variables have different ordering
+
+F59E0 =  R = QQ[u,v,x,y,z];
+
+F59E1 =  H = hyperGraph({{u,v},{x}});
+
+F59E2 =  isolatedVertices H
+
+F59E3 =  R = QQ[u,v,x,y,z];
+
+F59E4 =  G = graph({{x,y},{y,z}});
+
+F59E5 =  isolatedVertices G
+
+F59E6 =  connectedGraphComponents G
+
+F59E7 =  numConnectedGraphComponents G
+
+F59E8 =  isConnectedGraph G
+
+F59E9 =  connectedComponents G
+
+F59E10 =  numConnectedComponents G
+
+F59E11 =  isConnected G
+
+F60E0 =  R = QQ[x_1..x_6];
+
+F60E1 =  G = graph({x_1*x_2,x_2*x_3,x_3*x_4,x_4*x_5,x_1*x_5,x_1*x_6,x_5*x_6}) --5-cycle and a triangle
+
+F60E2 =  DeltaG = hyperGraphToSimplicialComplex G
+
+F60E3 =  hyperGraphDeltaG = simplicialComplexToHyperGraph DeltaG
+
+F60E4 =  GPrime = graph(hyperGraphDeltaG)
+
+F60E5 =  G === GPrime
+
+F61E0 =  R = QQ[w,x,y,z];
+
+F61E1 =  e = graph {w*x,w*y,x*y,y*z}  -- clique on {w,x,y} and {y,z}
+
+F61E2 =  cliqueComplex e  -- max facets {w,x,y} and {y,z}
+
+F61E3 =  g = completeGraph R
+
+F61E4 =  cliqueComplex g
+
+F62E0 =  R = QQ[a..f];
+
+F62E1 =  G = cycle(R,6);
+
+F62E2 =  allEvenHoles G
+
+F62E3 =  H = graph(monomialIdeal(a*b,b*c,c*d,d*e,e*f,a*f,a*d)) --6-cycle with a chord
+
+F62E4 =  allEvenHoles H --two 4-cycles
+
+F63E0 =  S = QQ[a..e];
+
+F63E1 =  g = graph {a*b,b*c,c*d,d*e,a*e} -- the 5-cycle (connected)
+
+F63E2 =  h = graph {a*b,b*c,c*a,d*e} -- a 3-cycle and a disjoint edge (not connected)
+
+F63E3 =  k = graph {a*b,b*c,c*d,a*d} -- 4-cycle and isolated vertex (not connected)
+
+F63E4 =  numConnectedGraphComponents g
+
+F63E5 =  numConnectedGraphComponents h
+
+F63E6 =  numConnectedGraphComponents k
+
+F64E0 =  R = QQ[x_1..x_5];
+
+F64E1 =  randomHyperGraph(R,{3,2,4})
+
+F64E2 =  randomHyperGraph(R,{3,2,4})
+
+F64E3 =  randomHyperGraph(R,{3,2,4})
+
+F64E4 =  randomHyperGraph(R,{4,4,2,2}) -- impossible, returns null when time/branch limit reached
+
+F65E0 =  R = QQ[a..f];
+
+F65E1 =  g = hyperGraph {{a,b,c},{b,c,d},{d,e,f}};
+
+F65E2 =  h = hyperGraph {{b,c,d},{a,b,c},{f,e,d}};
+
+F65E3 =  k = hyperGraph {{a,b},{b,c,d},{d,e,f}};
+
+F65E4 =  g == h
+
+F65E5 =  g == k
+
+F66E0 =  S = QQ[a..e];
+
+F66E1 =  C = cycle S;
+
+F66E2 =  isChordal C
+
+F66E3 =  D = graph {a*b,b*c,c*d,a*c};
+
+F66E4 =  isChordal D
+
+F66E5 =  E = completeGraph S;
+
+F66E6 =  isChordal E
+
+F67E0 =  R = QQ[x_1..x_7];
+
+F67E1 =  G = complementGraph cycle R; --odd antihole with 7 vertices
+
+F67E2 =  isPerfect G
+
+F67E3 =  H = cycle(R,4)
+
+F67E4 =  isPerfect H
+
+F68E0 =  S = QQ[a..d];
+
+F68E1 =  g = graph {a*b,b*c,c*d,d*a} -- the four cycle
+
+F68E2 =  vertices g
+
+F68E3 =  h = hyperGraph{a*b*c}
+
+F68E4 =  vertices h  -- the vertex d is treated as an isolated vertex
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F10E6", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F11E6", "F11E7", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16", "F15E17", "F15E18", "F15E19", "F15E20", "F15E21", "F15E22", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F17E0", "F17E1", "F17E2", "F18E0", "F18E1", "F18E2", "F18E3", "F18E4", "F18E5", "F18E6", "F18E7", "F18E8", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F23E6", "F23E7", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F24E6", "F24E7", "F24E8", "F24E9", "F25E0", "F25E1", "F25E2", "F25E3", "F25E4", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F26E11", "F26E12", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F28E7", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17", "F30E18", "F30E19", "F30E20", "F30E21", "F30E22", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F35E5", "F36E0", "F36E1", "F36E2", "F36E3", "F37E0", "F37E1", "F37E2", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F38E11", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F41E0", "F41E1", "F41E2", "F41E3", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F42E6", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F44E0", "F44E1", "F44E2", "F44E3", "F44E4", "F45E0", "F45E1", "F45E2", "F45E3", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F47E0", "F47E1", "F47E2", "F48E0", "F48E1", "F48E2", "F48E3", "F48E4", "F48E5", "F48E6", "F48E7", "F48E8", "F48E9", "F48E10", "F48E11", "F48E12", "F48E13", "F48E14", "F48E15", "F48E16", "F48E17", "F48E18", "F48E19", "F48E20", "F48E21", "F48E22", "F48E23", "F48E24", "F48E25", "F48E26", "F48E27", "F48E28", "F48E29", "F48E30", "F48E31", "F48E32", "F48E33", "F48E34", "F48E35", "F49E0", "F49E1", "F49E2", "F49E3", "F49E4", "F50E0", "F50E1", "F50E2", "F50E3", "F50E4", "F50E5", "F51E0", "F51E1", "F51E2", "F51E3", "F51E4", "F51E5", "F51E6", "F51E7", "F51E8", "F52E0", "F52E1", "F52E2", "F52E3", "F52E4", "F53E0", "F53E1", "F53E2", "F53E3", "F53E4", "F53E5", "F54E0", "F54E1", "F54E2", "F54E3", "F54E4", "F54E5", "F54E6", "F54E7", "F54E8", "F54E9", "F54E10", "F54E11", "F54E12", "F54E13", "F54E14", "F55E0", "F55E1", "F55E2", "F55E3", "F55E4", "F55E5", "F55E6", "F56E0", "F56E1", "F56E2", "F56E3", "F56E4", "F56E5", "F56E6", "F56E7", "F57E0", "F57E1", "F57E2", "F58E0", "F58E1", "F58E2", "F58E3", "F58E4", "F58E5", "F59E0", "F59E1", "F59E2", "F59E3", "F59E4", "F59E5", "F59E6", "F59E7", "F59E8", "F59E9", "F59E10", "F59E11", "F60E0", "F60E1", "F60E2", "F60E3", "F60E4", "F60E5", "F61E0", "F61E1", "F61E2", "F61E3", "F61E4", "F62E0", "F62E1", "F62E2", "F62E3", "F62E4", "F63E0", "F63E1", "F63E2", "F63E3", "F63E4", "F63E5", "F63E6", "F64E0", "F64E1", "F64E2", "F64E3", "F64E4", "F65E0", "F65E1", "F65E2", "F65E3", "F65E4", "F65E5", "F66E0", "F66E1", "F66E2", "F66E3", "F66E4", "F66E5", "F66E6", "F67E0", "F67E1", "F67E2", "F67E3", "F67E4", "F68E0", "F68E1", "F68E2", "F68E3", "F68E4"}

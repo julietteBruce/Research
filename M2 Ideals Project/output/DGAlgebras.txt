@@ -1,0 +1,743 @@
+needsPackage "package_directory/DGAlgebras/example-output"
+
+F0E0 =  Q = QQ[x,y,z]
+
+F0E1 =  I = ideal (x^3,y^3,z^3)
+
+F0E2 =  R = Q/I
+
+F0E3 =  KR = koszulComplexDGA R
+
+F0E4 =  z1 = x^2*T_1
+
+F0E5 =  z2 = y^2*T_2
+
+F0E6 =  H = HH(KR)
+
+F0E7 =  homologyClass(KR,z1*z2)
+
+F1E0 =  R = ZZ/101[a,b,c,d]/ideal {a^3,b^3,c^3,d^3}
+
+F1E1 =  deviations(R)
+
+F1E2 =  deviations(R,DegreeLimit=>4)
+
+F1E3 =  S = R/ideal{a^2*b^2*c^2*d^2}
+
+F1E4 =  deviations(S,DegreeLimit=>4)
+
+F1E5 =  T = ZZ/101[a,b]/ideal {a^2-b^3}
+
+F1E6 =  deviations(T,DegreeLimit=>4)
+
+F1E7 =  R = ZZ/101[a,b,c,d]/ideal {a^3,b^3,c^3,d^3}
+
+F1E8 =  A = degreesRing R
+
+F1E9 =  kRes = res coker vars R
+
+F1E10 =  pSeries = poincareN kRes
+
+F1E11 =  devA = deviations(R,DegreeLimit=>5)
+
+F1E12 =  devB = deviations(kRes,DegreeLimit=>5)
+
+F1E13 =  devC = deviations(pSeries,degrees R, DegreeLimit=>5)
+
+F1E14 =  devA === devB and devB === devC
+
+F2E0 =  Q = QQ[x,y,z,w]
+
+F2E1 =  I = ideal (w^2, y*w+z*w, x*w, y*z+z^2, y^2+z*w, x*y+x*z, x^2+z*w)
+
+F2E2 =  R = Q/I
+
+F2E3 =  KR = koszulComplexDGA R
+
+F2E4 =  cxKR = toComplex KR
+
+F2E5 =  HKR = HH(KR)
+
+F2E6 =  degList = first entries vars Q / degree / first
+
+F2E7 =  M = Ext^4(Q^1/I,Q^{-(sum degList)}) ** R
+
+F2E8 =  HKM = homologyModule(KR,M);
+
+F2E9 =  hsHKR = value numerator reduceHilbert hilbertSeries HKR
+
+F2E10 =  hsHKM = value numerator reduceHilbert hilbertSeries HKM
+
+F2E11 =  AA = ring hsHKR
+
+F2E12 =  e = numgens Q
+
+F2E13 =  hsHKR == T_0^e*T_1^e*sub(hsHKM, {T_0 => T_0^(-1), T_1 => T_1^(-1)})
+
+F3E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F3E1 =  RDevs = deviations(R,DegreeLimit=>6)
+
+F3E2 =  devPSeries = deviationsToPoincare(RDevs,DegreeLimit=>6)
+
+F3E3 =  pSeries = poincareN (res(coker vars R, LengthLimit=>6))
+
+F3E4 =  substitute(devPSeries,ring pSeries) == pSeries
+
+F4E0 =  R = ZZ/101[x,y,z]
+
+F4E1 =  A = freeDGAlgebra(R,{{1},{1},{1},{3}})
+
+F4E2 =  A.natural
+
+F4E3 =  setDiff(A,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+F4E4 =  isHomogeneous(A)
+
+F4E5 =  Add = toComplex A
+
+F4E6 =  B = freeDGAlgebra(R,{{1,1},{1,1},{1,1},{3,3}})
+
+F4E7 =  B.natural
+
+F4E8 =  setDiff(B,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+F4E9 =  isHomogeneous(B)
+
+F4E10 =  Bdd = toComplex B
+
+F5E0 =  R = ZZ/101[a,b,c]
+
+F5E1 =  I = ideal{a^3,b^3,c^3,a^2*b^2*c^2}
+
+F5E2 =  A = koszulComplexDGA(I)
+
+F5E3 =  complexA = toComplex A
+
+F5E4 =  complexA.dd
+
+F5E5 =  ranks = apply(4, i -> numgens prune HH_i(complexA))
+
+F5E6 =  ranks == apply(4, i -> numgens prune HH_i(koszul gens I))
+
+F6E0 =  Q = QQ[t_1,t_2,t_3,t_4]
+
+F6E1 =  I = ideal (t_1^3,t_2^3,t_3^3-t_1*t_2^2,t_1^2*t_3^2,t_1*t_2*t_3^2,t_2^2*t_4,t_4^2)
+
+F6E2 =  R = Q/I
+
+F6E3 =  KR = koszulComplexDGA R
+
+F6E4 =  H = HH(KR)
+
+F6E5 =  masseys = masseyTripleProduct(KR,1,1,1);
+
+F6E6 =  rank masseys
+
+F6E7 =  masseyTripleProduct(KR,X_2,X_4,X_1)
+
+F7E0 =  R = ZZ/101[x,y,z]
+
+F7E1 =  A = freeDGAlgebra(R,{{1},{1},{1},{3}})
+
+F7E2 =  setDiff(A,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+F7E3 =  isHomogeneous A
+
+F7E4 =  B = freeDGAlgebra(R,{{1,1},{1,1},{1,1},{3,3}})
+
+F7E5 =  setDiff(B,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+F7E6 =  isHomogeneous B
+
+F8E0 =  R = ZZ/101[a,b,c,d]
+
+F8E1 =  A = koszulComplexDGA(R)
+
+F8E2 =  A.natural
+
+F9E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^4,c^5,d^6}
+
+F9E1 =  A = koszulComplexDGA(R)
+
+F9E2 =  apply(maxDegree A + 1, i -> numgens prune homology(i,A))
+
+F9E3 =  HA = homologyAlgebra(A)
+
+F9E4 =  numgens HA
+
+F9E5 =  HA.cache.cycles
+
+F10E0 =  R = ZZ/101[a,b,c,d]
+
+F10E1 =  A = koszulComplexDGA({a,b})
+
+F10E2 =  B = koszulComplexDGA({c,d})
+
+F10E3 =  C = A ** B
+
+F10E4 =  Cdd = toComplex C
+
+F10E5 =  Cdd.dd
+
+F11E0 =  R = ZZ/101[x,y,z]
+
+F11E1 =  A = freeDGAlgebra(R,{{1},{1},{1},{3}})
+
+F11E2 =  setDiff(A,{x,y,z,x*T_2*T_3-y*T_1*T_3+z*T_1*T_2})
+
+F11E3 =  Add = toComplex A
+
+F11E4 =  Add.dd
+
+F12E0 =  R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+F12E1 =  K1 = koszulComplexDGA(ideal vars R,Variable=>"Y")
+
+F12E2 =  K2 = koszulComplexDGA(ideal {b,c},Variable=>"T")
+
+F12E3 =  f = dgAlgebraMap(K2,K1,matrix{{0,T_1,T_2}})
+
+F12E4 =  g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+F12E5 =  toComplexMap g
+
+F12E6 =  HHg = HH g
+
+F13E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3-d^4}
+
+F13E1 =  A = koszulComplexDGA(R)
+
+F13E2 =  A.diff
+
+F13E3 =  B = killCycles(A)
+
+F13E4 =  B.diff
+
+F14E0 =  R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+F14E1 =  K1 = koszulComplexDGA(ideal vars R,Variable=>"Y")
+
+F14E2 =  K2 = koszulComplexDGA(ideal {b,c},Variable=>"T")
+
+F14E3 =  f = dgAlgebraMap(K2,K1,matrix{{0,T_1,T_2}})
+
+F14E4 =  isWellDefined f
+
+F14E5 =  g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+F14E6 =  isWellDefined g
+
+F14E7 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F14E8 =  S = R/ideal{a^2*b^2*c^2}
+
+F14E9 =  f = map(S,R)
+
+F14E10 =  A = acyclicClosure(R,EndDegree=>3)
+
+F14E11 =  B = acyclicClosure(S,EndDegree=>3)
+
+F14E12 =  phi = liftToDGMap(B,A,f)
+
+F14E13 =  cmPhi = toComplexMap(phi,EndDegree=>3)
+
+F14E14 =  source phi
+
+F14E15 =  target phi
+
+F14E16 =  HHg = HH g
+
+F14E17 =  matrix HHg
+
+F15E0 =  Q = QQ[x_1,x_2,y_1,y_2,z]
+
+F15E1 =  I = ideal (x_1*x_2^2,y_1*y_2^2,z^3,x_1*x_2*y_1*y_2,y_2^2*z^2,x_2^2*z^2,x_1*y_1*z,x_2^2*y_2^2*z)
+
+F15E2 =  R = Q/I
+
+F15E3 =  KR = koszulComplexDGA R
+
+F15E4 =  z1 = z^2*T_5
+
+F15E5 =  z2 = y_2^2*T_3
+
+F15E6 =  z3 = x_2^2*T_1
+
+F15E7 =  (lifted12,lift12) = getBoundaryPreimage(KR,z1*z2)
+
+F15E8 =  (lifted23,lift23) = getBoundaryPreimage(KR,z2*z3)
+
+F15E9 =  z123 = masseyTripleProduct(KR,z1,z2,z3)
+
+F15E10 =  z123 == lift12*z3 + z1*lift23
+
+F15E11 =  H = HH(KR)
+
+F15E12 =  h1 = homologyClass(KR,z1)
+
+F15E13 =  h2 = homologyClass(KR,z2)
+
+F15E14 =  h3 = homologyClass(KR,z3)
+
+F15E15 =  h123 = masseyTripleProduct(KR,h1,h2,h3)
+
+F15E16 =  h123 == homologyClass(KR,z123)
+
+F16E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F16E1 =  A = koszulComplexDGA(R)
+
+F16E2 =  apply(maxDegree A + 1, i -> numgens prune homology(i,A))
+
+F16E3 =  HA = homologyAlgebra(A)
+
+F16E4 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4,a^3*b^3*c^3*d^3}
+
+F16E5 =  A = koszulComplexDGA(R)
+
+F16E6 =  apply(maxDegree A + 1, i -> numgens prune homology(i,A))
+
+F16E7 =  HA = homologyAlgebra(A)
+
+F16E8 =  numgens HA
+
+F16E9 =  HA.cache.cycles
+
+F16E10 =  Q = ZZ/101[x,y,z]
+
+F16E11 =  I = ideal{y^3,z*x^2,y*(z^2+y*x),z^3+2*x*y*z,x*(z^2+y*x),z*y^2,x^3,z*(z^2+2*x*y)}
+
+F16E12 =  R = Q/I
+
+F16E13 =  A = koszulComplexDGA(R)
+
+F16E14 =  apply(maxDegree A + 1, i -> numgens prune homology(i,A))
+
+F16E15 =  HA = homologyAlgebra(A)
+
+F16E16 =  R = ZZ/101[a,b,c,d]
+
+F16E17 =  S = R/ideal{a^4,b^4,c^4,d^4}
+
+F16E18 =  A = acyclicClosure(R,EndDegree=>3)
+
+F16E19 =  B = A ** S
+
+F16E20 =  HB = homologyAlgebra(B,GenDegreeLimit=>7,RelDegreeLimit=>14)
+
+F17E0 =  R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+F17E1 =  K1 = koszulComplexDGA(ideal vars R,Variable=>"Y")
+
+F17E2 =  K2 = koszulComplexDGA(ideal {b,c},Variable=>"T")
+
+F17E3 =  g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+F17E4 =  g' = toComplexMap g
+
+F17E5 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F17E6 =  S = R/ideal{a^2*b^2*c^2}
+
+F17E7 =  f = map(S,R)
+
+F17E8 =  A = acyclicClosure(R,EndDegree=>3)
+
+F17E9 =  B = acyclicClosure(S,EndDegree=>3)
+
+F17E10 =  phi = liftToDGMap(B,A,f)
+
+F17E11 =  toComplexMap(phi,EndDegree=>3)
+
+F18E0 =  R = ZZ/32003[x,y,z]
+
+F18E1 =  A = koszulComplexDGA(R)
+
+F18E2 =  apply(numgens R+1, i -> numgens prune homology(i,A))
+
+F19E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4+b^4+c^4+d^4}
+
+F19E1 =  isAcyclic(koszulComplexDGA R)
+
+F19E2 =  Q = ZZ/101[a,b,c,d]
+
+F19E3 =  I = ideal {a^4,b^4,c^4,d^4}
+
+F19E4 =  isAcyclic(koszulComplexDGA I)
+
+F20E0 =  R = ZZ/101[a,b,c]/ideal{a^3+b^3+c^3,a*b*c}
+
+F20E1 =  K1 = koszulComplexDGA(ideal vars R,Variable=>"Y")
+
+F20E2 =  K2 = koszulComplexDGA(ideal {b,c},Variable=>"T")
+
+F20E3 =  g = dgAlgebraMap(K1,K2,matrix{{Y_2,Y_3}})
+
+F20E4 =  isWellDefined g
+
+F20E5 =  f = dgAlgebraMap(K2,K1,matrix{{0,T_1,T_2}})
+
+F20E6 =  isWellDefined f
+
+F21E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^4-d^3}
+
+F21E1 =  A = acyclicClosure(R,EndDegree=>3)
+
+F21E2 =  A.diff
+
+F22E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F22E1 =  S = R/ideal{a^3*b^3*c^3*d^3}
+
+F22E2 =  A = acyclicClosure(R,EndDegree=>3)
+
+F22E3 =  B = A ** S
+
+F22E4 =  isHomologyAlgebraTrivial(B,GenDegreeLimit=>6)
+
+F22E5 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F22E6 =  A = koszulComplexDGA(R)
+
+F22E7 =  isHomologyAlgebraTrivial(A)
+
+F23E0 =  R = ZZ/101[a,b,c,d]
+
+F23E1 =  TorR = torAlgebra(R)
+
+F23E2 =  S = R/ideal{a^3,b^3,c^3,d^5}
+
+F23E3 =  TorS = torAlgebra(S)
+
+F23E4 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3,a^2*b^2*c^3*d^2}
+
+F23E5 =  TorR = torAlgebra(R,GenDegreeLimit=>5)
+
+F24E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F24E1 =  A = koszulComplexDGA(R)
+
+F24E2 =  complexA = toComplex A
+
+F24E3 =  complexA.dd
+
+F24E4 =  ranks = apply(4, i -> numgens prune HH_i(complexA))
+
+F24E5 =  ranks == apply(4, i -> numgens prune HH_i(koszul vars R))
+
+F25E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3}
+
+F25E1 =  A = acyclicClosure(R,EndDegree=>3)
+
+F25E2 =  C = toComplex(A, 10)
+
+F25E3 =  apply(10, i -> prune HH_i(C))
+
+F26E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4+b^4+c^4+d^4}
+
+F26E1 =  isGolod(R)
+
+F26E2 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F26E3 =  isGolod(R)
+
+F26E4 =  Q = ZZ/101[a,b,c,d]
+
+F26E5 =  R = Q/(ideal vars Q)^2
+
+F26E6 =  isGolod(R)
+
+F26E7 =  Q = ZZ/101[x_1,x_2,y_1,y_2,z,w]
+
+F26E8 =  I = ideal {x_1*x_2^2,z^2*w,y_1*y_2^2,x_2^2*z*w,y_2^2*z^2,x_1*x_2*y_1*y_2,x_2^2*y_2^2*z,x_1*y_1*z}
+
+F26E9 =  R = Q/I
+
+F26E10 =  isHomologyAlgebraTrivial koszulComplexDGA R
+
+F26E11 =  isGolod R
+
+F27E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3,a^2*b^2*c^2}
+
+F27E1 =  S = R/ideal{a*b^2*c^2,a^2*b*c^2,a^2*b^2*c}
+
+F27E2 =  f = map(S,R)
+
+F27E3 =  fTor = torMap(f,GenDegreeLimit=>3)
+
+F27E4 =  matrix fTor
+
+F27E5 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3,a*c,a*d,b*c,b*d}
+
+F27E6 =  S = ZZ/101[a,b]/ideal{a^3,b^3}
+
+F27E7 =  f = map(S,R,matrix{{a,b,0,0}})
+
+F27E8 =  fTor = torMap(f,GenDegreeLimit=>4)
+
+F27E9 =  matrix fTor
+
+F28E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F28E1 =  M = coker matrix {{a^3*b^3*c^3*d^3}};
+
+F28E2 =  S = R/ideal{a^3*b^3*c^3*d^3}
+
+F28E3 =  HB = torAlgebra(R,S,GenDegreeLimit=>4,RelDegreeLimit=>8)
+
+F28E4 =  numgens HB
+
+F28E5 =  apply(5,i -> #(flatten entries getBasis(i,HB)))
+
+F28E6 =  Mres = res(M, LengthLimit=>8)
+
+F29E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3-d^4}
+
+F29E1 =  A = koszulComplexDGA(R)
+
+F29E2 =  A.diff
+
+F29E3 =  prune homology(1,A)
+
+F29E4 =  B = adjoinVariables(A,{a^2*T_1})
+
+F29E5 =  B.diff
+
+F29E6 =  prune homology(1,B)
+
+F30E0 =  A = ZZ[S,T_0,T_1]
+
+F30E1 =  f = expandGeomSeries(S^2*T_0^8,10)
+
+F30E2 =  g = expandGeomSeries(S^4*T_1^15,10)
+
+F30E3 =  h = expandGeomSeries({S^2*T_0^8,S^4*T_1^15},10)
+
+F30E4 =  B = A/(first gens A)^11
+
+F30E5 =  substitute(f*g,B) == h
+
+F31E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3,a^2*b^2*c^2}
+
+F31E1 =  A = koszulComplexDGA(R)
+
+F31E2 =  netList getGenerators(A)
+
+F32E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F32E1 =  A = koszulComplexDGA(R);
+
+F32E2 =  B = acyclicClosure(A,EndDegree=>3)
+
+F32E3 =  toComplex(B,8)
+
+F32E4 =  B.diff
+
+F33E0 =  R = ZZ/101[a,b,c]/ideal{a^3,b^3,c^3}
+
+F33E1 =  S = R/ideal{a^2*b^2*c^2}
+
+F33E2 =  f = map(S,R)
+
+F33E3 =  A = acyclicClosure(R,EndDegree=>3)
+
+F33E4 =  B = acyclicClosure(S,EndDegree=>3)
+
+F33E5 =  phi = liftToDGMap(B,A,f)
+
+F33E6 =  toComplexMap(phi,EndDegree=>3)
+
+F34E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3}
+
+F34E1 =  KR = koszulComplexDGA R
+
+F34E2 =  S = ZZ/101[x,y,z]/ideal{x^3,y^3,z^3,x^2*y^2,y^2*z^2}
+
+F34E3 =  KS = koszulComplexDGA(S,Variable=>"U")
+
+F34E4 =  cxKR = toComplex KR
+
+F34E5 =  prune HH cxKR
+
+F34E6 =  HKR = HH KR
+
+F34E7 =  ideal HKR
+
+F34E8 =  R' = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3,a*c,a*d,b*c,b*d,a^2*b^2-c^2*d^2}
+
+F34E9 =  HKR' = HH koszulComplexDGA R'
+
+F34E10 =  numgens HKR'
+
+F34E11 =  ann ideal gens HKR'
+
+F34E12 =  Q = ambient R
+
+F34E13 =  I = ideal {a^3,b^3,c^3,d^3}
+
+F34E14 =  KI = koszulComplexDGA I
+
+F34E15 =  HKI = HH KI
+
+F34E16 =  describe HKI
+
+F34E17 =  use Q
+
+F34E18 =  I' = I + ideal{a^2*b^2*c^2*d^2}
+
+F34E19 =  KI' = koszulComplexDGA I'
+
+F34E20 =  HKI' = HH KI'
+
+F34E21 =  describe HKI'
+
+F34E22 =  HKI'.cache.cycles
+
+F35E0 =  R = ZZ/101[a..d, Degrees=>{1,1,1,2}]
+
+F35E1 =  A =  koszulComplexDGA(R)
+
+F35E2 =  getBasis(3,A)
+
+F36E0 =  R = ZZ/101[a,b,c,d]/ideal{a^4+b^4+c^4+d^4}
+
+F36E1 =  isGolodHomomorphism(R,GenDegreeLimit=>5)
+
+F36E2 =  Q = ZZ/101[a,b,c,d]/ideal{a^4,b^4,c^4,d^4}
+
+F36E3 =  R = Q/ideal (a^3*b^3*c^3*d^3)
+
+F36E4 =  isGolodHomomorphism(R,GenDegreeLimit=>5,TMOLimit=>3)
+
+F37E0 =  Q = QQ[x_1,x_2,y_1,y_2,z]
+
+F37E1 =  I = ideal (x_1*x_2^2,y_1*y_2^2,z^3,x_1*x_2*y_1*y_2,y_2^2*z^2,x_2^2*z^2,x_1*y_1*z,x_2^2*y_2^2*z)
+
+F37E2 =  R = Q/I
+
+F37E3 =  KR = koszulComplexDGA R
+
+F37E4 =  z1 = z^2*T_5
+
+F37E5 =  z2 = y_2^2*T_3
+
+F37E6 =  z3 = x_2^2*T_1
+
+F37E7 =  {diff(KR,z1),diff(KR,z1),diff(KR,z1)}
+
+F37E8 =  (lifted12,lift12) = getBoundaryPreimage(KR,z1*z2)
+
+F37E9 =  (lifted23,lift23) = getBoundaryPreimage(KR,z2*z3)
+
+F37E10 =  diff(KR,lift23) == z2*z3
+
+F38E0 =  R = ZZ/101[x_1..x_10]
+
+F38E1 =  A = koszulComplexDGA(R)
+
+F38E2 =  C = toComplex A
+
+F39E0 =  Q = ZZ/101[x_1..x_6]
+
+F39E1 =  I = ideal (x_3*x_5,x_4*x_5,x_1*x_6,x_3*x_6,x_4*x_6)
+
+F39E2 =  R = Q/I
+
+F39E3 =  A = koszulComplexDGA(R)
+
+F39E4 =  isHomologyAlgebraTrivial(A,GenDegreeLimit=>3)
+
+F39E5 =  cycleList = getGenerators(A)
+
+F39E6 =  (hasTMO, tmoSoFar) = findTrivialMasseyOperation(A)
+
+F39E7 =  assert(hasTMO)
+
+F39E8 =  Q = ZZ/101[x,y,z]
+
+F39E9 =  I = ideal (x^3,y^3,z^3,x^2*y^2*z^2)
+
+F39E10 =  R = Q/I
+
+F39E11 =  A = koszulComplexDGA(R)
+
+F39E12 =  isHomologyAlgebraTrivial(A)
+
+F39E13 =  cycleList = getGenerators(A)
+
+F39E14 =  assert(not first findTrivialMasseyOperation(A))
+
+F40E0 =  R = QQ[x,y,z]/ideal{x^3,y^3,z^3}
+
+F40E1 =  KR = koszulComplexDGA R
+
+F40E2 =  z1 = x^2*T_1
+
+F40E3 =  phi = dgAlgebraMultMap(KR,z1)
+
+F40E4 =  degree phi == first degree z
+
+F40E5 =  isHomogeneous phi
+
+F40E6 =  Hphi = prune HH(phi); (Hphi#0,Hphi#1,Hphi#2)
+
+F41E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3}
+
+F41E1 =  A = freeDGAlgebra(R,{{1,1},{1,1},{1,1},{1,1}})
+
+F41E2 =  setDiff(A, gens R)
+
+F41E3 =  B = koszulComplexDGA(R, Variable=>"S")
+
+F41E4 =  HB = HH B
+
+F41E5 =  describe HB
+
+F41E6 =  degrees HB
+
+F41E7 =  HB.cache.cycles
+
+F41E8 =  C = adjoinVariables(B,{first HB.cache.cycles})
+
+F41E9 =  homologyAlgebra(C,GenDegreeLimit=>4,RelDegreeLimit=>4)
+
+F41E10 =  C = killCycles(B)
+
+F41E11 =  homologyAlgebra(C,GenDegreeLimit=>4,RelDegreeLimit=>4)
+
+F41E12 =  D = acyclicClosure R
+
+F41E13 =  R' = ZZ/101[x,y,z]/ideal{x^2,y^2,z^2,x*y*z}
+
+F41E14 =  E = acyclicClosure(R',EndDegree=>5)
+
+F41E15 =  tally degrees E.natural
+
+F41E16 =  deviations(R,DegreeLimit=>6)
+
+F41E17 =  deviations(R',DegreeLimit=>6)
+
+F42E0 =  R = ZZ/101[a,b,c,d]
+
+F42E1 =  A = koszulComplexDGA(R)
+
+F42E2 =  S = R/ideal{a^3,a*b*c}
+
+F42E3 =  B = A ** S
+
+F42E4 =  Bdd = toComplex B
+
+F42E5 =  Bdd.dd
+
+F43E0 =  R = ZZ/101[a,b,c,d]/ideal{a^3,b^3,c^3,d^3}
+
+F43E1 =  A = koszulComplexDGA(R)
+
+F43E2 =  B = acyclicClosure(A,EndDegree=>3)
+
+F43E3 =  maxDegree(A)
+
+F43E4 =  maxDegree(B)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F4E10", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F8E0", "F8E1", "F8E2", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F14E11", "F14E12", "F14E13", "F14E14", "F14E15", "F14E16", "F14E17", "F15E0", "F15E1", "F15E2", "F15E3", "F15E4", "F15E5", "F15E6", "F15E7", "F15E8", "F15E9", "F15E10", "F15E11", "F15E12", "F15E13", "F15E14", "F15E15", "F15E16", "F16E0", "F16E1", "F16E2", "F16E3", "F16E4", "F16E5", "F16E6", "F16E7", "F16E8", "F16E9", "F16E10", "F16E11", "F16E12", "F16E13", "F16E14", "F16E15", "F16E16", "F16E17", "F16E18", "F16E19", "F16E20", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F17E8", "F17E9", "F17E10", "F17E11", "F18E0", "F18E1", "F18E2", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F21E0", "F21E1", "F21E2", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F23E0", "F23E1", "F23E2", "F23E3", "F23E4", "F23E5", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F25E0", "F25E1", "F25E2", "F25E3", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F26E5", "F26E6", "F26E7", "F26E8", "F26E9", "F26E10", "F26E11", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F27E6", "F27E7", "F27E8", "F27E9", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F28E6", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F31E0", "F31E1", "F31E2", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F33E6", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F34E8", "F34E9", "F34E10", "F34E11", "F34E12", "F34E13", "F34E14", "F34E15", "F34E16", "F34E17", "F34E18", "F34E19", "F34E20", "F34E21", "F34E22", "F35E0", "F35E1", "F35E2", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F37E6", "F37E7", "F37E8", "F37E9", "F37E10", "F38E0", "F38E1", "F38E2", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F39E6", "F39E7", "F39E8", "F39E9", "F39E10", "F39E11", "F39E12", "F39E13", "F39E14", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F41E0", "F41E1", "F41E2", "F41E3", "F41E4", "F41E5", "F41E6", "F41E7", "F41E8", "F41E9", "F41E10", "F41E11", "F41E12", "F41E13", "F41E14", "F41E15", "F41E16", "F41E17", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4"}

@@ -1,0 +1,988 @@
+needsPackage "package_directory/GKMVarieties/example-output"
+
+F0E0 =  X = toricProjectiveSpace 3;
+
+F0E1 =  D = toricDivisor({1,0,0,0},X) -- the class of O(1) on P^3
+
+F0E2 =  Y = makeGKMVariety X; -- The torus is C^3 not C^4
+
+F0E3 =  C = makeKClass(Y,D)
+
+F0E4 =  assert(isWellDefined C)
+
+F0E5 =  peek C
+
+F1E0 =  Gr24 = generalizedFlagVariety("A",3,{2})
+
+F1E1 =  X = generalizedSchubertVariety(Gr24, {set{0,2}})
+
+F1E2 =  cellOrder X
+
+F2E0 =  X = generalizedFlagVariety("A",2,{1,2})
+
+F2E1 =  A = matrix{{1,2,3},{0,2,3}}
+
+F2E2 =  FM = flagMatroid(A,{1,2})
+
+F2E3 =  C1 = makeKClass(X,FM)
+
+F2E4 =  C2 = orbitClosure(X,A)
+
+F2E5 =  C1 === C2
+
+F3E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F3E1 =  isWellDefined FM
+
+F3E2 =  FMbad = flagMatroid {uniformMatroid(2,4), uniformMatroid(1,2)++uniformMatroid(2,2)}
+
+F3E3 =  isWellDefined FMbad
+
+F4E0 =  R = makeCharacterRing 4
+
+F4E1 =  describe R
+
+F5E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F5E1 =  f = diagonalMap X;
+
+F5E2 =  peek f
+
+F6E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F6E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F6E2 =  O2 = O1 * O1
+
+F6E3 =  peek O2
+
+F7E0 =  R = makeCharacterRing 4;
+
+F7E1 =  FlGr = generalizedFlagVariety("A",3,{1,2},R)
+
+F7E2 =  Gr24 = generalizedFlagVariety("A",3,{2},R)
+
+F7E3 =  f = flagMap(FlGr,Gr24)
+
+F7E4 =  O1 = ampleKClass Gr24
+
+F7E5 =  (pullback f)(O1)
+
+F8E0 =  PP4 = projectiveSpace 4;
+
+F8E1 =  peek PP4
+
+F9E0 =  G = momentGraph projectiveSpace 1;
+
+F9E1 =  H = momentGraph generalizedFlagVariety("C",2,{2}); -- The isotropic Grassmannian SpGr(2,4)
+
+F9E2 =  J = G ** H;
+
+F9E3 =  peek J
+
+F10E0 =  PP3 = projectiveSpace 3
+
+F10E1 =  O1 = ampleKClass PP3
+
+F10E2 =  euler O1
+
+F11E0 =  LGr24 = generalizedFlagVariety("C",2,{2})
+
+F11E1 =  peek LGr24
+
+F11E2 =  momentGraph LGr24
+
+F11E3 =  euler ampleKClass LGr24
+
+F12E0 =  X = generalizedFlagVariety("C",3,{2});
+
+F12E1 =  X.charts
+
+F12E2 =  R = makeCharacterRing 2;
+
+F12E3 =  X = makeGKMVariety({{0,1},{0,3},{1,2},{2,3}},R);
+
+F12E4 =  peek X
+
+F12E5 =  L = {{{-1,0},{0,-1}},{{-1,0},{0,1}},{{-3,-1},{1,0}},{{1,0},{3,1}}};
+
+F12E6 =  charts(X,L);
+
+F12E7 =  peek X
+
+F12E8 =  peek makeGKMVariety hirzebruchSurface 3
+
+F13E0 =  R = makeCharacterRing 4
+
+F13E1 =  X = makeGKMVariety({set{0},set{1},set{2},set{3}},R)
+
+F13E2 =  X.?momentGraph
+
+F13E3 =  PP3 = projectiveSpace 3
+
+F13E4 =  G = momentGraph PP3
+
+F13E5 =  momentGraph(X,G)
+
+F13E6 =  X.?momentGraph
+
+F13E7 =  momentGraph X
+
+F13E8 =  momentGraph(X,G)
+
+F14E0 =  R = makeCharacterRing 3
+
+F14E1 =  X = generalizedFlagVariety("B",3,{1,2},R);
+
+F14E2 =  Y1 = generalizedFlagVariety("B",3,{2},R);
+
+F14E3 =  Y2 = generalizedFlagVariety("B",3,{1},R);
+
+F14E4 =  peek flagMap(X,Y1)
+
+F14E5 =  peek flagMap(X,Y2)
+
+F15E0 =  S1 = set{1,2,4,5};
+
+F15E1 =  S2 = set{1,"2*"};
+
+F15E2 =  setIndicator(S1,7)
+
+F15E3 =  setIndicator(S2,3)
+
+F16E0 =  X = projectiveSpace 3;
+
+F16E1 =  C = trivialKClass X;
+
+F16E2 =  peek C
+
+F17E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F17E1 =  Y = generalizedFlagVariety("B",2,{1}); -- The Orthogonal Grassmannian SOGr(1,5)
+
+F17E2 =  lieType(X)
+
+F17E3 =  lieType(Y)
+
+F18E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F18E1 =  bases FM
+
+F19E0 =  L = {{2,0},{1,1},{0,2}};
+
+F19E1 =  X = affineToricRing L; -- The singular quadric in A^3
+
+F19E2 =  I = ideal X
+
+F19E3 =  hilbertSeries I
+
+F20E0 =  PP2 = projectiveSpace 2
+
+F20E1 =  peek PP2
+
+F21E0 =  FM = flagMatroid {uniformMatroid(1,4),uniformMatroid(2,4)}
+
+F21E1 =  P = latticePoints FM
+
+F21E2 =  X = generalizedFlagVariety("A",3,{1,2})
+
+F21E3 =  FM = flagMatroid {uniformMatroid(1,4),uniformMatroid(2,4)}
+
+F21E4 =  C = makeKClass(X,FM)
+
+F21E5 =  chiCO1 = euler(C * ampleKClass X)
+
+F21E6 =  set P === set exponents chiCO1
+
+F22E0 =  R = makeCharacterRing 4;
+
+F22E1 =  X = generalizedFlagVariety("A",3,{1,2,3},R);
+
+F22E2 =  Y = generalizedFlagVariety("A",3,{2,3},R);
+
+F22E3 =  Z = generalizedFlagVariety("A",3,{2},R);
+
+F22E4 =  f = flagMap(X,Y)
+
+F22E5 =  --the projection of Fl(1,2,3
+
+F22E6 =  4) onto Fl(2,3
+
+F22E7 =  4)
+
+
+F22E8 =  g = flagMap(Y,Z)
+
+F22E9 =  --the projection of Fl(2,3
+
+F22E10 =  4) onto Gr(2
+
+F22E11 =  4)
+
+
+F22E12 =  h = compose(g,f)
+
+F22E13 =  h === flagMap(X,Z)
+
+F23E0 =  momentGraph generalizedFlagVariety("A",3,{2})
+
+F24E0 =  SpGr24 = generalizedFlagVariety("C",2,{2})
+
+F24E1 =  O1 = ampleKClass SpGr24
+
+F24E2 =  peek O1
+
+F25E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F25E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F25E2 =  E = O1 + (O1*O1)
+
+F25E3 =  peek E
+
+F26E0 =  ML = {uniformMatroid(2,6),matroid completeGraph 4}
+
+F26E1 =  FM = flagMatroid(ML)
+
+F26E2 =  isWellDefined FM
+
+F26E3 =  A = random(QQ^2,QQ^4)
+
+F26E4 =  FM = flagMatroid(A,{1,2})
+
+F27E0 =  PP3 = projectiveSpace 3
+
+F27E1 =  isWellDefined ampleKClass PP3 --the O(1) class on PP3 is well-defined
+
+F27E2 =  badC = makeKClass(PP3, reverse gens PP3.characterRing) --reverse the order of Laurent polynomials defining the O(1) class
+
+F27E3 =  isWellDefined badC --no longer well-defined
+
+needsPackage "package_directory/GKMVarieties/example-output"
+
+F0E0 =  X = toricProjectiveSpace 3;
+
+F0E1 =  D = toricDivisor({1,0,0,0},X) -- the class of O(1) on P^3
+
+F0E2 =  Y = makeGKMVariety X; -- The torus is C^3 not C^4
+
+F0E3 =  C = makeKClass(Y,D)
+
+F0E4 =  assert(isWellDefined C)
+
+F0E5 =  peek C
+
+F1E0 =  Gr24 = generalizedFlagVariety("A",3,{2})
+
+F1E1 =  X = generalizedSchubertVariety(Gr24, {set{0,2}})
+
+F1E2 =  cellOrder X
+
+F2E0 =  X = generalizedFlagVariety("A",2,{1,2})
+
+F2E1 =  A = matrix{{1,2,3},{0,2,3}}
+
+F2E2 =  FM = flagMatroid(A,{1,2})
+
+F2E3 =  C1 = makeKClass(X,FM)
+
+F2E4 =  C2 = orbitClosure(X,A)
+
+F2E5 =  C1 === C2
+
+F3E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F3E1 =  isWellDefined FM
+
+F3E2 =  FMbad = flagMatroid {uniformMatroid(2,4), uniformMatroid(1,2)++uniformMatroid(2,2)}
+
+F3E3 =  isWellDefined FMbad
+
+F4E0 =  R = makeCharacterRing 4
+
+F4E1 =  describe R
+
+F5E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F5E1 =  f = diagonalMap X;
+
+F5E2 =  peek f
+
+F6E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F6E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F6E2 =  O2 = O1 * O1
+
+F6E3 =  peek O2
+
+F7E0 =  R = makeCharacterRing 4;
+
+F7E1 =  FlGr = generalizedFlagVariety("A",3,{1,2},R)
+
+F7E2 =  Gr24 = generalizedFlagVariety("A",3,{2},R)
+
+F7E3 =  f = flagMap(FlGr,Gr24)
+
+F7E4 =  O1 = ampleKClass Gr24
+
+F7E5 =  (pullback f)(O1)
+
+F8E0 =  PP4 = projectiveSpace 4;
+
+F8E1 =  peek PP4
+
+F9E0 =  G = momentGraph projectiveSpace 1;
+
+F9E1 =  H = momentGraph generalizedFlagVariety("C",2,{2}); -- The isotropic Grassmannian SpGr(2,4)
+
+F9E2 =  J = G ** H;
+
+F9E3 =  peek J
+
+F0E0 =  G = momentGraph projectiveSpace 1;
+
+F0E1 =  H = momentGraph generalizedFlagVariety("C",2,{2}); -- The isotropic Grassmannian SpGr(2,4)
+
+F0E2 =  J = G ** H;
+
+F0E3 =  peek J
+
+needsPackage "package_directory/GKMVarieties/example-output"
+
+F0E0 =  X = toricProjectiveSpace 3;
+
+F0E1 =  D = toricDivisor({1,0,0,0},X) -- the class of O(1) on P^3
+
+F0E2 =  Y = makeGKMVariety X; -- The torus is C^3 not C^4
+
+F0E3 =  C = makeKClass(Y,D)
+
+F0E4 =  assert(isWellDefined C)
+
+F0E5 =  peek C
+
+F1E0 =  Gr24 = generalizedFlagVariety("A",3,{2})
+
+F1E1 =  X = generalizedSchubertVariety(Gr24, {set{0,2}})
+
+F1E2 =  cellOrder X
+
+F2E0 =  X = generalizedFlagVariety("A",2,{1,2})
+
+F2E1 =  A = matrix{{1,2,3},{0,2,3}}
+
+F2E2 =  FM = flagMatroid(A,{1,2})
+
+F2E3 =  C1 = makeKClass(X,FM)
+
+F2E4 =  C2 = orbitClosure(X,A)
+
+F2E5 =  C1 === C2
+
+F3E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F3E1 =  isWellDefined FM
+
+F3E2 =  FMbad = flagMatroid {uniformMatroid(2,4), uniformMatroid(1,2)++uniformMatroid(2,2)}
+
+F3E3 =  isWellDefined FMbad
+
+F4E0 =  R = makeCharacterRing 4
+
+F4E1 =  describe R
+
+F5E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F5E1 =  f = diagonalMap X;
+
+F5E2 =  peek f
+
+F6E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F6E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F6E2 =  O2 = O1 * O1
+
+F6E3 =  peek O2
+
+F7E0 =  R = makeCharacterRing 4;
+
+F7E1 =  FlGr = generalizedFlagVariety("A",3,{1,2},R)
+
+F7E2 =  Gr24 = generalizedFlagVariety("A",3,{2},R)
+
+F7E3 =  f = flagMap(FlGr,Gr24)
+
+F7E4 =  O1 = ampleKClass Gr24
+
+F7E5 =  (pullback f)(O1)
+
+F8E0 =  PP4 = projectiveSpace 4;
+
+F8E1 =  peek PP4
+
+F9E0 =  G = momentGraph projectiveSpace 1;
+
+F9E1 =  H = momentGraph generalizedFlagVariety("C",2,{2}); -- The isotropic Grassmannian SpGr(2,4)
+
+F9E2 =  J = G ** H;
+
+F9E3 =  peek J
+
+needsPackage "package_directory/GKMVarieties/example-output"
+
+F0E0 =  X = toricProjectiveSpace 3;
+
+F0E1 =  D = toricDivisor({1,0,0,0},X) -- the class of O(1) on P^3
+
+F0E2 =  Y = makeGKMVariety X; -- The torus is C^3 not C^4
+
+F0E3 =  C = makeKClass(Y,D)
+
+F0E4 =  assert(isWellDefined C)
+
+F0E5 =  peek C
+
+F1E0 =  Gr24 = generalizedFlagVariety("A",3,{2})
+
+F1E1 =  X = generalizedSchubertVariety(Gr24, {set{0,2}})
+
+F1E2 =  cellOrder X
+
+F2E0 =  X = generalizedFlagVariety("A",2,{1,2})
+
+F2E1 =  A = matrix{{1,2,3},{0,2,3}}
+
+F2E2 =  FM = flagMatroid(A,{1,2})
+
+F2E3 =  C1 = makeKClass(X,FM)
+
+F2E4 =  C2 = orbitClosure(X,A)
+
+F2E5 =  C1 === C2
+
+F3E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F3E1 =  isWellDefined FM
+
+F3E2 =  FMbad = flagMatroid {uniformMatroid(2,4), uniformMatroid(1,2)++uniformMatroid(2,2)}
+
+F3E3 =  isWellDefined FMbad
+
+F4E0 =  R = makeCharacterRing 4
+
+F4E1 =  describe R
+
+F5E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F5E1 =  f = diagonalMap X;
+
+F5E2 =  peek f
+
+F6E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F6E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F6E2 =  O2 = O1 * O1
+
+F6E3 =  peek O2
+
+F7E0 =  R = makeCharacterRing 4;
+
+F7E1 =  FlGr = generalizedFlagVariety("A",3,{1,2},R)
+
+F7E2 =  Gr24 = generalizedFlagVariety("A",3,{2},R)
+
+F7E3 =  f = flagMap(FlGr,Gr24)
+
+F7E4 =  O1 = ampleKClass Gr24
+
+F7E5 =  (pullback f)(O1)
+
+F8E0 =  PP4 = projectiveSpace 4;
+
+F8E1 =  peek PP4
+
+F9E0 =  G = momentGraph projectiveSpace 1;
+
+F9E1 =  H = momentGraph generalizedFlagVariety("C",2,{2}); -- The isotropic Grassmannian SpGr(2,4)
+
+F9E2 =  J = G ** H;
+
+F9E3 =  peek J
+
+F10E0 =  PP3 = projectiveSpace 3
+
+F10E1 =  O1 = ampleKClass PP3
+
+F10E2 =  euler O1
+
+F11E0 =  LGr24 = generalizedFlagVariety("C",2,{2})
+
+F11E1 =  peek LGr24
+
+F11E2 =  momentGraph LGr24
+
+F11E3 =  euler ampleKClass LGr24
+
+F12E0 =  X = generalizedFlagVariety("C",3,{2});
+
+F12E1 =  X.charts
+
+F12E2 =  R = makeCharacterRing 2;
+
+F12E3 =  X = makeGKMVariety({{0,1},{0,3},{1,2},{2,3}},R);
+
+F12E4 =  peek X
+
+F12E5 =  L = {{{-1,0},{0,-1}},{{-1,0},{0,1}},{{-3,-1},{1,0}},{{1,0},{3,1}}};
+
+F12E6 =  charts(X,L);
+
+F12E7 =  peek X
+
+F12E8 =  peek makeGKMVariety hirzebruchSurface 3
+
+F13E0 =  R = makeCharacterRing 4
+
+F13E1 =  X = makeGKMVariety({set{0},set{1},set{2},set{3}},R)
+
+F13E2 =  X.?momentGraph
+
+F13E3 =  PP3 = projectiveSpace 3
+
+F13E4 =  G = momentGraph PP3
+
+F13E5 =  momentGraph(X,G)
+
+F13E6 =  X.?momentGraph
+
+F13E7 =  momentGraph X
+
+F13E8 =  momentGraph(X,G)
+
+F14E0 =  R = makeCharacterRing 3
+
+F14E1 =  X = generalizedFlagVariety("B",3,{1,2},R);
+
+F14E2 =  Y1 = generalizedFlagVariety("B",3,{2},R);
+
+F14E3 =  Y2 = generalizedFlagVariety("B",3,{1},R);
+
+F14E4 =  peek flagMap(X,Y1)
+
+F14E5 =  peek flagMap(X,Y2)
+
+F15E0 =  S1 = set{1,2,4,5};
+
+F15E1 =  S2 = set{1,"2*"};
+
+F15E2 =  setIndicator(S1,7)
+
+F15E3 =  setIndicator(S2,3)
+
+F16E0 =  X = projectiveSpace 3;
+
+F16E1 =  C = trivialKClass X;
+
+F16E2 =  peek C
+
+F17E0 =  X = generalizedFlagVariety("A",3,{2}); -- The Grassmannian Gr(2,4)
+
+F17E1 =  Y = generalizedFlagVariety("B",2,{1}); -- The Orthogonal Grassmannian SOGr(1,5)
+
+F17E2 =  lieType(X)
+
+F17E3 =  lieType(Y)
+
+F18E0 =  FM = flagMatroid {uniformMatroid(2,4),uniformMatroid(3,4)}
+
+F18E1 =  bases FM
+
+F19E0 =  L = {{2,0},{1,1},{0,2}};
+
+F19E1 =  X = affineToricRing L; -- The singular quadric in A^3
+
+F19E2 =  I = ideal X
+
+F19E3 =  hilbertSeries I
+
+F20E0 =  PP2 = projectiveSpace 2
+
+F20E1 =  peek PP2
+
+F21E0 =  FM = flagMatroid {uniformMatroid(1,4),uniformMatroid(2,4)}
+
+F21E1 =  P = latticePoints FM
+
+F21E2 =  X = generalizedFlagVariety("A",3,{1,2})
+
+F21E3 =  FM = flagMatroid {uniformMatroid(1,4),uniformMatroid(2,4)}
+
+F21E4 =  C = makeKClass(X,FM)
+
+F21E5 =  chiCO1 = euler(C * ampleKClass X)
+
+F21E6 =  set P === set exponents chiCO1
+
+F22E0 =  R = makeCharacterRing 4;
+
+F22E1 =  X = generalizedFlagVariety("A",3,{1,2,3},R);
+
+F22E2 =  Y = generalizedFlagVariety("A",3,{2,3},R);
+
+F22E3 =  Z = generalizedFlagVariety("A",3,{2},R);
+
+F22E4 =  f = flagMap(X,Y)
+
+F22E5 =  --the projection of Fl(1,2,3
+
+F22E6 =  4) onto Fl(2,3
+
+F22E7 =  4)
+
+
+F22E8 =  g = flagMap(Y,Z)
+
+F22E9 =  --the projection of Fl(2,3
+
+F22E10 =  4) onto Gr(2
+
+F22E11 =  4)
+
+
+F22E12 =  h = compose(g,f)
+
+F22E13 =  h === flagMap(X,Z)
+
+F23E0 =  momentGraph generalizedFlagVariety("A",3,{2})
+
+F24E0 =  SpGr24 = generalizedFlagVariety("C",2,{2})
+
+F24E1 =  O1 = ampleKClass SpGr24
+
+F24E2 =  peek O1
+
+F25E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F25E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F25E2 =  E = O1 + (O1*O1)
+
+F25E3 =  peek E
+
+F26E0 =  ML = {uniformMatroid(2,6),matroid completeGraph 4}
+
+F26E1 =  FM = flagMatroid(ML)
+
+F26E2 =  isWellDefined FM
+
+F26E3 =  A = random(QQ^2,QQ^4)
+
+F26E4 =  FM = flagMatroid(A,{1,2})
+
+F27E0 =  R = makeCharacterRing 2;
+
+F27E1 =  X = projectiveSpace(1,R);
+
+F27E2 =  Y = generalizedFlagVariety("C",2,{2},R);
+
+F27E3 =  Z = X ** Y;
+
+F27E4 =  peek Z
+
+F27E5 =  G = momentGraph X;
+
+F27E6 =  H = momentGraph Y;
+
+F27E7 =  momentGraph(Z, G** H);
+
+F27E8 =  peek Z
+
+F28E0 =  R = makeCharacterRing 4;
+
+F28E1 =  FlGr = generalizedFlagVariety("A",3,{1,2},R)
+
+F28E2 =  Gr24 = generalizedFlagVariety("A",3,{2},R)
+
+F28E3 =  f = flagMap(FlGr,Gr24)
+
+F28E4 =  O1 = ampleKClass FlGr
+
+F28E5 =  (pushforward f)(O1)
+
+F29E0 =  X = generalizedSchubertVariety(generalizedFlagVariety("A",3,{2}),{set{0,3}})
+
+F30E0 =  Gr24 = generalizedFlagVariety("A",3,{2})
+
+F30E1 =  peek Gr24
+
+F30E2 =  G = momentGraph Gr24
+
+F30E3 =  underlyingGraph G
+
+F30E4 =  O1 = ampleKClass Gr24 --the O(1) bundle on Gr24 via its Plücker embedding
+
+F30E5 =  euler O1
+
+F30E6 =  euler (O1^2)
+
+F30E7 =  P1 =  bruhatOrder Gr24
+
+F30E8 =  Sch = generalizedSchubertVariety(Gr24,{set{1,2}})
+
+F30E9 =  P2 = bruhatOrder Sch
+
+F30E10 =  Fl4 = generalizedFlagVariety("A",3,{1,2,3},Gr24.characterRing) --Fl(4) with the torus having the same character ring as Gr24
+
+F30E11 =  f = flagMap(Fl4,Gr24)
+
+F30E12 =  Fl4 === f.source and Gr24 === f.target
+
+F30E13 =  (trivialKClass Gr24) === (pushforward f)(trivialKClass Fl4)
+
+F30E14 =  SpGr26 = generalizedFlagVariety("C",3,{2})
+
+F30E15 =  peek SpGr26
+
+F30E16 =  momentGraph SpGr26
+
+F30E17 =  euler ampleKClass SpGr26
+
+F30E18 =  SOGr25 = generalizedFlagVariety("B",2,{2,2}) --inputing {2} instead of {2,2} results in error: spin groups not implemented yet
+
+F30E19 =  peek SOGr25
+
+F30E20 =  euler ampleKClass SOGr25
+
+F30E21 =  SOGr38 = generalizedFlagVariety("D",4,{3,4})
+
+F30E22 =  SOGr38.points
+
+F30E23 =  SOGr48odd = generalizedFlagVariety("D",4,{3,3})
+
+F30E24 =  SOGr48odd.points
+
+F30E25 =  SOGr48even = generalizedFlagVariety("D",4,{4,4})
+
+F30E26 =  SOGr48even.points
+
+F31E0 =  PP3 = projectiveSpace 3;
+
+F31E1 =  R = PP3.characterRing;
+
+F31E2 =  L = gens R
+
+F31E3 =  C = makeKClass(PP3,L) --the class of O(1) on PP3
+
+F31E4 =  C === ampleKClass PP3
+
+F31E5 =  isWellDefined C
+
+F32E0 =  G = momentGraph projectiveSpace 3
+
+F32E1 =  underlyingGraph G
+
+F33E0 =  V = {set{0}, set{1}, set{2}};
+
+F33E1 =  E = hashTable {({set{0},set{1}},{-1,1,0}), ({set{0},set{2}},{-1,0,1}), ({set{1},set{2}},{0,-1,1})}
+
+F33E2 =  t = symbol t; H = QQ[t_0..t_2]
+
+F33E3 =  G = momentGraph(V,E,H)
+
+F33E4 =  peek G
+
+F33E5 =  underlyingGraph G
+
+F34E0 =  R = makeCharacterRing 3;
+
+F34E1 =  X = generalizedFlagVariety("A",2,{1,2},R);
+
+F34E2 =  Y = generalizedFlagVariety("A",2,{1},R);
+
+F34E3 =  f = flagMap(X,Y)
+
+F34E4 =  -- the projection of Fl(1,2
+
+F34E5 =  3) onto Gr(2,3)
+
+
+F34E6 =  h = f ** f
+
+F34E7 =  peek h
+
+F35E0 =  R = makeCharacterRing 2;
+
+F35E1 =  F3 = makeGKMVariety(hirzebruchSurface 3,R);
+
+F35E2 =  PP1 = projectiveSpace(1,R);
+
+F35E3 =  L = {({0,1},set {0}), ({0,3}, set{0}), ({1,2}, set{1}), ({2,3}, set{1})};
+
+F35E4 =  f = map(F3,PP1,L)
+
+F36E0 =  X = toricProjectiveSpace 2;
+
+F36E1 =  Y = makeGKMVariety X
+
+F36E2 =  assert(normalToricVariety Y === X)
+
+F37E0 =  FM = flagMatroid {uniformMatroid(1,3),uniformMatroid(2,3)}
+
+F37E1 =  flagGeomTuttePolynomial FM
+
+F37E2 =  M = matroid graph{{a,b},{b,c},{c,a},{a,d}}
+
+F37E3 =  flagGeomTuttePolynomial flagMatroid {M}, tuttePolynomial M
+
+F38E0 =  FF1 = hirzebruchSurface 1;
+
+F38E1 =  X = makeGKMVariety FF1;
+
+F38E2 =  peek FF1
+
+F38E3 =  peek X
+
+F38E4 =  Y = normalToricVariety(X); -- X defined in the previous example above
+
+F38E5 =  Y === FF1
+
+F38E6 =  antiK = - toricDivisor(FF1) -- the anti-canonical class on FF1
+
+F38E7 =  TantiK = makeKClass(X,antiK)
+
+F38E8 =  isWellDefined TantiK
+
+F38E9 =  euler TantiK
+
+F38E10 =  X = makeGKMVariety toricProjectiveSpace 2; -- the torus is C^2
+
+F38E11 =  Y = projectiveSpace 2; -- the torus is C^3
+
+F38E12 =  peek X
+
+F38E13 =  peek Y
+
+F39E0 =  Gr24 = generalizedFlagVariety("A",3,{2}); --the Grassmannian of projective lines in projective 3-space
+
+F39E1 =  O1 = ampleKClass Gr24 -- the O(1) bundle on Gr24 as an equivariant K-class
+
+F39E2 =  O2 = O1^2
+
+F39E3 =  peek O2
+
+F39E4 =  Oneg1 = O1^(-1)
+
+F39E5 =  peek Oneg1
+
+F40E0 =  L = {0,1,2,3};
+
+F40E1 =  R = makeCharacterRing 4
+
+F40E2 =  X = makeGKMVariety(L,R)
+
+F40E3 =  M = {{{-1, 1, 0, 0}, {-1, 0, 1, 0}, {-1, 0, 0, 1}},
+
+             {{1, -1, 0, 0}, {0, -1, 1, 0}, {0, -1, 0, 1}},
+
+             {{1, 0, -1, 0}, {0, 1, -1, 0}, {0, 0, -1, 1}},
+
+             {{1, 0, 0, -1}, {0, 1, 0, -1}, {0, 0, 1, -1}}};
+
+F40E4 =  Y = makeGKMVariety(L,M,R);
+
+F40E5 =  peek Y
+
+F40E6 =  SpGr24 = generalizedFlagVariety("C",2,{2})
+
+F40E7 =  peek SpGr24
+
+F40E8 =  SpFl4 = generalizedFlagVariety("C",2,{1,2})
+
+F40E9 =  peek SpFl4
+
+F40E10 =  V = {{set {0, 1}}, {set {0, "1*"}}, {set {"0*", 1}}, {set {"0*", "1*"}}};
+
+F40E11 =  edgs = {{{set {"0*", 1}}, {set {"0*", "1*"}}},
+
+              {{set {0, "1*"}}, {set {"0*", "1*"}}},
+
+              {{set {0, "1*"}}, {set {"0*", 1}}},
+
+              {{set {0, "1*"}}, {set {0, 1}}},
+
+              {{set {0, 1}}, {set {"0*", "1*"}}},
+
+              {{set {0, 1}}, {set {"0*", 1}}}};
+
+F40E12 =  wghts = {{0,-1},{-1,0},{-1,1},{0,1},{-1,-1},{-1,0}}
+
+F40E13 =  E = hashTable(apply(edgs, v -> (v,wghts)));
+
+F40E14 =  t = symbol t; H = QQ[t_0, t_1]
+
+F40E15 =  G = momentGraph(V,E,H);
+
+F40E16 =  Z = makeGKMVariety(G);
+
+F40E17 =  peek Z
+
+F41E0 =  M = matrix(QQ,{{1,0,1,2},{0,1,2,1}})
+
+F41E1 =  X1 = generalizedFlagVariety("A",3,{2})
+
+F41E2 =  X2 = generalizedFlagVariety("C",2,{2})
+
+F41E3 =  C1 = orbitClosure(X1,M)
+
+F41E4 =  C2 = orbitClosure(X2,M)
+
+F41E5 =  peek C1
+
+F41E6 =  peek C2
+
+F41E7 =  X = generalizedFlagVariety("A",3,{1,2})
+
+F41E8 =  Mat = random(QQ^2,QQ^4)
+
+F41E9 =  C = orbitClosure(X,Mat)
+
+F41E10 =  FM = flagMatroid(Mat,{1,2})
+
+F41E11 =  C' = makeKClass(X,FM)
+
+F41E12 =  C === C'
+
+F41E13 =  R = makeCharacterRing 4
+
+F41E14 =  X1 = generalizedFlagVariety("D",4,{4,4},R)
+
+F41E15 =  X2 = generalizedFlagVariety("D",4,{3,3},R)
+
+F41E16 =  A = matrix{{1,3,-2,-1/4},{-1,-1,19,-61/4},{0,1,19,-73/4},{2,0,22,-89/4}};
+
+F41E17 =  B = matrix(QQ,{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}});
+
+F41E18 =  M = A | B
+
+F41E19 =  assert(A* transpose(B)  + B *transpose(A) == 0) -- verifying that M is isotropic
+
+F41E20 =  C1 = orbitClosure(X1,M)
+
+F41E21 =  C2 = orbitClosure(X2,M)
+
+F41E22 =  peek C1
+
+F41E23 =  peek C2 -- since the point corresponding to M lies in X1, C2 is just the empty class i.e. 0
+
+F41E24 =  X = generalizedFlagVariety("A",3,{1,2,3})
+
+F41E25 =  Mat = random(QQ^3,QQ^4)
+
+F41E26 =  time C = orbitClosure(X,Mat)
+
+F41E27 =  time C = orbitClosure(X,Mat, RREFMethod => true)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F1E0", "F1E1", "F1E2", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F3E0", "F3E1", "F3E2", "F3E3", "F4E0", "F4E1", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F8E0", "F8E1", "F9E0", "F9E1", "F9E2", "F9E3", "F10E0", "F10E1", "F10E2", "F11E0", "F11E1", "F11E2", "F11E3", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F12E5", "F12E6", "F12E7", "F12E8", "F13E0", "F13E1", "F13E2", "F13E3", "F13E4", "F13E5", "F13E6", "F13E7", "F13E8", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F15E0", "F15E1", "F15E2", "F15E3", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F18E0", "F18E1", "F19E0", "F19E1", "F19E2", "F19E3", "F20E0", "F20E1", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F22E0", "F22E1", "F22E2", "F22E3", "F22E4", "F22E5", "F22E6", "F22E7", "F22E8", "F22E9", "F22E10", "F22E11", "F22E12", "F22E13", "F23E0", "F24E0", "F24E1", "F24E2", "F25E0", "F25E1", "F25E2", "F25E3", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F27E6", "F27E7", "F27E8", "F28E0", "F28E1", "F28E2", "F28E3", "F28E4", "F28E5", "F29E0", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F30E5", "F30E6", "F30E7", "F30E8", "F30E9", "F30E10", "F30E11", "F30E12", "F30E13", "F30E14", "F30E15", "F30E16", "F30E17", "F30E18", "F30E19", "F30E20", "F30E21", "F30E22", "F30E23", "F30E24", "F30E25", "F30E26", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F32E0", "F32E1", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F34E5", "F34E6", "F34E7", "F35E0", "F35E1", "F35E2", "F35E3", "F35E4", "F36E0", "F36E1", "F36E2", "F37E0", "F37E1", "F37E2", "F37E3", "F38E0", "F38E1", "F38E2", "F38E3", "F38E4", "F38E5", "F38E6", "F38E7", "F38E8", "F38E9", "F38E10", "F38E11", "F38E12", "F38E13", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F40E6", "F40E7", "F40E8", "F40E9", "F40E10", "F40E11", "F40E12", "F40E13", "F40E14", "F40E15", "F40E16", "F40E17", "F41E0", "F41E1", "F41E2", "F41E3", "F41E4", "F41E5", "F41E6", "F41E7", "F41E8", "F41E9", "F41E10", "F41E11", "F41E12", "F41E13", "F41E14", "F41E15", "F41E16", "F41E17", "F41E18", "F41E19", "F41E20", "F41E21", "F41E22", "F41E23", "F41E24", "F41E25", "F41E26", "F41E27"}

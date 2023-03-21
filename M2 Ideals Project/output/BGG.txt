@@ -1,0 +1,217 @@
+needsPackage "package_directory/BGG/example-output"
+
+F0E0 =  S = ZZ/32003[x_0..x_2]; 
+
+F0E1 =  E = ZZ/32003[e_0..e_2, SkewCommutative=>true];
+
+F0E2 =  M = coker matrix {{x_0^2, x_1^2, x_2^2}};
+
+F0E3 =  bgg(1,M,E)
+
+F0E4 =  bgg(2,M,E)
+
+F1E0 =  S = ZZ/32003[x_0..x_2]; 
+
+F1E1 =  E = ZZ/32003[e_0..e_2, SkewCommutative=>true];
+
+F1E2 =  m = matrix{{x_0,x_1}};
+
+F1E3 =  regularity coker m
+
+F1E4 =  T = tateResolution(m,E,-2,4)
+
+F1E5 =  betti T
+
+F1E6 =  T.dd_1
+
+F2E0 =  S = ZZ/32003[x_0..x_2]; 
+
+F2E1 =  E = ZZ/32003[e_0..e_2, SkewCommutative=>true];
+
+F2E2 =  alphad = map(E^1,E^{2:-1},{{e_1,e_2}});
+
+F2E3 =  alpha = map(E^{2:-1},E^{1:-2},{{e_1},{e_2}});
+
+F2E4 =  alphad' = beilinson(alphad,S)
+
+F2E5 =  alpha' = beilinson(alpha,S)
+
+F2E6 =  F = prune homology(alphad',alpha')
+
+F2E7 =  betti F
+
+F2E8 =  cohomologyTable(presentation F,E,-2,3)
+
+F2E9 =  S = ZZ/32003[x_0..x_4]; 
+
+F2E10 =  E = ZZ/32003[e_0..e_4, SkewCommutative=>true];
+
+F2E11 =  alphad = map(E^5,E^{2:-2},{{e_4*e_1,e_2*e_3},{e_0*e_2,e_3*e_4},{e_1*e_3,e_4*e_0},{e_2*e_4,e_0*e_1},{e_3*e_0,e_1*e_2}})
+
+F2E12 =  alpha = syz alphad
+
+F2E13 =  alphad' = beilinson(alphad,S)
+
+F2E14 =  alpha' = beilinson(alpha,S)
+
+F2E15 =  F = prune homology(alphad',alpha');
+
+F2E16 =  betti res F
+
+F2E17 =  regularity F
+
+F2E18 =  cohomologyTable(presentation F,E,-6,6)
+
+F3E0 =  kk = ZZ/101
+
+F3E1 =  A = kk[u,v,w]
+
+F3E2 =  T = A[x,y]
+
+F3E3 =  params = matrix"ux,uy+vx,vy+wx,wy"
+
+F3E4 =  kn = koszul(4,params)
+
+F3E5 =  D = directImageComplex kn
+
+F3E6 =  m = transpose D_(-1)
+
+F3E7 =  betti res coker m
+
+F3E8 =  (dual oo)[-3]
+
+F4E0 =  M = universalExtension({-2}, {2})
+
+F4E1 =  M = universalExtension({-2,-3}, {2,3})
+
+F5E0 =  M=universalExtension({-3}, {1})
+
+F5E1 =  S = ring M;
+
+F5E2 =  A = coefficientRing S;
+
+F5E3 =  F = directImageComplex M
+
+F5E4 =  F.dd_0
+
+F5E5 =  det (F.dd_0)
+
+F5E6 =  r=3;
+
+F5E7 =  d=6;
+
+F5E8 =  M=universalExtension(splice {(r-1):0}, {d})
+
+F5E9 =  S = ring M;
+
+F5E10 =  A = coefficientRing S;
+
+F5E11 =  L = for i from -d to 0 list directImageComplex(S^{{i,0}}**M);
+
+F5E12 =  netList L
+
+F5E13 =  maps = apply(L, F-> F.dd_0)
+
+F6E0 =  (p,q) = (2,5) -- number of rows and columns
+
+F6E1 =  A=ZZ/101[a_(0,0)..a_(p-1,q-1)];
+
+F6E2 =  S = A [x_0..x_(p-1)];
+
+F6E3 =  M = sub(map(A^p, A^{q:-1},transpose genericMatrix(A,a_(0,0),q,p)), S)
+
+F6E4 =  Y = map(S^1, S^{q:{-1,-1}}, (vars S)*M)
+
+F6E5 =  F = koszul Y
+
+F6E6 =  L = for i from -1 to q-p+1 list directImageComplex(F**S^{{i,0}});
+
+F6E7 =  L/betti
+
+F7E0 =  S = ZZ/32003[x_0..x_2]; 
+
+F7E1 =  PP2 = Proj S; 
+
+F7E2 =  F =sheaf S^1
+
+F7E3 =  cohomologyTable(F,-10,5)
+
+F7E4 =  S = ZZ/32003[x_0..x_2]; 
+
+F7E5 =  E = ZZ/32003[e_0..e_2, SkewCommutative=>true];
+
+F7E6 =  m  = koszul (3, vars S); 
+
+F7E7 =  regularity coker m 
+
+F7E8 =  betti tateResolution(m,E,-6,2)
+
+F7E9 =  cohomologyTable(m,E,-6,2)
+
+F7E10 =  S = ZZ/32003[x_0..x_4]; 
+
+F7E11 =  X = Proj S; 
+
+F7E12 =  ff = res coker map(S^{1:0},S^{3:-1,2:-2},{{x_0..x_2,x_3^2,x_4^2}}); 
+
+F7E13 =  alpha = map(S^{1:-2},target ff.dd_3,{{1,4:0,x_0,2:0,x_1,0}})*ff.dd_3; 
+
+F7E14 =  beta = ff.dd_4//syz alpha; 
+
+F7E15 =  K = syz syz alpha|beta;
+
+F7E16 =  fK = res prune coker K;
+
+F7E17 =  s = random(target fK.dd_1,S^{1:-4,3:-5});
+
+F7E18 =  ftphi = res prune coker transpose (fK.dd_1|s);
+
+F7E19 =  I = ideal ftphi.dd_2;
+
+F7E20 =  F = sheaf S^1/I; 
+
+F7E21 =  cohomologyTable(F,-2,6)
+
+F8E0 =  kk = ZZ/101
+
+F8E1 =  A = kk[u,v,w]
+
+F8E2 =  T = A[x,y]
+
+F8E3 =  params = matrix"ux,uy+vx,vy+wx,wy"
+
+F8E4 =  kn = koszul(params)
+
+F8E5 =  directImageComplex kn
+
+F8E6 =  for d from -1 to 3 do
+
+F8E7 =  A = kk[a,b,c]
+
+F8E8 =  betti (pureResolution(A,{1,3,4,6}))
+
+F8E9 =  betti (F = pureResolution(11,{0,2,4}))
+
+F8E10 =  describe ring F
+
+F8E11 =  A = kk[a,b]
+
+F8E12 =  M = random(A^4, A^{4:-1})
+
+F8E13 =  time betti (F = pureResolution(M,{0,2,4}))
+
+F8E14 =  time betti (F = pureResolution(11,4,{0,2,4}))
+
+F8E15 =  ring F
+
+F9E0 =  S = ZZ/32003[x_0..x_2]; 
+
+F9E1 =  E = ZZ/32003[e_0..e_2, SkewCommutative=>true];
+
+F9E2 =  M = coker matrix {{x_0^2, x_1^2}};
+
+F9E3 =  m = presentation truncate(regularity M,M);
+
+F9E4 =  symExt(m,E)
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F2E13", "F2E14", "F2E15", "F2E16", "F2E17", "F2E18", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F4E0", "F4E1", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F7E12", "F7E13", "F7E14", "F7E15", "F7E16", "F7E17", "F7E18", "F7E19", "F7E20", "F7E21", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F8E12", "F8E13", "F8E14", "F8E15", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4"}

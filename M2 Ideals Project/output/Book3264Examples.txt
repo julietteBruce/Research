@@ -1,0 +1,387 @@
+needsPackage "package_directory/Book3264Examples/example-output"
+
+F0E0 =  G13 = flagBundle({2,2})
+
+F0E1 =  T = tangentBundle(G13)
+
+F0E2 =  chern T
+
+F0E3 =  P5 = flagBundle({1,5})
+
+F0E4 =  TP5 = tangentBundle(P5)
+
+F0E5 =  O1 = dual(P5.Bundles#0)
+
+F0E6 =  O2 = O1^**2
+
+F0E7 =  TG = chern(TP5 - O2) -- total Chern class of TG in terms of the hyperplane section
+
+F0E8 =  sigma_1 = chern(1,G13.Bundles#1)
+
+F0E9 =  1 + sum(1..4, i -> coefficient(chern(i,P5.Bundles#1),TG) * ((sigma_1)^i))
+
+F1E0 =  P3 = flagBundle({1,3})
+
+F1E1 =  O1 = dual(P3.Bundles#0)
+
+F1E2 =  T = tangentBundle(P3)
+
+F1E3 =  NX = O1^**4 -- the fourth tensor power of O(1), i.e. O(4)
+
+F1E4 =  X = chern(1,NX) -- the fundamental class [X] of X
+
+F1E5 =  TX = chern(T - NX) * X
+
+F1E6 =  integral TX -- The Euler characteristic of a quartic surface
+
+F1E7 =  eulerChar = n -> (
+
+          S := base d;
+
+          Pn := flagBundle({1,n},S);
+
+          TPn := tangentBundle(Pn);
+
+          O1 := dual(Pn.Bundles#0);
+
+          NX := O1^**d;
+
+          TX := chern(TPn - NX)*chern(1,NX);
+
+          integral TX)
+
+F1E8 =  eulerChar(4) -- The Euler characteristic of a degree-d hypersurface in P4
+
+F1E9 =  sub(eulerChar(4),{d=>4/1}) -- The Euler characteristic of quartic threefold
+
+F1E10 =  middleBetti = n -> (
+
+           euC := eulerChar(n);
+
+           ((-1)^(n-1)) * (euC - 2*ceiling((n-1)/2)))
+
+F1E11 =  middleBetti(4) -- The middle Betti number of a degree-d hypersurface in P4
+
+F1E12 =  sub(middleBetti(4), {d => 5/1}) -- The middle Betti number of a quintic threefold
+
+F1E13 =  for n from 3 to 5 do (
+
+           for e from 2 to 5 do (
+
+                euC := sub(eulerChar(n),{d=>e/1});
+
+                midB := sub(middleBetti(n),{d=>e/1});
+
+                << "n: " << n << " d: " << e << " chi: " << euC << " middle Betti: " << midB << endl))
+
+F1E14 =  eulerChar = (n,k) -> (
+
+           S := base(e_1 .. e_k);
+
+           Pn := flagBundle({1,n},S);
+
+           TPn := tangentBundle(Pn);
+
+           O1 := dual(Pn.Bundles#0);
+
+           N := sum(1..k, i-> O1^**(e_i)); --the denominator in the above formula
+
+           X := product(1..k, i->chern(1,O1^**(e_i))); --fundamental class of X
+
+           TX := chern(TPn - N) * X;
+
+           integral TX)
+
+F1E15 =  eulerChar(4,2) -- Euler char of a complete intersection surface in P4
+
+F1E16 =  middleBetti = (n,k) -> (
+
+           euC := eulerChar(n,k);
+
+           ((-1)^(n-k)) * (euC - 2*ceiling((n-k)/2)))
+
+F1E17 =  sub(middleBetti(4,2),{e_1=>2,e_2=>3/1}) -- complete intersection of a quadric and cubic in P4
+
+F1E18 =  sub(middleBetti(5,3),{e_1=>2,e_2=>2,e_3=>2/1}) -- three quadrics in P5
+
+F1E19 =  sub(eulerChar(4,2),{e_1=>2,e_2=>3/1}) -- complete intersection of a quadric and cubic in P4
+
+F1E20 =  sub(eulerChar(5,3),{e_1=>2,e_2=>2,e_3=>2/1}) -- three quadrics in P5
+
+F1E21 =  sub(middleBetti(5,2),{e_1=>2,e_2=>2/1})
+
+F1E22 =  P2 = flagBundle({1,2})
+
+F1E23 =  P2xP3 = flagBundle({1,3},P2,VariableNames => K)
+
+F1E24 =  intersectionRing(P2xP3)
+
+F1E25 =  eulerChar = (n,m) -> (
+
+           S := base(a,b);
+
+           Pn := flagBundle({1,n},S);
+
+           PnxPm := flagBundle({1,m},Pn);
+
+           T := tangentBundle(PnxPm);
+
+           O1Pn := dual(Pn.Bundles#0);
+
+           f := PnxPm / Pn; -- the first projection map from P2xP3 to P2
+
+           O10 := f^* O1Pn; -- we pull back O_P2(1) to get O(1,0)
+
+           O01 := dual(PnxPm.Bundles#0); -- O(0,1)
+
+           NX := (O10^**a)**(O01^**b); -- O(a,b)
+
+           X := chern(1,NX); -- Chow class of divisor of type (a,b)
+
+           TX := chern(T - NX) * X; -- pushed-forward total chern class of tangent bundle to X
+
+           integral TX) -- chi of a smooth hypersurface of bidegree (a,b) in PnxPm
+
+F1E26 =  eulerChar(4,4) -- chi of a smooth hypersurface of bidegree (a,b) in P4xP4
+
+F1E27 =  sub(eulerChar(2,3),{a=>1,b=>0/1}) -- is P1xP3, should be 8 by Kunneth
+
+F1E28 =  sub(eulerChar(1,1),{a=>1,b=>1/1}) -- a conic in P2, should be 2
+
+F1E29 =  sub(eulerChar(1,1),{a=>2,b=>1/1}) -- a twisted cubic, should be 2
+
+F2E0 =  P3 = flagBundle({1,3})
+
+F2E1 =  (S,Q) = P3.Bundles
+
+F2E2 =  O1 = dual(S)
+
+F2E3 =  chern O1
+
+F2E4 =  P3' = abstractProjectiveSpace 3
+
+F2E5 =  (S',Q') = P3'.Bundles
+
+F2E6 =  chern S'
+
+F2E7 =  chern Q' -- Q' is O(1) on P3'
+
+F2E8 =  T = tangentBundle(P3)
+
+F2E9 =  chern T
+
+F2E10 =  TP3 = (4 * O1) - 1
+
+F2E11 =  chern T == chern TP3
+
+F2E12 =  rank T == rank TP3
+
+F3E0 =  kk = ZZ/32003 --Our base field
+
+F3E1 =  R = kk[x_1 .. x_8]
+
+F3E2 =  M = genericMatrix(R,x_1,2,4) -- A generic 2x4 matrix in the x_i
+
+F3E3 =  I = minors(2,M) -- The ideal of 2x2 minors of M
+
+F3E4 =  P5 = kk[p_0 .. p_5] -- The coordinate ring of PP^5
+
+F3E5 =  f = map(R,P5, gens I) -- The Plücker map for GG(1,3)
+
+F3E6 =  J = saturate ker f -- The ideal of GG(1,3) in PP^3
+
+F3E7 =  kk = ZZ/32003
+
+F3E8 =  pluckerIdeal = (k,n) -> (
+
+       assert (k <= n);
+
+       N := k*n; --number of variables in our generic matrix
+
+       R := kk[x_1 .. x_N];
+
+       M := genericMatrix(R,x_1,k,n); --the generic k-by-n matrix
+
+       s := binomial(n,k) - 1; --the dimension of PP(Wedge^k(kk^n))
+
+       Ps = kk[p_0 .. p_s];
+
+       f := map(R,Ps, gens minors(k,M)); --the Plücker map
+
+       J = saturate ker f) --the kernel of the Plücker map is the ideal we want
+
+F3E9 =  pluckerIdeal(2,4)
+
+F3E10 =  Grassmannian(1,4)
+
+F3E11 =  grass = (k,n) -> flagBundle({k,n-k}) --In Schubert, we build Grassmannians as special cases
+
+F3E12 =  G = grass(2,4) -- Our favorite GG(1,3)
+
+F3E13 =  (S,Q) = G.Bundles -- S is the universal subbundle, Q is the universal quotient bundle
+
+F3E14 =  S -- Schubert tells us that S is an abstract sheaf of rank 2
+
+F3E15 =  Q -- And so is Q.
+
+F4E0 =  A = flagBundle({3,3},VariableNames => H)
+
+F4E1 =  S = A.Bundles#0
+
+F4E2 =  G = flagBundle({1,2},S,VariableNames => K)
+
+F4E3 =  c = H_(2,3)*((K_(2,1))^2) + H_(1,1)*K_(2,2)
+
+F4E4 =  placeholderToSchubertBasis(c,G)
+
+F5E0 =  G24 = flagBundle({3,2})
+
+F5E1 =  sigma_(2,1,1) = placeholderSchubertCycle({2,1,1},G24)
+
+F5E2 =  G14 = flagBundle({2,3})
+
+F5E3 =  sigma_1 = placeholderSchubertCycle({1,0},G14)
+
+F5E4 =  integral (sigma_1)^6
+
+F5E5 =  numOfLines = k -> (
+
+          G := flagBundle({2,2*k});
+
+          sigma := placeholderSchubertCycle({k,0}, G);
+
+          integral sigma^4)
+
+F5E6 =  for k from 1 to 5 do (
+
+          << numOfLines(k) << " lines meet four " << k << "-planes in P" << 2*k+1 << "\n")
+
+F5E7 =  G37 = flagBundle({3,4})
+
+F5E8 =  A37 = intersectionRing G37
+
+F5E9 =  sigma = 8*placeholderSchubertCycle({3,2,1},G37)
+
+F5E10 =  integral sigma^2
+
+F5E11 =  numOfPlanes = k -> (
+
+           G:= flagBundle({k+1,k+2});
+
+           schubertlist := apply(k+1,i-> k+1-i); --the list {k+1,k,...,1}
+
+           sigma := (2^(k+1))*placeholderSchubertCycle(schubertlist, G);
+
+           integral sigma^2)
+
+F5E12 =  numOfPlanes(2) --This was Exercise 4.43
+
+F5E13 =  for k from 2 to 4 do (
+
+           << numOfPlanes(k) << " " << k << "-planes in two quadrics in P" << 2*k+2 <<"\n")
+
+F5E14 =  G36 = flagBundle({3,3})
+
+F5E15 =  c = placeholderSchubertCycle({2,1,0},G36)
+
+F5E16 =  placeholderToSchubertBasis(c^2,G36)
+
+F6E0 =  G = flagBundle({2,2})
+
+F6E1 =  intersectionRing G
+
+F6E2 =  sigma_1 = H_(2,1)
+
+F6E3 =  c = (sigma_1)^2
+
+F6E4 =  placeholderToSchubertBasis(c,G)
+
+F6E5 =  sigma_1 = H_(2,1)
+
+F6E6 =  integral (sigma_1)^4
+
+F6E7 =  sigma_1 = H_(2,1)
+
+F6E8 =  linesMeetingCurve = d -> d*sigma_1
+
+F6E9 =  integral (linesMeetingCurve(2))^4
+
+F6E10 =  S = base d --Our base variety, with one "auxiliary parameter" d
+
+F6E11 =  G' = flagBundle({2,2},S,VariableNames => K) --GG(1,3) with our extra parameter
+
+F6E12 =  intersectionRing G' --note the additional parameter d
+
+F6E13 =  sigma_1 = K_(2,1)
+
+F6E14 =  linesmeetingcurve = d*sigma_1
+
+F6E15 =  integral linesmeetingcurve^4
+
+F6E16 =  S = base(g,d') --We use d' to avoid the d from the last example
+
+F6E17 =  G'' = flagBundle({2,2},S,VariableNames => L)
+
+F6E18 =  sigma_2 = L_(2,2)
+
+F6E19 =  sigma_(1,1) = L_(1,2)
+
+F6E20 =  cycleofchords = ((d'-1)*(d'-2)/2 - g)*sigma_2 + (d'*(d'-1)/2)*sigma_(1,1)
+
+F6E21 =  chordstotwocurves = integral cycleofchords^2
+
+F6E22 =  sub(chordstotwocurves, {d' => 3, g => 0/1})
+
+F6E23 =  sigma_1 = L_(2,1)
+
+F6E24 =  integral (cycleofchords*(sigma_1)^2)
+
+F6E25 =  sigma_1 = K_(2,1)
+
+F6E26 =  tangentcycle = d*(d-1)*sigma_1
+
+F6E27 =  tangentlines = integral tangentcycle^4
+
+F6E28 =  sub(tangentlines, d => 2/1)
+
+F7E0 =  GG24 = flagBundle({3,2})
+
+F7E1 =  (S,Q) = GG24.Bundles
+
+F7E2 =  B1 = S + Q --direct sum of S+Q
+
+F7E3 =  chern B1
+
+F7E4 =  B2 = S ** Q --tensor product of S and Q
+
+F7E5 =  chern B2
+
+F7E6 =  B3 = dual(S) ** Q
+
+F7E7 =  chern B3
+
+F7E8 =  GG13 = flagBundle({2,2})
+
+F7E9 =  f = GG13 / point -- The structure map of G13
+
+F7E10 =  B = abstractSheaf(point,Rank=>2) -- The trivial vector bundle of rank 2 over point
+
+F7E11 =  f^* B --Pulls back to a trivial bundle of rank 2 on G13
+
+F8E0 =  G = flagBundle({2,3})
+
+F8E1 =  (S,Q) = G.Bundles
+
+F8E2 =  S
+
+F8E3 =  Q
+
+F8E4 =  chern(1,Q) -- The first Chern class of Q
+
+F8E5 =  chern Q -- The total Chern class of Q, defined as the sum of the Chern classes of Q.
+
+F8E6 =  Q = abstractSheaf(G,ChernClass=>1+H_(2,1)+H_(2,2)+H_(2,3),Rank=>3)
+
+F8E7 =  chern Q
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F1E10", "F1E11", "F1E12", "F1E13", "F1E14", "F1E15", "F1E16", "F1E17", "F1E18", "F1E19", "F1E20", "F1E21", "F1E22", "F1E23", "F1E24", "F1E25", "F1E26", "F1E27", "F1E28", "F1E29", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F2E10", "F2E11", "F2E12", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F3E13", "F3E14", "F3E15", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F5E0", "F5E1", "F5E2", "F5E3", "F5E4", "F5E5", "F5E6", "F5E7", "F5E8", "F5E9", "F5E10", "F5E11", "F5E12", "F5E13", "F5E14", "F5E15", "F5E16", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F6E6", "F6E7", "F6E8", "F6E9", "F6E10", "F6E11", "F6E12", "F6E13", "F6E14", "F6E15", "F6E16", "F6E17", "F6E18", "F6E19", "F6E20", "F6E21", "F6E22", "F6E23", "F6E24", "F6E25", "F6E26", "F6E27", "F6E28", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F7E10", "F7E11", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7"}

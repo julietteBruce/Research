@@ -1,0 +1,121 @@
+needsPackage "package_directory/AInfinity/example-output"
+
+F0E0 =  R = ZZ/101[a,b,c]/(ideal(a,b,c^2))^2
+
+F0E1 =  F = burkeResolution (coker vars R, 4)
+
+F0E2 =  picture F
+
+F0E3 =  displayBlocks F.dd_3
+
+F1E0 =  R = ZZ/101[a,b,c,d]/ideal(a^2, b^2, c^3, d^4)
+
+F1E1 =  M = R^1/ideal(a*b,c*d)
+
+F1E2 =  F = burkeResolution(M,5)
+
+F1E3 =  picture F.dd_3
+
+F1E4 =  extractBlocks(F.dd_3, {2,1})
+
+F1E5 =  extractBlocks(F.dd_3,{2,0}, {2,1})
+
+F1E6 =  extractBlocks(F.dd_3,{2,0}, {{3,0},{2,1}})
+
+F2E0 =  S = ZZ/101[x_1..x_4]
+
+F2E1 =  I = x_1^2*ideal(vars S)
+
+F2E2 =  R = S/I
+
+F2E3 =  M = R^1/ideal(x_1..x_3)
+
+F2E4 =  F = burkeResolution(M, 4, Check =>true)
+
+F2E5 =  golodBetti (M,12)
+
+F2E6 =  betti F
+
+F2E7 =  picture F
+
+F2E8 =  displayBlocks F.dd_2
+
+F2E9 =  extractBlocks(F.dd_4, {{2,1}},{{3,1},{2,2}})
+
+F3E0 =  S = ZZ/101[a,b,c]
+
+F3E1 =  R = S/(ideal(a)*ideal(a,b,c))
+
+F3E2 =  mR = aInfinity R;
+
+F3E3 =  keys mR
+
+F3E4 =  res coker presentation R
+
+F3E5 =  mR#"resolution"
+
+F3E6 =  mR#{2,2}
+
+F3E7 =  X = coker map(R^2,R^{2:-1},matrix{{a,b},{b,c}})
+
+F3E8 =  mX = aInfinity(mR,X)
+
+F3E9 =  betti burkeResolution(X,8)
+
+F3E10 =  betti res(X, LengthLimit =>8)
+
+F3E11 =  Y = image presentation X
+
+F3E12 =  burkeResolution(Y,8)
+
+F4E0 =  S = ZZ/101[a,b,c]
+
+F4E1 =  R = S/(ideal(a)*ideal(a,b,c))
+
+F4E2 =  mR = aInfinity R;
+
+F4E3 =  res coker presentation R
+
+F4E4 =  mR#{2,2}
+
+F4E5 =  X = coker vars R
+
+F4E6 =  A = betti burkeResolution(X,8)
+
+F4E7 =  B = betti res(X, LengthLimit => 8)
+
+F4E8 =  A == B
+
+F5E0 =  R = ZZ/101[a,b,c]/(ideal(a,b,c))^2
+
+F5E1 =  M = coker vars R
+
+F5E2 =  elapsedTime burkeResolution(M, 7, Check => false)
+
+F5E3 =  elapsedTime burkeResolution(M, 7, Check => true)
+
+F6E0 =  R = ZZ/101[a,b,c,d]/ideal"a3,a2b2,b4,c4,d2"
+
+F6E1 =  F = burkeResolution(coker vars R, 4)
+
+F6E2 =  picture F.dd_3
+
+F6E3 =  picture F
+
+F7E0 =  S = ZZ/101[a,b,c]
+
+F7E1 =  I = (ideal(a,b,c^2))^2
+
+F7E2 =  F = res(S^1/I)
+
+F7E3 =  R = S/I
+
+F7E4 =  F = burkeResolution (coker vars R, 6)
+
+F7E5 =  golodBetti(coker vars R,6)
+
+F7E6 =  betti res (coker vars R, LengthLimit => 6)
+
+F7E7 =  betti F
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7", "F2E8", "F2E9", "F3E0", "F3E1", "F3E2", "F3E3", "F3E4", "F3E5", "F3E6", "F3E7", "F3E8", "F3E9", "F3E10", "F3E11", "F3E12", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F5E0", "F5E1", "F5E2", "F5E3", "F6E0", "F6E1", "F6E2", "F6E3", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7"}

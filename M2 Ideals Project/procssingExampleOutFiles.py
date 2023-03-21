@@ -80,20 +80,23 @@ def process_example_out_file(input_file_name: str, output_file_name: str, delimi
 			write_line_to_file(line, output_file_name)
 			running_delimeter_count = update_running_delimeter_count(line, delimiter_pairs, running_delimeter_count)
 	return [f"F{file_number}E{number}" for number in range(example_number)]
- 
+
+def is_out_file(file_name_string) -> bool:
+	return file_name_string.endswith('.out')
+
 def process_package_example_out(package_directory: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	file_number = 0
 	write_line_to_file(f"needsPackage \"{package_directory}\"\n", output_file_name)
 	overview_dictionary = {}
 	package_example_ids = []
 	for file_name in os.scandir(package_directory):
-		if file_name.is_file():
+		if file_name.is_file() and is_out_file(file_name.name):
+			print(file_name.name)
 			file_example_ids = process_example_out_file(file_name.path, output_file_name, delimiter_pairs, file_number)
 			overview_dictionary[file_name.name] = {'file_number': file_number, 'example_ids': file_example_ids}
 			file_number += 1
 			package_example_ids.extend(file_example_ids)
 	write_list_of_example_ids_to_file(package_example_ids,output_file_name)
-	print(overview_dictionary)
 
 # package_directory = 'VirtualResolutions'
 # output_file_name = 'VirRes-test.txt'
@@ -111,16 +114,13 @@ def process_all_packages(package_directory: str, output_folder: str, output_file
 	package_number = 0
 	overview_dictionary = {}
 	os.makedirs(output_folder, exist_ok = True)
-	for package_folder in os.scandir(package_directory):
-		# print(package_folder.name)
+	sorted_packge_directory = sorted(os.scandir(package_directory), key=lambda x: (x.is_dir(), x.name))
+	for package_folder in sorted_packge_directory:
 		package_example_folder = os.path.join(package_folder.path, 'example-output')
-		print(package_folder.path)
-		print(package_example_folder)
+		print(f"{package_folder.name}: {package_number}\n")
 		if os.path.exists(package_example_folder):
 			package_output_file_name = os.path.join(output_folder, package_folder.name + '.' + 'txt')
-			print(package_output_file_name)
-			# process_package_example_out(package_example_folder, package_output_file_name, delimiter_pairs)
-			write_line_to_file(f"{package_folder.name}: This is a test",package_output_file_name)
+			process_package_example_out(package_example_folder, package_output_file_name, delimiter_pairs)
 			overview_dictionary[package_folder.name] = package_number
 			package_number += 1
 	output_overview_name = os.path.join(output_folder, output_file_name + '.' + 'txt')
@@ -129,4 +129,26 @@ def process_all_packages(package_directory: str, output_folder: str, output_file
 package_directory = 'package_directory'
 output_folder = 'output'
 output_file_name = '00overview'
-process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
+# process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
+
+# output_file_name = 'testtest.txt'
+# input_file_name = 'package_directory/SimpleDoc/example-output/_wikipedia.out'
+# process_example_out_file(input_file_name,output_file_name,delimiter_pairs)
+
+package_directory = 'package_directory/GKMVarieties/example-output'
+output_file_name = 'test-test.txt'
+process_package_example_out(package_directory, output_file_name, delimiter_pairs)
+
+
+# input_file_name = package_directory = 'package_directory/GKMVarieties/example-output/___Moment__Graph_sp_st_st_sp__Moment__Graph.out'
+# output_file_name = 'test-test.txt'
+# process_example_out_file(input_file_name,output_file_name, delimiter_pairs)
+
+
+# Issues: 
+# 1. SimpleDoc: _package__Template.out
+#
+# 2. GKMVarieties: _is__Well__Defined_lp__K__Class_rp.out The issue here is the input on line i4 "isWellDefined badC --no longer well-defined"
+# for some reason despite the documentation this function returns something before the output line. 
+# see http://www2.macaulay2.com/Macaulay2/doc/Macaulay2-1.17/share/doc/Macaulay2/GKMVarieties/html/_is__Well__Defined_lp__K__Class_rp.html 
+

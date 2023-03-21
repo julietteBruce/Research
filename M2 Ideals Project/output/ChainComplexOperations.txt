@@ -1,0 +1,65 @@
+needsPackage "package_directory/ChainComplexOperations/example-output"
+
+F0E0 =  S = ZZ/101[a,b,c]
+
+F0E1 =  mm = ideal vars S
+
+F0E2 =  M = S^1/(mm^2)
+
+F0E3 =  F = res M
+
+F0E4 =  sumBetti = sum(4,i->rank F_i)
+
+F0E5 =  sumTor = sum(4,i->length(Tor_i(M,M)))
+
+F0E6 =  chi2 F == eulerCharacteristic sym2 F-eulerCharacteristic wedge2 F
+
+F0E7 =  2^(codim M)*(length M) == chi2 F
+
+F0E8 =  sumTor - chi2 F
+
+F0E9 =  sumBetti*(length M) - sumTor
+
+F0E10 =  excess M
+
+F1E0 =  S = ZZ/101[a,b,c]
+
+F1E1 =  mm = ideal vars S
+
+F1E2 =  M = S^1/(mm^2)
+
+F1E3 =  F = res M
+
+F1E4 =  sumBetti = sum(4,i->rank F_i)
+
+F1E5 =  sumTor = sum(4,i->length(Tor_i(M,M)))
+
+F1E6 =  chi2 F == eulerCharacteristic sym2 F-eulerCharacteristic wedge2 F
+
+F1E7 =  2^(codim M)*(length M) == chi2 F
+
+F1E8 =  chi2 F <= sumTor
+
+F1E9 =  sumTor <= sumBetti*(length M)
+
+F2E0 =  S = ZZ/101[a,b]
+
+F2E1 =  F = chainComplex{map(S^1,S^{-1},a)}
+
+F2E2 =  G = chainComplex{map(S^1,S^{-1},b)}[3]
+
+F2E3 =  phi = reverseFactors(F,G)
+
+F2E4 =  G**F
+
+F2E5 =  F**G
+
+F2E6 =  apply(1+length(F**G), i->(
+
+                 (phi_i)*((F**G).dd_(i+1)) ==  ((G**F).dd_(i+1))*phi_(i+1)
+
+                 ))
+
+F2E7 =  apply(length (F**G), i -> (rank phi_i) == rank ((F**G)_i))
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F0E9", "F0E10", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F1E8", "F1E9", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F2E5", "F2E6", "F2E7"}

@@ -1,0 +1,317 @@
+needsPackage "package_directory/ForeignFunctions/example-output"
+
+F0E0 =  mystruct = foreignStructType("mystruct", {"foo" => int, "bar" => double})
+
+F0E1 =  x = mystruct {"foo" => 5, "bar" => pi}
+
+F0E2 =  x_"foo"
+
+F0E3 =  x_"bar"
+
+F1E0 =  x = (3 * int) {3, 5, 7}
+
+F1E1 =  x_1
+
+F1E2 =  x_(-1)
+
+F1E3 =  length x
+
+F1E4 =  i = iterator x;
+
+F1E5 =  next i
+
+F1E6 =  next i
+
+F1E7 =  for y in x list value y + 1
+
+F2E0 =  chararray4 = 4 * char'
+
+F2E1 =  x = chararray4 append(ascii "foo", 0)
+
+F2E2 =  y = charstar x
+
+F2E3 =  address x === address y
+
+F3E0 =  size char'
+
+F3E1 =  size voidstar
+
+F4E0 =  x = int 20
+
+F4E1 =  peek x
+
+F4E2 =  ptr = address x
+
+F4E3 =  ptr + 5
+
+F4E4 =  ptr - 3
+
+F5E0 =  mpfr = openSharedLibrary "mpfr"
+
+F5E1 =  peek mpfr
+
+F6E0 =  float 3
+
+F6E1 =  double pi
+
+F6E2 =  double(2 + 3*ii)
+
+F7E0 =  foreignArrayType("myArrayType", int, 5)
+
+F7E1 =  foreignArrayType(int, 5)
+
+F7E2 =  5 * int
+
+F8E0 =  address int
+
+F8E1 =  address int 5
+
+F9E0 =  float
+
+F9E1 =  double
+
+F10E0 =  intarray5 = 5 * int
+
+F10E1 =  x = intarray5 {2, 4, 6, 8, 10}
+
+F11E0 =  x = int 5
+
+F11E1 =  ptr = address x
+
+F11E2 =  *ptr = int 6
+
+F11E3 =  x
+
+F11E4 =  *ptr = 7
+
+F11E5 =  x
+
+F12E0 =  int 12
+
+F12E1 =  ulong pi
+
+F12E2 =  short(-2.71828)
+
+F13E0 =  void
+
+F14E0 =  myunion = foreignUnionType("myunion", {"foo" => int, "bar" => double})
+
+F14E1 =  myunion 27
+
+F14E2 =  myunion pi
+
+F14E3 =  myunion double 5
+
+F15E0 =  nullPointer
+
+F16E0 =  ptr = address int 0
+
+F16E1 =  voidstar ptr
+
+F17E0 =  x = int 5
+
+F17E1 =  peek x
+
+F17E2 =  address x
+
+F17E3 =  class x
+
+F18E0 =  charstar
+
+F19E0 =  mpfr = openSharedLibrary "mpfr"
+
+F19E1 =  mpfrVersion = foreignFunction(mpfr, "mpfr_get_version", charstar, void)
+
+F19E2 =  mpfrVersion()
+
+F19E3 =  mpfrVersion = foreignFunction("mpfr_get_version", charstar, void)
+
+F19E4 =  mpfrVersion()
+
+F19E5 =  myatan2 = foreignFunction("atan2", double, {double, double})
+
+F19E6 =  myatan2(1, sqrt 3)
+
+F19E7 =  sprintf = foreignFunction("sprintf", void, {charstar, charstar},
+
+         Variadic => true)
+
+F19E8 =  buf = charstar "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+F19E9 =  sprintf(buf, "%s %d", "foo", 3)
+
+F19E10 =  buf
+
+F19E11 =  sprintf(buf, "%s %.1f", "foo", 3)
+
+F19E12 =  buf
+
+F19E13 =  sprintf(buf, "%s %.1f", "foo", double 3)
+
+F19E14 =  buf
+
+F19E15 =  stopIfError = false
+
+F19E16 =  sprintf(buf, "%c", char' 77)
+
+F19E17 =  malloc = foreignFunction("malloc", voidstar, ulong)
+
+F19E18 =  free = foreignFunction("free", void, voidstar)
+
+F19E19 =  x = malloc 8
+
+F19E20 =  registerFinalizer(x, free)
+
+F20E0 =  x = int 5
+
+F20E1 =  value x
+
+F20E2 =  x = double 5
+
+F20E3 =  value x
+
+F20E4 =  x = voidstar address int 5
+
+F20E5 =  value x
+
+F20E6 =  x = charstar "Hello, world!"
+
+F20E7 =  value x
+
+F20E8 =  x = (4 * int) {2, 4, 6, 8}
+
+F20E9 =  value x
+
+F20E10 =  mystruct = foreignStructType("mystruct", {"a" => int, "b" => float})
+
+F20E11 =  x = mystruct {"a" => 2, "b" => sqrt 2}
+
+F20E12 =  value x
+
+F21E0 =  mycos = foreignFunction("cos", double, double)
+
+F21E1 =  mycos pi
+
+F21E2 =  value oo
+
+F22E0 =  voidstar
+
+F23E0 =  openSharedLibrary "mpfr"
+
+F24E0 =  charstar "Hello, world!"
+
+F25E0 =  foreignStructType("mystruct", {"foo" => int, "bar" => double})
+
+F26E0 =  ptr = getMemory 8
+
+F26E1 =  ptr = getMemory(8, Atomic => true)
+
+F26E2 =  ptr = getMemory int
+
+F27E0 =  foreignObject 5
+
+F27E1 =  foreignObject pi
+
+F27E2 =  foreignObject "Hello, world!"
+
+F27E3 =  foreignObject nullPointer
+
+F27E4 =  foreignObject {1, 3, 5, 7, 9}
+
+F27E5 =  foreignObject oo
+
+F28E0 =  foreignPointerArrayType("myPointerArray", 3 * int)
+
+F28E1 =  foreignPointerArrayType(3 * int)
+
+F29E0 =  x = int 5
+
+F29E1 =  ptr = address x
+
+F29E2 =  int ptr
+
+F30E0 =  charstarstar {"foo", "bar"}
+
+F30E1 =  voidstarstar {address int 0, address int 1, address int 2}
+
+F30E2 =  int2star = foreignPointerArrayType(2 * int)
+
+F30E3 =  int2star {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}}
+
+F31E0 =  int8
+
+F31E1 =  uint32
+
+F31E2 =  char'
+
+F31E3 =  uchar
+
+F31E4 =  short
+
+F31E5 =  ushort
+
+F31E6 =  int
+
+F31E7 =  uint
+
+F31E8 =  long
+
+F31E9 =  ulong
+
+F32E0 =  charstarstar {"foo", "bar", "baz"}
+
+F32E1 =  charstarstar {"the", "quick", "brown", "fox", "jumps", "over", "the",
+
+         "lazy", "dog"}
+
+F32E2 =  voidstarstar {address int 0, address int 1, address int 2}
+
+F32E3 =  x = charstarstar {"foo", "bar", "baz"}
+
+F32E4 =  x_1
+
+F32E5 =  x_(-1)
+
+F32E6 =  length x
+
+F32E7 =  i = iterator x;
+
+F32E8 =  next i
+
+F32E9 =  next i
+
+F32E10 =  scan(x, print)
+
+F33E0 =  ptr = voidstar address int 5
+
+F33E1 =  int * ptr
+
+F34E0 =  mps = openSharedLibrary "mps"
+
+F34E1 =  cplxT = foreignStructType("cplx_t", {"r" => double, "i" => double})
+
+F34E2 =  foreignSymbol(mps, "cplx_i", cplxT)
+
+F34E3 =  foreignSymbol("cplx_i", cplxT)
+
+F35E0 =  myunion = foreignUnionType("myunion",
+
+         {"foo" => 4 * char', "bar" => charstar})
+
+F35E1 =  x = myunion (4 * char') append(ascii "hi!", 0)
+
+F35E2 =  x_"foo"
+
+F35E3 =  x_"bar"
+
+F36E0 =  malloc = foreignFunction("malloc", voidstar, ulong)
+
+F36E1 =  free = foreignFunction("free", void, voidstar)
+
+F36E2 =  finalizer = x -> (print("freeing memory at " | net x); free x)
+
+F36E3 =  for i to 9 do (x := malloc 8; registerFinalizer(x, finalizer))
+
+F36E4 =  collectGarbage()
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F1E0", "F1E1", "F1E2", "F1E3", "F1E4", "F1E5", "F1E6", "F1E7", "F2E0", "F2E1", "F2E2", "F2E3", "F3E0", "F3E1", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F5E0", "F5E1", "F6E0", "F6E1", "F6E2", "F7E0", "F7E1", "F7E2", "F8E0", "F8E1", "F9E0", "F9E1", "F10E0", "F10E1", "F11E0", "F11E1", "F11E2", "F11E3", "F11E4", "F11E5", "F12E0", "F12E1", "F12E2", "F13E0", "F14E0", "F14E1", "F14E2", "F14E3", "F15E0", "F16E0", "F16E1", "F17E0", "F17E1", "F17E2", "F17E3", "F18E0", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F19E7", "F19E8", "F19E9", "F19E10", "F19E11", "F19E12", "F19E13", "F19E14", "F19E15", "F19E16", "F19E17", "F19E18", "F19E19", "F19E20", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F21E0", "F21E1", "F21E2", "F22E0", "F23E0", "F24E0", "F25E0", "F26E0", "F26E1", "F26E2", "F27E0", "F27E1", "F27E2", "F27E3", "F27E4", "F27E5", "F28E0", "F28E1", "F29E0", "F29E1", "F29E2", "F30E0", "F30E1", "F30E2", "F30E3", "F31E0", "F31E1", "F31E2", "F31E3", "F31E4", "F31E5", "F31E6", "F31E7", "F31E8", "F31E9", "F32E0", "F32E1", "F32E2", "F32E3", "F32E4", "F32E5", "F32E6", "F32E7", "F32E8", "F32E9", "F32E10", "F33E0", "F33E1", "F34E0", "F34E1", "F34E2", "F34E3", "F35E0", "F35E1", "F35E2", "F35E3", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4"}

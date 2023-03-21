@@ -1,0 +1,609 @@
+needsPackage "package_directory/Cremona/example-output"
+
+F0E0 =  QQ[t_0,t_1];
+
+F0E1 =  linSys=gens (ideal(t_0,t_1))^5
+
+F0E2 =  phi=toMap linSys
+
+F0E3 =  phi'=toMap(linSys,Dominant=>2)
+
+F0E4 =  I=kernel phi
+
+F0E5 =  toMap(I,2)
+
+F0E6 =  toMap(I,2,1)
+
+F0E7 =  toMap(I,2,2)
+
+F0E8 =  toMap(I,3,2)
+
+F1E0 =  ZZ/3331[vars(0..5)];
+
+F1E1 =  phi = rationalMap {e^2-d*f, c*e-b*f, c*d-b*e, c^2-a*f, b*c-a*e, b^2-a*d}
+
+F1E2 =  R = ZZ/3331[x_0..x_5], S = ZZ/3331[y_0..y_5];
+
+F1E3 =  sub(phi,R,S)
+
+F2E0 =  QQ[vars(0..5)]
+
+F2E1 =  phi = rationalMap {e^2-d*f, c*e-b*f, c*d-b*e, c^2-a*f, b*c-a*e, b^2-a*d}
+
+F2E2 =  K = ZZ/65521;
+
+F2E3 =  phi ** K
+
+F2E4 =  phi ** frac(K[t])
+
+F3E0 =  f = toMap vars(QQ[x_0..x_2]);
+
+F3E1 =  isBirational(f,Certify=>true)
+
+F3E2 =  isBirational(f,Certify=>true,Verbose=>false)
+
+F4E0 =  R := QQ[t_0..t_8]
+
+F4E1 =  F = matrix{{t_0*t_3*t_5, t_1*t_3*t_6, t_2*t_4*t_7, t_2*t_4*t_8}}
+
+F4E2 =  phi = toMap F
+
+F4E3 =  rationalMap phi
+
+F4E4 =  rationalMap F
+
+F4E5 =  R' := newRing(R,Degrees=>{3:{1,0,0},2:{0,1,0},4:{0,0,1}})
+
+F4E6 =  F' = sub(F,R')
+
+F4E7 =  phi' = toMap F'
+
+F4E8 =  rationalMap phi'
+
+F4E9 =  rationalMap F'
+
+F5E0 =  ringP2 = ZZ/65521[vars(0..2)];
+
+F5E1 =  phi = rationalMap(ringP2,{7,3,9})
+
+F5E2 =  describe phi!
+
+F6E0 =  phi = quadroQuadricCremonaTransformation(5,1)
+
+F6E1 =  K := frac(QQ[vars(0..5)]); phi = phi ** K
+
+F6E2 =  p = trim minors(2,(vars K)||(vars source phi))
+
+F6E3 =  q = phi p
+
+F6E4 =  time phi^** q
+
+F6E5 =  oo == p
+
+F7E0 =  GF(5^7)[x_0..x_4]
+
+F7E1 =  C = minors(2,matrix{{x_0,x_1,x_2},{x_1,x_2,x_3}})
+
+F7E2 =  time ChernSchwartzMacPherson C
+
+F7E3 =  time ChernSchwartzMacPherson(C,Certify=>true)
+
+F7E4 =  oo == ooo
+
+F7E5 =  ChernClass = method(Options=>{Certify=>false});
+
+F7E6 =  ChernClass (Ideal) := o -> (I) -> (
+
+        s := SegreClass(I,Certify=>o.Certify);
+
+        s*(1+first gens ring s)^(numgens ring I));
+
+F7E7 =  -- example: Chern class of G(1,4)
+
+F7E8 =  time ChernClass G
+
+F7E9 =  time ChernClass(G,Certify=>true)
+
+F8E0 =  (ZZ/190181)[x_0..x_4]; phi = rationalMap(minors(2,matrix{{x_0..x_3},{x_1..x_4}}),Dominant=>true)
+
+F8E1 =  time (p1,p2) = graph phi;
+
+F8E2 =  p1
+
+F8E3 =  p2
+
+F8E4 =  assert(p1 * phi == p2 and p2 * phi^-1 == p1)
+
+F8E5 =  describe p2
+
+F8E6 =  projectiveDegrees p2
+
+F8E7 =  time g = graph p2;
+
+F8E8 =  g_0;
+
+F8E9 =  g_1;
+
+F8E10 =  g_2;
+
+F8E11 =  describe g_0
+
+F9E0 =  f = a -> {-a_1^3*max(sin(a_2),1)+a_0*a_1*a_2*ceiling((log(1 + abs a_0))^0),-a_1^2*a_2+a_0*a_1*a_3,-a_1*a_2^2+a_1^2*a_3,-a_1^2*a_3+a_0*a_1*a_4,-a_1*a_2*a_3+a_1^2*a_4,-a_1*a_3^2+a_1*a_2*a_4}
+
+F9E1 =  P4 := QQ[t_0..t_4]
+
+F9E2 =  P5 := QQ[u_0..u_5]
+
+F9E3 =  time psi = abstractRationalMap(P4,P5,f)
+
+F9E4 =  time projectiveDegrees(psi,3)
+
+F9E5 =  time rationalMap psi
+
+F9E6 =  phi = rationalMap map specialCremonaTransformation(3,ZZ/10000019);
+
+F9E7 =  phi' = abstractRationalMap phi
+
+F9E8 =  psi' = inverseMap phi'
+
+F9E9 =  psi = rationalMap psi';
+
+F9E10 =  assert(isInverseMap(phi,psi))
+
+F9E11 =  ZZ/65521[x_0..x_3]; I = minors(2,matrix{{x_0,x_1,x_2},{x_1,x_2,x_3}})
+
+F9E12 =  time T = abstractRationalMap(I,"OADP")
+
+F9E13 =  time projectiveDegrees(T,2)
+
+F9E14 =  time T2 = T * T
+
+F9E15 =  time projectiveDegrees(T2,2)
+
+F9E16 =  p = apply(3,i->random(ZZ/65521))|{1}
+
+F9E17 =  q = T p
+
+F9E18 =  T q
+
+F9E19 =  time f = rationalMap T
+
+F9E20 =  describe f!
+
+F10E0 =  P5 = ZZ/190181[x_0..x_5]
+
+F10E1 =  Phi = rationalMap {x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3}
+
+F10E2 =  J = ideal random(1,P5);
+
+F10E3 =  Phi' = Phi||J
+
+F10E4 =  describe Phi
+
+F10E5 =  describe Phi'
+
+F11E0 =  phi = map(QQ[x_0..x_3],QQ[y_0..y_2],{-x_1^2+x_0*x_2,-x_1*x_2+x_0*x_3,-x_2^2+x_1*x_3})
+
+F11E1 =  graph phi
+
+F12E0 =  P6 = QQ[t_0..t_6]
+
+F12E1 =  X = minors(3,matrix{{t_0..t_4},{t_1..t_5},{t_2..t_6}})
+
+F12E2 =  Phi = rationalMap(X,Dominant=>2);
+
+F12E3 =  time forceImage(Phi,ideal 0_(target Phi))
+
+F12E4 =  Phi;
+
+F13E0 =  QQ[x_0..x_5]
+
+F13E1 =  phi = rationalMap {x_0*x_4^2-x_0*x_3*x_5,x_0*x_2*x_4-x_0*x_1*x_5,x_0*x_2*x_3-x_0*x_1*x_4,x_0*x_2^2-x_0^2*x_5,x_0*x_1*x_2-x_0^2*x_4,x_0*x_1^2-x_0^2*x_3}
+
+F13E2 =  psi = rationalMap {x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3}
+
+F13E3 =  phi == psi
+
+F14E0 =  P8 = ZZ/97[t_0..t_8];
+
+F14E1 =  phi = inverseMap rationalMap(trim(minors(2,genericMatrix(P8,3,3))+random(2,P8)),Dominant=>true)
+
+F14E2 =  time psi = approximateInverseMap phi
+
+F14E3 =  assert(phi * psi == 1 and psi * phi == 1)
+
+F14E4 =  time psi' = approximateInverseMap(phi,CodimBsInv=>5);
+
+F14E5 =  assert(psi == psi')
+
+F14E6 =  phi = rationalMap map(P8,ZZ/97[x_0..x_11]/ideal(x_1*x_3-8*x_2*x_3+25*x_3^2-25*x_2*x_4-22*x_3*x_4+x_0*x_5+13*x_2*x_5+41*x_3*x_5-x_0*x_6+12*x_2*x_6+25*x_1*x_7+25*x_3*x_7+23*x_5*x_7-3*x_6*x_7+2*x_0*x_8+11*x_1*x_8-37*x_3*x_8-23*x_4*x_8-33*x_6*x_8+8*x_0*x_9+10*x_1*x_9-25*x_2*x_9-9*x_3*x_9+3*x_4*x_9+24*x_5*x_9-27*x_6*x_9-5*x_0*x_10+28*x_1*x_10+37*x_2*x_10+9*x_4*x_10+27*x_6*x_10-25*x_0*x_11+9*x_2*x_11+27*x_4*x_11-27*x_5*x_11,x_2^2+17*x_2*x_3-14*x_3^2-13*x_2*x_4+34*x_3*x_4+44*x_0*x_5-30*x_2*x_5+27*x_3*x_5+31*x_2*x_6-36*x_3*x_6-x_0*x_7+13*x_1*x_7+8*x_3*x_7+9*x_5*x_7+46*x_6*x_7+41*x_0*x_8-7*x_1*x_8-34*x_3*x_8-9*x_4*x_8-46*x_6*x_8-17*x_0*x_9+32*x_1*x_9-8*x_2*x_9-35*x_3*x_9-46*x_4*x_9+26*x_5*x_9+17*x_6*x_9+15*x_0*x_10+35*x_1*x_10+34*x_2*x_10+20*x_4*x_10+14*x_0*x_11+36*x_1*x_11+35*x_2*x_11-17*x_4*x_11,x_1*x_2-40*x_2*x_3+28*x_3^2-x_0*x_4+5*x_2*x_4-16*x_3*x_4+5*x_0*x_5-36*x_2*x_5+37*x_3*x_5+48*x_2*x_6-5*x_1*x_7-5*x_3*x_7+x_5*x_7+20*x_6*x_7+10*x_0*x_8+34*x_1*x_8+41*x_3*x_8-x_4*x_8+x_6*x_8+40*x_0*x_9-32*x_1*x_9+5*x_2*x_9-11*x_3*x_9-20*x_4*x_9+45*x_5*x_9-14*x_6*x_9-25*x_0*x_10+45*x_1*x_10-41*x_2*x_10-46*x_4*x_10+8*x_6*x_10-28*x_0*x_11+11*x_2*x_11+14*x_4*x_11-8*x_5*x_11),{t_4^2+t_0*t_5+t_1*t_5+35*t_2*t_5+10*t_3*t_5+25*t_4*t_5-5*t_5^2-14*t_0*t_6-14*t_1*t_6-5*t_2*t_6-13*t_4*t_6+37*t_5*t_6+22*t_6^2-31*t_3*t_7+26*t_4*t_7+12*t_5*t_7-45*t_6*t_7-46*t_3*t_8+37*t_4*t_8+28*t_5*t_8+33*t_6*t_8,t_3*t_4+4*t_0*t_5+39*t_1*t_5-40*t_2*t_5+40*t_3*t_5+26*t_4*t_5-20*t_5^2+41*t_0*t_6+36*t_1*t_6-22*t_2*t_6+36*t_4*t_6-30*t_5*t_6-13*t_6^2-25*t_3*t_7+5*t_4*t_7-35*t_5*t_7+10*t_6*t_7+11*t_3*t_8+46*t_4*t_8+29*t_5*t_8+28*t_6*t_8,t_2*t_4-5*t_0*t_5-40*t_1*t_5+12*t_2*t_5+47*t_3*t_5+37*t_4*t_5+25*t_5^2-27*t_0*t_6-22*t_1*t_6+27*t_2*t_6-23*t_4*t_6+5*t_5*t_6-13*t_6^2-39*t_3*t_7-29*t_4*t_7+9*t_5*t_7+39*t_6*t_7+36*t_3*t_8+13*t_4*t_8+26*t_5*t_8+37*t_6*t_8,t_0*t_4-t_0*t_5-8*t_1*t_5-35*t_2*t_5-10*t_3*t_5-33*t_4*t_5+5*t_5^2+15*t_0*t_6+15*t_1*t_6+5*t_2*t_6+15*t_4*t_6-38*t_5*t_6-22*t_6^2+31*t_3*t_7-25*t_4*t_7-19*t_5*t_7+47*t_6*t_7+46*t_3*t_8-36*t_4*t_8-35*t_5*t_8-31*t_6*t_8,t_2*t_3-t_0*t_5-t_1*t_5-35*t_2*t_5-10*t_3*t_5-33*t_4*t_5+5*t_5^2+14*t_0*t_6+14*t_1*t_6+5*t_2*t_6+14*t_4*t_6-31*t_5*t_6-24*t_6^2+32*t_3*t_7-25*t_4*t_7-19*t_5*t_7+47*t_6*t_7+46*t_3*t_8-36*t_4*t_8-35*t_5*t_8-31*t_6*t_8,t_1*t_3-7*t_1*t_5+t_1*t_6+t_4*t_6-7*t_5*t_6+2*t_6^2-t_3*t_7,t_0*t_3-46*t_0*t_5-39*t_1*t_5-43*t_2*t_5-41*t_3*t_5-26*t_4*t_5-28*t_5^2-35*t_0*t_6-36*t_1*t_6+20*t_2*t_6-36*t_4*t_6+9*t_5*t_6+15*t_6^2+26*t_3*t_7-5*t_4*t_7+35*t_5*t_7-10*t_6*t_7-10*t_3*t_8-46*t_4*t_8+47*t_5*t_8-25*t_6*t_8,t_2^2-46*t_1*t_4-33*t_0*t_5-45*t_1*t_5-39*t_2*t_5-39*t_3*t_5-46*t_4*t_5-29*t_5^2-48*t_0*t_6-38*t_1*t_6-30*t_2*t_6+19*t_4*t_6-44*t_5*t_6-47*t_6^2-36*t_0*t_7-46*t_1*t_7+t_2*t_7-44*t_3*t_7+48*t_4*t_7-14*t_5*t_7+4*t_6*t_7-36*t_0*t_8-46*t_1*t_8+47*t_2*t_8-34*t_3*t_8-24*t_4*t_8-12*t_5*t_8-47*t_6*t_8+47*t_7*t_8,t_1*t_2+6*t_1*t_5+5*t_0*t_6-2*t_1*t_6-t_4*t_6-t_5*t_6+5*t_0*t_7+t_1*t_7-2*t_2*t_7-7*t_5*t_7+2*t_6*t_7-2*t_1*t_8+3*t_7*t_8,t_0*t_2+t_1*t_4+5*t_0*t_5+32*t_1*t_5-20*t_2*t_5-47*t_3*t_5-37*t_4*t_5-25*t_5^2+19*t_0*t_6+22*t_1*t_6-25*t_2*t_6+25*t_4*t_6-5*t_5*t_6+13*t_6^2+5*t_0*t_7+t_1*t_7+39*t_3*t_7+28*t_4*t_7-9*t_5*t_7-39*t_6*t_7+4*t_0*t_8+t_1*t_8-36*t_3*t_8-14*t_4*t_8-26*t_5*t_8-37*t_6*t_8,t_0*t_1-39*t_1*t_4+40*t_1*t_5-37*t_0*t_6-39*t_1*t_6+19*t_4*t_6-39*t_5*t_6-38*t_0*t_7+39*t_1*t_7+19*t_2*t_7+18*t_5*t_7-19*t_6*t_7+19*t_1*t_8+20*t_7*t_8,t_0^2+12*t_1*t_4+20*t_0*t_5+27*t_1*t_5-8*t_2*t_5+37*t_3*t_5+28*t_4*t_5+30*t_5^2-46*t_0*t_6+24*t_1*t_6-40*t_2*t_6+25*t_4*t_6+16*t_5*t_6-35*t_6^2+29*t_0*t_7+12*t_1*t_7-35*t_2*t_7-8*t_3*t_7-18*t_4*t_7+42*t_5*t_7-12*t_6*t_7-6*t_0*t_8+12*t_1*t_8-15*t_3*t_8+9*t_4*t_8+20*t_5*t_8-30*t_6*t_8+4*t_7*t_8})
+
+F14E7 =  -- without the option 'CodimBsInv=>4', it takes about triple time 
+
+F14E8 =  -- but...
+
+F14E9 =  -- in this case we can remedy enabling the option Certify
+
+F14E10 =  assert(phi * psi == 1)
+
+F15E0 =  phi = toMap map specialQuadraticTransformation 8
+
+F15E1 =  time kernel(phi,1)
+
+F15E2 =  time kernel(phi,2)
+
+F16E0 =  I = Grassmannian(1,4,CoefficientRing=>ZZ/190181);
+
+F16E1 =  time EulerCharacteristic I
+
+F16E2 =  time EulerCharacteristic(I,Certify=>true)
+
+F17E0 =  ZZ/33331[t_0..t_4];
+
+F17E1 =  phi = rationalMap minors(2,matrix{{t_0..t_3},{t_1..t_4}});
+
+F17E2 =  describe phi
+
+F17E3 =  I = image phi;
+
+F17E4 =  describe phi
+
+F17E5 =  ? I
+
+F17E6 =  phi!;
+
+F17E7 =  describe phi
+
+F18E0 =  phi = quadroQuadricCremonaTransformation(5,1)
+
+F18E1 =  isMorphism phi
+
+F18E2 =  phi' = last graph phi;
+
+F18E3 =  isMorphism phi'
+
+F19E0 =  y = gens(QQ[x_0..x_5]/(x_2^2-x_2*x_3+x_1*x_4-x_0*x_5));
+
+F19E1 =  phi = rationalMap {y_4^2-y_3*y_5,-y_2*y_4+y_3*y_4-y_1*y_5, -y_2*y_3+y_3^2-y_1*y_4, -y_1*y_2+y_1*y_3-y_0*y_4, y_1^2-y_0*y_3}
+
+F19E2 =  time ideal phi
+
+F19E3 =  assert(ideal phi == ideal matrix phi)
+
+F19E4 =  phi' = last graph phi
+
+F19E5 =  time ideal phi'
+
+F19E6 =  assert(ideal phi' != ideal matrix phi')
+
+F20E0 =  ZZ/300007[t_0..t_6];
+
+F20E1 =  time phi = toMap minors(3,matrix{{t_0..t_4},{t_1..t_5},{t_2..t_6}})
+
+F20E2 =  time J = kernel(phi,2)
+
+F20E3 =  time degreeMap phi
+
+F20E4 =  time projectiveDegrees phi
+
+F20E5 =  time projectiveDegrees(phi,NumDegrees=>0)
+
+F20E6 =  time phi = toMap(phi,Dominant=>J)
+
+F20E7 =  time psi = inverseMap phi
+
+F20E8 =  time isInverseMap(phi,psi)
+
+F20E9 =  time degreeMap psi
+
+F20E10 =  time projectiveDegrees psi
+
+F20E11 =  time phi = rationalMap minors(3,matrix{{t_0..t_4},{t_1..t_5},{t_2..t_6}})
+
+F20E12 =  time phi = rationalMap(phi,Dominant=>2)
+
+F20E13 =  time phi^(-1)
+
+F20E14 =  time degrees phi^(-1)
+
+F20E15 =  time degrees phi
+
+F20E16 =  time describe phi
+
+F20E17 =  time describe phi^(-1)
+
+F20E18 =  time (f,g) = graph phi^-1
+
+F20E19 =  f
+
+F20E20 =  time degrees f
+
+F20E21 =  time degree f
+
+F20E22 =  time describe f
+
+F21E0 =  QQ[x_0..x_5]
+
+F21E1 =  phi = rationalMap {x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3}
+
+F21E2 =  describe phi
+
+F21E3 =  time phi! ;
+
+F21E4 =  describe phi
+
+F21E5 =  QQ[x_0..x_4]
+
+F21E6 =  phi = rationalMap {-x_1^2+x_0*x_2,-x_1*x_2+x_0*x_3,-x_2^2+x_1*x_3,-x_1*x_3+x_0*x_4,-x_2*x_3+x_1*x_4,-x_3^2+x_2*x_4}
+
+F21E7 =  describe phi
+
+F21E8 =  time phi! ;
+
+F21E9 =  describe phi
+
+F22E0 =  f = inverseMap specialQuadraticTransformation(9,ZZ/33331);
+
+F22E1 =  time p = point source f
+
+F22E2 =  time p == f^* f p
+
+F23E0 =  R = QQ[x_0..x_4]; phi = rationalMap minors(4,random(R^{4:1},R^5)) -- special Cremona transformation of P^4 of type (4,4)
+
+F23E1 =  time inverse phi
+
+F24E0 =  quadroQuadricCremonaTransformation(5,23)
+
+F24E1 =  describe oo
+
+F24E2 =  describe quadroQuadricCremonaTransformation(5,1)
+
+F24E3 =  describe quadroQuadricCremonaTransformation(8,1)
+
+F24E4 =  describe quadroQuadricCremonaTransformation(14,1)
+
+F24E5 =  describe quadroQuadricCremonaTransformation(26,1)
+
+F25E0 =  GF(331^2)[t_0..t_4]
+
+F25E1 =  phi = rationalMap(minors(2,matrix{{t_0..t_3},{t_1..t_4}}),Dominant=>infinity)
+
+F25E2 =  time isBirational phi
+
+F25E3 =  time isBirational(phi,Certify=>true)
+
+F26E0 =  phi = specialQuadraticTransformation 7;
+
+F26E1 =  phi' = super phi;
+
+F26E2 =  describe phi
+
+F26E3 =  describe phi'
+
+F26E4 =  describe rationalMap(phi',Dominant=>true)
+
+F27E0 =  time specialCubicTransformation 9
+
+F27E1 =  time describe oo
+
+F28E0 =  codimBsInv = (m) -> (
+
+        -- input: m, the list of projective degrees of a birational map
+
+        -- output: the codimension of the base locus of the inverse map
+
+        k:=#m -1; z:=m_k; d:=floor(m_(k-1)/z);
+
+        for i from 2 to k do if z*d^i - m_(k-i) > 0 then return i;
+
+     );
+
+F28E1 =  phi = toMap trim minors(2,genericSymmetricMatrix(QQ[x_0..x_5],3))
+
+F28E2 =  codimBsInv projectiveDegrees phi
+
+F29E0 =  -- map from P^4 to G(1,3) given by the quadrics through a rational normal curve of degree 4
+
+F29E1 =  time projectiveDegrees(phi,Certify=>true)
+
+F29E2 =  psi=inverseMap(toMap(phi,Dominant=>infinity))
+
+F29E3 =  time projectiveDegrees(psi,Certify=>true)
+
+F29E4 =  -- Cremona transformation of P^6 defined by the quadrics through a rational octic surface
+
+F29E5 =  time projectiveDegrees phi
+
+F29E6 =  time projectiveDegrees(phi,NumDegrees=>1)
+
+F30E0 =  P5 := ZZ/100003[x_0..x_5];
+
+F30E1 =  phi = rationalMap(minors(2,matrix{{x_0,x_1,x_2,x_3,x_4},{x_1,x_2,x_3,x_4,x_5}}),Dominant=>2);
+
+F30E2 =  E = exceptionalLocus phi;
+
+F30E3 =  assert(E == phi^* ideal phi^-1)
+
+F30E4 =  assert(E == minors(3,matrix{{x_0,x_1,x_2,x_3},{x_1,x_2,x_3,x_4},{x_2,x_3,x_4,x_5}}))
+
+F31E0 =  phi = first graph quadroQuadricCremonaTransformation(3,1)
+
+F31E1 =  segre phi
+
+F32E0 =  time apply(1..12,i -> describe specialCremonaTransformation(i,ZZ/3331))
+
+F33E0 =  phi = (specialCubicTransformation(2,ZZ/33331))!;
+
+F33E1 =  str = toExternalString phi;
+
+F33E2 =  #str
+
+F33E3 =  time phi' = value str;
+
+F33E4 =  time describe phi'
+
+F33E5 =  time describe inverse phi'
+
+F34E0 =  P5 = QQ[t_0..t_5]
+
+F34E1 =  phi = rationalMap(P5/(35*t_1+45*t_2+21*t_3+525*t_4+1365*t_5,1575*t_0*t_2-3250*t_2^2+735*t_0*t_3-1890*t_2*t_3-1666*t_3^2+17150*t_0*t_4-47250*t_2*t_4-22050*t_3*t_4-276850*t_4^2+46550*t_0*t_5-122850*t_2*t_5-57330*t_3*t_5-1433250*t_4*t_5-1864450*t_5^2),P5/(315*t_0+280*t_1+45*t_2+21*t_3+210*t_4+1050*t_5),{-45*t_2-21*t_3-490*t_4-1330*t_5, 45*t_2+21*t_3+525*t_4+1365*t_5, 35*t_2, 35*t_3, 35*t_4, 35*t_5})
+
+F34E2 =  describe phi
+
+F34E3 =  psi = flatten phi;
+
+F34E4 =  describe psi
+
+F35E0 =  time specialQuadraticTransformation 4
+
+F35E1 =  time describe oo
+
+F36E0 =  P8 = ZZ/101[x_0..x_8];
+
+F36E1 =  phi = rationalMap ideal jacobian ideal det matrix{{x_0..x_4},{x_1..x_5},{x_2..x_6},{x_3..x_7},{x_4..x_8}};
+
+F36E2 =  time isDominant(phi,Certify=>true)
+
+F36E3 =  P7 = ZZ/101[x_0..x_7];
+
+F36E4 =  -- hyperelliptic curve of genus 3
+
+F36E5 =  phi = rationalMap(C,3,2);
+
+F36E6 =  time isDominant(phi,Certify=>true)
+
+F37E0 =  K = QQ
+
+F37E1 =  ringP9 = K[x_0..x_9]
+
+F37E2 =  M = random(K^10,K^10)
+
+F37E3 =  phi = rationalMap ((vars ringP9) * (transpose M));
+
+F37E4 =  M' = coefficients phi
+
+F37E5 =  M == M'
+
+F38E0 =  ZZ/33331[x_0..x_6]
+
+F38E1 =  V = ideal(x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3,x_6)
+
+F38E2 =  time phi = rationalMap(V,3,2)
+
+F38E3 =  describe phi!
+
+F39E0 =  P7 = ZZ/100003[x_0..x_7]
+
+F39E1 =  Y = ideal(x_3^2*x_4^2-2*x_2*x_3*x_4*x_5+x_2^2*x_5^2-2*x_1*x_3*x_4*x_6-2*x_1*x_2*x_5*x_6+4*x_0*x_3*x_5*x_6+x_1^2*x_6^2+4*x_1*x_2*x_4*x_7-2*x_0*x_3*x_4*x_7-2*x_0*x_2*x_5*x_7-2*x_0*x_1*x_6*x_7+x_0^2*x_7^2)
+
+F39E2 =  X = sub(ideal jacobian Y,P7/Y)
+
+F39E3 =  time SegreClass X
+
+F39E4 =  time SegreClass lift(X,P7)
+
+F39E5 =  time SegreClass(X,Certify=>true)
+
+F39E6 =  time SegreClass(lift(X,P7),Certify=>true)
+
+F39E7 =  o4 == o6 and o5 == o7
+
+F39E8 =  use ZZ/100003[x_0..x_6]
+
+F39E9 =  time phi = inverseMap toMap(minors(2,matrix{{x_0,x_1,x_3,x_4,x_5},{x_1,x_2,x_4,x_5,x_6}}),Dominant=>2)
+
+F39E10 =  time SegreClass phi
+
+F39E11 =  B = ideal matrix phi
+
+F39E12 =  -- Segre class of B in G(1,4)
+
+F39E13 =  -- Segre class of B in P^9
+
+F40E0 =  -- A Cremona transformation of P^20 
+
+F40E1 =  time psi = inverseMap phi
+
+F40E2 =  assert(phi * psi == 1)
+
+F40E3 =  -- A Cremona transformation of P^26 
+
+F40E4 =  time psi = inverseMap phi
+
+F40E5 =  assert isInverseMap(phi,psi)
+
+F41E0 =  QQ[t_0..t_3]
+
+F41E1 =  Phi = rationalMap {t_1^2+t_2^2+t_3^2,t_0*t_1,t_0*t_2,t_0*t_3}
+
+F41E2 =  map Phi
+
+F42E0 =  R = QQ[x_0..x_3]
+
+F42E1 =  S = QQ[y_0..y_4]
+
+F42E2 =  T = QQ[z_0..z_4]
+
+F42E3 =  phi = rationalMap(R,S,{x_0*x_2,x_0*x_3,x_1*x_2,x_1*x_3,x_2*x_3})
+
+F42E4 =  psi = rationalMap(S,T,{y_0*y_3,-y_2*y_3,y_1*y_2,y_2*y_4,-y_3*y_4})
+
+F42E5 =  phi * psi
+
+F42E6 =  (map phi) * (map psi)
+
+F43E0 =  P5 = ZZ/190181[x_0..x_5]
+
+F43E1 =  Phi = rationalMap {x_4^2-x_3*x_5,x_2*x_4-x_1*x_5,x_2*x_3-x_1*x_4,x_2^2-x_0*x_5,x_1*x_2-x_0*x_4,x_1^2-x_0*x_3}
+
+F43E2 =  I = ideal(random(2,P5),random(3,P5));
+
+F43E3 =  Phi' = Phi|I
+
+F43E4 =  describe Phi
+
+F43E5 =  describe Phi'
+
+F44E0 =  P1 := QQ[a,b]
+
+F44E1 =  P4 := QQ[x,y,z,w]
+
+F44E2 =  phi = rationalMap({a^4,a^3*b,a^2*b^2,a*b^3,b^4},Dominant=>true)
+
+F44E3 =  isIsomorphism phi
+
+F45E0 =  P5 = ZZ/65521[x_0..x_5];
+
+F45E1 =  C = ideal(x_1^2-x_0*x_2,x_3,x_4,x_5)
+
+F45E2 =  X = quotient ideal(-x_1^2+x_0*x_2-x_1*x_3+x_3^2-x_0*x_5+x_1*x_5+x_3*x_5,-x_0*x_3-x_1*x_3+x_2*x_4-x_3*x_4-x_4^2-x_1*x_5-x_2*x_5+x_5^2,-x_1^2+x_0*x_2+x_2*x_3+x_1*x_4-x_3*x_4-x_4*x_5);
+
+F45E3 =  H = ideal random(1,X)
+
+F45E4 =  D = new Tally from {H => 2,C => 1};
+
+F45E5 =  time phi = rationalMap D
+
+F45E6 =  time ? image(phi,"F4")
+
+F46E0 =  P9 := ZZ/10000019[x_0..x_9]
+
+F46E1 =  L = trim ideal(random(1,P9),random(1,P9),random(1,P9),random(1,P9))
+
+F46E2 =  time parametrize L
+
+F46E3 =  Q = trim ideal(random(2,P9),random(1,P9),random(1,P9))
+
+F46E4 =  time parametrize Q
+
+F47E0 =  -- Take a rational map phi:P^8--->G(1,5) subset P^14 defined by the maximal minors 
+
+F47E1 =  phi=map(ringP8,ringP14,gens minors(2,matrix pack(6,for i to 11 list random(1,ringP8))))
+
+F47E2 =  time degreeMap phi
+
+F47E3 =  -- Compose phi:P^8--->P^14 with a linear projection P^14--->P^8 from a general subspace of P^14 
+
+F47E4 =  time degreeMap phi'
+
+exampleIDS = {"F0E0", "F0E1", "F0E2", "F0E3", "F0E4", "F0E5", "F0E6", "F0E7", "F0E8", "F1E0", "F1E1", "F1E2", "F1E3", "F2E0", "F2E1", "F2E2", "F2E3", "F2E4", "F3E0", "F3E1", "F3E2", "F4E0", "F4E1", "F4E2", "F4E3", "F4E4", "F4E5", "F4E6", "F4E7", "F4E8", "F4E9", "F5E0", "F5E1", "F5E2", "F6E0", "F6E1", "F6E2", "F6E3", "F6E4", "F6E5", "F7E0", "F7E1", "F7E2", "F7E3", "F7E4", "F7E5", "F7E6", "F7E7", "F7E8", "F7E9", "F8E0", "F8E1", "F8E2", "F8E3", "F8E4", "F8E5", "F8E6", "F8E7", "F8E8", "F8E9", "F8E10", "F8E11", "F9E0", "F9E1", "F9E2", "F9E3", "F9E4", "F9E5", "F9E6", "F9E7", "F9E8", "F9E9", "F9E10", "F9E11", "F9E12", "F9E13", "F9E14", "F9E15", "F9E16", "F9E17", "F9E18", "F9E19", "F9E20", "F10E0", "F10E1", "F10E2", "F10E3", "F10E4", "F10E5", "F11E0", "F11E1", "F12E0", "F12E1", "F12E2", "F12E3", "F12E4", "F13E0", "F13E1", "F13E2", "F13E3", "F14E0", "F14E1", "F14E2", "F14E3", "F14E4", "F14E5", "F14E6", "F14E7", "F14E8", "F14E9", "F14E10", "F15E0", "F15E1", "F15E2", "F16E0", "F16E1", "F16E2", "F17E0", "F17E1", "F17E2", "F17E3", "F17E4", "F17E5", "F17E6", "F17E7", "F18E0", "F18E1", "F18E2", "F18E3", "F19E0", "F19E1", "F19E2", "F19E3", "F19E4", "F19E5", "F19E6", "F20E0", "F20E1", "F20E2", "F20E3", "F20E4", "F20E5", "F20E6", "F20E7", "F20E8", "F20E9", "F20E10", "F20E11", "F20E12", "F20E13", "F20E14", "F20E15", "F20E16", "F20E17", "F20E18", "F20E19", "F20E20", "F20E21", "F20E22", "F21E0", "F21E1", "F21E2", "F21E3", "F21E4", "F21E5", "F21E6", "F21E7", "F21E8", "F21E9", "F22E0", "F22E1", "F22E2", "F23E0", "F23E1", "F24E0", "F24E1", "F24E2", "F24E3", "F24E4", "F24E5", "F25E0", "F25E1", "F25E2", "F25E3", "F26E0", "F26E1", "F26E2", "F26E3", "F26E4", "F27E0", "F27E1", "F28E0", "F28E1", "F28E2", "F29E0", "F29E1", "F29E2", "F29E3", "F29E4", "F29E5", "F29E6", "F30E0", "F30E1", "F30E2", "F30E3", "F30E4", "F31E0", "F31E1", "F32E0", "F33E0", "F33E1", "F33E2", "F33E3", "F33E4", "F33E5", "F34E0", "F34E1", "F34E2", "F34E3", "F34E4", "F35E0", "F35E1", "F36E0", "F36E1", "F36E2", "F36E3", "F36E4", "F36E5", "F36E6", "F37E0", "F37E1", "F37E2", "F37E3", "F37E4", "F37E5", "F38E0", "F38E1", "F38E2", "F38E3", "F39E0", "F39E1", "F39E2", "F39E3", "F39E4", "F39E5", "F39E6", "F39E7", "F39E8", "F39E9", "F39E10", "F39E11", "F39E12", "F39E13", "F40E0", "F40E1", "F40E2", "F40E3", "F40E4", "F40E5", "F41E0", "F41E1", "F41E2", "F42E0", "F42E1", "F42E2", "F42E3", "F42E4", "F42E5", "F42E6", "F43E0", "F43E1", "F43E2", "F43E3", "F43E4", "F43E5", "F44E0", "F44E1", "F44E2", "F44E3", "F45E0", "F45E1", "F45E2", "F45E3", "F45E4", "F45E5", "F45E6", "F46E0", "F46E1", "F46E2", "F46E3", "F46E4", "F47E0", "F47E1", "F47E2", "F47E3", "F47E4"}
