@@ -139,7 +139,12 @@ buildDatabaseEntryForExample(Thing,String) := (t,packageName) -> (
     )
 	
 buildPackageDatabase = method();
-buildPackageDatabase(String,String,String,List) := (filePath,packageNumber,packageName,desiredTypes) -> (
+buildPackageDatabase(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
+    filePath := packageInfoHashtable#"filePath";
+    fileIDPath := packageInfoHashtable#"fileIDPath";
+    packageNumber := packageInfoHashtable#"packageNumber";
+    packageName := packageInfoHashtable#"packageName";
+    exampleIDS := value get fileIDPath; -- this is hacky....
     load filePath;
     L1 := apply(exampleIDS, exID->(
 	    t := (value exID);
@@ -211,8 +216,15 @@ buildDatabaseFromFolder(folderPath,outputPath,overviewPath)
 filePath = "VirRes-test.txt"
 packageName = "VirtualResolutions"
 packageNumber = "P2"
-buildPackageDatabase(filePath,packageNumber,packageName,desiredTypes)
+fileIDPath = "VirRes-exIDS.txt"
 
+packageInfoHashtable = hashTable {
+    "filePath" =>"VirRes-test.txt",
+    "fileIDPath" => "VirRes-exIDS.txt",
+    "packageName" => "VirtualResolutions",
+    "packageNumber" => "P2"
+    }
+buildPackageDatabase(packageInfoHashtable,desiredTypes)
 
 
 filePath = "NTV-test.txt"
