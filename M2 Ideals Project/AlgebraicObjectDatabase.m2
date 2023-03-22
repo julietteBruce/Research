@@ -1,4 +1,77 @@
+-- -*- coding: utf-8 -*-
+--------------------------------------------------------------------------------
+-- Copyright 2023  Juliette Bruce
+--
+-- This program is free software: you can redistribute it and/or modify it under
+-- the terms of the GNU General Public License as published by the Free Software
+-- Foundation, either version 3 of the License, or (at your option) any later
+-- version.
+--
+-- This program is distributed in the hope that it will be useful, but WITHOUT
+-- ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+-- FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+-- details.
+--
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- PURPOSE : Database of algebraic objects in Macaualy2
+--
+--
+-- PROGRAMMERS : Juliette Bruce
+--
+--
+-- UPDATE HISTORY #0 - March 2023 - Juliette Bruce: Began creating package with
+-- a primary focus on creating funcationality for turning the processed 
+-- example-out files into a database.
+--
+--
 
+-- TO DO LIST : 
+--------------------------------------------------------------------------------
+
+
+
+newPackage("AlgebraicObjectDatabase",
+    Version => "1.0",
+    Date => "21 March 2023",
+    Headline => "A database of alegbraic objects found in Macaulay2",
+    Authors => {
+        {Name => "Juliette Bruce",           Email => "juliette_bruc1e@brown.edu",       HomePage => "https://www.juliettebruce.xyz"}
+	},
+  DebuggingMode => true,
+  AuxiliaryFiles => true
+  )
+
+export {
+  "compareTypeToList", -- needs test & docs
+  "parentRing", -- needs test & docs
+  "isAmbientOK", -- needs test & docs
+  "isOfDesiredType", -- needs test & docs
+  "uniformizePolyQuotThings", -- needs test & docs
+  "uniformizeThing", -- needs test & docs
+  "buildDatabaseEntryForExample", -- needs test & docs
+  "buildPackageDatabase", -- needs test & docs
+  "buildExampleFromEntry" -- needs test & docs
+  }
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+----- CODE
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+----- INPUT: 
+-----
+----- OUPUT: 
+-----
+----- DESCRIPTION: 
+--------------------------------------------------------------------
+--------------------------------------------------------------------
 compareTypeToList = method();
 compareTypeToList(Thing,List) := (t,L) -> (
     member((class t),L)
@@ -85,6 +158,33 @@ buildExampleFromEntry(HashTable) := (H) -> (
     value H#"object"
     )
 
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+----- Begining of the tests and the documentation
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+load ("./AlgebraicObjectDatabase/tests.m2")
+beginDocumentation()
+load ("./AlgebraicObjectDatabase/doc2.m2")
+
+end
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+----- Begining of sandbox
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+---
+---
+restart
+uninstallPackage "AlgebraicObjectDatabase"
+restart
+installPackage "AlgebraicObjectDatabase"
+check "AlgebraicObjectDatabase"
+
+
 
 buildDatabaseFromFolder = method();
 buildDatabaseFromFolder(String,String,String) := (folderPath,outputPath,overviewPath) -> (
@@ -105,7 +205,7 @@ desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientR
 folderPath = "outTest"
 overviewPath = "outTest/overview.txt"
 outputPath = "outM2"
-
+buildDatabaseFromFolder(folderPath,outputPath,overviewPath)
 
 
 filePath = "VirRes-test.txt"
@@ -174,3 +274,7 @@ H1 = buildDatabaseEntryForExample(F,"Test")
 H2 = buildDatabaseEntryForExample(R,"Test")
 buildExampleFromEntry(H1)
 buildExampleFromEntry(H2)
+
+
+curDir := currentFileDirectory;
+getFileName := (B,D) ->(curDir|"P1P1Syzygies/bettiF0"|"_" | fileName(B,D) |".m2")
