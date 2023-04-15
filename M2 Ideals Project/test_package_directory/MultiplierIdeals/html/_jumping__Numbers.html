@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>jumpingNumbers -- jumping numbers</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_jumping__Numbers_lp..._cm__Interval_eq_gt..._rp.html">next</a> | <a href="___Interval__Type.html">previous</a> | <a href="_jumping__Numbers_lp..._cm__Interval_eq_gt..._rp.html">forward</a> | <a href="___Interval__Type.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="multiplier ideals" href="index.html">MultiplierIdeals</a> :: <a title="jumping numbers" href="_jumping__Numbers.html">jumpingNumbers</a>    </div>
+    <hr/>
+    <div>
+      <h1>jumpingNumbers -- jumping numbers</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="interval for jumping numbers" href="_jumping__Numbers_lp..._cm__Interval_eq_gt..._rp.html">Interval</a><tt> => </tt><tt>...</tt>, <span>default value {0, infinity}</span>, interval for jumping numbers</span>              </li>
+              <li>
+<span><a title="interval for jumping numbers" href="_jumping__Numbers_lp..._cm__Interval_eq_gt..._rp.html">IntervalType</a><tt> => </tt><tt>...</tt>, <span>default value &quot;Closed&quot;</span>, interval for jumping numbers</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <p>Jumping numbers of an ideal $I$ are those real numbers $t$ at which the multiplier ideal $J(I^t)$, as a function of the parameter $t$, changes. More precisely, $t$ is a jumping number if $J(I^t)$ is different from $J(I^{t-\epsilon})$ for all $\epsilon > 0$. The jumping numbers form a discrete sequence of rational numbers. Thus $t_1, t_2$ are two consecutive jumping numbers of $I$ when $J(I^t) = J(I^{t_1})$ for all $t_1 \leq t &lt; t_2$ and $J(I^t) \neq J(I^{t_1})$ for $t &lt; t_1$ or $t_2 \leq t$.</p>
+        <p>The jumpingNumbers command determines the jumping numbers of an ideal along with the multiplier ideals at those jumping numbers. By definition, the multiplier ideals are then determined at the intermediate parameter values.</p>
+        <p>The jumpingNumbers command can handle any input that the multiplierIdeals command can handle (but omit the rational number argument of multiplierIdeals). That is, jumpingNumbers can handle the following inputs: a hyperplane arrangement; a hyperplane arrangement with a list of multiplicities; a monomial ideal; a monomial space curve (specified by giving a ring together with a list of exponents); a generic determinantal ideal (specified by giving a generic matrix together with a size of minors).</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : I = monomialIdeal(x*y, x*z, y*z, y*w, z*w^2);
+
+o2 : MonomialIdeal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : jumpingNumbers(I)
+
+          7  5  8     10  7  11                                              
+o3 = {{2, -, -, -, 3, --, -, --, 4}, {monomialIdeal (y, z), monomialIdeal (y,
+          3  2  3      3  2   3
+     ------------------------------------------------------------------------
+           2                             2                      
+     x*z, z , z*w), monomialIdeal (x*y, y , x*z, y*z, y*w, z*w),
+     ------------------------------------------------------------------------
+                          2                  2      2                     2 
+     monomialIdeal (x*y, y , x*z, y*z, y*w, z w, z*w ), monomialIdeal (x*y ,
+     ------------------------------------------------------------------------
+             2      2     2   2           2 2                     2        
+     x*y*z, y z, x*z , y*z , y w, y*z*w, z w ), monomialIdeal (x*y , x*y*z,
+     ------------------------------------------------------------------------
+      2    2 2     3     3   2      2      2        2   3 2   2 3  
+     y z, x z , x*z , y*z , y w, x*z w, y*z w, y*z*w , z w , z w ),
+     ------------------------------------------------------------------------
+                     2 2     3   2        2    3    2 2       2   2 2     2  
+     monomialIdeal (x y , x*y , x y*z, x*y z, y z, x z , x*y*z , y z , x*y w,
+     ------------------------------------------------------------------------
+      3             2        2      2    2 2       2   2 3                
+     y w, x*y*z*w, y z*w, x*z w, y*z w, y w , y*z*w , z w ), monomialIdeal
+     ------------------------------------------------------------------------
+       2 2     3   2        2    3    2 2       2   2 2     2    3           
+     (x y , x*y , x y*z, x*y z, y z, x z , x*y*z , y z , x*y w, y w, x*y*z*w,
+     ------------------------------------------------------------------------
+      2        3      3    2 2     2 2     2 2       3   3 3   2 4  
+     y z*w, x*z w, y*z w, y w , x*z w , y*z w , y*z*w , z w , z w ),
+     ------------------------------------------------------------------------
+                     2 3   2 2      3    2   2     2 2   3 2   2 3       3 
+     monomialIdeal (x y , x y z, x*y z, x y*z , x*y z , y z , x z , x*y*z ,
+     ------------------------------------------------------------------------
+      2 3     3      2      3          2    2 2    3 2   2   2     3 2 
+     y z , x*y w, x*y z*w, y z*w, x*y*z w, y z w, y w , y z*w , x*z w ,
+     ------------------------------------------------------------------------
+        3 2     2 3   3 4
+     y*z w , y*z w , z w )}}
+
+o3 : List</code></pre>
+</td>          </tr>
+        </table>
+        <p>By default, jumpingNumbers looks for jumping numbers in a closed interval $[a,b]$ where $a$ is the log canonical threshold of the ideal and $b$ is a sufficiently large value to ensure that Skoda periodicity holds, that is, $J(I^t) = I J(I^{t-1})$ for $t \geq b$. (In particular, the multiplier ideals and jumping numbers are determined for all $t$ by the output of this command.) The user may specify a different interval via the optional arguments <a title="name for an optional argument" href="___Interval.html">Interval</a> and <a title="name for an optional argument" href="___Interval__Type.html">IntervalType</a>.</p>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = QQ[x,y,z,w];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : I = monomialIdeal(x*y, x*z, y*z, y*w, z*w^2);
+
+o5 : MonomialIdeal of R</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : jumpingNumbers(I,Interval=>{2,3},IntervalType=>&quot;OpenClosed&quot;)
+
+       7  5  8                               2                             2 
+o6 = {{-, -, -, 3}, {monomialIdeal (y, x*z, z , z*w), monomialIdeal (x*y, y ,
+       3  2  3
+     ------------------------------------------------------------------------
+                                               2                  2      2  
+     x*z, y*z, y*w, z*w), monomialIdeal (x*y, y , x*z, y*z, y*w, z w, z*w ),
+     ------------------------------------------------------------------------
+                       2          2      2     2   2           2 2
+     monomialIdeal (x*y , x*y*z, y z, x*z , y*z , y w, y*z*w, z w )}}
+
+o6 : List</code></pre>
+</td>          </tr>
+        </table>
+        <h2>References</h2>
+        <ul>
+          <li>
+[ELSV] Ein, Lawrence, Robert Lazarsfeld, Karen E. Smith, and Dror Varolin, <em>Jumping coefficients of multiplier ideals. </em>Duke Math. J. 123 (2004), no. 3, 469-506.          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="compute the log-canonical threshold of an arrangement" href="../../HyperplaneArrangements/html/_log__Canonical__Threshold_lp__Central__Arrangement_rp.html">logCanonicalThreshold</a> -- compute the log-canonical threshold of an arrangement</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>jumpingNumbers</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;jumpingNumbers(CentralArrangement)&quot;</tt>          </li>
+          <li>
+<tt>&quot;jumpingNumbers(MonomialIdeal)&quot;</tt>          </li>
+          <li>
+<tt>&quot;jumpingNumbers(Sequence)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="jumping numbers" href="_jumping__Numbers.html">jumpingNumbers</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__Single.html">method function with a single argument</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>getIsos -- all isomorphisms between two matroids</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_get__Representation.html">next</a> | <a href="_get__Cycles.html">previous</a> | <a href="_get__Representation.html">forward</a> | <a href="_get__Cycles.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a>    </div>
+    <hr/>
+    <div>
+      <h1>getIsos -- all isomorphisms between two matroids</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">getIsos(M, N)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, of all isomorphisms between M and N</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method computes all <a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">isomorphisms</a> between M and N: in particular, this method returns an empty list iff M and N are not isomorphic.</p>
+          <p>To compute only a single isomorphism, use <a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism</a>. To test if two matroids are isomorphic, use <a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">areIsomorphic</a>.</p>
+          <p>To save space, the isomorphisms are given as lists (as opposed to hash tables). One way to interpret the output of this method is: given two isomorphic matroids, this method returns a permutation representation of the automorphism group of that matroid, inside the symmetric group on the ground set.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = matroid({a,b,c},{{a,b},{a,c}})
+
+o1 = a &quot;matroid&quot; of rank 2 on 3 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : U23 = uniformMatroid(2,3)
+
+o2 = a &quot;matroid&quot; of rank 2 on 3 elements
+
+o2 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : getIsos(M, U23) -- not isomorphic
+
+o3 = {}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : getIsos(M, M)
+
+o4 = {{0, 1, 2}, {0, 2, 1}}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : getIsos(U23, U23) -- the full symmetric group S3
+
+o5 = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 0, 1}, {2, 1, 0}}
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p></p>
+          <p>We can verify that the Fano matroid (the projective plane over the field of two elements) has automorphism group of order 168, and give a permutation representation for this nonabelian simple group (= PGL(3, F_2)) inside the symmetric group S_7:</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : F7 = specificMatroid &quot;fano&quot;
+
+o6 = a &quot;matroid&quot; of rank 3 on 7 elements
+
+o6 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : time autF7 = getIsos(F7, F7);
+     -- used 0.0500674 seconds</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : #autF7
+
+o8 = 168</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism(Matroid,Matroid)</a> -- computes an isomorphism between isomorphic matroids</span>          </li>
+          <li>
+<span><a title="quick checks for isomorphism between matroids" href="_quick__Isomorphism__Test.html">quickIsomorphismTest</a> -- quick checks for isomorphism between matroids</span>          </li>
+          <li>
+<span><a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">areIsomorphic(Matroid,Matroid)</a> -- whether two matroids are isomorphic</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>getIsos</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;getIsos(Matroid,Matroid)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

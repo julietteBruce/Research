@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>diagonalToricMap -- make a diagonal map into a Cartesian product</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_dim_lp__Normal__Toric__Variety_rp.html">next</a> | <a href="_degree_lp__Toric__Divisor_rp.html">previous</a> | <a href="_dim_lp__Normal__Toric__Variety_rp.html">forward</a> | <a href="_degree_lp__Toric__Divisor_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="working with normal toric varieties and related objects" href="index.html">NormalToricVarieties</a> :: <a title="make a diagonal map into a Cartesian product" href="_diagonal__Toric__Map.html">diagonalToricMap</a>    </div>
+    <hr/>
+    <div>
+      <h1>diagonalToricMap -- make a diagonal map into a Cartesian product</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">diagonalToricMap X</code></dd>
+              <dd><code class="language-macaulay2">diagonalToricMap(X,m)</code></dd>
+              <dd><code class="language-macaulay2">diagonalToricMap(X,m,A)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>X</tt>, <span>a <a title="the class of all normal toric varieties" href="___Normal__Toric__Variety.html">normal toric variety</a></span>, </span>              </li>
+              <li>
+<span><tt>m</tt>, <span>an <a title="the class of all integers" href="../../Macaulay2Doc/html/___Z__Z.html">integer</a></span>, that is positive</span>              </li>
+              <li>
+<span><tt>A</tt>, <span>an <a title="the class of all arrays -- [...]" href="../../Macaulay2Doc/html/___Array.html">array</a></span>, whose entries index factors in the <tt>m</tt>-ary product of <tt>X</tt></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all torus-equivariant maps between normal toric varieties" href="___Toric__Map.html">toric map</a></span>, that is a diagonal map from <tt>X</tt> into the <tt>m</tt>-ary Cartesian product of <tt>X</tt> with itself; the optional argument <tt>A</tt> indexes factors in the product</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Given a positive integer <tt>m</tt> and a normal toric variety <tt>X</tt>, the diagonal morphism is the toric map from <tt>X</tt> to the <tt>m</tt>-ary Cartesian product of <tt>X</tt> such that it composes to the identity with the <tt>i</tt>-th <a title="make a canonical projection map" href="___Normal__Toric__Variety_sp^_sp__Array.html">projection map</a>, for all <tt>i</tt> in <tt>A</tt>, and compose to the zero map with the <tt>i</tt>-th projection maps for all <tt>i</tt> not in <tt>A</tt>.</p>
+        </div>
+        <div>
+          <p>The most important example arises when <tt>m = 2</tt>.  For this case, one may omit both <tt>m</tt> and <tt>A</tt>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : X = hirzebruchSurface 1;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : delta = diagonalToricMap X
+
+o2 = | 1 0 |
+     | 0 1 |
+     | 1 0 |
+     | 0 1 |
+
+o2 : ToricMap normalToricVariety ({{1, 0, 0, 0}, {0, 1, 0, 0}, {-1, 1, 0, 0}, {0, -1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}, {0, 0, -1, 1}, {0, 0, 0, -1}}, {{0, 1, 4, 5}, {0, 1, 4, 7}, {0, 1, 5, 6}, {0, 1, 6, 7}, {0, 3, 4, 5}, {0, 3, 4, 7}, {0, 3, 5, 6}, {0, 3, 6, 7}, {1, 2, 4, 5}, {1, 2, 4, 7}, {1, 2, 5, 6}, {1, 2, 6, 7}, {2, 3, 4, 5}, {2, 3, 4, 7}, {2, 3, 5, 6}, {2, 3, 6, 7}}) &lt;--- X</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : assert (isWellDefined delta and source delta === X and target delta === X ^** 2)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : S = ring target delta;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : I = ideal delta
+
+o5 = ideal (x x  - x x , x x x  - x x x , x x x  - x x x )
+             2 4    0 6   3 5 6    1 2 7   3 4 5    0 1 7
+
+o5 : Ideal of S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : assert (codim I === dim X)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : X2 = target delta;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : assert (X2^[0] * delta == id_X and X2^[1] * delta == id_X)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : assert (delta == diagonalToricMap(X,2) and delta == diagonalToricMap(X,2,[0,1]))</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>We may also recover the canonical <a title="make a canonical inclusion into a product" href="___Normal__Toric__Variety_sp_us_sp__Array.html">inclusions</a>.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : X2 = target delta;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : assert (X2_[0] == diagonalToricMap(X,2,[0]))</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : assert (X2_[1] == diagonalToricMap(X,2,[1]))</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>When there are more than to factors, a diagonal can map to any subset of the factors.  By omitting <tt>A</tt>, we obtain the large diagonal.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : m = 3;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : largeD = diagonalToricMap(X, m)
+
+o14 = | 1 0 |
+      | 0 1 |
+      | 1 0 |
+      | 0 1 |
+      | 1 0 |
+      | 0 1 |
+
+o14 : ToricMap normalToricVariety ({{1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {-1, 1, 0, 0, 0, 0}, {0, -1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 0, 1, 0, 0}, {0, 0, -1, 1, 0, 0}, {0, 0, 0, -1, 0, 0}, {0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, -1, 1}, {0, 0, 0, 0, 0, -1}}, {{0, 1, 4, 5, 8, 9}, {0, 1, 4, 5, 8, 11}, {0, 1, 4, 5, 9, 10}, {0, 1, 4, 5, 10, 11}, {0, 1, 4, 7, 8, 9}, {0, 1, 4, 7, 8, 11}, {0, 1, 4, 7, 9, 10}, {0, 1, 4, 7, 10, 11}, {0, 1, 5, 6, 8, 9}, {0, 1, 5, 6, 8, 11}, {0, 1, 5, 6, 9, 10}, {0, 1, 5, 6, 10, 11}, {0, 1, 6, 7, 8, 9}, {0, 1, 6, 7, 8, 11}, {0, 1, 6, 7, 9, 10}, {0, 1, 6, 7, 10, 11}, {0, 3, 4, 5, 8, 9}, {0, 3, 4, 5, 8, 11}, {0, 3, 4, 5, 9, 10}, {0, 3, 4, 5, 10, 11}, {0, 3, 4, 7, 8, 9}, {0, 3, 4, 7, 8, 11}, {0, 3, 4, 7, 9, 10}, {0, 3, 4, 7, 10, 11}, {0, 3, 5, 6, 8, 9}, {0, 3, 5, 6, 8, 11}, {0, 3, 5, 6, 9, 10}, {0, 3, 5, 6, 10, 11}, {0, 3, 6, 7, 8, 9}, {0, 3, 6, 7, 8, 11}, {0, 3, 6, 7, 9, 10}, {0, 3, 6, 7, 10, 11}, {1, 2, 4, 5, 8, 9}, {1, 2, 4, 5, 8, 11}, {1, 2, 4, 5, 9, 10}, {1, 2, 4, 5, 10, 11}, {1, 2, 4, 7, 8, 9}, {1, 2, 4, 7, 8, 11}, {1, 2, 4, 7, 9, 10}, {1, 2, 4, 7, 10, 11}, {1, 2, 5, 6, 8, 9}, {1, 2, 5, 6, 8, 11}, {1, 2, 5, 6, 9, 10}, {1, 2, 5, 6, 10, 11}, {1, 2, 6, 7, 8, 9}, {1, 2, 6, 7, 8, 11}, {1, 2, 6, 7, 9, 10}, {1, 2, 6, 7, 10, 11}, {2, 3, 4, 5, 8, 9}, {2, 3, 4, 5, 8, 11}, {2, 3, 4, 5, 9, 10}, {2, 3, 4, 5, 10, 11}, {2, 3, 4, 7, 8, 9}, {2, 3, 4, 7, 8, 11}, {2, 3, 4, 7, 9, 10}, {2, 3, 4, 7, 10, 11}, {2, 3, 5, 6, 8, 9}, {2, 3, 5, 6, 8, 11}, {2, 3, 5, 6, 9, 10}, {2, 3, 5, 6, 10, 11}, {2, 3, 6, 7, 8, 9}, {2, 3, 6, 7, 8, 11}, {2, 3, 6, 7, 9, 10}, {2, 3, 6, 7, 10, 11}}) &lt;--- X</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i15 : assert (isWellDefined largeD and source largeD === X and target largeD === X ^** m)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i16 : assert (codim ideal largeD === (m-1) * dim X)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i17 : assert (largeD == diagonalToricMap(X, m, [0,1,2]))</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>By using the array to specify a proper subset of the factors, we obtain a small diagonal.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i18 : smallD = diagonalToricMap (X, 3, [0,2])
+
+o18 = | 1 0 |
+      | 0 1 |
+      | 0 0 |
+      | 0 0 |
+      | 1 0 |
+      | 0 1 |
+
+o18 : ToricMap normalToricVariety ({{1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {-1, 1, 0, 0, 0, 0}, {0, -1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 0, 1, 0, 0}, {0, 0, -1, 1, 0, 0}, {0, 0, 0, -1, 0, 0}, {0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, -1, 1}, {0, 0, 0, 0, 0, -1}}, {{0, 1, 4, 5, 8, 9}, {0, 1, 4, 5, 8, 11}, {0, 1, 4, 5, 9, 10}, {0, 1, 4, 5, 10, 11}, {0, 1, 4, 7, 8, 9}, {0, 1, 4, 7, 8, 11}, {0, 1, 4, 7, 9, 10}, {0, 1, 4, 7, 10, 11}, {0, 1, 5, 6, 8, 9}, {0, 1, 5, 6, 8, 11}, {0, 1, 5, 6, 9, 10}, {0, 1, 5, 6, 10, 11}, {0, 1, 6, 7, 8, 9}, {0, 1, 6, 7, 8, 11}, {0, 1, 6, 7, 9, 10}, {0, 1, 6, 7, 10, 11}, {0, 3, 4, 5, 8, 9}, {0, 3, 4, 5, 8, 11}, {0, 3, 4, 5, 9, 10}, {0, 3, 4, 5, 10, 11}, {0, 3, 4, 7, 8, 9}, {0, 3, 4, 7, 8, 11}, {0, 3, 4, 7, 9, 10}, {0, 3, 4, 7, 10, 11}, {0, 3, 5, 6, 8, 9}, {0, 3, 5, 6, 8, 11}, {0, 3, 5, 6, 9, 10}, {0, 3, 5, 6, 10, 11}, {0, 3, 6, 7, 8, 9}, {0, 3, 6, 7, 8, 11}, {0, 3, 6, 7, 9, 10}, {0, 3, 6, 7, 10, 11}, {1, 2, 4, 5, 8, 9}, {1, 2, 4, 5, 8, 11}, {1, 2, 4, 5, 9, 10}, {1, 2, 4, 5, 10, 11}, {1, 2, 4, 7, 8, 9}, {1, 2, 4, 7, 8, 11}, {1, 2, 4, 7, 9, 10}, {1, 2, 4, 7, 10, 11}, {1, 2, 5, 6, 8, 9}, {1, 2, 5, 6, 8, 11}, {1, 2, 5, 6, 9, 10}, {1, 2, 5, 6, 10, 11}, {1, 2, 6, 7, 8, 9}, {1, 2, 6, 7, 8, 11}, {1, 2, 6, 7, 9, 10}, {1, 2, 6, 7, 10, 11}, {2, 3, 4, 5, 8, 9}, {2, 3, 4, 5, 8, 11}, {2, 3, 4, 5, 9, 10}, {2, 3, 4, 5, 10, 11}, {2, 3, 4, 7, 8, 9}, {2, 3, 4, 7, 8, 11}, {2, 3, 4, 7, 9, 10}, {2, 3, 4, 7, 10, 11}, {2, 3, 5, 6, 8, 9}, {2, 3, 5, 6, 8, 11}, {2, 3, 5, 6, 9, 10}, {2, 3, 5, 6, 10, 11}, {2, 3, 6, 7, 8, 9}, {2, 3, 6, 7, 8, 11}, {2, 3, 6, 7, 9, 10}, {2, 3, 6, 7, 10, 11}}) &lt;--- X</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i19 : assert (isWellDefined smallD and source smallD === X and target smallD === X ^** m)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i20 : assert (codim ideal smallD === (m-1) * dim X)</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i21 : X3 = target smallD;</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i22 : assert (X3^[0] * smallD == id_X and X3^[1] * smallD == map(X,X,0) and
+          X3^[2] * smallD == id_X)</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="information about toric maps and the induced operations" href="_working_spwith_sptoric_spmaps.html">working with toric maps</a> -- information about toric maps and the induced operations</span>          </li>
+          <li>
+<span><a title="make a canonical projection map" href="___Normal__Toric__Variety_sp^_sp__Array.html">NormalToricVariety ^ Array</a> -- make a canonical projection map</span>          </li>
+          <li>
+<span><a title="make a canonical projection map" href="___Normal__Toric__Variety_sp^_sp__Array.html">NormalToricVariety ^ Array</a> -- make a canonical projection map</span>          </li>
+          <li>
+<span><a title="make the Cartesian power of a normal toric variety" href="___Normal__Toric__Variety_sp^_st_st_sp__Z__Z.html">NormalToricVariety ^** ZZ</a> -- make the Cartesian power of a normal toric variety</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>diagonalToricMap</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;diagonalToricMap(NormalToricVariety)&quot;</tt>          </li>
+          <li>
+<tt>&quot;diagonalToricMap(NormalToricVariety,ZZ)&quot;</tt>          </li>
+          <li>
+<tt>&quot;diagonalToricMap(NormalToricVariety,ZZ,Array)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="make a diagonal map into a Cartesian product" href="_diagonal__Toric__Map.html">diagonalToricMap</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

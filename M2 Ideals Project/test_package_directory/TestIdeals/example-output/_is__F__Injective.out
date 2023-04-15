@@ -1,0 +1,108 @@
+-- -*- M2-comint -*- hash: -1324463617
+
+i1 : S = ZZ/3[a,b,c,d,t];
+
+i2 : M = matrix{{a^2 + t^4, b, d}, {c, a^2, b^3-d}};
+
+             2       3
+o2 : Matrix S  <--- S
+
+i3 : I = minors(2, M);
+
+o3 : Ideal of S
+
+i4 : R = S/I;
+
+i5 : isFInjective(R)
+
+o5 = true
+
+i6 : isFPure(R)
+
+o6 = false
+
+i7 : S = ZZ/3[xs, ys, zs, xt, yt, zt];
+
+i8 : EP1 = ZZ/3[x,y,z,s,t]/(x^3 + y^2*z - x*z^2); --supersingular elliptic curve
+
+i9 : f = map(EP1, S, {x*s, y*s, z*s, x*t, y*t, z*t});
+
+o9 : RingMap EP1 <--- S
+
+i10 : R = S/(ker f);
+
+i11 : isFInjective(R)
+
+o11 = false
+
+i12 : isFPure(R)
+
+o12 = false
+
+i13 : S = ZZ/3[xs, ys, zs, xt, yt, zt];
+
+i14 : EP1 = ZZ/3[x,y,z,s,t]/(y^2*z - x^3 + x*y*z); --ordinary elliptic curve
+
+i15 : f = map(EP1, S, {x*s, y*s, z*s, x*t, y*t, z*t});
+
+o15 : RingMap EP1 <--- S
+
+i16 : R = S/(ker f);
+
+i17 : isFInjective(R)
+
+o17 = true
+
+i18 : isFPure(R)
+
+o18 = true
+
+i19 : R = ZZ/5[x,y,z]/(y^2*z + x*y*z-x^3)
+
+o19 = R
+
+o19 : QuotientRing
+
+i20 : time isFInjective(R)
+     -- used 0.0361518 seconds
+
+o20 = true
+
+i21 : time isFInjective(R, CanonicalStrategy => null)
+     -- used 1.33243 seconds
+
+o21 = true
+
+i22 : R = ZZ/7[x,y,z]/((x-1)^5 + (y+1)^5 + z^5);
+
+i23 : time isFInjective(R)
+     -- used 0.104255 seconds
+
+o23 = false
+
+i24 : time isFInjective(R, AtOrigin => true)
+     -- used 0.094463 seconds
+
+o24 = true
+
+i25 : S = ZZ/3[xs, ys, zs, xt, yt, zt];
+
+i26 : EP1 = ZZ/3[x,y,z,s,t]/(x^3 + y^2*z - x*z^2);
+
+i27 : f = map(EP1, S, {x*s, y*s, z*s, x*t, y*t, z*t});
+
+o27 : RingMap EP1 <--- S
+
+i28 : R = S/(ker f);
+
+i29 : time isFInjective(R)
+     -- used 0.796506 seconds
+
+o29 = false
+
+i30 : time isFInjective(R, AssumeCM => true)
+     -- used 0.25676 seconds
+
+o30 = true
+
+i31 : 

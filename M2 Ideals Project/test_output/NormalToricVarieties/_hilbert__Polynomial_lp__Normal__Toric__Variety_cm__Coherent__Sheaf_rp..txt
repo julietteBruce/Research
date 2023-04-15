@@ -1,0 +1,38 @@
+needsPackage "NormalToricVarieties"
+
+F59E0 =  PP2 = toricProjectiveSpace 2;
+
+F59E1 =  OmegaPP2 = cotangentSheaf PP2
+
+F59E2 =  h0 = hilbertPolynomial (PP2, OmegaPP2)
+
+F59E3 =  for i to 10 list hilbertFunction(i, module OmegaPP2)
+
+F59E4 =  R = ring h0;
+
+F59E5 =  for i to 10 list sub(h0, R_0 => i)
+
+F59E6 =  FF3 = hirzebruchSurface 3;
+
+F59E7 =  OmegaFF3 = cotangentSheaf FF3
+
+F59E8 =  h1 = hilbertPolynomial (FF3, OmegaFF3)
+
+F59E9 =  matrix table(5,5, (i,j) -> hilbertFunction({j,4-i}, module OmegaFF3))
+
+F59E10 =  R = ring h1;
+
+F59E11 =  matrix table(5,5, (i,j) -> sub(h1, {R_0 => j, R_1 => 4-i}))
+
+F59E12 =  X = toricProjectiveSpace (1) ** toricProjectiveSpace (1);
+
+F59E13 =  S = ring X;
+
+F59E14 =  I = intersect (ideal (S_1-S_0, S_3-S_2), ideal (S_1-S_0, S_3-2*S_2), ideal (S_1-2*S_0, S_3-S_2), ideal (S_1-2*S_0, S_3-2*S_2), ideal (S_1-3*S_0, S_3-3*S_2), ideal (S_1-4*S_0, S_3-4*S_2))
+
+F59E15 =  assert (I == saturate (I, ideal X))
+
+F59E16 =  hilbertPolynomial (X, I)
+
+F59E17 =  matrix table(5,5, (i,j) -> hilbertFunction({j,4-i}, I))
+

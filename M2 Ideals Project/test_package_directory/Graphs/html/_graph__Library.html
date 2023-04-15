@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>graphLibrary -- constructs a graph of a type specified in the string input</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_graph__Power.html">next</a> | <a href="_graph__Composition.html">previous</a> | <a href="_graph__Power.html">forward</a> | <a href="_graph__Composition.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">Graphs</a> :: <a title="constructs a graph of a type specified in the string input" href="_graph__Library.html">graphLibrary</a>    </div>
+    <hr/>
+    <div>
+      <h1>graphLibrary -- constructs a graph of a type specified in the string input</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = graphLibrary(name)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>name</tt>, <span>a <a title="the class of all strings" href="../../Macaulay2Doc/html/___String.html">string</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a href="___Graph.html">graph</a></span>, The graph of the type specified by the String name</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The graph library takes in a name of a special graph and constructs a graph of that type.  Possible inputs include:  &quot;petersen&quot;, &quot;bidiakis cube&quot;, &quot;desargues&quot;, &quot;dodecahedron&quot;, &quot;durer&quot;, &quot;claw&quot;, &quot;cubical&quot;, &quot;f26a&quot;, &quot;franklin&quot;, &quot;chvatal&quot;, &quot;heawood&quot;, &quot;paw&quot;, &quot;mobius&quot;, &quot;nauru&quot;, &quot;kite&quot;, &quot;house&quot;, &quot;bull&quot;, &quot;bowtie&quot;, &quot;dart&quot;.  Each of these create the special graph described clearly by their name.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : G = graphLibrary(&quot;petersen&quot;)
+
+o1 = Graph{0 => {1, 4, 5}}
+           1 => {0, 2, 6}
+           2 => {1, 3, 7}
+           3 => {2, 4, 8}
+           4 => {0, 3, 9}
+           5 => {0, 7, 8}
+           6 => {1, 8, 9}
+           7 => {2, 5, 9}
+           8 => {3, 5, 6}
+           9 => {4, 6, 7}
+
+o1 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : G = graphLibrary(&quot;f26a&quot;)
+
+o2 = Graph{0 => {1, 7, 25}   }
+           1 => {0, 2, 20}
+           2 => {1, 3, 9}
+           3 => {2, 4, 22}
+           4 => {3, 5, 11}
+           5 => {4, 6, 24}
+           6 => {5, 7, 13}
+           7 => {0, 6, 8}
+           8 => {7, 9, 15}
+           9 => {2, 8, 10}
+           10 => {9, 11, 17}
+           11 => {4, 10, 12}
+           12 => {11, 13, 19}
+           13 => {6, 12, 14}
+           14 => {13, 15, 21}
+           15 => {8, 14, 16}
+           16 => {15, 17, 23}
+           17 => {10, 16, 18}
+           18 => {17, 19, 25}
+           19 => {12, 18, 20}
+           20 => {1, 19, 21}
+           21 => {14, 20, 22}
+           22 => {3, 21, 23}
+           23 => {16, 22, 24}
+           24 => {5, 23, 25}
+           25 => {0, 18, 24}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : G = graphLibrary(&quot;chvatal&quot;)
+
+o3 = Graph{0 => {1, 3, 6, 11} }
+           1 => {0, 2, 4, 7}
+           2 => {1, 3, 5, 8}
+           3 => {0, 2, 4, 10}
+           4 => {1, 3, 5, 9}
+           5 => {2, 4, 6, 11}
+           6 => {0, 5, 7, 9}
+           7 => {1, 6, 8, 10}
+           8 => {2, 7, 9, 11}
+           9 => {4, 6, 8, 10}
+           10 => {3, 7, 9, 11}
+           11 => {0, 5, 8, 10}
+
+o3 : Graph</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>graphLibrary</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;graphLibrary(String)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="constructs a graph of a type specified in the string input" href="_graph__Library.html">graphLibrary</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

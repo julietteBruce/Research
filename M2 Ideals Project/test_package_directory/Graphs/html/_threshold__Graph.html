@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>thresholdGraph -- A method that generates a threshold graph from a binary list</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_topological__Sort.html">next</a> | <a href="_strong__Product.html">previous</a> | <a href="_topological__Sort.html">forward</a> | <a href="_strong__Product.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">Graphs</a> :: <a title="A method that generates a threshold graph from a binary list" href="_threshold__Graph.html">thresholdGraph</a>    </div>
+    <hr/>
+    <div>
+      <h1>thresholdGraph -- A method that generates a threshold graph from a binary list</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">G = thresholdGraph L</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, This list is of 0's and 1's only</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>G</tt>, <span>a <a href="___Graph.html">graph</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A threshold graph is a graph that is constructed by starting with an isolated vertex and iteratively adding another isolated vertex or a vertex that shares an edge with each vertex generated before it (the dominating vertices). The isolated vertices are represented by 0's and the dominating vertices are represented by 1's. In this method, the initial vertex is implicit and by default is constructed, so the first entry need not always be 0 in the list.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : L = {1,0,0,1,0,1}
+
+o1 = {1, 0, 0, 1, 0, 1}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : thresholdGraph L
+
+o2 = Graph{0 => {1, 4, 6}         }
+           1 => {0, 4, 6}
+           2 => {4, 6}
+           3 => {4, 6}
+           4 => {0, 1, 2, 3, 6}
+           5 => {6}
+           6 => {0, 1, 2, 3, 4, 5}
+
+o2 : Graph</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>thresholdGraph</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;thresholdGraph(List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="A method that generates a threshold graph from a binary list" href="_threshold__Graph.html">thresholdGraph</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

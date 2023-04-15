@@ -1,0 +1,24 @@
+needsPackage "NormalToricVarieties"
+
+F6E0 =  X0 = hirzebruchSurface 2;
+
+F6E1 =  degrees ring X0
+
+F6E2 =  chi OO X0_2
+
+F6E3 =  latticePoints X0_2
+
+F6E4 =  assert all ({{1,0},{0,1},{1,1},{2,1},{1,2}}, p -> (
+
+             D := p#0 * X0_2 + p#1 * X0_3;
+
+             isNef D and chi OO D == rank source latticePoints D
+
+             )
+
+         )
+
+F6E5 =  chi OO (2 * X0_1)
+
+F6E6 =  assert not isNef (2 * X0_1)
+

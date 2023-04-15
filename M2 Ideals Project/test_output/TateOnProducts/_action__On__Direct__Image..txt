@@ -1,0 +1,120 @@
+needsPackage "TateOnProducts"
+
+F23E0 =  kk=ZZ/101
+
+F23E1 =  needsPackage "Resultants";
+
+F23E2 =  vd=veronese(1,d,kk);
+
+F23E3 =  R=target vd
+
+F23E4 =  M=R^{1:-1}
+
+F23E5 =  RM=directImageComplex(I,M,matrix vd);
+
+F23E6 =  for i from min RM to max RM list (rank RM_i)
+
+F23E7 =  retTable=actionOnDirectImage(I,M,matrix vd);
+
+F23E8 =  keys retTable
+
+F23E9 =  isAction(J, apply(dim S, i->prune HH^0 retTable#0#i))
+
+F23E10 =  kk=ZZ/1009;
+
+F23E11 =  (S,E)=productOfProjectiveSpaces({2,2},CoefficientField=>kk);
+
+F23E12 =  f1=S_0^4+S_1^4+S_2^4
+
+F23E13 =  IX=ideal (f1,f2);
+
+F23E14 =  P=matrix{{1,192,0}}
+
+F23E15 =  varX=matrix{{S_0,S_1,S_2}}
+
+F23E16 =  PX=P||varX
+
+F23E17 =  I1=ideal(f2, minors(2,PX)); -- ideal for P*C
+
+F23E18 =  I2=ideal(f2, minors(2,QX)); -- ideal for Q*C
+
+F23E19 =  I3=ideal(f1,f2, minors(2, varX||varY)); -- ideal for the diagonal D
+
+F23E20 =  I=intersect(I1,I2,I3); -- ideal for P*C+Q*C+D
+
+F23E21 =  SX=S/IX
+
+F23E22 =  betti (LX=Hom(Ldual, SX^1))
+
+F23E23 =  phi = map(SX,S,vars SX);
+
+F23E24 =  betti (L=prune pushForward(phi,LX))
+
+F23E25 =  Ltr = (truncate ({2,2},L))**S^{{2,2}};
+
+F23E26 =  betti res Ltr
+
+F23E27 =  Q=symExt(presentation Ltr, E);
+
+F23E28 =  T=(res (coker Q,LengthLimit=>12))**E^{{2,2}}[4];
+
+F23E29 =  cohomologyMatrix (T, -{5,5},{3,3})
+
+F23E30 =  sT=strand(T,{0,0},{0});
+
+F23E31 =  sTFull=new ChainComplex;
+
+F23E32 =  sTFull.ring = ring sT;
+
+F23E33 =  ma=6;
+
+F23E34 =  sTFull=(dual res (coker transpose (sT[ma]).dd_0, LengthLimit=>2*ma))[-ma];
+
+F23E35 =  (S',E')=productOfProjectiveSpaces({2},CoefficientField=>kk);
+
+F23E36 =  projOnE=map(E', E, toList(3:0)|(gens E'));
+
+F23E37 =  mi=min sTFull
+
+F23E38 =  W=new ChainComplex
+
+F23E39 =  apply(toList(mi..ma),i-> W_i = E'^(-apply(degrees sTFull_i,d->d_{1})));
+
+F23E40 =  apply(toList(mi+1..ma),i->W.dd_i = map(W_(i-1),W_i,projOnE sTFull.dd_i));
+
+F23E41 =  betti W
+
+F23E42 =  R0fL = prune HH^0 beilinson W
+
+F23E43 =  R1fL = prune HH^1 beilinson W
+
+F23E44 =  degree R0fL
+
+F23E45 =  primaryDecomposition ann R0fL
+
+F23E46 =  degree R1fL
+
+F23E47 =  primaryDecomposition ann R1fL
+
+F23E48 =  J=ideal (S'_0^4+S'_1^4+S'_2^4);
+
+F23E49 =  retTable=actionOnDirectImage(J,W);
+
+F23E50 =  keys retTable
+
+F23E51 =  prunedActionList = i->apply(dim S',j->prune HH^i retTable#i#j);
+
+F23E52 =  apply(keys retTable, i->isAction(J,prunedActionList(i)))
+
+F23E53 =  M0=source (prunedActionList(0))_0
+
+F23E54 =  (rank M0, degree M0, betti res M0)
+
+F23E55 =  isIsomorphic(truncate(regularity M0, M0), truncate(regularity M0, dual dual M0))
+
+F23E56 =  dual dual M0
+
+F23E57 =  M1=source (prunedActionList(1))_0
+
+F23E58 =  (rank M1, degree M1, betti res M1)
+

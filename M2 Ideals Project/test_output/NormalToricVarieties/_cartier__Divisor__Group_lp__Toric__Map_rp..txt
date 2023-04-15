@@ -1,0 +1,36 @@
+needsPackage "NormalToricVarieties"
+
+F102E0 =  X = hirzebruchSurface 1;
+
+F102E1 =  Y = toricProjectiveSpace 1;
+
+F102E2 =  f = map(Y, X, matrix {{1, 0}})
+
+F102E3 =  f' = cartierDivisorGroup f
+
+F102E4 =  assert (isWellDefined f and source f' == cartierDivisorGroup Y and
+
+         target f' == cartierDivisorGroup X)
+
+F102E5 =  f'' = picardGroup f
+
+F102E6 =  assert(f'' * fromCDivToPic Y == fromCDivToPic X  * f')
+
+F102E7 =  W = weightedProjectiveSpace {1, 1, 2};
+
+F102E8 =  Z = toricBlowup({0, 1, 4}, (W ** toricProjectiveSpace 1), {0, -2, 1});
+
+F102E9 =  assert (not isSmooth W and not isSmooth Z)
+
+F102E10 =  g = map(W, Z, matrix{{1,0,0},{0,1,0}})
+
+F102E11 =  g' = picardGroup g
+
+F102E12 =  assert (isWellDefined g and source g' == picardGroup W and
+
+          target g' == picardGroup Z)
+
+F102E13 =  g'' = cartierDivisorGroup g
+
+F102E14 =  assert(g' * fromCDivToPic W  == fromCDivToPic Z  * g'')
+

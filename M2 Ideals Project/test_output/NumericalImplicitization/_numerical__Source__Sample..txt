@@ -1,0 +1,26 @@
+needsPackage "NumericalImplicitization"
+
+F6E0 =  R = CC[x,y,z];
+
+F6E1 =  samp = numericalSourceSample(ideal 0_R)
+
+F6E2 =  samp#0
+
+F6E3 =  I = ideal(x^2 + y^2 + z^2 - 1);
+
+F6E4 =  numericalSourceSample(I, 3)
+
+F6E5 =  n = 5
+
+F6E6 =  R = RR[a_(1,1)..a_(n,n)]
+
+F6E7 =  A = genericMatrix(R,n,n);
+
+F6E8 =  I = ideal(A*transpose A - id_(R^n));
+
+F6E9 =  q = first numericalSourceSample(I, Software => I -> realPoint(I, Iterations => 100))
+
+F6E10 =  matrix pack(n, q#Coordinates)
+
+F6E11 =  norm evaluate(gens I, q)
+

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isBinary -- whether a matroid is representable over F_2</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Connected_lp__Matroid_rp.html">next</a> | <a href="_is3__Connected.html">previous</a> | <a href="_is__Connected_lp__Matroid_rp.html">forward</a> | <a href="_is3__Connected.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="whether a matroid is representable over F_2" href="_is__Binary.html">isBinary</a>    </div>
+    <hr/>
+    <div>
+      <h1>isBinary -- whether a matroid is representable over F_2</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isBinary M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether M is binary</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Determines if M is a binary matroid, i.e. is representable over the field $F_2$ of 2 elements.</p>
+          <p>A matroid is representable over F_2 iff it does not have U_{2,4} as a minor. However, this method does not go through <a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a>, for efficiency reasons: rather it checks whether the symmetric difference of any 2 distinct circuits is dependent.</p>
+          <p>Note: in general, determining representability is a difficult computational problem. For instance, assuming access to an independence oracle, it is known that the problem of determining whether a matroid is binary cannot be solved in polynomial time.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M5 = matroid completeGraph 5
+
+o1 = a &quot;matroid&quot; of rank 4 on 10 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : isBinary M5
+
+o2 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : U48 = uniformMatroid(4, 8)
+
+o3 = a &quot;matroid&quot; of rank 4 on 8 elements
+
+o3 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : isBinary U48
+
+o4 = false</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a> -- whether a matroid has a given minor</span>          </li>
+          <li>
+<span><a title="retrieves stored representation" href="_get__Representation.html">getRepresentation</a> -- retrieves stored representation</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isBinary</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isBinary(Matroid)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether a matroid is representable over F_2" href="_is__Binary.html">isBinary</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

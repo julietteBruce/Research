@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>relabel -- relabel a matroid</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_relaxation.html">next</a> | <a href="_rank_lp__Matroid_cm__Set_rp.html">previous</a> | <a href="_relaxation.html">forward</a> | <a href="_rank_lp__Matroid_cm__Set_rp.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="relabel a matroid" href="_relabel.html">relabel</a>    </div>
+    <hr/>
+    <div>
+      <h1>relabel -- relabel a matroid</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">relabel(M, H)</code></dd>
+              <dd><code class="language-macaulay2">relabel(M, L)</code></dd>
+              <dd><code class="language-macaulay2">relabel M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+              <li>
+<span><tt>H</tt>, <span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, </span>              </li>
+              <li>
+<span><tt>L</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, a matroid isomorphic to M</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method yields another matroid isomorphic to the input matroid M with labels specified by a hash table, or list of options. The keys of the hash table should be (a subset of) $\{0, ..., n-1\}$ where n is the number of elements in the <a title="(internal) ground set" href="_ground__Set.html">groundSet</a> of M. Since any unused elements are assumed to remain unchanged, the set of values should coincide with the set of keys.</p>
+          <p>Alternatively, the images of $\{0, ..., n-1\}$ (in order) can be specified (as a list, whose elements are not options). If neither a list nor hash table is provided, then a random permutation is chosen.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : Q6 = specificMatroid &quot;Q6&quot;
+
+o1 = a &quot;matroid&quot; of rank 3 on 6 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : M = relabel_Q6 {3 => 0, 0 => 3}
+
+o2 = a &quot;matroid&quot; of rank 3 on 6 elements
+
+o2 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (nonbases Q6, nonbases M)
+
+o3 = ({set {0, 1, 2}, set {0, 3, 4}}, {set {1, 2, 3}, set {0, 3, 4}})
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : (M == Q6, areIsomorphic(M, Q6))
+
+o4 = (false, true)
+
+o4 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : nonbases relabel Q6
+
+o5 = {set {0, 3, 5}, set {1, 4, 5}}
+
+o5 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism(Matroid,Matroid)</a> -- computes an isomorphism between isomorphic matroids</span>          </li>
+          <li>
+<span><a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">areIsomorphic(Matroid,Matroid)</a> -- whether two matroids are isomorphic</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>relabel</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;relabel(Matroid)&quot;</tt>          </li>
+          <li>
+<tt>&quot;relabel(Matroid,HashTable)&quot;</tt>          </li>
+          <li>
+<tt>&quot;relabel(Matroid,List)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="relabel a matroid" href="_relabel.html">relabel</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

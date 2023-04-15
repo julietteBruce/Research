@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>TateOnProducts -- Computation of parts of the Tate resolution on products</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_action__On__Direct__Image.html">next</a> | previous | <a href="_action__On__Direct__Image.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computation of parts of the Tate resolution on products" href="index.html">TateOnProducts</a> :: <a title="Computation of parts of the Tate resolution on products" href="index.html">TateOnProducts</a>    </div>
+    <hr/>
+    <div>
+      <h1>TateOnProducts -- Computation of parts of the Tate resolution on products</h1>
+      <div>
+        <h2>Description</h2>
+This package contains implementations of the algorithm from our paper <a href="https://arxiv.org/abs/1411.5724">Tate Resolutions on Products of Projective Spaces</a>. It allows computing the direct image complexes of a coherent sheaf along the projection onto a product of any of the factors.        <p/>
+The main differences from the paper are:        <ul>
+          <li>
+the exterior algebra E is positively graded           </li>
+          <li>
+we use E instead of omega_E           </li>
+          <li>
+ all complexes are chain complexes instead of cochain complexes          </li>
+        </ul>
+        <p/>
+        <h2>Beilinson monads</h2>
+        <ul>
+          <li>
+<span><a title="extract the subquotient complex which contributes to the Beilinson window" href="_beilinson__Window.html">beilinsonWindow</a> -- extract the subquotient complex which contributes to the Beilinson window</span>          </li>
+          <li>
+<span><a title="compute the Tate resolution" href="_tate__Resolution.html">tateResolution</a> -- compute the Tate resolution</span>          </li>
+          <li>
+<span><a title="extend the terms in the Beilinson window to a part of a corner complex of the corresponding Tate resolution" href="_tate__Extension.html">tateExtension</a> -- extend the terms in the Beilinson window to a part of a corner complex of the corresponding Tate resolution</span>          </li>
+          <li>
+<span><a title="apply the beilinson functor" href="_beilinson.html">beilinson</a> -- apply the beilinson functor</span>          </li>
+          <li>
+<span><a title="make a linear free complex from a module over an exterior algebra or a symmetric algebra" href="_bgg.html">bgg</a> -- make a linear free complex from a module over an exterior algebra or a symmetric algebra</span>          </li>
+          <li>
+<span><a title="compute the direct image complex" href="_direct__Image__Complex.html">directImageComplex</a> -- compute the direct image complex</span>          </li>
+          <li>
+<span><a title="recover the module structure via a Noether normalization" href="_action__On__Direct__Image.html">actionOnDirectImage</a> -- recover the module structure via a Noether normalization</span>          </li>
+          <li>
+<span><a title="composed functions" href="_composed__Functions.html">composedFunctions</a> -- composed functions</span>          </li>
+        </ul>
+        <h2>Numerical Information</h2>
+        <ul>
+          <li>
+<span><a title="cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution" href="_cohomology__Matrix.html">cohomologyMatrix</a> -- cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution</span>          </li>
+          <li>
+<span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_euler__Polynomial__Table.html">eulerPolynomialTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span>          </li>
+          <li>
+<span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_cohomology__Hash__Table.html">cohomologyHashTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span>          </li>
+          <li>
+<span><a title="collect the degrees of the generators of the terms in a free complex" href="_tally__Degrees.html">tallyDegrees</a> -- collect the degrees of the generators of the terms in a free complex</span>          </li>
+        </ul>
+        <h2>From graded modules to Tate resolutions</h2>
+        <ul>
+          <li>
+<span><a title="Cox ring of a product of projective spaces and it Koszul dual exterior algebra" href="_product__Of__Projective__Spaces.html">productOfProjectiveSpaces</a> -- Cox ring of a product of projective spaces and it Koszul dual exterior algebra</span>          </li>
+          <li>
+<span><a title="from linear presentation matrices over S to linear presentation matrices over E and conversely" href="_sym__Ext.html">symExt</a> -- from linear presentation matrices over S to linear presentation matrices over E and conversely</span>          </li>
+          <li>
+<span><a title="compute the lower corner" href="_lower__Corner.html">lowerCorner</a> -- compute the lower corner</span>          </li>
+          <li>
+<span><a title="compute the upper corner" href="_upper__Corner.html">upperCorner</a> -- compute the upper corner</span>          </li>
+        </ul>
+        <h2>Subcomplexes</h2>
+        <ul>
+          <li>
+<span><a title="form the corner complex" href="_corner__Complex.html">cornerComplex</a> -- form the corner complex</span>          </li>
+          <li>
+<span><a title="region complex" href="_region__Complex.html">regionComplex</a> -- region complex</span>          </li>
+          <li>
+<span><a title="take the strand" href="_strand.html">strand</a> -- take the strand</span>          </li>
+          <li>
+<span><a title="form the first quadrant complex" href="_first__Quadrant__Complex.html">firstQuadrantComplex</a> -- form the first quadrant complex</span>          </li>
+          <li>
+<span><a title="form the last quadrant complex" href="_last__Quadrant__Complex.html">lastQuadrantComplex</a> -- form the last quadrant complex</span>          </li>
+        </ul>
+        <p/>
+Acknowledgement: The work of Yeongrak Kim and Frank-Olaf Schreyer was supported by Project I.6 of the SFB-TRR 195 ''Symbolic Tools in Mathematics and their Application'' of the German Research Foundation (DFG).      </div>
+      <div>
+        <div>
+          <h2>Authors</h2>
+          <ul>
+            <li>
+<a href="http://www.math.wisc.edu/~derman/">Daniel Erman</a><span> &lt;<a href="mailto:derman@math.wisc.edu">derman@math.wisc.edu</a>></span>            </li>
+            <li>
+<a href="http://www.msri.org/~de/">David Eisenbud</a><span> &lt;<a href="mailto:de@msri.org">de@msri.org</a>></span>            </li>
+            <li>
+<a href="http://www.math.uni-sb.de/ag/schreyer/">Frank-Olaf Schreyer</a><span> &lt;<a href="mailto:schreyer@math.uni-sb.de">schreyer@math.uni-sb.de</a>></span>            </li>
+            <li>
+<a href="http://www.math.cornell.edu/People/Faculty/stillman.html">Michael E. Stillman</a><span> &lt;<a href="mailto:mike@math.cornell.edu">mike@math.cornell.edu</a>></span>            </li>
+            <li>
+<a href="http://sites.google.com/view/yeongrak/">Yeongrak Kim</a><span> &lt;<a href="mailto:kim@math.uni-sb.de">kim@math.uni-sb.de</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.2</b> of TateOnProducts.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/TateOnProducts.m2">TateOnProducts.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="recover the module structure via a Noether normalization" href="_action__On__Direct__Image.html">actionOnDirectImage</a> -- recover the module structure via a Noether normalization</span>                  </li>
+                  <li>
+<span><a title="apply the beilinson functor" href="_beilinson.html">beilinson</a> -- apply the beilinson functor</span>                  </li>
+                  <li>
+<span><a title="compute a basic Beilinson bundle" href="_beilinson__Bundle.html">beilinsonBundle</a> -- compute a basic Beilinson bundle</span>                  </li>
+                  <li>
+<span><a title="compute a Beilinson contraction" href="_beilinson__Contraction.html">beilinsonContraction</a> -- compute a Beilinson contraction</span>                  </li>
+                  <li>
+<span><a title="extract the subquotient complex which contributes to the Beilinson window" href="_beilinson__Window.html">beilinsonWindow</a> -- extract the subquotient complex which contributes to the Beilinson window</span>                  </li>
+                  <li>
+<span><a title="make a linear free complex from a module over an exterior algebra or a symmetric algebra" href="_bgg.html">bgg</a> -- make a linear free complex from a module over an exterior algebra or a symmetric algebra</span>                  </li>
+                  <li>
+<span><a title="A truncation that has linear resolution" href="_coarse__Multigraded__Regularity.html">coarseMultigradedRegularity</a> -- A truncation that has linear resolution</span>                  </li>
+                  <li>
+<span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_cohomology__Hash__Table.html">cohomologyHashTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span>                  </li>
+                  <li>
+<span><a title="cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution" href="_cohomology__Matrix.html">cohomologyMatrix</a> -- cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution</span>                  </li>
+                  <li>
+<span><a title="composed functions" href="_composed__Functions.html">composedFunctions</a> -- composed functions</span>                  </li>
+                  <li>
+<span><a title="Compute the action of monomials in the exterior algebra on the Beilinson monad" href="_contraction__Data.html">contractionData</a> -- Compute the action of monomials in the exterior algebra on the Beilinson monad</span>                  </li>
+                  <li>
+<span><a title="form the corner complex" href="_corner__Complex.html">cornerComplex</a> -- form the corner complex</span>                  </li>
+                  <li>
+<span><a title="compute the direct image complex" href="_direct__Image__Complex.html">directImageComplex</a> -- compute the direct image complex</span>                  </li>
+                  <li>
+<span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_euler__Polynomial__Table.html">eulerPolynomialTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span>                  </li>
+                  <li>
+<span><a title="form the first quadrant complex" href="_first__Quadrant__Complex.html">firstQuadrantComplex</a> -- form the first quadrant complex</span>                  </li>
+                  <li>
+<span><a title="test whether a list of square matrices induces an action" href="_is__Action.html">isAction</a> -- test whether a list of square matrices induces an action</span>                  </li>
+                  <li>
+<span><a title="probabilistic test for homogeneous isomorphism" href="_is__Isomorphic.html">isIsomorphic</a> -- probabilistic test for homogeneous isomorphism</span>                  </li>
+                  <li>
+<span><a title="Test to see if the ChainComplexMap is a quasiisomorphism." href="_is__Quism.html">isQuism</a> -- Test to see if the ChainComplexMap is a quasiisomorphism.</span>                  </li>
+                  <li>
+<span><a title="form the last quadrant complex" href="_last__Quadrant__Complex.html">lastQuadrantComplex</a> -- form the last quadrant complex</span>                  </li>
+                  <li>
+<span><a title="compute the lower corner" href="_lower__Corner.html">lowerCorner</a> -- compute the lower corner</span>                  </li>
+                  <li>
+<span><a title="Cox ring of a product of projective spaces and it Koszul dual exterior algebra" href="_product__Of__Projective__Spaces.html">productOfProjectiveSpaces</a> -- Cox ring of a product of projective spaces and it Koszul dual exterior algebra</span>                  </li>
+                  <li>
+<span><a title="region complex" href="_region__Complex.html">regionComplex</a> -- region complex</span>                  </li>
+                  <li>
+<span><a title="take the strand" href="_strand.html">strand</a> -- take the strand</span>                  </li>
+                  <li>
+<span><a title="from linear presentation matrices over S to linear presentation matrices over E and conversely" href="_sym__Ext.html">symExt</a> -- from linear presentation matrices over S to linear presentation matrices over E and conversely</span>                  </li>
+                  <li>
+<span><a title="collect the degrees of the generators of the terms in a free complex" href="_tally__Degrees.html">tallyDegrees</a> -- collect the degrees of the generators of the terms in a free complex</span>                  </li>
+                  <li>
+<span><a title="reads TateData from the cache of an appropriate ring" href="_tate__Data.html">tateData</a> -- reads TateData from the cache of an appropriate ring</span>                  </li>
+                  <li>
+<span><a title="extend the terms in the Beilinson window to a part of a corner complex of the corresponding Tate resolution" href="_tate__Extension.html">tateExtension</a> -- extend the terms in the Beilinson window to a part of a corner complex of the corresponding Tate resolution</span>                  </li>
+                  <li>
+<span><a title="compute the Tate resolution" href="_tate__Resolution.html">tateResolution</a> -- compute the Tate resolution</span>                  </li>
+                  <li>
+<span><a title="return the trivial truncation of a chain complex" href="_trivial__Homological__Truncation.html">trivialHomologicalTruncation</a> -- return the trivial truncation of a chain complex</span>                  </li>
+                  <li>
+<span><a title="compute the upper corner" href="_upper__Corner.html">upperCorner</a> -- compute the upper corner</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;actionOnDirectImage(Ideal,ChainComplex)&quot;</tt> -- see <span><a title="recover the module structure via a Noether normalization" href="_action__On__Direct__Image.html">actionOnDirectImage</a> -- recover the module structure via a Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;actionOnDirectImage(Ideal,Module)&quot;</tt> -- see <span><a title="recover the module structure via a Noether normalization" href="_action__On__Direct__Image.html">actionOnDirectImage</a> -- recover the module structure via a Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;actionOnDirectImage(Ideal,Module,Matrix)&quot;</tt> -- see <span><a title="recover the module structure via a Noether normalization" href="_action__On__Direct__Image.html">actionOnDirectImage</a> -- recover the module structure via a Noether normalization</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinson(ChainComplex)&quot;</tt> -- see <span><a title="apply the beilinson functor" href="_beilinson.html">beilinson</a> -- apply the beilinson functor</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinson(Matrix)&quot;</tt> -- see <span><a title="apply the beilinson functor" href="_beilinson.html">beilinson</a> -- apply the beilinson functor</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinson(Module)&quot;</tt> -- see <span><a title="apply the beilinson functor" href="_beilinson.html">beilinson</a> -- apply the beilinson functor</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinsonBundle(List,Ring)&quot;</tt> -- see <span><a title="compute a basic Beilinson bundle" href="_beilinson__Bundle.html">beilinsonBundle</a> -- compute a basic Beilinson bundle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinsonBundle(ZZ,ZZ,Ring)&quot;</tt> -- see <span><a title="compute a basic Beilinson bundle" href="_beilinson__Bundle.html">beilinsonBundle</a> -- compute a basic Beilinson bundle</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinsonContraction(RingElement,List,List)&quot;</tt> -- see <span><a title="compute a Beilinson contraction" href="_beilinson__Contraction.html">beilinsonContraction</a> -- compute a Beilinson contraction</span></span>                  </li>
+                  <li>
+<span><tt>&quot;beilinsonWindow(ChainComplex)&quot;</tt> -- see <span><a title="extract the subquotient complex which contributes to the Beilinson window" href="_beilinson__Window.html">beilinsonWindow</a> -- extract the subquotient complex which contributes to the Beilinson window</span></span>                  </li>
+                  <li>
+<span><tt>&quot;bgg(Module)&quot;</tt> -- see <span><a title="make a linear free complex from a module over an exterior algebra or a symmetric algebra" href="_bgg.html">bgg</a> -- make a linear free complex from a module over an exterior algebra or a symmetric algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coarseMultigradedRegularity(ChainComplex)&quot;</tt> -- see <span><a title="A truncation that has linear resolution" href="_coarse__Multigraded__Regularity.html">coarseMultigradedRegularity</a> -- A truncation that has linear resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coarseMultigradedRegularity(Module)&quot;</tt> -- see <span><a title="A truncation that has linear resolution" href="_coarse__Multigraded__Regularity.html">coarseMultigradedRegularity</a> -- A truncation that has linear resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cohomologyHashTable(ChainComplex,List,List)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_cohomology__Hash__Table.html">cohomologyHashTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cohomologyHashTable(Module,List,List)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_cohomology__Hash__Table.html">cohomologyHashTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cohomologyMatrix(ChainComplex,List,List)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution" href="_cohomology__Matrix.html">cohomologyMatrix</a> -- cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cohomologyMatrix(Module,List,List)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution" href="_cohomology__Matrix.html">cohomologyMatrix</a> -- cohomology groups of a sheaf on P^{n_1}xP^{n_2}, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;contractionData(List,List,Ring)&quot;</tt> -- see <span><a title="Compute the action of monomials in the exterior algebra on the Beilinson monad" href="_contraction__Data.html">contractionData</a> -- Compute the action of monomials in the exterior algebra on the Beilinson monad</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cornerComplex(ChainComplex,List)&quot;</tt> -- see <span><a title="form the corner complex" href="_corner__Complex.html">cornerComplex</a> -- form the corner complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cornerComplex(Module,List,List,List)&quot;</tt> -- see <span><a title="form the corner complex" href="_corner__Complex.html">cornerComplex</a> -- form the corner complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;directImageComplex(Ideal,Module,Matrix)&quot;</tt> -- see <span><a title="compute the direct image complex" href="_direct__Image__Complex.html">directImageComplex</a> -- compute the direct image complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;directImageComplex(Module,List)&quot;</tt> -- see <span><a title="compute the direct image complex" href="_direct__Image__Complex.html">directImageComplex</a> -- compute the direct image complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;eulerPolynomialTable(ChainComplex,List,List)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_euler__Polynomial__Table.html">eulerPolynomialTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;eulerPolynomialTable(HashTable)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_euler__Polynomial__Table.html">eulerPolynomialTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;eulerPolynomialTable(Module,List,List)&quot;</tt> -- see <span><a title="cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution" href="_euler__Polynomial__Table.html">eulerPolynomialTable</a> -- cohomology groups of a sheaf on a product of projective spaces, or of (part) of a Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;firstQuadrantComplex(ChainComplex,List)&quot;</tt> -- see <span><a title="form the first quadrant complex" href="_first__Quadrant__Complex.html">firstQuadrantComplex</a> -- form the first quadrant complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isAction(Ideal,List)&quot;</tt> -- see <span><a title="test whether a list of square matrices induces an action" href="_is__Action.html">isAction</a> -- test whether a list of square matrices induces an action</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isQuism(ChainComplexMap)&quot;</tt> -- see <span><a title="Test to see if the ChainComplexMap is a quasiisomorphism." href="_is__Quism.html">isQuism</a> -- Test to see if the ChainComplexMap is a quasiisomorphism.</span></span>                  </li>
+                  <li>
+<span><tt>&quot;lastQuadrantComplex(ChainComplex,List)&quot;</tt> -- see <span><a title="form the last quadrant complex" href="_last__Quadrant__Complex.html">lastQuadrantComplex</a> -- form the last quadrant complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;lowerCorner(ChainComplex,List)&quot;</tt> -- see <span><a title="compute the lower corner" href="_lower__Corner.html">lowerCorner</a> -- compute the lower corner</span></span>                  </li>
+                  <li>
+<span><tt>&quot;productOfProjectiveSpaces(List)&quot;</tt> -- see <span><a title="Cox ring of a product of projective spaces and it Koszul dual exterior algebra" href="_product__Of__Projective__Spaces.html">productOfProjectiveSpaces</a> -- Cox ring of a product of projective spaces and it Koszul dual exterior algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;productOfProjectiveSpaces(ZZ)&quot;</tt> -- see <span><a title="Cox ring of a product of projective spaces and it Koszul dual exterior algebra" href="_product__Of__Projective__Spaces.html">productOfProjectiveSpaces</a> -- Cox ring of a product of projective spaces and it Koszul dual exterior algebra</span></span>                  </li>
+                  <li>
+<span><tt>&quot;regionComplex(ChainComplex,List,Sequence)&quot;</tt> -- see <span><a title="region complex" href="_region__Complex.html">regionComplex</a> -- region complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;strand(ChainComplex,List,List)&quot;</tt> -- see <span><a title="take the strand" href="_strand.html">strand</a> -- take the strand</span></span>                  </li>
+                  <li>
+<span><tt>&quot;symExt(Matrix,Ring)&quot;</tt> -- see <span><a title="from linear presentation matrices over S to linear presentation matrices over E and conversely" href="_sym__Ext.html">symExt</a> -- from linear presentation matrices over S to linear presentation matrices over E and conversely</span></span>                  </li>
+                  <li>
+<span><tt>&quot;tallyDegrees(ChainComplex)&quot;</tt> -- see <span><a title="collect the degrees of the generators of the terms in a free complex" href="_tally__Degrees.html">tallyDegrees</a> -- collect the degrees of the generators of the terms in a free complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;tateData(Ring)&quot;</tt> -- see <span><a title="reads TateData from the cache of an appropriate ring" href="_tate__Data.html">tateData</a> -- reads TateData from the cache of an appropriate ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;tateExtension(ChainComplex)&quot;</tt> -- see <span><a title="extend the terms in the Beilinson window to a part of a corner complex of the corresponding Tate resolution" href="_tate__Extension.html">tateExtension</a> -- extend the terms in the Beilinson window to a part of a corner complex of the corresponding Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;tateResolution(Matrix,List,List)&quot;</tt> -- see <span><a title="compute the Tate resolution" href="_tate__Resolution.html">tateResolution</a> -- compute the Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;tateResolution(Module,List,List)&quot;</tt> -- see <span><a title="compute the Tate resolution" href="_tate__Resolution.html">tateResolution</a> -- compute the Tate resolution</span></span>                  </li>
+                  <li>
+<span><tt>&quot;trivialHomologicalTruncation(ChainComplex,ZZ,ZZ)&quot;</tt> -- see <span><a title="return the trivial truncation of a chain complex" href="_trivial__Homological__Truncation.html">trivialHomologicalTruncation</a> -- return the trivial truncation of a chain complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;upperCorner(ChainComplex,List)&quot;</tt> -- see <span><a title="compute the upper corner" href="_upper__Corner.html">upperCorner</a> -- compute the upper corner</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="Option in beilinson with values PrunedQuotient, QuotientBundle, DummyQuotientBundle, SubBundle, FreeBundle, or MapsBetweenFreeBundles" href="___Bundle__Type.html">BundleType</a> -- Option in beilinson with values PrunedQuotient, QuotientBundle, DummyQuotientBundle, SubBundle, FreeBundle, or MapsBetweenFreeBundles</span>                  </li>
+                  <li>
+<span><a title="Option for productOfProjectiveSpaces" href="___Coefficient__Field.html">CoefficientField</a> -- Option for productOfProjectiveSpaces</span>                  </li>
+                  <li>
+<span><a title="Option for productOfProjectiveSpaces" href="___Cohomology__Variables.html">CohomologyVariables</a> -- Option for productOfProjectiveSpaces</span>                  </li>
+                  <li>
+<span><a title="name of a cached datum" href="___Contraction__Data.html">ContractionData</a> -- name of a cached datum</span>                  </li>
+                  <li>
+<span><a title="value for the option BundleType in beilinson" href="___Dummy__Quotient__Bundle.html">DummyQuotientBundle</a> -- value for the option BundleType in beilinson</span>                  </li>
+                  <li>
+<span><a title="value for the option BundleType in beilinson" href="___Free__Bundle.html">FreeBundle</a> -- value for the option BundleType in beilinson</span>                  </li>
+                  <li>
+<span><a title="Option for chainComplexMap" href="___Initial__Degree.html">InitialDegree</a> -- Option for chainComplexMap</span>                  </li>
+                  <li>
+<span><a title="value for the option BundleType in beilinson" href="___Maps__Between__Free__Bundles.html">MapsBetweenFreeBundles</a> -- value for the option BundleType in beilinson</span>                  </li>
+                  <li>
+<span><a title="value for the option BundleType in beilinson" href="___Pruned__Quotient.html">PrunedQuotient</a> -- value for the option BundleType in beilinson</span>                  </li>
+                  <li>
+<span><a title="value for the option BundleType in beilinson" href="___Quotient__Bundle.html">QuotientBundle</a> -- value for the option BundleType in beilinson</span>                  </li>
+                  <li>
+<span><a title="Option for productOfProjectiveSpaces" href="___Rings.html">Rings</a> -- Option for productOfProjectiveSpaces</span>                  </li>
+                  <li>
+<span><a title="value for the option BundleType in beilinson" href="___Sub__Bundle.html">SubBundle</a> -- value for the option BundleType in beilinson</span>                  </li>
+                  <li>
+<span><a title="symbol used in beilinsonBundle" href="___Tate__Data.html">TateData</a> -- symbol used in beilinsonBundle</span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Computation of parts of the Tate resolution on products" href="index.html">TateOnProducts</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

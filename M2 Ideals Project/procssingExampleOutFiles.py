@@ -79,7 +79,9 @@ def process_example_out_file(input_file_name: str, output_file_name: str, delimi
 		elif previous_line == "i" and running_delimeter_count != [0]*len(delimiter_pairs):
 			write_line_to_file(line, output_file_name)
 			running_delimeter_count = update_running_delimeter_count(line, delimiter_pairs, running_delimeter_count)
-	return [f"F{file_number}E{number}" for number in range(example_number)]
+	file_example_ids = [f"F{file_number}E{number}" for number in range(example_number)]
+	write_list_of_example_ids_to_file(file_example_ids,output_file_name[:-4] + '-exID.txt')
+	return file_example_ids
 
 def is_out_file(file_name_string) -> bool:
 	return file_name_string.endswith('.out')
@@ -101,10 +103,11 @@ def process_package_example_out(package_name: str, package_directory: str, outpu
 def process_package_example(package_name: str, package_directory: str, output_directory: str, delimiter_pairs: List[str]) -> None:
 	file_number = 0
 	os.makedirs(output_directory, exist_ok = True)
+	out_files = []
 	for file_name in os.scandir(package_directory):
 		print(file_name.name)
 		if file_name.is_file() and is_out_file(file_name.name):
-			package_example_path = os.path.join(output_directory, file_name.name + ".txt")
+			package_example_path = os.path.join(output_directory, file_name.name[:-3] + ".txt")
 			write_line_to_file(f"needsPackage \"{package_name}\"\n", package_example_path)
 			overview_dictionary = {}
 			package_example_ids = []
@@ -112,13 +115,15 @@ def process_package_example(package_name: str, package_directory: str, output_di
 			overview_dictionary[file_name.name] = {'file_number': file_number, 'example_ids': file_example_ids}
 			file_number += 1
 			package_example_ids.extend(file_example_ids)
-			write_list_of_example_ids_to_file(package_example_ids,package_example_path)
+			out_files.append(file_name.name[:-4])
+	return out_files
+			# write_list_of_example_ids_to_file(package_example_ids,package_example_path)
 
 def dictionary_to_M2_hash(dictionary: Dict) -> List:
 	dictionary_M2_list = [f"{pair[0]} => {pair[1]}" for pair in dictionary.items()]
 	seperator = ', '
 	dictionary_M2_string = f"new hashTable {{{seperator.join(dictionary_M2_list)}}}\n"
-	print(dictionary_M2_string)
+	return(dictionary_M2_string)
 
 def process_all_packages(package_directory: str, output_folder: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	package_number = 0
@@ -127,22 +132,21 @@ def process_all_packages(package_directory: str, output_folder: str, output_file
 	sorted_packge_directory = sorted(os.scandir(package_directory), key=lambda x: (x.is_dir(), x.name))
 	for package_folder in sorted_packge_directory:
 		package_example_folder = os.path.join(package_folder.path, 'example-output')
-		print(f"{package_folder.name}: {package_number}\n")
+		# print(f"{package_folder.name}: {package_number}\n")
 		if os.path.exists(package_example_folder):
 			package_output_directory = os.path.join(output_folder, package_folder.name)
-			process_package_example(package_folder.name, package_example_folder, package_output_directory, delimiter_pairs)
-			overview_dictionary[package_folder.name] = package_number
+			out_files = process_package_example(package_folder.name, package_example_folder, package_output_directory, delimiter_pairs)
+			overview_dictionary[package_folder.name] = dictionary_to_M2_hash({'package_number': package_number, 'out_files': out_files}) 
 			package_number += 1
 	output_overview_name = os.path.join(output_folder, output_file_name + '.' + 'txt')
-	write_line_to_file(overview_dictionary, output_overview_name)
 	write_line_to_file(dictionary_to_M2_hash(overview_dictionary), output_overview_name)
 
 
 delimiter_pairs = ['()', '[]', "{}"]
 
-package_directory = 'VirtualResolutions'
-package_name = 'VirtualResolutions'
-output_directory = 'VirtualResolutions-Examples'
+# package_directory = 'VirtualResolutions'
+# package_name = 'VirtualResolutions'
+# output_directory = 'VirtualResolutions-Examples'
 # output_file_name = 'VirRes-test.txt'
 # process_package_example(package_name,package_directory,output_directory,delimiter_pairs)
 
@@ -150,11 +154,15 @@ output_directory = 'VirtualResolutions-Examples'
 # output_file_name = 'NTV-test.txt'
 # process_package_example_out(package_directory, output_file_name, delimiter_pairs)
 
-package_directory = 'package_directory'
-output_folder = 'output'
-output_file_name = '0overview'
-process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
+# package_directory = 'package_directory'
+# output_folder = 'output'
+# output_file_name = '0overview'
+# process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
 
+package_directory = 'test_package_directory'
+output_folder = 'test_output'
+output_file_name = 'test_overview'
+process_all_packages(package_directory,output_folder,output_file_name,delimiter_pairs)
 
 # package_directory = 'package_directory/GKMVarieties/example-output'
 # output_file_name = 'test-test.txt'

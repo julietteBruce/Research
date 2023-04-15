@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>labeledModule -- makes a labeled module</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="___Labeled__Module__Map.html">next</a> | <a href="___Labeled__Module.html">previous</a> | <a href="___Labeled__Module__Map.html">forward</a> | <a href="___Labeled__Module.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="multilinear algebra for the construction of tensor complexes" href="index.html">TensorComplexes</a> :: <a title="makes a labeled module" href="_labeled__Module.html">labeledModule</a>    </div>
+    <hr/>
+    <div>
+      <h1>labeledModule -- makes a labeled module</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">labeledModule M</code></dd>
+              <dd><code class="language-macaulay2">labeledModule R</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all modules" href="../../Macaulay2Doc/html/___Module.html">module</a></span>, which is free</span>              </li>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of free modules with a labeled basis" href="___Labeled__Module.html">free module with labeled basis</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This is the basic construction for a <a title="the class of free modules with a labeled basis" href="___Labeled__Module.html">LabeledModule</a>.  Given a free module $M$ of rank $r$, this constructs a labeled module with basis labeled by $\{0,..,r-1\}$ and no underlying modules.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : S = ZZ/101[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : E = labeledModule S^3
+
+      3
+o2 = S
+
+o2 : free S-module with labeled basis</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : basisList E
+
+o3 = {0, 1, 2}
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : underlyingModules E
+
+o4 = {}
+
+o4 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : module E
+
+      3
+o5 = S
+
+o5 : S-module, free</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : rank E
+
+o6 = 3</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>For technical reasons, it is often convenient to construct a rank $1$ free module whose generator is labeled by the empty set. This is constructed by <tt>labeledModule S</tt>.</p>
+          <p></p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : S = ZZ/101[a,b,c];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : F = labeledModule S
+
+      1
+o8 = S
+
+o8 : free S-module with labeled basis</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i9 : basisList F
+
+o9 = {{}}
+
+o9 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i10 : underlyingModules F
+
+o10 = {}
+
+o10 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i11 : module F
+
+       1
+o11 = S
+
+o11 : S-module, free</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i12 : E = labeledModule S^1
+
+       1
+o12 = S
+
+o12 : free S-module with labeled basis</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i13 : basisList E
+
+o13 = {0}
+
+o13 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i14 : underlyingModules E
+
+o14 = {}
+
+o14 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>labeledModule</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;labeledModule(Module)&quot;</tt>          </li>
+          <li>
+<tt>&quot;labeledModule(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="makes a labeled module" href="_labeled__Module.html">labeledModule</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

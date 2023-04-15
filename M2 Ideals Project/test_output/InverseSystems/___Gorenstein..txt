@@ -1,0 +1,38 @@
+needsPackage "InverseSystems"
+
+F3E0 =  S = ZZ/101[a,b,c,d]
+
+F3E1 =  nPowers = (S, n,d) ->sum(apply(n, j->(random(1,S))^d))
+
+F3E2 =  minimalBetti inverseSystem nPowers(S,4,3)
+
+F3E3 =  minimalBetti inverseSystem nPowers (S,5,3)
+
+F3E4 =  Msymm = matrix"0,a,b
+
+F3E5 =  Mskew = matrix"0,a,b
+
+F3E6 =  minimalBetti coker gens inverseSystem Msymm
+
+F3E7 =  minimalBetti coker gens inverseSystem Mskew
+
+F3E8 =  Hessian = (d,f) ->(
+
+         S = ring f;
+
+         B = basis(d,S);
+
+         diff(transpose B, diff(B,f))
+
+         )
+
+F3E9 =  S = ZZ/101[x_1..x_4]
+
+F3E10 =  f = nPowers (S,6,4)
+
+F3E11 =  minimalBetti coker gens inverseSystem f
+
+F3E12 =  minimalBetti coker gens inverseSystem Hessian(1, f)
+
+F3E13 =  minimalBetti coker gens inverseSystem Hessian(2, f)
+

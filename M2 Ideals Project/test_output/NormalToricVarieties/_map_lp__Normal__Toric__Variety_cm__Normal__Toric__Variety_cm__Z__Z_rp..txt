@@ -1,0 +1,38 @@
+needsPackage "NormalToricVarieties"
+
+F101E0 =  X = hirzebruchSurface 2;
+
+F101E1 =  Y = toricProjectiveSpace 1;
+
+F101E2 =  f = map(Y, X, 0)
+
+F101E3 =  assert (isWellDefined f and source f === X and
+
+         target f === Y and matrix f === map(ZZ^(dim Y), ZZ^(dim X), 0))
+
+F101E4 =  Z = normalToricVariety ({{1,0},{-1,2},{0,-1}}, {{0,1},{0,2},{1,2}});
+
+F101E5 =  assert (isWellDefined Z and not isSmooth Z)
+
+F101E6 =  g = map(Z, X, 2)
+
+F101E7 =  assert (isWellDefined g and source g === X and
+
+         target g === Z and matrix g === 2*id_(ZZ^(dim X)))
+
+F101E8 =  A = affineSpace 2;
+
+F101E9 =  B = toricBlowup ({0, 1}, A);
+
+F101E10 =  h = map(A, B, 1)
+
+F101E11 =  assert (isWellDefined h and h == B^[])
+
+F101E12 =  i = map(A, A, 1)
+
+F101E13 =  i == id_A
+
+F101E14 =  assert (isWellDefined i and source i === A and
+
+          target i === A and matrix i === id_(ZZ^2))
+

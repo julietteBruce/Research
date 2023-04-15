@@ -1,0 +1,41 @@
+-- -*- M2-comint -*- hash: -256095103
+
+i1 : E=ZZ/101[e_0,e_1,SkewCommutative=>true];F=res ideal vars E;
+
+i3 : C=dual res (coker transpose F.dd_3,LengthLimit=>8)[-3]
+
+      5      4      3      2      1      1      2      3      4
+o3 = E  <-- E  <-- E  <-- E  <-- E  <-- E  <-- E  <-- E  <-- E
+                                                              
+     -5     -4     -3     -2     -1     0      1      2      3
+
+o3 : ChainComplex
+
+i4 : C1=trivialHomologicalTruncation(C,-2,2)
+
+             2      1      1      2      3
+o4 = 0  <-- E  <-- E  <-- E  <-- E  <-- E  <-- 0
+                                                
+     -3     -2     -1     0      1      2      3
+
+o4 : ChainComplex
+
+i5 : C2=trivialHomologicalTruncation(C1,-3,3)
+
+                    2      1      1      2      3
+o5 = 0  <-- 0  <-- E  <-- E  <-- E  <-- E  <-- E  <-- 0 <-- 0
+                                                             
+     -4     -3     -2     -1     0      1      2      3     4
+
+o5 : ChainComplex
+
+i6 : C3=trivialHomologicalTruncation(C2,2,2)
+
+            3
+o6 = 0 <-- E  <-- 0
+                   
+     1     2      3
+
+o6 : ChainComplex
+
+i7 : 

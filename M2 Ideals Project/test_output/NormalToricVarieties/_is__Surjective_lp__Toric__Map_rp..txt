@@ -1,0 +1,46 @@
+needsPackage "NormalToricVarieties"
+
+F90E0 =  X = toricProjectiveSpace 2;
+
+F90E1 =  Y = hirzebruchSurface 2;
+
+F90E2 =  XY = X ** Y;
+
+F90E3 =  pi0 = XY^[0]
+
+F90E4 =  isSurjective pi0
+
+F90E5 =  assert (isWellDefined pi0 and isSurjective pi0)
+
+F90E6 =  pi1 = XY^[1]
+
+F90E7 =  isSurjective pi1
+
+F90E8 =  assert (isWellDefined pi1 and isSurjective pi1)
+
+F90E9 =  A = affineSpace 2;
+
+F90E10 =  f = map(X, A, 1)
+
+F90E11 =  isDominant f
+
+F90E12 =  isSurjective f
+
+F90E13 =  assert (isWellDefined f and isDominant f and not isSurjective f)
+
+F90E14 =  Y = (toricProjectiveSpace 1) ** (toricProjectiveSpace 1);
+
+F90E15 =  X = normalToricVariety(
+
+          {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}},
+
+          {{0},{1},{2},{3},{4},{5},{6},{7}});
+
+F90E16 =  g = map(Y,X,1)
+
+F90E17 =  isSurjective g
+
+F90E18 =  isComplete X
+
+F90E19 =  assert (isWellDefined g and isSurjective g and not isComplete X)
+

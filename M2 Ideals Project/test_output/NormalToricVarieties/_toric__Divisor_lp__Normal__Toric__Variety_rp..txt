@@ -1,0 +1,28 @@
+needsPackage "NormalToricVarieties"
+
+F58E0 =  PP3 = toricProjectiveSpace 3;
+
+F58E1 =  assert(isSmooth PP3 and isProjective PP3)
+
+F58E2 =  K = toricDivisor PP3
+
+F58E3 =  assert(all(entries K, i -> i === -1) and isWellDefined K)
+
+F58E4 =  omega = OO K
+
+F58E5 =  assert(HH^3(PP3, OO_PP3(-7) ** omega) === HH^0(PP3, OO_PP3(7)))
+
+F58E6 =  X = normalToricVariety({{1,0,0},{0,1,0},{0,0,1},{0,-1,-1},{-1,0,-1},{-2,-1,0}},{{0,1,2},{0,1,3},{1,3,4},{1,2,4},{2,4,5},{0,2,5},{0,3,5},{3,4,5}});
+
+F58E7 =  assert(isComplete X and not isProjective X and not isSmooth X)
+
+F58E8 =  KX = toricDivisor X
+
+F58E9 =  assert(all(entries KX, i -> i === -1) and isWellDefined KX)
+
+F58E10 =  isCartier KX
+
+F58E11 =  omegaX = OO KX
+
+F58E12 =  assert( HH^0(X, OO_X(1,2,5)) === HH^3(X, OO_X(-1,-2,-5) ** omegaX) )
+

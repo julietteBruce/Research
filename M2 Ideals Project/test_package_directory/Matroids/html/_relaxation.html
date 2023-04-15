@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>relaxation -- relaxation of matroid</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_restriction.html">next</a> | <a href="_relabel.html">previous</a> | <a href="_restriction.html">forward</a> | <a href="_relabel.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="relaxation of matroid" href="_relaxation.html">relaxation</a>    </div>
+    <hr/>
+    <div>
+      <h1>relaxation -- relaxation of matroid</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">relaxation(M, S)</code></dd>
+              <dd><code class="language-macaulay2">relaxation M</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+              <li>
+<span><tt>S</tt>, <span>a <a title="the class of all sets" href="../../Macaulay2Doc/html/___Set.html">set</a></span>, of indices, or a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a> of elements in M, which is a circuit-hyperplane of M</span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><a title="an optional argument" href="___Check__Well__Defined.html">CheckWellDefined</a><tt> => </tt><tt>...</tt>, <span>default value false</span>, an optional argument</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, the relaxation of M by S</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Let M = (E, B) be a matroid with bases B. If there is a subset S of E that is both a <a title="circuits of matroid" href="_circuits.html">circuit</a> and a <a title="hyperplanes of a matroid" href="_hyperplanes.html">hyperplane</a> of M, then the set $B \cup \{S\}$ is the set of bases of a matroid on E, called the relaxation of M by S.</p>
+          <p>If no set S is provided, then this function will take S to be a random circuit-hyperplane (the first in lexicographic order). If no circuit-hyperplanes exist, then an error is produced.</p>
+          <p>Many interesting matroids arise as relaxations of other matroids: e.g. the non-Fano matroid is a relaxation of the <a title="creates built-in matroid" href="_specific__Matroid.html">Fano matroid</a>, and the non-Pappus matroid is a relaxation of the Pappus matroid.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : P = specificMatroid &quot;pappus&quot;
+
+o1 = a &quot;matroid&quot; of rank 3 on 9 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : NP = specificMatroid &quot;nonpappus&quot;
+
+o2 = a &quot;matroid&quot; of rank 3 on 9 elements
+
+o2 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : NP == relaxation(P, set{6,7,8})
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>relaxation</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;relaxation(Matroid)&quot;</tt>          </li>
+          <li>
+<tt>&quot;relaxation(Matroid,List)&quot;</tt>          </li>
+          <li>
+<tt>&quot;relaxation(Matroid,Set)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="relaxation of matroid" href="_relaxation.html">relaxation</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

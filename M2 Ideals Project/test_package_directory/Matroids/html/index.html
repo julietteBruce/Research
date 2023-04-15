@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Matroids -- a package for computations with matroids</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_affine__Geometry.html">next</a> | previous | <a href="_affine__Geometry.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="a package for computations with matroids" href="index.html">Matroids</a>    </div>
+    <hr/>
+    <div>
+      <h1>Matroids -- a package for computations with matroids</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A matroid is a combinatorial structure abstracting the notion of (linear algebraic, graph-theoretic) independence. This package provides methods to perform computations with matroids in Macaulay2.</p>
+          <p>This package provides capabilities for converting between various representations of matroids, creating linear and graphic matroids from a matrix or graph, forming and detecting existence of minors, computing Tutte polynomials, and additional functions for applications of matroids to areas like optimization and convex geometry.</p>
+          <p>Matroids are stored as pairs (E, B) of a ground set E and a list B of bases, which are maximal independent subsets of the ground set. Internally, a ground set of size n is always identified with the set $\{0, ..., n-1\}$, and thus all subsets of the ground set (e.g. bases, circuits, flats) are also treated as subsets of $\{0, ..., n-1\}$ (for more, cf. <a title="(internal) ground set" href="_ground__Set.html">groundSet</a>). However, the actual elements of the ground set are allowed to be arbitrary (e.g. integers, symbols, vectors, edges in a graph), and can be accessed by <a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">taking subscripts</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = matroid({a, matrix{{-1.2},{3.78}}, x, set{4,6}, -9}, {{a, x}, {x, -9}})
+
+o1 = a &quot;matroid&quot; of rank 2 on 5 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : peek M
+
+o2 = Matroid{bases => {set {0, 2}, set {2, 4}}}
+             cache => CacheTable{...1...}
+             groundSet => set {0, 1, 2, 3, 4}
+             rank => 2</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : M_{0,1,4}
+
+o3 = {a, | -1.2 |, -9}
+         | 3.78 |
+
+o3 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : peek restriction(M, set{1,2,3})
+
+o4 = Matroid{bases => {set {1}}          }
+             cache => CacheTable{...1...}
+             groundSet => set {0, 1, 2}
+             rank => 1</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : circuits M
+
+o5 = {set {1}, set {3}, set {0, 4}}
+
+o5 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : netList flats M
+
+     +-------------------+
+o6 = |set {1, 3}         |
+     +-------------------+
+     |set {0, 1, 3, 4}   |
+     +-------------------+
+     |set {1, 2, 3}      |
+     +-------------------+
+     |set {0, 1, 2, 3, 4}|
+     +-------------------+</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : tuttePolynomial M
+
+      2 2      3
+o7 = x y  + x*y
+
+o7 : ZZ[x..y]</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>A matroid can be specified by its bases, nonbases, circuits, from a matrix, graph, or ideal, or via a collection of predefined matroids. For more on how to construct a matroid, see <a title="constructs a matroid" href="_matroid.html">matroid</a>.</p>
+          <p><b>Reference</b> Oxley, Matroid Theory, second edition. Oxford University Press, 2011.</p>
+        </div>
+        <div>
+          <h2>Contributors</h2>
+        </div>
+        <div>
+          <p>The following people have generously contributed code, improved existing code, or enhanced the documentation: Aaron Dall, Chris Eur, Matthew Mastroeni, Jason McCullough, Tianyi Zhang.</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+Justin Chen<span> &lt;<a href="mailto:jchen@math.berkeley.edu">jchen@math.berkeley.edu</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Certification <img src="../../../../Macaulay2/Style/GoldStar.png" alt="a gold star"/></h2>
+          <p>Version <b>0.9.7</b> of this package was accepted for publication in <a href="https://msp.org/jsag/2019/9-1/">volume 9</a> of <a href="http://j-sag.org/">The Journal of Software for Algebra and Geometry</a> on 27 September 2018, in the article <a href="https://msp.org/jsag/2019/9-1/p03.xhtml">Matroids: a Macaulay2 package</a>. That version can be obtained from <a href="https://msp.org/jsag/2019/9-1/jsag-v9-n1-x03-Matroids.m2">the journal</a> or from <a href="http://github.com/Macaulay2/M2/blob/cf37f5a1eefc2fe7e6eef2868718256106805027/M2/Macaulay2/packages/Matroids.m2"><span>the <em>Macaulay2</em> source code repository</span></a>.</p>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>1.6.0</b> of Matroids.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/Matroids.m2">Matroids.m2</a>. The auxiliary files accompanying it are in the directory <a href="../../../../Macaulay2/Matroids/">Matroids/</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Types                <ul>
+                  <li>
+<span><a title="the class of all matroids" href="___Matroid.html">Matroid</a> -- the class of all matroids</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="affine geometry of rank n+1 over F_p" href="_affine__Geometry.html">affineGeometry</a> -- affine geometry of rank n+1 over F_p</span>                  </li>
+                  <li>
+<span><a title="returns all n-element matroids of rank r" href="_all__Matroids.html">allMatroids</a> -- returns all n-element matroids of rank r</span>                  </li>
+                  <li>
+<span><a title="returns all minors of one matroid in another" href="_all__Minors.html">allMinors</a> -- returns all minors of one matroid in another</span>                  </li>
+                  <li>
+<span><a title="bases of matroid" href="_bases.html">bases</a> -- bases of matroid</span>                  </li>
+                  <li>
+<span><a title="matrix of basis polytope" href="_basis__Indicator__Matrix.html">basisIndicatorMatrix</a> -- matrix of basis polytope</span>                  </li>
+                  <li>
+<span><a title="computes chromatic polynomial of a graph" href="_chromatic__Polynomial.html">chromaticPolynomial</a> -- computes chromatic polynomial of a graph</span>                  </li>
+                  <li>
+<span><a title="circuits of matroid" href="_circuits.html">circuits</a> -- circuits of matroid</span>                  </li>
+                  <li>
+<span><a title="closure of a subset of a matroid" href="_closure.html">closure</a> -- closure of a subset of a matroid</span>                  </li>
+                  <li>
+<span><a title="the free coextension of a matroid" href="_coextension.html">coextension</a> -- the free coextension of a matroid</span>                  </li>
+                  <li>
+<span><a title="cogenerator of the Chow ring of a matroid" href="_cogenerator__Chow__Ring.html">cogeneratorChowRing</a> -- cogenerator of the Chow ring of a matroid</span>                  </li>
+                  <li>
+<span><a title="coloops of matroid" href="_coloops.html">coloops</a> -- coloops of matroid</span>                  </li>
+                  <li>
+<span><a title="contraction of subset of matroid" href="_contraction.html">contraction</a> -- contraction of subset of matroid</span>                  </li>
+                  <li>
+<span><a title="deletion of subset of matroid" href="_deletion.html">deletion</a> -- deletion of subset of matroid</span>                  </li>
+                  <li>
+<span><a title="associated to a modular cut or linear subclass" href="_elementary__Quotient.html">elementaryQuotient</a> -- associated to a modular cut or linear subclass</span>                  </li>
+                  <li>
+<span><a title="of a matroid relative to a flat or modular cut" href="_extension.html">extension</a> -- of a matroid relative to a flat or modular cut</span>                  </li>
+                  <li>
+<span><a title="flats of a matroid" href="_flats.html">flats</a> -- flats of a matroid</span>                  </li>
+                  <li>
+<span><a title="fundamental circuit of independent set" href="_fundamental__Circuit.html">fundamentalCircuit</a> -- fundamental circuit of independent set</span>                  </li>
+                  <li>
+<span><a title="find cycles of graph" href="_get__Cycles.html">getCycles</a> -- find cycles of graph</span>                  </li>
+                  <li>
+<span><a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a> -- all isomorphisms between two matroids</span>                  </li>
+                  <li>
+<span><a title="retrieves stored representation" href="_get__Representation.html">getRepresentation</a> -- retrieves stored representation</span>                  </li>
+                  <li>
+<span><a title="finds a k-separation of a matroid" href="_get__Separation.html">getSeparation</a> -- finds a k-separation of a matroid</span>                  </li>
+                  <li>
+<span><a title="(internal) ground set" href="_ground__Set.html">groundSet</a> -- (internal) ground set</span>                  </li>
+                  <li>
+<span><a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a> -- whether a matroid has a given minor</span>                  </li>
+                  <li>
+<span><a title="the defining ideal of the Chow ring" href="_ideal__Chow__Ring.html">idealChowRing</a> -- the defining ideal of the Chow ring</span>                  </li>
+                  <li>
+<span><tt>idealOrlikSolomonAlgebra</tt> (missing documentation)<!--tag: idealOrlikSolomonAlgebra-->
+</span>                  </li>
+                  <li>
+<span><a title="indices of a sublist" href="_indices__Of.html">indicesOf</a> -- indices of a sublist</span>                  </li>
+                  <li>
+<span><a title="whether a matroid is 3-connected" href="_is3__Connected.html">is3Connected</a> -- whether a matroid is 3-connected</span>                  </li>
+                  <li>
+<span><a title="whether a matroid is representable over F_2" href="_is__Binary.html">isBinary</a> -- whether a matroid is representable over F_2</span>                  </li>
+                  <li>
+<span><a title="whether a subset is dependent" href="_is__Dependent.html">isDependent</a> -- whether a subset is dependent</span>                  </li>
+                  <li>
+<span><a title="whether a matroid is an elementary quotient of another matroid" href="_is__Elementary__Quotient.html">isElementaryQuotient</a> -- whether a matroid is an elementary quotient of another matroid</span>                  </li>
+                  <li>
+<span><a title="whether a list of hyperplanes of a matroid is a linear subclass" href="_is__Linear__Subclass.html">isLinearSubclass</a> -- whether a list of hyperplanes of a matroid is a linear subclass</span>                  </li>
+                  <li>
+<span><a title="whether a list of flats of a matroid is a modular cut" href="_is__Modular__Cut.html">isModularCut</a> -- whether a list of flats of a matroid is a modular cut</span>                  </li>
+                  <li>
+<span><a title="whether 2 subsets are non-crossing" href="_is__Non__Crossing.html">isNonCrossing</a> -- whether 2 subsets are non-crossing</span>                  </li>
+                  <li>
+<span><a title="whether a matroid is positively orientable" href="_is__Positively__Orientable.html">isPositivelyOrientable</a> -- whether a matroid is positively orientable</span>                  </li>
+                  <li>
+<span><a title="whether a matroid is positively oriented" href="_is__Positively__Oriented.html">isPositivelyOriented</a> -- whether a matroid is positively oriented</span>                  </li>
+                  <li>
+<span><a title="whether a matroid is a quotient of another matroid" href="_is__Quotient.html">isQuotient</a> -- whether a matroid is a quotient of another matroid</span>                  </li>
+                  <li>
+<span><a title="lattice of flats of a matroid" href="_lattice__Of__Flats.html">latticeOfFlats</a> -- lattice of flats of a matroid</span>                  </li>
+                  <li>
+<span><a title="associated to an elementary quotient or modular cut" href="_linear__Subclass.html">linearSubclass</a> -- associated to an elementary quotient or modular cut</span>                  </li>
+                  <li>
+<span><a title="loops of matroid" href="_loops.html">loops</a> -- loops of matroid</span>                  </li>
+                  <li>
+<span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span>                  </li>
+                  <li>
+<span><a title="maximum weight basis using greedy algorithm" href="_max__Weight__Basis.html">maxWeightBasis</a> -- maximum weight basis using greedy algorithm</span>                  </li>
+                  <li>
+<span><a title="minor of matroid" href="_minor.html">minor</a> -- minor of matroid</span>                  </li>
+                  <li>
+<span><a title="associated to an elementary quotient or linear subclass" href="_modular__Cut.html">modularCut</a> -- associated to an elementary quotient or linear subclass</span>                  </li>
+                  <li>
+<span><a title="nonbases of matroid" href="_nonbases.html">nonbases</a> -- nonbases of matroid</span>                  </li>
+                  <li>
+<span><a title="parallel connection of two matroids" href="_parallel__Connection.html">parallelConnection</a> -- parallel connection of two matroids</span>                  </li>
+                  <li>
+<span><a title="a positive orientation of a matroid" href="_positive__Orientation.html">positiveOrientation</a> -- a positive orientation of a matroid</span>                  </li>
+                  <li>
+<span><a title="projective geometry of dimension n over F_p" href="_projective__Geometry.html">projectiveGeometry</a> -- projective geometry of dimension n over F_p</span>                  </li>
+                  <li>
+<span><a title="quick checks for isomorphism between matroids" href="_quick__Isomorphism__Test.html">quickIsomorphismTest</a> -- quick checks for isomorphism between matroids</span>                  </li>
+                  <li>
+<span><a title="relabel a matroid" href="_relabel.html">relabel</a> -- relabel a matroid</span>                  </li>
+                  <li>
+<span><a title="relaxation of matroid" href="_relaxation.html">relaxation</a> -- relaxation of matroid</span>                  </li>
+                  <li>
+<span><a title="restriction to subset of matroid" href="_restriction.html">restriction</a> -- restriction to subset of matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;readFromFile&quot;</tt> -- see <span><a title="save matroid to file" href="_save__Matroid.html">saveMatroid</a> -- save matroid to file</span></span>                  </li>
+                  <li>
+<span><a title="save matroid to file" href="_save__Matroid.html">saveMatroid</a> -- save matroid to file</span>                  </li>
+                  <li>
+<span><a title="search for a representation of a matroid over a finite field" href="_search__Representation.html">searchRepresentation</a> -- search for a representation of a matroid over a finite field</span>                  </li>
+                  <li>
+<span><a title="series connection of two matroids" href="_series__Connection.html">seriesConnection</a> -- series connection of two matroids</span>                  </li>
+                  <li>
+<span><a title="stores user-defined representation" href="_set__Representation.html">setRepresentation</a> -- stores user-defined representation</span>                  </li>
+                  <li>
+<span><a title="simple matroid associated to a matroid" href="_simple__Matroid.html">simpleMatroid</a> -- simple matroid associated to a matroid</span>                  </li>
+                  <li>
+<span><a title="creates built-in matroid" href="_specific__Matroid.html">specificMatroid</a> -- creates built-in matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;binarySpike&quot;</tt> -- see <span><a title="spike matroid" href="_spike.html">spike</a> -- spike matroid</span></span>                  </li>
+                  <li>
+<span><a title="spike matroid" href="_spike.html">spike</a> -- spike matroid</span>                  </li>
+                  <li>
+<span><a title="2-sum of matroids" href="_sum2.html">sum2</a> -- 2-sum of matroids</span>                  </li>
+                  <li>
+<span><a title="swirl matroid" href="_swirl.html">swirl</a> -- swirl matroid</span>                  </li>
+                  <li>
+<span><a title="theta matroid" href="_theta__Matroid.html">thetaMatroid</a> -- theta matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;fromSageMatroid&quot;</tt> -- see <span><a title="Sage format for matroid" href="_to__Sage__Matroid.html">toSageMatroid</a> -- Sage format for matroid</span></span>                  </li>
+                  <li>
+<span><a title="Sage format for matroid" href="_to__Sage__Matroid.html">toSageMatroid</a> -- Sage format for matroid</span>                  </li>
+                  <li>
+<span><a title="evaluate Tutte polynomial" href="_tutte__Evaluate.html">tutteEvaluate</a> -- evaluate Tutte polynomial</span>                  </li>
+                  <li>
+<span><a title="uniform matroid" href="_uniform__Matroid.html">uniformMatroid</a> -- uniform matroid</span>                  </li>
+                  <li>
+<span><a title="wheels/whirls" href="_wheel.html">wheel</a> -- wheels/whirls</span>                  </li>
+                  <li>
+<span><tt>&quot;whirl&quot;</tt> -- see <span><a title="wheels/whirls" href="_wheel.html">wheel</a> -- wheels/whirls</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;affineGeometry(ZZ,ZZ)&quot;</tt> -- see <span><a title="affine geometry of rank n+1 over F_p" href="_affine__Geometry.html">affineGeometry</a> -- affine geometry of rank n+1 over F_p</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allMatroids(ZZ)&quot;</tt> -- see <span><a title="returns all n-element matroids of rank r" href="_all__Matroids.html">allMatroids</a> -- returns all n-element matroids of rank r</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allMatroids(ZZ,ZZ)&quot;</tt> -- see <span><a title="returns all n-element matroids of rank r" href="_all__Matroids.html">allMatroids</a> -- returns all n-element matroids of rank r</span></span>                  </li>
+                  <li>
+<span><tt>&quot;allMinors(Matroid,Matroid)&quot;</tt> -- see <span><a title="returns all minors of one matroid in another" href="_all__Minors.html">allMinors</a> -- returns all minors of one matroid in another</span></span>                  </li>
+                  <li>
+<span><a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">areIsomorphic(Matroid,Matroid)</a> -- whether two matroids are isomorphic</span>                  </li>
+                  <li>
+<span><tt>&quot;bases(Matroid)&quot;</tt> -- see <span><a title="bases of matroid" href="_bases.html">bases</a> -- bases of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;basisIndicatorMatrix(Matroid)&quot;</tt> -- see <span><a title="matrix of basis polytope" href="_basis__Indicator__Matrix.html">basisIndicatorMatrix</a> -- matrix of basis polytope</span></span>                  </li>
+                  <li>
+<span><a title="computes characteristic polynomial of a matroid" href="_characteristic__Polynomial_lp__Matroid_rp.html">characteristicPolynomial(Matroid)</a> -- computes characteristic polynomial of a matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;chromaticPolynomial(Graph)&quot;</tt> -- see <span><a title="computes chromatic polynomial of a graph" href="_chromatic__Polynomial.html">chromaticPolynomial</a> -- computes chromatic polynomial of a graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;circuits(Matroid)&quot;</tt> -- see <span><a title="circuits of matroid" href="_circuits.html">circuits</a> -- circuits of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;closure(Matroid,List)&quot;</tt> -- see <span><a title="closure of a subset of a matroid" href="_closure.html">closure</a> -- closure of a subset of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;closure(Matroid,Set)&quot;</tt> -- see <span><a title="closure of a subset of a matroid" href="_closure.html">closure</a> -- closure of a subset of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coextension(Matroid)&quot;</tt> -- see <span><a title="the free coextension of a matroid" href="_coextension.html">coextension</a> -- the free coextension of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;cogeneratorChowRing(Matroid)&quot;</tt> -- see <span><a title="cogenerator of the Chow ring of a matroid" href="_cogenerator__Chow__Ring.html">cogeneratorChowRing</a> -- cogenerator of the Chow ring of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;coloops(Matroid)&quot;</tt> -- see <span><a title="coloops of matroid" href="_coloops.html">coloops</a> -- coloops of matroid</span></span>                  </li>
+                  <li>
+<span><a title="connected components of matroid" href="_components_lp__Matroid_rp.html">components(Matroid)</a> -- connected components of matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;contraction(Matroid,List)&quot;</tt> -- see <span><a title="contraction of subset of matroid" href="_contraction.html">contraction</a> -- contraction of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;contraction(Matroid,Set)&quot;</tt> -- see <span><a title="contraction of subset of matroid" href="_contraction.html">contraction</a> -- contraction of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid / List&quot;</tt> -- see <span><a title="contraction of subset of matroid" href="_contraction.html">contraction</a> -- contraction of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid / Set&quot;</tt> -- see <span><a title="contraction of subset of matroid" href="_contraction.html">contraction</a> -- contraction of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;deletion(Matroid,List)&quot;</tt> -- see <span><a title="deletion of subset of matroid" href="_deletion.html">deletion</a> -- deletion of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;deletion(Matroid,Set)&quot;</tt> -- see <span><a title="deletion of subset of matroid" href="_deletion.html">deletion</a> -- deletion of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>/// Matroid \ List ///</tt> -- see <span><a title="deletion of subset of matroid" href="_deletion.html">deletion</a> -- deletion of subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>/// Matroid \ Set ///</tt> -- see <span><a title="deletion of subset of matroid" href="_deletion.html">deletion</a> -- deletion of subset of matroid</span></span>                  </li>
+                  <li>
+<span><a title="dual matroid" href="_dual_lp__Matroid_rp.html">dual(Matroid)</a> -- dual matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;elementaryQuotient(Matroid,List)&quot;</tt> -- see <span><a title="associated to a modular cut or linear subclass" href="_elementary__Quotient.html">elementaryQuotient</a> -- associated to a modular cut or linear subclass</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extension(Matroid)&quot;</tt> -- see <span><a title="of a matroid relative to a flat or modular cut" href="_extension.html">extension</a> -- of a matroid relative to a flat or modular cut</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extension(Matroid,List)&quot;</tt> -- see <span><a title="of a matroid relative to a flat or modular cut" href="_extension.html">extension</a> -- of a matroid relative to a flat or modular cut</span></span>                  </li>
+                  <li>
+<span><tt>&quot;extension(Matroid,Set)&quot;</tt> -- see <span><a title="of a matroid relative to a flat or modular cut" href="_extension.html">extension</a> -- of a matroid relative to a flat or modular cut</span></span>                  </li>
+                  <li>
+<span><tt>&quot;flats(Matroid)&quot;</tt> -- see <span><a title="flats of a matroid" href="_flats.html">flats</a> -- flats of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;flats(Matroid,ZZ)&quot;</tt> -- see <span><a title="flats of a matroid" href="_flats.html">flats</a> -- flats of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;flats(Matroid,ZZ,String)&quot;</tt> -- see <span><a title="flats of a matroid" href="_flats.html">flats</a> -- flats of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;fundamentalCircuit(Matroid,List,Thing)&quot;</tt> -- see <span><a title="fundamental circuit of independent set" href="_fundamental__Circuit.html">fundamentalCircuit</a> -- fundamental circuit of independent set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;fundamentalCircuit(Matroid,Set,ZZ)&quot;</tt> -- see <span><a title="fundamental circuit of independent set" href="_fundamental__Circuit.html">fundamentalCircuit</a> -- fundamental circuit of independent set</span></span>                  </li>
+                  <li>
+<span><a title="f-vector of a matroid" href="_f__Vector_lp__Matroid_rp.html">fVector(Matroid)</a> -- f-vector of a matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;getCycles(Graph)&quot;</tt> -- see <span><a title="find cycles of graph" href="_get__Cycles.html">getCycles</a> -- find cycles of graph</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getIsos(Matroid,Matroid)&quot;</tt> -- see <span><a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a> -- all isomorphisms between two matroids</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getRepresentation(Matroid)&quot;</tt> -- see <span><a title="retrieves stored representation" href="_get__Representation.html">getRepresentation</a> -- retrieves stored representation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;getSeparation(Matroid,ZZ)&quot;</tt> -- see <span><a title="finds a k-separation of a matroid" href="_get__Separation.html">getSeparation</a> -- finds a k-separation of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;groundSet(Matroid)&quot;</tt> -- see <span><a title="(internal) ground set" href="_ground__Set.html">groundSet</a> -- (internal) ground set</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hasMinor(Matroid,Matroid)&quot;</tt> -- see <span><a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a> -- whether a matroid has a given minor</span></span>                  </li>
+                  <li>
+<span><tt>&quot;hyperplanes(Matroid)&quot;</tt> -- see <span><a title="hyperplanes of a matroid" href="_hyperplanes.html">hyperplanes</a> -- hyperplanes of a matroid</span></span>                  </li>
+                  <li>
+<span><a title="Stanley-Reisner (circuit) ideal of matroid" href="_ideal_lp__Matroid_rp.html">ideal(Matroid)</a> -- Stanley-Reisner (circuit) ideal of matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;idealChowRing(Matroid)&quot;</tt> -- see <span><a title="the defining ideal of the Chow ring" href="_ideal__Chow__Ring.html">idealChowRing</a> -- the defining ideal of the Chow ring</span></span>                  </li>
+                  <li>
+<span><a title="independence complex of matroid" href="_independence__Complex_lp__Matroid_rp.html">independenceComplex(Matroid)</a> -- independence complex of matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;independentSets(Matroid)&quot;</tt> -- see <span><a title="independent subsets of a matroid" href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">independentSets(Matroid,ZZ)</a> -- independent subsets of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;independentSets(Matroid,List)&quot;</tt> -- see <span><a title="independent subsets of a matroid" href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">independentSets(Matroid,ZZ)</a> -- independent subsets of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;independentSets(Matroid,Set)&quot;</tt> -- see <span><a title="independent subsets of a matroid" href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">independentSets(Matroid,ZZ)</a> -- independent subsets of a matroid</span></span>                  </li>
+                  <li>
+<span><a title="independent subsets of a matroid" href="_independent__Sets_lp__Matroid_cm__Z__Z_rp.html">independentSets(Matroid,ZZ)</a> -- independent subsets of a matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;indicesOf(List,List)&quot;</tt> -- see <span><a title="indices of a sublist" href="_indices__Of.html">indicesOf</a> -- indices of a sublist</span></span>                  </li>
+                  <li>
+<span><tt>&quot;indicesOf(Matroid,List)&quot;</tt> -- see <span><a title="indices of a sublist" href="_indices__Of.html">indicesOf</a> -- indices of a sublist</span></span>                  </li>
+                  <li>
+<span><tt>&quot;is3Connected(Matroid)&quot;</tt> -- see <span><a title="whether a matroid is 3-connected" href="_is3__Connected.html">is3Connected</a> -- whether a matroid is 3-connected</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isBinary(Matroid)&quot;</tt> -- see <span><a title="whether a matroid is representable over F_2" href="_is__Binary.html">isBinary</a> -- whether a matroid is representable over F_2</span></span>                  </li>
+                  <li>
+<span><a title="whether a matroid is connected" href="_is__Connected_lp__Matroid_rp.html">isConnected(Matroid)</a> -- whether a matroid is connected</span>                  </li>
+                  <li>
+<span><tt>&quot;isDependent(Matroid,List)&quot;</tt> -- see <span><a title="whether a subset is dependent" href="_is__Dependent.html">isDependent</a> -- whether a subset is dependent</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isDependent(Matroid,Set)&quot;</tt> -- see <span><a title="whether a subset is dependent" href="_is__Dependent.html">isDependent</a> -- whether a subset is dependent</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isElementaryQuotient(Matroid,Matroid)&quot;</tt> -- see <span><a title="whether a matroid is an elementary quotient of another matroid" href="_is__Elementary__Quotient.html">isElementaryQuotient</a> -- whether a matroid is an elementary quotient of another matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isLinearSubclass(Matroid,List)&quot;</tt> -- see <span><a title="whether a list of hyperplanes of a matroid is a linear subclass" href="_is__Linear__Subclass.html">isLinearSubclass</a> -- whether a list of hyperplanes of a matroid is a linear subclass</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isModularCut(Matroid,List)&quot;</tt> -- see <span><a title="whether a list of flats of a matroid is a modular cut" href="_is__Modular__Cut.html">isModularCut</a> -- whether a list of flats of a matroid is a modular cut</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isNonCrossing(List,List)&quot;</tt> -- see <span><a title="whether 2 subsets are non-crossing" href="_is__Non__Crossing.html">isNonCrossing</a> -- whether 2 subsets are non-crossing</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isNonCrossing(Set,Set)&quot;</tt> -- see <span><a title="whether 2 subsets are non-crossing" href="_is__Non__Crossing.html">isNonCrossing</a> -- whether 2 subsets are non-crossing</span></span>                  </li>
+                  <li>
+<span><a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism(Matroid,Matroid)</a> -- computes an isomorphism between isomorphic matroids</span>                  </li>
+                  <li>
+<span><tt>&quot;isPositivelyOrientable(Matroid)&quot;</tt> -- see <span><a title="whether a matroid is positively orientable" href="_is__Positively__Orientable.html">isPositivelyOrientable</a> -- whether a matroid is positively orientable</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isPositivelyOriented(Matroid)&quot;</tt> -- see <span><a title="whether a matroid is positively oriented" href="_is__Positively__Oriented.html">isPositivelyOriented</a> -- whether a matroid is positively oriented</span></span>                  </li>
+                  <li>
+<span><tt>&quot;isQuotient(Matroid,Matroid)&quot;</tt> -- see <span><a title="whether a matroid is a quotient of another matroid" href="_is__Quotient.html">isQuotient</a> -- whether a matroid is a quotient of another matroid</span></span>                  </li>
+                  <li>
+<span><a title="whether a matroid is simple" href="_is__Simple_lp__Matroid_rp.html">isSimple(Matroid)</a> -- whether a matroid is simple</span>                  </li>
+                  <li>
+<span><a title="whether the input is a well-defined matroid" href="_is__Well__Defined_lp__Matroid_rp.html">isWellDefined(Matroid)</a> -- whether the input is a well-defined matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;latticeOfFlats(Matroid)&quot;</tt> -- see <span><a title="lattice of flats of a matroid" href="_lattice__Of__Flats.html">latticeOfFlats</a> -- lattice of flats of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;linearSubclass(Matroid,List)&quot;</tt> -- see <span><a title="associated to an elementary quotient or modular cut" href="_linear__Subclass.html">linearSubclass</a> -- associated to an elementary quotient or modular cut</span></span>                  </li>
+                  <li>
+<span><tt>&quot;linearSubclass(Matroid,Matroid)&quot;</tt> -- see <span><a title="associated to an elementary quotient or modular cut" href="_linear__Subclass.html">linearSubclass</a> -- associated to an elementary quotient or modular cut</span></span>                  </li>
+                  <li>
+<span><tt>&quot;loops(Matroid)&quot;</tt> -- see <span><a title="loops of matroid" href="_loops.html">loops</a> -- loops of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(Graph)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(Ideal)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(List)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(List,List)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(List,MonomialIdeal)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(Matrix)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;matroid(ZZ,List)&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><a title="union of matroids" href="___Matroid_sp_pl_sp__Matroid.html">Matroid + Matroid</a> -- union of matroids</span>                  </li>
+                  <li>
+<span><a title="direct sum of matroids" href="___Matroid_sp_pl_pl_sp__Matroid.html">Matroid ++ Matroid</a> -- direct sum of matroids</span>                  </li>
+                  <li>
+<span><a title="whether two matroids are equal" href="___Matroid_sp_eq_eq_sp__Matroid.html">Matroid == Matroid</a> -- whether two matroids are equal</span>                  </li>
+                  <li>
+<span><a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">Matroid _ List</a> -- elements of matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid _ Set&quot;</tt> -- see <span><a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">Matroid _ List</a> -- elements of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid _ ZZ&quot;</tt> -- see <span><a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">Matroid _ List</a> -- elements of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid _*&quot;</tt> -- see <span><a title="elements of matroid" href="___Matroid_sp_us_sp__List.html">Matroid _ List</a> -- elements of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;maxWeightBasis(Matroid,List)&quot;</tt> -- see <span><a title="maximum weight basis using greedy algorithm" href="_max__Weight__Basis.html">maxWeightBasis</a> -- maximum weight basis using greedy algorithm</span></span>                  </li>
+                  <li>
+<span><tt>&quot;minor(Matroid,List,List)&quot;</tt> -- see <span><a title="minor of matroid" href="_minor.html">minor</a> -- minor of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;minor(Matroid,Set,Set)&quot;</tt> -- see <span><a title="minor of matroid" href="_minor.html">minor</a> -- minor of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;modularCut(Matroid,List)&quot;</tt> -- see <span><a title="associated to an elementary quotient or linear subclass" href="_modular__Cut.html">modularCut</a> -- associated to an elementary quotient or linear subclass</span></span>                  </li>
+                  <li>
+<span><tt>&quot;modularCut(Matroid,Matroid)&quot;</tt> -- see <span><a title="associated to an elementary quotient or linear subclass" href="_modular__Cut.html">modularCut</a> -- associated to an elementary quotient or linear subclass</span></span>                  </li>
+                  <li>
+<span><tt>&quot;nonbases(Matroid)&quot;</tt> -- see <span><a title="nonbases of matroid" href="_nonbases.html">nonbases</a> -- nonbases of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;parallelConnection(Matroid,Matroid)&quot;</tt> -- see <span><a title="parallel connection of two matroids" href="_parallel__Connection.html">parallelConnection</a> -- parallel connection of two matroids</span></span>                  </li>
+                  <li>
+<span><tt>&quot;positiveOrientation(Matroid)&quot;</tt> -- see <span><a title="a positive orientation of a matroid" href="_positive__Orientation.html">positiveOrientation</a> -- a positive orientation of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;projectiveGeometry(ZZ,ZZ)&quot;</tt> -- see <span><a title="projective geometry of dimension n over F_p" href="_projective__Geometry.html">projectiveGeometry</a> -- projective geometry of dimension n over F_p</span></span>                  </li>
+                  <li>
+<span><tt>&quot;quickIsomorphismTest(Matroid,Matroid)&quot;</tt> -- see <span><a title="quick checks for isomorphism between matroids" href="_quick__Isomorphism__Test.html">quickIsomorphismTest</a> -- quick checks for isomorphism between matroids</span></span>                  </li>
+                  <li>
+<span><a title="rank of a matroid" href="_rank_lp__Matroid_rp.html">rank(Matroid)</a> -- rank of a matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;rank(Matroid,List)&quot;</tt> -- see <span><a title="rank of a subset of a matroid" href="_rank_lp__Matroid_cm__Set_rp.html">rank(Matroid,Set)</a> -- rank of a subset of a matroid</span></span>                  </li>
+                  <li>
+<span><a title="rank of a subset of a matroid" href="_rank_lp__Matroid_cm__Set_rp.html">rank(Matroid,Set)</a> -- rank of a subset of a matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;relabel(Matroid)&quot;</tt> -- see <span><a title="relabel a matroid" href="_relabel.html">relabel</a> -- relabel a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabel(Matroid,HashTable)&quot;</tt> -- see <span><a title="relabel a matroid" href="_relabel.html">relabel</a> -- relabel a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relabel(Matroid,List)&quot;</tt> -- see <span><a title="relabel a matroid" href="_relabel.html">relabel</a> -- relabel a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relaxation(Matroid)&quot;</tt> -- see <span><a title="relaxation of matroid" href="_relaxation.html">relaxation</a> -- relaxation of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relaxation(Matroid,List)&quot;</tt> -- see <span><a title="relaxation of matroid" href="_relaxation.html">relaxation</a> -- relaxation of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;relaxation(Matroid,Set)&quot;</tt> -- see <span><a title="relaxation of matroid" href="_relaxation.html">relaxation</a> -- relaxation of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid | List&quot;</tt> -- see <span><a title="restriction to subset of matroid" href="_restriction.html">restriction</a> -- restriction to subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Matroid | Set&quot;</tt> -- see <span><a title="restriction to subset of matroid" href="_restriction.html">restriction</a> -- restriction to subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;restriction(Matroid,List)&quot;</tt> -- see <span><a title="restriction to subset of matroid" href="_restriction.html">restriction</a> -- restriction to subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;restriction(Matroid,Set)&quot;</tt> -- see <span><a title="restriction to subset of matroid" href="_restriction.html">restriction</a> -- restriction to subset of matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;readFromFile(String)&quot;</tt> -- see <span><a title="save matroid to file" href="_save__Matroid.html">saveMatroid</a> -- save matroid to file</span></span>                  </li>
+                  <li>
+<span><tt>&quot;saveMatroid(Matroid)&quot;</tt> -- see <span><a title="save matroid to file" href="_save__Matroid.html">saveMatroid</a> -- save matroid to file</span></span>                  </li>
+                  <li>
+<span><tt>&quot;saveMatroid(Matroid,String)&quot;</tt> -- see <span><a title="save matroid to file" href="_save__Matroid.html">saveMatroid</a> -- save matroid to file</span></span>                  </li>
+                  <li>
+<span><tt>&quot;searchRepresentation(Matroid,GaloisField)&quot;</tt> -- see <span><a title="search for a representation of a matroid over a finite field" href="_search__Representation.html">searchRepresentation</a> -- search for a representation of a matroid over a finite field</span></span>                  </li>
+                  <li>
+<span><tt>&quot;seriesConnection(Matroid,Matroid)&quot;</tt> -- see <span><a title="series connection of two matroids" href="_series__Connection.html">seriesConnection</a> -- series connection of two matroids</span></span>                  </li>
+                  <li>
+<span><tt>&quot;setRepresentation(Matroid,Matrix)&quot;</tt> -- see <span><a title="stores user-defined representation" href="_set__Representation.html">setRepresentation</a> -- stores user-defined representation</span></span>                  </li>
+                  <li>
+<span><tt>&quot;simpleMatroid(Matroid)&quot;</tt> -- see <span><a title="simple matroid associated to a matroid" href="_simple__Matroid.html">simpleMatroid</a> -- simple matroid associated to a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specificMatroid(String)&quot;</tt> -- see <span><a title="creates built-in matroid" href="_specific__Matroid.html">specificMatroid</a> -- creates built-in matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;specificMatroid(Symbol)&quot;</tt> -- see <span><a title="creates built-in matroid" href="_specific__Matroid.html">specificMatroid</a> -- creates built-in matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;binarySpike(ZZ)&quot;</tt> -- see <span><a title="spike matroid" href="_spike.html">spike</a> -- spike matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;spike(ZZ)&quot;</tt> -- see <span><a title="spike matroid" href="_spike.html">spike</a> -- spike matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;spike(ZZ,List)&quot;</tt> -- see <span><a title="spike matroid" href="_spike.html">spike</a> -- spike matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sum2(Matroid,Matroid)&quot;</tt> -- see <span><a title="2-sum of matroids" href="_sum2.html">sum2</a> -- 2-sum of matroids</span></span>                  </li>
+                  <li>
+<span><tt>&quot;swirl(ZZ)&quot;</tt> -- see <span><a title="swirl matroid" href="_swirl.html">swirl</a> -- swirl matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;thetaMatroid(ZZ)&quot;</tt> -- see <span><a title="theta matroid" href="_theta__Matroid.html">thetaMatroid</a> -- theta matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;fromSageMatroid(String)&quot;</tt> -- see <span><a title="Sage format for matroid" href="_to__Sage__Matroid.html">toSageMatroid</a> -- Sage format for matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;toSageMatroid(Matroid)&quot;</tt> -- see <span><a title="Sage format for matroid" href="_to__Sage__Matroid.html">toSageMatroid</a> -- Sage format for matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;truncate(Matroid)&quot;</tt> -- see <span><a title="the truncation of a matroid with respect to a flat" href="_truncate_lp__Set_cm__Matroid_rp.html">truncate(Set,Matroid)</a> -- the truncation of a matroid with respect to a flat</span></span>                  </li>
+                  <li>
+<span><a title="the truncation of a matroid with respect to a flat" href="_truncate_lp__Set_cm__Matroid_rp.html">truncate(Set,Matroid)</a> -- the truncation of a matroid with respect to a flat</span>                  </li>
+                  <li>
+<span><a title="the truncation of a matroid with respect to a flat" href="_truncate_lp__Z__Z_cm__Matroid_rp.html">truncate(ZZ,Matroid)</a> -- the truncation of a matroid with respect to a flat</span>                  </li>
+                  <li>
+<span><tt>&quot;tutteEvaluate(Matroid,Thing,Thing)&quot;</tt> -- see <span><a title="evaluate Tutte polynomial" href="_tutte__Evaluate.html">tutteEvaluate</a> -- evaluate Tutte polynomial</span></span>                  </li>
+                  <li>
+<span><a title="Tutte polynomial of a matroid" href="_tutte__Polynomial_lp__Matroid_rp.html">tuttePolynomial(Matroid)</a> -- Tutte polynomial of a matroid</span>                  </li>
+                  <li>
+<span><tt>&quot;tuttePolynomial(Matroid,Ring)&quot;</tt> -- see <span><a title="Tutte polynomial of a matroid" href="_tutte__Polynomial_lp__Matroid_rp.html">tuttePolynomial(Matroid)</a> -- Tutte polynomial of a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;uniformMatroid(ZZ,ZZ)&quot;</tt> -- see <span><a title="uniform matroid" href="_uniform__Matroid.html">uniformMatroid</a> -- uniform matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;wheel(ZZ)&quot;</tt> -- see <span><a title="wheels/whirls" href="_wheel.html">wheel</a> -- wheels/whirls</span></span>                  </li>
+                  <li>
+<span><tt>&quot;whirl(ZZ)&quot;</tt> -- see <span><a title="wheels/whirls" href="_wheel.html">wheel</a> -- wheels/whirls</span></span>                  </li>
+                </ul>
+              </li>
+              <li>
+Symbols                <ul>
+                  <li>
+<span><a title="an optional argument" href="___Check__Well__Defined.html">CheckWellDefined</a> -- an optional argument</span>                  </li>
+                  <li>
+<span><tt>&quot;ChowRingOptions&quot;</tt> -- see <span><a title="the defining ideal of the Chow ring" href="_ideal__Chow__Ring.html">idealChowRing</a> -- the defining ideal of the Chow ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;FlatOrder&quot;</tt> -- see <span><a title="the defining ideal of the Chow ring" href="_ideal__Chow__Ring.html">idealChowRing</a> -- the defining ideal of the Chow ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Presentation&quot;</tt> -- see <span><a title="the defining ideal of the Chow ring" href="_ideal__Chow__Ring.html">idealChowRing</a> -- the defining ideal of the Chow ring</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Loops&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;ParallelEdges&quot;</tt> -- see <span><a title="constructs a matroid" href="_matroid.html">matroid</a> -- constructs a matroid</span></span>                  </li>
+                  <li>
+<span><tt>&quot;Attempts&quot;</tt> -- see <span><a title="search for a representation of a matroid over a finite field" href="_search__Representation.html">searchRepresentation</a> -- search for a representation of a matroid over a finite field</span></span>                  </li>
+                  <li>
+<span><tt>&quot;storedRepresentation&quot;</tt> -- see <span><a title="stores user-defined representation" href="_set__Representation.html">setRepresentation</a> -- stores user-defined representation</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="a package for computations with matroids" href="index.html">Matroids</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

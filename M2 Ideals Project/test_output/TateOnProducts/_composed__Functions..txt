@@ -1,0 +1,212 @@
+needsPackage "TateOnProducts"
+
+F13E0 =  n={1,1}, v=n+{1,1}
+
+F13E1 =  high=3*n, low=-high
+
+F13E2 =  (S,E)=productOfProjectiveSpaces n
+
+F13E3 =  P=(image transpose gens trim (ideal vars E)^2)**E^{n}
+
+F13E4 =  betti P
+
+F13E5 =  LP=bgg P
+
+F13E6 =  M = (HH^0 LP)**S^{-n}
+
+F13E7 =  betti res M
+
+F13E8 =  T = tateResolution(M,low,high)
+
+F13E9 =  cohomologyMatrix(T,low,high)
+
+F13E10 =  cohomologyMatrix(T,2*low,2*high)
+
+F13E11 =  B=beilinson T
+
+F13E12 =  M'=prune HH^0 B
+
+F13E13 =  prune HH^1 B
+
+F13E14 =  isIsomorphic(M,M')
+
+F13E15 =  C=cornerComplex(T,{0,0});
+
+F13E16 =  betti C
+
+F13E17 =  cohomologyMatrix(C,low,high)
+
+F13E18 =  betti C.dd_0
+
+F13E19 =  P=ker C.dd_0**E^{v}
+
+F13E20 =  LP=bgg P;
+
+F13E21 =  betti LP
+
+F13E22 =  coLP=apply(toList(min LP..max LP),i->prune HH^(-i) LP);
+
+F13E23 =  apply(coLP,h->dim h)
+
+F13E24 =  M1=HH^0 LP
+
+F13E25 =  betti M1,betti M
+
+F13E26 =  isIsomorphic(M,M1)
+
+F13E27 =  k=1
+
+F13E28 =  P=ker C.dd_(-k)**E^{v}; betti P
+
+F13E29 =  LP=bgg P
+
+F13E30 =  betti LP
+
+F13E31 =  coLP=apply(toList(min LP..max LP),i->prune HH^(-i) LP);
+
+F13E32 =  apply(coLP,h->dim h)
+
+F13E33 =  M1=HH^(-k) LP
+
+F13E34 =  betti M1, betti M
+
+F13E35 =  isIsomorphic(M,M1)
+
+F13E36 =  k=-2
+
+F13E37 =  P=ker C.dd_(-k)**E^{v}; betti P
+
+F13E38 =  LP=bgg P;
+
+F13E39 =  betti LP
+
+F13E40 =  coLP=apply(toList(min LP..max LP),i->prune HH^(-i) LP);
+
+F13E41 =  apply(coLP,h->dim h)
+
+F13E42 =  M1=HH^(-k) LP
+
+F13E43 =  betti M1,betti M
+
+F13E44 =  isIsomorphic(M,M1)
+
+F13E45 =  RM=bgg M
+
+F13E46 =  cohomologyMatrix(RM,low,high)
+
+F13E47 =  betti RM
+
+F13E48 =  uQ=firstQuadrantComplex(T,{0,0});
+
+F13E49 =  cohomologyMatrix(uQ,low,high)
+
+F13E50 =  uQ.dd_(-1)
+
+F13E51 =  T1=tateResolution(M,low,3*high);
+
+F13E52 =  c={2,2}
+
+F13E53 =  CM=cornerComplex(T1,c);
+
+F13E54 =  RMc=firstQuadrantComplex(T1,c);
+
+F13E55 =  cohomologyMatrix(CM,low,3*high)
+
+F13E56 =  coRMc=apply(toList(-10..-4),i-> HH^(-i) RMc==0)
+
+F13E57 =  P1=ker CM.dd_(-sum c)
+
+F13E58 =  LP=bgg (P1**E^{-c+v})
+
+F13E59 =  betti LP
+
+F13E60 =  coLP=apply(toList(min LP..max LP),i->dim HH^(-i) LP)
+
+F13E61 =  Mc=prune truncate(c,M)**S^{c}
+
+F13E62 =  betti (Mc'=HH^0 LP), betti Mc
+
+F13E63 =  isIsomorphic(Mc',Mc)
+
+F13E64 =  c={3,1}
+
+F13E65 =  cohomologyMatrix(T1,low,2*high)
+
+F13E66 =  CM=cornerComplex(T1,c);
+
+F13E67 =  cohomologyMatrix(CM,low,3*high)
+
+F13E68 =  RMc=firstQuadrantComplex(T1,c);
+
+F13E69 =  coRMc=apply(toList(-9..-4),i-> HH^(-i) RMc==0)
+
+F13E70 =  P1=ker CM.dd_(-sum c)
+
+F13E71 =  LP=bgg (P1**E^{-c+v})
+
+F13E72 =  betti LP
+
+F13E73 =  coLP=apply(toList(min LP..max LP),i->dim HH^(-i) LP)
+
+F13E74 =  Mc=prune truncate(c,M)**S^{c}
+
+F13E75 =  betti (Mc'=HH^0 LP), betti Mc
+
+F13E76 =  isIsomorphic(Mc',Mc)
+
+F13E77 =  W=beilinsonWindow T
+
+F13E78 =  T'=tateExtension W
+
+F13E79 =  comT'=cohomologyMatrix(T',low,high)
+
+F13E80 =  comT=cohomologyMatrix(T,low,high)
+
+F13E81 =  assert(sub(comT',vars ring comT)==comT)
+
+F13E82 =  cohomologyMatrix(T,low,high)
+
+F13E83 =  cohomologyMatrix(beilinsonWindow T,low, high)
+
+F13E84 =  B = beilinson T
+
+F13E85 =  d={2,2}
+
+F13E86 =  T1=T**E^{d}[sum d]
+
+F13E87 =  cohomologyMatrix(beilinsonWindow T1,low,high)
+
+F13E88 =  B1 =beilinson T1
+
+F13E89 =  decompose annihilator HH^1 B1
+
+F13E90 =  decompose annihilator HH^2 B1
+
+F13E91 =  M1=HH^0 B1
+
+F13E92 =  dim M1
+
+F13E93 =  betti M1, betti M
+
+F13E94 =  isIsomorphic(M1,M**S^{-d})
+
+F13E95 =  d={-1,-2}
+
+F13E96 =  T2=T**E^{d}[sum d]
+
+F13E97 =  cohomologyMatrix(beilinsonWindow T2,low,high)
+
+F13E98 =  cohomologyMatrix(T,low,high)
+
+F13E99 =  B2 =beilinson T2
+
+F13E100 =  HH^(-1) B2 == 0
+
+F13E101 =  M2=HH^0 B2
+
+F13E102 =  dim M2
+
+F13E103 =  betti M2, betti M, betti truncate(-d,M)
+
+F13E104 =  isIsomorphic(M2,truncate(-d,M)**S^{-d})
+

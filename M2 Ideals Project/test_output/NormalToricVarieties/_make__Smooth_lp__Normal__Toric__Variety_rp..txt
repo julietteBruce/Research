@@ -1,0 +1,66 @@
+needsPackage "NormalToricVarieties"
+
+F53E0 =  U = normalToricVariety ({{4,-1},{0,1}}, {{0,1}});
+
+F53E1 =  assert not isSmooth U
+
+F53E2 =  V = makeSmooth U;
+
+F53E3 =  assert isSmooth V
+
+F53E4 =  rays V, max V
+
+F53E5 =  toList (set rays V - set rays U)
+
+F53E6 =  W = weightedProjectiveSpace {1,2,3,4,5};
+
+F53E7 =  assert (dim W === 4)
+
+F53E8 =  assert (isSimplicial W and not isSmooth W)
+
+F53E9 =  W' = makeSmooth W;
+
+F53E10 =  assert isSmooth W'
+
+F53E11 =  # (set rays W' - set rays W)
+
+F53E12 =  AA1 = affineSpace 1;
+
+F53E13 =  assert (AA1 === makeSmooth AA1)
+
+F53E14 =  PP2 = toricProjectiveSpace 2;
+
+F53E15 =  assert (PP2 === makeSmooth PP2)
+
+F53E16 =  X = normalToricVariety (id_(ZZ^3) | -id_(ZZ^3));
+
+F53E17 =  assert (not isSimplicial X and not isSmooth X)
+
+F53E18 =  X' = makeSmooth X;
+
+F53E19 =  assert isSmooth X'
+
+F53E20 =  # (set rays X' - set rays X)
+
+F53E21 =  Z = normalToricVariety ({{-1,-1,1},{3,-1,1},{0,0,1},{1,0,1},{0,1,1},{-1,3,1},{0,0,-1}}, {{0,1,3},{0,1,6},{0,2,3},{0,2,5},{0,5,6},{1,3,4},{1,4,5},{1,5,6},{2,3,4},{2,4,5}});
+
+F53E22 =  assert (isSimplicial Z and not isSmooth Z)
+
+F53E23 =  assert (isComplete Z and not isProjective Z)
+
+F53E24 =  Z' = makeSmooth Z;
+
+F53E25 =  assert isSmooth Z'
+
+F53E26 =  # (set rays Z' - set rays Z)
+
+F53E27 =  Y = normalToricVariety ({{1,0,0,0},{0,1,0,0},{0,0,1,0},{1,-1,1,0},{1,0,-2,0}}, {{0,1,2,3},{0,4}});
+
+F53E28 =  assert (isDegenerate Y and not isSimplicial Y and not isComplete Y)
+
+F53E29 =  Y' = makeSmooth Y;
+
+F53E30 =  assert isSmooth Y'
+
+F53E31 =  # (set rays Y' - set rays Y)
+

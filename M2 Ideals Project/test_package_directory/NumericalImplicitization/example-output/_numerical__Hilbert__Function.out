@@ -1,0 +1,52 @@
+-- -*- M2-comint -*- hash: -969296562
+
+i1 : R = CC[s,t]
+
+o1 = R
+
+o1 : PolynomialRing
+
+i2 : F = basis(3, R)
+-- warning: experimental computation over inexact field begun
+--          results not reliable (one warning given per session)
+
+o2 = | s3 s2t st2 t3 |
+
+             1       4
+o2 : Matrix R  <--- R
+
+i3 : numericalHilbertFunction(F, ideal 0_R, 4)
+Sampling image points ...
+     -- used .0183227 seconds
+Creating interpolation matrix ...
+     -- used .0205529 seconds
+Performing normalization preconditioning ...
+     -- used .0104328 seconds
+Computing numerical kernel ...
+     -- used .00101781 seconds
+
+o3 = a "numerical interpolation table", indicating
+     the space of degree 4 forms in the ideal of the image has dimension 22
+
+o3 : NumericalInterpolationTable
+
+i4 : R = CC[x_(1,1)..x_(2,4)];
+
+i5 : F = (minors(2, genericMatrix(R, 2, 4)))_*;
+
+i6 : S = numericalImageSample(F, ideal 0_R, 60);
+
+i7 : numericalHilbertFunction(F, ideal 0_R, S, 2, UseSLP => true)
+Creating interpolation matrix ...
+     -- used .00389548 seconds
+Performing normalization preconditioning ...
+     -- used .0127109 seconds
+Computing numerical kernel ...
+     -- used .000890012 seconds
+
+o7 = a "numerical interpolation table", indicating
+     the space of degree 2 forms in the ideal of the image has dimension 1
+
+o7 : NumericalInterpolationTable
+
+i8 : 

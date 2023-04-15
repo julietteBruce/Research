@@ -1,0 +1,40 @@
+needsPackage "NormalToricVarieties"
+
+F45E0 =  A = affineSpace 4;
+
+F45E1 =  P = toricProjectiveSpace 4;
+
+F45E2 =  iota = map(P, A, 1)
+
+F45E3 =  ideal iota
+
+F45E4 =  assert (isWellDefined iota and ideal iota == 0)
+
+F45E5 =  X = toricProjectiveSpace 1;
+
+F45E6 =  Y = toricProjectiveSpace 3;
+
+F45E7 =  f = map(Y, X, matrix{{1}, {2}, {3}})
+
+F45E8 =  S = ring Y;
+
+F45E9 =  I = ideal f
+
+F45E10 =  assert (isWellDefined f and isHomogeneous I and
+
+          I == saturate(I, ideal Y) and I == ker inducedMap f and
+
+          I == minors(2, matrix{{S_0, S_1, S_2}, {S_1, S_2, S_3}}))
+
+F45E11 =  (Y2 = Y ** Y, R = ring Y2);
+
+F45E12 =  g = diagonalToricMap(Y, 2);
+
+F45E13 =  J = ideal g
+
+F45E14 =  assert (isWellDefined g and isHomogeneous J and
+
+          J == saturate(J, ideal Y2) and
+
+          J == minors(2, matrix{{R_0,R_1,R_2,R_3},{R_4,R_5,R_6,R_7}}))
+

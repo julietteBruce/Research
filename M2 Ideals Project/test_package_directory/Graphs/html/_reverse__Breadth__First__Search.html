@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>reverseBreadthFirstSearch -- runs a reverse breadth first search on the digraph and returns a list of the vertexSet in the order they were discovered</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_show__Tik__Z.html">next</a> | <a href="_remove__Nodes.html">previous</a> | <a href="_show__Tik__Z.html">forward</a> | <a href="_remove__Nodes.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a href="index.html">Graphs</a> :: <a title="runs a reverse breadth first search on the digraph and returns a list of the vertexSet in the order they were discovered" href="_reverse__Breadth__First__Search.html">reverseBreadthFirstSearch</a>    </div>
+    <hr/>
+    <div>
+      <h1>reverseBreadthFirstSearch -- runs a reverse breadth first search on the digraph and returns a list of the vertexSet in the order they were discovered</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">bfs = reverseBreadthFirstSearch(D,v)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>D</tt>, <span>a <a href="___Digraph.html">digraph</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><tt>bfs</tt>, <span>a <a title="the class of all lists -- {...}" href="../../Macaulay2Doc/html/___List.html">list</a></span>, A list of the vertexSet of D in order discovered by the breadth first search</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>A reverse breadth first search first searches the specified of a digraph, followed by that vertex's parents, followed by their parents, etc, until all the ancestors are exhausted, and returns a list, with the index of the item of the list signifying the     depth level of the result, of the vertexSet in order searched.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : D = digraph ({{0,1},{0,2},{2,3},{3,4},{4,2}},EntryMode=>&quot;edges&quot;)
+
+o1 = Digraph{0 => {1, 2}}
+             1 => {}
+             2 => {3}
+             3 => {4}
+             4 => {2}
+
+o1 : Digraph</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : bfs = reverseBreadthFirstSearch(D,2)
+
+o2 = {{2}, {4, 0}, {3}}
+
+o2 : List</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="runs a breadth first search on the digraph starting at a specified node and returns a list of the vertices in the order they were discovered" href="_breadth__First__Search.html">breadthFirstSearch</a> -- runs a breadth first search on the digraph starting at a specified node and returns a list of the vertices in the order they were discovered</span>          </li>
+          <li>
+<span><a title="runs a depth first search on the digraph or digraph and returns the discovery time and finishing time for each vertex in the digraph" href="_depth__First__Search.html">depthFirstSearch</a> -- runs a depth first search on the digraph or digraph and returns the discovery time and finishing time for each vertex in the digraph</span>          </li>
+          <li>
+<span><a title="outputs a list of vertices in a topologically sorted order of a DAG." href="_topological__Sort.html">topologicalSort</a> -- outputs a list of vertices in a topologically sorted order of a DAG.</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>reverseBreadthFirstSearch</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;reverseBreadthFirstSearch(Digraph,Thing)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="runs a reverse breadth first search on the digraph and returns a list of the vertexSet in the order they were discovered" href="_reverse__Breadth__First__Search.html">reverseBreadthFirstSearch</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

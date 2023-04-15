@@ -1,0 +1,80 @@
+needsPackage "TateOnProducts"
+
+F9E0 =  t=2
+
+F9E1 =  n={1,2}
+
+F9E2 =  (S,E)=productOfProjectiveSpaces{1,2}
+
+F9E3 =  M=(beilinson E^{{-1,-1}})**S^{{-2,-1}}
+
+F9E4 =  I={1}
+
+F9E5 =  J=select({0,t-1},i-> not member(i,I))
+
+F9E6 =  RpiM=directImageComplex(M,I)
+
+F9E7 =  betti RpiM
+
+F9E8 =  prune HH_0 RpiM
+
+F9E9 =  prune HH^1 RpiM
+
+F9E10 =  prune HH^2 RpiM
+
+F9E11 =  dim HH^2 RpiM
+
+F9E12 =  cohomologyMatrix(M,-3*n,3*n)
+
+F9E13 =  T=tateResolution(M,-2*n,2*n);
+
+F9E14 =  cohomologyMatrix(strand(T,{0,0},J),-2*n,2*n)
+
+F9E15 =  kk=ZZ/101
+
+F9E16 =  R=kk[x_0..x_4]
+
+F9E17 =  m=matrix {{ x_0,x_1,x_3},{x_1,x_2,x_4}}
+
+F9E18 =  J=minors(2,m)
+
+F9E19 =  dim J, degree J
+
+F9E20 =  s=2,d=-2
+
+F9E21 =  N=symmetricPower(s,coker m)**R^{d};
+
+F9E22 =  betti res N
+
+F9E23 =  annihilator N == J
+
+F9E24 =  phi= transpose m
+
+F9E25 =  RphiN = directImageComplex(J,N,phi)
+
+F9E26 =  T= ring RphiN
+
+F9E27 =  HH^1 RphiN
+
+F9E28 =  s=3,d=1
+
+F9E29 =  N=symmetricPower(s,coker m)**R^{d};
+
+F9E30 =  RphiN = directImageComplex(J,N,phi)
+
+F9E31 =  T=ring RphiN
+
+F9E32 =  netList apply(toList(min RphiN.. max RphiN),i->
+
+          {-i, saturate annihilator HH^(-i) RphiN,betti res HH^(-i) RphiN})
+
+F9E33 =  R0=prune HH^0 RphiN
+
+F9E34 =  dim R0, degree R0
+
+F9E35 =  betti (sR0Dual = syz transpose presentation R0)
+
+F9E36 =  saturate annihilator coker transpose sR0Dual
+
+F9E37 =  dual source sR0Dual
+

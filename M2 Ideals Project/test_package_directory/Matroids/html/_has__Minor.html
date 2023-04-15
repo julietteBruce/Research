@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>hasMinor -- whether a matroid has a given minor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_hyperplanes.html">next</a> | <a href="_ground__Set.html">previous</a> | <a href="_hyperplanes.html">forward</a> | <a href="_ground__Set.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a>    </div>
+    <hr/>
+    <div>
+      <h1>hasMinor -- whether a matroid has a given minor</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">hasMinor(M, N)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>Strategy</tt><tt> => </tt><tt>...</tt>, <span>default value &quot;flats&quot;</span></span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, whether N is a minor of M</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Determines if N is a minor of M, i.e. can be obtained from M by a contraction followed by a deletion. Since deletion and contraction by disjoint subsets commute, every sequence of deletion and contraction operations can be written as a single contraction and a single deletion.</p>
+          <p>Many families of matroids can be defined by a list of forbidden minors: i.e. a matroid M is in the family iff M does not have any of the forbidden minors as a minor. For instance, a matroid is representable over F_2 iff it does not have U_{2,4} as a minor, i.e. U_{2,4} is the (sole) forbidden minor for <a title="whether a matroid is representable over F_2" href="_is__Binary.html">binary matroids</a>.</p>
+          <p>There are 2 strategies for this method: the default (and generally fastest) method is ``Strategy => &quot;flats&quot;'', which can be sped up by precomputing the <a title="f-vector of a matroid" href="_f__Vector_lp__Matroid_rp.html">fVector</a> of M. Otherwise, all independent/coindependent sets of a certain size/rank are iterated over.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : (M4, M5, M6) = (4,5,6)/completeGraph/matroid
+
+o1 = (a &quot;matroid&quot; of rank 3 on 6 elements, a &quot;matroid&quot; of rank 4 on 10
+     ------------------------------------------------------------------------
+     elements, a &quot;matroid&quot; of rank 5 on 15 elements)
+
+o1 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : hasMinor(M4, uniformMatroid(2,4))
+
+o2 = false</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : time hasMinor(M6, M5)
+     -- used 1.29873 seconds
+
+o3 = true</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="minor of matroid" href="_minor.html">minor</a> -- minor of matroid</span>          </li>
+          <li>
+<span><a title="whether a matroid is representable over F_2" href="_is__Binary.html">isBinary</a> -- whether a matroid is representable over F_2</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>hasMinor</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;hasMinor(Matroid,Matroid)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether a matroid has a given minor" href="_has__Minor.html">hasMinor</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

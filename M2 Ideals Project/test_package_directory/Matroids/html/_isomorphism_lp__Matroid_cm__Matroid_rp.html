@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isomorphism(Matroid,Matroid) -- computes an isomorphism between isomorphic matroids</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__Positively__Orientable.html">next</a> | <a href="_is__Non__Crossing.html">previous</a> | <a href="_is__Positively__Orientable.html">forward</a> | <a href="_is__Non__Crossing.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for computations with matroids" href="index.html">Matroids</a> :: <a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism(Matroid,Matroid)</a>    </div>
+    <hr/>
+    <div>
+      <h1>isomorphism(Matroid,Matroid) -- computes an isomorphism between isomorphic matroids</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+<span>Function: <a title="computes an isomorphism between isomorphic posets" href="../../Posets/html/_isomorphism.html">isomorphism</a></span>          </li>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isomorphism(M, N)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>M</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+              <li>
+<span><tt>N</tt>, <span>a <a title="the class of all matroids" href="___Matroid.html">matroid</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">hash table</a></span>, an isomorphism between M and N</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This method computes a single <a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">isomorphism</a> between M and N, if one exists, and returns <a title="the unique member of the empty class" href="../../Macaulay2Doc/html/_null.html">null</a> if no such isomorphism exists.</p>
+          <p>The output is a <a title="the class of all hash tables" href="../../Macaulay2Doc/html/___Hash__Table.html">HashTable</a>, where the keys are elements of the <a title="(internal) ground set" href="_ground__Set.html">groundSet</a> of M, and their corresponding values are elements of (the ground set of) N.</p>
+          <p>To obtain all isomorphisms between two matroids, use <a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a>.</p>
+          <p></p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : M = matroid({a,b,c},{{a,b},{a,c}})
+
+o1 = a &quot;matroid&quot; of rank 2 on 3 elements
+
+o1 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : isomorphism(M, uniformMatroid(2,3)) -- not isomorphic</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : (M5, M6) = (5,6)/completeGraph/matroid
+
+o3 = (a &quot;matroid&quot; of rank 4 on 10 elements, a &quot;matroid&quot; of rank 5 on 15
+     ------------------------------------------------------------------------
+     elements)
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : minorM6 = minor(M6, set{8}, set{4,5,6,7})
+
+o4 = a &quot;matroid&quot; of rank 4 on 10 elements
+
+o4 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time isomorphism(M5, minorM6)
+     -- used 0.0370672 seconds
+
+o5 = HashTable{0 => 1}
+               1 => 0
+               2 => 3
+               3 => 2
+               4 => 6
+               5 => 5
+               6 => 4
+               7 => 9
+               8 => 8
+               9 => 7
+
+o5 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : isomorphism(M5, M5)
+
+o6 = HashTable{0 => 0}
+               1 => 1
+               2 => 2
+               3 => 3
+               4 => 4
+               5 => 5
+               6 => 6
+               7 => 7
+               8 => 8
+               9 => 9
+
+o6 : HashTable</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : N = relabel M6
+
+o7 = a &quot;matroid&quot; of rank 5 on 15 elements
+
+o7 : Matroid</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : time phi = isomorphism(N,M6)
+     -- used 0.756407 seconds
+
+o8 = HashTable{0 => 8  }
+               1 => 1
+               2 => 5
+               3 => 2
+               4 => 6
+               5 => 4
+               6 => 0
+               7 => 12
+               8 => 3
+               9 => 10
+               10 => 7
+               11 => 11
+               12 => 9
+               13 => 13
+               14 => 14
+
+o8 : HashTable</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div>
+        <h2>See also</h2>
+        <ul>
+          <li>
+<span><a title="all isomorphisms between two matroids" href="_get__Isos.html">getIsos</a> -- all isomorphisms between two matroids</span>          </li>
+          <li>
+<span><a title="quick checks for isomorphism between matroids" href="_quick__Isomorphism__Test.html">quickIsomorphismTest</a> -- quick checks for isomorphism between matroids</span>          </li>
+          <li>
+<span><a title="whether two matroids are isomorphic" href="_are__Isomorphic_lp__Matroid_cm__Matroid_rp.html">areIsomorphic(Matroid,Matroid)</a> -- whether two matroids are isomorphic</span>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use this method:</h2>
+        <ul>
+          <li>
+<span><a title="computes an isomorphism between isomorphic matroids" href="_isomorphism_lp__Matroid_cm__Matroid_rp.html">isomorphism(Matroid,Matroid)</a> -- computes an isomorphism between isomorphic matroids</span>          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+
+</html>

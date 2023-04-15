@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>symExt -- from linear presentation matrices over S to linear presentation matrices over E and conversely</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_tally__Degrees.html">next</a> | <a href="___Sub__Bundle.html">previous</a> | <a href="_tally__Degrees.html">forward</a> | <a href="___Sub__Bundle.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Computation of parts of the Tate resolution on products" href="index.html">TateOnProducts</a> :: <a title="from linear presentation matrices over S to linear presentation matrices over E and conversely" href="_sym__Ext.html">symExt</a>    </div>
+    <hr/>
+    <div>
+      <h1>symExt -- from linear presentation matrices over S to linear presentation matrices over E and conversely</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">symExt(m,E)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>m</tt>, <span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, a linear presentation matrix over S</span>              </li>
+              <li>
+<span><tt>E</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, the Koszul dual ring of S</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of all matrices" href="../../Macaulay2Doc/html/___Matrix.html">matrix</a></span>, the corresponding linear presentation matrix over E</span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>Same method as in the single factor case</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : n={1,2}
+
+o1 = {1, 2}
+
+o1 : List</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : (S,E) = productOfProjectiveSpaces n
+
+o2 = (S, E)
+
+o2 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : vars S, vars E
+
+o3 = (| x_(0,0) x_(0,1) x_(1,0) x_(1,1) x_(1,2) |, | e_(0,0) e_(0,1) e_(1,0)
+     ------------------------------------------------------------------------
+     e_(1,1) e_(1,2) |)
+
+o3 : Sequence</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : m=map(S^4,S^{{ -1,0},{0,-1}}, transpose matrix{{S_0,S_1,0,0},{S_2,0,S_3,S_4}})
+
+o4 = | x_(0,0) x_(1,0) |
+     | x_(0,1) 0       |
+     | 0       x_(1,1) |
+     | 0       x_(1,2) |
+
+             4       2
+o4 : Matrix S  &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : mE=symExt(m,E)
+
+o5 = {-1, 0} | 0        e_(0,0) 0       0       |
+     {-1, 0} | 0        0       e_(0,0) 0       |
+     {-1, 0} | 0        0       0       e_(0,0) |
+     {-1, 0} | e_(0,1)  0       0       0       |
+     {-1, 0} | -e_(0,0) e_(0,1) 0       0       |
+     {-1, 0} | 0        0       e_(0,1) 0       |
+     {-1, 0} | 0        0       0       e_(0,1) |
+     {0, -1} | 0        e_(1,0) 0       0       |
+     {0, -1} | 0        0       e_(1,0) 0       |
+     {0, -1} | 0        0       0       e_(1,0) |
+     {0, -1} | e_(1,1)  0       0       0       |
+     {0, -1} | 0        e_(1,1) 0       0       |
+     {0, -1} | -e_(1,0) 0       e_(1,1) 0       |
+     {0, -1} | 0        0       0       e_(1,1) |
+     {0, -1} | e_(1,2)  0       0       0       |
+     {0, -1} | 0        e_(1,2) 0       0       |
+     {0, -1} | 0        0       e_(1,2) 0       |
+     {0, -1} | -e_(1,0) 0       0       e_(1,2) |
+
+             18       4
+o5 : Matrix E   &lt;--- E</code></pre>
+</td>          </tr>
+        </table>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>symExt</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;symExt(Matrix,Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="from linear presentation matrices over S to linear presentation matrices over E and conversely" href="_sym__Ext.html">symExt</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function.html">method function</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

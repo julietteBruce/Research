@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ChainComplexOperations -- Symmetric and exterior squares of a complex and the 2nd Adams operation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_chi2.html">next</a> | previous | <a href="_chi2.html">forward</a> | backward | up | top | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="Symmetric and exterior squares of a complex and the 2nd Adams operation" href="index.html">ChainComplexOperations</a> :: <a title="Symmetric and exterior squares of a complex and the 2nd Adams operation" href="index.html">ChainComplexOperations</a>    </div>
+    <hr/>
+    <div>
+      <h1>ChainComplexOperations -- Symmetric and exterior squares of a complex and the 2nd Adams operation</h1>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>This package implements the constructions used in Mark Walker's November 2016 proof of the (weak) Buchsbaum-Eisenbud-Horrocks conjecture, which states: If M is a module of codimension c over a regular local ring S, then the sum of the ranks of the free modules in a free resolution of M is at least 2^c. Walker's proof works for rings where 2 is invertible, and in this package we work over a field of characteristic $\neq 2$.</p>
+          <p>The main new (to Eisenbud) tool in Walker's proof was the function chi2. Explicitly, if F is a ChainComplex of free S-modules with finite length homology, then chi2 F is the Euler characteristic of sym2 F minus that of wedge2 F. The function chi2 should be regarded as the Euler characteristic of the 2nd Adams operation, applied to F. It has two properties relevant for the proof: 1) Like the Euler characteristic of F, chi2 F is additive on short exact sequences of complexes. 2) If S is a regular local ring of dimension d with residue field k, then chi2 res k = 2^d.</p>
+          <p>Sketch of Walker's proof:</p>
+          <p>The question reduces by localization to the case where M has finite length. Let F = res M, and let B be the sum of the ranks of the free modules in F. Since F**F = sym2 F ++ wedge2 F, we may drop the negative terms in the expression for chi2 — the odd terms in the Euler characteristic of sym2 F and the even terms in the Euler characteristic of wedge2 F — to get chi2 F \leq\ length HH(F**F). This length is evidently \leq  B*length M. On the other hand, the additivity of chi2 implies chi2 F = 2^d*length M. Thus</p>
+          <p>2^d*length M = chi2 F\leq length HH(F**F) \leq B*length M</p>
+          <p>QED</p>
+          <p>Chi2 should be regarded as the Euler characteristic of the second Adams operation, applied to a free Chain complex. Its additivity follows from the fact that the Adams operations are ring homomorphism. This is also easy to prove directly.</p>
+          <p>It would be good to have the whole decomposition of tensor powers of a module or complex under the action of the symmetric group (and thus also the Adams operations) available in M2. Stillman and Eisenbud have discussed implementing this in the future, and anyone wishing to help with this project is welcome to join (or replace!) us.</p>
+          <p></p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Author</h2>
+          <ul>
+            <li>
+David Eisenbud<span> &lt;<a href="mailto:de@msri.org">de@msri.org</a>></span>            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Version</h2>
+          <p>This documentation describes version <b>0.2</b> of ChainComplexOperations.</p>
+        </div>
+        <div>
+          <h2>Source code</h2>
+          <p>The source code from which this documentation is derived is in the file <a href="../../../../Macaulay2/ChainComplexOperations.m2">ChainComplexOperations.m2</a>.</p>
+        </div>
+        <div>
+          <h2>Exports</h2>
+          <div class="exports">
+            <ul>
+              <li>
+Functions and commands                <ul>
+                  <li>
+<span><a title="Euler characteristic of the 2nd Adams operation applied to a complex" href="_chi2.html">chi2</a> -- Euler characteristic of the 2nd Adams operation applied to a complex</span>                  </li>
+                  <li>
+<span><a title="sum of the lengths of the even degree homology minus the odd degree homology groups" href="_euler__Characteristic.html">eulerCharacteristic</a> -- sum of the lengths of the even degree homology minus the odd degree homology groups</span>                  </li>
+                  <li>
+<span><a title="sum of the lengths of the even degree homology groups" href="_even__Homology__Length.html">evenHomologyLength</a> -- sum of the lengths of the even degree homology groups</span>                  </li>
+                  <li>
+<span><a title="Difference between the sum of the lengths of Tor_i(M,M) and the Walker bound 2^d*length(M)" href="_excess.html">excess</a> -- Difference between the sum of the lengths of Tor_i(M,M) and the Walker bound 2^d*length(M)</span>                  </li>
+                  <li>
+<span><a title="sum of the lengths of the odd degree homology groups" href="_odd__Homology__Length.html">oddHomologyLength</a> -- sum of the lengths of the odd degree homology groups</span>                  </li>
+                  <li>
+<span><a title="The isomorphism from F**G to G**F when F,G are complexes" href="_reverse__Factors.html">reverseFactors</a> -- The isomorphism from F**G to G**F when F,G are complexes</span>                  </li>
+                  <li>
+<span><a title="symmetric square of a chain complex" href="_sym2.html">sym2</a> -- symmetric square of a chain complex</span>                  </li>
+                  <li>
+<span><a title="tests Walker's formula" href="_test__Walker.html">testWalker</a> -- tests Walker's formula</span>                  </li>
+                  <li>
+<span><a title="exterior square of a chain complex" href="_wedge2.html">wedge2</a> -- exterior square of a chain complex</span>                  </li>
+                </ul>
+              </li>
+              <li>
+Methods                <ul>
+                  <li>
+<span><tt>&quot;chi2(ChainComplex)&quot;</tt> -- see <span><a title="Euler characteristic of the 2nd Adams operation applied to a complex" href="_chi2.html">chi2</a> -- Euler characteristic of the 2nd Adams operation applied to a complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;eulerCharacteristic(ChainComplex)&quot;</tt> -- see <span><a title="sum of the lengths of the even degree homology minus the odd degree homology groups" href="_euler__Characteristic.html">eulerCharacteristic</a> -- sum of the lengths of the even degree homology minus the odd degree homology groups</span></span>                  </li>
+                  <li>
+<span><tt>&quot;evenHomologyLength(ChainComplex)&quot;</tt> -- see <span><a title="sum of the lengths of the even degree homology groups" href="_even__Homology__Length.html">evenHomologyLength</a> -- sum of the lengths of the even degree homology groups</span></span>                  </li>
+                  <li>
+<span><tt>&quot;excess(ChainComplex)&quot;</tt> -- see <span><a title="Difference between the sum of the lengths of Tor_i(M,M) and the Walker bound 2^d*length(M)" href="_excess.html">excess</a> -- Difference between the sum of the lengths of Tor_i(M,M) and the Walker bound 2^d*length(M)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;excess(Module)&quot;</tt> -- see <span><a title="Difference between the sum of the lengths of Tor_i(M,M) and the Walker bound 2^d*length(M)" href="_excess.html">excess</a> -- Difference between the sum of the lengths of Tor_i(M,M) and the Walker bound 2^d*length(M)</span></span>                  </li>
+                  <li>
+<span><tt>&quot;oddHomologyLength(ChainComplex)&quot;</tt> -- see <span><a title="sum of the lengths of the odd degree homology groups" href="_odd__Homology__Length.html">oddHomologyLength</a> -- sum of the lengths of the odd degree homology groups</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reverseFactors(ChainComplex,ChainComplex)&quot;</tt> -- see <span><a title="The isomorphism from F**G to G**F when F,G are complexes" href="_reverse__Factors.html">reverseFactors</a> -- The isomorphism from F**G to G**F when F,G are complexes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;reverseFactors(Module,Module,ZZ,ZZ)&quot;</tt> -- see <span><a title="The isomorphism from F**G to G**F when F,G are complexes" href="_reverse__Factors.html">reverseFactors</a> -- The isomorphism from F**G to G**F when F,G are complexes</span></span>                  </li>
+                  <li>
+<span><tt>&quot;sym2(ChainComplex)&quot;</tt> -- see <span><a title="symmetric square of a chain complex" href="_sym2.html">sym2</a> -- symmetric square of a chain complex</span></span>                  </li>
+                  <li>
+<span><tt>&quot;wedge2(ChainComplex)&quot;</tt> -- see <span><a title="exterior square of a chain complex" href="_wedge2.html">wedge2</a> -- exterior square of a chain complex</span></span>                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="Symmetric and exterior squares of a complex and the 2nd Adams operation" href="index.html">ChainComplexOperations</a> is <span>a <a title="the class of all packages" href="../../Macaulay2Doc/html/___Package.html">package</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>

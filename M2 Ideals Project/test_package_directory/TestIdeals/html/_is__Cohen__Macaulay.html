@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>isCohenMacaulay -- whether a ring is Cohen-Macaulay</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link type="text/css" rel="stylesheet" href="../../../../Macaulay2/Style/doc.css"/>
+
+    <link rel="stylesheet" href="../../../../Macaulay2/Style/katex/katex.min.css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/katex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/auto-render.min.js"></script>
+    <script defer="defer" type="text/javascript">
+      var macros = {
+          "\\break": "\\\\",
+          "\\ZZ": "\\mathbb{Z}",
+          "\\NN": "\\mathbb{N}",
+          "\\QQ": "\\mathbb{Q}",
+          "\\RR": "\\mathbb{R}",
+          "\\CC": "\\mathbb{C}",
+          "\\PP": "\\mathbb{P}"
+      }, delimiters = [
+          { left: "$$",  right: "$$",  display: true},
+          { left: "\\[", right: "\\]", display: true},
+          { left: "$",   right: "$",   display: false},
+          { left: "\\(", right: "\\)", display: false}
+      ], ignoredTags = ["tt", "script", "noscript", "style", "textarea", "pre", "code", "option"];
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, { delimiters: delimiters, macros: macros, ignoredTags: ignoredTags, trust: true });
+      });
+    </script>
+    <style type="text/css">.katex { font-size: 1em; }</style>
+    <link href="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.css" rel="stylesheet" type="text/css" />
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/copy-tex.min.js"></script>
+    <script defer="defer" type="text/javascript" src="../../../../Macaulay2/Style/katex/contrib/render-a11y-string.min.js"></script>
+    <script type="text/javascript" src="../../../../Macaulay2/Style/highlight.js"></script>
+  </head>
+  <body>
+    <table class="buttons">
+      <tr>
+<td>          <div>
+<a href="_is__F__Injective.html">next</a> | <a href="___Generator__List.html">previous</a> | <a href="_is__F__Injective.html">forward</a> | <a href="___Generator__List.html">backward</a> | up | <a href="index.html">top</a> | <a href="master.html">index</a> | <a href="toc.html">toc</a> | <a href="http://macaulay2.com/">Macaulay2 website</a>          </div>
+</td>      </tr>
+    </table>
+    <div>
+<a title="a package for calculations of singularities in positive characteristic " href="index.html">TestIdeals</a> :: <a title="whether a ring is Cohen-Macaulay" href="_is__Cohen__Macaulay.html">isCohenMacaulay</a>    </div>
+    <hr/>
+    <div>
+      <h1>isCohenMacaulay -- whether a ring is Cohen-Macaulay</h1>
+      <div>
+        <h2>Synopsis</h2>
+        <ul>
+          <li>
+            <dl class="element">
+              <dt>Usage: </dt>
+              <dd><code class="language-macaulay2">isCohenMacaulay(R)</code></dd>
+            </dl>
+          </li>
+          <li>
+Inputs:            <ul>
+              <li>
+<span><tt>R</tt>, <span>a <a title="the class of all rings" href="../../Macaulay2Doc/html/___Ring.html">ring</a></span>, </span>              </li>
+            </ul>
+          </li>
+          <li>
+<a href="../../Macaulay2Doc/html/_using_spfunctions_spwith_spoptional_spinputs.html">Optional inputs</a>:            <ul>
+              <li>
+<span><tt>AtOrigin</tt><tt> => </tt><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, <span>default value false</span>, stipulates whether to check if the ring is Cohen-Macaulay only at the origin</span>              </li>
+            </ul>
+          </li>
+          <li>
+Outputs:            <ul>
+              <li>
+<span><span>a <a title="the class of Boolean values" href="../../Macaulay2Doc/html/___Boolean.html">Boolean value</a></span>, </span>              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Description</h2>
+        <div>
+          <p>The function <tt>isCohenMacaulay</tt> determines if a ring is Cohen-Macaulay. If the option <tt>AtOrigin</tt> (default value <tt>false</tt>) is set to <tt>true</tt>, <tt>isCohenMacaulay</tt> will simply call the <a title="whether a ring or module is Cohen-Macaulay" href="../../Depth/html/_is__C__M.html">isCM</a> function in the <tt>Depth</tt> package, which checks whether the ring is Cohen-Macaulay at the origin; otherwise, <tt>isCohenMacaulay</tt> checks the Cohen-Macaulay property globally, which sometimes is much faster than the local computation.</p>
+        </div>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i1 : T = ZZ/5[x,y];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i2 : S = ZZ/5[a,b,c,d];</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i3 : g = map(T, S, {x^3, x^2*y, x*y^2, y^3});
+
+o3 : RingMap T &lt;--- S</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i4 : R = S/(ker g);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i5 : time isCohenMacaulay(R)
+     -- used 0.00259275 seconds
+
+o5 = true</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i6 : time isCohenMacaulay(R, AtOrigin => true)
+     -- used 0.00586301 seconds
+
+o6 = true</code></pre>
+</td>          </tr>
+        </table>
+        <table class="examples">
+          <tr>
+<td>              <pre><code class="language-macaulay2">i7 : R = QQ[x,y,u,v]/(x*u, x*v, y*u, y*v);</code></pre>
+</td>          </tr>
+          <tr>
+<td>              <pre><code class="language-macaulay2">i8 : isCohenMacaulay(R)
+
+o8 = false</code></pre>
+</td>          </tr>
+        </table>
+        <div>
+          <p>The function <tt>isCohenMacaulay</tt> considers $R$ as a quotient of a polynomial ring, $R = S/I$, and takes a resolution of $I$. If the resolution has length equal to dim $S$ - dim $R$, then $R$ is Cohen-Macaulay. If the resolution has a different length, and $I$ is homogeneous, then $R$ is not Cohen-Macaulay. Finally, if the resolution has a different length and $I$ is not homogeneous, the function looks at the Ext modules which compute the depth.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Caveat</h2>
+        <div>
+          <p>This function assumes that the spectrum of the ring is connected. If given a non-equidimensional Cohen-Macaulay ring (e.g., a ring whose spectrum has two connected components of different dimensions), <tt>isCohenMacaulay</tt> will return <tt>false</tt>.</p>
+        </div>
+      </div>
+      <div class="waystouse">
+        <h2>Ways to use <tt>isCohenMacaulay</tt> :</h2>
+        <ul>
+          <li>
+<tt>&quot;isCohenMacaulay(Ring)&quot;</tt>          </li>
+        </ul>
+      </div>
+      <div class="waystouse">
+        <h2>For the programmer</h2>
+        <p>The object <a title="whether a ring is Cohen-Macaulay" href="_is__Cohen__Macaulay.html">isCohenMacaulay</a> is <span>a <a title="a type of method function" href="../../Macaulay2Doc/html/___Method__Function__With__Options.html">method function with options</a></span>.</p>
+      </div>
+    </div>
+  </body>
+
+</html>
