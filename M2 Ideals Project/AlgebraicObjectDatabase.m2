@@ -189,37 +189,44 @@ restart
 installPackage "AlgebraicObjectDatabase"
 check "AlgebraicObjectDatabase"
 
-buildPackageDatabase = method();
-buildPackageDatabase(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
-    filePath := packageInfoHashtable#"filePath";
-    fileIDPath := packageInfoHashtable#"fileIDPath";
+
+clearAll
+
+buildPackageDatabaseNew = method();
+buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
+    packagePath := packageInfoHashtable#"packagePath";
+    --fileIDPath := packageInfoHashtable#"fileIDPath";
     packageNumber := packageInfoHashtable#"packageNumber";
     packageName := packageInfoHashtable#"packageName";
-    exampleIDS := value get fileIDPath; -- this is hacky....
-    load filePath;
-    L1 := apply(exampleIDS, exID->(
-	    t := (value exID);
-	    if isOfDesiredType(t,desiredTypes) then (
-		print exID;
-		entry := toExternalString buildDatabaseEntryForExample(t,packageName);
-		packageNumber|exID => entry
-		)
+    packageOutFiles := packageInfoHashtable#"packageOutFiles";
+    L1 = apply(packageOutFiles, file -> (
+	    exampleIDS = value get packagePath|"/"|file|"-exID.txt";
+	    filePath = packagePath|"/"|file|".txt";
+	    load filePath;
+	    apply(exampleIDS, exID->(
+	    	    t := (value exID);
+	    	    if isOfDesiredType(t,desiredTypes) then (
+			print exID;
+			entry := toExternalString buildDatabaseEntryForExample(t,packageName);
+			packageNumber|exID => entry
+			)
+	    	    ))
 	    ));
-    hashTable delete(,L1)
+    hashTable delete(,flatten(L1))
     )
-
-
-packageInfoHashtable
 
 buildDatabaseFromFolder = method();
 buildDatabaseFromFolder(String,String,String) := (folderPath,outputPath,overviewPath) -> (
-    overviewoHash = value get overviewPath;
+    overviewHash = value get overviewPath;
     applyPairs(overviewHash, (packageName, packageData)->(
-	    packageNumber := packageData#0;
-	    packageOutFiles := packageDate#1;
+	    packageInfoHashtable = hashTable {
+		"packagePath" => folderPath|"/"|toString(packageName),
+		"packageNumber" => toString(packageData#0),
+		"packageName" => packageName,
+		"packageOutFiles" =>  packageDate#1
+		};
 	    print packageNumber;
-	    filePath = folderPath|"/"|toString(packageName)|".txt";
-	    databaseForPackage = buildPackageDatabase(filePath,toString(packageNumber),toString(packageName),desiredTypes);
+	    databaseForPackage = buildPackageDatabaseNew(packageInfoHashTable,desiredTypes);
 	    g = openOut (outputPath|"/"|toString(packageName)|".txt");
 	    g << toExternalString databaseForPackage;
 	    g << endl;
