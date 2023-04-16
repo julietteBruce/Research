@@ -53,7 +53,8 @@ export {
   "uniformizeThing", -- needs test & docs
   "buildDatabaseEntryForExample", -- needs test & docs
   "buildPackageDatabase", -- needs test & docs
-  "buildExampleFromEntry" -- needs test & docs
+  "buildExampleFromEntry", -- needs test & docs
+  "buildPackageDatabaseNew" -- needs test & docs
   }
 
 --------------------------------------------------------------------
@@ -157,6 +158,31 @@ buildPackageDatabase(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
     hashTable delete(,L1)
     )
 
+buildPackageDatabaseNew = method();
+buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
+    packagePath := packageInfoHashtable#"packagePath";
+    --fileIDPath := packageInfoHashtable#"fileIDPath";
+    packageNumber := packageInfoHashtable#"packageNumber";
+    packageName := packageInfoHashtable#"packageName";
+    packageOutFiles := packageInfoHashtable#"packageOutFiles";
+    L1 := apply(packageOutFiles, file -> (
+	    print(toString(packagePath)|"/"|toString(file)|"-exID.txt");
+	    exampleIDS := value get toString(toString(packagePath)|"/"|toString(file)|"-exID.txt");--hacky
+	    filePath := packagePath|"/"|file|".txt";
+	    load filePath;
+	    
+	    apply(exampleIDS, exID->(
+	    	    t := (value exID);
+	    	    if isOfDesiredType(t,desiredTypes) then (
+			print exID;
+			entry := toExternalString buildDatabaseEntryForExample(t,packageName);
+			packageNumber|exID => entry
+			)
+	    	    ))
+	    ));
+    hashTable delete(,flatten(L1))
+    )
+
 buildExampleFromEntry = method();
 buildExampleFromEntry(HashTable) := (H) -> (
     S = value H#"objectRing";
@@ -200,7 +226,8 @@ buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -
     packageName := packageInfoHashtable#"packageName";
     packageOutFiles := packageInfoHashtable#"packageOutFiles";
     L1 = apply(packageOutFiles, file -> (
-	    exampleIDS = value get packagePath|"/"|file|"-exID.txt";
+	    print(packagePath|"/"|file|"-exID.txt")
+	    exampleIDS = value get toString(toString(packagePath)|"/"|toString(file)|"-exID.txt"); -- hacky 
 	    filePath = packagePath|"/"|file|".txt";
 	    load filePath;
 	    apply(exampleIDS, exID->(
@@ -218,12 +245,13 @@ buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -
 buildDatabaseFromFolder = method();
 buildDatabaseFromFolder(String,String,String) := (folderPath,outputPath,overviewPath) -> (
     overviewHash = value get overviewPath;
-    applyPairs(overviewHash, (packageName, packageData)->(
-	    packageInfoHashtable = hashTable {
+    apply(keys overviewHash, packageName->(
+	    packageData = overviewHash#packageName;
+	    packageInfoHashTable = new HashTable from {
 		"packagePath" => folderPath|"/"|toString(packageName),
 		"packageNumber" => toString(packageData#0),
-		"packageName" => packageName,
-		"packageOutFiles" =>  packageDate#1
+		"packageName" => toString(packageName),
+		"packageOutFiles" =>  packageData#1
 		};
 	    print packageNumber;
 	    databaseForPackage = buildPackageDatabaseNew(packageInfoHashTable,desiredTypes);
@@ -236,9 +264,9 @@ buildDatabaseFromFolder(String,String,String) := (folderPath,outputPath,overview
 
 desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing,Ring,EngineRing}
 
-folderPath = "outTest"
-overviewPath = "outTest/overview.txt"
-outputPath = "outM2"
+folderPath = "test_output"
+overviewPath = "test_output/test_overview.txt"
+outputPath = "test_output_M2"
 buildDatabaseFromFolder(folderPath,outputPath,overviewPath)
 
 

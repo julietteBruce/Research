@@ -107,7 +107,7 @@ def process_package_example(package_name: str, package_directory: str, output_di
 	for file_name in os.scandir(package_directory):
 		print(file_name.name)
 		if file_name.is_file() and is_out_file(file_name.name):
-			package_example_path = os.path.join(output_directory, file_name.name[:-3] + ".txt")
+			package_example_path = os.path.join(output_directory, file_name.name[:-4] + ".txt")
 			write_line_to_file(f"needsPackage \"{package_name}\"\n", package_example_path)
 			overview_dictionary = {}
 			package_example_ids = []
