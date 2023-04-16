@@ -189,12 +189,34 @@ restart
 installPackage "AlgebraicObjectDatabase"
 check "AlgebraicObjectDatabase"
 
+buildPackageDatabase = method();
+buildPackageDatabase(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
+    filePath := packageInfoHashtable#"filePath";
+    fileIDPath := packageInfoHashtable#"fileIDPath";
+    packageNumber := packageInfoHashtable#"packageNumber";
+    packageName := packageInfoHashtable#"packageName";
+    exampleIDS := value get fileIDPath; -- this is hacky....
+    load filePath;
+    L1 := apply(exampleIDS, exID->(
+	    t := (value exID);
+	    if isOfDesiredType(t,desiredTypes) then (
+		print exID;
+		entry := toExternalString buildDatabaseEntryForExample(t,packageName);
+		packageNumber|exID => entry
+		)
+	    ));
+    hashTable delete(,L1)
+    )
 
+
+packageInfoHashtable
 
 buildDatabaseFromFolder = method();
 buildDatabaseFromFolder(String,String,String) := (folderPath,outputPath,overviewPath) -> (
-    overviewHash = value get overviewPath;
-    applyPairs(overviewHash, (packageNumber, packageName)->(
+    overviewoHash = value get overviewPath;
+    applyPairs(overviewHash, (packageName, packageData)->(
+	    packageNumber := packageData#0;
+	    packageOutFiles := packageDate#1;
 	    print packageNumber;
 	    filePath = folderPath|"/"|toString(packageName)|".txt";
 	    databaseForPackage = buildPackageDatabase(filePath,toString(packageNumber),toString(packageName),desiredTypes);

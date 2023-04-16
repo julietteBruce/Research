@@ -125,8 +125,21 @@ def dictionary_to_M2_hash(dictionary: Dict) -> List:
 	dictionary_M2_string = f"new hashTable {{{seperator.join(dictionary_M2_list)}}}\n"
 	return(dictionary_M2_string)
 
+def list_as_M2_string(input_list: List) -> str:
+	list_quotes = ['\"' + item + '\"' for item in input_list]
+	seperator = ", "
+	list_as_string = f"{{{seperator.join(list_quotes)}}}\n"
+	return list_as_string
+
+def write_overview_dictionary_to_file(overview_dictionary: Dict, output_file_name: str) -> None:
+	hash_enteries_as_list = [f"{key} => {{{value[0]}, {list_as_M2_string(value[1])}}}" for key, value in overview_dictionary.items()]
+	seperator = ", "
+	hash_as_M2_string = f"hashTable {{{seperator.join(hash_enteries_as_list)}}}\n"
+	write_line_to_file(hash_as_M2_string, output_file_name)
+
 def process_all_packages(package_directory: str, output_folder: str, output_file_name: str, delimiter_pairs: List[str]) -> None:
 	package_number = 0
+	overview_package_number_dictionary = {}
 	overview_dictionary = {}
 	os.makedirs(output_folder, exist_ok = True)
 	sorted_packge_directory = sorted(os.scandir(package_directory), key=lambda x: (x.is_dir(), x.name))
@@ -136,10 +149,14 @@ def process_all_packages(package_directory: str, output_folder: str, output_file
 		if os.path.exists(package_example_folder):
 			package_output_directory = os.path.join(output_folder, package_folder.name)
 			out_files = process_package_example(package_folder.name, package_example_folder, package_output_directory, delimiter_pairs)
-			overview_dictionary[package_folder.name] = dictionary_to_M2_hash({'package_number': package_number, 'out_files': out_files}) 
+			overview_dictionary[package_folder.name] = [package_number, out_files]
 			package_number += 1
-	output_overview_name = os.path.join(output_folder, output_file_name + '.' + 'txt')
-	write_line_to_file(dictionary_to_M2_hash(overview_dictionary), output_overview_name)
+	output_overview_dictionary_name = os.path.join(output_folder, output_file_name + '.txt')
+	write_overview_dictionary_to_file(overview_dictionary,output_overview_dictionary_name)
+	# output_overview_dictionary_name = os.path.join(output_folder, output_file_name + 'txt')
+	# write_line_to_file(dictionary_to_M2_hash(overview_package_number_dictionary), output_overview_package_number_name)
+	# output_overview_outfile_name = os.path.join(output_folder, output_file_name + '-outfiles.' + 'txt')
+	# write_line_to_file(dictionary_to_M2_hash(overview_outfile_dictionary), output_overview_outfile_name)
 
 
 delimiter_pairs = ['()', '[]', "{}"]
