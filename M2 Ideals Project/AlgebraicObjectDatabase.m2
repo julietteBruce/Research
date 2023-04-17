@@ -169,16 +169,21 @@ buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -
 	    print(toString(packagePath)|"/"|toString(file)|"-exID.txt");
 	    exampleIDS := value get toString(toString(packagePath)|"/"|toString(file)|"-exID.txt");--hacky
 	    filePath := packagePath|"/"|file|".txt";
+	    neededUserSymbols := userSymbols();
 	    load filePath;
-	    
-	    apply(exampleIDS, exID->(
+	    loadedUserSymbols := toList((set userSymbols()) - (set neededUserSymbols));
+	    L2 = apply(exampleIDS, exID->(
 	    	    t := (value exID);
 	    	    if isOfDesiredType(t,desiredTypes) then (
 			print exID;
 			entry := toExternalString buildDatabaseEntryForExample(t,packageName);
-			packageNumber|exID => entry
+			packageNumber|exID => entry;
 			)
-	    	    ))
+	    	    ));
+	    print(userSymbols());
+	    apply(loadedUserSymbols, i-> erase i);
+	    print(userSymbols());
+	    L2
 	    ));
     hashTable delete(,flatten(L1))
     )
@@ -215,9 +220,15 @@ restart
 installPackage "AlgebraicObjectDatabase"
 check "AlgebraicObjectDatabase"
 
+outFiles = {"_complement__Graph", "_is__Source", "_nonneighbors", "_index__Label__Graph", "_cover__Ideal", "_independence__Number", "_graph_lp__Digraph_rp", "_barycenter", "_complete__Multipartite__Graph", "_is__Rigid", "_cocktail__Party", "_barbell__Graph", "_radius", "_circular__Ladder", "_new__Digraph", "_diameter_lp__Graph_rp", "_is__C__M", "_vertex__Set", "_chromatic__Number", "_windmill__Graph", "_threshold__Graph", "_delete__Vertex", "_cartesian__Product", "_clique__Number", "_graph", "_sinks", "_line__Graph", "_edge__Ideal", "_closed__Neighborhood", "_spanning__Forest", "_is__Reachable", "_is__Bipartite", "_clustering__Coefficient", "_degree__Matrix", "_density", "_vertex__Cover__Number", "_minimal__Vertex__Cuts", "_vertex__Multiplication", "_nondescendants", "_independence__Complex", "___Sorted__Digraph", "_laplacian__Matrix", "_parents", "_eccentricity", "_lollipop__Graph", "_is__Simple", "_sources", "_bipartite__Coloring", "_critical__Edges", "_underlying__Graph", "_distance__Matrix", "_descendants", "_monomial__Graph", "_find__Paths", "_forefathers", "_digraph__Transpose", "_disjoint__Union", "_star__Graph", "_double__Star", "_adjacency__Matrix", "_induced__Subgraph", "_number__Of__Components", "_graph__Power", "_crown__Graph", "_distance", "_children", "_graph__Library", "_lowest__Common__Ancestors", "_add__Edge", "_is__Leaf", "_strong__Product", "_ladder__Graph", "_expansion", "_graph__Composition", "_spectrum", "_vertex__Cuts", "_edge__Connectivity", "_has__Odd__Hole", "_leaves", "_complete__Graph", "_vertex__Connectivity", "_edge__Cuts", "_has__Eulerian__Trail", "_direct__Product", "_delete__Edges", "_degree_lp__Digraph_cm__Thing_rp", "_is__Cyclic", "_is__Forest", "_connected__Components_lp__Graph_rp", "_friendship__Graph", "_wheel__Graph", "_neighbors", "_is__Connected", "_is__Sink", "_is__Eulerian", "_edges", "_degeneracy", "_vertex__Covers", "_kneser__Graph", "_breadth__First__Search", "_digraph", "_is__Regular", "_minimal__Degree", "_is__Cyclic_lp__Digraph_rp", "_incidence__Matrix", "_girth", "_path__Graph", "_number__Of__Triangles", "_floyd__Warshall", "_is__Strongly__Connected", "_clique__Complex", "_depth__First__Search", "_is__Weakly__Connected", "_add__Vertex", "_degree__Centrality", "_reindex__By", "_degree__Out", "_rattle__Graph", "_reverse__Breadth__First__Search", "_degree__In", "_generalized__Petersen__Graph", "_center", "_topological__Sort", "_cycle__Graph", "_is__Chordal", "_delete__Vertices", "_degree__Sequence", "_top__Sort", "_is__Perfect", "_is__Tree"};
+packageInfoHashTable = new HashTable from {
+		"packagePath" => "test_output/Graphs",
+		"packageNumber" => toString(3),
+		"packageName" => toString("Graphs"),
+		"packageOutFiles" =>  outFiles
+		};
 
-clearAll
-
+buildPackageDatabaseNew(packageInfoHashTable,desiredTypes)
 buildPackageDatabaseNew = method();
 buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
     packagePath := packageInfoHashtable#"packagePath";
