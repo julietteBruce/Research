@@ -113,6 +113,9 @@ uniformizePolyQuotThings(Thing) := (t) -> (
     else if class t === PolynomialRing then (
 	t
 	)
+    else if class t === Module or class t === GradedModule then (
+	coker sub(presentation t, S)
+	)
     else (
 	sub(t,S)
 	)
@@ -171,17 +174,19 @@ buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -
 	    filePath := packagePath|"/"|file|".txt";
 	    neededUserSymbols := userSymbols();
 	    load filePath;
-	    loadedUserSymbols := toList((set userSymbols()) - (set neededUserSymbols));
-	    L2 = apply(exampleIDS, exID->(
+	    --loadedUserSymbols := toList((set userSymbols()) - (set neededUserSymbols));
+	    L2 := apply(exampleIDS, exID->(
+		    print(exID);
 	    	    t := (value exID);
 	    	    if isOfDesiredType(t,desiredTypes) then (
-			print exID;
 			entry := toExternalString buildDatabaseEntryForExample(t,packageName);
-			packageNumber|exID => entry;
+			packageNumber|exID => entry
 			)
 	    	    ));
+	    userSymbolsToDelete := toList((set userSymbols()) - (set neededUserSymbols));
 	    print(userSymbols());
-	    apply(loadedUserSymbols, i-> erase i);
+	    print(userSymbolsToDelete);
+	    apply(userSymbolsToDelete, i-> erase i);
 	    print(userSymbols());
 	    L2
 	    ));
@@ -220,15 +225,25 @@ restart
 installPackage "AlgebraicObjectDatabase"
 check "AlgebraicObjectDatabase"
 
+desiredTypes = {Ideal,MonomialIdeal,GradedModule,Module,PolynomialRing,QuotientRing,Ring,EngineRing}
 outFiles = {"_complement__Graph", "_is__Source", "_nonneighbors", "_index__Label__Graph", "_cover__Ideal", "_independence__Number", "_graph_lp__Digraph_rp", "_barycenter", "_complete__Multipartite__Graph", "_is__Rigid", "_cocktail__Party", "_barbell__Graph", "_radius", "_circular__Ladder", "_new__Digraph", "_diameter_lp__Graph_rp", "_is__C__M", "_vertex__Set", "_chromatic__Number", "_windmill__Graph", "_threshold__Graph", "_delete__Vertex", "_cartesian__Product", "_clique__Number", "_graph", "_sinks", "_line__Graph", "_edge__Ideal", "_closed__Neighborhood", "_spanning__Forest", "_is__Reachable", "_is__Bipartite", "_clustering__Coefficient", "_degree__Matrix", "_density", "_vertex__Cover__Number", "_minimal__Vertex__Cuts", "_vertex__Multiplication", "_nondescendants", "_independence__Complex", "___Sorted__Digraph", "_laplacian__Matrix", "_parents", "_eccentricity", "_lollipop__Graph", "_is__Simple", "_sources", "_bipartite__Coloring", "_critical__Edges", "_underlying__Graph", "_distance__Matrix", "_descendants", "_monomial__Graph", "_find__Paths", "_forefathers", "_digraph__Transpose", "_disjoint__Union", "_star__Graph", "_double__Star", "_adjacency__Matrix", "_induced__Subgraph", "_number__Of__Components", "_graph__Power", "_crown__Graph", "_distance", "_children", "_graph__Library", "_lowest__Common__Ancestors", "_add__Edge", "_is__Leaf", "_strong__Product", "_ladder__Graph", "_expansion", "_graph__Composition", "_spectrum", "_vertex__Cuts", "_edge__Connectivity", "_has__Odd__Hole", "_leaves", "_complete__Graph", "_vertex__Connectivity", "_edge__Cuts", "_has__Eulerian__Trail", "_direct__Product", "_delete__Edges", "_degree_lp__Digraph_cm__Thing_rp", "_is__Cyclic", "_is__Forest", "_connected__Components_lp__Graph_rp", "_friendship__Graph", "_wheel__Graph", "_neighbors", "_is__Connected", "_is__Sink", "_is__Eulerian", "_edges", "_degeneracy", "_vertex__Covers", "_kneser__Graph", "_breadth__First__Search", "_digraph", "_is__Regular", "_minimal__Degree", "_is__Cyclic_lp__Digraph_rp", "_incidence__Matrix", "_girth", "_path__Graph", "_number__Of__Triangles", "_floyd__Warshall", "_is__Strongly__Connected", "_clique__Complex", "_depth__First__Search", "_is__Weakly__Connected", "_add__Vertex", "_degree__Centrality", "_reindex__By", "_degree__Out", "_rattle__Graph", "_reverse__Breadth__First__Search", "_degree__In", "_generalized__Petersen__Graph", "_center", "_topological__Sort", "_cycle__Graph", "_is__Chordal", "_delete__Vertices", "_degree__Sequence", "_top__Sort", "_is__Perfect", "_is__Tree"};
-packageInfoHashTable = new HashTable from {
+packageInfoHashtable = new HashTable from {
 		"packagePath" => "test_output/Graphs",
 		"packageNumber" => toString(3),
 		"packageName" => toString("Graphs"),
 		"packageOutFiles" =>  outFiles
 		};
 
-buildPackageDatabaseNew(packageInfoHashTable,desiredTypes)
+outFiles = {"_rank_lp__Matroid_rp", "_chromatic__Polynomial", "_extension_lp..._cm__Check__Well__Defined_eq_gt..._rp", "_has__Minor", "_get__Cycles", "_is__Positively__Orientable", "_projective__Geometry", "_ideal_lp__Matroid_rp", "_independent__Sets_lp__Matroid_cm__Z__Z_rp", "_truncate_lp__Z__Z_cm__Matroid_rp", "___Matroid_sp_pl_pl_sp__Matroid", "_linear__Subclass_lp..._cm__Check__Well__Defined_eq_gt..._rp", "_is__Positively__Oriented", "_set__Representation", "_uniform__Matroid", "_isomorphism_lp__Matroid_cm__Matroid_rp", "_is__Dependent", "_get__Separation", "_is__Linear__Subclass", "_affine__Geometry", "_theta__Matroid", "_elementary__Quotient_lp..._cm__Entry__Mode_eq_gt..._rp", "_extension_lp..._cm__Entry__Mode_eq_gt..._rp", "_flats", "_dual_lp__Matroid_rp", "_closure", "___Matroid", "_is__Non__Crossing", "_fundamental__Circuit", "_modular__Cut", "_is__Well__Defined_lp__Matroid_rp", "_contraction", "_coloops", "_restriction", "_tutte__Evaluate", "_simple__Matroid", "_elementary__Quotient", "_specific__Matroid", "_max__Weight__Basis", "_components_lp__Matroid_rp", "_ground__Set", "_bases", "_elementary__Quotient_lp..._cm__Check__Well__Defined_eq_gt..._rp", "_modular__Cut_lp..._cm__Check__Well__Defined_eq_gt..._rp", "___Matroid_sp_pl_sp__Matroid", "_is__Modular__Cut", "_matroid", "___Matroid_sp_us_sp__List", "_is__Simple_lp__Matroid_rp", "_is__Binary", "_quick__Isomorphism__Test", "_basis__Indicator__Matrix", "_series__Connection", "_search__Representation", "_independence__Complex_lp__Matroid_rp", "___Matroids", "_rank_lp__Matroid_cm__Set_rp", "_positive__Orientation", "_linear__Subclass", "_f__Vector_lp__Matroid_rp", "_is__Connected_lp__Matroid_rp", "_nonbases", "_relaxation", "_all__Minors", "_loops", "_to__Sage__Matroid", "_matroid_lp..._cm__Entry__Mode_eq_gt..._rp", "_hyperplanes", "_characteristic__Polynomial_lp__Matroid_rp", "_relabel", "_sum2", "_truncate_lp__Set_cm__Matroid_rp", "___Matroid_sp_eq_eq_sp__Matroid", "_swirl", "_indices__Of", "_tutte__Polynomial_lp__Matroid_rp", "_ideal__Chow__Ring", "_coextension", "_circuits", "_minor", "_is__Elementary__Quotient", "_spike", "_get__Representation", "_is3__Connected", "_lattice__Of__Flats", "___Working_spwith_sp__Chow_springs_spof_spmatroids", "_is__Quotient", "_are__Isomorphic_lp__Matroid_cm__Matroid_rp", "_deletion", "_parallel__Connection", "_extension", "_cogenerator__Chow__Ring", "_get__Isos", "_wheel"};
+packageInfoHashtable = new HashTable from {
+		"packagePath" => "test_output/Matroids",
+		"packageNumber" => toString(3),
+		"packageName" => toString("Matroids"),
+		"packageOutFiles" =>  outFiles
+		};	    
+	    
+
+buildPackageDatabaseNew(packageInfoHashtable,desiredTypes)
 buildPackageDatabaseNew = method();
 buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -> (
     packagePath := packageInfoHashtable#"packagePath";
@@ -242,6 +257,7 @@ buildPackageDatabaseNew(HashTable,List) := (packageInfoHashtable,desiredTypes) -
 	    filePath = packagePath|"/"|file|".txt";
 	    load filePath;
 	    apply(exampleIDS, exID->(
+		    print(exID)
 	    	    t := (value exID);
 	    	    if isOfDesiredType(t,desiredTypes) then (
 			print exID;
